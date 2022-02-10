@@ -59,7 +59,7 @@ As a user, I should see the current leaderboard several times during a multiplay
 
 - estimation questions
 
-Realized a user doesn’t have a reason to “require” estimation questions?
+As a user, I should see various types of questions, including questions which require me to estimate the power consumption of an item or activity, for the game to be fun and exciting to play.
 
 ## Could:
 - emoji
