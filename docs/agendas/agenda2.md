@@ -1,4 +1,4 @@
-### Agenda of Meeting-2
+# Agenda of Meeting-2
 
 Location: Drebbelweg, PC1, Cubicle 8
 
@@ -15,6 +15,16 @@ Chairperson: Kayra Bahadir
 Notetakers: Kaloyan Fachikov, Monica Paun
 
 Attendees: Julius Gvozdiovas, Alexandra Darie, Marijn Luime, Florena Buse
+
+---
+
+## Preface
+
+Every individual is expected to read and understand the Assignment 2B: Teamwork CodeOfConduct. 
+
+In addition, notetakers are expected to come to the meeting with the aim to take notes specifically useful for answering Assignment 2B.
+
+Everyone is also advised to come with a prepared set of questions.
 
 ---
 
