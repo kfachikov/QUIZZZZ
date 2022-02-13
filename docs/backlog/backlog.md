@@ -4,7 +4,7 @@
 
 As a user, I should be able to play a solo game because that is one of the mandatory features of the game.
 
-- play a multiplayer 
+- play a multiplayer
 
 As a user, I should be able to play a multiplayer game, as that is one of the mandatory features of the game as well.
 
@@ -18,7 +18,7 @@ Client-server communication must be present in order to have games be able to ru
 
 - power-ups (Joker cards)
 
-As a user, I shall be capable of having three joker cards so that the game becomes more interesting, and for me as a player it would offer me an advantage. 
+As a user, I shall be capable of having three joker cards so that the game becomes more interesting, and for me as a player it would offer me an advantage.
 
 - leaderboard for the best-scoring players
 
@@ -85,7 +85,7 @@ As a user, I could appreciate it if the game I’m playing could have a catchy b
 
 - swapping the "remove answer" card into something else(range-provider) for estimation questions
 
-As a user, if I still have my “remove answer” card, and if the question is an estimation question, I would appreciate it if I could use this card as a hint that gives a range the correct answer is in because I still want to be able to use my Joker in every question. 
+As a user, if I still have my “remove answer” card, and if the question is an estimation question, I would appreciate it if I could use this card as a hint that gives a range the correct answer is in because I still want to be able to use my Joker in every question.
 
 ## Won't:
 - chat
@@ -94,12 +94,13 @@ As a user, I don’t want to have a chat during the game so that the players are
 
 - private rooms
 
-As a user, I do not need to have an option to create private rooms since there won’t be a lot of independent players trying to play at the same time. 
+As a user, I do not need to have an option to create private rooms since there won’t be a lot of independent players trying to play at the same time.
 
 - kicking
 
-As a user, I do not need to have a right to kick someone from the waiting room since there (most of the time) won’t be a player we don’t wish to play with, and a player that stays idle cannot damage our game flow.  
+As a user, I do not need to have a right to kick someone from the waiting room since there (most of the time) won’t be a player we don’t wish to play with, and a player that stays idle cannot damage our game flow.
 
 - authentication
 
 As a user, I do not need to authenticate myself in a specific way except by inputting my username since that will be enough to identify myself in a global leaderboard, AND my username is specific to me in a multiplayer lobby.
+ 
