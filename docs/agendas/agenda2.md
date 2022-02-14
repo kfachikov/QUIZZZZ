@@ -44,9 +44,10 @@ Everyone is also advised to come with a prepared set of questions.
     - There won't be any questions from the team to the TA in this time interval. Instead, the team is expected to note down their questions to ask after TA's points. 
 
 
-14.20 Backlog Questions from the team to the TA
+14.20 Questions from the team to the TA
 
     - This is the time allocated for the team to ask questions to the TA regarding the assignments, deadlines, or anything else. 
+    - Any questions on the Code of Conduct (which will be created at a latter meeting this week) should also be asked here. 
     - There were several requirements in last week's meeting that can be asked here to the TA to receive their input as well. 
 
 14.40 Final remarks & Closing
