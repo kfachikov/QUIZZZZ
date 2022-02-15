@@ -34,6 +34,7 @@ Everyone is also advised to come with a prepared set of questions.
 
     - As decided in last week's meeting, each team member will be allocated approx. 2 minutes to share anything within their allocated time for others to listen. 
     - Though interruptions are not reccomended, team-members can use their time towards having a check-in of others if they wish. 
+    - Sharing any notes from the Client Q&A held on 14th of February is advised. 
 
 14.05 Feedback on due assignments (Git, 1A/B, Backlog)
 
