@@ -1,59 +1,53 @@
 # Backlog
-## Must
+## Functional Requirements
+### Must
 - solo gameplay button
 
-As a user, I shall be presented with a "Solo Game" button when I enter the game, as I would like to play on my own to test my knowledge.
+As a user who wants to play on their own, I must be presented with a "Solo Game" button when I enter the game, as I would like to play on my own to test my knowledge.
 
 - multiplayer gameplay button
 
-As a user, I shall be presented a "Multiplayer" when I enter the game, as I would like to be able to compete against other people.
+As a user who wants to play with others, I shall be presented a "Multiplayer" when I enter the game, as I would like to be able to compete against other people.
 
 - "Choose the right activity"-type question
 
-As a user, I shall be asked to choose among several (3) activities which is the one with the lowest/highest consumption, as that would make me aware of how energy-inefficient are many of the daily activities.
+As a player, sometimes I must be asked to choose among several (3) activities which is the one with the lowest/highest consumption, as that would make me aware of how energy-inefficient are many of the daily activities.
+
 - different question each round
 
-As a user, I shall be asked different questions in each round, as otherwise there would be no point in answering the same ones over and over again.
+As a player, I must be asked different questions in each round, as otherwise there would be no point in answering the same ones over and over again.
 
 - several options as answers for multiple-choice questions
 
-As a user, I shall be presented a several (preferably 3) choices for a correct answer, so that I can make a fast guess in this "speed game".
+As a player, I must be presented a several (preferably 3) choices for a correct answer, so that I can make a fast guess in this "speed game".
 
 - synchronous questions
 
-As a user, the currently asked question should be presented to me exactly when it becomes visible for the other users, as otherwise the game wouldn't be up-to-date and some players might cheat.
+As a player in a multiplayer game, the currently asked question should be presented to me exactly when it is presented to other players in the current game, as otherwise the game wouldn't be in sync with other players, or some players might cheat.
 
 - queue
 
-As a user, I shall be able to enter a queue instead of being directly connected to a game, as thus, I would have the opportunity to wait for my friends (be waited for by them) or wait for more people to join so that the game is more interesting.
+As a user who wants to play with others, I must be able to enter a queue instead of being directly connected to a game, as thus, I must have the opportunity to wait for other players (or, alternatively, be the one who joins while other players are waiting), so that I can play with people competitively with people who I know will join.
 
 - start button is available while waiting in the queue
 
-As a user, once already in the queue, I shall be able to begin the game whenever I want, as that would allow my friends and me to play in something like a "private" room.
-
-- client-server communication
-
-As a user, I shall have my answers checked, as otherwise, I would be able to know whether I'm guessing it right or not.
+As a user who wants to play with others, once already in the queue, I must be able to begin the game whenever I want, as that would allow me to start the game when everyone I was waiting for has joined.
 
 - power-ups (Joker cards)
 
-As a user, I shall be capable of having some joker cards, as that would make the game more interesting.
-
-- using a joker card on different questions
-
-As a user, I shall be able to use my remaining jokers to give myself some advantage over the other players.
+As a player in a multiplayer game, I must be able to use once-per-game abilities (jokers) to give myself some advantage over the other players, so that I can give myself a crucial boost over others when I spot the opportunity, and to make the game more varied and interesting.
 
 - leaderboard for the best-scoring players
 
-As a user, I shall be able to see the leaderboard for the best-scoring players so that I can see who is performing the best among all the players and possibly if I am among those who are.
+As a player in a multiplayer game, I must be able to see the leaderboard for the best-scoring players so that I can see who is performing the best among all the players and possibly if I am among those who are.
 
 - infinitely big sessions
 
-As a user, I shall be able to participate in infinitely big sessions, so that I can play with as many people as I want.
+As a user who wants to play with others, I must be able to able to join a queue, no matter how many users are already in it, so that I can play with as many people as I want.
 
 - assigning a username to each player in solo mode
 
-As a user, I shall have a username, so that I can recognize myself among all players in the solo player leaderboard.
+As a user who wants to play on their own, I must have a username, so that I can recognize myself among all players in the solo player leaderboard.
 
 - assigning a username to each player in multiplayer mode
 
@@ -74,7 +68,8 @@ As a user, I shall be asked questions about different activities' consumption ra
 - ranking/leaderboard presented at the end of each multiplayer game
 
 As a user, I shall be able to see how my opponents have scored in total after a game, and also, how I placed among them so that I can stay motivated to learn and to re-match them to do better (or to defend the first place if already on top).
-# Should:
+
+### Should:
 
 - images
 
@@ -93,7 +88,7 @@ As a user, I should see the time remaining to answer the current question, as ot
 
 - intermediate leaderboard
 
-As a user, I should be able to see an intermediate leaderboard during multiplayer games, as I would like to see how I am doing in comparison to the other players.
+As a user, I should be able to see an intermediate leaderboard during multiplayer games which shows top players' names and scores, and also my position in the leaderboard and score, as I would like to know who is winning and where am I in relation to them.
 
 - a different type of questions
 
@@ -114,11 +109,11 @@ As a user, I should be presented with a "Return Home" option after a game is fin
 - disconnecting
 
 As a user, I should see some indication that a player is inactive (disconnected) so that I know how many active players are still in the game.
-## Could:
+### Could:
 
 - emoji
 
-As a user, I could make use of some emoji reactions, as that would allow me to express myself and to see how the other players "engage".
+As a player in a multiplayer game, during the phase when question is being answered, or after the correct answer is shown, I could be shown some reaction emoji, which I could click to be sent to other people in the game, as this would allow me to react to their answers and to the question, adding emotional enjoyment to the game.
 
 - see other people's emojis
 
@@ -130,7 +125,7 @@ As a user, I could use more than one joker per question, as it would make the ga
 
 - display positioning during game
 
-As a user, I could make use of knowing my position on the leaderboard, as it would motivate me to improve my score.
+As a player in a multiplayer game, in addition to my position being shown once in a while on the leaderboard, my position among the players could be shown to me all the time during the game. 
 
 - possible to change your answer
 
@@ -156,7 +151,7 @@ As a user, I could be presented with an option to check how points are calculate
 
 As a user, I could be alerted if any of my opponents have left, so that I know against how many people I compete with.
 
-## Won't:
+### Won't:
 - chat
 
 As a user, I don’t want to have a chat during the game so that the players are not distracted.
@@ -171,4 +166,9 @@ As a user, I do not need to have a right to kick someone from the waiting room s
 
 - authentication
 
-As a user, I do not need to authenticate myself in a specific way except by inputting my username since that will be enough to identify myself in a global leaderboard, AND my username is specific to me in a multiplayer lobby.
+As a user, I do not need to authenticate myself (by anything other than username), since my username is unique in a multiplayer game, and I do not need to keep track of anything specific to me between games.
+
+## Non-Functional Requirements
+
+- client-server communication
+  - When a player answers a question, their answer choice is sent to the server, which then sends an appropriate response, indicating whether the player was correct or not.
