@@ -7,7 +7,7 @@ As a user who wants to play on their own, I must be presented with a "Solo Game"
 
 - multiplayer gameplay button
 
-As a user who wants to play with others, I must be presented a "Multiplayer" when I enter the game, as I would like to be able to compete against other people.
+As a user who wants to play with others, I must be presented with a "Multiplayer" when I enter the game, as I would like to be able to compete against other people.
 
 - "Choose the right activity"-type question
 
@@ -23,7 +23,7 @@ As a player, I must be presented a several (preferably 3) choices for a correct 
 
 - synchronous questions
 
-As a player in a multiplayer game, the currently asked question must be presented to me exactly when it is presented to other players in the current game, as otherwise the game wouldn't be in sync with other players, or some players might cheat.
+As a player in a multiplayer game, the currently asked question must be presented to me exactly when it is presented to other players in the current game, as otherwise, the game wouldn't be in sync with other players, or some players might cheat.
 
 - queue
 
@@ -39,7 +39,7 @@ As a player in a multiplayer game, I must be able to use once-per-game abilities
 
 - leaderboard for the best-scoring players
 
-As a user who enjoys playing on its own and testing their knowledge, I must be able to see the leaderboard for the best-scoring players so that I can see who is performing the best among all the players and possibly if I am among those who are.
+As a user who enjoys playing on their own and testing their knowledge, I must be able to see the leaderboard for the best-scoring players so that I can see who is performing the best among all the players and possibly if I am among those who are.
 
 - infinitely big sessions
 
@@ -55,7 +55,7 @@ As a user who wants to play with others, I must have a username, so that I can r
 
 - two players cannot share a username in one game
 
-As a user who wants to player with others, I must have a unique username in a multiplayer environment, as otherwise, it would be impossible to tell apart two players with identical usernames.
+As a user who wants to play with others, I must have a unique username in a multiplayer environment, as otherwise, it would be impossible to tell apart two players with identical usernames.
 
 - short timing for answering the questions
 
@@ -81,14 +81,15 @@ As a player in a multiplayer game, I should be awarded more points if I answer c
 
 - the speed is "deduced" by how many seconds are left so that the "reduce time" gives more advantage
 
-As a player in a multiplayer game, I should be able to negatively affect the others by using my "reduce time" power-up, so it would be reasonable to consider the speed of an answer depending on the time left for that specific user.
+As a player in a multiplayer game, I should be able to negatively affect the others by using my "reduce time" power-up, so it would be reasonable to consider the speed of an answer depending on the time left for each player.
+
 - timing the questions
 
 As a player, I should see the time remaining to answer the current question, as otherwise, I wouldn’t know when it’s up, and thus, I might not answer in time, thinking there is some more time.
 
-- intermediate leaderboard
+- intermediate leaderboard containing the best-scoring players
 
-As a player in a multiplayer game, I should be able to see an intermediate leaderboard which shows top players' names and scores, and also my position in the leaderboard and score, as I would like to know who is winning and where am I in relation to them.
+As a player in a multiplayer game, I should be able to see an intermediate leaderboard that shows top players' names and scores, because I would like to know which players are on top and whether I am among them.
 
 - a different type of questions
 
@@ -108,16 +109,21 @@ As a user who has finished a game, I should be presented with a "Return Home" op
 
 - disconnecting
 
-As a player in a multiplayer game, I should see some indication that a player is inactive (disconnected) so that I know how many active players are still in the game.
+As a player in a multiplayer game, I should see some indication that a player is inactive (disconnected) -- if present in the intermediate leaderboard their username becomes dimmed.
 ### Could:
+
+- personal position displayed in intermediate leaderboard even if not among the top
+
+As a player in a multiplayer game, I could see my name and position on the intermediate leaderboard, even if I am not among the best players, as I would like to know how I am doing in comparison to my opponents.
+
 
 - emoji
 
-As a player in a multiplayer game, during the phase when question is being answered, or after the correct answer is shown, I could be shown some reaction emoji, which I could click to be sent to other people in the game, as this would allow me to react to their answers and to the question, adding emotional enjoyment to the game.
+As a player in a multiplayer game, during the phase when the question is being answered, or after the correct answer is shown, I could be shown some reaction emoji, which I could click to react to the question, adding emotional enjoyment to the game.
 
 - see other people's emojis
 
-As a player in a multiplayer game, I could see how other people are reacting to the current questions, as that would make the game much more fun to play
+As a player in a multiplayer game, I could see how other people are reacting to the current questions, and they could see my reactions as well, as that would add some interactivity among the players.
 
 - using more than one joker per question
 
@@ -125,7 +131,7 @@ As a player in a multiplayer game, I could use more than one once-per-game abili
 
 - display positioning during game
 
-As a player in a multiplayer game, in addition to my position being shown once in a while on the leaderboard, my position among the players could be shown to me all the time during the game. 
+As a player in a multiplayer game, in addition to my position being shown once in a while on the leaderboard, my position among the players could be shown to me all the time during the game.
 
 - possible to change your answer
 
@@ -149,20 +155,20 @@ As a player, I could be presented with an option to check how points are calcula
 
 - displaying an "alert" when someone has left
 
-As a player in a multiplayer game, I could be alerted if any of my opponents have left, so that I know against how many people I compete with.
+As a player in a multiplayer game, I could be alerted if any of my opponents have left, so that I know how many people I compete with.
 
 ### Won't:
 - chat
 
-As a player in a multiplayer, I don’t want to have a chat during the game so that the players are not distracted.
+As a player in a multiplayer, I don’t want to have a chat during the game, because the game is based on speed and I don't want to get distracted that easily.
 
 - private rooms
 
-As a user who wants to play with others, I do not need to have an option to create private rooms since there won’t be a lot of independent players trying to play at the same time.
+As a user who wants to play with others, there is no need for a "private room" feature.
 
 - kicking
 
-As a user who wants to play with others, I do not need to have a right to kick someone from the waiting room since there (most of the time) won’t be a player we don’t wish to play with, and a player that stays idle cannot damage our game flow.
+As a user who wants to play with others, I should not have the right to kick other players, as a player that stays idle cannot damage our game flow.
 
 - authentication
 
@@ -172,3 +178,14 @@ As a user, I do not need to authenticate myself (by anything other than username
 
 - client-server communication
   - When a player answers a question, their answer choice is sent to the server, which then sends an appropriate response, indicating whether the player was correct or not.
+  
+
+- 20 activities (e.g. "dishwasher working 20 minutes consumes X amount of energy") stored in the database.
+  - The database should store 20 different activities and their energy-consumption level in a proper format, so that different types of questions can accordingly "piece out" the information they require.
+
+
+- Do not use static fields. Instead, try to always use dependency injection using the constructor Injector variant.
+
+
+- Test your code.
+  - Have all methods tested properly. Use the "Dependency Inversion Principle", so that the tests are specific -- test only a particular functionality.
