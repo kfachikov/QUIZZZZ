@@ -7,7 +7,7 @@ As a user who wants to play on their own, I must be presented with a "Solo Game"
 
 - multiplayer gameplay button
 
-As a user who wants to play with others, I shall be presented a "Multiplayer" when I enter the game, as I would like to be able to compete against other people.
+As a user who wants to play with others, I must be presented a "Multiplayer" when I enter the game, as I would like to be able to compete against other people.
 
 - "Choose the right activity"-type question
 
@@ -23,7 +23,7 @@ As a player, I must be presented a several (preferably 3) choices for a correct 
 
 - synchronous questions
 
-As a player in a multiplayer game, the currently asked question should be presented to me exactly when it is presented to other players in the current game, as otherwise the game wouldn't be in sync with other players, or some players might cheat.
+As a player in a multiplayer game, the currently asked question must be presented to me exactly when it is presented to other players in the current game, as otherwise the game wouldn't be in sync with other players, or some players might cheat.
 
 - queue
 
@@ -39,7 +39,7 @@ As a player in a multiplayer game, I must be able to use once-per-game abilities
 
 - leaderboard for the best-scoring players
 
-As a player in a multiplayer game, I must be able to see the leaderboard for the best-scoring players so that I can see who is performing the best among all the players and possibly if I am among those who are.
+As a user who enjoys playing on its own and testing their knowledge, I must be able to see the leaderboard for the best-scoring players so that I can see who is performing the best among all the players and possibly if I am among those who are.
 
 - infinitely big sessions
 
@@ -51,23 +51,23 @@ As a user who wants to play on their own, I must have a username, so that I can 
 
 - assigning a username to each player in multiplayer mode
 
-As a user who wants to play with others, I shall have a username, so that I can recognize myself and distinguish among my opponents.
+As a user who wants to play with others, I must have a username, so that I can recognize myself and distinguish among my opponents.
 
 - two players cannot share a username in one game
 
-As a user who wants to player with others, I shall have a unique username in a multiplayer environment, as otherwise, it would be impossible to tell apart two players with identical usernames.
+As a user who wants to player with others, I must have a unique username in a multiplayer environment, as otherwise, it would be impossible to tell apart two players with identical usernames.
 
 - short timing for answering the questions
 
-As a player in a multiplayer game, I shall have just a few seconds to answer the question, as this is supposed to game of both knowledge and speed.
+As a player in a multiplayer game, I must have just a few seconds to answer the question, as this is supposed to game of both knowledge and speed.
 
 - 20 different activities stored in the database
 
-As a player, I shall be asked questions about different activities' consumption rates, as that would improve the game drastically in terms of interest and curiosity.
+As a player, I must be asked questions about different activities' consumption rates, as that would improve the game drastically in terms of interest and curiosity.
 
 - ranking/leaderboard presented at the end of each multiplayer game
 
-As a player who has just finished a game, I shall be able to see how my opponents have scored in total after a game, and also, how I placed among them so that I can stay motivated to learn and to re-match them to do better (or to defend the first place if already on top).
+As a player who has just finished a multiplayer game, I must be able to see how my opponents have scored in total after a game, and also, how I placed among them so that I can stay motivated to learn and to re-match them to do better (or to defend the first place if already on top).
 
 ### Should:
 
