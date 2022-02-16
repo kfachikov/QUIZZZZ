@@ -1,6 +1,7 @@
 # Backlog
 ## Functional Requirements
 ### Must
+
 - solo gameplay button
 
 As a user who wants to play on their own, I must be presented with a "Solo Game" button when I enter the game, as I would like to play on my own to test my knowledge.
@@ -75,6 +76,10 @@ As a player who has just finished a multiplayer game, I must be able to see how 
 
 As a player, I should see an image together with the question text, as that would help me comprehend the question faster.
 
+- timing the questions
+
+As a player, I should see the time remaining to answer the current question, as otherwise, I wouldn’t know when it’s up, and thus, I might not answer in time, thinking there is some more time.
+
 - giving points considering the speed
 
 As a player in a multiplayer game, I should be awarded more points if I answer correctly faster than some other players, because thus some “hierarchy” can be established.
@@ -83,13 +88,9 @@ As a player in a multiplayer game, I should be awarded more points if I answer c
 
 As a player in a multiplayer game, I should be able to negatively affect the others by using my "reduce time" power-up, so it would be reasonable to consider the speed of an answer depending on the time left for each player.
 
-- timing the questions
+- using power-ups after answering a question
 
-As a player, I should see the time remaining to answer the current question, as otherwise, I wouldn’t know when it’s up, and thus, I might not answer in time, thinking there is some more time.
-
-- intermediate leaderboard containing the best-scoring players
-
-As a player in a multiplayer game, I should be able to see an intermediate leaderboard that shows top players' names and scores, because I would like to know which players are on top and whether I am among them.
+As a player in a multiplayer game, I should be able to use a once-per-game ability (joker) even after answering a question, as this is a game of speed and I would strive to answer as fast as I can at first.
 
 - a different type of questions
 
@@ -99,9 +100,9 @@ As a player, I should be asked differently phrased questions, as otherwise the g
 
 As a player, I should be asked a question that requires me to estimate a specific value (e.g. power consumption of a certain appliance) at least once, as that would make the game more exciting and intriguing.
 
-- using power-ups after answering a question
+- intermediate leaderboard containing the best-scoring players
 
-As a player in a multiplayer game, I should be able to use a once-per-game ability (joker) even after answering a question, as this is a game of speed and I would strive to answer as fast as I can at first.
+As a player in a multiplayer game, I should be able to see an intermediate leaderboard that shows top players' names and scores, because I would like to know which players are on top and whether I am among them.
 
 - back option after a game is done
 
@@ -110,12 +111,8 @@ As a user who has finished a game, I should be presented with a "Return Home" op
 - disconnecting
 
 As a player in a multiplayer game, I should see some indication that a player is inactive (disconnected) -- if present in the intermediate leaderboard their username becomes dimmed.
+
 ### Could:
-
-- personal position displayed in intermediate leaderboard even if not among the top
-
-As a player in a multiplayer game, I could see my name and position on the intermediate leaderboard, even if I am not among the best players, as I would like to know how I am doing in comparison to my opponents.
-
 
 - emoji
 
@@ -125,9 +122,9 @@ As a player in a multiplayer game, during the phase when the question is being a
 
 As a player in a multiplayer game, I could see how other people are reacting to the current questions, and they could see my reactions as well, as that would add some interactivity among the players.
 
-- using more than one joker per question
+- personal position displayed in intermediate leaderboard even if not among the top
 
-As a player in a multiplayer game, I could use more than one once-per-game ability (joker) per question, as it would make the game more challenging for the other players and give me a solid advantage.
+As a player in a multiplayer game, I could see my name and position on the intermediate leaderboard, even if I am not among the best players, as I would like to know how I am doing in comparison to my opponents.
 
 - display positioning during game
 
@@ -140,6 +137,10 @@ As a player, I could make use of changing my answer to a question, as I could ch
 - pop-ups and songs
 
 As a player, I could appreciate if the game I’m playing could have a catchy background song and attractive design aspects, as they would make the game more remarkable and fun to play.
+
+- using more than one joker per question
+
+As a player in a multiplayer game, I could use more than one once-per-game ability (joker) per question, as it would make the game more challenging for the other players and give me a solid advantage.
 
 - swapping the "remove answer" card into something else (e.g. range-provider) for estimation questions
 
