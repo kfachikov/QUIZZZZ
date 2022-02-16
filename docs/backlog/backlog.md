@@ -8,7 +8,7 @@ As a user who wants to play on their own, I must be presented with a "Solo Game"
 
 - multiplayer gameplay button
 
-As a user who wants to play with others, I must be presented with a "Multiplayer" when I enter the game, as I would like to be able to compete against other people.
+As a user who wants to play with others, I must be presented with a "Multiplayer" button when I enter the game, as I would like to be able to compete against other people.
 
 - "Choose the right activity"-type question
 
