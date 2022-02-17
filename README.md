@@ -11,7 +11,7 @@ Add your own name (do not add the names for others!) to the section below.
 | Profile Picture | Name | Email |
 |---|---|---|
 | <img src="https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/4988/avatar.png?width=400" alt="Monica's picture" width="50"> | Monica-Alexandra Păun | m.a.paun@student.tudelft.nl |
-| ![](https://eu.ui-avatars.com/api/?name=AD&length=4&size=50&color=DDD&background=777&font-size=0.325) | Alexandra Darie | A.Darie@student.tudelft.nl |
+| <img src="https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/4771/avatar.png?width=400" alt="Alexandra's picture" width="50"> | Alexandra Darie | A.Darie@student.tudelft.nl |
 | <img src="https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/4879/avatar.png?width=400" alt="Kayra's picture" width="50"/> | Kayra Bahadir | k.bahadr@student.tudelft.nl|
 | <img src="https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/4905/avatar.png?width=90" alt="Kaloyan's picture" width="50"/> | Kaloyan Fachikov | k.t.fachikov@student.tudelft.nl|
 | <img src="https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/4779/avatar.png?width=400" alt="Marijn's picture" width="50"/> | Marijn Luime | m.d.luime@student.tudelft.nl|
