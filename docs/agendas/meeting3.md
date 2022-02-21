@@ -41,7 +41,7 @@ Attendees: Julius Gvozdiovas, Monica Paun, Kayra Bahadir, Florena Buse
 
 ### [14:15 - 14:35] Questions to the TA
 
--Feedback from the TA
+- Feedback from the TA
     - Code of Conduct
     - Backlog
     - API endpoints -- advice on how to study them
