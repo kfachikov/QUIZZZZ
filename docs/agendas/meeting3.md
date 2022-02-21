@@ -34,12 +34,18 @@ Attendees: Julius Gvozdiovas, Monica Paun, Kayra Bahadir, Florena Buse
 ### [14:00 - 14:15] Action points for next week
 
 - Set up a common auto-formatting setting in IntelliJ. **Should be done before we start coding!**
+- Fix the issues — remove the ones that do not fit the official ones and add the ones that we are missing.
 - Split the workload of the first milestone among the team members.
 - Prepare **at least one** question related to teamwork. It could be related to teamwork skills, teamwork “theory” (e.g. Belbin roles, Code of Conduct, etc.), or team experience.
 - Information Literacy Module for the ones who haven’t done it yet.
 
 ### [14:15 - 14:35] Questions to the TA
 
+-Feedback from the TA
+    - Code of Conduct
+    - Backlog
+    - API endpoints -- advice on how to study them
+    - Any good GitLab practices
 - Everyone has the opportunity to ask out supervisor (the TA) for suggestions about points we haven’t mentioned during the meeting yet, or things that are still unclear.
     - How should we proceed with the project from now on? What to with the issues? Should we create new ones according to the “official” backlog? Should we restructure the management accomplished within our project — issues, milestones, etc...
     Or rather, we should simply begin working?
