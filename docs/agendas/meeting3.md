@@ -63,24 +63,70 @@ Attendees: Julius Gvozdiovas, Monica Paun, Kayra Bahadir, Florena Buse
 
 ### Check-in
 
+Approx. 13:45
+Kayra attended online through Discord with video and audio. The rest of us were all on time and attended physically.
 
 
-### Summary of last week
+# We shared opinions about the project
+- Julius: We do not have the most productive schedule at times.
+- Monica: Likes how we work, wants tasks more assigned to one person and all of us to have the same amount of work.
+- Kayra: We worked well and the meeting flow was good, but sometimes our meetings went overtime which we have improved on.
+- Alexandra: We should divide the work better, we work well.
+- Marijn: We are good on track, our meetings went overtime, but now it is going better. 
 
+###  Summary of last week
+
+Approx. 14:00
+ - We did the 2A assignment, the 2B assignment which included the Code of Conduct, we did the backlog and we started on the HCI assignment.
 
 
 ### Action points for next week
+Approx. 14:05
 
-
+- Have the same coding settings in Intellij.
+- Decide on how we split the work among ourselves.
+- Come up with the questions for the assignment until the next meeting - Tuesday**.
+- Change tasks for the issues(optional).
+- Conclude the HCI report -  Friday**.
+- Everyone should learn about the API. 
+- Try to do at least 2 responds - Friday**.
 
 ### Questions to the TA
-
+Approx. 14:15
+ 
+    - Feedback on the Code of Conduct: 
+        - We should add more rules until Friday
+        - the grade is achievable, but not realistic
+        - Assignment part → they want us to relate the answers more towards the final product
+        - Gitlab repository at the end should contain all the agenda
+        - Decide on how we proceed to add and cancel meetings
+        - It is not necessary that we give Florina reports about what we are doing throughout the week, but it would be easier for her    
+        to give us individual assignments.
+    - Julius : What are the deadlines of all the upcoming assignments and other things we need to do? 
+    → I shall ask this to the lecturers as there is still quite a bit unclear about that.
+    - Julius : Should we keep you constantly updated about our progress or just give you a summary? 
+    → I would prefer it if you would, because it was a bit unclear for me last week 
+    where you were exactly regarding the assignments, so yes it would be nice if you tell me where you are regularly.
+    - Kaloyan : Should we change the issues? 
+    → No, it is too early to modify them. Wait for all the feedback and then you can change them.
+    - Julius : Get and Post are clear, but what do we use Put and Delete for? 
+    It doesn’t really fit in the game we are trying to make 
+    → Put is to add information, not to edit it. You also don’t need all 4 things in your final project, you just need it for the upcoming assignment.
+    - Kaloyan : Should the issues be precise about what we have to do? 
+    → Yes, they are a guide for the project, but you don’t need to modify them now.
 
 
 ### Tip & Top
 
+- Kaloyan : Julius wasn’t responsive to his requests;
+- Monica : Thinks that we are organized, but would like us to start assigning more specific tasks to each member;
+- Kayra : feels like this week was better and is fond of the individual deadlines;
 
 
 ### Closing
 
+Next meeting.
+- Chairperson: Monica
+- Notetakers: Julius and Kaloyan
+ 
 
