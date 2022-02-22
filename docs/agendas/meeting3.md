@@ -67,7 +67,7 @@ Approx. 13:45
 Kayra attended online through Discord with video and audio. The rest of us were all on time and attended physically.
 
 
-# We shared opinions about the project
+We shared opinions about the project
 - Julius: We do not have the most productive schedule at times.
 - Monica: Likes how we work, wants tasks more assigned to one person and all of us to have the same amount of work.
 - Kayra: We worked well and the meeting flow was good, but sometimes our meetings went overtime which we have improved on.
