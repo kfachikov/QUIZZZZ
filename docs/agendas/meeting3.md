@@ -19,7 +19,7 @@ Attendees: Julius Gvozdiovas, Monica Paun, Kayra Bahadir, Florena Buse
 - Watch the [lectures](htgittps://cse1105.pages.ewi.tudelft.nl/2021-2022/course-website/lectures/#lectures) on the course website and write down any questions. Is everything clear? Did you manage to understand the use of all different applications?
 - Watch the [tutorial](https://www.youtube.com/watch?v=mSIvTYdWouk) about *how to set up your working environment properly* on YouTube, re-watch the lecture from Wednesday,16th, and try to do the exercises. Make sure **NOT** to experiment in the group project, but somewhere else!
 
-## Agenda Items
+## Meeting Schedule
 
 ### [13:45 - 13:50] Check-in
 
@@ -58,3 +58,29 @@ Attendees: Julius Gvozdiovas, Monica Paun, Kayra Bahadir, Florena Buse
 ### [14:45] Closing
 
 - Choose the next chairperson and notetakers.
+
+## Agenda Items
+
+### Check-in
+
+
+
+### Summary of last week
+
+
+
+### Action points for next week
+
+
+
+### Questions to the TA
+
+
+
+### Tip & Top
+
+
+
+### Closing
+
+
