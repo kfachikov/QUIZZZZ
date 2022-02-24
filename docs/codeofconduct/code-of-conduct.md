@@ -1,23 +1,23 @@
 # Code of Conduct
 
 ## Assignment description:
-**In your own words, describe what you need to do as a group in this course.**
+### In your own words, describe what you need to do as a group in this course.
 
-- Develop a professional relationship between each-other in order to create a productive environment and amp-up results. Including the establishment of a fair work ethic and division.
+- Develop a **professional** relationship between each-other in order to create a productive environment and amp-up results. Including the establishment of a fair work ethic and division.
 
-- Have strong connections and communications beyond the project and have support each other.
+- Have strong connections and communications **beyond the project** and have support each other.
 
 - Build a polished quiz game about energy awareness. In the game, the player is given a question about energy usage of various items, and must answer with the given time frame. It should have both a single-player mode (where users can practice and test their knowledge), and a multiplayer mode (where users can compete with others). This will be done using JavaFX for the client side, and Spring for the server side.
 
 ## Target or ambition level: 
-**What grade are you working for?**
+### What grade are you working for?
 
 - Every member of our team has a goal of getting a 10. However, the common opinion is that a grade around 8-9 is more realistic and would satisfy most of the group members. It is preferred to stick to Grade 9 as a lower-bound.
 
 - The finished product of the project, the game, must be polished, without bugs. Even if the grade does not fully satisfy us, we must be content with the finished product.
 
 ## Products:
-**What should you deliver at the end?**
+### What should you deliver at the end?
 
 - A working application that fulfills the requirements of the backlog.
 
@@ -29,11 +29,11 @@
   - Notes of TA meetings, inside of the same file as the agenda for the meeting
   - Commits, comments and merge requests on GitLab. These should be nicely formatted, with clear and consistent language
 
-**On which platform do you share which documents (Discord / Miro / MS Teams)?**
+### On which platform do you share which documents (Discord / Miro / MS Teams)?
 
 - We use Discord to share documents.
 
-**What standards must the work submitted meet?**
+### What standards must the work submitted meet?
 
 Contribution to GitLab:
 - Issues and merge requests follow the templates
@@ -52,7 +52,7 @@ Java Doc
 
 
 ## Planning:
-**How do you ensure that each group finishes everything on time?**
+### How do you ensure that each group finishes everything on time?
 
 - Every person gets prepared for the check-in by noting down 2 sentences of what they did, so that the opening consumes as little time as possible.
 
@@ -62,7 +62,7 @@ Java Doc
 
 - For such smaller tasks, a “soft” deadline will be negotiated, taking into account that time should be left for others to review the completed task before the “hard” deadline approaches.
 
-**Did you clarify who will have a final say in the final deliverable and submit it to Brightspace on behalf of the project group?**
+### Did you clarify who will have a final say in the final deliverable and submit it to Brightspace on behalf of the project group?
 
 Chairperson:
 - Responsible for any deliverables.
@@ -74,11 +74,11 @@ Notetakers:
 - Merges the 2 note files and commits on the bottom of the agenda.
 
 ## Behavior:
-**How do you treat each other in the group?**
+### How do you treat each other in the group?
 
 - Every member of the team should treat the others with respect.
 
-**How do you handle disagreements within your group?**
+### How do you handle disagreements within your group?
 
 - The disagreements should be handled with communication, everyone has the right to express their opinion.
 
@@ -86,29 +86,29 @@ Notetakers:
 
 - When personal or emotionally loaded disagreements between two team members occur, other team members intervene and allow the conflict to “cool down”, before continuing.
 
-**Could your guide or student assistant be involved in reaching consent?**
+### Could your guide or student assistant be involved in reaching consent?
 
 - The student assistant should not be involved in our conflicts, but if we cannot come at an agreement we will discuss it with her.
 
 - Should a complete divide appear in the group, which does not allow us to progress, our TA will be consulted as the final tie-breaker (even if they end up flipping a coin).
 
-**What do you do if someone is late during a group meeting?**
+### What do you do if someone is late during a group meeting?
 
 - If someone is late to a meeting, they will have to bring sweet snacks to the next meeting.
 
 - If someone is late consistently, then that would be discussed among the team members and at the end, eventually, will be mentioned to the TA.
 
 ## Communication: 
-**In what ways do you communicate with each other as a group and among yourselves? (in the studio/MS Teams/Miro/Discourse)**
+### In what ways do you communicate with each other as a group and among yourselves? (in the studio/MS Teams/Miro/Discourse)
 
 - Discord, WhatsApp, and Mattermost are the applications we use for communication.
 
 ## Commitment:
-**How do you determine the quality of each group's work, so that each group delivers the same quality?**
+### How do you determine the quality of each group's work, so that each group delivers the same quality?
 
 - We determine the quality of each-other's work by the quality of their code, which can be seen in the number of warnings in their code and the style of their code.
 
-**How do you measure the commitment of the chairs and minute takers?**
+### How do you measure the commitment of the chairs and minute takers?
 
 - We measure the commitment of the chairs by the quality of their agenda’s and their quality of leadership during the meetings. People during the meeting should all have an opportunity to raise questions or concerns, and interruptions should be kept to a minimum by the chairperson.
 
@@ -127,7 +127,7 @@ Notetakers:
   - Action points that were decided in the meeting are marked down, with (preliminary) deadlines and responsible person/people for that action point.
 
 ## Meetings:
-**How often will you meet as a group?**
+### How often will you meet as a group?
 
 - A meeting as a group is not necessarily a physical meeting. Meeting in Discord or another platform is acceptable if it is more convenient or required.
 
@@ -139,25 +139,25 @@ Notetakers:
 
 - In case a meeting is to be canceled – some of the members get urgent schedule changes, for a reason of course (otherwise seen as being late and even worse – not attending at all), then it would be rescheduled for as soon as possible. However, if the reason is that some work is still undone and there’s just no point in the meeting, then the case is considered as missed deadline kind of, which has its own consequences.
 
-**What preparation is needed for the meetings?**
+### What preparation is needed for the meetings?
 
 - Everyone should prepare by getting familiar with the main topic which is going to be discussed.
 
 - If there are some additional aspects which should be considered, it would be announced in Discord in advance, so that everyone has time to prepare thoroughly.
 
 ## Decision-making:
-**How do you make decisions? By majority vote or by consensus?**
+### How do you make decisions? By majority vote or by consensus?
 
 - A mixture between majority and consensus will be used. In detail, when a decision is up to be taken, if everyone agrees it’s ready!
 
 - If there is one person proposing a different idea, they have their time to try to convince the others.
-  - If there is at least one other person who “sees their point”, then more time is allocated for discussion until a decision is reached – the process mentioned above is done over and over.
-  - If there is none seeing the “opposition”’s perspective, then the discussion is closed and a decision is taken.
+  - If there is **at least one other person** who “sees their point”, then more time is allocated for discussion until a decision is reached – the process mentioned above is done over and over.
+  - If there is **none** seeing the “opposition”’s perspective, then the discussion is closed and a decision is taken.
 
 - Once a decision is made, it is considered binding. All members should comply with it, unless the decision is reversed/amended by the decision-making process above.
 
 ## Dealing with conflicts: 
-**How do you handle conflicts within the group?**
+### How do you handle conflicts within the group?
 
 - When a conflict occurs, other people inserting their thoughts is crucial.
 
@@ -166,7 +166,7 @@ Notetakers:
 - Strive to reach a mutual agreement and fix the things that went wrong, rather than proving you were right or your opinion is “true”-er.
 
 ## Guidance: 
-**What do you expect from the teacher's and/or student assistant’s guidance? What do you want feedback on, on the content or on the collaboration?**
+### What do you expect from the teacher's and/or student assistant’s guidance? What do you want feedback on, on the content or on the collaboration?
 
 - We want regular feedback regarding the content of our project. To aid that, we will seek to upload any content or document in advance to any project deadlines, such that the TA has an opportunity to at least skim it. That is, internal deadlines will be set to accommodate this.
 
@@ -175,7 +175,7 @@ Notetakers:
 - During each TA meeting, an item in the agenda should be for TA feedback, where members of the team are allowed to ask questions, and the TA can provide concrete or general feedback. This includes questions regarding teamwork and collaboration.
 
 ## Consequences: 
-**What are the consequences if a participant in the group does not keep the agreements?**
+### What are the consequences if a participant in the group does not keep the agreements?
 
 - If someone is late to a deadline, we will listen to their reason for missing the deadline.
   - If the reason is reasonable and one-off, no action will be taken.
@@ -183,10 +183,10 @@ Notetakers:
   - If a good reason is not given, they will be warned that such behavior is unacceptable and is not to be repeated. Simple explicit warning will encourage the person to uphold their future agreements (due to social dynamics). If this happens multiple times, the issue will eventually be addressed to the TA (to deal at a higher level than what we are capable of).
 
 ## Success factors: 
-**What makes your team a dream team?**
+### What makes your team a dream team?
 
 - Flawless working environment.
 
 - Everyone feels safe to commit, to share. Reach “feeling of belonging” to the group.
 
-- We dream. Big.
+- We dream. **Big.**
