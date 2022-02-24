@@ -59,9 +59,11 @@ Attendees: Julius Gvozdiovas, Monica Paun, Kayra Bahadir, Florena Buse
 
 - Choose the next chairperson and notetakers.
 
-## Agenda Items
+---
 
-### Check-in
+# Agenda Items
+
+## Check-in
 
 Approx. 13:45
 Kayra attended online through Discord with video and audio. The rest of us were all on time and attended physically.
@@ -74,13 +76,13 @@ We shared opinions about the project
 - Alexandra: We should divide the work better, we work well.
 - Marijn: We are good on track, our meetings went overtime, but now it is going better. 
 
-###  Summary of last week
+##  Summary of last week
 
 Approx. 14:00
  - We did the 2A assignment, the 2B assignment which included the Code of Conduct, we did the backlog and we started on the HCI assignment.
 
 
-### Action points for next week
+## Action points for next week
 Approx. 14:05
 
 - Have the same coding settings in Intellij.
@@ -91,7 +93,7 @@ Approx. 14:05
 - Everyone should learn about the API. 
 - Try to do at least 2 responds - Friday**.
 
-### Questions to the TA
+## Questions to the TA
 Approx. 14:15
  
     - Feedback on the Code of Conduct: 
@@ -116,14 +118,21 @@ Approx. 14:15
     → Yes, they are a guide for the project, but you don’t need to modify them now.
 
 
-### Tip & Top
+## Tip & Top
 
-- Kaloyan : Julius wasn’t responsive to his requests;
-- Monica : Thinks that we are organized, but would like us to start assigning more specific tasks to each member;
-- Kayra : feels like this week was better and is fond of the individual deadlines;
+- Kaloyan:
+    - a tip towards Julius -- make sure you check your social medias a bit more frequently, as sometimes it's hard to reach you
+    - top to everyone -- love the way we organized the app design process; everyone came prepared to the meeting, full of ideas to share
+    - top to Kayra -- handled our first small fight (over weights in GitLab with Julius) with calmness, giving yourself time to understand the others' opinion
+- Monica:
+    - top to everyone -- enjoys the fact we are organized
+    - tip to everyone -- when assigning task, be more specific and assign them more individually -- this would prevent the long "unnecessary" discussions over insignificant details
+- Kayra:
+    - top to Kaloyan -- like the agenda -- it was specific and helped me prepare for the meeting
+    - *comment* -- this week is better; fond of the individual deadlines
 
 
-### Closing
+## Closing
 
 Next meeting.
 - Chairperson: Monica
