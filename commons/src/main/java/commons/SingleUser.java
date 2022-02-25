@@ -27,23 +27,23 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
-public class Person {
+public class SingleUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long id;
 
-    public String firstName;
-    public String lastName;
+    public String username;
+    public int score;
 
     @SuppressWarnings("unused")
-    private Person() {
+    private SingleUser() {
         // for object mapper
     }
 
-    public Person(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public SingleUser(String username, int score) {
+        this.username = username;
+        this.score = score;
     }
 
     @Override

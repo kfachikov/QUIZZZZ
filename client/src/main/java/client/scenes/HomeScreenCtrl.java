@@ -2,8 +2,12 @@ package client.scenes;
 
 import com.google.inject.Inject;
 import client.utils.ServerUtils;
+import commons.SingleUser;
+import jakarta.ws.rs.WebApplicationException;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 
 public class HomeScreenCtrl {
 
@@ -23,7 +27,23 @@ public class HomeScreenCtrl {
     }
 
     public void playSolo() {
+        try {
+            server.addUser(getUser());
+        } catch (WebApplicationException e) {
+
+            var alert = new Alert(Alert.AlertType.ERROR);
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
+
         mainCtrl.showPrep();
+    }
+
+    public SingleUser getUser() {
+        String user = username.getText();
+        return new SingleUser(user, 0);
     }
 
     public void playMulti() {
