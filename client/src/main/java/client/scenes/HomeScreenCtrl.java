@@ -23,7 +23,7 @@ public class HomeScreenCtrl {
     }
 
     public void playSolo() {
-        //mainCtrl.showSoloIntermediate();
+        mainCtrl.showPrep();
     }
 
     public void playMulti() {
