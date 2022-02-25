@@ -16,9 +16,6 @@
         <module name="IllegalCatch"/>
         <module name="IllegalThrows"/>
         <module name="InnerAssignment"/>
-        <module name="MultipleStringLiterals">
-            <property name="allowedDuplicates" value="2"/>
-        </module>
         <module name="OneStatementPerLine"/>
         <module name="SimplifyBooleanReturn"/>
         <module name="StringLiteralEquality"/>
