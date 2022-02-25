@@ -28,7 +28,6 @@ public class UserController {
         if (user == null || isNullOrEmpty(user.username)) {
             return ResponseEntity.badRequest().build();
         }
-
         SingleUser saved = repo.save(user);
         return ResponseEntity.ok(saved);
     }

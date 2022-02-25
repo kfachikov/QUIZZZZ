@@ -36,9 +36,9 @@ public class ServerUtils {
 
     public SingleUser addUser(SingleUser user) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("api/users") //
+                .target(SERVER).path("/api/users") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .post(Entity.entity(user.username, APPLICATION_JSON), SingleUser.class);
+                .post(Entity.entity(user, APPLICATION_JSON), SingleUser.class);
     }
 }
