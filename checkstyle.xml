@@ -6,8 +6,42 @@
 <module name = "Checker">
     <module name="TreeWalker">
         <module name="UnusedImports" />
+        <module name="CovariantEquals"/>
+        <module name="LeftCurly"/>
+        <module name="NeedBraces"/>
+        <module name="RightCurly"/>
+        <module name="DeclarationOrder"/>
+        <module name="DefaultComesLast"/>
+        <module name="EqualsAvoidNull"/>
+        <module name="IllegalCatch"/>
+        <module name="IllegalThrows"/>
+        <module name="InnerAssignment"/>
+        <module name="MultipleStringLiterals">
+            <property name="allowedDuplicates" value="2"/>
+        </module>
+        <module name="OneStatementPerLine"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="StringLiteralEquality"/>
+        <module name="VariableDeclarationUsageDistance">
+            <property name="allowedDistance" value="5"/>
+        </module>
+        <module name="UnusedImports"/>
+        <module name="InvalidJavadocPosition"/>
+        <module name="JavadocStyle"/>
+        <module name="CyclomaticComplexity"/>
+        <module name="CommentsIndentation"/>
+        <module name="Indentation"/>
+        <module name="AbbreviationAsWordInName"/>
+        <module name="ClassTypeParameterName"/>
+        <module name="MethodName"/>
+        <module name="MemberName"/>
+        <module name="ParameterName"/>
+        <module name="EmptyLineSeparator"/>
+        <module name="FileTabCharacter"/>
+        <module name="NoWhitespaceAfter"/>
+        <module name="ParenPad"/>
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAround"/>
     </module>
-
-    <!-- TODO: decide in your team with other checkers to add! -->
-
+    
 </module>
