@@ -15,7 +15,7 @@
  */
 package server.database;
 
-import commons.SingleUser;
+import commons.MultiUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<SingleUser, Long> {}
+public interface MultiUserRepository extends JpaRepository<MultiUser, Long> {}

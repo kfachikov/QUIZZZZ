@@ -1,9 +1,9 @@
 package server.api;
 
-import commons.SingleUser;
+import commons.MultiUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import server.database.UserRepository;
+import server.database.MultiUserRepository;
 
 import java.util.List;
 
@@ -11,17 +11,29 @@ import java.util.List;
 @RequestMapping("/api/lobby")
 public class LobbyController {
 
-    private final UserRepository repo;
+    private final MultiUserRepository repo;
 
 
-    public LobbyController(UserRepository repo) {
+    public LobbyController(MultiUserRepository repo) {
         this.repo = repo;
     }
 
     @GetMapping("")
-    public List<SingleUser> getAllUsers() {
+    public List<MultiUser> getAllUsers() {
         return repo.findAll();
     }
 
+    @PostMapping("")
+    public ResponseEntity<MultiUser> add(@RequestBody MultiUser user) {
+        if (user == null || isNullOrEmpty(user.username)) {
+            return ResponseEntity.badRequest().build();
+        }
+        MultiUser saved = repo.save(user);
+        return ResponseEntity.ok(saved);
+    }
+
+    private static boolean isNullOrEmpty(String s) {
+        return s == null || s.isEmpty();
+    }
 
 }
