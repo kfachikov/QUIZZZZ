@@ -15,39 +15,41 @@
  */
 package commons;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-public class SingleUserTest {
+public class MultiUserTest {
 
     @Test
     public void checkConstructor() {
-        var p = new SingleUser("user", 10);
+        var p = new MultiUser("user", 10);
         assertEquals("user", p.username);
         assertEquals(10, p.score);
     }
 
     @Test
     public void equalsHashCode() {
-        var a = new SingleUser("user", 10);
-        var b = new SingleUser("user", 10);
+        var a = new MultiUser("user", 10);
+        var b = new MultiUser("user", 10);
         assertEquals(a, b);
         assertEquals(a.hashCode(), b.hashCode());
     }
 
     @Test
     public void notEqualsHashCode() {
-        var a = new SingleUser("user", 10);
-        var b = new SingleUser("user", 15);
+        var a = new MultiUser("user", 10);
+        var b = new MultiUser("user", 15);
         assertNotEquals(a, b);
         assertNotEquals(a.hashCode(), b.hashCode());
     }
 
     @Test
     public void hasToString() {
-        var actual = new SingleUser("user", 10).toString();
-        assertTrue(actual.contains(SingleUser.class.getSimpleName()));
+        var actual = new MultiUser("user", 10).toString();
+        assertTrue(actual.contains(MultiUser.class.getSimpleName()));
         assertTrue(actual.contains("\n"));
         assertTrue(actual.contains("username"));
     }

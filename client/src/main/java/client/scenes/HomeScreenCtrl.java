@@ -24,7 +24,7 @@ public class HomeScreenCtrl {
      *
      * @param server
      * @param mainCtrl
-     * initializes HomeScreenCtrl by connecting it to backend and frontend mainCtrl
+     * initializes HomeScreenCtrl by connecting it to backend and frontend mainCtrl.
      */
     @Inject
     public HomeScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -33,7 +33,7 @@ public class HomeScreenCtrl {
     }
 
     /**
-     * runs showHelp() function
+     * runs showHelp() function.
      */
     public void helpMe() {
         mainCtrl.showHelp();

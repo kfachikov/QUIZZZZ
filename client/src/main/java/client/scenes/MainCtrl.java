@@ -54,7 +54,7 @@ public class MainCtrl {
     }
 
     /**
-     * sets the title and the scene as home
+     * sets the title and the scene as home.
      */
     public void showHome() {
         primaryStage.setTitle("Quizzz: Home");
@@ -68,7 +68,7 @@ public class MainCtrl {
     }
 
     /**
-     * sets the title and the scene as help
+     * sets the title and the scene as help.
      */
     public void showHelp() {
         primaryStage.setTitle("Quizzz: Help");
