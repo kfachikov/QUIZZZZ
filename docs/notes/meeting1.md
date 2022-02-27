@@ -35,7 +35,7 @@ Kayra - Implementor, Resource Investigator, Co-ordinator/Shaper
 
 ## Answer exercise 2 from 1B
 
-Each person describes their personal weaknesses/strengths.
+Each singleUser describes their personal weaknesses/strengths.
 
 Kayra:
 - pros - communicative, enjoys researching stuff
@@ -46,7 +46,7 @@ Monica
 - cons - avoid confrontation, "shy" - not speaking of herself
 
 Alexandra
-- pros - confident in herself, teamwork person
+- pros - confident in herself, teamwork singleUser
 - cons - honest, still avoid confrontation, clumsy, stressing over deadlines
 
 Julius
@@ -79,7 +79,7 @@ Compensation consensus: everyone can have content to share prepared. People who 
 
 ## Answer the exercise 4 from 1B
 
-Kayra: every single person says something about a single topic at least once (but this feels like pushing, especially if they don't want to talk)\
+Kayra: every single singleUser says something about a single topic at least once (but this feels like pushing, especially if they don't want to talk)\
 Alexandra: decisions are not necessarily divided, but the final project is equally divided\
 Julius: something more like what Kayra suggested \
 Marijn: more generic learning goals, like learn to work together with academic level\
@@ -87,19 +87,19 @@ Monica: in this course, we want to develop our teamwork skills by being ~~ open-
 Marijn: deliver everything on time\
 Kayra: have a system where we check each other timings, connect our informal deadlines with our TA\
 Kaloyan: agree\
-Julius: each person in clockwise order makes sure that the next person is working well\
+Julius: each singleUser in clockwise order makes sure that the next singleUser is working well\
 Kayra: check-in could be the time where we could do that\
 Kaloyan: ensure a safe environment, each one can be designated 3 minutes each time\
-Kayra: in order to establish a safe environment, we will give 3 minutes to each person to share their opinions about work, people.\
+Kayra: in order to establish a safe environment, we will give 3 minutes to each singleUser to share their opinions about work, people.\
 Kaloyan: during these 3 minutes, you talk without interruptions. Other people just listen and try to gather what you say
 
 Everyone must upload the same document for 1B.\
 Also, upload the questionnaire for 1A to BrightSpace.
 
 Also, the Agenda and the notes:\
-Monica: Only 1 person has to upload the teamwork\
+Monica: Only 1 singleUser has to upload the teamwork\
 Kaloyan & Kayra: TA said that everyone has to upload\
-Monica: only 1 person has to upload it, just like WDT. If it is not visible after one of us uploads it, that means everyone has to upload it
+Monica: only 1 singleUser has to upload it, just like WDT. If it is not visible after one of us uploads it, that means everyone has to upload it
 
 ## Backlog assignment
 Kayra: should we split it into MoSCoW?\

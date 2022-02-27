@@ -27,11 +27,17 @@ public class MainCtrl {
     private HomeScreenCtrl homeCtrl;
     private Scene home;
 
-    public void initialize(Stage primaryStage, Pair<HomeScreenCtrl, Parent> home) {
+    private PrepScreenCtrl prepCtrl;
+    private Scene prep;
+
+    public void initialize(Stage primaryStage, Pair<HomeScreenCtrl, Parent> home, Pair<PrepScreenCtrl, Parent> prep) {
         this.primaryStage = primaryStage;
 
         this.homeCtrl = home.getKey();
         this.home = new Scene(home.getValue());
+
+        this.prepCtrl = prep.getKey();
+        this.prep = new Scene(prep.getValue());
 
         showHome();
         primaryStage.show();
@@ -40,5 +46,10 @@ public class MainCtrl {
     public void showHome() {
         primaryStage.setTitle("Quizzz: Home");
         primaryStage.setScene(home);
+    }
+
+    public void showPrep() {
+        primaryStage.setTitle("Quizzz: Prepare");
+        primaryStage.setScene(prep);
     }
 }

@@ -164,7 +164,7 @@ Kayra
 
 Alexandra
 
-- tip toward herself — manage to feel as she commits to the group, now struggles and feels like just a member. Assign tasks for each person to make them feel important.
+- tip toward herself — manage to feel as she commits to the group, now struggles and feels like just a member. Assign tasks for each singleUser to make them feel important.
 
 Marijn
 
