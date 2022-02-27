@@ -48,18 +48,4 @@ public class QuestionController {
             return ResponseEntity.ok(repo.getById(questionId));
         }
     }
-
-    @PostMapping("")
-    public ResponseEntity<BasicMultipleChoiceQuestion> add(
-            @RequestBody BasicMultipleChoiceQuestion question
-    ) {
-        if (question == null ||
-                question.baseTitle == null ||
-                question.imageFilename == null) {
-            return ResponseEntity.badRequest().build();
-        } else {
-            BasicMultipleChoiceQuestion saved = repo.save(question);
-            return ResponseEntity.ok(saved);
-        }
-    }
 }
