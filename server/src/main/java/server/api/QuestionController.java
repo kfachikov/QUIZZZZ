@@ -1,11 +1,9 @@
 package server.api;
 
 import commons.AbstractQuestion;
+import commons.BasicMultipleChoiceQuestion;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import server.database.QuestionRepository;
 import server.utils.RandomUtils;
 
@@ -48,6 +46,20 @@ public class QuestionController {
                     randomUtils.distinctList(random, 20, repo.count());
             long questionId = questionIds.get((int) questionNo);
             return ResponseEntity.ok(repo.getById(questionId));
+        }
+    }
+
+    @PostMapping("")
+    public ResponseEntity<BasicMultipleChoiceQuestion> add(
+            @RequestBody BasicMultipleChoiceQuestion question
+    ) {
+        if (question == null ||
+                question.baseTitle == null ||
+                question.imageFilename == null) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            BasicMultipleChoiceQuestion saved = repo.save(question);
+            return ResponseEntity.ok(saved);
         }
     }
 }
