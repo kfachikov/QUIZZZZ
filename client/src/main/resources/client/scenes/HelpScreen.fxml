@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: a8c6fa;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HelpScreenCtrl">
+    <children>
+        <Text fill="#006e8a" layoutX="117.0" layoutY="127.0" stroke="#3cacc3" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="QUIZ">
+            <font>
+                <Font name="AppleMyungjo Regular" size="96.0" />
+            </font>
+            <effect>
+            <BoxBlur />
+            </effect>
+        </Text>
+        <Text fill="#006e8a" layoutX="376.0" layoutY="113.0" rotate="-151.4" stroke="#3cacc3" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="Z">
+            <font>
+                <Font name="AppleMyungjo Regular" size="70.0" />
+            </font>
+            <effect>
+            <BoxBlur />
+            </effect>
+        </Text>
+        <Text fill="#006e8a" layoutX="433.0" layoutY="107.0" rotate="-151.4" stroke="#3cacc3" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="Z">
+            <font>
+                <Font name="AppleMyungjo Regular" size="50.0" />
+            </font>
+            <effect>
+            <BoxBlur />
+            </effect>
+        </Text>
+        <TextField alignment="TOP_CENTER" layoutX="220.0" layoutY="170.0" promptText="enter username" style="-fx-border-color: #006e8c#006e8c; -fx-border-width: 1; -fx-border-radius: 50; -fx-background-radius: 50;">
+         <effect>
+            <BoxBlur />
+         </effect></TextField>
+        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="86.0" layoutY="273.0" mnemonicParsing="false" style="-fx-background-color: #c9f1fd; -fx-border-color: #006e8c; -fx-border-radius: 15; -fx-background-radius: 20; -fx-border-width: 5;" text="SOLO" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
+            <font>
+                <Font name="Helvetica" size="34.0" />
+            </font>
+         <effect>
+            <BoxBlur />
+         </effect>
+        </Button>
+        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="257.0" layoutY="273.0" mnemonicParsing="false" style="-fx-background-color: #c9f1fd; -fx-border-color: #006e8c; -fx-border-radius: 15; -fx-background-radius: 20; -fx-border-width: 5;" text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
+            <font>
+                <Font name="Helvetica" size="34.0" />
+            </font>
+         <effect>
+            <BoxBlur />
+         </effect>
+        </Button>
+        <TextField alignment="TOP_CENTER" layoutX="220.0" layoutY="210.0" promptText="http://localhost:3000" style="-fx-border-color: #006e8c#006e8c; -fx-border-width: 1; -fx-border-radius: 50; -fx-background-radius: 50;">
+         <effect>
+            <BoxBlur />
+         </effect></TextField>
+        <Text fill="#006e8a" layoutX="26.0" layoutY="384.0" onMouseClicked="#returnHome" stroke="#3cacc3" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="?" wrappingWidth="28.487804412841797">
+            <font>
+                <Font name="AppleMyungjo Regular" size="50.0" />
+            </font>
+        </Text>
+      <TextArea editable="false" layoutX="63.0" layoutY="49.0" prefHeight="299.0" prefWidth="473.0" style="-fx-background-color: #006e8c#006e8c; -fx-background-size: 5; -fx-border-color: #006e8c#006e8c; -fx-border-radius: 10;" text="Test your knowledge? Click on &quot;Solo&quot;, prepare and do the best you can! Want to play with friends? &#10;&#10;1. Set up a username so that you know who is who.&#10;2. Make one of you join a lobby by clicking the &quot;Multiplayer&quot; button and then send you the server address.&#10;3. Paste it into the box provided and join his lobby.&#10;4. When your group is full, simply press enter to begin the competition!&#10;&#10;Joker cards (only in multiplayer):&#10;- ﻿Double points if your answer is correct!&#10;- Remove an incorrect answer.&#10;- Shorten the remaining time for your opponents." wrapText="true">
+         <font>
+            <Font name="Helvetica" size="16.0" />
+         </font>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color green="0.4313725531101227" blue="0.5490196347236633" />
+               </color>
+            </DropShadow>
+         </effect>
+      </TextArea>
+    </children>
+    <effect>
+        <ColorAdjust />
+    </effect>
+</AnchorPane>

@@ -20,10 +20,23 @@ public class HomeScreenCtrl {
     @FXML
     private TextField serverURL;
 
+    /**
+     *
+     * @param server
+     * @param mainCtrl
+     * initializes HomeScreenCtrl by connecting it to backend and frontend mainCtrl
+     */
     @Inject
     public HomeScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
         this.server = server;
+    }
+
+    /**
+     * runs showHelp() function
+     */
+    public void helpMe() {
+        mainCtrl.showHelp();
     }
 
     public void playSolo() {
@@ -49,11 +62,5 @@ public class HomeScreenCtrl {
     public void playMulti() {
         //mainCtrl.showMultiLobby();
     }
-
-    public void helpMe() {
-        //mainCtrl.showHelp();
-    }
-
-
 
 }
