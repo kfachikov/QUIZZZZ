@@ -1,0 +1,16 @@
+.button {
+    -fx-background-color: #c9f1fd;
+    -fx-border-color: #006e8c;
+    -fx-border-radius: 15;
+    -fx-background-radius: 20;
+    -fx-border-width: 5;
+}
+.text-field {
+    -fx-border-color: #006e8c#006e8c;
+    -fx-border-width: 1;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+
+
+
