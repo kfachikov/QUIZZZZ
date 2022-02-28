@@ -37,4 +37,14 @@ public class LobbyController {
         return s == null || s.isEmpty();
     }
 
+    @DeleteMapping("")
+    public ResponseEntity<MultiUser> deleteUser(@RequestBody MultiUser user) {
+        if (user == null || isNullOrEmpty((user.username))) {
+            return ResponseEntity.badRequest().build();
+        }
+        deleteUser(user);
+        MultiUser deleted = repo.save(user);
+        return ResponseEntity.ok(deleted);
+    }
+
 }
