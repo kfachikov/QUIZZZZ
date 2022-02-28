@@ -27,18 +27,51 @@ public class MainCtrl {
     private HomeScreenCtrl homeCtrl;
     private Scene home;
 
-    public void initialize(Stage primaryStage, Pair<HomeScreenCtrl, Parent> home) {
+    private PrepScreenCtrl prepCtrl;
+    private Scene prep;
+
+    private HelpScreenCtrl helpCtrl;
+    private Scene help;
+
+    public void initialize(Stage primaryStage,
+                           Pair<HomeScreenCtrl, Parent> home,
+                           Pair<HelpScreenCtrl, Parent> help,
+                           Pair<PrepScreenCtrl, Parent> prep
+    ) {
+
         this.primaryStage = primaryStage;
 
         this.homeCtrl = home.getKey();
         this.home = new Scene(home.getValue());
 
+        this.prepCtrl = prep.getKey();
+        this.prep = new Scene(prep.getValue());
+        this.helpCtrl = help.getKey();
+        this.help = new Scene(help.getValue());
+
         showHome();
         primaryStage.show();
     }
 
+    /**
+     * sets the title and the scene as home.
+     */
     public void showHome() {
         primaryStage.setTitle("Quizzz: Home");
         primaryStage.setScene(home);
+    }
+
+
+    public void showPrep() {
+        primaryStage.setTitle("Quizzz: Prepare");
+        primaryStage.setScene(prep);
+    }
+
+    /**
+     * sets the title and the scene as help.
+     */
+    public void showHelp() {
+        primaryStage.setTitle("Quizzz: Help");
+        primaryStage.setScene(help);
     }
 }

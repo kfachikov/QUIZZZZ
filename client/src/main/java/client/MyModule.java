@@ -15,14 +15,14 @@
  */
 package client;
 
+import client.scenes.PrepScreenCtrl;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
 
 import client.scenes.MainCtrl;
-
-
 import client.scenes.HomeScreenCtrl;
+import client.scenes.HelpScreenCtrl;
 
 public class MyModule implements Module {
 
@@ -30,5 +30,7 @@ public class MyModule implements Module {
     public void configure(Binder binder) {
         binder.bind(MainCtrl.class).in(Scopes.SINGLETON);
         binder.bind(HomeScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(PrepScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(HelpScreenCtrl.class).in(Scopes.SINGLETON);
     }
 }

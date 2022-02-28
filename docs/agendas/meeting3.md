@@ -71,7 +71,7 @@ Kayra attended online through Discord with video and audio. The rest of us were 
 
 We shared opinions about the project
 - Julius: We do not have the most productive schedule at times.
-- Monica: Likes how we work, wants tasks more assigned to one person and all of us to have the same amount of work.
+- Monica: Likes how we work, wants tasks more assigned to one singleUser and all of us to have the same amount of work.
 - Kayra: We worked well and the meeting flow was good, but sometimes our meetings went overtime which we have improved on.
 - Alexandra: We should divide the work better, we work well.
 - Marijn: We are good on track, our meetings went overtime, but now it is going better. 

@@ -54,7 +54,7 @@ Java Doc
 ## Planning:
 ### How do you ensure that each group finishes everything on time?
 
-- Every person gets prepared for the check-in by noting down 2 sentences of what they did, so that the opening consumes as little time as possible.
+- Every singleUser gets prepared for the check-in by noting down 2 sentences of what they did, so that the opening consumes as little time as possible.
 
 - Set inner group deadlines. Have the “tutor” (the TA in our case) to check briefly on how we did the things and only submit them.
 
@@ -124,7 +124,7 @@ Notetakers:
   - Conciseness and coverage of the main points discussed during the meeting.
   - Each item in the agenda should be included.
   - All feedback by the TA is clearly noted down.
-  - Action points that were decided in the meeting are marked down, with (preliminary) deadlines and responsible person/people for that action point.
+  - Action points that were decided in the meeting are marked down, with (preliminary) deadlines and responsible singleUser/people for that action point.
 
 ## Meetings:
 ### How often will you meet as a group?
@@ -150,8 +150,8 @@ Notetakers:
 
 - A mixture between majority and consensus will be used. In detail, when a decision is up to be taken, if everyone agrees it’s ready!
 
-- If there is one person proposing a different idea, they have their time to try to convince the others.
-  - If there is **at least one other person** who “sees their point”, then more time is allocated for discussion until a decision is reached – the process mentioned above is done over and over.
+- If there is one singleUser proposing a different idea, they have their time to try to convince the others.
+  - If there is **at least one other singleUser** who “sees their point”, then more time is allocated for discussion until a decision is reached – the process mentioned above is done over and over.
   - If there is **none** seeing the “opposition”’s perspective, then the discussion is closed and a decision is taken.
 
 - Once a decision is made, it is considered binding. All members should comply with it, unless the decision is reversed/amended by the decision-making process above.
@@ -180,7 +180,7 @@ Notetakers:
 - If someone is late to a deadline, we will listen to their reason for missing the deadline.
   - If the reason is reasonable and one-off, no action will be taken.
   - If the reason is reasonable, but could be repeated, we will take team effort to avoid missing future deadlines due to this reason, or to reduce future negative consequences whenever this occurs.
-  - If a good reason is not given, they will be warned that such behavior is unacceptable and is not to be repeated. Simple explicit warning will encourage the person to uphold their future agreements (due to social dynamics). If this happens multiple times, the issue will eventually be addressed to the TA (to deal at a higher level than what we are capable of).
+  - If a good reason is not given, they will be warned that such behavior is unacceptable and is not to be repeated. Simple explicit warning will encourage the singleUser to uphold their future agreements (due to social dynamics). If this happens multiple times, the issue will eventually be addressed to the TA (to deal at a higher level than what we are capable of).
 
 ## Success factors: 
 ### What makes your team a dream team?

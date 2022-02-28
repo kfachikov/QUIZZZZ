@@ -13,24 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package server;
+package server.database;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import server.utils.RandomUtils;
+import commons.MultiUser;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Random;
-
-@Configuration
-public class Config {
-
-    @Bean
-    public Random getRandom() {
-        return new Random();
-    }
-
-    @Bean
-    public RandomUtils getRandomUtils() {
-        return new RandomUtils();
-    }
-}
+public interface MultiUserRepository extends JpaRepository<MultiUser, Long> {}
