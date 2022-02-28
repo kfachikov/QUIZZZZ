@@ -42,6 +42,7 @@ Attendees: Alexandra Darie, Kayra Bahadir, Marijn Luime, Florena Buse
 
 - Finish the final version of the **HCI report**.
 - Create **JavaDoc** for the code implemented last week.
+- Prepare the questions for the game and upload them in the 'activity-bank' repository on GitLab.
 - Resolve the issues assigned in the second sprint.
   - 'Multiplayer Gameplay' button
   - Add CSS stylesheet
