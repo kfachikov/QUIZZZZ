@@ -42,8 +42,8 @@ public class LobbyController {
         if (user == null || isNullOrEmpty((user.username))) {
             return ResponseEntity.badRequest().build();
         }
-        MultiUser deleted = repo.save(user);
         repo.delete(user);
+        MultiUser deleted = repo.save(user);
         return ResponseEntity.ok(deleted);
     }
 
