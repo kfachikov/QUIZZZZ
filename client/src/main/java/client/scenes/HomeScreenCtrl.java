@@ -64,9 +64,7 @@ public class HomeScreenCtrl {
         return new SingleUser(user, 0);
     }
 
-    /**
-     * sets title and scene to MultiLobby
-     */
+
     public void playMulti() {
         //mainCtrl.showMultiLobby();
     }
