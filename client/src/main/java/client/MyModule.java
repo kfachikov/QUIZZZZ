@@ -26,6 +26,10 @@ import client.scenes.HelpScreenCtrl;
 
 public class MyModule implements Module {
 
+    /**
+     * creates the binder user for injection
+     * @param binder is the Binder variable
+     */
     @Override
     public void configure(Binder binder) {
         binder.bind(MainCtrl.class).in(Scopes.SINGLETON);

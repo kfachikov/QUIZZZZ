@@ -33,6 +33,12 @@ public class MainCtrl {
     private HelpScreenCtrl helpCtrl;
     private Scene help;
 
+    /**
+     * @param primaryStage is the Stage representing the intial stage variable.
+     * @param home is the home screen pair variable
+     * @param help is the help screen pair variable
+     * @param prep is the prepare screen pair variable
+     */
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
                            Pair<HelpScreenCtrl, Parent> help,
@@ -62,6 +68,9 @@ public class MainCtrl {
     }
 
 
+    /**
+     * sets the title and the scene as prep
+     */
     public void showPrep() {
         primaryStage.setTitle("Quizzz: Prepare");
         primaryStage.setScene(prep);
