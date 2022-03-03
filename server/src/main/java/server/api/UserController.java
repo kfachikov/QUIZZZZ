@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.MultiUser;
 import commons.SingleUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,5 +35,14 @@ public class UserController {
 
     private static boolean isNullOrEmpty(String s) {
         return s == null || s.isEmpty();
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<SingleUser> deleteUser(@PathVariable("id") long id) {
+        if (id < 0 || !repo.existsById(id)) {
+            return ResponseEntity.badRequest().build();
+        }
+        repo.delete(repo.getById(id));
+        return ResponseEntity.ok(repo.getById(id));
     }
 }
