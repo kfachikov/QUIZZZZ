@@ -48,14 +48,14 @@
                 </DropShadow>
             </effect>
         </Text>
-        <TextField fx:id="username" alignment="TOP_CENTER" layoutX="220.0" layoutY="170.0" promptText="enter username" stylesheets="@../../Styling/GameStyle.css" />
-        <TextField fx:id="serverURL" alignment="TOP_CENTER" layoutX="220.0" layoutY="210.0" promptText="http://localhost:3000" stylesheets="@../../Styling/GameStyle.css" />
-        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="86.0" layoutY="273.0" mnemonicParsing="false" onAction="#playSolo" style="-fx-background-color: #c9f1fd; -fx-border-color: #006e8c; -fx-border-radius: 15; -fx-background-radius: 20; -fx-border-width: 5;" stylesheets="@../../Styling/GameStyle.css" text="SOLO" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
+        <TextField fx:id="username" alignment="TOP_CENTER" layoutX="220.0" layoutY="170.0" promptText="enter username" stylesheets="@../../styling/GameStyle.css" />
+        <TextField fx:id="serverURL" alignment="TOP_CENTER" layoutX="220.0" layoutY="210.0" promptText="http://localhost:3000" stylesheets="@../../styling/GameStyle.css" />
+        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="86.0" layoutY="273.0" mnemonicParsing="false" onAction="#playSolo" stylesheets="@../../styling/GameStyle.css" text="SOLO" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
             <font>
                 <Font name="Helvetica" size="34.0" />
             </font>
         </Button>
-        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="257.0" layoutY="273.0" mnemonicParsing="false" style="-fx-background-color: #c9f1fd; -fx-border-color: #006e8c; -fx-border-radius: 15; -fx-background-radius: 20; -fx-border-width: 5;" stylesheets="@../../Styling/GameStyle.css" text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
+        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="257.0" layoutY="273.0" mnemonicParsing="false" stylesheets="@../../styling/GameStyle.css" text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
             <font>
                 <Font name="Helvetica" size="34.0" />
             </font>

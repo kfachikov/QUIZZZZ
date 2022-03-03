@@ -37,11 +37,11 @@
             <BoxBlur />
             </effect>
         </Text>
-        <TextField alignment="TOP_CENTER" layoutX="220.0" layoutY="170.0" promptText="enter username" style="-fx-border-color: #006e8c#006e8c; -fx-border-width: 1; -fx-border-radius: 50; -fx-background-radius: 50;">
+        <TextField alignment="TOP_CENTER" layoutX="220.0" layoutY="170.0" promptText="enter username" stylesheets="@../../styling/GameStyle.css">
          <effect>
             <BoxBlur />
          </effect></TextField>
-        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="86.0" layoutY="273.0" mnemonicParsing="false" style="-fx-background-color: #c9f1fd; -fx-border-color: #006e8c; -fx-border-radius: 15; -fx-background-radius: 20; -fx-border-width: 5;" text="SOLO" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
+        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="86.0" layoutY="273.0" mnemonicParsing="false" stylesheets="@../../styling/GameStyle.css" text="SOLO" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
             <font>
                 <Font name="Helvetica" size="34.0" />
             </font>
@@ -49,7 +49,7 @@
             <BoxBlur />
          </effect>
         </Button>
-        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="257.0" layoutY="273.0" mnemonicParsing="false" style="-fx-background-color: #c9f1fd; -fx-border-color: #006e8c; -fx-border-radius: 15; -fx-background-radius: 20; -fx-border-width: 5;" text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
+        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="257.0" layoutY="273.0" mnemonicParsing="false" stylesheets="@../../styling/GameStyle.css" text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
             <font>
                 <Font name="Helvetica" size="34.0" />
             </font>
@@ -57,7 +57,7 @@
             <BoxBlur />
          </effect>
         </Button>
-        <TextField alignment="TOP_CENTER" layoutX="220.0" layoutY="210.0" promptText="http://localhost:3000" style="-fx-border-color: #006e8c#006e8c; -fx-border-width: 1; -fx-border-radius: 50; -fx-background-radius: 50;">
+        <TextField alignment="TOP_CENTER" layoutX="220.0" layoutY="210.0" promptText="http://localhost:3000" stylesheets="@../../styling/GameStyle.css">
          <effect>
             <BoxBlur />
          </effect></TextField>
