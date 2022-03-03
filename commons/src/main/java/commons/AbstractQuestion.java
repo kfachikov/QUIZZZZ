@@ -18,22 +18,17 @@ public abstract class AbstractQuestion {
     public String baseTitle;
     public String imageFilename;
     public long consumptionWh;
-    @Transient
-    private Object obj;
-
-    public Object getObj() {
-        return obj;
-    }
 
     @SuppressWarnings("unused")
     AbstractQuestion() {
-        // for object mapper
+        //for object mapper
     }
 
     /**
-     * @param baseTitle title for the activity
-     * @param imageFilename file name
-     * @param consumptionWh consuption in wh
+     * Constructor for the abstract question.
+     * @param baseTitle title for the activity.
+     * @param imageFilename file name.
+     * @param consumptionWh consumption in wh.
      */
     public AbstractQuestion(String baseTitle, String imageFilename, long consumptionWh) {
         this.baseTitle = baseTitle;
@@ -43,7 +38,6 @@ public abstract class AbstractQuestion {
 
     @Override
     public boolean equals(Object obj) {
-        this.obj = obj;
         return EqualsBuilder.reflectionEquals(this, obj);
     }
 
