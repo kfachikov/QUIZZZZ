@@ -15,7 +15,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class QuestionControllerTest {
 
     private RandomUtils randomUtils;
-    private TestQuestionRepository repo;
+    private MockQuestionRepository repo;
 
     private QuestionController ctrl;
 
@@ -24,7 +24,7 @@ public class QuestionControllerTest {
     @BeforeEach
     public void setup() {
         randomUtils = new RandomUtils();
-        repo = new TestQuestionRepository();
+        repo = new MockQuestionRepository();
         ctrl = new QuestionController(randomUtils, repo);
         nextId = 0;
     }
