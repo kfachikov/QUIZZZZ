@@ -37,6 +37,11 @@ public class LobbyController {
         return s == null || s.isEmpty();
     }
 
+
+    /**
+     * @param id is the id of the user.
+     * @return returns a ResponseEntity.
+     */
     @DeleteMapping("")
     public ResponseEntity<MultiUser> deleteUser(@PathVariable("id") long id) {
         if (id < 0 || !repo.existsById(id)) {

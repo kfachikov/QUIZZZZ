@@ -36,6 +36,10 @@ public class UserController {
         return s == null || s.isEmpty();
     }
 
+    /**
+     * @param id is the id of the user.
+     * @return returns a ResponseEntity.
+     */
     @DeleteMapping("")
     public ResponseEntity<SingleUser> deleteUser(@PathVariable("id") long id) {
         if (id < 0 || !repo.existsById(id)) {
