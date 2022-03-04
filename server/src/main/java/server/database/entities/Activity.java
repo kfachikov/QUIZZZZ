@@ -1,5 +1,7 @@
 package server.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,10 +15,10 @@ public class Activity {
     private String title;
     private String source;
 
-    @Column(name = "image_path")
+    @JsonProperty("image_path")
     private String image;
 
-    @Column(name = "consumption_in_wh")
+    @JsonProperty("consumption_in_wh")
     private Long consumption;
 
     /**
