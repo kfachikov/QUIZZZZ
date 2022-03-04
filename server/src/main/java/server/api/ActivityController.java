@@ -18,13 +18,22 @@ public class ActivityController {
         this.repo = repo;
     }
 
+    /**
+     * Lists all entries currently present in the repository.
+     * @return ResponseEntity consisting of a list of all activities.
+     */
     @GetMapping("")
     public ResponseEntity<List<Activity>> getAllActivities() {
         return new ResponseEntity<List<Activity>>(repo.findAll(), HttpStatus.OK);
     }
 
+    /**
+     * Add an Activity entry into the ActivityRepository if a valid one is passed.
+     * @param activity An activity to be added - requested in a APPLICATION_JSON format.
+     * @return Either a Bad Request or OK, depending on whether all fields of the entry are specified.
+     */
     @PostMapping("")
-    public ResponseEntity<Activity> add(@RequestBody Activity activity) {
+    public ResponseEntity<Activity> addActivity(@RequestBody Activity activity) {
         if (activity == null ||
                 isNullOrEmpty(activity.getId()) ||
                 isNullOrEmpty(activity.getTitle()) ||
@@ -36,6 +45,27 @@ public class ActivityController {
         return ResponseEntity.ok(saved);
     }
 
+    /**
+     * Delete an activity (only if present) from the repository.
+     * @param key Primary-key attribute to search by.
+     * @return ResponseEntity consisting of the deleted entry if present, or a Not Found error if not found.
+     */
+    @DeleteMapping("/key={key}")
+    public ResponseEntity<Activity> removeActivity(@PathVariable Long key) {
+        Activity removed = repo.findById(key).orElse(null);
+        if (removed != null) {
+            repo.delete(removed);
+            return ResponseEntity.ok(removed);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    /**
+     * Checks whether a String is null or empty.
+     * @param s String to be checked.
+     * @return Either true or false depending on whether the argument is a present one.
+     */
     private static boolean isNullOrEmpty(String s) {
         return s == null || s.isEmpty();
     }
