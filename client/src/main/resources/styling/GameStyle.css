@@ -11,6 +11,8 @@
     -fx-border-radius: 50;
     -fx-background-radius: 50;
 }
-
+#anchor {
+    -fx-background-color: a8c6fa;
+}
 
 
