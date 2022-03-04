@@ -28,5 +28,9 @@
     -fx-border-radius: 7;
     -fx-border-width: 3;
 }
-
-
+.text-area {
+    -fx-background-color: #006e8c#006e8c;
+    -fx-background-size: 5;
+    -fx-border-color: #006e8c#006e8c;
+    -fx-border-radius: 10;
+}
