@@ -21,10 +21,9 @@ public class HomeScreenCtrl {
     private TextField serverURL;
 
     /**
-     *
-     * @param server
-     * @param mainCtrl
-     * initializes HomeScreenCtrl by connecting it to backend and frontend mainCtrl.
+     *initializes HomeScreenCtrl by connecting it to backend and frontend mainCtrl.
+     * @param server is the server variable
+     * @param mainCtrl is the main controller varaiable
      */
     @Inject
     public HomeScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -39,6 +38,9 @@ public class HomeScreenCtrl {
         mainCtrl.showHelp();
     }
 
+    /**
+     * adds the user to the server and initialises the title and scene to Prepare.
+     */
     public void playSolo() {
         try {
             server.addUser(getUser());
@@ -54,11 +56,17 @@ public class HomeScreenCtrl {
         mainCtrl.showPrep();
     }
 
+    /**
+     * @return a new SingleUser object that contains its username and score.
+     */
     public SingleUser getUser() {
         String user = username.getText();
         return new SingleUser(user, 0);
     }
 
+    /**
+     * sets title and scene to MultiLobby
+     */
     public void playMulti() {
         //mainCtrl.showMultiLobby();
     }
