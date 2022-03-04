@@ -7,7 +7,7 @@ public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long row;
+    private Long key;
 
     private String id;
     private String title;
@@ -23,16 +23,16 @@ public class Activity {
      * Get the primary-key attribute of an entity.
      * @return The row attribute of a particular entry.
      */
-    public Long getRow() {
-        return row;
+    public Long getKey() {
+        return key;
     }
 
     /**
      * Sets row field - primary key in table.
-     * @param row Long value to be set as row attribute.
+     * @param key Long value to be set as row attribute.
      */
-    public void setRow(Long row) {
-        this.row = row;
+    public void setKey(Long key) {
+        this.key = key;
     }
 
     /**

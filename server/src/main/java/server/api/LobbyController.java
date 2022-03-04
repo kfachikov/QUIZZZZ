@@ -14,7 +14,6 @@ public class LobbyController {
 
     private final MultiUserRepository repo;
 
-
     public LobbyController(MultiUserRepository repo) {
         this.repo = repo;
     }
