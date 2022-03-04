@@ -17,7 +17,7 @@ public class Activity {
     private String image;
 
     @Column(name = "consumption_in_wh")
-    private String consumption;
+    private Long consumption;
 
     /**
      * Get the primary-key attribute of an entity.
@@ -103,7 +103,7 @@ public class Activity {
      * Get the consumption, stored in watt-hours of a particular activity.
      * @return The title attribute of a particular entry.
      */
-    public String getConsumption() {
+    public Long getConsumption() {
         return consumption;
     }
 
@@ -111,7 +111,7 @@ public class Activity {
      * Sets consumption field of an entry.
      * @param consumption String value to be set as a consumption attribute.
      */
-    public void setConsumption(String consumption) {
+    public void setConsumption(Long consumption) {
         this.consumption = consumption;
     }
 }
