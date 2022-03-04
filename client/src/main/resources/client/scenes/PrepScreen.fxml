@@ -14,10 +14,10 @@
          <font>
             <Font name="Helvetica" size="33.0" />
          </font></Button>
-      <TableView layoutX="184.0" layoutY="22.0" prefHeight="268.0" prefWidth="231.0" style="-fx-border-color: #006e8c; -fx-border-width: 5; -fx-border-radius: 7; -fx-background-radius: 20; -fx-background-color: #c9f1fd; -fx-font: Helvetica;">
+      <TableView layoutX="184.0" layoutY="22.0" prefHeight="268.0" prefWidth="231.0" stylesheets="@../../styling/GameStyle.css">
           <columns>
-          <TableColumn prefWidth="138.80003356933594" style="-fx-background-color: #c9f1fd; -fx-border-color: #006e8c; -fx-border-radius: 7; -fx-border-width: 3; " text="Username" />
-          <TableColumn prefWidth="79.0" style="-fx-background-color: #c9f1fd; -fx-border-color: #006e8c; -fx-border-radius: 7; -fx-border-width: 3;" text="Score" />
+          <TableColumn prefWidth="138.80003356933594" text="Username"/>
+          <TableColumn prefWidth="79.0" text="Score"/>
         </columns>
       </TableView>
    </children>

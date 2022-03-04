@@ -14,5 +14,19 @@
 #anchor {
     -fx-background-color: a8c6fa;
 }
+.table-view {
+    -fx-border-color: #006e8c;
+    -fx-border-width: 5;
+    -fx-border-radius: 7;
+    -fx-background-radius: 20;
+    -fx-background-color: #c9f1fd;
+    -fx-font: Helvetica;
+}
+.table-view .column-header {
+    -fx-background-color: #c9f1fd;
+    -fx-border-color: #006e8c;
+    -fx-border-radius: 7;
+    -fx-border-width: 3;
+}
 
 
