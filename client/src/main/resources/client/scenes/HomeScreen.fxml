@@ -51,12 +51,12 @@
         <TextField fx:id="serverURL" alignment="TOP_CENTER" layoutX="220.0" layoutY="210.0" promptText="http://localhost:3000" stylesheets="@../../styling/GameStyle.css" />
         <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="86.0" layoutY="273.0" mnemonicParsing="false" onAction="#playSolo" stylesheets="@../../styling/GameStyle.css" text="SOLO" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
             <font>
-                <Font name="Helvetica" size="34.0" />
+                <Font name="SansSerif Regular" size="34.0" />
             </font>
         </Button>
         <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="257.0" layoutY="273.0" mnemonicParsing="false" stylesheets="@../../styling/GameStyle.css" text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
             <font>
-                <Font name="Helvetica" size="34.0" />
+                <Font name="SansSerif Regular" size="34.0" />
             </font>
         </Button>
         <Text fill="#006e8a" layoutX="26.0" layoutY="384.0" onMouseClicked="#helpMe" stroke="#3cacc3" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="?" wrappingWidth="28.487804412841797">
