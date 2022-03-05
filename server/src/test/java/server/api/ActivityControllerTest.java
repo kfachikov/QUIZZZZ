@@ -78,4 +78,24 @@ class ActivityControllerTest {
         ctrl.addActivity(initialActivity);
         assertEquals(new ResponseEntity<>(Arrays.asList(initialActivity), OK), ctrl.getAllActivities());
     }
+
+    @Test
+    public void testAddActivityKey() {
+        ctrl.addActivity(initialActivity);
+        assertEquals(initialActivity, repo.getById(0L));
+    }
+
+    @Test
+    public void removeActivityNotPresent() {
+        ctrl.addActivity(initialActivity);
+        var result = ctrl.removeActivity(1L);
+        assertEquals(BAD_REQUEST, result.getStatusCode());
+    }
+
+    @Test
+    public void removeActivityPresent() {
+        ctrl.addActivity(initialActivity);
+        assertEquals(initialActivity, ctrl.removeActivity(0L).getBody());
+    }
+
 }

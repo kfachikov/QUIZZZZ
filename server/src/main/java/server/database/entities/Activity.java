@@ -3,6 +3,7 @@ package server.database.entities;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Activity {
@@ -123,5 +124,18 @@ public class Activity {
      */
     public void setConsumption(Long consumption) {
         this.consumption = consumption;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Activity activity = (Activity) o;
+        return Objects.equals(key, activity.key) && Objects.equals(id, activity.id) && Objects.equals(title, activity.title) && Objects.equals(source, activity.source) && Objects.equals(image, activity.image) && Objects.equals(consumption, activity.consumption);
+
     }
 }
