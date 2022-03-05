@@ -63,6 +63,38 @@ public class ActivityController {
     }
 
     /**
+     * Update an activity (only if present) in the repository.
+     * @param key Primary-key attribute to search by.
+     * @param activityDetails An activity with values as those to be updates as - requested in a APPLICATION_JSON format.
+     * @return ResponseEntity consisting of the updated entry if present, or a Not Found error if not found.
+     */
+    @PutMapping("/{key}")
+    public ResponseEntity<Activity> updateActivity(@PathVariable(value = "key") Long key,
+                                                   @RequestBody Activity activityDetails) {
+        Activity activity = repo.findById(key).orElse(null);
+        if (activity != null) {
+            activity.setId(activityDetails.getId());
+            activity.setTitle(activityDetails.getTitle());
+            activity.setSource(activityDetails.getSource());
+            activity.setImage(activityDetails.getImage());
+            activity.setConsumption(activityDetails.getConsumption());
+
+            if (isNullOrEmpty(activity.getId()) ||
+                    isNullOrEmpty(activity.getTitle()) ||
+                    isNullOrEmpty(activity.getSource()) ||
+                    isNullOrEmpty(activity.getImage()) ||
+                    activity.getConsumption() < 0) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            final Activity updatedActivity = repo.save(activity);
+            return ResponseEntity.ok(updatedActivity);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    /**
      * Checks whether a String is null or empty.
      * @param s String to be checked.
      * @return Either true or false depending on whether the argument is a present one.
