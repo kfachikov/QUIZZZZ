@@ -34,8 +34,8 @@ public class MyFXML {
     private final Injector injector;
 
     /**
-     * initializes the injector
-     * @param injector the injector vinstance
+     * initializes the injector.
+     * @param injector the injector instance
      */
     public MyFXML(Injector injector) {
         this.injector = injector;
@@ -60,7 +60,7 @@ public class MyFXML {
 
     /**
      * @param parts is a set of strings representing the parts of each class.
-     * @return  the URL pf the parts
+     * @return  the URL of the parts
      */
     private URL getLocation(String... parts) {
         var path = Path.of("", parts).toString();
