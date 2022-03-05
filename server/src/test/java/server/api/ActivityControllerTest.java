@@ -124,10 +124,10 @@ class ActivityControllerTest {
     }
 
     @Test
-    public void testUpdateActivityNotPresent() {
+    public void testUpdateActivityNotPresent(){
         Activity activity = createActivity("newId", "newTitle", "newSource", "newImage", 200L);
         var result = ctrl.updateActivity(initialActivity.getKey(), activity);
 
         assertEquals(BAD_REQUEST, result.getStatusCode());
-        }
+    }
 }
