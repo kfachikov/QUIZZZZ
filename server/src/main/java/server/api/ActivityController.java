@@ -38,7 +38,8 @@ public class ActivityController {
                 isNullOrEmpty(activity.getId()) ||
                 isNullOrEmpty(activity.getTitle()) ||
                 isNullOrEmpty(activity.getSource()) ||
-                isNullOrEmpty(activity.getImage())) {
+                isNullOrEmpty(activity.getImage()) ||
+                activity.getConsumption() < 0) {
             return ResponseEntity.badRequest().build();
         }
         Activity saved = repo.save(activity);

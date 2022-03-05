@@ -21,6 +21,14 @@ public class Activity {
     @JsonProperty("consumption_in_wh")
     private Long consumption;
 
+    public Activity(String id, String title, String source, String image, Long consumption) {
+        this.id = id;
+        this.title = title;
+        this.source = source;
+        this.image = image;
+        this.consumption = consumption;
+    }
+
     /**
      * Get the primary-key attribute of an entity.
      * @return The row attribute of a particular entry.
