@@ -20,12 +20,8 @@ import static com.google.inject.Guice.createInjector;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import client.scenes.PrepScreenCtrl;
+import client.scenes.*;
 import com.google.inject.Injector;
-
-import client.scenes.MainCtrl;
-import client.scenes.HomeScreenCtrl;
-import client.scenes.HelpScreenCtrl;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -45,9 +41,11 @@ public class Main extends Application {
         var home = FXML.load(HomeScreenCtrl.class, "client", "scenes", "HomeScreen.fxml");
         var prep = FXML.load(PrepScreenCtrl.class, "client", "scenes", "PrepScreen.fxml");
         var help = FXML.load(HelpScreenCtrl.class, "client", "scenes", "HelpScreen.fxml");
+        var soloGame = FXML.load(SoloGameQuestionScreenCtrl.class, "client",
+                "scenes", "SoloGameQuestionScreen.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
-        mainCtrl.initialize(primaryStage, home, help, prep);
+        mainCtrl.initialize(primaryStage, home, help, prep, soloGame);
     }
 }

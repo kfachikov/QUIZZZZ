@@ -15,14 +15,10 @@
  */
 package client;
 
-import client.scenes.PrepScreenCtrl;
+import client.scenes.*;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
-
-import client.scenes.MainCtrl;
-import client.scenes.HomeScreenCtrl;
-import client.scenes.HelpScreenCtrl;
 
 public class MyModule implements Module {
 
@@ -36,5 +32,6 @@ public class MyModule implements Module {
         binder.bind(HomeScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(PrepScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(HelpScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(SoloGameQuestionScreenCtrl.class).in(Scopes.SINGLETON);
     }
 }

@@ -25,4 +25,11 @@ public class PrepScreenCtrl {
     public void returnHome() {
         mainCtrl.showHome();
     }
+
+    /**
+     * sets the scene and title to single-player game.
+     */
+    public void playSoloGame() {
+        mainCtrl.showSoloGameQuestion();
+    }
 }

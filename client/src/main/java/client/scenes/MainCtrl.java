@@ -33,6 +33,9 @@ public class MainCtrl {
     private HelpScreenCtrl helpCtrl;
     private Scene help;
 
+    private SoloGameQuestionScreenCtrl soloGameCtrl;
+    private Scene soloGame;
+
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
      * @param home is the home screen pair variable
@@ -42,7 +45,8 @@ public class MainCtrl {
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
                            Pair<HelpScreenCtrl, Parent> help,
-                           Pair<PrepScreenCtrl, Parent> prep
+                           Pair<PrepScreenCtrl, Parent> prep,
+                           Pair<SoloGameQuestionScreenCtrl, Parent> soloGame
     ) {
 
         this.primaryStage = primaryStage;
@@ -54,6 +58,9 @@ public class MainCtrl {
         this.prep = new Scene(prep.getValue());
         this.helpCtrl = help.getKey();
         this.help = new Scene(help.getValue());
+
+        this.soloGameCtrl = soloGame.getKey();
+        this.soloGame = new Scene(soloGame.getValue());
 
         showHome();
         primaryStage.show();
@@ -82,5 +89,13 @@ public class MainCtrl {
     public void showHelp() {
         primaryStage.setTitle("Quizzz: Help");
         primaryStage.setScene(help);
+    }
+
+    /**
+     * sets the title and the scene as single-player game.
+     */
+    public void showSoloGameQuestion() {
+        primaryStage.setTitle("Quizzz: Single-player Game");
+        primaryStage.setScene(soloGame);
     }
 }
