@@ -24,6 +24,10 @@ class TestActivityRepository implements ActivityRepository {
         calledMethods.add(name);
     }
 
+    private Optional<Activity> find(Long id) {
+        return activities.stream().filter(q -> q.getKey() == id).findFirst();
+    }
+
     @Override
     public List<Activity> findAll() {
         calledMethods.add("findAll");
@@ -96,10 +100,6 @@ class TestActivityRepository implements ActivityRepository {
         return find(id).get();
     }
 
-    private Optional<Activity> find(Long id) {
-        return activities.stream().filter(q -> q.getKey() == id).findFirst();
-    }
-
     @Override
     public <S extends Activity> List<S> findAll(Example<S> example) {
         // TODO Auto-generated method stub
@@ -128,8 +128,7 @@ class TestActivityRepository implements ActivityRepository {
 
     @Override
     public Optional<Activity> findById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+        return find(id);
     }
 
     @Override

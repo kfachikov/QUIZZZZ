@@ -24,7 +24,7 @@ public class ActivityController {
      */
     @GetMapping("")
     public ResponseEntity<List<Activity>> getAllActivities() {
-        return new ResponseEntity<List<Activity>>(repo.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(repo.findAll(), HttpStatus.OK);
     }
 
     /**
@@ -53,14 +53,13 @@ public class ActivityController {
      */
     @DeleteMapping("/key={key}")
     public ResponseEntity<Activity> removeActivity(@PathVariable Long key) {
-        if (repo.existsById(key)) {
-            Activity removed = repo.getById(key);
+        Activity removed = repo.findById(key).orElse(null);
+        if (removed != null) {
             repo.delete(removed);
             return ResponseEntity.ok(removed);
         } else {
             return ResponseEntity.badRequest().build();
         }
-
     }
 
     /**
