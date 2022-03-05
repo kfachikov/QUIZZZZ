@@ -7,6 +7,7 @@ import server.database.ActivityRepository;
 import server.database.entities.Activity;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -74,12 +75,6 @@ class ActivityControllerTest {
     }
 
     @Test
-    public void testAddActivityStored() {
-        ctrl.addActivity(initialActivity);
-        assertEquals(new ResponseEntity<>(Arrays.asList(initialActivity), OK), ctrl.getAllActivities());
-    }
-
-    @Test
     public void testAddActivityKey() {
         ctrl.addActivity(initialActivity);
         assertEquals(initialActivity, repo.getById(0L));
@@ -96,6 +91,14 @@ class ActivityControllerTest {
     public void removeActivityPresent() {
         ctrl.addActivity(initialActivity);
         assertEquals(initialActivity, ctrl.removeActivity(0L).getBody());
+    }
+
+    @Test
+    public void testGetAllActivities() {
+        ctrl.addActivity(initialActivity);
+        Activity activity = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
+        ctrl.addActivity(activity);
+        assertEquals(new ResponseEntity<>(Arrays.asList(initialActivity, activity), OK), ctrl.getAllActivities());
     }
 
 }

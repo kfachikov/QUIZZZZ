@@ -53,13 +53,14 @@ public class ActivityController {
      */
     @DeleteMapping("/key={key}")
     public ResponseEntity<Activity> removeActivity(@PathVariable Long key) {
-        Activity removed = repo.getById(key);
-        if (removed != null) {
+        if (repo.existsById(key)) {
+            Activity removed = repo.getById(key);
             repo.delete(removed);
             return ResponseEntity.ok(removed);
         } else {
             return ResponseEntity.badRequest().build();
         }
+
     }
 
     /**
