@@ -3,6 +3,7 @@ package server.api;
 import commons.MultiUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +71,8 @@ class LobbyControllerTest {
 
     @Test
     public void testDelete() {
-        MultiUser user = new MultiUser("p" + nextId, 0);
-        MultiUser deleted = user;
-        assertEquals(deleted, userCtrl.deleteUser(nextId));
+        MultiUser user = new MultiUser("ok" + 0, 0);
+        MultiUser input = user;
+        assertEquals(ResponseEntity.ok(user), userCtrl.deleteUser(0));
     }
 }
