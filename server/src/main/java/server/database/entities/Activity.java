@@ -127,7 +127,11 @@ public class Activity {
             return false;
         }
         Activity activity = (Activity) o;
-        return Objects.equals(key, activity.key) && Objects.equals(id, activity.id) && Objects.equals(title, activity.title) && Objects.equals(source, activity.source) && Objects.equals(image, activity.image) && Objects.equals(consumption, activity.consumption);
-
+        return Objects.equals(key, activity.key) &&
+                Objects.equals(id, activity.id) &&
+                Objects.equals(title, activity.title) &&
+                Objects.equals(source, activity.source) &&
+                Objects.equals(image, activity.image) &&
+                Objects.equals(consumption, activity.consumption);
     }
 }
