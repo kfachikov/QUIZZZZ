@@ -40,10 +40,12 @@ public class Main extends Application {
         var home = FXML.load(HomeScreenCtrl.class, "client", "scenes", "HomeScreen.fxml");
         var prep = FXML.load(PrepScreenCtrl.class, "client", "scenes", "PrepScreen.fxml");
         var help = FXML.load(HelpScreenCtrl.class, "client", "scenes", "HelpScreen.fxml");
+        var soloGame = FXML.load(SoloGameQuestionScreenCtrl.class, "client",
+                "scenes", "SoloGameQuestionScreen.fxml");
         var queue = FXML.load(QueueScreenCtrl.class, "client", "scenes", "QueueScreen.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
-        mainCtrl.initialize(primaryStage, home, help, prep, queue);
+        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue);
     }
 }
