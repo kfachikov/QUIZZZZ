@@ -9,7 +9,7 @@ import server.database.entities.Activity;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/activity")
+@RequestMapping("/api/activities")
 public class ActivityController {
 
     private final ActivityRepository repo;
@@ -51,7 +51,7 @@ public class ActivityController {
      * @param key Primary-key attribute to search by.
      * @return ResponseEntity consisting of the deleted entry if present, or a Not Found error if not found.
      */
-    @DeleteMapping("/key={key}")
+    @DeleteMapping("/{key}")
     public ResponseEntity<Activity> removeActivity(@PathVariable Long key) {
         Activity removed = repo.findById(key).orElse(null);
         if (removed != null) {

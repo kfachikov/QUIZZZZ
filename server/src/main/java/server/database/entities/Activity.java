@@ -8,10 +8,17 @@ import java.util.Objects;
 @Entity
 public class Activity {
 
+    /**
+     * key field would be the primary key of our entities, as the JSON file we parse have key id which contains different information.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long key;
 
+    /**
+     * id field consists of information about the group that contributed it and the activity itself in the format "XX-{activity}".
+     * Examples: 00-shower, 01-driving
+     */
     private String id;
     private String title;
     private String source;
