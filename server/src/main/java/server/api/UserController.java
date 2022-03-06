@@ -13,7 +13,6 @@ public class UserController {
 
     private final UserRepository repo;
 
-
     public UserController(UserRepository repo) {
         this.repo = repo;
     }
@@ -23,6 +22,10 @@ public class UserController {
         return repo.findAll();
     }
 
+    /**
+     * @param user the user to be added to the SingleUser repository
+     * @return response
+     */
     @PostMapping("")
     public ResponseEntity<SingleUser> add(@RequestBody SingleUser user) {
         if (user == null || isNullOrEmpty(user.username)) {

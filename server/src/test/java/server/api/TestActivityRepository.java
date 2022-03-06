@@ -1,63 +1,53 @@
-/*
- * Copyright 2021 Delft University of Technology
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package server.api;
+
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery;
+import server.database.ActivityRepository;
+import server.database.entities.Activity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
+import static org.junit.jupiter.api.Assertions.*;
 
-import commons.SingleUser;
-import server.database.UserRepository;
+class TestActivityRepository implements ActivityRepository {
 
-public class TestUserRepository implements UserRepository {
-
-    public final List<SingleUser> singleUsers = new ArrayList<>();
+    public final List<Activity> activities = new ArrayList<>();
     public final List<String> calledMethods = new ArrayList<>();
 
     private void call(String name) {
         calledMethods.add(name);
     }
 
+    private Optional<Activity> find(Long id) {
+        return activities.stream().filter(q -> q.getKey() == id).findFirst();
+    }
+
     @Override
-    public List<SingleUser> findAll() {
+    public List<Activity> findAll() {
         calledMethods.add("findAll");
-        return singleUsers;
+        return activities;
     }
 
     @Override
-    public List<SingleUser> findAll(Sort sort) {
+    public List<Activity> findAll(Sort sort) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<SingleUser> findAllById(Iterable<Long> ids) {
+    public List<Activity> findAllById(Iterable<Long> ids) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public <S extends SingleUser> List<S> saveAll(Iterable<S> entities) {
+    public <S extends Activity> List<S> saveAll(Iterable<S> entities) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -69,19 +59,19 @@ public class TestUserRepository implements UserRepository {
     }
 
     @Override
-    public <S extends SingleUser> S saveAndFlush(S entity) {
+    public <S extends Activity> S saveAndFlush(S entity) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public <S extends SingleUser> List<S> saveAllAndFlush(Iterable<S> entities) {
+    public <S extends Activity> List<S> saveAllAndFlush(Iterable<S> entities) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void deleteAllInBatch(Iterable<SingleUser> entities) {
+    public void deleteAllInBatch(Iterable<Activity> entities) {
         // TODO Auto-generated method stub
 
     }
@@ -99,51 +89,46 @@ public class TestUserRepository implements UserRepository {
     }
 
     @Override
-    public SingleUser getOne(Long id) {
+    public Activity getOne(Long id) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public SingleUser getById(Long id) {
+    public Activity getById(Long id) {
         call("getById");
         return find(id).get();
     }
 
-    private Optional<SingleUser> find(Long id) {
-        return singleUsers.stream().filter(q -> q.id == id).findFirst();
-    }
-
     @Override
-    public <S extends SingleUser> List<S> findAll(Example<S> example) {
+    public <S extends Activity> List<S> findAll(Example<S> example) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public <S extends SingleUser> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends Activity> List<S> findAll(Example<S> example, Sort sort) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Page<SingleUser> findAll(Pageable pageable) {
+    public Page<Activity> findAll(Pageable pageable) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public <S extends SingleUser> S save(S entity) {
+    public <S extends Activity> S save(S entity) {
         call("save");
-        entity.id = (long) singleUsers.size();
-        singleUsers.add(entity);
+        entity.setKey((long) activities.size());
+        activities.add(entity);
         return entity;
     }
 
     @Override
-    public Optional<SingleUser> findById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+    public Optional<Activity> findById(Long id) {
+        return find(id);
     }
 
     @Override
@@ -154,7 +139,7 @@ public class TestUserRepository implements UserRepository {
 
     @Override
     public long count() {
-        return singleUsers.size();
+        return activities.size();
     }
 
     @Override
@@ -164,9 +149,8 @@ public class TestUserRepository implements UserRepository {
     }
 
     @Override
-    public void delete(SingleUser entity) {
+    public void delete(Activity entity) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -176,7 +160,7 @@ public class TestUserRepository implements UserRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends SingleUser> entities) {
+    public void deleteAll(Iterable<? extends Activity> entities) {
         // TODO Auto-generated method stub
 
     }
@@ -188,31 +172,31 @@ public class TestUserRepository implements UserRepository {
     }
 
     @Override
-    public <S extends SingleUser> Optional<S> findOne(Example<S> example) {
+    public <S extends Activity> Optional<S> findOne(Example<S> example) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public <S extends SingleUser> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends Activity> Page<S> findAll(Example<S> example, Pageable pageable) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public <S extends SingleUser> long count(Example<S> example) {
+    public <S extends Activity> long count(Example<S> example) {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public <S extends SingleUser> boolean exists(Example<S> example) {
+    public <S extends Activity> boolean exists(Example<S> example) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public <S extends SingleUser, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends Activity, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         // TODO Auto-generated method stub
         return null;
     }

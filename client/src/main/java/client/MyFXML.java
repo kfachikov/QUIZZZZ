@@ -31,12 +31,22 @@ import javafx.util.Pair;
 
 public class MyFXML {
 
-    private Injector injector;
+    private final Injector injector;
 
+    /**
+     * initializes the injector.
+     * @param injector the injector instance
+     */
     public MyFXML(Injector injector) {
         this.injector = injector;
     }
 
+    /**
+     * @param c class instance
+     * @param parts all parts of each class
+     * @param <T> type of the class
+     * @return new pair of controller and parent.
+     */
     public <T> Pair<T, Parent> load(Class<T> c, String... parts) {
         try {
             var loader = new FXMLLoader(getLocation(parts), null, null, new MyFactory(), StandardCharsets.UTF_8);
@@ -48,6 +58,10 @@ public class MyFXML {
         }
     }
 
+    /**
+     * @param parts is a set of strings representing the parts of each class.
+     * @return  the URL of the parts
+     */
     private URL getLocation(String... parts) {
         var path = Path.of("", parts).toString();
         return MyFXML.class.getClassLoader().getResource(path);
@@ -58,12 +72,7 @@ public class MyFXML {
         @Override
         @SuppressWarnings("rawtypes")
         public Builder<?> getBuilder(Class<?> type) {
-            return new Builder() {
-                @Override
-                public Object build() {
-                    return injector.getInstance(type);
-                }
-            };
+            return (Builder) () -> injector.getInstance(type);
         }
 
         @Override
