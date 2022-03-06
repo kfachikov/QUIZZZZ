@@ -72,6 +72,6 @@ class LobbyControllerTest {
     public void testDelete() {
         MultiUser user = new MultiUser("p" + nextId, 0);
         MultiUser deleted = user;
-        assertEquals(deleted, userCtrl.deleteUser(0));
+        assertEquals(deleted, userCtrl.deleteUser(nextId));
     }
 }
