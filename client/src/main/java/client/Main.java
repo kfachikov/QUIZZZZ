@@ -15,16 +15,15 @@
  */
 package client;
 
-import static com.google.inject.Guice.createInjector;
+import client.scenes.*;
+import com.google.inject.Injector;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import client.scenes.*;
-import com.google.inject.Injector;
-
-import javafx.application.Application;
-import javafx.stage.Stage;
+import static com.google.inject.Guice.createInjector;
 
 public class Main extends Application {
 
@@ -43,9 +42,10 @@ public class Main extends Application {
         var help = FXML.load(HelpScreenCtrl.class, "client", "scenes", "HelpScreen.fxml");
         var soloGame = FXML.load(SoloGameQuestionScreenCtrl.class, "client",
                 "scenes", "SoloGameQuestionScreen.fxml");
+        var queue = FXML.load(QueueScreenCtrl.class, "client", "scenes", "QueueScreen.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
-        mainCtrl.initialize(primaryStage, home, help, prep, soloGame);
+        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue);
     }
 }

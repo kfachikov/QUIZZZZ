@@ -15,13 +15,16 @@
  */
 package client.utils;
 
-import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
-
+import commons.MultiUser;
 import commons.SingleUser;
-import org.glassfish.jersey.client.ClientConfig;
-
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.GenericType;
+import org.glassfish.jersey.client.ClientConfig;
+
+import java.util.List;
+
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
 
@@ -33,5 +36,33 @@ public class ServerUtils {
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(user, APPLICATION_JSON), SingleUser.class);
+    }
+
+    public List<MultiUser> getQueueUsers() {
+        GenericType<List<MultiUser>> genericType = new GenericType<List<MultiUser>>() {
+        };
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("/api/lobby")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(genericType);
+    }
+
+    public MultiUser addQueueUser(MultiUser user) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("/api/lobby")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(user, APPLICATION_JSON), MultiUser.class);
+    }
+
+    public MultiUser deleteQueueUser(MultiUser user) {
+        long id = user.id;
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER)
+                .path("/api/lobby/" + String.valueOf(id))
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .delete(MultiUser.class);
     }
 }

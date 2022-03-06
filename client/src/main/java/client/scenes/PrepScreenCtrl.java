@@ -10,7 +10,8 @@ public class PrepScreenCtrl {
 
     /**
      * initializes PrepScreenCtrl by connecting it to backend and frontend mainCtrl.
-     * @param server is the server variable
+     *
+     * @param server   is the server variable
      * @param mainCtrl is the main controller variable
      */
     @Inject

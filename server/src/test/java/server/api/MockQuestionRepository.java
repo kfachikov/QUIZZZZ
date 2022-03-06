@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class TestQuestionRepository implements QuestionRepository {
+public class MockQuestionRepository implements QuestionRepository {
 
     public final List<AbstractQuestion> questions = new ArrayList<>();
     public final List<String> calledMethods = new ArrayList<>();

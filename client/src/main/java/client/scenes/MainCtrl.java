@@ -15,6 +15,7 @@
  */
 package client.scenes;
 
+import commons.MultiUser;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -32,32 +33,37 @@ public class MainCtrl {
 
     private HelpScreenCtrl helpCtrl;
     private Scene help;
+    private QueueScreenCtrl queueCtrl;
+    private Scene queue;
 
     private SoloGameQuestionScreenCtrl soloGameCtrl;
     private Scene soloGame;
 
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
-     * @param home is the home screen pair variable
-     * @param help is the help screen pair variable
-     * @param prep is the prepare screen pair variable
+     * @param home         is the home screen pair variable
+     * @param help         is the help screen pair variable
+     * @param prep         is the prepare screen pair variable
      */
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
                            Pair<HelpScreenCtrl, Parent> help,
                            Pair<PrepScreenCtrl, Parent> prep,
-                           Pair<SoloGameQuestionScreenCtrl, Parent> soloGame
+                           Pair<SoloGameQuestionScreenCtrl, Parent> soloGame,
+                           Pair<QueueScreenCtrl, Parent> queue
+
     ) {
 
         this.primaryStage = primaryStage;
 
         this.homeCtrl = home.getKey();
         this.home = new Scene(home.getValue());
-
         this.prepCtrl = prep.getKey();
         this.prep = new Scene(prep.getValue());
         this.helpCtrl = help.getKey();
         this.help = new Scene(help.getValue());
+        this.queueCtrl = queue.getKey();
+        this.queue = new Scene(queue.getValue());
 
         this.soloGameCtrl = soloGame.getKey();
         this.soloGame = new Scene(soloGame.getValue());
@@ -73,7 +79,6 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz: Home");
         primaryStage.setScene(home);
     }
-
 
     /**
      * sets the title and the scene as prep.
@@ -97,5 +102,19 @@ public class MainCtrl {
     public void showSoloGameQuestion() {
         primaryStage.setTitle("Quizzz: Single-player Game");
         primaryStage.setScene(soloGame);
+    }
+
+    /**
+     * Sets the current scene to the queue screen, starts the queue polling
+     * service and initializes the queue scene controller with
+     * the MultiUser instance of the person joining the queue.
+     *
+     * @param user MultiUser which is joining the queue
+     */
+    public void showQueue(MultiUser user) {
+        primaryStage.setTitle("Quizzz: Queue");
+        primaryStage.setScene(queue);
+        queueCtrl.getPollingService().start();
+        queueCtrl.setUser(user);
     }
 }
