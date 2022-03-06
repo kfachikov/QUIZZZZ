@@ -112,14 +112,42 @@ class ActivityControllerTest {
     }
 
     @Test
-    public void testUpdateActivityPresent() {
+    public void testUpdateActivityId() {
         ctrl.addActivity(initialActivity);
-        Activity activity = createActivity("newId", "newTitle", "newSource", "newImage", 200L);
+        Activity activity = createActivity("newId", "title", "source", "image", 100L);
 
         assertEquals(activity.getId(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getId());
+        }
+
+    @Test
+    public void testUpdateActivityTitle() {
+        ctrl.addActivity(initialActivity);
+        Activity activity = createActivity("id", "newTitle", "source", "image", 100L);
+
         assertEquals(activity.getTitle(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getTitle());
+        }
+
+    @Test
+    public void testUpdateActivitySource() {
+        ctrl.addActivity(initialActivity);
+        Activity activity = createActivity("id", "title", "newSource", "image", 100L);
+
         assertEquals(activity.getSource(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getSource());
+        }
+
+    @Test
+    public void testUpdateActivityImage() {
+        ctrl.addActivity(initialActivity);
+        Activity activity = createActivity("id", "title", "source", "newImage", 100L);
+
         assertEquals(activity.getImage(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getImage());
+        }
+
+    @Test
+    public void testUpdateActivityConsumption() {
+        ctrl.addActivity(initialActivity);
+        Activity activity = createActivity("id", "title", "source", "image", 101L);
+
         assertEquals(activity.getConsumption(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getConsumption());
     }
 
