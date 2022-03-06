@@ -4,15 +4,56 @@ import commons.SingleUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
 class UserControllerTest {
 
     private MockUserRepository repo;
     private UserController userCtrl;
 
+    private int nextId;
+
     @BeforeEach
     public void setup() {
         repo = new MockUserRepository();
         userCtrl = new UserController(repo);
+        nextId = 0;
+    }
+
+    private void addMockUsers() {
+        List<SingleUser> mockUser = new ArrayList<>();
+        for (long i = 0; i < 3; i++) {
+            mockUser.add(
+                    new SingleUser("p" + nextId, 0)
+            );
+            mockUser.get((int) i).id = nextId++;
+        }
+        repo.singleUsers.addAll(mockUser);
+    }
+
+    @Test
+    public void testGetAllUsers() {
+        addMockUsers();
+        var result = userCtrl.getAllUsers();
+        assertEquals(List.of("findAll"), repo.calledMethods);
+
+        for(int i = 0; i < result.size(); i++) {
+            SingleUser pers = result.get(i);
+            String id = String.valueOf(i);
+            SingleUser expected = new SingleUser("p" + id, 0);
+            expected.id = i;
+            assertEquals(expected, pers);
+        }
+    }
+
+    @Test
+    public void cannotAddNullPlayer() {
+        var actual = userCtrl.add(getUser(null));
+        assertEquals(BAD_REQUEST, actual.getStatusCode());
     }
 
     @Test
