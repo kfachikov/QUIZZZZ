@@ -1,7 +1,7 @@
 package client.scenes;
 
-import com.google.inject.Inject;
 import client.utils.ServerUtils;
+import com.google.inject.Inject;
 import commons.MultiUser;
 import commons.SingleUser;
 import jakarta.ws.rs.WebApplicationException;
@@ -22,8 +22,9 @@ public class HomeScreenCtrl {
     private TextField serverURL;
 
     /**
-     *initializes HomeScreenCtrl by connecting it to backend and frontend mainCtrl.
-     * @param server is the server variable
+     * initializes HomeScreenCtrl by connecting it to backend and frontend mainCtrl.
+     *
+     * @param server   is the server variable
      * @param mainCtrl is the main controller varaiable
      */
     @Inject
@@ -65,12 +66,20 @@ public class HomeScreenCtrl {
         return new SingleUser(user, 0);
     }
 
+    /**
+     * Creates a new MultiUser instance, using the username in the usernameField.
+     * @return a new MultiUser instance
+     */
     public MultiUser getMultiUser() {
         String user = usernameField.getText();
         return new MultiUser(user, -9999);
     }
 
 
+    /**
+     * Sends a POST request to the server, adding the user to the queue,
+     * and then switches the scene to the queue.
+     */
     public void playMulti() {
         MultiUser user = getMultiUser();
         try {

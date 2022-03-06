@@ -15,18 +15,16 @@
  */
 package client.utils;
 
-import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
-
 import commons.MultiUser;
 import commons.SingleUser;
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import org.glassfish.jersey.client.ClientConfig;
-
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.GenericType;
+import org.glassfish.jersey.client.ClientConfig;
 
 import java.util.List;
+
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
 
@@ -41,7 +39,8 @@ public class ServerUtils {
     }
 
     public List<MultiUser> getQueueUsers() {
-        GenericType<List<MultiUser>> genericType = new GenericType<List<MultiUser>>() {};
+        GenericType<List<MultiUser>> genericType = new GenericType<List<MultiUser>>() {
+        };
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("/api/lobby")
                 .request(APPLICATION_JSON)

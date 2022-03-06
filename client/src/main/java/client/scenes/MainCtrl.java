@@ -16,7 +16,6 @@
 package client.scenes;
 
 import commons.MultiUser;
-import javafx.beans.property.StringProperty;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -34,15 +33,14 @@ public class MainCtrl {
 
     private HelpScreenCtrl helpCtrl;
     private Scene help;
-
     private QueueScreenCtrl queueCtrl;
     private Scene queue;
 
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
-     * @param home is the home screen pair variable
-     * @param help is the help screen pair variable
-     * @param prep is the prepare screen pair variable
+     * @param home         is the home screen pair variable
+     * @param help         is the help screen pair variable
+     * @param prep         is the prepare screen pair variable
      */
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
@@ -90,11 +88,18 @@ public class MainCtrl {
         primaryStage.setScene(help);
     }
 
+    /**
+     * Sets the current scene to the queue screen, starts the queue polling
+     * service, binds the polling results to the queue label (showing the number
+     * of players in the queue) and initializes the queue scene controller with
+     * the MultiUser instance of the person joining the queue.
+     * @param user MultiUser which is joining the queue
+     */
     public void showQueue(MultiUser user) {
         primaryStage.setTitle("Quizzz: Queue");
         primaryStage.setScene(queue);
         queueCtrl.getPollingService().start();
-        queueCtrl.bindQueueLabel();
+        //queueCtrl.bindQueueLabel();
         queueCtrl.setUser(user);
     }
 }

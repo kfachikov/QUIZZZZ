@@ -24,6 +24,13 @@ public class QueueScreenCtrl {
     @FXML
     private Label queueLabel;
 
+    /**
+     * Constructor for queue screen controller.
+     *
+     * @param server         Server utilities
+     * @param mainCtrl       Main controller
+     * @param pollingService Queue polling service
+     */
     @Inject
     public QueueScreenCtrl(ServerUtils server, MainCtrl mainCtrl, QueuePollingService pollingService) {
         this.server = server;
@@ -44,11 +51,30 @@ public class QueueScreenCtrl {
         mainCtrl.showHome();
     }
 
+    /**
+     * Getter for the queue polling service.
+     *
+     * @return Queue polling service
+     */
     public QueuePollingService getPollingService() {
         return pollingService;
     }
 
-    public void bindQueueLabel() {
+    /**
+     * Initializes the queue screen controller by binding the queue label to the
+     * results of the polling service.
+     * <p>
+     * The queue polling service will repeatedly poll the server, and update its
+     * own value.
+     * When such update occurs, any attached event listeners are called.
+     * This method attaches such an event listener to the value of the polling
+     * service. Thus, whenever the polling service updates its value, this event
+     * listener is called.
+     * <p>
+     * The actual callback of the event listener simply sets the queue label to
+     * the appropriate value.
+     */
+    public void initialize() {
         pollingService.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 queueLabel.textProperty().set("Queue: " + newValue.size() + " players");
@@ -56,10 +82,20 @@ public class QueueScreenCtrl {
         });
     }
 
+    /**
+     * Getter for the MultiUser instance (of this client) inside the queue.
+     *
+     * @return MultiUser instance inside the queue
+     */
     public MultiUser getUser() {
         return user;
     }
 
+    /**
+     * Setter for the MultiUser instance (for this client) inside the queue.
+     *
+     * @param user MultiUser that just joined the queue
+     */
     public void setUser(MultiUser user) {
         this.user = user;
     }
