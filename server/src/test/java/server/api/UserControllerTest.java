@@ -59,7 +59,7 @@ class UserControllerTest {
     @Test
     public void databaseIsUsed() {
         userCtrl.add(getUser("username"));
-        repo.calledMethods.contains("save");
+        assertEquals(List.of("save"), repo.calledMethods);
     }
 
     private static SingleUser getUser(String username) {
