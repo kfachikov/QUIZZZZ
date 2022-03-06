@@ -23,6 +23,22 @@ public class Activity {
     private Long consumption;
 
     /**
+     * Constructs an Activity object.
+     * @param id
+     * @param title
+     * @param source
+     * @param image
+     * @param consumption
+     */
+    public Activity(String id, String title, String source, String image, Long consumption) {
+        this.id = id;
+        this.title = title;
+        this.source = source;
+        this.image = image;
+        this.consumption = consumption;
+    }
+
+    /**
      * Get the primary-key attribute of an entity.
      * @return The row attribute of a particular entry.
      */
