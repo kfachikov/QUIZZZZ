@@ -16,9 +16,11 @@ public class SinglePlayer {
     public long id;
 
     public String username;
+    public int score;
 
-    public SinglePlayer(String username) {
+    public SinglePlayer(String username, int score) {
         this.username = username;
+        this.score = score;
     }
 
     @Override
