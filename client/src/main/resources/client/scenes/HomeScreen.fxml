@@ -1,94 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.*?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: a8c6fa;"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="client.scenes.HomeScreenCtrl">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
+<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeScreenCtrl">
     <children>
-        <Text fill="#006e8a" layoutX="117.0" layoutY="127.0" stroke="#3cacc3" strokeLineJoin="ROUND"
-              strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="QUIZ">
+        <Text fill="#006e8a" layoutX="117.0" layoutY="127.0" stroke="#3cacc3" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="QUIZ">
             <font>
-                <Font name="AppleMyungjo Regular" size="96.0"/>
+                <Font name="AppleMyungjo Regular" size="96.0" />
             </font>
             <effect>
                 <DropShadow height="23.97" offsetX="4.0" offsetY="4.0" radius="15.19" width="38.79">
                     <color>
-                        <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0"/>
+                        <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0" />
                     </color>
                 </DropShadow>
             </effect>
         </Text>
-        <Text fill="#006e8a" layoutX="376.0" layoutY="113.0" rotate="-151.4" stroke="#3cacc3" strokeLineJoin="ROUND"
-              strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="Z">
+        <Text fill="#006e8a" layoutX="376.0" layoutY="113.0" rotate="-151.4" stroke="#3cacc3" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="Z">
             <font>
-                <Font name="AppleMyungjo Regular" size="70.0"/>
+                <Font name="AppleMyungjo Regular" size="70.0" />
             </font>
             <effect>
                 <DropShadow height="23.97" offsetX="4.0" offsetY="4.0" radius="15.19" width="38.79">
                     <color>
-                        <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0"/>
+                        <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0" />
                     </color>
                 </DropShadow>
             </effect>
         </Text>
-        <Text fill="#006e8a" layoutX="433.0" layoutY="107.0" rotate="-151.4" stroke="#3cacc3" strokeLineJoin="ROUND"
-              strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="Z">
+        <Text fill="#006e8a" layoutX="433.0" layoutY="107.0" rotate="-151.4" stroke="#3cacc3" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="Z">
             <font>
-                <Font name="AppleMyungjo Regular" size="50.0"/>
+                <Font name="AppleMyungjo Regular" size="50.0" />
             </font>
             <effect>
                 <DropShadow height="23.97" offsetX="4.0" offsetY="4.0" radius="15.19" width="38.79">
                     <color>
-                        <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0"/>
+                        <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0" />
                     </color>
                 </DropShadow>
             </effect>
         </Text>
-        <TextField fx:id="username" alignment="TOP_CENTER" layoutX="220.0" layoutY="170.0" promptText="enter username"
-                   style="-fx-border-color: #006e8c#006e8c; -fx-border-width: 1; -fx-border-radius: 50; -fx-background-radius: 50;"/>
-        <TextField fx:id="serverURL" alignment="TOP_CENTER" layoutX="220.0" layoutY="210.0"
-                   promptText="http://localhost:3000"
-                   style="-fx-border-color: #006e8c#006e8c; -fx-border-width: 1; -fx-border-radius: 50; -fx-background-radius: 50;"/>
-        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="86.0" layoutY="273.0"
-                mnemonicParsing="false" onAction="#playSolo"
-                style="-fx-background-color: #c9f1fd; -fx-border-color: #006e8c; -fx-border-radius: 15; -fx-background-radius: 20; -fx-border-width: 5;"
-                text="SOLO" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
+        <TextField fx:id="usernameField" alignment="TOP_CENTER" layoutX="220.0" layoutY="170.0" promptText="enter username" stylesheets="@../../styling/GameStyle.css" />
+        <TextField fx:id="serverURL" alignment="TOP_CENTER" layoutX="220.0" layoutY="210.0" promptText="http://localhost:3000" stylesheets="@../../styling/GameStyle.css" />
+        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="86.0" layoutY="273.0" mnemonicParsing="false" onAction="#playSolo" stylesheets="@../../styling/GameStyle.css" text="SOLO" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
             <font>
-                <Font name="Helvetica" size="34.0"/>
+                <Font name="SansSerif Regular" size="34.0" />
             </font>
         </Button>
-        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="257.0" layoutY="273.0"
-                mnemonicParsing="false"
-                style="-fx-background-color: #c9f1fd; -fx-border-color: #006e8c; -fx-border-radius: 15; -fx-background-radius: 20; -fx-border-width: 5;"
-                text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
+        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="257.0" layoutY="273.0" mnemonicParsing="false" onAction="#playMulti" stylesheets="@../../styling/GameStyle.css" text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
             <font>
-                <Font name="Helvetica" size="34.0"/>
+                <Font name="SansSerif Regular" size="34.0" />
             </font>
         </Button>
-        <TextField alignment="TOP_CENTER" layoutX="220.0" layoutY="210.0" promptText="http://localhost:3000"
-                   style="-fx-border-color: #006e8c#006e8c; -fx-border-width: 1; -fx-border-radius: 50; -fx-background-radius: 50;"/>
-        <Text fill="#006e8a" layoutX="26.0" layoutY="384.0" onMouseClicked="#helpMe" stroke="#3cacc3"
-              strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="?"
-              wrappingWidth="28.487804412841797">
+        <Text fill="#006e8a" layoutX="26.0" layoutY="384.0" onMouseClicked="#helpMe" stroke="#3cacc3" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="?" wrappingWidth="28.487804412841797">
             <font>
-                <Font name="AppleMyungjo Regular" size="50.0"/>
+                <Font name="AppleMyungjo Regular" size="50.0" />
             </font>
             <effect>
                 <DropShadow height="23.97" offsetX="4.0" offsetY="4.0" radius="15.19" width="38.79">
                     <color>
-                        <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0"/>
+                        <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0" />
                     </color>
                 </DropShadow>
             </effect>
         </Text>
     </children>
     <effect>
-        <ColorAdjust/>
+        <ColorAdjust />
     </effect>
 </AnchorPane>

@@ -14,7 +14,6 @@ public class LobbyController {
 
     private final MultiUserRepository repo;
 
-
     public LobbyController(MultiUserRepository repo) {
         this.repo = repo;
     }
@@ -24,6 +23,10 @@ public class LobbyController {
         return repo.findAll();
     }
 
+    /**
+     * @param user the user to be added to the MultiUser repository
+     * @return response
+     */
     @PostMapping("")
     public ResponseEntity<MultiUser> add(@RequestBody MultiUser user) {
         if (user == null || isNullOrEmpty(user.username)) {

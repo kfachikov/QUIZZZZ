@@ -9,31 +9,18 @@ import javax.persistence.*;
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
 @Entity
-public abstract class AbstractQuestion {
-
+public class SinglePlayer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     public long id;
 
-    public String baseTitle;
-    public String imageFilename;
-    public long consumptionWh;
+    public String username;
+    public int score;
 
-    @SuppressWarnings("unused")
-    AbstractQuestion() {
-        //for object mapper
-    }
-
-    /**
-     * Constructor for the abstract question.
-     * @param baseTitle title for the activity.
-     * @param imageFilename file name.
-     * @param consumptionWh consumption in wh.
-     */
-    public AbstractQuestion(String baseTitle, String imageFilename, long consumptionWh) {
-        this.baseTitle = baseTitle;
-        this.imageFilename = imageFilename;
-        this.consumptionWh = consumptionWh;
+    public SinglePlayer(String username, int score) {
+        this.username = username;
+        this.score = score;
     }
 
     @Override
@@ -50,5 +37,5 @@ public abstract class AbstractQuestion {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
     }
-}
 
+}

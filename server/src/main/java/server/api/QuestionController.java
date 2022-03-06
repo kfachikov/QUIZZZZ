@@ -24,6 +24,10 @@ public class QuestionController {
         this.randomUtils = randomUtils;
     }
 
+    /**
+     * @param id the question id
+     * @return response
+     */
     @GetMapping("/id/{id}")
     public ResponseEntity<AbstractQuestion> getById(@PathVariable("id") long id) {
         if (id < 0 || !repo.existsById(id)) {
@@ -33,6 +37,11 @@ public class QuestionController {
         }
     }
 
+    /**
+     * @param gameId the game id
+     * @param questionNo the question number
+     * @return response
+     */
     @GetMapping("/game/{gameId}/{questionNo}")
     public ResponseEntity<AbstractQuestion> getByGameRound(
             @PathVariable("gameId") long gameId,
