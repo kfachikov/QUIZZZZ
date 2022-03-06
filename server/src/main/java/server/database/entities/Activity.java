@@ -22,6 +22,11 @@ public class Activity {
     @JsonProperty("consumption_in_wh")
     private Long consumption;
 
+    @SuppressWarnings("unused")
+    public Activity() {
+        // for object mapper
+    }
+
     /**
      * Constructs an Activity object.
      * @param id
