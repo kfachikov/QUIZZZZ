@@ -44,7 +44,7 @@ public class HomeScreenCtrl {
      */
     public void playSolo() {
         try {
-            server.addUser(getUser());
+            server.addUser(getSingleUser());
         } catch (WebApplicationException e) {
 
             var alert = new Alert(Alert.AlertType.ERROR);
@@ -60,18 +60,22 @@ public class HomeScreenCtrl {
     /**
      * @return a new SingleUser object that contains its username and score.
      */
-    public SingleUser getUser() {
+    public SingleUser getSingleUser() {
         String user = usernameField.getText();
         return new SingleUser(user, 0);
     }
 
+    public MultiUser getMultiUser() {
+        String user = usernameField.getText();
+        return new MultiUser(user, -9999);
+    }
+
 
     public void playMulti() {
-        String username = usernameField.getText();
-        MultiUser user = new MultiUser(username, -9999);
+        MultiUser user = getMultiUser();
         try {
             server.addQueueUser(user);
-            mainCtrl.showQueue();
+            mainCtrl.showQueue(user);
         } catch (WebApplicationException e) {
             var alert = new Alert(Alert.AlertType.ERROR);
             alert.initModality(Modality.APPLICATION_MODAL);

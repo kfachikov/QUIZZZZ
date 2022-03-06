@@ -1,19 +1,15 @@
 package client.scenes;
 
-import client.utils.QueuePollingService;
+import client.services.QueuePollingService;
 import client.utils.ServerUtils;
 import commons.MultiUser;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import jakarta.ws.rs.NotFoundException;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 import javax.inject.Inject;
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class QueueScreenCtrl {
 
@@ -22,6 +18,8 @@ public class QueueScreenCtrl {
     private final QueuePollingService pollingService;
 
     private Task<List<MultiUser>> pollingTask;
+
+    private MultiUser user;
 
     @FXML
     private Label queueLabel;
@@ -38,6 +36,11 @@ public class QueueScreenCtrl {
      */
     public void returnHome() {
         pollingService.cancel();
+        pollingService.reset();
+        try {
+            server.deleteQueueUser(user);
+        } catch (NotFoundException ignored) {
+        }
         mainCtrl.showHome();
     }
 
@@ -51,5 +54,13 @@ public class QueueScreenCtrl {
                 queueLabel.textProperty().set("Queue: " + newValue.size() + " players");
             }
         });
+    }
+
+    public MultiUser getUser() {
+        return user;
+    }
+
+    public void setUser(MultiUser user) {
+        this.user = user;
     }
 }

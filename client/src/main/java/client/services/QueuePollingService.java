@@ -1,5 +1,6 @@
-package client.utils;
+package client.services;
 
+import client.utils.ServerUtils;
 import commons.MultiUser;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;

@@ -15,6 +15,8 @@
  */
 package client.scenes;
 
+import commons.MultiUser;
+import javafx.beans.property.StringProperty;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -88,11 +90,11 @@ public class MainCtrl {
         primaryStage.setScene(help);
     }
 
-    public void showQueue() {
+    public void showQueue(MultiUser user) {
         primaryStage.setTitle("Quizzz: Queue");
         primaryStage.setScene(queue);
-        queueCtrl.getPollingService().reset();
         queueCtrl.getPollingService().start();
         queueCtrl.bindQueueLabel();
+        queueCtrl.setUser(user);
     }
 }
