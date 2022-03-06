@@ -24,7 +24,7 @@ class LobbyControllerTest {
         nextId = 0;
     }
 
-    private void addMockUsers() {
+    private List<MultiUser> addMockUsers() {
         List<MultiUser> mockUser = new ArrayList<>();
         for (long i = 0; i < 3; i++) {
             mockUser.add(
@@ -33,21 +33,21 @@ class LobbyControllerTest {
             mockUser.get((int) i).id = nextId++;
         }
         repo.multiUsers.addAll(mockUser);
+        return mockUser;
     }
 
     @Test
     public void testGetAllUsers() {
-        addMockUsers();
+        var expected = addMockUsers();
         var result = userCtrl.getAllUsers();
-        assertEquals(List.of("findAll"), repo.calledMethods);
+        assertEquals(expected, result);
+    }
 
-        for (int i = 0; i < result.size(); i++) {
-            MultiUser pers = result.get(i);
-            String id = String.valueOf(i);
-            MultiUser expected = new MultiUser("p" + id, 0);
-            expected.id = i;
-            assertEquals(expected, pers);
-        }
+    @Test
+    public void testMethodCall() {
+        addMockUsers();
+        userCtrl.getAllUsers();
+        assertEquals(List.of("findAll"), repo.calledMethods);
     }
 
     @Test
