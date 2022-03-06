@@ -73,6 +73,6 @@ class LobbyControllerTest {
     public void testDelete() {
         MultiUser user = new MultiUser("ok" + 0, 0);
         MultiUser input = user;
-        assertEquals(ResponseEntity.ok(user), userCtrl.deleteUser(0));
+        assertEquals(user, userCtrl.deleteUser(0).getBody());
     }
 }
