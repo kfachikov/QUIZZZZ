@@ -18,7 +18,7 @@
                 <Font name="SansSerif Regular" size="33.0" />
             </font>
         </Button>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="74.0" layoutY="14.0" prefHeight="73.0" prefWidth="463.0" text="Queue: 5 players">
+      <Label fx:id="queueLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="74.0" layoutY="14.0" prefHeight="73.0" prefWidth="463.0" text="Queue: 5 players">
          <font>
             <Font size="30.0" />
          </font>

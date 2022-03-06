@@ -40,7 +40,7 @@ public class ServerUtils {
                 .post(Entity.entity(user, APPLICATION_JSON), SingleUser.class);
     }
 
-    public List<MultiUser> getUsers() {
+    public List<MultiUser> getQueueUsers() {
         Response response = ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("/api/lobby")
                 .request(APPLICATION_JSON)

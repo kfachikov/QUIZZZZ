@@ -20,8 +20,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-import java.util.Queue;
-
 public class MainCtrl {
 
     private Stage primaryStage;
@@ -74,7 +72,6 @@ public class MainCtrl {
         primaryStage.setScene(home);
     }
 
-
     /**
      * sets the title and the scene as prep.
      */
@@ -94,5 +91,8 @@ public class MainCtrl {
     public void showQueue() {
         primaryStage.setTitle("Quizzz: Queue");
         primaryStage.setScene(queue);
+        queueCtrl.getPollingService().reset();
+        queueCtrl.getPollingService().start();
+        queueCtrl.bindQueueLabel();
     }
 }
