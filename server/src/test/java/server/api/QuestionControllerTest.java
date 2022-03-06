@@ -51,6 +51,7 @@ public class QuestionControllerTest {
     public void testGetById0() {
         addMockQuestions();
         var result = ctrl.getById(0);
+        assertEquals(List.of("existsById", "getById"), repo.calledMethods);
 
         AbstractQuestion aq = result.getBody();
         assertEquals(new BasicMultipleChoiceQuestion("q0", "f0", 0), aq);
@@ -60,6 +61,7 @@ public class QuestionControllerTest {
     public void testGetById15() {
         addMockQuestions();
         var result = ctrl.getById(15);
+        assertEquals(List.of("existsById", "getById"), repo.calledMethods);
 
         AbstractQuestion aq = result.getBody();
         AbstractQuestion expected = new BasicMultipleChoiceQuestion("q15", "f15", 15);
@@ -71,6 +73,7 @@ public class QuestionControllerTest {
     public void testGetByNegativeId() {
         addMockQuestions();
         var result = ctrl.getById(-1);
+        assertEquals(List.of(), repo.calledMethods);
 
         assertEquals(BAD_REQUEST, result.getStatusCode());
     }
@@ -79,6 +82,7 @@ public class QuestionControllerTest {
     public void testGetByNonexistentId() {
         addMockQuestions();
         var result = ctrl.getById(20);
+        assertEquals(List.of("existsById"), repo.calledMethods);
 
         assertEquals(BAD_REQUEST, result.getStatusCode());
     }
