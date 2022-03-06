@@ -4,20 +4,16 @@ import client.services.QueuePollingService;
 import client.utils.ServerUtils;
 import commons.MultiUser;
 import jakarta.ws.rs.NotFoundException;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import javax.inject.Inject;
-import java.util.List;
 
 public class QueueScreenCtrl {
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private final QueuePollingService pollingService;
-
-    private Task<List<MultiUser>> pollingTask;
 
     private MultiUser user;
 

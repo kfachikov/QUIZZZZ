@@ -18,7 +18,10 @@ public class QueuePollingService extends Service<List<MultiUser>> {
     }
 
     /**
-     * @return the Task to execute
+     * Creates a task which continuously polls the server for the list of
+     * players in the queue.
+     *
+     * @return Queue polling task
      */
     @Override
     protected Task<List<MultiUser>> createTask() {

@@ -90,16 +90,15 @@ public class MainCtrl {
 
     /**
      * Sets the current scene to the queue screen, starts the queue polling
-     * service, binds the polling results to the queue label (showing the number
-     * of players in the queue) and initializes the queue scene controller with
+     * service and initializes the queue scene controller with
      * the MultiUser instance of the person joining the queue.
+     *
      * @param user MultiUser which is joining the queue
      */
     public void showQueue(MultiUser user) {
         primaryStage.setTitle("Quizzz: Queue");
         primaryStage.setScene(queue);
         queueCtrl.getPollingService().start();
-        //queueCtrl.bindQueueLabel();
         queueCtrl.setUser(user);
     }
 }
