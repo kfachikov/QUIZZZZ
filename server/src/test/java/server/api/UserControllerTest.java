@@ -41,7 +41,7 @@ class UserControllerTest {
         var result = userCtrl.getAllUsers();
         assertEquals(List.of("findAll"), repo.calledMethods);
 
-        for(int i = 0; i < result.size(); i++) {
+        for (int i = 0; i < result.size(); i++) {
             SingleUser pers = result.get(i);
             String id = String.valueOf(i);
             SingleUser expected = new SingleUser("p" + id, 0);

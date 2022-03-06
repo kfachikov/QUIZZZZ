@@ -1,6 +1,5 @@
 package server.api;
 
-import commons.BasicMultipleChoiceQuestion;
 import commons.MultiUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +41,7 @@ class LobbyControllerTest {
         var result = userCtrl.getAllUsers();
         assertEquals(List.of("findAll"), repo.calledMethods);
 
-        for(int i = 0; i < result.size(); i++) {
+        for (int i = 0; i < result.size(); i++) {
             MultiUser pers = result.get(i);
             String id = String.valueOf(i);
             MultiUser expected = new MultiUser("p" + id, 0);
