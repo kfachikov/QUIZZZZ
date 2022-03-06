@@ -41,20 +41,29 @@ public class ServerUtils {
     }
 
     public List<MultiUser> getQueueUsers() {
-        Response response = ClientBuilder.newClient(new ClientConfig())
+        GenericType<List<MultiUser>> genericType = new GenericType<List<MultiUser>>() {};
+        return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("/api/lobby")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get();
-        GenericType<List<MultiUser>> genericType = new GenericType<List<MultiUser>>() {};
-        return response.readEntity(genericType);
+                .get(genericType);
     }
 
-    public MultiUser addUser(MultiUser user) {
+    public MultiUser addQueueUser(MultiUser user) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("/api/lobby")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(user, APPLICATION_JSON), MultiUser.class);
+    }
+
+    public MultiUser deleteQueueUser(MultiUser user) {
+        long id = user.id;
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER)
+                .path("/api/lobby/" + String.valueOf(id))
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .delete(MultiUser.class);
     }
 }

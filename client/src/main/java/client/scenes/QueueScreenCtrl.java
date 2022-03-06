@@ -3,6 +3,8 @@ package client.scenes;
 import client.utils.QueuePollingService;
 import client.utils.ServerUtils;
 import commons.MultiUser;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,7 +46,10 @@ public class QueueScreenCtrl {
     }
 
     public void bindQueueLabel() {
-        System.out.println("Testing testing 1 2 3");
-        queueLabel.textProperty().bind(pollingService.valueProperty().asString());
+        pollingService.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                queueLabel.textProperty().set("Queue: " + newValue.size() + " players");
+            }
+        });
     }
 }

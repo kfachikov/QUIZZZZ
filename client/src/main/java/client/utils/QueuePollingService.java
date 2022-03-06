@@ -25,7 +25,6 @@ public class QueuePollingService extends Service<List<MultiUser>> {
             @Override
             protected List<MultiUser> call() throws Exception {
                 while (true) {
-                    System.out.println("Polling now!");
                     updateValue(server.getQueueUsers());
                     try {
                         //noinspection BusyWait

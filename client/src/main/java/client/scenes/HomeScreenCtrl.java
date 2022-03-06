@@ -70,7 +70,7 @@ public class HomeScreenCtrl {
         String username = usernameField.getText();
         MultiUser user = new MultiUser(username, -9999);
         try {
-            server.addUser(user);
+            server.addQueueUser(user);
             mainCtrl.showQueue();
         } catch (WebApplicationException e) {
             var alert = new Alert(Alert.AlertType.ERROR);
