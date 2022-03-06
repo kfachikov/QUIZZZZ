@@ -27,12 +27,7 @@ class ActivityControllerTest {
     }
 
     private Activity createActivity(String id, String title, String source, String image, Long consumption) {
-        Activity activity = new Activity();
-        activity.setId(id);
-        activity.setTitle(title);
-        activity.setSource(source);
-        activity.setImage(image);
-        activity.setConsumption(consumption);
+        Activity activity = new Activity(id, title, source, image, consumption);
 
         return activity;
     }
@@ -117,7 +112,7 @@ class ActivityControllerTest {
         Activity activity = createActivity("newId", "title", "source", "image", 100L);
 
         assertEquals(activity.getId(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getId());
-        }
+    }
 
     @Test
     public void testUpdateActivityTitle() {
@@ -125,7 +120,7 @@ class ActivityControllerTest {
         Activity activity = createActivity("id", "newTitle", "source", "image", 100L);
 
         assertEquals(activity.getTitle(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getTitle());
-        }
+    }
 
     @Test
     public void testUpdateActivitySource() {
@@ -133,7 +128,7 @@ class ActivityControllerTest {
         Activity activity = createActivity("id", "title", "newSource", "image", 100L);
 
         assertEquals(activity.getSource(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getSource());
-        }
+    }
 
     @Test
     public void testUpdateActivityImage() {
@@ -141,7 +136,7 @@ class ActivityControllerTest {
         Activity activity = createActivity("id", "title", "source", "newImage", 100L);
 
         assertEquals(activity.getImage(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getImage());
-        }
+    }
 
     @Test
     public void testUpdateActivityConsumption() {
