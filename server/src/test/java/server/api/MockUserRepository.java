@@ -29,7 +29,7 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import commons.SingleUser;
 import server.database.UserRepository;
 
-public class TestUserRepository implements UserRepository {
+public class MockUserRepository implements UserRepository {
 
     public final List<SingleUser> singleUsers = new ArrayList<>();
     public final List<String> calledMethods = new ArrayList<>();
