@@ -20,6 +20,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import java.util.Queue;
+
 public class MainCtrl {
 
     private Stage primaryStage;
@@ -33,6 +35,9 @@ public class MainCtrl {
     private HelpScreenCtrl helpCtrl;
     private Scene help;
 
+    private QueueScreenCtrl queueCtrl;
+    private Scene queue;
+
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
      * @param home is the home screen pair variable
@@ -42,18 +47,20 @@ public class MainCtrl {
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
                            Pair<HelpScreenCtrl, Parent> help,
-                           Pair<PrepScreenCtrl, Parent> prep
+                           Pair<PrepScreenCtrl, Parent> prep,
+                           Pair<QueueScreenCtrl, Parent> queue
     ) {
 
         this.primaryStage = primaryStage;
 
         this.homeCtrl = home.getKey();
         this.home = new Scene(home.getValue());
-
         this.prepCtrl = prep.getKey();
         this.prep = new Scene(prep.getValue());
         this.helpCtrl = help.getKey();
         this.help = new Scene(help.getValue());
+        this.queueCtrl = queue.getKey();
+        this.queue = new Scene(queue.getValue());
 
         showHome();
         primaryStage.show();
@@ -82,5 +89,10 @@ public class MainCtrl {
     public void showHelp() {
         primaryStage.setTitle("Quizzz: Help");
         primaryStage.setScene(help);
+    }
+
+    public void showQueue() {
+        primaryStage.setTitle("Quizzz: Queue");
+        primaryStage.setScene(queue);
     }
 }

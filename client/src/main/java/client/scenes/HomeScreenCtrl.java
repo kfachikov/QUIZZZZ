@@ -2,6 +2,7 @@ package client.scenes;
 
 import com.google.inject.Inject;
 import client.utils.ServerUtils;
+import commons.MultiUser;
 import commons.SingleUser;
 import jakarta.ws.rs.WebApplicationException;
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ public class HomeScreenCtrl {
     private final MainCtrl mainCtrl;
 
     @FXML
-    private TextField username;
+    private TextField usernameField;
 
     @FXML
     private TextField serverURL;
@@ -60,13 +61,23 @@ public class HomeScreenCtrl {
      * @return a new SingleUser object that contains its username and score.
      */
     public SingleUser getUser() {
-        String user = username.getText();
+        String user = usernameField.getText();
         return new SingleUser(user, 0);
     }
 
 
     public void playMulti() {
-        //mainCtrl.showMultiLobby();
+        String username = usernameField.getText();
+        MultiUser user = new MultiUser(username, -9999);
+        try {
+            server.addUser(user);
+            mainCtrl.showQueue();
+        } catch (WebApplicationException e) {
+            var alert = new Alert(Alert.AlertType.ERROR);
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
     }
 
 }

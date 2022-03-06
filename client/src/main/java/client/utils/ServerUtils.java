@@ -17,11 +17,16 @@ package client.utils;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
+import commons.MultiUser;
 import commons.SingleUser;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+
+import java.util.List;
 
 public class ServerUtils {
 
@@ -33,5 +38,23 @@ public class ServerUtils {
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(user, APPLICATION_JSON), SingleUser.class);
+    }
+
+    public List<MultiUser> getUsers() {
+        Response response = ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("/api/lobby")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get();
+        GenericType<List<MultiUser>> genericType = new GenericType<List<MultiUser>>() {};
+        return response.readEntity(genericType);
+    }
+
+    public MultiUser addUser(MultiUser user) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("/api/lobby")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(user, APPLICATION_JSON), MultiUser.class);
     }
 }
