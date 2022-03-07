@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 class LobbyControllerTest {
 
@@ -81,5 +82,19 @@ class LobbyControllerTest {
         repo.save(user);
         userCtrl.deleteUser(0);
         assertEquals(null, repo.findById(user.id));
+    }
+
+    @Test
+    public void testBadRequest() {
+        var response = userCtrl.deleteUser(1);
+        assertEquals(BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    public void testNotFound() {
+        MultiUser user = new MultiUser("ok" + -1, 0);
+        repo.save(user);
+        var response = userCtrl.deleteUser(-1);
+        assertEquals(BAD_REQUEST, response.getStatusCode());
     }
 }
