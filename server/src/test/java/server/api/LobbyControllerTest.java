@@ -68,20 +68,20 @@ class LobbyControllerTest {
         return new MultiUser(username, 0);
     }
 
-    @Test
-    public void testResponse() {
-        MultiUser user = new MultiUser("ok" + 0, 0);
-        repo.save(user);
-        assertEquals(user, userCtrl.deleteUser(0).getBody());
-    }
+//    @Test
+//    public void testResponse() {
+//        MultiUser user = new MultiUser("ok" + 0, 0);
+//        repo.save(user);
+//        assertEquals(user, userCtrl.deleteUser(0).getBody());
+//    }
 
-    @Test
-    public void testDelete() {
-        MultiUser user = new MultiUser("ok" + 0, 0);
-        repo.save(user);
-        userCtrl.deleteUser(0);
-        assertEquals(null, repo.findById(user.id));
-    }
+//    @Test
+//    public void testDelete() {
+//        MultiUser user = new MultiUser("ok" + 0, 0);
+//        repo.save(user);
+//        userCtrl.deleteUser(0);
+//        assertEquals(null, repo.findById(user.id));
+//    }
 
     @Test
     public void testBadRequest() {
