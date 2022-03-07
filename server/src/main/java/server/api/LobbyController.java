@@ -51,8 +51,7 @@ public class LobbyController {
         if (removed != null) {
             repo.delete(removed);
             return ResponseEntity.ok(removed);
-        }
-        else {
+        } else {
             return ResponseEntity.badRequest().build();
         }
     }
