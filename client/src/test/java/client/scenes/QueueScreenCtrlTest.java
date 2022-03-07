@@ -2,7 +2,7 @@ package client.scenes;
 
 import client.services.MockQueuePollingService;
 import client.utils.MockServerUtils;
-import commons.MultiUserQueue;
+import commons.QueueUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +28,7 @@ class QueueScreenCtrlTest {
 
     @Test
     void returnHome() {
-        MultiUserQueue user = new MultiUserQueue("test", 123);
+        QueueUser user = new QueueUser("test", 123);
         queueScreenCtrl.setUser(user);
         pollingService.returnValue = true;
 
@@ -67,7 +67,7 @@ class QueueScreenCtrlTest {
 
     @Test
     void setUser() {
-        MultiUserQueue user = new MultiUserQueue("test", 123);
+        QueueUser user = new QueueUser("test", 123);
         queueScreenCtrl.setUser(user);
         assertEquals(user, queueScreenCtrl.getUser());
     }

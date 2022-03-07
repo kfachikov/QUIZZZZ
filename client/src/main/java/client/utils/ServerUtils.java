@@ -15,7 +15,7 @@
  */
 package client.utils;
 
-import commons.MultiUserQueue;
+import commons.QueueUser;
 import commons.SingleUser;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -28,41 +28,51 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
 
-    private static final String SERVER = "http://localhost:8080/";
+    private static String currentServer;
 
     public SingleUser addUser(SingleUser user) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("/api/users") //
+                .target(currentServer).path("/api/users") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(user, APPLICATION_JSON), SingleUser.class);
     }
 
-    public List<MultiUserQueue> getQueueUsers() {
-        GenericType<List<MultiUserQueue>> genericType = new GenericType<List<MultiUserQueue>>() {
+    public List<QueueUser> getQueueUsers() {
+        GenericType<List<QueueUser>> genericType = new GenericType<List<QueueUser>>() {
         };
         return ClientBuilder.newClient(new ClientConfig())
-                .target(SERVER).path("/api/lobby")
+                .target(currentServer).path("/api/lobby")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(genericType);
     }
 
-    public MultiUserQueue addQueueUser(MultiUserQueue user) {
+    public QueueUser addQueueUser(QueueUser user) {
+        System.out.println(currentServer);
         return ClientBuilder.newClient(new ClientConfig())
-                .target(SERVER).path("/api/lobby")
+                .target(currentServer).path("/api/lobby")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .post(Entity.entity(user, APPLICATION_JSON), MultiUserQueue.class);
+                .post(Entity.entity(user, APPLICATION_JSON), QueueUser.class);
     }
 
-    public MultiUserQueue deleteQueueUser(MultiUserQueue user) {
+    public QueueUser deleteQueueUser(QueueUser user) {
         long id = user.id;
+        System.out.println(currentServer);
         return ClientBuilder.newClient(new ClientConfig())
-                .target(SERVER)
+                .target(currentServer)
                 .path("/api/lobby/" + String.valueOf(id))
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .delete(MultiUserQueue.class);
+                .delete(QueueUser.class);
+    }
+
+    public static String getCurrentServer() {
+        return currentServer;
+    }
+
+    public static void setCurrentServer(String currentServer) {
+        ServerUtils.currentServer = currentServer;
     }
 }

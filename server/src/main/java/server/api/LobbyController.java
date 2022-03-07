@@ -1,10 +1,10 @@
 package server.api;
 
 
-import commons.MultiUserQueue;
+import commons.QueueUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import server.database.MultiUserRepository;
+import server.database.QueueUserRepository;
 
 import java.util.List;
 
@@ -12,27 +12,27 @@ import java.util.List;
 @RequestMapping("/api/lobby")
 public class LobbyController {
 
-    private final MultiUserRepository repo;
+    private final QueueUserRepository repo;
 
-    public LobbyController(MultiUserRepository repo) {
+    public LobbyController(QueueUserRepository repo) {
         this.repo = repo;
     }
 
     @GetMapping("")
-    public List<MultiUserQueue> getAllUsers() {
+    public List<QueueUser> getAllUsers() {
         return repo.findAll();
     }
 
     /**
-     * @param user the user to be added to the MultiUserQueue repository
+     * @param user the user to be added to the QueueUser repository
      * @return response
      */
     @PostMapping("")
-    public ResponseEntity<MultiUserQueue> add(@RequestBody MultiUserQueue user) {
+    public ResponseEntity<QueueUser> add(@RequestBody QueueUser user) {
         if (user == null || isNullOrEmpty(user.username)) {
             return ResponseEntity.badRequest().build();
         }
-        MultiUserQueue saved = repo.save(user);
+        QueueUser saved = repo.save(user);
         return ResponseEntity.ok(saved);
     }
 
@@ -46,8 +46,8 @@ public class LobbyController {
      * @return returns a ResponseEntity consisting of the deleted user if present or a Not Found error if not found.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<MultiUserQueue> deleteUser(@PathVariable("id") long id) {
-        MultiUserQueue removed = repo.findById(id).orElse(null);
+    public ResponseEntity<QueueUser> deleteUser(@PathVariable("id") long id) {
+        QueueUser removed = repo.findById(id).orElse(null);
         if (removed != null) {
             repo.delete(removed);
             return ResponseEntity.ok(removed);

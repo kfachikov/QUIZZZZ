@@ -21,35 +21,35 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class MultiUserQueueTest {
+public class QueueUserTest {
 
     @Test
     public void checkConstructor() {
-        var p = new MultiUserQueue("user", 10);
+        var p = new QueueUser("user", 10);
         assertEquals("user", p.username);
         assertEquals(10, p.score);
     }
 
     @Test
     public void equalsHashCode() {
-        var a = new MultiUserQueue("user", 10);
-        var b = new MultiUserQueue("user", 10);
+        var a = new QueueUser("user", 10);
+        var b = new QueueUser("user", 10);
         assertEquals(a, b);
         assertEquals(a.hashCode(), b.hashCode());
     }
 
     @Test
     public void notEqualsHashCode() {
-        var a = new MultiUserQueue("user", 10);
-        var b = new MultiUserQueue("user", 15);
+        var a = new QueueUser("user", 10);
+        var b = new QueueUser("user", 15);
         assertNotEquals(a, b);
         assertNotEquals(a.hashCode(), b.hashCode());
     }
 
     @Test
     public void hasToString() {
-        var actual = new MultiUserQueue("user", 10).toString();
-        assertTrue(actual.contains(MultiUserQueue.class.getSimpleName()));
+        var actual = new QueueUser("user", 10).toString();
+        assertTrue(actual.contains(QueueUser.class.getSimpleName()));
         assertTrue(actual.contains("\n"));
         assertTrue(actual.contains("username"));
     }

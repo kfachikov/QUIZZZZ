@@ -1,6 +1,6 @@
 package client.scenes;
 
-import commons.MultiUserQueue;
+import commons.QueueUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +45,12 @@ public class MockMainCtrl extends MainCtrl {
     /**
      * Sets the current scene to the queue screen, starts the queue polling
      * service and initializes the queue scene controller with
-     * the MultiUserQueue instance of the person joining the queue.
+     * the QueueUser instance of the person joining the queue.
      *
-     * @param user MultiUserQueue which is joining the queue
+     * @param user QueueUser which is joining the queue
      */
     @Override
-    public void showQueue(MultiUserQueue user) {
+    public void showQueue(QueueUser user) {
         this.param = user;
         call("showQueue");
     }

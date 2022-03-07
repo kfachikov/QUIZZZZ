@@ -1,6 +1,6 @@
 package server.api;
 
-import commons.MultiUserQueue;
+import commons.QueueUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,27 +12,27 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 class LobbyControllerTest {
 
-    private MockMultiUserRepository repo;
+    private QueueUserRepository repo;
     private LobbyController userCtrl;
 
     private int nextId;
 
     @BeforeEach
     public void setup() {
-        repo = new MockMultiUserRepository();
+        repo = new QueueUserRepository();
         userCtrl = new LobbyController(repo);
         nextId = 0;
     }
 
-    private List<MultiUserQueue> addMockUsers() {
-        List<MultiUserQueue> mockUser = new ArrayList<>();
+    private List<QueueUser> addMockUsers() {
+        List<QueueUser> mockUser = new ArrayList<>();
         for (long i = 0; i < 3; i++) {
             mockUser.add(
-                    new MultiUserQueue("p" + nextId, 0)
+                    new QueueUser("p" + nextId, 0)
             );
             mockUser.get((int) i).id = nextId++;
         }
-        repo.multiUserQueues.addAll(mockUser);
+        repo.queueUsers.addAll(mockUser);
         return mockUser;
     }
 
@@ -64,8 +64,8 @@ class LobbyControllerTest {
 
 
 
-    private static MultiUserQueue getUser(String username) {
-        return new MultiUserQueue(username, 0);
+    private static QueueUser getUser(String username) {
+        return new QueueUser(username, 0);
     }
 
     @Test
@@ -76,7 +76,7 @@ class LobbyControllerTest {
 
     @Test
     public void testNotFound() {
-        MultiUserQueue user = new MultiUserQueue("ok" + -1, 0);
+        QueueUser user = new QueueUser("ok" + -1, 0);
         repo.save(user);
         var response = userCtrl.deleteUser(-1);
         assertEquals(BAD_REQUEST, response.getStatusCode());
