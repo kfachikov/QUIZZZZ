@@ -47,12 +47,14 @@ public class LobbyController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<MultiUser> deleteUser(@PathVariable("id") long id) {
-        MultiUser removed = repo.getById(id);
-        if (id < 0 || !repo.existsById(id)) {
+        MultiUser removed = repo.findById(id).orElse(null);
+        if (removed != null) {
+            repo.delete(removed);
+            return ResponseEntity.ok(removed);
+        }
+        else {
             return ResponseEntity.badRequest().build();
         }
-        repo.delete(repo.getById(id));
-        return ResponseEntity.ok(removed);
     }
 
 }
