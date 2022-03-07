@@ -2,7 +2,7 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
-import commons.MultiUser;
+import commons.MultiUserQueue;
 import commons.SingleUser;
 import jakarta.ws.rs.WebApplicationException;
 import javafx.fxml.FXML;
@@ -73,7 +73,7 @@ public class HomeScreenCtrl {
     public void playMulti() {
         try {
             String username = usernameField.getText();
-            MultiUser user = server.addQueueUser(new MultiUser(username, -9999));
+            MultiUserQueue user = server.addQueueUser(new MultiUserQueue(username, -9999));
             mainCtrl.showQueue(user);
         } catch (WebApplicationException e) {
             var alert = new Alert(Alert.AlertType.ERROR);

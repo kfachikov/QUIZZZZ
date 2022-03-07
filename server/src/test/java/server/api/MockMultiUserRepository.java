@@ -1,6 +1,6 @@
 package server.api;
 
-import commons.MultiUser;
+import commons.MultiUserQueue;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -16,25 +16,25 @@ import java.util.function.Function;
 
 class MockMultiUserRepository implements MultiUserRepository {
 
-    public final List<MultiUser> multiUsers = new ArrayList<>();
+    public final List<MultiUserQueue> multiUserQueues = new ArrayList<>();
     public final List<String> calledMethods = new ArrayList<>();
 
     private void call(String name) {
         calledMethods.add(name);
     }
 
-    private Optional<MultiUser> find(Long id) {
-        return multiUsers.stream().filter(q -> q.id == id).findFirst();
+    private Optional<MultiUserQueue> find(Long id) {
+        return multiUserQueues.stream().filter(q -> q.id == id).findFirst();
     }
 
     @Override
-    public List<MultiUser> findAll() {
+    public List<MultiUserQueue> findAll() {
         call("findAll");
-        return multiUsers;
+        return multiUserQueues;
     }
 
     @Override
-    public List<MultiUser> findAll(Sort sort) {
+    public List<MultiUserQueue> findAll(Sort sort) {
         return null;
     }
 
@@ -45,12 +45,12 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @return a page of entities
      */
     @Override
-    public Page<MultiUser> findAll(Pageable pageable) {
+    public Page<MultiUserQueue> findAll(Pageable pageable) {
         return null;
     }
 
     @Override
-    public List<MultiUser> findAllById(Iterable<Long> longs) {
+    public List<MultiUserQueue> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -62,7 +62,7 @@ class MockMultiUserRepository implements MultiUserRepository {
     @Override
     public long count() {
         call("count");
-        return multiUsers.size();
+        return multiUserQueues.size();
     }
 
     /**
@@ -83,7 +83,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @throws IllegalArgumentException in case the given entity is {@literal null}.
      */
     @Override
-    public void delete(MultiUser entity) {
+    public void delete(MultiUserQueue entity) {
 
     }
 
@@ -106,7 +106,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @throws IllegalArgumentException in case the given {@literal entities} or one of its entities is {@literal null}.
      */
     @Override
-    public void deleteAll(Iterable<? extends MultiUser> entities) {
+    public void deleteAll(Iterable<? extends MultiUserQueue> entities) {
 
     }
 
@@ -127,15 +127,15 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @throws IllegalArgumentException in case the given {@literal entity} is {@literal null}.
      */
     @Override
-    public <S extends MultiUser> S save(S entity) {
+    public <S extends MultiUserQueue> S save(S entity) {
         call("save");
-        entity.id = multiUsers.size();
-        multiUsers.add(entity);
+        entity.id = multiUserQueues.size();
+        multiUserQueues.add(entity);
         return entity;
     }
 
     @Override
-    public <S extends MultiUser> List<S> saveAll(Iterable<S> entities) {
+    public <S extends MultiUserQueue> List<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
@@ -147,7 +147,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @throws IllegalArgumentException if {@literal id} is {@literal null}.
      */
     @Override
-    public Optional<MultiUser> findById(Long id) {
+    public Optional<MultiUserQueue> findById(Long id) {
         return Optional.empty();
     }
 
@@ -180,7 +180,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @return the saved entity
      */
     @Override
-    public <S extends MultiUser> S saveAndFlush(S entity) {
+    public <S extends MultiUserQueue> S saveAndFlush(S entity) {
         return null;
     }
 
@@ -192,12 +192,12 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @since 2.5
      */
     @Override
-    public <S extends MultiUser> List<S> saveAllAndFlush(Iterable<S> entities) {
+    public <S extends MultiUserQueue> List<S> saveAllAndFlush(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public void deleteAllInBatch(Iterable<MultiUser> entities) {
+    public void deleteAllInBatch(Iterable<MultiUserQueue> entities) {
 
     }
 
@@ -215,12 +215,12 @@ class MockMultiUserRepository implements MultiUserRepository {
     }
 
     @Override
-    public MultiUser getOne(Long aLong) {
+    public MultiUserQueue getOne(Long aLong) {
         return null;
     }
 
     @Override
-    public MultiUser getById(Long id) {
+    public MultiUserQueue getById(Long id) {
         call("getById");
         return find(id).get();
     }
@@ -233,17 +233,17 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @throws IncorrectResultSizeDataAccessException if the Example yields more than one result.
      */
     @Override
-    public <S extends MultiUser> Optional<S> findOne(Example<S> example) {
+    public <S extends MultiUserQueue> Optional<S> findOne(Example<S> example) {
         return Optional.empty();
     }
 
     @Override
-    public <S extends MultiUser> List<S> findAll(Example<S> example) {
+    public <S extends MultiUserQueue> List<S> findAll(Example<S> example) {
         return null;
     }
 
     @Override
-    public <S extends MultiUser> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends MultiUserQueue> List<S> findAll(Example<S> example, Sort sort) {
         return null;
     }
 
@@ -256,7 +256,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @return a {@link Page} of entities matching the given {@link Example}.
      */
     @Override
-    public <S extends MultiUser> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends MultiUserQueue> Page<S> findAll(Example<S> example, Pageable pageable) {
         return null;
     }
 
@@ -267,7 +267,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @return the number of instances matching the {@link Example}.
      */
     @Override
-    public <S extends MultiUser> long count(Example<S> example) {
+    public <S extends MultiUserQueue> long count(Example<S> example) {
         return 0;
     }
 
@@ -278,7 +278,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @return {@literal true} if the data store contains elements that match the given {@link Example}.
      */
     @Override
-    public <S extends MultiUser> boolean exists(Example<S> example) {
+    public <S extends MultiUserQueue> boolean exists(Example<S> example) {
         return false;
     }
 
@@ -292,7 +292,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @since 2.6
      */
     @Override
-    public <S extends MultiUser, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends MultiUserQueue, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 }

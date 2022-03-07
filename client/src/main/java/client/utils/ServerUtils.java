@@ -15,7 +15,7 @@
  */
 package client.utils;
 
-import commons.MultiUser;
+import commons.MultiUserQueue;
 import commons.SingleUser;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -38,8 +38,8 @@ public class ServerUtils {
                 .post(Entity.entity(user, APPLICATION_JSON), SingleUser.class);
     }
 
-    public List<MultiUser> getQueueUsers() {
-        GenericType<List<MultiUser>> genericType = new GenericType<List<MultiUser>>() {
+    public List<MultiUserQueue> getQueueUsers() {
+        GenericType<List<MultiUserQueue>> genericType = new GenericType<List<MultiUserQueue>>() {
         };
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("/api/lobby")
@@ -48,21 +48,21 @@ public class ServerUtils {
                 .get(genericType);
     }
 
-    public MultiUser addQueueUser(MultiUser user) {
+    public MultiUserQueue addQueueUser(MultiUserQueue user) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("/api/lobby")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .post(Entity.entity(user, APPLICATION_JSON), MultiUser.class);
+                .post(Entity.entity(user, APPLICATION_JSON), MultiUserQueue.class);
     }
 
-    public MultiUser deleteQueueUser(MultiUser user) {
+    public MultiUserQueue deleteQueueUser(MultiUserQueue user) {
         long id = user.id;
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER)
                 .path("/api/lobby/" + String.valueOf(id))
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .delete(MultiUser.class);
+                .delete(MultiUserQueue.class);
     }
 }

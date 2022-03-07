@@ -15,7 +15,7 @@
  */
 package client.scenes;
 
-import commons.MultiUser;
+import commons.MultiUserQueue;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -107,11 +107,11 @@ public class MainCtrl {
     /**
      * Sets the current scene to the queue screen, starts the queue polling
      * service and initializes the queue scene controller with
-     * the MultiUser instance of the person joining the queue.
+     * the MultiUserQueue instance of the person joining the queue.
      *
-     * @param user MultiUser which is joining the queue
+     * @param user MultiUserQueue which is joining the queue
      */
-    public void showQueue(MultiUser user) {
+    public void showQueue(MultiUserQueue user) {
         primaryStage.setTitle("Quizzz: Queue");
         primaryStage.setScene(queue);
         queueCtrl.getPollingService().start();

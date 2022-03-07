@@ -1,6 +1,6 @@
 package server.api;
 
-import commons.MultiUser;
+import commons.MultiUserQueue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,15 +24,15 @@ class LobbyControllerTest {
         nextId = 0;
     }
 
-    private List<MultiUser> addMockUsers() {
-        List<MultiUser> mockUser = new ArrayList<>();
+    private List<MultiUserQueue> addMockUsers() {
+        List<MultiUserQueue> mockUser = new ArrayList<>();
         for (long i = 0; i < 3; i++) {
             mockUser.add(
-                    new MultiUser("p" + nextId, 0)
+                    new MultiUserQueue("p" + nextId, 0)
             );
             mockUser.get((int) i).id = nextId++;
         }
-        repo.multiUsers.addAll(mockUser);
+        repo.multiUserQueues.addAll(mockUser);
         return mockUser;
     }
 
@@ -64,8 +64,8 @@ class LobbyControllerTest {
 
 
 
-    private static MultiUser getUser(String username) {
-        return new MultiUser(username, 0);
+    private static MultiUserQueue getUser(String username) {
+        return new MultiUserQueue(username, 0);
     }
 
     @Test
@@ -76,7 +76,7 @@ class LobbyControllerTest {
 
     @Test
     public void testNotFound() {
-        MultiUser user = new MultiUser("ok" + -1, 0);
+        MultiUserQueue user = new MultiUserQueue("ok" + -1, 0);
         repo.save(user);
         var response = userCtrl.deleteUser(-1);
         assertEquals(BAD_REQUEST, response.getStatusCode());

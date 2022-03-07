@@ -2,7 +2,7 @@ package client.scenes;
 
 import client.services.QueuePollingService;
 import client.utils.ServerUtils;
-import commons.MultiUser;
+import commons.MultiUserQueue;
 import jakarta.ws.rs.NotFoundException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -15,7 +15,7 @@ public class QueueScreenCtrl {
     private final MainCtrl mainCtrl;
     private final QueuePollingService pollingService;
 
-    private MultiUser user;
+    private MultiUserQueue user;
 
     @FXML
     private Label queueLabel;
@@ -79,20 +79,20 @@ public class QueueScreenCtrl {
     }
 
     /**
-     * Getter for the MultiUser instance (of this client) inside the queue.
+     * Getter for the MultiUserQueue instance (of this client) inside the queue.
      *
-     * @return MultiUser instance inside the queue
+     * @return MultiUserQueue instance inside the queue
      */
-    public MultiUser getUser() {
+    public MultiUserQueue getUser() {
         return user;
     }
 
     /**
-     * Setter for the MultiUser instance (for this client) inside the queue.
+     * Setter for the MultiUserQueue instance (for this client) inside the queue.
      *
-     * @param user MultiUser that just joined the queue
+     * @param user MultiUserQueue that just joined the queue
      */
-    public void setUser(MultiUser user) {
+    public void setUser(MultiUserQueue user) {
         this.user = user;
     }
 }
