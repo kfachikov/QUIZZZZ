@@ -67,23 +67,13 @@ public class HomeScreenCtrl {
     }
 
     /**
-     * Creates a new MultiUser instance, using the username in the usernameField.
-     * @return a new MultiUser instance
-     */
-    public MultiUser getMultiUser() {
-        String user = usernameField.getText();
-        return new MultiUser(user, -9999);
-    }
-
-
-    /**
      * Sends a POST request to the server, adding the user to the queue,
      * and then switches the scene to the queue.
      */
     public void playMulti() {
-        MultiUser user = getMultiUser();
         try {
-            server.addQueueUser(user);
+            String username = usernameField.getText();
+            MultiUser user = server.addQueueUser(new MultiUser(username, -9999));
             mainCtrl.showQueue(user);
         } catch (WebApplicationException e) {
             var alert = new Alert(Alert.AlertType.ERROR);
