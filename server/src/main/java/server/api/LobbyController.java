@@ -41,7 +41,7 @@ public class LobbyController {
     }
 
 
-    /** Delete a user if present from the repositroy.
+    /** Delete a user if present from the repository.
      * @param id Primary-key attribute to search with
      * @return returns a ResponseEntity consisting of the deleted user if present or a Not Found error if not found.
      */
