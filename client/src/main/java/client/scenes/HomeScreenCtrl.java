@@ -45,6 +45,7 @@ public class HomeScreenCtrl {
      */
     public void playSolo() {
         try {
+            ServerUtils.setCurrentServer(getServer());
             server.addUser(getSingleUser());
         } catch (WebApplicationException e) {
 
@@ -67,14 +68,20 @@ public class HomeScreenCtrl {
     }
 
     /**
+     * @return the server address entered in server address field.
+     */
+    public String getServer() {
+        return serverURL.getText();
+    }
+
+    /**
      * Sends a POST request to the server, adding the user to the queue,
      * and then switches the scene to the queue.
      */
     public void playMulti() {
         try {
             String username = usernameField.getText();
-            String currentServer = serverURL.getText();
-            server.setCurrentServer(currentServer);
+            ServerUtils.setCurrentServer(getServer());
             QueueUser user = server.addQueueUser(new QueueUser(username, -9999));
             mainCtrl.showQueue(user);
         } catch (WebApplicationException e) {
