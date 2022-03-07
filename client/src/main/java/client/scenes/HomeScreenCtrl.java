@@ -4,13 +4,20 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.QueueUser;
 import commons.SingleUser;
+import jakarta.ws.rs.ProcessingException;
 import jakarta.ws.rs.WebApplicationException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 
+import java.lang.reflect.InvocationTargetException;
+
+import static org.ietf.jgss.GSSException.UNAUTHORIZED;
+
 public class HomeScreenCtrl {
+
+    private static final int FORBIDDEN = 403;
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
@@ -85,9 +92,20 @@ public class HomeScreenCtrl {
             QueueUser user = server.addQueueUser(new QueueUser(username, -9999));
             mainCtrl.showQueue(user);
         } catch (WebApplicationException e) {
-            var alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setContentText(e.getMessage());
+
+            switch (e.getResponse().getStatus()) {
+            case FORBIDDEN: alert.setContentText("Username not unique!");
+            break;
+            default: alert.setContentText("Username not present!");
+            }
+
+            alert.showAndWait();
+        } catch (ProcessingException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.setContentText("Server Address invalid!");
             alert.showAndWait();
         }
     }

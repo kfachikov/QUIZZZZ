@@ -18,4 +18,6 @@ package server.database;
 import commons.QueueUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface QueueUserRepository extends JpaRepository<QueueUser, Long> {}
+public interface QueueUserRepository extends JpaRepository<QueueUser, Long> {
+    boolean existsQueueUserByUsername(String username);
+}

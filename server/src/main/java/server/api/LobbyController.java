@@ -2,6 +2,7 @@ package server.api;
 
 
 import commons.QueueUser;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.database.QueueUserRepository;
@@ -31,6 +32,8 @@ public class LobbyController {
     public ResponseEntity<QueueUser> add(@RequestBody QueueUser user) {
         if (user == null || isNullOrEmpty(user.username)) {
             return ResponseEntity.badRequest().build();
+        } else if (repo.existsQueueUserByUsername(user.username)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         QueueUser saved = repo.save(user);
         return ResponseEntity.ok(saved);

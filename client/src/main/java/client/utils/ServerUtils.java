@@ -49,7 +49,6 @@ public class ServerUtils {
     }
 
     public QueueUser addQueueUser(QueueUser user) {
-        System.out.println(currentServer);
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer).path("/api/lobby")
                 .request(APPLICATION_JSON)
@@ -59,7 +58,6 @@ public class ServerUtils {
 
     public QueueUser deleteQueueUser(QueueUser user) {
         long id = user.id;
-        System.out.println(currentServer);
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/lobby/" + String.valueOf(id))

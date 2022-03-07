@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.FluentQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -293,5 +294,21 @@ class QueueUserRepository implements server.database.QueueUserRepository {
     @Override
     public <S extends QueueUser, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
+    }
+
+    /**
+     * Checks whether a username is already present in our Lobby database - would keep only the players currently in
+     * lobby of a particular server.
+     * @param username String variable to check whether it exists.
+     * @return Boolean value whether the username exists.
+     */
+    @Override
+    public boolean existsQueueUserByUsername(String username) {
+        for (QueueUser currentUser: queueUsers) {
+            if (Objects.equals(username, currentUser.username)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
