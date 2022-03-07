@@ -9,18 +9,19 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 class LobbyControllerTest {
 
     private QueueUserRepository repo;
-    private LobbyController userCtrl;
+    private LobbyController lobbyCtrl;
 
     private int nextId;
 
     @BeforeEach
     public void setup() {
         repo = new QueueUserRepository();
-        userCtrl = new LobbyController(repo);
+        lobbyCtrl = new LobbyController(repo);
         nextId = 0;
     }
 
@@ -36,41 +37,46 @@ class LobbyControllerTest {
         return mockUser;
     }
 
+    private static QueueUser getUser(String username) {
+        return new QueueUser(username, 0);
+    }
+
     @Test
     public void testGetAllUsers() {
         var expected = addMockUsers();
-        var result = userCtrl.getAllUsers();
+        var result = lobbyCtrl.getAllUsers();
         assertEquals(expected, result);
     }
 
     @Test
     public void testMethodCall() {
         addMockUsers();
-        userCtrl.getAllUsers();
+        lobbyCtrl.getAllUsers();
         assertEquals(List.of("findAll"), repo.calledMethods);
     }
 
     @Test
     public void databaseIsUsed() {
-        userCtrl.add(getUser("username"));
+        lobbyCtrl.add(getUser("username"));
         assertEquals(List.of("save"), repo.calledMethods);
     }
 
     @Test
     public void cannotAddNullPlayer() {
-        var actual = userCtrl.add(getUser(null));
+        var actual = lobbyCtrl.add(getUser(null));
         assertEquals(BAD_REQUEST, actual.getStatusCode());
     }
 
-
-
-    private static QueueUser getUser(String username) {
-        return new QueueUser(username, 0);
+    @Test
+    public void testNotUniqueUsername() {
+        addMockUsers();
+        var actual = lobbyCtrl.add(getUser("p0"));
+        assertEquals(FORBIDDEN, actual.getStatusCode());
     }
 
     @Test
     public void testBadRequest() {
-        var response = userCtrl.deleteUser(1);
+        var response = lobbyCtrl.deleteUser(1);
         assertEquals(BAD_REQUEST, response.getStatusCode());
     }
 
@@ -78,7 +84,7 @@ class LobbyControllerTest {
     public void testNotFound() {
         QueueUser user = new QueueUser("ok" + -1, 0);
         repo.save(user);
-        var response = userCtrl.deleteUser(-1);
+        var response = lobbyCtrl.deleteUser(-1);
         assertEquals(BAD_REQUEST, response.getStatusCode());
     }
 }

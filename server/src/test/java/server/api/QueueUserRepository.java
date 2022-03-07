@@ -306,9 +306,9 @@ class QueueUserRepository implements server.database.QueueUserRepository {
     public boolean existsQueueUserByUsername(String username) {
         for (QueueUser currentUser: queueUsers) {
             if (Objects.equals(username, currentUser.username)) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }

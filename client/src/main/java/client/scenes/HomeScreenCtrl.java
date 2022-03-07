@@ -11,10 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 
-import java.lang.reflect.InvocationTargetException;
-
-import static org.ietf.jgss.GSSException.UNAUTHORIZED;
-
 public class HomeScreenCtrl {
 
     private static final int FORBIDDEN = 403;
