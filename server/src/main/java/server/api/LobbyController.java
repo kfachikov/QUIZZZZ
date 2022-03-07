@@ -40,4 +40,20 @@ public class LobbyController {
         return s == null || s.isEmpty();
     }
 
+
+    /** Delete a user if present from the repositroy.
+     * @param id Primary-key attribute to search with
+     * @return returns a ResponseEntity consisting of the deleted user if present or a Not Found error if not found.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MultiUser> deleteUser(@PathVariable("id") long id) {
+        MultiUser removed = repo.findById(id).orElse(null);
+        if (removed != null) {
+            repo.delete(removed);
+            return ResponseEntity.ok(removed);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }

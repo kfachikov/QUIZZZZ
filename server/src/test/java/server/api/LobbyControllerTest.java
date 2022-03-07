@@ -68,5 +68,17 @@ class LobbyControllerTest {
         return new MultiUser(username, 0);
     }
 
+    @Test
+    public void testBadRequest() {
+        var response = userCtrl.deleteUser(1);
+        assertEquals(BAD_REQUEST, response.getStatusCode());
+    }
 
+    @Test
+    public void testNotFound() {
+        MultiUser user = new MultiUser("ok" + -1, 0);
+        repo.save(user);
+        var response = userCtrl.deleteUser(-1);
+        assertEquals(BAD_REQUEST, response.getStatusCode());
+    }
 }
