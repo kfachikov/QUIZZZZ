@@ -33,7 +33,7 @@ public class HomeScreenCtrl {
      * initializes HomeScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
      * @param server   is the server variable
-     * @param mainCtrl is the main controller varaiable
+     * @param mainCtrl is the main controller variable
      */
     @Inject
     public HomeScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -55,6 +55,7 @@ public class HomeScreenCtrl {
         try {
             ServerUtils.setCurrentServer(getServer());
             server.addUser(getSingleUser());
+            invalidServer.setVisible(false);
             mainCtrl.showPrep();
         } catch (WebApplicationException e) {
             var alert = new Alert(Alert.AlertType.ERROR);
@@ -96,18 +97,22 @@ public class HomeScreenCtrl {
             String username = usernameField.getText();
             ServerUtils.setCurrentServer(getServer());
             QueueUser user = server.addQueueUser(new QueueUser(username, -9999));
+            invalidServer.setVisible(false);
             mainCtrl.showQueue(user);
         } catch (WebApplicationException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initModality(Modality.APPLICATION_MODAL);
+
 
             switch (e.getResponse().getStatus()) {
-            case FORBIDDEN: alert.setContentText("Username not unique!");
+            case FORBIDDEN: usernameNotUnique();
             break;
-            default: alert.setContentText("Username not present!");
+            default:
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initModality(Modality.APPLICATION_MODAL);
+                alert.setContentText("Username not present!");
+                alert.showAndWait();
             }
 
-            alert.showAndWait();
+
         } catch (ProcessingException e) {
             serverInvalid();
         }
@@ -118,6 +123,18 @@ public class HomeScreenCtrl {
      */
     private void serverInvalid () {
         serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
+        usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        invalidServer.setText("Invalid URL address!");
+        invalidServer.setVisible(true);
+    }
+
+    /**
+     * Reusable method to be executed once the username entered in not unique - already exist in queue.
+     */
+    private void usernameNotUnique () {
+        usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
+        serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        invalidServer.setText("Username not unique!");
         invalidServer.setVisible(true);
     }
 

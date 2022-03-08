@@ -68,7 +68,7 @@
                 </DropShadow>
             </effect>
         </Text>
-      <Label fx:id="invalidServer" alignment="CENTER" layoutX="73.0" layoutY="50.0" prefHeight="27.0" prefWidth="454.0" style="-fx-background-color: #f2dede; -fx-background-radius: 15; visibility: false" text="You should enter a valid URL address!" textFill="#c62828">
+      <Label fx:id="invalidServer" alignment="CENTER" layoutX="73.0" layoutY="50.0" prefHeight="27.0" prefWidth="454.0" style="-fx-background-color: #f2dede; -fx-background-radius: 15; visibility: false" textFill="#c62828">
          <font>
             <Font size="16.0" />
          </font>
