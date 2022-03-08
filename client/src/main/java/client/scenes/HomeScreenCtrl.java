@@ -51,7 +51,6 @@ public class HomeScreenCtrl {
             ServerUtils.setCurrentServer(getServer());
             server.addUser(getSingleUser());
         } catch (WebApplicationException e) {
-
             var alert = new Alert(Alert.AlertType.ERROR);
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText(e.getMessage());
@@ -80,6 +79,11 @@ public class HomeScreenCtrl {
     /**
      * Sends a POST request to the server, adding the user to the queue,
      * and then switches the scene to the queue.
+     *
+     * If a player tries to enter multiplayer queue without entering username, or using an already existing one,
+     * WebApplicationException is thrown and handled accordingly.
+     *
+     * If the server entered is not a valid (running) one, then ProcessingException is thrown.
      */
     public void playMulti() {
         try {

@@ -25,6 +25,8 @@ public class LobbyController {
     }
 
     /**
+     * First if handles the case when the username entered is empty.
+     * Second one corresponds to username already in database case (not unique per multiplayer queue).
      * @param user the user to be added to the QueueUser repository
      * @return response
      */

@@ -70,6 +70,10 @@ public class ServerUtils {
         return currentServer;
     }
 
+    /**
+     * Used to set the current server to which a client is connected to once they decide to play a game.
+     * @param currentServer A String representation of the server.
+     */
     public static void setCurrentServer(String currentServer) {
         ServerUtils.currentServer = currentServer;
     }
