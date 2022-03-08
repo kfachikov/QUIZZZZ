@@ -50,15 +50,16 @@ public class HomeScreenCtrl {
         try {
             ServerUtils.setCurrentServer(getServer());
             server.addUser(getSingleUser());
+            mainCtrl.showPrep();
         } catch (WebApplicationException e) {
             var alert = new Alert(Alert.AlertType.ERROR);
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText(e.getMessage());
             alert.showAndWait();
-            return;
+        } catch (ProcessingException e) {
+            serverInvalid();
         }
 
-        mainCtrl.showPrep();
     }
 
     /**
@@ -103,11 +104,18 @@ public class HomeScreenCtrl {
 
             alert.showAndWait();
         } catch (ProcessingException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setContentText("Server Address invalid!");
-            alert.showAndWait();
+            serverInvalid();
         }
+    }
+
+    /**
+     * Reusable method to be executed once an invalid server is entered.
+     */
+    private void serverInvalid () {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.setContentText("Server Address invalid!");
+        alert.showAndWait();
     }
 
 }
