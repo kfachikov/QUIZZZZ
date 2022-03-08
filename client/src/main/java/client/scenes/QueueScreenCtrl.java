@@ -5,11 +5,20 @@ import client.utils.ServerUtils;
 import commons.QueueUser;
 import jakarta.ws.rs.NotFoundException;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 
 import javax.inject.Inject;
+import java.util.Collections;
+import java.util.List;
 
 public class QueueScreenCtrl {
+
+    /**
+     * Initialize class constant for the number of player's usernames visible on screen.
+     */
+    private static final int PLAYERSCOUNT = 16;
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
@@ -19,6 +28,9 @@ public class QueueScreenCtrl {
 
     @FXML
     private Label queueLabel;
+
+    @FXML
+    private FlowPane bubbles;
 
     /**
      * Constructor for queue screen controller.
@@ -57,7 +69,7 @@ public class QueueScreenCtrl {
     }
 
     /**
-     * Initializes the queue screen controller by binding the queue label to the
+     * Initializes the queue screen controller by binding the queue label the queue "bubbles" to the
      * results of the polling service.
      * <p>
      * The queue polling service will repeatedly poll the server, and update its
@@ -74,8 +86,27 @@ public class QueueScreenCtrl {
         pollingService.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 queueLabel.textProperty().set("Queue: " + newValue.size() + " players");
+
+                int currentNodeIndex = 0;
+                List<Node> presentPlayers = bubbles.getChildren();
+                Collections.reverse(newValue);
+
+                for (QueueUser multiplayer: newValue) {
+                    Node currentNode = presentPlayers.get(currentNodeIndex);
+                    ((Label) currentNode).setText(multiplayer.username);
+                    currentNode.setVisible(true);
+                    currentNodeIndex++;
+                    if (currentNodeIndex > PLAYERSCOUNT) {
+                        break;
+                    }
+                }
+                for (int i = currentNodeIndex; i <= PLAYERSCOUNT; i++) {
+                    Node currentNode = presentPlayers.get(currentNodeIndex);
+                    currentNode.setVisible(false);
+                }
             }
         });
+
     }
 
     /**

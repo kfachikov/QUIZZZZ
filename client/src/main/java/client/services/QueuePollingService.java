@@ -32,7 +32,7 @@ public class QueuePollingService extends Service<List<QueueUser>> {
                     updateValue(server.getQueueUsers());
                     try {
                         //noinspection BusyWait
-                        Thread.sleep(1500);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         break;
                     }
