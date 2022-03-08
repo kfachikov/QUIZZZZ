@@ -27,7 +27,7 @@ public class HomeScreenCtrl {
     private TextField serverURL;
 
     @FXML
-    private Label invalidServer;
+    private Label errorMessage;
 
     /**
      * initializes HomeScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -53,9 +53,9 @@ public class HomeScreenCtrl {
      */
     public void playSolo() {
         try {
+            setDefault();
             ServerUtils.setCurrentServer(getServer());
             server.addUser(getSingleUser());
-            invalidServer.setVisible(false);
             mainCtrl.showPrep();
         } catch (WebApplicationException e) {
             var alert = new Alert(Alert.AlertType.ERROR);
@@ -94,14 +94,12 @@ public class HomeScreenCtrl {
      */
     public void playMulti() {
         try {
+            setDefault();
             String username = usernameField.getText();
             ServerUtils.setCurrentServer(getServer());
             QueueUser user = server.addQueueUser(new QueueUser(username, -9999));
-            invalidServer.setVisible(false);
             mainCtrl.showQueue(user);
         } catch (WebApplicationException e) {
-
-
             switch (e.getResponse().getStatus()) {
             case FORBIDDEN: usernameNotUnique();
             break;
@@ -111,8 +109,6 @@ public class HomeScreenCtrl {
                 alert.setContentText("Username not present!");
                 alert.showAndWait();
             }
-
-
         } catch (ProcessingException e) {
             serverInvalid();
         }
@@ -120,22 +116,37 @@ public class HomeScreenCtrl {
 
     /**
      * Reusable method to be executed once an invalid server is entered.
+     *
+     * Sets server field background to red to pull the attention of the client.
+     * Removes the background of the username field, as the current problem is somewhere else.
      */
     private void serverInvalid () {
         serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
         usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
-        invalidServer.setText("Invalid URL address!");
-        invalidServer.setVisible(true);
+        errorMessage.setText("Invalid URL address!");
+        errorMessage.setVisible(true);
     }
 
     /**
      * Reusable method to be executed once the username entered in not unique - already exist in queue.
+     *
+     * Sets username field background to red to pull the attention of the client.
+     * Removes the background of the server field, as the current problem is somewhere else.
      */
     private void usernameNotUnique () {
         usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
         serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
-        invalidServer.setText("Username not unique!");
-        invalidServer.setVisible(true);
+        errorMessage.setText("Username not unique!");
+        errorMessage.setVisible(true);
+    }
+
+    /**
+     * Sets all fields to their default state - called before a player tries to proceed to remove old error notifications.
+     */
+    private void setDefault() {
+        usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        errorMessage.setVisible(false);
     }
 
 }
