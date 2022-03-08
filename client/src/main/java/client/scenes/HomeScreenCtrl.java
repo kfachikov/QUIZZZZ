@@ -8,7 +8,9 @@ import jakarta.ws.rs.ProcessingException;
 import jakarta.ws.rs.WebApplicationException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 
 public class HomeScreenCtrl {
@@ -23,6 +25,9 @@ public class HomeScreenCtrl {
 
     @FXML
     private TextField serverURL;
+
+    @FXML
+    private Label invalidServer;
 
     /**
      * initializes HomeScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -112,10 +117,8 @@ public class HomeScreenCtrl {
      * Reusable method to be executed once an invalid server is entered.
      */
     private void serverInvalid () {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.initModality(Modality.APPLICATION_MODAL);
-        alert.setContentText("Server Address invalid!");
-        alert.showAndWait();
+        serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
+        invalidServer.setVisible(true);
     }
 
 }
