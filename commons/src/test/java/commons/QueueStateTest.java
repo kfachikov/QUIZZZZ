@@ -12,17 +12,24 @@ class QueueStateTest {
 
     private QueueState emptyState1;
     private QueueState emptyState2;
+    private QueueState emptyState3;
+
     private QueueState stateA1;
     private QueueState stateA2;
+
     private QueueState stateB1;
     private QueueState stateB2;
-    private QueueState stateB3;
+
+    private QueueState stateC1;
+    private QueueState stateC2;
+    private QueueState stateC3;
 
     @BeforeEach
     void setUp() {
         // Initialize empty QueueStates
         this.emptyState1 = new QueueState(new ArrayList<>());
         this.emptyState2 = new QueueState();
+        this.emptyState3 = new QueueState(new ArrayList<>(), false, 3000);
 
         // Initialize 1st set of example QueueStates
         QueueUser queueUser1 = new QueueUser("TestUser1");
@@ -46,11 +53,23 @@ class QueueStateTest {
                 new QueueUser("TestUser6")
         ));
         // QueueState with different order
-        this.stateB3 = new QueueState(Arrays.asList(
+        this.stateC1 = new QueueState(Arrays.asList(
                 new QueueUser("TestUser4"),
                 new QueueUser("TestUser6"),
                 new QueueUser("TestUser5")
         ));
+        // QueueState that is starting
+        this.stateC2 = new QueueState(Arrays.asList(
+                new QueueUser("TestUser4"),
+                new QueueUser("TestUser5"),
+                new QueueUser("TestUser6")
+        ), true, 3000);
+        // QueueState whose countdown is ticking down
+        this.stateC3 = new QueueState(Arrays.asList(
+                new QueueUser("TestUser4"),
+                new QueueUser("TestUser5"),
+                new QueueUser("TestUser6")
+        ), true, 1500);
     }
 
     @Test
@@ -77,22 +96,40 @@ class QueueStateTest {
     }
 
     @Test
-    public void equalsHashCode3() {
+    public void equalsHashCodeEmpty() {
         assertEquals(emptyState1, emptyState2);
+        assertEquals(emptyState1, emptyState3);
+        assertEquals(emptyState3, emptyState2);
         assertEquals(emptyState1.hashCode(), emptyState2.hashCode());
+        assertEquals(emptyState1.hashCode(), emptyState3.hashCode());
+        assertEquals(emptyState3.hashCode(), emptyState2.hashCode());
     }
 
     @Test
-    public void notEqualsHashCode1() {
+    public void notEqualsHashCodeDifferent() {
         assertNotEquals(stateA1, stateB1);
         assertNotEquals(stateA1.hashCode(), stateB1.hashCode());
     }
 
     @Test
-    public void notEqualsHashCode2() {
+    public void notEqualsHashCodeShuffled() {
         // Order matters
-        assertNotEquals(stateB3, stateB1);
-        assertNotEquals(stateB3.hashCode(), stateB1.hashCode());
+        assertNotEquals(stateC1, stateB1);
+        assertNotEquals(stateC1.hashCode(), stateB1.hashCode());
+    }
+
+    @Test
+    public void notEqualsHashCodeStarted() {
+        // gameStarted matters
+        assertNotEquals(stateC2, stateB1);
+        assertNotEquals(stateC2.hashCode(), stateB1.hashCode());
+    }
+
+    @Test
+    public void notEqualsHashCodeCountdown() {
+        // msToStart matters
+        assertNotEquals(stateC3, stateB1);
+        assertNotEquals(stateC3.hashCode(), stateB1.hashCode());
     }
 
     @Test

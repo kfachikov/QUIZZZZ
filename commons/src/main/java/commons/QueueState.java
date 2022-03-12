@@ -11,13 +11,25 @@ import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
 public class QueueState {
     public List<QueueUser> users;
+    public boolean gameStarting;
+    public long msToStart;
 
     public QueueState() {
         this.users = new ArrayList<>();
+        this.gameStarting = false;
+        this.msToStart = 3000;
     }
 
     public QueueState(List<QueueUser> users) {
         this.users = users;
+        this.gameStarting = false;
+        this.msToStart = 3000;
+    }
+
+    public QueueState(List<QueueUser> users, boolean gameStarting, long msToStart) {
+        this.users = users;
+        this.gameStarting = gameStarting;
+        this.msToStart = msToStart;
     }
 
     @Override
