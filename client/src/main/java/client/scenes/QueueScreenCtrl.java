@@ -83,15 +83,16 @@ public class QueueScreenCtrl {
      * the appropriate value.
      */
     public void initialize() {
-        pollingService.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                queueLabel.textProperty().set("Queue: " + newValue.size() + " players");
+        pollingService.valueProperty().addListener((observable, oldValue, newQueueState) -> {
+            if (newQueueState != null) {
+                List<QueueUser> queueUsers = newQueueState.users;
+                queueLabel.textProperty().set("Queue: " + queueUsers.size() + " players");
 
                 int currentNodeIndex = 0;
                 List<Node> presentPlayers = bubbles.getChildren();
-                Collections.reverse(newValue);
+                Collections.reverse(queueUsers);
 
-                for (QueueUser multiplayer: newValue) {
+                for (QueueUser multiplayer : queueUsers) {
                     Node currentNode = presentPlayers.get(currentNodeIndex);
                     ((Label) currentNode).setText(multiplayer.username);
                     currentNode.setVisible(true);

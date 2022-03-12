@@ -1,13 +1,12 @@
 package server.api;
 
 
+import commons.QueueState;
 import commons.QueueUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.database.QueueUserRepository;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/queue")
@@ -19,14 +18,24 @@ public class QueueController {
         this.repo = repo;
     }
 
+    /**
+     * Get the current state of the queue.
+     * The state of the queue contains the following items:
+     * - List of users in the queue
+     *
+     * @return the current state of the queue
+     */
     @GetMapping("")
-    public List<QueueUser> getAllUsers() {
-        return repo.findAll();
+    public ResponseEntity<QueueState> getQueueState() {
+        return ResponseEntity.ok(
+                new QueueState(repo.findAll())
+        );
     }
 
     /**
      * First if handles the case when the username entered is empty.
      * Second one corresponds to username already in database case (not unique per multiplayer queue).
+     *
      * @param user the user to be added to the QueueUser repository
      * @return response
      */
@@ -46,7 +55,9 @@ public class QueueController {
     }
 
 
-    /** Delete a user if present from the repository.
+    /**
+     * Delete a user if present from the repository.
+     *
      * @param id Primary-key attribute to search with
      * @return returns a ResponseEntity consisting of the deleted user if present or a Not Found error if not found.
      */

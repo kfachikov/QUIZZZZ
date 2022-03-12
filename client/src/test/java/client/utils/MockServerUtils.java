@@ -1,5 +1,6 @@
 package client.utils;
 
+import commons.QueueState;
 import commons.QueueUser;
 import commons.SingleUser;
 
@@ -30,9 +31,9 @@ public class MockServerUtils extends ServerUtils {
     }
 
     @Override
-    public List<QueueUser> getQueueUsers() {
+    public QueueState getQueueState() {
         call("getQueueUsers");
-        return (List<QueueUser>) returnValue;
+        return (QueueState) returnValue;
     }
 
     @Override

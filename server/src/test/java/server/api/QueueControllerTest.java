@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.QueueState;
 import commons.QueueUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ class QueueControllerTest {
         nextId = 0;
     }
 
-    private List<QueueUser> addMockUsers() {
+    private List<QueueUser> mockUsers() {
         List<QueueUser> mockUser = new ArrayList<>();
         for (long i = 0; i < 3; i++) {
             mockUser.add(
@@ -42,16 +43,17 @@ class QueueControllerTest {
     }
 
     @Test
-    public void testGetAllUsers() {
-        var expected = addMockUsers();
-        var result = lobbyCtrl.getAllUsers();
+    public void testGetQueueState() {
+        var expected = new QueueState(mockUsers());
+        var response = lobbyCtrl.getQueueState();
+        var result = response.getBody();
         assertEquals(expected, result);
     }
 
     @Test
     public void testMethodCall() {
-        addMockUsers();
-        lobbyCtrl.getAllUsers();
+        mockUsers();
+        lobbyCtrl.getQueueState();
         assertEquals(List.of("findAll"), repo.calledMethods);
     }
 
@@ -69,7 +71,7 @@ class QueueControllerTest {
 
     @Test
     public void testNotUniqueUsername() {
-        addMockUsers();
+        mockUsers();
         var actual = lobbyCtrl.add(getUser("p0"));
         assertEquals(FORBIDDEN, actual.getStatusCode());
     }
