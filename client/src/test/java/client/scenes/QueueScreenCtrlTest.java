@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.services.MockQueueCountdownService;
 import client.services.MockQueuePollingService;
 import client.utils.MockServerUtils;
 import commons.QueueUser;
@@ -17,13 +18,14 @@ class QueueScreenCtrlTest {
     private MockServerUtils server;
     private MockMainCtrl mainCtrl;
     private MockQueuePollingService pollingService;
+    private MockQueueCountdownService countdownService;
 
     @BeforeEach
     void setUp() {
         server = new MockServerUtils();
         mainCtrl = new MockMainCtrl();
         pollingService = new MockQueuePollingService(server);
-        queueScreenCtrl = new QueueScreenCtrl(server, mainCtrl, pollingService);
+        queueScreenCtrl = new QueueScreenCtrl(server, mainCtrl, pollingService, countdownService);
     }
 
     @Test

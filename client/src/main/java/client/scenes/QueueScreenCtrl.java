@@ -1,25 +1,18 @@
 package client.scenes;
 
+import client.services.QueueCountdownService;
 import client.services.QueuePollingService;
 import client.utils.ServerUtils;
-import commons.QueueState;
 import commons.QueueUser;
 import jakarta.ws.rs.NotFoundException;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.util.Duration;
 
 import javax.inject.Inject;
 import java.util.Collections;
@@ -35,6 +28,7 @@ public class QueueScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private final QueuePollingService pollingService;
+    private final QueueCountdownService countdownService;
 
     private QueueUser user;
     private BooleanProperty gameStarting;
@@ -60,10 +54,16 @@ public class QueueScreenCtrl {
      * @param pollingService Queue polling service
      */
     @Inject
-    public QueueScreenCtrl(ServerUtils server, MainCtrl mainCtrl, QueuePollingService pollingService) {
+    public QueueScreenCtrl(
+            ServerUtils server,
+            MainCtrl mainCtrl,
+            QueuePollingService pollingService,
+            QueueCountdownService countdownService
+    ) {
         this.server = server;
         this.mainCtrl = mainCtrl;
         this.pollingService = pollingService;
+        this.countdownService = countdownService;
     }
 
     /**
@@ -92,7 +92,7 @@ public class QueueScreenCtrl {
 
     /**
      * Start the multiplayer game.
-     *
+     * <p>
      * Sends a POST request to the server, puts a clear white label for the
      * countdown, disables the button and starts the countdown.
      */
@@ -155,52 +155,47 @@ public class QueueScreenCtrl {
                     currentNode.setVisible(false);
                 }
 
-                // "Go!" button should be disabled if the game is already starting
-                startButton.setDisable(newQueueState.gameStarting);
-                // "Game is starting in X..." label should be visible if the game
-                // is starting
-                startLabel.setVisible(newQueueState.gameStarting);
                 // Internal state should be consistent with server state
                 gameStarting.set(newQueueState.gameStarting);
             }
         });
 
         /*
-        Create an event listener for the start of the game
+        Create an event listener for the countdown, to update the start label
+        text in real time
+         */
+        countdownService.getCount().addListener(((observable, oldValue, newValue) -> {
+            // We can only update UI elements from the main JavaFX thread
+            // This method adds whatever task we want to do to this thread
+            Platform.runLater(() -> {
+                startLabel.setText("Game is starting in " + newValue + "...");
+            });
+        }));
+        /*
+        Start and stop the service depending on the internal state
          */
         gameStarting.addListener(((observable, oldValue, newValue) -> {
+            // "Go!" button should be disabled if the game is already starting
+            startButton.setDisable(newValue);
+            // "Game is starting in X..." label should be visible if the game
+            // is starting
+            startLabel.setVisible(newValue);
             if (newValue) {
-                Task<Long> gameIdTask = new Task<Long>() {
-                    IntegerProperty count = new SimpleIntegerProperty(-1);
-
-                    @Override
-                    protected Long call() {
-                        QueueState queueState = server.getQueueState();
-
-                        count.addListener((observable1, oldValue1, newValue1) -> {
-                            Platform.runLater(() -> {
-                                startLabel.textProperty().set("Game is starting in " + newValue1 + "...");
-                            });
-                        });
-
-                        count.set(3);
-
-                        KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), event -> {
-                            mainCtrl.showMultiGameQuestion();
-                        }, new KeyValue(count, 1));
-
-                        Timeline timeline = new Timeline(keyFrame);
-                        timeline.setCycleCount(1);
-
-                        timeline.playFrom(Duration.millis(3000 - queueState.msToStart));
-
-                        return -1L;
-                    }
-                };
-
-                new Thread(gameIdTask).start();
+                countdownService.getCount().set(3);
+                countdownService.start();
+            } else {
+                countdownService.cancel();
+                countdownService.reset();
             }
         }));
+
+        /*
+         * Switch scene once countdown reaches 0
+         */
+        countdownService.setOnSucceeded(event -> {
+            Long result = (Long) event.getSource().getValue();
+            mainCtrl.showMultiGameQuestion(result);
+        });
     }
 
     /**

@@ -121,8 +121,9 @@ public class MainCtrl {
 
     /**
      * Set the current scene to Multiplayer game question screen.
+     * @param id Multiplayer game id
      */
-    public void showMultiGameQuestion() {
+    public void showMultiGameQuestion(long id) {
         // TODO
     }
 }
