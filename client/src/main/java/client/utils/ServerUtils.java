@@ -62,6 +62,15 @@ public class ServerUtils {
                 .delete(QueueUser.class);
     }
 
+    public QueueState startMultiplayerGame() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/queue/start")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(null, QueueState.class);
+    }
+
     public static String getCurrentServer() {
         return currentServer;
     }

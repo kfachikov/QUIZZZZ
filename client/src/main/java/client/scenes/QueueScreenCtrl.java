@@ -6,6 +6,7 @@ import commons.QueueUser;
 import jakarta.ws.rs.NotFoundException;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 
@@ -30,7 +31,14 @@ public class QueueScreenCtrl {
     private Label queueLabel;
 
     @FXML
+    private Label startLabel;
+
+    @FXML
+    private Button startButton;
+
+    @FXML
     private FlowPane bubbles;
+
 
     /**
      * Constructor for queue screen controller.
@@ -57,6 +65,12 @@ public class QueueScreenCtrl {
         } catch (NotFoundException ignored) {
         }
         mainCtrl.showHome();
+    }
+
+    public void startGame() {
+        server.startMultiplayerGame();
+        startButton.setDisable(true);
+        startLabel.setVisible(true);
     }
 
     /**
@@ -105,6 +119,9 @@ public class QueueScreenCtrl {
                     Node currentNode = presentPlayers.get(currentNodeIndex);
                     currentNode.setVisible(false);
                 }
+
+                startButton.setDisable(newQueueState.gameStarting);
+                startLabel.setVisible(newQueueState.gameStarting);
             }
         });
 

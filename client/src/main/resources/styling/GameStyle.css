@@ -34,3 +34,7 @@
     -fx-border-color: #006e8c#006e8c;
     -fx-border-radius: 10;
 }
+
+#start-label {
+    -fx-background-color: #ffffffaa;
+}

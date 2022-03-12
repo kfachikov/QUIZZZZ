@@ -49,6 +49,7 @@ public class QueueController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         QueueUser saved = repo.save(user);
+        queueState.gameStarting = false;
         return ResponseEntity.ok(saved);
     }
 
@@ -58,6 +59,7 @@ public class QueueController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         } else {
             queueState.gameStarting = true;
+            queueState.msToStart = 3000;
             return ResponseEntity.ok(
                     new QueueState(repo.findAll(), queueState.gameStarting, queueState.msToStart)
             );
@@ -80,6 +82,7 @@ public class QueueController {
         QueueUser removed = repo.findById(id).orElse(null);
         if (removed != null) {
             repo.delete(removed);
+            queueState.gameStarting = false;
             return ResponseEntity.ok(removed);
         } else {
             return ResponseEntity.badRequest().build();
