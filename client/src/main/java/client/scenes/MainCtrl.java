@@ -116,6 +116,10 @@ public class MainCtrl {
         primaryStage.setScene(queue);
         queueCtrl.getPollingService().start();
         queueCtrl.setUser(user);
+        queueCtrl.resetScene();
     }
 
+    public void showMultiGameQuestion() {
+        
+    }
 }

@@ -2,13 +2,22 @@ package client.scenes;
 
 import client.services.QueuePollingService;
 import client.utils.ServerUtils;
+import commons.QueueState;
 import commons.QueueUser;
 import jakarta.ws.rs.NotFoundException;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.beans.property.*;
+import javafx.beans.property.adapter.JavaBeanBooleanProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import javafx.util.Duration;
 
 import javax.inject.Inject;
 import java.util.Collections;
@@ -26,6 +35,7 @@ public class QueueScreenCtrl {
     private final QueuePollingService pollingService;
 
     private QueueUser user;
+    private BooleanProperty gameStarting;
 
     @FXML
     private Label queueLabel;
@@ -54,6 +64,13 @@ public class QueueScreenCtrl {
         this.pollingService = pollingService;
     }
 
+    public void resetScene() {
+        queueLabel.textProperty().set("Queue: 0 players");
+        startLabel.setVisible(false);
+        startLabel.setText("Game is starting in 3...");
+        startButton.setDisable(false);
+    }
+
     /**
      * Returns from the queue screen back to the home screen.
      */
@@ -71,6 +88,7 @@ public class QueueScreenCtrl {
         server.startMultiplayerGame();
         startButton.setDisable(true);
         startLabel.setVisible(true);
+        gameStarting.set(true);
     }
 
     /**
@@ -97,6 +115,8 @@ public class QueueScreenCtrl {
      * the appropriate value.
      */
     public void initialize() {
+        gameStarting = new SimpleBooleanProperty(false);
+
         pollingService.valueProperty().addListener((observable, oldValue, newQueueState) -> {
             if (newQueueState != null) {
                 List<QueueUser> queueUsers = newQueueState.users;
@@ -122,9 +142,44 @@ public class QueueScreenCtrl {
 
                 startButton.setDisable(newQueueState.gameStarting);
                 startLabel.setVisible(newQueueState.gameStarting);
+
+                gameStarting.set(newQueueState.gameStarting);
             }
         });
 
+        gameStarting.addListener(((observable, oldValue, newValue) -> {
+            if (newValue) {
+                Task<Long> gameIdTask = new Task<Long>() {
+                    IntegerProperty count = new SimpleIntegerProperty(-1);
+
+                    @Override
+                    protected Long call()  {
+                        QueueState queueState = server.getQueueState();
+
+                        count.addListener((observable1, oldValue1, newValue1) -> {
+                            Platform.runLater(() -> {
+                                startLabel.textProperty().set("Game is starting in " + newValue1 + "...");
+                            });
+                        });
+
+                        count.set(3);
+
+                        KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), event -> {
+                            mainCtrl.showMultiGameQuestion();
+                        }, new KeyValue(count, 1));
+
+                        Timeline timeline = new Timeline(keyFrame);
+                        timeline.setCycleCount(1);
+
+                        timeline.playFrom(Duration.millis(3000 - queueState.msToStart));
+
+                        return -1L;
+                    }
+                };
+
+                new Thread(gameIdTask).start();
+            }
+        }));
     }
 
     /**
