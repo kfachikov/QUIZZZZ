@@ -28,7 +28,7 @@ class QueueScreenCtrlTest {
 
     @Test
     void returnHome() {
-        QueueUser user = new QueueUser("test", 123);
+        QueueUser user = new QueueUser("test");
         queueScreenCtrl.setUser(user);
         pollingService.returnValue = true;
 
@@ -67,7 +67,7 @@ class QueueScreenCtrlTest {
 
     @Test
     void setUser() {
-        QueueUser user = new QueueUser("test", 123);
+        QueueUser user = new QueueUser("test");
         queueScreenCtrl.setUser(user);
         assertEquals(user, queueScreenCtrl.getUser());
     }

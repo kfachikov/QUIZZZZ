@@ -11,17 +11,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 
-class LobbyControllerTest {
+class QueueControllerTest {
 
     private QueueUserRepository repo;
-    private LobbyController lobbyCtrl;
+    private QueueController lobbyCtrl;
 
     private int nextId;
 
     @BeforeEach
     public void setup() {
         repo = new QueueUserRepository();
-        lobbyCtrl = new LobbyController(repo);
+        lobbyCtrl = new QueueController(repo);
         nextId = 0;
     }
 
@@ -29,7 +29,7 @@ class LobbyControllerTest {
         List<QueueUser> mockUser = new ArrayList<>();
         for (long i = 0; i < 3; i++) {
             mockUser.add(
-                    new QueueUser("p" + nextId, 0)
+                    new QueueUser("p" + nextId)
             );
             mockUser.get((int) i).id = nextId++;
         }
@@ -38,7 +38,7 @@ class LobbyControllerTest {
     }
 
     private static QueueUser getUser(String username) {
-        return new QueueUser(username, 0);
+        return new QueueUser(username);
     }
 
     @Test
@@ -82,7 +82,7 @@ class LobbyControllerTest {
 
     @Test
     public void testNotFound() {
-        QueueUser user = new QueueUser("ok" + -1, 0);
+        QueueUser user = new QueueUser("ok" + -1);
         repo.save(user);
         var response = lobbyCtrl.deleteUser(-1);
         assertEquals(BAD_REQUEST, response.getStatusCode());

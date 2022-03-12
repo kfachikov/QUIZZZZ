@@ -42,7 +42,7 @@ public class ServerUtils {
         GenericType<List<QueueUser>> genericType = new GenericType<List<QueueUser>>() {
         };
         return ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer).path("/api/lobby")
+                .target(currentServer).path("/api/queue")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(genericType);
@@ -50,7 +50,7 @@ public class ServerUtils {
 
     public QueueUser addQueueUser(QueueUser user) {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer).path("/api/lobby")
+                .target(currentServer).path("/api/queue")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(user, APPLICATION_JSON), QueueUser.class);
@@ -60,7 +60,7 @@ public class ServerUtils {
         long id = user.id;
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/api/lobby/" + String.valueOf(id))
+                .path("/api/queue/" + String.valueOf(id))
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .delete(QueueUser.class);

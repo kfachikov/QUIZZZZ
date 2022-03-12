@@ -10,12 +10,12 @@ import server.database.QueueUserRepository;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/lobby")
-public class LobbyController {
+@RequestMapping("/api/queue")
+public class QueueController {
 
     private final QueueUserRepository repo;
 
-    public LobbyController(QueueUserRepository repo) {
+    public QueueController(QueueUserRepository repo) {
         this.repo = repo;
     }
 

@@ -34,16 +34,14 @@ public class QueueUser {
     public long id;
 
     public String username;
-    public int score;
 
     @SuppressWarnings("unused")
     private QueueUser() {
         // for object mapper
     }
 
-    public QueueUser(String username, int score) {
+    public QueueUser(String username) {
         this.username = username;
-        this.score = score;
     }
 
     @Override
