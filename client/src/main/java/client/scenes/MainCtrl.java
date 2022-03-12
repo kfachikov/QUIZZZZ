@@ -119,7 +119,10 @@ public class MainCtrl {
         queueCtrl.resetScene();
     }
 
+    /**
+     * Set the current scene to Multiplayer game question screen.
+     */
     public void showMultiGameQuestion() {
-        
+        // TODO
     }
 }

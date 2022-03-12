@@ -9,8 +9,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.property.*;
-import javafx.beans.property.adapter.JavaBeanBooleanProperty;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -64,6 +66,10 @@ public class QueueScreenCtrl {
         this.pollingService = pollingService;
     }
 
+    /**
+     * Reset the queue scene back to normal values.
+     * This prevents flickering when re-entering the queue
+     */
     public void resetScene() {
         queueLabel.textProperty().set("Queue: 0 players");
         startLabel.setVisible(false);
@@ -84,6 +90,12 @@ public class QueueScreenCtrl {
         mainCtrl.showHome();
     }
 
+    /**
+     * Start the multiplayer game.
+     *
+     * Sends a POST request to the server, puts a clear white label for the
+     * countdown, disables the button and starts the countdown.
+     */
     public void startGame() {
         server.startMultiplayerGame();
         startButton.setDisable(true);
@@ -117,6 +129,9 @@ public class QueueScreenCtrl {
     public void initialize() {
         gameStarting = new SimpleBooleanProperty(false);
 
+        /*
+        Create an event listener for short-polling
+         */
         pollingService.valueProperty().addListener((observable, oldValue, newQueueState) -> {
             if (newQueueState != null) {
                 List<QueueUser> queueUsers = newQueueState.users;
@@ -140,20 +155,26 @@ public class QueueScreenCtrl {
                     currentNode.setVisible(false);
                 }
 
+                // "Go!" button should be disabled if the game is already starting
                 startButton.setDisable(newQueueState.gameStarting);
+                // "Game is starting in X..." label should be visible if the game
+                // is starting
                 startLabel.setVisible(newQueueState.gameStarting);
-
+                // Internal state should be consistent with server state
                 gameStarting.set(newQueueState.gameStarting);
             }
         });
 
+        /*
+        Create an event listener for the start of the game
+         */
         gameStarting.addListener(((observable, oldValue, newValue) -> {
             if (newValue) {
                 Task<Long> gameIdTask = new Task<Long>() {
                     IntegerProperty count = new SimpleIntegerProperty(-1);
 
                     @Override
-                    protected Long call()  {
+                    protected Long call() {
                         QueueState queueState = server.getQueueState();
 
                         count.addListener((observable1, oldValue1, newValue1) -> {
