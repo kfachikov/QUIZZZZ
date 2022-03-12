@@ -26,16 +26,16 @@ class QueueControllerTest {
         nextId = 0;
     }
 
-    private List<QueueUser> mockUsers() {
-        List<QueueUser> mockUser = new ArrayList<>();
+    private List<QueueUser> addMockUsers() {
+        List<QueueUser> users = new ArrayList<>();
         for (long i = 0; i < 3; i++) {
-            mockUser.add(
+            users.add(
                     new QueueUser("p" + nextId)
             );
-            mockUser.get((int) i).id = nextId++;
+            users.get((int) i).id = nextId++;
         }
-        repo.queueUsers.addAll(mockUser);
-        return mockUser;
+        repo.queueUsers.addAll(users);
+        return users;
     }
 
     private static QueueUser getUser(String username) {
@@ -44,7 +44,7 @@ class QueueControllerTest {
 
     @Test
     public void testGetQueueState() {
-        var expected = new QueueState(mockUsers());
+        var expected = new QueueState(addMockUsers());
         var response = lobbyCtrl.getQueueState();
         var result = response.getBody();
         assertEquals(expected, result);
@@ -52,7 +52,7 @@ class QueueControllerTest {
 
     @Test
     public void testMethodCall() {
-        mockUsers();
+        addMockUsers();
         lobbyCtrl.getQueueState();
         assertEquals(List.of("findAll"), repo.calledMethods);
     }
@@ -71,7 +71,7 @@ class QueueControllerTest {
 
     @Test
     public void testNotUniqueUsername() {
-        mockUsers();
+        addMockUsers();
         var actual = lobbyCtrl.add(getUser("p0"));
         assertEquals(FORBIDDEN, actual.getStatusCode());
     }
@@ -88,5 +88,21 @@ class QueueControllerTest {
         repo.save(user);
         var response = lobbyCtrl.deleteUser(-1);
         assertEquals(BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    public void testStartGame() {
+        QueueState queueState = new QueueState(addMockUsers(), true, 3000);
+        var response = lobbyCtrl.startGame();
+        QueueState result = response.getBody();
+        assertEquals(queueState, result);
+    }
+
+    @Test
+    public void testStartGameTwice() {
+        addMockUsers();
+        lobbyCtrl.startGame();
+        var response = lobbyCtrl.startGame();
+        assertEquals(FORBIDDEN, response.getStatusCode());
     }
 }

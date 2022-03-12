@@ -13,9 +13,11 @@ import server.database.QueueUserRepository;
 public class QueueController {
 
     private final QueueUserRepository repo;
+    private final QueueState queueState;
 
     public QueueController(QueueUserRepository repo) {
         this.repo = repo;
+        this.queueState = new QueueState();
     }
 
     /**
@@ -28,7 +30,7 @@ public class QueueController {
     @GetMapping("")
     public ResponseEntity<QueueState> getQueueState() {
         return ResponseEntity.ok(
-                new QueueState(repo.findAll())
+                new QueueState(repo.findAll(), queueState.gameStarting, queueState.msToStart)
         );
     }
 
@@ -48,6 +50,18 @@ public class QueueController {
         }
         QueueUser saved = repo.save(user);
         return ResponseEntity.ok(saved);
+    }
+
+    @PostMapping("/start")
+    public ResponseEntity<QueueState> startGame() {
+        if (queueState.gameStarting) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        } else {
+            queueState.gameStarting = true;
+            return ResponseEntity.ok(
+                    new QueueState(repo.findAll(), queueState.gameStarting, queueState.msToStart)
+            );
+        }
     }
 
     private static boolean isNullOrEmpty(String s) {
