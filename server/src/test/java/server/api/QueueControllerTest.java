@@ -47,7 +47,8 @@ class QueueControllerTest {
         var expected = new QueueState(addMockUsers());
         var response = lobbyCtrl.getQueueState();
         var result = response.getBody();
-        assertEquals(expected, result);
+        assertEquals(expected.users, result.users);
+        assertEquals(expected.gameStarting, result.gameStarting);
     }
 
     @Test

@@ -8,16 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.database.QueueUserRepository;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("/api/queue")
 public class QueueController {
 
     private final QueueUserRepository repo;
-    private final QueueState queueState;
+
+    private boolean gameStarting;
+    private long startTimeInMs;
 
     public QueueController(QueueUserRepository repo) {
         this.repo = repo;
-        this.queueState = new QueueState();
     }
 
     /**
@@ -29,9 +32,11 @@ public class QueueController {
      */
     @GetMapping("")
     public ResponseEntity<QueueState> getQueueState() {
-        return ResponseEntity.ok(
-                new QueueState(repo.findAll(), queueState.gameStarting, queueState.msToStart)
-        );
+        return ResponseEntity.ok(getCurrentQueue());
+    }
+
+    private QueueState getCurrentQueue() {
+        return new QueueState(repo.findAll(), gameStarting, startTimeInMs - new Date().getTime());
     }
 
     /**
@@ -49,20 +54,18 @@ public class QueueController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         QueueUser saved = repo.save(user);
-        queueState.gameStarting = false;
+        gameStarting = false;
         return ResponseEntity.ok(saved);
     }
 
     @PostMapping("/start")
     public ResponseEntity<QueueState> startGame() {
-        if (queueState.gameStarting) {
+        if (gameStarting) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         } else {
-            queueState.gameStarting = true;
-            queueState.msToStart = 3000;
-            return ResponseEntity.ok(
-                    new QueueState(repo.findAll(), queueState.gameStarting, queueState.msToStart)
-            );
+            gameStarting = true;
+            startTimeInMs = new Date().getTime() + 3000;
+            return ResponseEntity.ok(getCurrentQueue());
         }
     }
 
@@ -82,7 +85,7 @@ public class QueueController {
         QueueUser removed = repo.findById(id).orElse(null);
         if (removed != null) {
             repo.delete(removed);
-            queueState.gameStarting = false;
+            gameStarting = false;
             return ResponseEntity.ok(removed);
         } else {
             return ResponseEntity.badRequest().build();
