@@ -168,7 +168,9 @@ public class QueueScreenCtrl {
             // We can only update UI elements from the main JavaFX thread
             // This method adds whatever task we want to do to this thread
             Platform.runLater(() -> {
-                startLabel.setText("Game is starting in " + newValue + "...");
+                double fraction = newValue.doubleValue() / 1000;
+                long count = (long) Math.ceil(fraction);
+                startLabel.setText("Game is starting in " + count + "...");
             });
         }));
         /*
@@ -181,7 +183,6 @@ public class QueueScreenCtrl {
             // is starting
             startLabel.setVisible(newValue);
             if (newValue) {
-                countdownService.getCount().set(3);
                 countdownService.start();
             } else {
                 countdownService.cancel();
