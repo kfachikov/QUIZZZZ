@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.Optional;
 
 
@@ -45,8 +46,6 @@ public class SoloGameQuestionScreenCtrl extends Component {
 
     @FXML
     private Label questionTitle;
-
-
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -87,4 +86,43 @@ public class SoloGameQuestionScreenCtrl extends Component {
     public void setScore(int score) {
         currentScore.setText(String.valueOf(score));
     }
+
+    class BeginThread implements Runnable {
+
+        /**
+         * When an object implementing interface {@code Runnable} is used
+         * to create a thread, starting the thread causes the object's
+         * {@code run} method to be called in that separately executing
+         * thread.
+         * <p>
+         * The general contract of the method {@code run} is that it may
+         * take any action whatsoever.
+         *
+         * @see Thread#run()
+         */
+        @Override
+        public void run() {
+            for (int i = 0; i < 100; i++) {
+
+                time.setProgress(i / 100.0);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * The method starts the timer thread.
+     * @param event which takes place either when an answer is clicked or when the play button is pressed
+     */
+    @FXML
+    private void handlePlayButton (ActionEvent event) {
+        time.setProgress(0.0);
+        Thread thread = new Thread(new BeginThread());
+        thread.start();
+    }
+
 }
