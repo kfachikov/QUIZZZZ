@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 class UserControllerTest {
 
@@ -53,7 +54,7 @@ class UserControllerTest {
     @Test
     public void cannotAddNullPlayer() {
         var actual = userCtrl.add(getUser(null));
-        assertEquals(BAD_REQUEST, actual.getStatusCode());
+        assertEquals(NOT_FOUND, actual.getStatusCode());
     }
 
     @Test
