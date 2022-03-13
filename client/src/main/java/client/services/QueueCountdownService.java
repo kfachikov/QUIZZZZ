@@ -15,14 +15,20 @@ import javax.inject.Inject;
 
 public class QueueCountdownService extends Service<Long> {
 
-    private LongProperty count;
-
     private final ServerUtils server;
+
+    private Timeline timeline;
+    private LongProperty count;
 
     @Inject
     public QueueCountdownService(ServerUtils server) {
         this.server = server;
         this.count = new SimpleLongProperty(-1);
+
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), new KeyValue(getCount(), 1));
+
+        timeline = new Timeline(keyFrame);
+        timeline.setCycleCount(1);
     }
 
     /**
@@ -39,19 +45,22 @@ public class QueueCountdownService extends Service<Long> {
 
                 getCount().set(3000);
 
-                KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), new KeyValue(getCount(), 1));
-
-                Timeline timeline = new Timeline(keyFrame);
-                timeline.setCycleCount(1);
-
                 timeline.playFrom(Duration.millis(3000 - queueState.msToStart));
 
-                return -1L;
+                // TODO
+                // Set gameId to the actual gameId, instead of a dummy value
+                long resultGameId = 99;
+
+                return resultGameId;
             }
         };
     }
 
     public LongProperty getCount() {
         return count;
+    }
+
+    public Timeline getTimeline() {
+        return timeline;
     }
 }

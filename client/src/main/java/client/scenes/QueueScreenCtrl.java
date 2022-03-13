@@ -193,8 +193,8 @@ public class QueueScreenCtrl {
         /*
          * Switch scene once countdown reaches 0
          */
-        countdownService.setOnSucceeded(event -> {
-            Long result = (Long) event.getSource().getValue();
+        countdownService.getTimeline().setOnFinished(event -> {
+            Long result = countdownService.getValue();
             mainCtrl.showMultiGameQuestion(result);
         });
     }
