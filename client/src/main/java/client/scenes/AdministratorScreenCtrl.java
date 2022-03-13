@@ -4,7 +4,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import org.w3c.dom.Text;
+import javafx.scene.text.Text;
 
 
 public class AdministratorScreenCtrl {
@@ -37,6 +37,6 @@ public class AdministratorScreenCtrl {
     }
 
     public void chooseFile() {
-        description.setTextContent(mainCtrl.chooseFile(selectFileButton));
+        description.setText("You have imported " + mainCtrl.chooseFile(selectFileButton));
     }
 }
