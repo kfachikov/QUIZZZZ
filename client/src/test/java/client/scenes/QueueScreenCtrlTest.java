@@ -38,7 +38,7 @@ class QueueScreenCtrlTest {
         queueScreenCtrl.returnHome();
 
         assertEquals(
-                List.of("cancel", "reset"),
+                List.of("stop"),
                 pollingService.calledMethods
         );
         assertEquals(
@@ -73,5 +73,21 @@ class QueueScreenCtrlTest {
         QueueUser user = new QueueUser("test");
         queueScreenCtrl.setUser(user);
         assertEquals(user, queueScreenCtrl.getUser());
+    }
+
+    @Test
+    void leaveQueue() {
+        QueueUser expectedQueueUser = new QueueUser("TestUser");
+        server.returnValue = expectedQueueUser;
+        pollingService.returnValue = false;
+
+        assertEquals(expectedQueueUser, queueScreenCtrl.leaveQueue());
+
+        assertEquals(List.of("stop"), pollingService.calledMethods);
+        assertEquals(List.of("stop"), countdownService.calledMethods);
+        assertEquals(
+                List.of("deleteQueueUser"),
+                server.calledMethods
+        );
     }
 }

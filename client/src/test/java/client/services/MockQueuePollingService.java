@@ -75,5 +75,8 @@ public class MockQueuePollingService extends QueuePollingService {
         call("start");
     }
 
-
+    @Override
+    public void stop() {
+        call("stop");
+    }
 }

@@ -25,7 +25,7 @@ public class QueueCountdownService extends Service<Long> {
         this.server = server;
         this.count = new SimpleLongProperty(-1);
 
-        KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), new KeyValue(getCount(), 1));
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), new KeyValue(count, 1));
 
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(1);
