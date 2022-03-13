@@ -28,7 +28,6 @@ public class QueueCountdownService extends Service<Long> {
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), new KeyValue(count, 1));
 
         timeline = new Timeline(keyFrame);
-        timeline.setCycleCount(1);
     }
 
     public void stop() {
