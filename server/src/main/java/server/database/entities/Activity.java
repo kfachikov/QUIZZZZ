@@ -37,12 +37,12 @@ public class Activity {
     /**
      * Constructs an Activity object.
      * @param id
-     * @param title
-     * @param source
      * @param image
+     * @param title
      * @param consumption
+     * @param source
      */
-    public Activity(String id, String title, String source, String image, Long consumption) {
+    public Activity(String id, String image, String title, Long consumption, String source) {
         this.id = id;
         this.title = title;
         this.source = source;
