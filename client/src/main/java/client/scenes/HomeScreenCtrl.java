@@ -93,4 +93,8 @@ public class HomeScreenCtrl {
         }
     }
 
+    public void showAdministratorPanel() {
+        mainCtrl.showAdministrator();
+    }
+
 }

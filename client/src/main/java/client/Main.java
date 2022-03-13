@@ -36,16 +36,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-
         var home = FXML.load(HomeScreenCtrl.class, "client", "scenes", "HomeScreen.fxml");
         var prep = FXML.load(PrepScreenCtrl.class, "client", "scenes", "PrepScreen.fxml");
         var help = FXML.load(HelpScreenCtrl.class, "client", "scenes", "HelpScreen.fxml");
-        var soloGame = FXML.load(SoloGameQuestionScreenCtrl.class, "client",
-                "scenes", "SoloGameQuestionScreen.fxml");
+        var soloGame = FXML.load(SoloGameQuestionScreenCtrl.class, "client", "scenes", "SoloGameQuestionScreen.fxml");
         var queue = FXML.load(QueueScreenCtrl.class, "client", "scenes", "QueueScreen.fxml");
+        var administrator = FXML.load(AdministratorScreenCtrl.class, "client", "scenes", "AdministratorScreen.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
-        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue);
+        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator);
     }
 }

@@ -12,10 +12,18 @@
                <Font name="SansSerif Regular" size="12.0" />
            </font>
        </Button>
-      <Text layoutX="110.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMINISTRATOR PANEL" textAlignment="CENTER" wrappingWidth="380.4990234375">
+      <Text layoutX="110.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMINISTRATOR PANEL" textAlignment="CENTER" wrappingWidth="380.4990234375">
+         <font>
+            <Font size="35.0" />
+         </font></Text>
+      <Button fx:id="selectFileButton" layoutX="174.0" layoutY="167.0" mnemonicParsing="false" onAction="#chooseFile" stylesheets="@../../styling/GameStyle.css" text="Import Activities" textAlignment="CENTER" textFill="#006e8c">
          <font>
             <Font size="30.0" />
-         </font></Text>
-      <Button layoutX="273.0" layoutY="152.0" mnemonicParsing="false" text="Import Activities" stylesheets="@../../styling/GameStyle.css" textFill="#006e8c"/>
+         </font></Button>
+      <Text fx:id="description" fill="#006e8c" layoutX="71.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select  a .json file to import activities and generate questions. " textAlignment="CENTER" wrappingWidth="459.4990234375">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

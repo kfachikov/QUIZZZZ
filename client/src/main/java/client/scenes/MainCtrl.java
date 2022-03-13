@@ -18,8 +18,12 @@ package client.scenes;
 import commons.MultiUser;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+
+import java.io.File;
 
 public class MainCtrl {
 
@@ -39,6 +43,9 @@ public class MainCtrl {
     private SoloGameQuestionScreenCtrl soloGameCtrl;
     private Scene soloGame;
 
+    private AdministratorScreenCtrl administratorCtrl;
+    private Scene administrator;
+
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
      * @param home         is the home screen pair variable
@@ -50,23 +57,29 @@ public class MainCtrl {
                            Pair<HelpScreenCtrl, Parent> help,
                            Pair<PrepScreenCtrl, Parent> prep,
                            Pair<SoloGameQuestionScreenCtrl, Parent> soloGame,
-                           Pair<QueueScreenCtrl, Parent> queue
-
+                           Pair<QueueScreenCtrl, Parent> queue,
+                           Pair<AdministratorScreenCtrl, Parent> administrator
     ) {
 
         this.primaryStage = primaryStage;
 
         this.homeCtrl = home.getKey();
         this.home = new Scene(home.getValue());
+
         this.prepCtrl = prep.getKey();
         this.prep = new Scene(prep.getValue());
+
         this.helpCtrl = help.getKey();
         this.help = new Scene(help.getValue());
+
         this.queueCtrl = queue.getKey();
         this.queue = new Scene(queue.getValue());
 
         this.soloGameCtrl = soloGame.getKey();
         this.soloGame = new Scene(soloGame.getValue());
+
+        this.administratorCtrl = administrator.getKey();
+        this.administrator = new Scene(administrator.getValue());
 
         showHome();
         primaryStage.show();
@@ -116,5 +129,16 @@ public class MainCtrl {
         primaryStage.setScene(queue);
         queueCtrl.getPollingService().start();
         queueCtrl.setUser(user);
+    }
+
+    public void showAdministrator() {
+        primaryStage.setTitle("Quizzz: Administrator Panel");
+        primaryStage.setScene(administrator);
+    }
+
+    public String chooseFile(Button selectFileButton) {
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile =  fileChooser.showOpenDialog(null);
+        return selectedFile.getName();
     }
 }

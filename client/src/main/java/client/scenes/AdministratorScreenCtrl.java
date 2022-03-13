@@ -2,10 +2,20 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import org.w3c.dom.Text;
+
 
 public class AdministratorScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+
+    @FXML
+    private Text description;
+
+    @FXML
+    private Button selectFileButton;
 
     /**
      * initializes AdministratorScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -24,5 +34,9 @@ public class AdministratorScreenCtrl {
      */
     public void returnHome() {
         mainCtrl.showHome();
+    }
+
+    public void chooseFile() {
+        description.setTextContent(mainCtrl.chooseFile(selectFileButton));
     }
 }
