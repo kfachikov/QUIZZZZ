@@ -64,13 +64,13 @@ public class HomeScreenCtrl {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
             switch (e.getResponse().getStatus()) {
-                case NOT_FOUND:usernameMissing();
-                    break;
-                default:
-                    Alert alert1 = new Alert(Alert.AlertType.ERROR);
-                    alert1.initModality(Modality.APPLICATION_MODAL);
-                    alert1.setContentText("Username missing!");
-                    alert1.showAndWait();
+            case NOT_FOUND:usernameMissing();
+            break;
+            default:
+                Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                alert1.initModality(Modality.APPLICATION_MODAL);
+                alert1.setContentText("Username missing!");
+                alert1.showAndWait();
             }
         } catch (ProcessingException e) {
             serverInvalid();
@@ -120,13 +120,13 @@ public class HomeScreenCtrl {
                 alert.showAndWait();
             }
             switch (e.getResponse().getStatus()) {
-                case NOT_FOUND:usernameMissing();
-                break;
-                default:
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.initModality(Modality.APPLICATION_MODAL);
-                    alert.setContentText("Username missing!");
-                    alert.showAndWait();
+            case NOT_FOUND:usernameMissing();
+            break;
+            default:
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initModality(Modality.APPLICATION_MODAL);
+                alert.setContentText("Username missing!");
+                alert.showAndWait();
             }
         } catch (ProcessingException e) {
             serverInvalid();
