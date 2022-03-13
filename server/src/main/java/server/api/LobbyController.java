@@ -1,10 +1,11 @@
 package server.api;
 
 
-import commons.MultiUser;
+import commons.QueueUser;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import server.database.MultiUserRepository;
+import server.database.QueueUserRepository;
 
 import java.util.List;
 
@@ -12,27 +13,31 @@ import java.util.List;
 @RequestMapping("/api/lobby")
 public class LobbyController {
 
-    private final MultiUserRepository repo;
+    private final QueueUserRepository repo;
 
-    public LobbyController(MultiUserRepository repo) {
+    public LobbyController(QueueUserRepository repo) {
         this.repo = repo;
     }
 
     @GetMapping("")
-    public List<MultiUser> getAllUsers() {
+    public List<QueueUser> getAllUsers() {
         return repo.findAll();
     }
 
     /**
-     * @param user the user to be added to the MultiUser repository
+     * First if handles the case when the username entered is empty.
+     * Second one corresponds to username already in database case (not unique per multiplayer queue).
+     * @param user the user to be added to the QueueUser repository
      * @return response
      */
     @PostMapping("")
-    public ResponseEntity<MultiUser> add(@RequestBody MultiUser user) {
+    public ResponseEntity<QueueUser> add(@RequestBody QueueUser user) {
         if (user == null || isNullOrEmpty(user.username)) {
             return ResponseEntity.badRequest().build();
+        } else if (repo.existsQueueUserByUsername(user.username)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-        MultiUser saved = repo.save(user);
+        QueueUser saved = repo.save(user);
         return ResponseEntity.ok(saved);
     }
 
@@ -41,13 +46,13 @@ public class LobbyController {
     }
 
 
-    /** Delete a user if present from the repositroy.
+    /** Delete a user if present from the repository.
      * @param id Primary-key attribute to search with
      * @return returns a ResponseEntity consisting of the deleted user if present or a Not Found error if not found.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<MultiUser> deleteUser(@PathVariable("id") long id) {
-        MultiUser removed = repo.findById(id).orElse(null);
+    public ResponseEntity<QueueUser> deleteUser(@PathVariable("id") long id) {
+        QueueUser removed = repo.findById(id).orElse(null);
         if (removed != null) {
             repo.delete(removed);
             return ResponseEntity.ok(removed);

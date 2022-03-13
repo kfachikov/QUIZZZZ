@@ -2,23 +2,35 @@ package client.scenes;
 
 import client.services.QueuePollingService;
 import client.utils.ServerUtils;
-import commons.MultiUser;
+import commons.QueueUser;
 import jakarta.ws.rs.NotFoundException;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 
 import javax.inject.Inject;
+import java.util.Collections;
+import java.util.List;
 
 public class QueueScreenCtrl {
+
+    /**
+     * Initialize class constant for the number of player's usernames visible on screen.
+     */
+    private static final int PLAYERSCOUNT = 16;
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private final QueuePollingService pollingService;
 
-    private MultiUser user;
+    private QueueUser user;
 
     @FXML
     private Label queueLabel;
+
+    @FXML
+    private FlowPane bubbles;
 
     /**
      * Constructor for queue screen controller.
@@ -57,7 +69,7 @@ public class QueueScreenCtrl {
     }
 
     /**
-     * Initializes the queue screen controller by binding the queue label to the
+     * Initializes the queue screen controller by binding the queue label the queue "bubbles" to the
      * results of the polling service.
      * <p>
      * The queue polling service will repeatedly poll the server, and update its
@@ -74,25 +86,44 @@ public class QueueScreenCtrl {
         pollingService.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 queueLabel.textProperty().set("Queue: " + newValue.size() + " players");
+
+                int currentNodeIndex = 0;
+                List<Node> presentPlayers = bubbles.getChildren();
+                Collections.reverse(newValue);
+
+                for (QueueUser multiplayer: newValue) {
+                    Node currentNode = presentPlayers.get(currentNodeIndex);
+                    ((Label) currentNode).setText(multiplayer.username);
+                    currentNode.setVisible(true);
+                    currentNodeIndex++;
+                    if (currentNodeIndex > PLAYERSCOUNT) {
+                        break;
+                    }
+                }
+                for (int i = currentNodeIndex; i <= PLAYERSCOUNT; i++) {
+                    Node currentNode = presentPlayers.get(currentNodeIndex);
+                    currentNode.setVisible(false);
+                }
             }
         });
+
     }
 
     /**
-     * Getter for the MultiUser instance (of this client) inside the queue.
+     * Getter for the QueueUser instance (of this client) inside the queue.
      *
-     * @return MultiUser instance inside the queue
+     * @return QueueUser instance inside the queue
      */
-    public MultiUser getUser() {
+    public QueueUser getUser() {
         return user;
     }
 
     /**
-     * Setter for the MultiUser instance (for this client) inside the queue.
+     * Setter for the QueueUser instance (for this client) inside the queue.
      *
-     * @param user MultiUser that just joined the queue
+     * @param user QueueUser that just joined the queue
      */
-    public void setUser(MultiUser user) {
+    public void setUser(QueueUser user) {
         this.user = user;
     }
 }

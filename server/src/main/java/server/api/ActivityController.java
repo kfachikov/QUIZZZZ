@@ -52,7 +52,7 @@ public class ActivityController {
      * @return ResponseEntity consisting of the deleted entry if present, or a Not Found error if not found.
      */
     @DeleteMapping("/{key}")
-    public ResponseEntity<Activity> removeActivity(@PathVariable Long key) {
+    public ResponseEntity<Activity> removeActivity(@PathVariable("{key}") Long key) {
         Activity removed = repo.findById(key).orElse(null);
         if (removed != null) {
             repo.delete(removed);
@@ -69,7 +69,7 @@ public class ActivityController {
      * @return ResponseEntity consisting of the updated entry if present, or a Not Found error if not found.
      */
     @PutMapping("/{key}")
-    public ResponseEntity<Activity> updateActivity(@PathVariable(value = "key") Long key,
+    public ResponseEntity<Activity> updateActivity(@PathVariable("key") Long key,
                                                    @RequestBody Activity activityDetails) {
         Activity activity = repo.findById(key).orElse(null);
         if (activity != null) {

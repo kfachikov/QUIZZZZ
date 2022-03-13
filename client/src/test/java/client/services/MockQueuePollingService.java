@@ -1,7 +1,7 @@
 package client.services;
 
 import client.utils.ServerUtils;
-import commons.MultiUser;
+import commons.QueueUser;
 import javafx.concurrent.Task;
 
 import java.util.ArrayList;
@@ -30,9 +30,9 @@ public class MockQueuePollingService extends QueuePollingService {
      * @return Queue polling task
      */
     @Override
-    protected Task<List<MultiUser>> createTask() {
+    protected Task<List<QueueUser>> createTask() {
         call("createTask");
-        return (Task<List<MultiUser>>) returnValue;
+        return (Task<List<QueueUser>>) returnValue;
     }
 
     /**

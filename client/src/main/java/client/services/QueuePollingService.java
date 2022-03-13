@@ -1,14 +1,14 @@
 package client.services;
 
 import client.utils.ServerUtils;
-import commons.MultiUser;
+import commons.QueueUser;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import javax.inject.Inject;
 import java.util.List;
 
-public class QueuePollingService extends Service<List<MultiUser>> {
+public class QueuePollingService extends Service<List<QueueUser>> {
 
     private final ServerUtils server;
 
@@ -24,15 +24,15 @@ public class QueuePollingService extends Service<List<MultiUser>> {
      * @return Queue polling task
      */
     @Override
-    protected Task<List<MultiUser>> createTask() {
-        return new Task<List<MultiUser>>() {
+    protected Task<List<QueueUser>> createTask() {
+        return new Task<List<QueueUser>>() {
             @Override
-            protected List<MultiUser> call() throws Exception {
+            protected List<QueueUser> call() throws Exception {
                 while (true) {
                     updateValue(server.getQueueUsers());
                     try {
                         //noinspection BusyWait
-                        Thread.sleep(1500);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         break;
                     }

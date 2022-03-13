@@ -27,7 +27,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
-public class MultiUser {
+public class QueueUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,11 +37,11 @@ public class MultiUser {
     public int score;
 
     @SuppressWarnings("unused")
-    private MultiUser() {
+    private QueueUser() {
         // for object mapper
     }
 
-    public MultiUser(String username, int score) {
+    public QueueUser(String username, int score) {
         this.username = username;
         this.score = score;
     }
