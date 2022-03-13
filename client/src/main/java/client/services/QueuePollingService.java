@@ -22,6 +22,12 @@ public class QueuePollingService extends Service<QueueState> {
      *
      * @return Queue polling task
      */
+
+    public void stop() {
+        this.cancel();
+        this.reset();
+    }
+
     @Override
     protected Task<QueueState> createTask() {
         return new Task<QueueState>() {

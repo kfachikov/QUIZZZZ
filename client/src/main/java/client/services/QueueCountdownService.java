@@ -31,6 +31,12 @@ public class QueueCountdownService extends Service<Long> {
         timeline.setCycleCount(1);
     }
 
+    public void stop() {
+        this.cancel();
+        this.reset();
+        timeline.stop();
+    }
+
     /**
      * Creates a task which updates the `count` variable at a regular interval.
      *

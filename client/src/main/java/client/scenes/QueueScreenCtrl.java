@@ -4,7 +4,6 @@ import client.services.QueueCountdownService;
 import client.services.QueuePollingService;
 import client.utils.ServerUtils;
 import commons.QueueUser;
-import jakarta.ws.rs.NotFoundException;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -81,12 +80,7 @@ public class QueueScreenCtrl {
      * Returns from the queue screen back to the home screen.
      */
     public void returnHome() {
-        pollingService.cancel();
-        pollingService.reset();
-        try {
-            server.deleteQueueUser(user);
-        } catch (NotFoundException ignored) {
-        }
+        leaveQueue();
         mainCtrl.showHome();
     }
 
@@ -185,8 +179,7 @@ public class QueueScreenCtrl {
             if (newValue) {
                 countdownService.start();
             } else {
-                countdownService.cancel();
-                countdownService.reset();
+                countdownService.stop();
             }
         }));
 
@@ -195,7 +188,7 @@ public class QueueScreenCtrl {
          */
         countdownService.getTimeline().setOnFinished(event -> {
             Long result = countdownService.getValue();
-            mainCtrl.showMultiGameQuestion(result);
+            mainCtrl.showMultiGameQuestion(result, leaveQueue());
         });
     }
 
@@ -215,5 +208,11 @@ public class QueueScreenCtrl {
      */
     public void setUser(QueueUser user) {
         this.user = user;
+    }
+
+    public QueueUser leaveQueue() {
+        pollingService.stop();
+        countdownService.stop();
+        return server.deleteQueueUser(user);
     }
 }

@@ -16,6 +16,7 @@
 package client.scenes;
 
 import commons.QueueUser;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -76,6 +77,13 @@ public class MainCtrl {
 
         showHome();
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest((event -> {
+            if (primaryStage.getScene().equals(this.queue)) {
+                queueCtrl.leaveQueue();
+            }
+            Platform.exit();
+        }));
     }
 
     /**
@@ -128,8 +136,9 @@ public class MainCtrl {
     /**
      * Set the current scene to Multiplayer game question screen.
      * @param id Multiplayer game id
+     * @param queueUser QueueUser of the user who was just in the queue
      */
-    public void showMultiGameQuestion(long id) {
+    public void showMultiGameQuestion(long id, QueueUser queueUser) {
         primaryStage.setTitle("Quizzz: Multi-player Game");
         primaryStage.setScene(multiGame);
         multiGameCtrl.setGameId(id);
