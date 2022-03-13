@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import server.database.ActivityRepository;
 import server.database.entities.Activity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -146,5 +148,41 @@ class ActivityControllerTest {
         var result = ctrl.updateActivity(initialActivity.getKey(), activity);
 
         assertEquals(BAD_REQUEST, result.getStatusCode());
+    }
+
+    @Test
+    public void testAddActivitiesNullAttribute() {
+        Activity activity1 = new Activity(null, "newTitle", "newSource", "newImage", 200L);
+        Activity activity2 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
+        List<Activity> activities = new ArrayList<>();
+        activities.add(activity1);
+        activities.add(activity2);
+
+        var result = ctrl.addActivities(activities);
+        assertEquals(BAD_REQUEST, result.getStatusCode());
+    }
+
+    @Test
+    public void testAddActivitiesNullInstance() {
+        Activity activity1 = new Activity(null, null, null, null, null);
+        Activity activity2 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
+        List<Activity> activities = new ArrayList<>();
+        activities.add(activity1);
+        activities.add(activity2);
+
+        var result = ctrl.addActivities(activities);
+        assertEquals(BAD_REQUEST, result.getStatusCode());
+    }
+
+    @Test
+    public void testAddActivities() {
+        Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
+        Activity activity2 = new Activity("newId2", "newTitle2", "newSource2", "newImage2", 201L);
+        List<Activity> activities = new ArrayList<>();
+        activities.add(activity1);
+        activities.add(activity2);
+
+        ctrl.addActivities(activities);
+        assertEquals(2, repo.count());
     }
 }
