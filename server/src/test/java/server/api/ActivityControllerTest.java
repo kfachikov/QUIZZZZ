@@ -163,18 +163,6 @@ class ActivityControllerTest {
     }
 
     @Test
-    public void testAddActivitiesNullInstance() {
-        Activity activity1 = new Activity(null, null, null, null, null);
-        Activity activity2 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
-        List<Activity> activities = new ArrayList<>();
-        activities.add(activity1);
-        activities.add(activity2);
-
-        var result = ctrl.addActivities(activities);
-        assertEquals(BAD_REQUEST, result.getStatusCode());
-    }
-
-    @Test
     public void testAddActivities() {
         Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
         Activity activity2 = new Activity("newId2", "newTitle2", "newSource2", "newImage2", 201L);
