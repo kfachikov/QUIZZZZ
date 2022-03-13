@@ -59,23 +59,18 @@ public class HomeScreenCtrl {
             server.addUser(getSingleUser());
             mainCtrl.showPrep();
         } catch (WebApplicationException e) {
-            var alert = new Alert(Alert.AlertType.ERROR);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
             switch (e.getResponse().getStatus()) {
             case NOT_FOUND:usernameMissing();
             break;
             default:
-                Alert alert1 = new Alert(Alert.AlertType.ERROR);
-                alert1.initModality(Modality.APPLICATION_MODAL);
-                alert1.setContentText("Username missing!");
-                alert1.showAndWait();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initModality(Modality.APPLICATION_MODAL);
+                alert.setContentText("Username missing!");
+                alert.showAndWait();
             }
         } catch (ProcessingException e) {
             serverInvalid();
         }
-
     }
 
     /**
