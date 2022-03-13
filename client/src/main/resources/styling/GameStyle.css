@@ -34,3 +34,15 @@
     -fx-border-color: #006e8c#006e8c;
     -fx-border-radius: 10;
 }
+#bubbles>.label {
+    -fx-background-color: #c9f1fd;
+    -fx-border-color: #006e8c;
+    -fx-border-radius: 15;
+    -fx-background-radius: 20;
+    -fx-border-width: 3;
+    visibility: false;
+}
+
+#start-label {
+    -fx-background-color: #ffffffaa;
+}
