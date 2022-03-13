@@ -9,9 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-import javax.swing.*;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
+
 import java.util.Optional;
 
 
@@ -103,7 +103,9 @@ public class SoloGameQuestionScreenCtrl extends Component {
         @Override
         public void run() {
             for (int i = 0; i < 100; i++) {
-
+                if (i > 70) {
+                    time.setStyle("-fx-accent: red");
+                }
                 time.setProgress(i / 100.0);
                 try {
                     Thread.sleep(100);
@@ -116,10 +118,9 @@ public class SoloGameQuestionScreenCtrl extends Component {
 
     /**
      * The method starts the timer thread.
-     * @param event which takes place either when an answer is clicked or when the play button is pressed
      */
     @FXML
-    private void handlePlayButton (ActionEvent event) {
+    public void startTimer() {
         time.setProgress(0.0);
         Thread thread = new Thread(new BeginThread());
         thread.start();

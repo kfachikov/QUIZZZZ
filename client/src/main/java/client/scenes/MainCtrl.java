@@ -102,6 +102,7 @@ public class MainCtrl {
     public void showSoloGameQuestion() {
         primaryStage.setTitle("Quizzz: Single-player Game");
         primaryStage.setScene(soloGame);
+        soloGameCtrl.startTimer();
     }
 
     /**
