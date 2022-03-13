@@ -59,10 +59,10 @@ public class HomeScreenCtrl {
             server.addUser(getSingleUser());
             mainCtrl.showPrep();
         } catch (WebApplicationException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initModality(Modality.APPLICATION_MODAL);
-                alert.setContentText("Username missing!");
-                alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.setContentText("Username missing!");
+            alert.showAndWait();
         } catch (ProcessingException e) {
             serverInvalid();
         }
