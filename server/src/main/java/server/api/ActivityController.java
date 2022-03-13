@@ -101,7 +101,18 @@ public class ActivityController {
      */
     @PostMapping("/mass")
     public ResponseEntity<List<Activity>> addActivities(@RequestBody List<Activity> activities) {
-        repo.saveAll(activities);
+        for (int i = 0; i < activities.size(); i++) {
+            if (isNullOrEmpty(activities.get(i).getId()) ||
+                    isNullOrEmpty(activities.get(i).getTitle()) ||
+                    isNullOrEmpty(activities.get(i).getSource()) ||
+                    isNullOrEmpty(activities.get(i).getImage()) ||
+                    activities.get(i).getConsumption() < 0) {
+                return ResponseEntity.badRequest().build();
+            }
+        }
+        for (Activity activity : activities) {
+            repo.save(activity);
+        }
         return ResponseEntity.ok(activities);
     }
 
