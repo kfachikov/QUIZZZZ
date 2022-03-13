@@ -58,6 +58,13 @@ public class QueueController {
         return ResponseEntity.ok(saved);
     }
 
+    /**
+     * Starts the multiplayer game with the users inside the queue.
+     * <p>
+     * The start of the game is set to be 3 seconds after this endpoint is called.
+     *
+     * @return The updated state of the game.
+     */
     @PostMapping("/start")
     public ResponseEntity<QueueState> startGame() {
         if (gameStarting) {

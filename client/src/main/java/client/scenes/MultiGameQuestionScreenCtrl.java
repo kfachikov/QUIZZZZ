@@ -12,15 +12,29 @@ import javafx.scene.control.Label;
 import javax.inject.Inject;
 import java.util.Optional;
 
+/**
+ * Controller responsible for the multiplayer game question screen.
+ * <p>
+ * Currently, this is just a mock scene, containing a leave button and a label
+ * showing the current game ID.
+ */
 public class MultiGameQuestionScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
-    private LongProperty gameId;
+    private final LongProperty gameId;
 
     @FXML
     private Label gameIdLabel;
 
+    /**
+     * Constructor for the multiplayer game question screen.
+     * <p>
+     * Initializes the associated gameId.
+     *
+     * @param server   Injected instance of ServerUtils
+     * @param mainCtrl Injected instance of MainCtrl
+     */
     @Inject
     public MultiGameQuestionScreenCtrl(
             ServerUtils server,
@@ -31,6 +45,13 @@ public class MultiGameQuestionScreenCtrl {
         gameId = new SimpleLongProperty(-1);
     }
 
+    /**
+     * Adds a listener to the game ID property, so its value is clearly reflected
+     * in the label present in the scene.
+     * <p>
+     * This method is automatically run after the scene is initialized, and
+     * relevant fields of the class are set automatically to correct values.
+     */
     public void initialize() {
         gameId.addListener(((observable, oldValue, newValue) -> {
             gameIdLabel.setText("Game ID: " + newValue);
@@ -38,7 +59,8 @@ public class MultiGameQuestionScreenCtrl {
     }
 
     /**
-     * sets the scene and title to home if the yes button is clicked.
+     * Confirms if the user really wants to leave the game and allows them to
+     * return to the home screen.
      */
     public void returnHome() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -56,6 +78,11 @@ public class MultiGameQuestionScreenCtrl {
         }
     }
 
+    /**
+     * Setter for the associated game ID.
+     *
+     * @param id New game ID to set
+     */
     public void setGameId(long id) {
         gameId.set(id);
     }

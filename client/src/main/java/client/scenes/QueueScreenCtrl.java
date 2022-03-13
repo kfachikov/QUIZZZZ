@@ -48,9 +48,10 @@ public class QueueScreenCtrl {
     /**
      * Constructor for queue screen controller.
      *
-     * @param server         Server utilities
-     * @param mainCtrl       Main controller
-     * @param pollingService Queue polling service
+     * @param server           Server utilities
+     * @param mainCtrl         Main controller
+     * @param pollingService   Queue polling service
+     * @param countdownService Queue countdown service
      */
     @Inject
     public QueueScreenCtrl(
@@ -210,6 +211,13 @@ public class QueueScreenCtrl {
         this.user = user;
     }
 
+    /**
+     * Convenience method for leaving the queue, with the appropriate cleanup.
+     * <p>
+     * Stops any running services (if any) and returns the associated queue user.
+     *
+     * @return QueueUser instance inside the queue
+     */
     public QueueUser leaveQueue() {
         pollingService.stop();
         countdownService.stop();

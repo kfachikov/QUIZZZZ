@@ -135,7 +135,8 @@ public class MainCtrl {
 
     /**
      * Set the current scene to Multiplayer game question screen.
-     * @param id Multiplayer game id
+     *
+     * @param id        Multiplayer game id
      * @param queueUser QueueUser of the user who was just in the queue
      */
     public void showMultiGameQuestion(long id, QueueUser queueUser) {

@@ -62,6 +62,11 @@ public class ServerUtils {
                 .delete(QueueUser.class);
     }
 
+    /**
+     * POST request to /api/queue/start, to start the multiplayer game.
+     *
+     * @return The updated state of the game
+     */
     public QueueState startMultiplayerGame() {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)

@@ -7,10 +7,24 @@ import javafx.concurrent.Task;
 
 import javax.inject.Inject;
 
+/**
+ * Service responsible for repeatedly polling the queue.
+ *
+ * The task created by this service never terminates on its own.
+ * It must be terminated by external method, preferably using stop().
+ *
+ * The task of this class will continuously update its temporary value to the
+ * current state of the queue.
+ */
 public class QueuePollingService extends Service<QueueState> {
 
     private final ServerUtils server;
 
+    /**
+     * Constructor for QueuePollingService.
+     *
+     * @param server Injected ServerUtils instance
+     */
     @Inject
     public QueuePollingService(ServerUtils server) {
         this.server = server;
