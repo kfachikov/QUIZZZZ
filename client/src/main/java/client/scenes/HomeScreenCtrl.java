@@ -16,6 +16,7 @@ import javafx.stage.Modality;
 public class HomeScreenCtrl {
 
     private static final int FORBIDDEN = 403;
+    private static final int NOT_FOUND = 404;
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
@@ -62,6 +63,15 @@ public class HomeScreenCtrl {
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText(e.getMessage());
             alert.showAndWait();
+            switch (e.getResponse().getStatus()) {
+                case NOT_FOUND:usernameMissing();
+                    break;
+                default:
+                    Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                    alert1.initModality(Modality.APPLICATION_MODAL);
+                    alert1.setContentText("Username missing!");
+                    alert1.showAndWait();
+            }
         } catch (ProcessingException e) {
             serverInvalid();
         }
@@ -109,6 +119,15 @@ public class HomeScreenCtrl {
                 alert.setContentText("Username not present!");
                 alert.showAndWait();
             }
+            switch (e.getResponse().getStatus()) {
+                case NOT_FOUND:usernameMissing();
+                break;
+                default:
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initModality(Modality.APPLICATION_MODAL);
+                    alert.setContentText("Username missing!");
+                    alert.showAndWait();
+            }
         } catch (ProcessingException e) {
             serverInvalid();
         }
@@ -147,6 +166,19 @@ public class HomeScreenCtrl {
         usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
         serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
         errorMessage.setVisible(false);
+    }
+
+    /**
+     * Reusable method to be executed once a user tries to join a game without a username
+     *
+     * Sets username field background to red to pull the attention of the client.
+     * Removes the background of the server field, as the current problem is somewhere else.
+     */
+    private void usernameMissing () {
+        usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
+        serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        errorMessage.setText("Username missing!");
+        errorMessage.setVisible(true);
     }
 
 }
