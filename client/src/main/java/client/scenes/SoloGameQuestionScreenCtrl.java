@@ -102,6 +102,7 @@ public class SoloGameQuestionScreenCtrl extends Component {
          */
         @Override
         public void run() {
+            time.setStyle("-fx-accent: #006e8c");
             for (int i = 0; i < 100; i++) {
                 if (i > 70) {
                     time.setStyle("-fx-accent: red");
