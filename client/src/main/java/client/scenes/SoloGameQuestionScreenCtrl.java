@@ -15,7 +15,7 @@ import java.util.Optional;
 
 
 
-public class SoloGameQuestionScreenCtrl extends Component {
+public class SoloGameQuestionScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 

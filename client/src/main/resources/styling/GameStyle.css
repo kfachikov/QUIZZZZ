@@ -42,3 +42,7 @@
     -fx-border-width: 3;
     visibility: false;
 }
+
+#start-label {
+    -fx-background-color: #ffffffaa;
+}

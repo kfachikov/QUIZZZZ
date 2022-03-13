@@ -15,14 +15,12 @@
  */
 package client.utils;
 
+import commons.QueueState;
 import commons.QueueUser;
 import commons.SingleUser;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.core.GenericType;
 import org.glassfish.jersey.client.ClientConfig;
-
-import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -38,19 +36,17 @@ public class ServerUtils {
                 .post(Entity.entity(user, APPLICATION_JSON), SingleUser.class);
     }
 
-    public List<QueueUser> getQueueUsers() {
-        GenericType<List<QueueUser>> genericType = new GenericType<List<QueueUser>>() {
-        };
+    public QueueState getQueueState() {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer).path("/api/lobby")
+                .target(currentServer).path("/api/queue")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(genericType);
+                .get(QueueState.class);
     }
 
     public QueueUser addQueueUser(QueueUser user) {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer).path("/api/lobby")
+                .target(currentServer).path("/api/queue")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(user, APPLICATION_JSON), QueueUser.class);
@@ -60,10 +56,24 @@ public class ServerUtils {
         long id = user.id;
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/api/lobby/" + String.valueOf(id))
+                .path("/api/queue/" + String.valueOf(id))
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .delete(QueueUser.class);
+    }
+
+    /**
+     * POST request to /api/queue/start, to start the multiplayer game.
+     *
+     * @return The updated state of the game
+     */
+    public QueueState startMultiplayerGame() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/queue/start")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(null, QueueState.class);
     }
 
     public static String getCurrentServer() {
@@ -72,6 +82,7 @@ public class ServerUtils {
 
     /**
      * Used to set the current server to which a client is connected to once they decide to play a game.
+     *
      * @param currentServer A String representation of the server.
      */
     public static void setCurrentServer(String currentServer) {

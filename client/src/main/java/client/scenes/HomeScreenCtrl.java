@@ -97,7 +97,7 @@ public class HomeScreenCtrl {
             setDefault();
             String username = usernameField.getText();
             ServerUtils.setCurrentServer(getServer());
-            QueueUser user = server.addQueueUser(new QueueUser(username, -9999));
+            QueueUser user = server.addQueueUser(new QueueUser(username));
             mainCtrl.showQueue(user);
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {

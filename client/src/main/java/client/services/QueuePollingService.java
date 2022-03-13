@@ -1,20 +1,41 @@
 package client.services;
 
 import client.utils.ServerUtils;
-import commons.QueueUser;
+import commons.QueueState;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import javax.inject.Inject;
-import java.util.List;
 
-public class QueuePollingService extends Service<List<QueueUser>> {
+/**
+ * Service responsible for repeatedly polling the queue.
+ *
+ * The task created by this service never terminates on its own.
+ * It must be terminated by external method, preferably using stop().
+ *
+ * The task of this class will continuously update its temporary value to the
+ * current state of the queue.
+ */
+public class QueuePollingService extends Service<QueueState> {
 
     private final ServerUtils server;
 
+    /**
+     * Constructor for QueuePollingService.
+     *
+     * @param server Injected ServerUtils instance
+     */
     @Inject
     public QueuePollingService(ServerUtils server) {
         this.server = server;
+    }
+
+    /**
+     * Stops the service and allows it to be started again.
+     */
+    public void stop() {
+        this.cancel();
+        this.reset();
     }
 
     /**
@@ -24,12 +45,14 @@ public class QueuePollingService extends Service<List<QueueUser>> {
      * @return Queue polling task
      */
     @Override
-    protected Task<List<QueueUser>> createTask() {
-        return new Task<List<QueueUser>>() {
+    protected Task<QueueState> createTask() {
+        return new Task<QueueState>() {
             @Override
-            protected List<QueueUser> call() throws Exception {
+            protected QueueState call() throws Exception {
+                QueueState queueState;
                 while (true) {
-                    updateValue(server.getQueueUsers());
+                    queueState = server.getQueueState();
+                    updateValue(queueState);
                     try {
                         //noinspection BusyWait
                         Thread.sleep(500);
@@ -37,7 +60,7 @@ public class QueuePollingService extends Service<List<QueueUser>> {
                         break;
                     }
                 }
-                return server.getQueueUsers();
+                return queueState;
             }
         };
     }
