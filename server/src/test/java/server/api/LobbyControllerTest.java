@@ -63,7 +63,7 @@ class LobbyControllerTest {
     @Test
     public void cannotAddNullPlayer() {
         var actual = lobbyCtrl.add(getUser(null));
-        assertEquals(BAD_REQUEST, actual.getStatusCode());
+        assertEquals(NOT_FOUND, actual.getStatusCode());
     }
 
     @Test
@@ -76,7 +76,7 @@ class LobbyControllerTest {
     @Test
     public void testBadRequest() {
         var response = lobbyCtrl.deleteUser(1);
-        assertEquals(NOT_FOUND, response.getStatusCode());
+        assertEquals(BAD_REQUEST, response.getStatusCode());
     }
 
     @Test
