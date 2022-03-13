@@ -13,13 +13,37 @@ import javafx.util.Duration;
 
 import javax.inject.Inject;
 
+/**
+ * Responsible for the countdown in the queue.
+ * <p>
+ * When started, this service will query the server for the queue state, and get
+ * the milliseconds until the game starts. It will then correct any offset, so
+ * the countdown will always end precisely when the game starts.
+ * <p>
+ * As the service runs, the LongProperty count will be gradually updated,
+ * starting with 3000 (or less, accounting for the offset), towards 1.
+ * <p>
+ * The service will end immediately after it is run, as a Timeline is created in
+ * the background. To do some action after the countdown ends,
+ * getTimeline().setOnFinished(event -> {}) is the appropriate method for that.
+ * <p>
+ * TODO
+ * The service will return the game ID of the upcoming game.
+ */
 public class QueueCountdownService extends Service<Long> {
 
     private final ServerUtils server;
 
-    private Timeline timeline;
-    private LongProperty count;
+    private final Timeline timeline;
+    private final LongProperty count;
 
+    /**
+     * Constructor for the QueueCountdownService.
+     * <p>
+     * Initializes the count and timeline fields.
+     *
+     * @param server Injected ServerUtils instance
+     */
     @Inject
     public QueueCountdownService(ServerUtils server) {
         this.server = server;
@@ -30,6 +54,9 @@ public class QueueCountdownService extends Service<Long> {
         timeline = new Timeline(keyFrame);
     }
 
+    /**
+     * Stops the service and the associated timeline.
+     */
     public void stop() {
         this.cancel();
         this.reset();
@@ -37,7 +64,7 @@ public class QueueCountdownService extends Service<Long> {
     }
 
     /**
-     * Creates a task which updates the `count` variable at a regular interval.
+     * Creates a task which updates the count variable at a regular interval.
      *
      * @return Queue polling task
      */
@@ -61,10 +88,22 @@ public class QueueCountdownService extends Service<Long> {
         };
     }
 
+    /**
+     * Getter for the count property.
+     * <p>
+     * Ranges from 3000 to 1.
+     *
+     * @return Countdown count.
+     */
     public LongProperty getCount() {
         return count;
     }
 
+    /**
+     * Getter for the timeline.
+     *
+     * @return Timeline instance associated with this service.
+     */
     public Timeline getTimeline() {
         return timeline;
     }

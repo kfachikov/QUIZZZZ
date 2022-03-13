@@ -17,17 +17,19 @@ public class QueuePollingService extends Service<QueueState> {
     }
 
     /**
-     * Creates a task which continuously polls the server for the list of
-     * players in the queue.
-     *
-     * @return Queue polling task
+     * Stops the service and allows it to be started again.
      */
-
     public void stop() {
         this.cancel();
         this.reset();
     }
 
+    /**
+     * Creates a task which continuously polls the server for the list of
+     * players in the queue.
+     *
+     * @return Queue polling task
+     */
     @Override
     protected Task<QueueState> createTask() {
         return new Task<QueueState>() {
