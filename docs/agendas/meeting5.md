@@ -1,4 +1,4 @@
-# Agenda of Meeting-4
+# Agenda of Meeting-5
 
 Location: Drebbelweg, PC1, Cubicle 8
 
@@ -12,7 +12,7 @@ Chairperson: Alexandra Darie
 
 Notetakers: Kayra Bahadir, Monica Păun
 
-Attendees: Monica Păun, Kayra Bahadir, Marijn Luime, Florena Buse
+Attendees: Monica Păun, Kayra Bahadir, Marijn Luime, Florena Buse, Julius Gvozdiovas
 
 ## Preface
 
