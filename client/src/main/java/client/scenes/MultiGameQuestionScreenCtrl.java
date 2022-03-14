@@ -8,7 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import org.w3c.dom.Text;
+import javafx.scene.text.Text;
+
 
 import javax.inject.Inject;
 import java.util.Optional;
@@ -95,8 +96,8 @@ public class MultiGameQuestionScreenCtrl {
      * Sets the question to the chosen questionText.
      * @param questionText the question text
      */
-    public void setQuestion(String questionText) {
-        question.setData(String.valueOf(questionText));
+    public void setQuestion(Text questionText) {
+        question.setText(String.valueOf(questionText));
     }
 
 }

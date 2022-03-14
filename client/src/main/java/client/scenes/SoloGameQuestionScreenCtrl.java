@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import org.w3c.dom.Text;
+import javafx.scene.text.Text;
 
 
 import java.util.Optional;
@@ -89,8 +89,8 @@ public class SoloGameQuestionScreenCtrl {
      * Sets the question to the chosen questionText.
      * @param questionText the question text
      */
-    public void setQuestion(String questionText) {
-        question.setData(String.valueOf(questionText));
+    public void setQuestion(Text questionText) {
+        question.setText(String.valueOf(questionText));
     }
 
     class BeginThread implements Runnable {
