@@ -15,6 +15,7 @@
  */
 package client.utils;
 
+import commons.Activity;
 import commons.MultiUser;
 import commons.SingleUser;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -64,5 +65,13 @@ public class ServerUtils {
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .delete(MultiUser.class);
+    }
+
+    public List<Activity> getActivities() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("/api/activities")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Activity>>() {});
     }
 }

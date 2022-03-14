@@ -1,8 +1,8 @@
 package commons;
 
-public class SecondQuestionType extends AbstractQuestion {
+public class GuessQuestionType extends AbstractQuestion {
 
-    private SecondQuestionType() {
+    private GuessQuestionType() {
         super();
     }
 
@@ -12,7 +12,7 @@ public class SecondQuestionType extends AbstractQuestion {
      * @param imageFilename file name.
      * @param consumptionWh consumption in wh.
      */
-    public SecondQuestionType(String baseTitle, String imageFilename, long consumptionWh) {
+    public GuessQuestionType(String baseTitle, String imageFilename, long consumptionWh) {
         super(baseTitle, imageFilename, consumptionWh);
     }
 
@@ -22,7 +22,7 @@ public class SecondQuestionType extends AbstractQuestion {
      */
     public String toString() {
         String question;
-        question = "Which of these activities consumes " + this.consumptionWh + " watts per hour?";
+        question = "How much energy does it take for the activity below?";
         return question;
     }
 }
