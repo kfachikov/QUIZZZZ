@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import org.w3c.dom.Text;
 
 import javax.inject.Inject;
 import java.util.Optional;
@@ -26,6 +27,9 @@ public class MultiGameQuestionScreenCtrl {
 
     @FXML
     private Label gameIdLabel;
+
+    @FXML
+    private Text question;
 
     /**
      * Constructor for the multiplayer game question screen.
@@ -86,4 +90,13 @@ public class MultiGameQuestionScreenCtrl {
     public void setGameId(long id) {
         gameId.set(id);
     }
+
+    /**
+     * Sets the question to the chosen questionText.
+     * @param questionText the question text
+     */
+    public void setQuestion(String questionText) {
+        question.setData(String.valueOf(questionText));
+    }
+
 }
