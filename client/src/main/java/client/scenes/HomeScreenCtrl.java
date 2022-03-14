@@ -7,16 +7,14 @@ import commons.SingleUser;
 import jakarta.ws.rs.ProcessingException;
 import jakarta.ws.rs.WebApplicationException;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
-import javafx.stage.Modality;
 
 public class HomeScreenCtrl {
 
     private static final int FORBIDDEN = 403;
-    private static final int NOTFOUND = 404;
+    private static final int BAD_REQUEST = 400;
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
@@ -60,19 +58,13 @@ public class HomeScreenCtrl {
             mainCtrl.showPrep();
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
-            case NOTFOUND: serverInvalid();
+            case BAD_REQUEST: usernameMissing();
             break;
-            default:
-                var alert = new Alert(Alert.AlertType.ERROR);
-                alert.initModality(Modality.APPLICATION_MODAL);
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+            default: unknownError();
             }
-
         } catch (ProcessingException e) {
             serverInvalid();
         }
-
     }
 
     /**
@@ -110,18 +102,9 @@ public class HomeScreenCtrl {
             switch (e.getResponse().getStatus()) {
             case FORBIDDEN: usernameNotUnique();
             break;
-            /*
-            When the URL entered could exist, but is currently not present (a server is not hosted on this address),
-            error 404 NOT FOUND is returned as response. Accordingly, NotFoundException is thrown, which extends
-            WebApplicationException and thus, it should be handled here.
-             */
-            case NOTFOUND: serverInvalid();
+            case BAD_REQUEST: usernameMissing();
             break;
-            default:
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initModality(Modality.APPLICATION_MODAL);
-                alert.setContentText("Username not present!");
-                alert.showAndWait();
+            default: unknownError();
             }
         } catch (ProcessingException e) {
             serverInvalid();
@@ -161,6 +144,29 @@ public class HomeScreenCtrl {
         usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
         serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
         errorMessage.setVisible(false);
+    }
+
+    /**
+     * Reusable method to be executed once a user tries to join a game without a username
+     *
+     * Sets username field background to red to pull the attention of the client.
+     * Removes the background of the server field, as the current problem is somewhere else.
+     */
+    private void usernameMissing () {
+        usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
+        serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        errorMessage.setText("Username missing!");
+        errorMessage.setVisible(true);
+    }
+
+    /**
+     * Reusable method to be executed once a user tries to join a game and an unknown error arises.
+     */
+    private void unknownError () {
+        usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        errorMessage.setText("Make sure you have entered a unique username and a valid URL address!");
+        errorMessage.setVisible(true);
     }
 
 }
