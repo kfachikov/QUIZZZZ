@@ -2,7 +2,7 @@ package server.utils;
 
 import commons.*;
 import server.database.ActivityRepository;
-import server.database.entities.Activity;
+import commons.Activity;
 
 import java.util.ArrayList;
 import java.util.Collections;
