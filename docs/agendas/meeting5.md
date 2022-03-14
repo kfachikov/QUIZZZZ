@@ -2,7 +2,7 @@
 
 Location: Drebbelweg, PC1, Cubicle 8
 
-Date: March 13th, Tuesday
+Date: March 15th, Tuesday
 
 Time: 13.45
 
@@ -12,7 +12,7 @@ Chairperson: Alexandra Darie
 
 Notetakers: Kayra Bahadir, Monica Păun
 
-Attendees: Monica Păun, Kayra Bahadir, Marijn Luime, Florena Buse, Julius Gvozdiovas
+Attendees: Marijn Luime, Florena Buse, Julius Gvozdiovas, Kaloyan Fachikov
 
 ## Preface
 
@@ -36,10 +36,11 @@ Attendees: Monica Păun, Kayra Bahadir, Marijn Luime, Florena Buse, Julius Gvozd
 
 ### [14:15 - 14:25] Action points for next week
 
+- Decide upon answers for the following questions: How server and client communicate? How the question instances are sent and what do they actually consist of?
 - Update the code of conduct with the new rules.
 - Decide upon new deadlines.
 - Finish the unresolved threads and empty merge requests from the previous sprint.
-- Resolve the issues assigned in the second sprint.
+- Resolve the issues assigned in the fourth sprint.
     - Intermediate "Answer-revealing" screen
     - Visualize score counter
     - "Congratulations" screen
