@@ -13,7 +13,7 @@
                 <Font name="SansSerif Regular" size="12.0" />
             </font>
         </Button>
-        <Button fx:id="startGame" layoutX="219.0" layoutY="264.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="162.0" stylesheets="@../../styling/GameStyle.css" text="Go!" textFill="#006e8c">
+        <Button fx:id="startButton" layoutX="219.0" layoutY="264.0" mnemonicParsing="false" onAction="#startGame" prefHeight="77.0" prefWidth="162.0" stylesheets="@../../styling/GameStyle.css" text="Go!" textFill="#006e8c">
             <font>
                 <Font name="SansSerif Regular" size="33.0" />
             </font>
@@ -23,7 +23,30 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <FlowPane layoutX="53.0" layoutY="74.0" prefHeight="187.0" prefWidth="496.0" />
-      <Label id="anchor" alignment="CENTER" layoutX="4.0" layoutY="353.0" prefHeight="18.0" prefWidth="591.0" text="Server address: http://localhost:8080" />
+      <FlowPane id="bubbles" fx:id="bubbles" layoutX="53.0" layoutY="74.0" prefHeight="187.0" prefWidth="496.0" style="-fx-vgap: 10; -fx-hgap: 5;">
+         <children>
+            <Label alignment="CENTER" layoutX="78.0" layoutY="10.0" prefHeight="34.0" prefWidth="120.0" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="130.0" layoutY="10.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="250.0" layoutY="10.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="370.0" layoutY="10.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="370.0" layoutY="10.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="130.0" layoutY="10.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="370.0" layoutY="10.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="10.0" layoutY="44.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="10.0" layoutY="44.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="250.0" layoutY="44.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="370.0" layoutY="44.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="250.0" layoutY="44.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="250.0" layoutY="44.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#006e8c" />
+         </children></FlowPane>
+      <Label id="anchor" fx:id="serverAddress" alignment="CENTER" layoutX="4.0" layoutY="353.0" prefHeight="18.0" prefWidth="591.0" />
+      <Label id="start-label" fx:id="startLabel" alignment="CENTER" layoutY="260.0" prefHeight="88.0" prefWidth="600.0" stylesheets="@../styling/GameStyle.css" text="Game is starting..." visible="false">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

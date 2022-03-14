@@ -1,6 +1,7 @@
 package client.utils;
 
-import commons.MultiUser;
+import commons.QueueState;
+import commons.QueueUser;
 import commons.SingleUser;
 
 import java.util.ArrayList;
@@ -30,22 +31,22 @@ public class MockServerUtils extends ServerUtils {
     }
 
     @Override
-    public List<MultiUser> getQueueUsers() {
+    public QueueState getQueueState() {
         call("getQueueUsers");
-        return (List<MultiUser>) returnValue;
+        return (QueueState) returnValue;
     }
 
     @Override
-    public MultiUser addQueueUser(MultiUser user) {
+    public QueueUser addQueueUser(QueueUser user) {
         call("addQueueUser");
         param = user;
-        return (MultiUser) returnValue;
+        return (QueueUser) returnValue;
     }
 
     @Override
-    public MultiUser deleteQueueUser(MultiUser user) {
+    public QueueUser deleteQueueUser(QueueUser user) {
         call("deleteQueueUser");
         param = user;
-        return (MultiUser) returnValue;
+        return (QueueUser) returnValue;
     }
 }
