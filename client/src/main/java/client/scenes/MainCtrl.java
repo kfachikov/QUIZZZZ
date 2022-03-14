@@ -130,6 +130,7 @@ public class MainCtrl {
         primaryStage.setScene(queue);
         queueCtrl.getPollingService().start();
         queueCtrl.setUser(user);
+        queueCtrl.setServerAddress(homeCtrl.getServer());
         queueCtrl.resetScene();
     }
 
