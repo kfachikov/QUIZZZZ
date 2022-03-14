@@ -33,7 +33,7 @@ public class LobbyController {
     @PostMapping("")
     public ResponseEntity<QueueUser> add(@RequestBody QueueUser user) {
         if (user == null || isNullOrEmpty(user.username)) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         } else if (repo.existsQueueUserByUsername(user.username)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }

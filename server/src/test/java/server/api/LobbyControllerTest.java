@@ -63,7 +63,7 @@ class LobbyControllerTest {
     @Test
     public void cannotAddNullPlayer() {
         var actual = lobbyCtrl.add(getUser(null));
-        assertEquals(NOT_FOUND, actual.getStatusCode());
+        assertEquals(BAD_REQUEST, actual.getStatusCode());
     }
 
     @Test

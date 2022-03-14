@@ -16,7 +16,7 @@ import javafx.stage.Modality;
 public class HomeScreenCtrl {
 
     private static final int FORBIDDEN = 403;
-    private static final int NOT_FOUND = 404;
+    private static final int BAD_REQUEST = 400;
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
@@ -103,19 +103,12 @@ public class HomeScreenCtrl {
             switch (e.getResponse().getStatus()) {
             case FORBIDDEN: usernameNotUnique();
             break;
-            default:
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initModality(Modality.APPLICATION_MODAL);
-                alert.setContentText("Username not present!");
-                alert.showAndWait();
-            }
-            switch (e.getResponse().getStatus()) {
-            case NOT_FOUND:usernameMissing();
+            case BAD_REQUEST:usernameMissing();
             break;
             default:
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initModality(Modality.APPLICATION_MODAL);
-                alert.setContentText("Username missing!");
+                alert.setContentText("An error occurred!");
                 alert.showAndWait();
             }
         } catch (ProcessingException e) {

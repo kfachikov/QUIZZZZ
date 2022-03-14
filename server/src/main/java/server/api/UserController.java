@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping("")
     public ResponseEntity<SingleUser> add(@RequestBody SingleUser user) {
         if (user == null || isNullOrEmpty(user.username)) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
         SingleUser saved = repo.save(user);
         return ResponseEntity.ok(saved);
