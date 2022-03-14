@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.services.MockQueueCountdownService;
 import client.services.MockQueuePollingService;
 import client.utils.MockServerUtils;
 import commons.QueueUser;
@@ -17,25 +18,27 @@ class QueueScreenCtrlTest {
     private MockServerUtils server;
     private MockMainCtrl mainCtrl;
     private MockQueuePollingService pollingService;
+    private MockQueueCountdownService countdownService;
 
     @BeforeEach
     void setUp() {
         server = new MockServerUtils();
         mainCtrl = new MockMainCtrl();
         pollingService = new MockQueuePollingService(server);
-        queueScreenCtrl = new QueueScreenCtrl(server, mainCtrl, pollingService);
+        countdownService = new MockQueueCountdownService(server);
+        queueScreenCtrl = new QueueScreenCtrl(server, mainCtrl, pollingService, countdownService);
     }
 
     @Test
     void returnHome() {
-        QueueUser user = new QueueUser("test", 123);
+        QueueUser user = new QueueUser("test");
         queueScreenCtrl.setUser(user);
         pollingService.returnValue = true;
 
         queueScreenCtrl.returnHome();
 
         assertEquals(
-                List.of("cancel", "reset"),
+                List.of("stop"),
                 pollingService.calledMethods
         );
         assertEquals(
@@ -67,8 +70,24 @@ class QueueScreenCtrlTest {
 
     @Test
     void setUser() {
-        QueueUser user = new QueueUser("test", 123);
+        QueueUser user = new QueueUser("test");
         queueScreenCtrl.setUser(user);
         assertEquals(user, queueScreenCtrl.getUser());
+    }
+
+    @Test
+    void leaveQueue() {
+        QueueUser expectedQueueUser = new QueueUser("TestUser");
+        server.returnValue = expectedQueueUser;
+        pollingService.returnValue = false;
+
+        assertEquals(expectedQueueUser, queueScreenCtrl.leaveQueue());
+
+        assertEquals(List.of("stop"), pollingService.calledMethods);
+        assertEquals(List.of("stop"), countdownService.calledMethods);
+        assertEquals(
+                List.of("deleteQueueUser"),
+                server.calledMethods
+        );
     }
 }

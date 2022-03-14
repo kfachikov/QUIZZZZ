@@ -16,6 +16,7 @@
 package client.scenes;
 
 import commons.QueueUser;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -33,11 +34,15 @@ public class MainCtrl {
 
     private HelpScreenCtrl helpCtrl;
     private Scene help;
+
     private QueueScreenCtrl queueCtrl;
     private Scene queue;
 
     private SoloGameQuestionScreenCtrl soloGameCtrl;
     private Scene soloGame;
+
+    private MultiGameQuestionScreenCtrl multiGameCtrl;
+    private Scene multiGame;
 
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
@@ -50,7 +55,8 @@ public class MainCtrl {
                            Pair<HelpScreenCtrl, Parent> help,
                            Pair<PrepScreenCtrl, Parent> prep,
                            Pair<SoloGameQuestionScreenCtrl, Parent> soloGame,
-                           Pair<QueueScreenCtrl, Parent> queue
+                           Pair<QueueScreenCtrl, Parent> queue,
+                           Pair<MultiGameQuestionScreenCtrl, Parent> multiGame
 
     ) {
 
@@ -64,12 +70,20 @@ public class MainCtrl {
         this.help = new Scene(help.getValue());
         this.queueCtrl = queue.getKey();
         this.queue = new Scene(queue.getValue());
-
         this.soloGameCtrl = soloGame.getKey();
         this.soloGame = new Scene(soloGame.getValue());
+        this.multiGameCtrl = multiGame.getKey();
+        this.multiGame = new Scene(multiGame.getValue());
 
         showHome();
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest((event -> {
+            if (primaryStage.getScene().equals(this.queue)) {
+                queueCtrl.leaveQueue();
+            }
+            Platform.exit();
+        }));
     }
 
     /**
@@ -99,9 +113,10 @@ public class MainCtrl {
     /**
      * sets the title and the scene as single-player game.
      */
-    public void showSoloGameQuestion() {
+    public synchronized void showSoloGameQuestion() {
         primaryStage.setTitle("Quizzz: Single-player Game");
         primaryStage.setScene(soloGame);
+        soloGameCtrl.startTimer();
     }
 
     /**
@@ -116,6 +131,19 @@ public class MainCtrl {
         primaryStage.setScene(queue);
         queueCtrl.getPollingService().start();
         queueCtrl.setUser(user);
+        queueCtrl.setServerAddress(homeCtrl.getServer());
+        queueCtrl.resetScene();
     }
 
+    /**
+     * Set the current scene to Multiplayer game question screen.
+     *
+     * @param id        Multiplayer game id
+     * @param queueUser QueueUser of the user who was just in the queue
+     */
+    public void showMultiGameQuestion(long id, QueueUser queueUser) {
+        primaryStage.setTitle("Quizzz: Multi-player Game");
+        primaryStage.setScene(multiGame);
+        multiGameCtrl.setGameId(id);
+    }
 }

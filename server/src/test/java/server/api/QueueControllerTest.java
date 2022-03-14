@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.QueueState;
 import commons.QueueUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,47 +11,49 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.HttpStatus.*;
 
-class LobbyControllerTest {
+class QueueControllerTest {
 
     private QueueUserRepository repo;
-    private LobbyController lobbyCtrl;
+    private QueueController lobbyCtrl;
 
     private int nextId;
 
     @BeforeEach
     public void setup() {
         repo = new QueueUserRepository();
-        lobbyCtrl = new LobbyController(repo);
+        lobbyCtrl = new QueueController(repo);
         nextId = 0;
     }
 
     private List<QueueUser> addMockUsers() {
-        List<QueueUser> mockUser = new ArrayList<>();
+        List<QueueUser> users = new ArrayList<>();
         for (long i = 0; i < 3; i++) {
-            mockUser.add(
-                    new QueueUser("p" + nextId, 0)
+            users.add(
+                    new QueueUser("p" + nextId)
             );
-            mockUser.get((int) i).id = nextId++;
+            users.get((int) i).id = nextId++;
         }
-        repo.queueUsers.addAll(mockUser);
-        return mockUser;
+        repo.queueUsers.addAll(users);
+        return users;
     }
 
     private static QueueUser getUser(String username) {
-        return new QueueUser(username, 0);
+        return new QueueUser(username);
     }
 
     @Test
-    public void testGetAllUsers() {
-        var expected = addMockUsers();
-        var result = lobbyCtrl.getAllUsers();
-        assertEquals(expected, result);
+    public void testGetQueueState() {
+        var expected = new QueueState(addMockUsers());
+        var response = lobbyCtrl.getQueueState();
+        var result = response.getBody();
+        assertEquals(expected.users, result.users);
+        assertEquals(expected.gameStarting, result.gameStarting);
     }
 
     @Test
     public void testMethodCall() {
         addMockUsers();
-        lobbyCtrl.getAllUsers();
+        lobbyCtrl.getQueueState();
         assertEquals(List.of("findAll"), repo.calledMethods);
     }
 
@@ -81,9 +84,25 @@ class LobbyControllerTest {
 
     @Test
     public void testNotFound() {
-        QueueUser user = new QueueUser("ok" + -1, 0);
+        QueueUser user = new QueueUser("ok" + -1);
         repo.save(user);
         var response = lobbyCtrl.deleteUser(-1);
         assertEquals(BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    public void testStartGame() {
+        QueueState queueState = new QueueState(addMockUsers(), true, 3000);
+        var response = lobbyCtrl.startGame();
+        QueueState result = response.getBody();
+        assertEquals(queueState, result);
+    }
+
+    @Test
+    public void testStartGameTwice() {
+        addMockUsers();
+        lobbyCtrl.startGame();
+        var response = lobbyCtrl.startGame();
+        assertEquals(FORBIDDEN, response.getStatusCode());
     }
 }

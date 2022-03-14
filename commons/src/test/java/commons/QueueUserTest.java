@@ -25,30 +25,29 @@ public class QueueUserTest {
 
     @Test
     public void checkConstructor() {
-        var p = new QueueUser("user", 10);
+        var p = new QueueUser("user");
         assertEquals("user", p.username);
-        assertEquals(10, p.score);
     }
 
     @Test
     public void equalsHashCode() {
-        var a = new QueueUser("user", 10);
-        var b = new QueueUser("user", 10);
+        var a = new QueueUser("user");
+        var b = new QueueUser("user");
         assertEquals(a, b);
         assertEquals(a.hashCode(), b.hashCode());
     }
 
     @Test
     public void notEqualsHashCode() {
-        var a = new QueueUser("user", 10);
-        var b = new QueueUser("user", 15);
+        var a = new QueueUser("user1");
+        var b = new QueueUser("user2");
         assertNotEquals(a, b);
         assertNotEquals(a.hashCode(), b.hashCode());
     }
 
     @Test
     public void hasToString() {
-        var actual = new QueueUser("user", 10).toString();
+        var actual = new QueueUser("user").toString();
         assertTrue(actual.contains(QueueUser.class.getSimpleName()));
         assertTrue(actual.contains("\n"));
         assertTrue(actual.contains("username"));
