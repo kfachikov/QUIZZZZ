@@ -7,11 +7,9 @@ import commons.SingleUser;
 import jakarta.ws.rs.ProcessingException;
 import jakarta.ws.rs.WebApplicationException;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
-import javafx.stage.Modality;
 
 public class HomeScreenCtrl {
 
@@ -59,10 +57,11 @@ public class HomeScreenCtrl {
             server.addUser(getSingleUser());
             mainCtrl.showPrep();
         } catch (WebApplicationException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setContentText("Username missing!");
-            alert.showAndWait();
+            switch (e.getResponse().getStatus()) {
+            case BAD_REQUEST: usernameMissing();
+            break;
+            default: unknownError();
+            }
         } catch (ProcessingException e) {
             serverInvalid();
         }
@@ -103,13 +102,9 @@ public class HomeScreenCtrl {
             switch (e.getResponse().getStatus()) {
             case FORBIDDEN: usernameNotUnique();
             break;
-            case BAD_REQUEST:usernameMissing();
+            case BAD_REQUEST: usernameMissing();
             break;
-            default:
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initModality(Modality.APPLICATION_MODAL);
-                alert.setContentText("An error occurred!");
-                alert.showAndWait();
+            default: unknownError();
             }
         } catch (ProcessingException e) {
             serverInvalid();
@@ -161,6 +156,16 @@ public class HomeScreenCtrl {
         usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
         serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
         errorMessage.setText("Username missing!");
+        errorMessage.setVisible(true);
+    }
+
+    /**
+     * Reusable method to be executed once a user tries to join a game and an unknown error arises.
+     */
+    private void unknownError () {
+        usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        errorMessage.setText("Make sure you have entered a unique username and a valid URL address!");
         errorMessage.setVisible(true);
     }
 
