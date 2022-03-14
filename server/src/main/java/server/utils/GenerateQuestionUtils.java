@@ -51,6 +51,7 @@ public class GenerateQuestionUtils {
         while (questionNumber <= 15) {
             Activity activity = activities.get(questionNumber);
             HigherConsumptionQuestionType higherConsumptionQuestionType = new HigherConsumptionQuestionType(activity.getTitle(), activity.getImage(), activity.getConsumption());
+            //higherConsumptionQuestionType.setAnswerChoices(activities);
             result.add(higherConsumptionQuestionType);
             questionNumber++;
         }

@@ -12,8 +12,6 @@ public class SoloGame {
 
     public List<AbstractQuestion> questions;
 
-    public String finalAnswer;
-
     public SoloGame(Long gameId, List<AbstractQuestion> questions) {
         this.gameId = gameId;
         this.questions = questions;

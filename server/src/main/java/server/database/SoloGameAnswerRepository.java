@@ -1,7 +1,7 @@
 package server.database;
 
-import commons.SoloGame;
+import commons.SoloGameRound;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SoloGameAnswerRepository extends JpaRepository<SoloGame, Long> {
+public interface SoloGameAnswerRepository extends JpaRepository<SoloGameRound, Long> {
 }
