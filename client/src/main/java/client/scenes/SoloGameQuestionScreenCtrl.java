@@ -9,8 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-import javax.swing.*;
+
 import java.awt.*;
+
 import java.util.Optional;
 
 
@@ -46,8 +47,6 @@ public class SoloGameQuestionScreenCtrl {
     @FXML
     private Label questionTitle;
 
-
-
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      * @param server is the server variable
@@ -63,6 +62,7 @@ public class SoloGameQuestionScreenCtrl {
      * sets the scene and title to home if the yes button is clicked.
      */
     public void returnHome() {
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText("Leave the game");
@@ -75,9 +75,8 @@ public class SoloGameQuestionScreenCtrl {
         Optional<ButtonType> confirmation = alert.showAndWait();
         if (confirmation.get() == yesButton) {
             mainCtrl.showHome();
-        } else {
-            mainCtrl.showSoloGameQuestion();
         }
+
     }
 
     /**
@@ -86,5 +85,45 @@ public class SoloGameQuestionScreenCtrl {
      */
     public void setScore(int score) {
         currentScore.setText(String.valueOf(score));
+    }
+
+    class BeginThread implements Runnable {
+
+        /**
+         * When an object implementing interface {@code Runnable} is used
+         * to create a thread, starting the thread causes the object's
+         * {@code run} method to be called in that separately executing
+         * thread.
+         * <p>
+         * The general contract of the method {@code run} is that it may
+         * take any action whatsoever.
+         *
+         * @see Thread#run()
+         */
+        @Override
+        public synchronized void run() {
+            time.setStyle("-fx-accent: #006e8c");
+            for (int i = 0; i < 100; i++) {
+                if (i > 70) {
+                    time.setStyle("-fx-accent: red");
+                }
+                time.setProgress(i / 100.0);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * The method starts the timer thread.
+     */
+    @FXML
+    public synchronized void startTimer() {
+        time.setProgress(0.0);
+        Thread thread = new Thread(new BeginThread());
+        thread.start();
     }
 }
