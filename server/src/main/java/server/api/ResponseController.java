@@ -2,11 +2,11 @@ package server.api;
 
 import commons.MultiPlayerGameRound;
 import commons.SoloGameRound;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.database.MultiPlayerGameAnswerRepository;
 import server.database.SoloGameAnswerRepository;
 
+import java.util.List;
 
 
 @RestController
@@ -23,16 +23,11 @@ public class ResponseController {
 
     /**
      * This endpoint sends the answer of a solo game question to the solo game answer repository.
-     * @param gameId is the game id
-     * @return response
+     * @return list of answers
      */
     @GetMapping("/soloGame/answers")
-    public ResponseEntity<Object> getSoloAnswers(@PathVariable long gameId) {
-        if (gameId < 0 || !soloGameAnswerRepository.existsById(gameId)) {
-            return ResponseEntity.badRequest().build();
-        } else {
-            return ResponseEntity.ok(soloGameAnswerRepository.getById(gameId));
-        }
+    public List<SoloGameRound> getSoloAnswers() {
+        return soloGameAnswerRepository.findAll();
     }
 
     /**
@@ -46,16 +41,11 @@ public class ResponseController {
 
     /**
      * This endpoint sends the answer of a multiplayer game question to the multiplayer game answer repository.
-     * @param gameId is the game id
-     * @return response
+     * @return list of answers
      */
     @GetMapping("/soloGame/answers")
-    public ResponseEntity<Object> getMultiAnswers(@PathVariable long gameId) {
-        if (gameId < 0 || !multiPlayerGameAnswerRepository.existsById(gameId)) {
-            return ResponseEntity.badRequest().build();
-        } else {
-            return ResponseEntity.ok(multiPlayerGameAnswerRepository.getById(gameId));
-        }
+    public List<MultiPlayerGameRound> getMultiAnswers() {
+        return multiPlayerGameAnswerRepository.findAll();
     }
 
     /**

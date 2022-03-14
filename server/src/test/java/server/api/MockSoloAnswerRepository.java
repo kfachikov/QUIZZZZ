@@ -20,8 +20,8 @@ import java.util.function.Function;
 
 public class MockSoloAnswerRepository implements SoloGameAnswerRepository {
 
-    public final List<SoloGameRound> answers = new ArrayList<>();
-    public final List<String> calledMethods = new ArrayList<>();
+    public List<SoloGameRound> answers = new ArrayList<>();
+    public List<String> calledMethods = new ArrayList<String>();
 
     private void call(String name) {
         calledMethods.add(name);
