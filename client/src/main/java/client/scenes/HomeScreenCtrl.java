@@ -16,6 +16,7 @@ import javafx.stage.Modality;
 public class HomeScreenCtrl {
 
     private static final int FORBIDDEN = 403;
+    private static final int NOTFOUND = 404;
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
@@ -58,10 +59,16 @@ public class HomeScreenCtrl {
             server.addUser(getSingleUser());
             mainCtrl.showPrep();
         } catch (WebApplicationException e) {
-            var alert = new Alert(Alert.AlertType.ERROR);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            switch (e.getResponse().getStatus()) {
+            case NOTFOUND: serverInvalid();
+            break;
+            default:
+                var alert = new Alert(Alert.AlertType.ERROR);
+                alert.initModality(Modality.APPLICATION_MODAL);
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+
         } catch (ProcessingException e) {
             serverInvalid();
         }
@@ -102,6 +109,13 @@ public class HomeScreenCtrl {
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
             case FORBIDDEN: usernameNotUnique();
+            break;
+            /*
+            When the URL entered could exist, but is currently not present (a server is not hosted on this address),
+            error 404 NOT FOUND is returned as response. Accordingly, NotFoundException is thrown, which extends
+            WebApplicationException and thus, it should be handled here.
+             */
+            case NOTFOUND: serverInvalid();
             break;
             default:
                 Alert alert = new Alert(Alert.AlertType.ERROR);
