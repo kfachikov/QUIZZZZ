@@ -15,7 +15,16 @@
  */
 package server.database;
 
-import commons.MultiUser;
+import commons.QueueUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MultiUserRepository extends JpaRepository<MultiUser, Long> {}
+public interface QueueUserRepository extends JpaRepository<QueueUser, Long> {
+    /**
+     * Generates a method iterating over all entries in the repository and checking whether a username exists.
+     * JpaRepository uses injection to autogenerate the expected behaviour of this method
+     * as far as its name follows a particular convention.
+     * @param username A String to check for existence in the repository.
+     * @return Boolean value due to whether the username is present or not.
+     */
+    boolean existsQueueUserByUsername(String username);
+}

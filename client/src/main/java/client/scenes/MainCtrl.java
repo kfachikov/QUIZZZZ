@@ -15,7 +15,8 @@
  */
 package client.scenes;
 
-import commons.MultiUser;
+import commons.QueueUser;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -33,11 +34,15 @@ public class MainCtrl {
 
     private HelpScreenCtrl helpCtrl;
     private Scene help;
+
     private QueueScreenCtrl queueCtrl;
     private Scene queue;
 
     private SoloGameQuestionScreenCtrl soloGameCtrl;
     private Scene soloGame;
+
+    private MultiGameQuestionScreenCtrl multiGameCtrl;
+    private Scene multiGame;
 
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
@@ -50,7 +55,8 @@ public class MainCtrl {
                            Pair<HelpScreenCtrl, Parent> help,
                            Pair<PrepScreenCtrl, Parent> prep,
                            Pair<SoloGameQuestionScreenCtrl, Parent> soloGame,
-                           Pair<QueueScreenCtrl, Parent> queue
+                           Pair<QueueScreenCtrl, Parent> queue,
+                           Pair<MultiGameQuestionScreenCtrl, Parent> multiGame
 
     ) {
 
@@ -64,12 +70,20 @@ public class MainCtrl {
         this.help = new Scene(help.getValue());
         this.queueCtrl = queue.getKey();
         this.queue = new Scene(queue.getValue());
-
         this.soloGameCtrl = soloGame.getKey();
         this.soloGame = new Scene(soloGame.getValue());
+        this.multiGameCtrl = multiGame.getKey();
+        this.multiGame = new Scene(multiGame.getValue());
 
         showHome();
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest((event -> {
+            if (primaryStage.getScene().equals(this.queue)) {
+                queueCtrl.leaveQueue();
+            }
+            Platform.exit();
+        }));
     }
 
     /**
@@ -107,14 +121,28 @@ public class MainCtrl {
     /**
      * Sets the current scene to the queue screen, starts the queue polling
      * service and initializes the queue scene controller with
-     * the MultiUser instance of the person joining the queue.
+     * the QueueUser instance of the person joining the queue.
      *
-     * @param user MultiUser which is joining the queue
+     * @param user QueueUser which is joining the queue
      */
-    public void showQueue(MultiUser user) {
+    public void showQueue(QueueUser user) {
         primaryStage.setTitle("Quizzz: Queue");
         primaryStage.setScene(queue);
         queueCtrl.getPollingService().start();
         queueCtrl.setUser(user);
+        queueCtrl.setServerAddress(homeCtrl.getServer());
+        queueCtrl.resetScene();
+    }
+
+    /**
+     * Set the current scene to Multiplayer game question screen.
+     *
+     * @param id        Multiplayer game id
+     * @param queueUser QueueUser of the user who was just in the queue
+     */
+    public void showMultiGameQuestion(long id, QueueUser queueUser) {
+        primaryStage.setTitle("Quizzz: Multi-player Game");
+        primaryStage.setScene(multiGame);
+        multiGameCtrl.setGameId(id);
     }
 }
