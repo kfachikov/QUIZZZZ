@@ -9,7 +9,7 @@ public class AlternativeConsumptionQuestionType extends AbstractQuestion {
 
     public List<Activity> answerChoices;
 
-    private AlternativeConsumptionQuestionType() {
+    public AlternativeConsumptionQuestionType() {
         super();
     }
 

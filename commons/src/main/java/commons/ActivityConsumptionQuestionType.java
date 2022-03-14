@@ -6,7 +6,7 @@ public class ActivityConsumptionQuestionType extends AbstractQuestion {
 
     public List<String> answerChoices;
 
-    private ActivityConsumptionQuestionType() {
+    public ActivityConsumptionQuestionType() {
         super();
     }
 

@@ -8,7 +8,7 @@ public class HigherConsumptionQuestionType extends AbstractQuestion {
     public List<Activity> answerChoices;
     public Activity correctAnswer;
 
-    private HigherConsumptionQuestionType() {
+    public HigherConsumptionQuestionType() {
         super();
     }
 

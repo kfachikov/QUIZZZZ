@@ -4,7 +4,7 @@ import commons.AbstractQuestion;
 import commons.BasicMultipleChoiceQuestion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import server.utils.RandomUtils;
+import server.utils.GenerateQuestionUtils;
 
 import java.util.*;
 
@@ -14,7 +14,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 public class QuestionControllerTest {
 
-    private RandomUtils randomUtils;
+    private GenerateQuestionUtils generateQuestionUtils;
     private MockQuestionRepository repo;
 
     private QuestionController ctrl;
@@ -23,9 +23,9 @@ public class QuestionControllerTest {
 
     @BeforeEach
     public void setup() {
-        randomUtils = new RandomUtils();
+        generateQuestionUtils = new GenerateQuestionUtils();
         repo = new MockQuestionRepository();
-        ctrl = new QuestionController(randomUtils, repo);
+        ctrl = new QuestionController(generateQuestionUtils, repo);
         nextId = 0;
     }
 
