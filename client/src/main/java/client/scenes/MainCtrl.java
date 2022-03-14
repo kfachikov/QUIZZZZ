@@ -99,7 +99,7 @@ public class MainCtrl {
     /**
      * sets the title and the scene as single-player game.
      */
-    public void showSoloGameQuestion() {
+    public synchronized void showSoloGameQuestion() {
         primaryStage.setTitle("Quizzz: Single-player Game");
         primaryStage.setScene(soloGame);
         soloGameCtrl.startTimer();

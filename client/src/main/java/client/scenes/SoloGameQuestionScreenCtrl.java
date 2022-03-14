@@ -62,6 +62,7 @@ public class SoloGameQuestionScreenCtrl extends Component {
      * sets the scene and title to home if the yes button is clicked.
      */
     public void returnHome() {
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText("Leave the game");
@@ -74,9 +75,8 @@ public class SoloGameQuestionScreenCtrl extends Component {
         Optional<ButtonType> confirmation = alert.showAndWait();
         if (confirmation.get() == yesButton) {
             mainCtrl.showHome();
-        } else {
-            mainCtrl.showSoloGameQuestion();
         }
+
     }
 
     /**
@@ -101,7 +101,7 @@ public class SoloGameQuestionScreenCtrl extends Component {
          * @see Thread#run()
          */
         @Override
-        public void run() {
+        public synchronized void run() {
             time.setStyle("-fx-accent: #006e8c");
             for (int i = 0; i < 100; i++) {
                 if (i > 70) {
@@ -121,10 +121,9 @@ public class SoloGameQuestionScreenCtrl extends Component {
      * The method starts the timer thread.
      */
     @FXML
-    public void startTimer() {
+    public synchronized void startTimer() {
         time.setProgress(0.0);
         Thread thread = new Thread(new BeginThread());
         thread.start();
     }
-
 }
