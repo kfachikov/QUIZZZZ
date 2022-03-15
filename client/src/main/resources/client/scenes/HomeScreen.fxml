@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeScreenCtrl">
+<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeScreenCtrl">
     <children>
         <Text fill="#006e8a" layoutX="117.0" layoutY="127.0" stroke="#3cacc3" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="QUIZ">
             <font>
@@ -75,6 +72,11 @@
          <font>
             <Font name="SansSerif Regular" size="13.0" />
          </font></Button>
+      <Label fx:id="errorMessage" alignment="CENTER" layoutX="73.0" layoutY="50.0" prefHeight="27.0" prefWidth="454.0" style="-fx-background-color: #f2dede; -fx-background-radius: 15; visibility: false" textFill="#c62828">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
     </children>
     <effect>
         <ColorAdjust />

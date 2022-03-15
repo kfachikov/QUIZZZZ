@@ -15,7 +15,9 @@
  */
 package client.utils;
 
-import commons.MultiUser;
+import commons.Activity;
+import commons.QueueState;
+import commons.QueueUser;
 import commons.SingleUser;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -28,41 +30,74 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
 
-    private static final String SERVER = "http://localhost:8080/";
+    private static String currentServer;
 
     public SingleUser addUser(SingleUser user) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("/api/users") //
+                .target(currentServer).path("/api/users") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(user, APPLICATION_JSON), SingleUser.class);
     }
 
-    public List<MultiUser> getQueueUsers() {
-        GenericType<List<MultiUser>> genericType = new GenericType<List<MultiUser>>() {
-        };
+    public QueueState getQueueState() {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(SERVER).path("/api/lobby")
+                .target(currentServer).path("/api/queue")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(genericType);
+                .get(QueueState.class);
     }
 
-    public MultiUser addQueueUser(MultiUser user) {
+    public QueueUser addQueueUser(QueueUser user) {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(SERVER).path("/api/lobby")
+                .target(currentServer).path("/api/queue")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .post(Entity.entity(user, APPLICATION_JSON), MultiUser.class);
+                .post(Entity.entity(user, APPLICATION_JSON), QueueUser.class);
     }
 
-    public MultiUser deleteQueueUser(MultiUser user) {
+    public QueueUser deleteQueueUser(QueueUser user) {
         long id = user.id;
         return ClientBuilder.newClient(new ClientConfig())
-                .target(SERVER)
-                .path("/api/lobby/" + String.valueOf(id))
+                .target(currentServer)
+                .path("/api/queue/" + String.valueOf(id))
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .delete(MultiUser.class);
+                .delete(QueueUser.class);
+    }
+
+    /**
+     * POST request to /api/queue/start, to start the multiplayer game.
+     *
+     * @return The updated state of the game
+     */
+    public QueueState startMultiplayerGame() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/queue/start")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(null, QueueState.class);
+    }
+
+    public static String getCurrentServer() {
+        return currentServer;
+    }
+
+    /**
+     * Used to set the current server to which a client is connected to once they decide to play a game.
+     *
+     * @param currentServer A String representation of the server.
+     */
+    public static void setCurrentServer(String currentServer) {
+        ServerUtils.currentServer = currentServer;
+    }
+
+    public List<Activity> getActivities() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer).path("/api/activities")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Activity>>() {});
     }
 }

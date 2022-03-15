@@ -1,40 +1,44 @@
 package server.api;
 
-import commons.MultiUser;
+
+import commons.SoloGameRound;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.FluentQuery;
-import server.database.MultiUserRepository;
+import server.database.SoloGameAnswerRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-class MockMultiUserRepository implements MultiUserRepository {
+public class MockSoloAnswerRepository implements SoloGameAnswerRepository {
 
-    public final List<MultiUser> multiUsers = new ArrayList<>();
-    public final List<String> calledMethods = new ArrayList<>();
+    public List<SoloGameRound> answers = new ArrayList<>();
+    public List<String> calledMethods = new ArrayList<String>();
 
     private void call(String name) {
         calledMethods.add(name);
     }
 
-    private Optional<MultiUser> find(Long id) {
-        return multiUsers.stream().filter(q -> q.id == id).findFirst();
+    private Optional<SoloGameRound> find(Long id) {
+        return answers.stream().filter(q -> q.roundId == id).findFirst();
     }
 
     @Override
-    public List<MultiUser> findAll() {
-        call("findAll");
-        return multiUsers;
+    public List<SoloGameRound> findAll() {
+        calledMethods.add("findAll");
+        return answers;
     }
 
     @Override
-    public List<MultiUser> findAll(Sort sort) {
+    public List<SoloGameRound> findAll(Sort sort) {
         return null;
     }
 
@@ -45,12 +49,12 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @return a page of entities
      */
     @Override
-    public Page<MultiUser> findAll(Pageable pageable) {
+    public Page<SoloGameRound> findAll(Pageable pageable) {
         return null;
     }
 
     @Override
-    public List<MultiUser> findAllById(Iterable<Long> longs) {
+    public List<SoloGameRound> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -61,8 +65,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      */
     @Override
     public long count() {
-        call("count");
-        return multiUsers.size();
+        return 0;
     }
 
     /**
@@ -83,7 +86,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @throws IllegalArgumentException in case the given entity is {@literal null}.
      */
     @Override
-    public void delete(MultiUser entity) {
+    public void delete(SoloGameRound entity) {
 
     }
 
@@ -106,7 +109,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @throws IllegalArgumentException in case the given {@literal entities} or one of its entities is {@literal null}.
      */
     @Override
-    public void deleteAll(Iterable<? extends MultiUser> entities) {
+    public void deleteAll(Iterable<? extends SoloGameRound> entities) {
 
     }
 
@@ -127,42 +130,40 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @throws IllegalArgumentException in case the given {@literal entity} is {@literal null}.
      */
     @Override
-    public <S extends MultiUser> S save(S entity) {
+    public <S extends SoloGameRound> S save(S entity) {
         call("save");
-        entity.id = multiUsers.size();
-        multiUsers.add(entity);
+        entity.roundId = (long) answers.size();
+        answers.add(entity);
         return entity;
     }
 
     @Override
-    public <S extends MultiUser> List<S> saveAll(Iterable<S> entities) {
+    public <S extends SoloGameRound> List<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     /**
      * Retrieves an entity by its id.
      *
-     * @param id must not be {@literal null}.
+     * @param aLong must not be {@literal null}.
      * @return the entity with the given id or {@literal Optional#empty()} if none found.
      * @throws IllegalArgumentException if {@literal id} is {@literal null}.
      */
     @Override
-    public Optional<MultiUser> findById(Long id) {
+    public Optional<SoloGameRound> findById(Long aLong) {
         return Optional.empty();
     }
-
 
     /**
      * Returns whether an entity with the given id exists.
      *
-     * @param id must not be {@literal null}.
+     * @param aLong must not be {@literal null}.
      * @return {@literal true} if an entity with the given id exists, {@literal false} otherwise.
      * @throws IllegalArgumentException if {@literal id} is {@literal null}.
      */
     @Override
-    public boolean existsById(Long id) {
-        call("existsById");
-        return find(id).isPresent();
+    public boolean existsById(Long aLong) {
+        return false;
     }
 
     /**
@@ -180,7 +181,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @return the saved entity
      */
     @Override
-    public <S extends MultiUser> S saveAndFlush(S entity) {
+    public <S extends SoloGameRound> S saveAndFlush(S entity) {
         return null;
     }
 
@@ -192,15 +193,30 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @since 2.5
      */
     @Override
-    public <S extends MultiUser> List<S> saveAllAndFlush(Iterable<S> entities) {
+    public <S extends SoloGameRound> List<S> saveAllAndFlush(Iterable<S> entities) {
         return null;
     }
 
+    /**
+     * Deletes the given entities in a batch which means it will create a single query. This kind of operation leaves JPAs
+     * first level cache and the database out of sync. Consider flushing the {@link EntityManager} before calling this
+     * method.
+     *
+     * @param entities entities to be deleted. Must not be {@literal null}.
+     * @since 2.5
+     */
     @Override
-    public void deleteAllInBatch(Iterable<MultiUser> entities) {
+    public void deleteAllInBatch(Iterable<SoloGameRound> entities) {
 
     }
 
+    /**
+     * Deletes the entities identified by the given ids using a single query. This kind of operation leaves JPAs first
+     * level cache and the database out of sync. Consider flushing the {@link EntityManager} before calling this method.
+     *
+     * @param longs the ids of the entities to be deleted. Must not be {@literal null}.
+     * @since 2.5
+     */
     @Override
     public void deleteAllByIdInBatch(Iterable<Long> longs) {
 
@@ -214,15 +230,36 @@ class MockMultiUserRepository implements MultiUserRepository {
 
     }
 
+    /**
+     * Returns a reference to the entity with the given identifier. Depending on how the JPA persistence provider is
+     * implemented this is very likely to always return an instance and throw an
+     * {@link EntityNotFoundException} on first access. Some of them will reject invalid identifiers
+     * immediately.
+     *
+     * @param aLong must not be {@literal null}.
+     * @return a reference to the entity with the given identifier.
+     * @see EntityManager#getReference(Class, Object) for details on when an exception is thrown.
+     * @deprecated use {@link JpaRepository #getById(ID)} instead.
+     */
     @Override
-    public MultiUser getOne(Long aLong) {
+    public SoloGameRound getOne(Long aLong) {
         return null;
     }
 
+    /**
+     * Returns a reference to the entity with the given identifier. Depending on how the JPA persistence provider is
+     * implemented this is very likely to always return an instance and throw an
+     * {@link EntityNotFoundException} on first access. Some of them will reject invalid identifiers
+     * immediately.
+     *
+     * @param aLong must not be {@literal null}.
+     * @return a reference to the entity with the given identifier.
+     * @see EntityManager#getReference(Class, Object) for details on when an exception is thrown.
+     * @since 2.5
+     */
     @Override
-    public MultiUser getById(Long id) {
-        call("getById");
-        return find(id).get();
+    public SoloGameRound getById(Long aLong) {
+        return null;
     }
 
     /**
@@ -233,17 +270,17 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @throws IncorrectResultSizeDataAccessException if the Example yields more than one result.
      */
     @Override
-    public <S extends MultiUser> Optional<S> findOne(Example<S> example) {
+    public <S extends SoloGameRound> Optional<S> findOne(Example<S> example) {
         return Optional.empty();
     }
 
     @Override
-    public <S extends MultiUser> List<S> findAll(Example<S> example) {
+    public <S extends SoloGameRound> List<S> findAll(Example<S> example) {
         return null;
     }
 
     @Override
-    public <S extends MultiUser> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends SoloGameRound> List<S> findAll(Example<S> example, Sort sort) {
         return null;
     }
 
@@ -256,7 +293,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @return a {@link Page} of entities matching the given {@link Example}.
      */
     @Override
-    public <S extends MultiUser> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends SoloGameRound> Page<S> findAll(Example<S> example, Pageable pageable) {
         return null;
     }
 
@@ -267,7 +304,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @return the number of instances matching the {@link Example}.
      */
     @Override
-    public <S extends MultiUser> long count(Example<S> example) {
+    public <S extends SoloGameRound> long count(Example<S> example) {
         return 0;
     }
 
@@ -278,7 +315,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @return {@literal true} if the data store contains elements that match the given {@link Example}.
      */
     @Override
-    public <S extends MultiUser> boolean exists(Example<S> example) {
+    public <S extends SoloGameRound> boolean exists(Example<S> example) {
         return false;
     }
 
@@ -292,7 +329,7 @@ class MockMultiUserRepository implements MultiUserRepository {
      * @since 2.6
      */
     @Override
-    public <S extends MultiUser, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends SoloGameRound, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 }

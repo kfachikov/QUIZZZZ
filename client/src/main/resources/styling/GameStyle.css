@@ -6,13 +6,13 @@
     -fx-border-width: 5;
 }
 .text-field {
-    -fx-border-color: #006e8c#006e8c;
+    -fx-border-color: #006e8c;
     -fx-border-width: 1;
     -fx-border-radius: 50;
     -fx-background-radius: 50;
 }
 #anchor {
-    -fx-background-color: a8c6fa;
+    -fx-background-color: #a8c6fa;
 }
 .table-view {
     -fx-border-color: #006e8c;
@@ -28,8 +28,20 @@
     -fx-border-width: 3;
 }
 .text-area {
-    -fx-background-color: #006e8c#006e8c;
+    -fx-background-color: #006e8c;
     -fx-background-size: 5;
-    -fx-border-color: #006e8c#006e8c;
+    -fx-border-color: #006e8c;
     -fx-border-radius: 10;
+}
+#bubbles>.label {
+    -fx-background-color: #c9f1fd;
+    -fx-border-color: #006e8c;
+    -fx-border-radius: 15;
+    -fx-background-radius: 20;
+    -fx-border-width: 3;
+    visibility: false;
+}
+
+#start-label {
+    -fx-background-color: #ffffffaa;
 }

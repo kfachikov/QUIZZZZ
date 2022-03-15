@@ -15,7 +15,8 @@
  */
 package client.scenes;
 
-import commons.MultiUser;
+import commons.QueueUser;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -37,6 +38,7 @@ public class MainCtrl {
 
     private HelpScreenCtrl helpCtrl;
     private Scene help;
+
     private QueueScreenCtrl queueCtrl;
     private Scene queue;
 
@@ -45,6 +47,9 @@ public class MainCtrl {
 
     private AdministratorScreenCtrl administratorCtrl;
     private Scene administrator;
+
+    private MultiGameQuestionScreenCtrl multiGameCtrl;
+    private Scene multiGame;
 
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
@@ -58,7 +63,8 @@ public class MainCtrl {
                            Pair<PrepScreenCtrl, Parent> prep,
                            Pair<SoloGameQuestionScreenCtrl, Parent> soloGame,
                            Pair<QueueScreenCtrl, Parent> queue,
-                           Pair<AdministratorScreenCtrl, Parent> administrator
+                           Pair<AdministratorScreenCtrl, Parent> administrator,
+                           Pair<MultiGameQuestionScreenCtrl, Parent> multiGame
     ) {
 
         this.primaryStage = primaryStage;
@@ -81,8 +87,18 @@ public class MainCtrl {
         this.administratorCtrl = administrator.getKey();
         this.administrator = new Scene(administrator.getValue());
 
+        this.multiGameCtrl = multiGame.getKey();
+        this.multiGame = new Scene(multiGame.getValue());
+
         showHome();
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest((event -> {
+            if (primaryStage.getScene().equals(this.queue)) {
+                queueCtrl.leaveQueue();
+            }
+            Platform.exit();
+        }));
     }
 
     /**
@@ -112,23 +128,38 @@ public class MainCtrl {
     /**
      * sets the title and the scene as single-player game.
      */
-    public void showSoloGameQuestion() {
+    public synchronized void showSoloGameQuestion() {
         primaryStage.setTitle("Quizzz: Single-player Game");
         primaryStage.setScene(soloGame);
+        soloGameCtrl.startTimer();
     }
 
     /**
      * Sets the current scene to the queue screen, starts the queue polling
      * service and initializes the queue scene controller with
-     * the MultiUser instance of the person joining the queue.
+     * the QueueUser instance of the person joining the queue.
      *
-     * @param user MultiUser which is joining the queue
+     * @param user QueueUser which is joining the queue
      */
-    public void showQueue(MultiUser user) {
+    public void showQueue(QueueUser user) {
         primaryStage.setTitle("Quizzz: Queue");
         primaryStage.setScene(queue);
         queueCtrl.getPollingService().start();
         queueCtrl.setUser(user);
+        queueCtrl.setServerAddress(homeCtrl.getServer());
+        queueCtrl.resetScene();
+    }
+
+    /**
+     * Set the current scene to Multiplayer game question screen.
+     *
+     * @param id        Multiplayer game id
+     * @param queueUser QueueUser of the user who was just in the queue
+     */
+    public void showMultiGameQuestion(long id, QueueUser queueUser) {
+        primaryStage.setTitle("Quizzz: Multi-player Game");
+        primaryStage.setScene(multiGame);
+        multiGameCtrl.setGameId(id);
     }
 
     public void showAdministrator() {
