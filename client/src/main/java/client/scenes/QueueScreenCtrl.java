@@ -44,6 +44,9 @@ public class QueueScreenCtrl {
     @FXML
     private FlowPane bubbles;
 
+    @FXML
+    private Label serverAddress;
+
 
     /**
      * Constructor for queue screen controller.
@@ -222,5 +225,9 @@ public class QueueScreenCtrl {
         pollingService.stop();
         countdownService.stop();
         return server.deleteQueueUser(user);
+    }
+
+    public void setServerAddress(String serverAddress) {
+        this.serverAddress.setText("Server address: " + serverAddress);
     }
 }

@@ -7,15 +7,14 @@ import commons.SingleUser;
 import jakarta.ws.rs.ProcessingException;
 import jakarta.ws.rs.WebApplicationException;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
-import javafx.stage.Modality;
 
 public class HomeScreenCtrl {
 
     private static final int FORBIDDEN = 403;
+    private static final int BAD_REQUEST = 400;
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
@@ -58,14 +57,14 @@ public class HomeScreenCtrl {
             server.addUser(getSingleUser());
             mainCtrl.showPrep();
         } catch (WebApplicationException e) {
-            var alert = new Alert(Alert.AlertType.ERROR);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            switch (e.getResponse().getStatus()) {
+            case BAD_REQUEST: usernameMissing();
+            break;
+            default: unknownError();
+            }
         } catch (ProcessingException e) {
             serverInvalid();
         }
-
     }
 
     /**
@@ -103,15 +102,17 @@ public class HomeScreenCtrl {
             switch (e.getResponse().getStatus()) {
             case FORBIDDEN: usernameNotUnique();
             break;
-            default:
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initModality(Modality.APPLICATION_MODAL);
-                alert.setContentText("Username not present!");
-                alert.showAndWait();
+            case BAD_REQUEST: usernameMissing();
+            break;
+            default: unknownError();
             }
         } catch (ProcessingException e) {
             serverInvalid();
         }
+    }
+
+    public void showAdministratorPanel() {
+        mainCtrl.showAdministrator();
     }
 
     /**
@@ -147,6 +148,29 @@ public class HomeScreenCtrl {
         usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
         serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
         errorMessage.setVisible(false);
+    }
+
+    /**
+     * Reusable method to be executed once a user tries to join a game without a username
+     *
+     * Sets username field background to red to pull the attention of the client.
+     * Removes the background of the server field, as the current problem is somewhere else.
+     */
+    private void usernameMissing () {
+        usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
+        serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        errorMessage.setText("Username missing!");
+        errorMessage.setVisible(true);
+    }
+
+    /**
+     * Reusable method to be executed once a user tries to join a game and an unknown error arises.
+     */
+    private void unknownError () {
+        usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        errorMessage.setText("Make sure you have entered a unique username and a valid URL address!");
+        errorMessage.setVisible(true);
     }
 
 }

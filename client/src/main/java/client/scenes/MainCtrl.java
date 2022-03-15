@@ -19,8 +19,12 @@ import commons.QueueUser;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+
+import java.io.File;
 
 public class MainCtrl {
 
@@ -41,6 +45,9 @@ public class MainCtrl {
     private SoloGameQuestionScreenCtrl soloGameCtrl;
     private Scene soloGame;
 
+    private AdministratorScreenCtrl administratorCtrl;
+    private Scene administrator;
+
     private MultiGameQuestionScreenCtrl multiGameCtrl;
     private Scene multiGame;
 
@@ -56,22 +63,30 @@ public class MainCtrl {
                            Pair<PrepScreenCtrl, Parent> prep,
                            Pair<SoloGameQuestionScreenCtrl, Parent> soloGame,
                            Pair<QueueScreenCtrl, Parent> queue,
+                           Pair<AdministratorScreenCtrl, Parent> administrator,
                            Pair<MultiGameQuestionScreenCtrl, Parent> multiGame
-
     ) {
 
         this.primaryStage = primaryStage;
 
         this.homeCtrl = home.getKey();
         this.home = new Scene(home.getValue());
+
         this.prepCtrl = prep.getKey();
         this.prep = new Scene(prep.getValue());
+
         this.helpCtrl = help.getKey();
         this.help = new Scene(help.getValue());
+
         this.queueCtrl = queue.getKey();
         this.queue = new Scene(queue.getValue());
+
         this.soloGameCtrl = soloGame.getKey();
         this.soloGame = new Scene(soloGame.getValue());
+
+        this.administratorCtrl = administrator.getKey();
+        this.administrator = new Scene(administrator.getValue());
+
         this.multiGameCtrl = multiGame.getKey();
         this.multiGame = new Scene(multiGame.getValue());
 
@@ -116,6 +131,7 @@ public class MainCtrl {
     public synchronized void showSoloGameQuestion() {
         primaryStage.setTitle("Quizzz: Single-player Game");
         primaryStage.setScene(soloGame);
+        soloGameCtrl.startTimer();
     }
 
     /**
@@ -130,6 +146,7 @@ public class MainCtrl {
         primaryStage.setScene(queue);
         queueCtrl.getPollingService().start();
         queueCtrl.setUser(user);
+        queueCtrl.setServerAddress(homeCtrl.getServer());
         queueCtrl.resetScene();
     }
 
@@ -143,5 +160,17 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz: Multi-player Game");
         primaryStage.setScene(multiGame);
         multiGameCtrl.setGameId(id);
+    }
+
+    public void showAdministrator() {
+        primaryStage.setTitle("Quizzz: Administrator Panel");
+        primaryStage.setScene(administrator);
+    }
+
+    public String chooseFile(Button selectFileButton) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+        File selectedFile =  fileChooser.showOpenDialog(null);
+        return selectedFile.getName();
     }
 }

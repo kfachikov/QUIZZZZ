@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import server.database.QuestionRepository;
-import server.utils.RandomUtils;
+import server.utils.GenerateQuestionUtils;
 
 import java.util.List;
 import java.util.Random;
@@ -16,10 +16,10 @@ import java.util.Random;
 @RequestMapping("/api/questions")
 public class QuestionController {
 
-    private final RandomUtils randomUtils;
+    private final GenerateQuestionUtils randomUtils;
     private final QuestionRepository repo;
 
-    public QuestionController(RandomUtils randomUtils, QuestionRepository repo) {
+    public QuestionController(GenerateQuestionUtils randomUtils, QuestionRepository repo) {
         this.repo = repo;
         this.randomUtils = randomUtils;
     }
