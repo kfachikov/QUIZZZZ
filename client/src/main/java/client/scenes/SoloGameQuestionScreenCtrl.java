@@ -10,8 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 
-import java.awt.*;
-
 import java.util.Optional;
 
 
@@ -80,11 +78,19 @@ public class SoloGameQuestionScreenCtrl {
     }
 
     /**
-     * sets the current score.
+     * Sets the current score.
      * @param score is the current score of the player
      */
     public void setScore(int score) {
         currentScore.setText(String.valueOf(score));
+    }
+
+    /**
+     * Sets the question to the chosen questionText.
+     * @param questionText the question text
+     */
+    public void setQuestion(Text questionText) {
+        question.setText(String.valueOf(questionText));
     }
 
     class BeginThread implements Runnable {
