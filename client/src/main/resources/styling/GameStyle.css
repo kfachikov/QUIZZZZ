@@ -20,7 +20,6 @@
     -fx-border-radius: 7;
     -fx-background-radius: 20;
     -fx-background-color: #c9f1fd;
-    -fx-font: SansSerif Regular;
 }
 .table-view .column-header {
     -fx-background-color: #c9f1fd;

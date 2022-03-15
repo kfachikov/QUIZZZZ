@@ -111,6 +111,10 @@ public class HomeScreenCtrl {
         }
     }
 
+    public void showAdministratorPanel() {
+        mainCtrl.showAdministrator();
+    }
+
     /**
      * Reusable method to be executed once an invalid server is entered.
      *
