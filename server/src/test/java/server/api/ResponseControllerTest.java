@@ -2,16 +2,18 @@ package server.api;
 
 import commons.SoloGameRound;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ResponseControllerTest {
 
     private MockSoloAnswerRepository mockSoloAnswerRepository;
     private MockMultiAnswerRepository mockMultiAnswerRepository;
     private ResponseController responseCtrl;
-    private int nextId = 0;
 
     @BeforeEach
     public void setup() {
@@ -29,7 +31,7 @@ public class ResponseControllerTest {
         mockSoloAnswerRepository.answers.addAll(mockSoloAnswers);
         return mockSoloAnswers;
     }
-    /*
+
     @Test
     public void testGetAllSoloAnswers() {
         var expected = addMockSoloAnswers();
@@ -46,9 +48,14 @@ public class ResponseControllerTest {
 
     @Test
     public void databaseIsUsed() {
-        SoloGameRound soloGameRound = new SoloGameRound(1L, "answer1");
-        responseCtrl.sendSoloAnswer(soloGameRound);
+        responseCtrl.sendSoloAnswer(getSoloAnswer(1L, "answer1"));
         assertEquals(List.of("save"), mockSoloAnswerRepository.calledMethods);
     }
-    */
+
+    private static SoloGameRound getSoloAnswer(long id, String answer) {
+        return new SoloGameRound(id, answer);
+    }
+
+
+
 }

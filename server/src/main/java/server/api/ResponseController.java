@@ -2,6 +2,7 @@ package server.api;
 
 import commons.MultiPlayerGameRound;
 import commons.SoloGameRound;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.database.MultiPlayerGameAnswerRepository;
 import server.database.SoloGameAnswerRepository;
@@ -13,8 +14,8 @@ import java.util.List;
 @RequestMapping("/api/response")
 public class ResponseController {
 
-    private SoloGameAnswerRepository soloGameAnswerRepository;
-    private MultiPlayerGameAnswerRepository multiPlayerGameAnswerRepository;
+    private final SoloGameAnswerRepository soloGameAnswerRepository;
+    private final MultiPlayerGameAnswerRepository multiPlayerGameAnswerRepository;
 
     public ResponseController(SoloGameAnswerRepository soloGameAnswerRepository, MultiPlayerGameAnswerRepository multiPlayerGameAnswerRepository) {
         this.soloGameAnswerRepository = soloGameAnswerRepository;
@@ -32,11 +33,16 @@ public class ResponseController {
 
     /**
       Sends the answer of the SinglePlayer to AbstractQuestion question to the solo.
-      @param soloGameRound to be sent
+     * @param soloGameRound to be sent
+     * @return response
      */
     @PostMapping("")
-    public void sendSoloAnswer(@RequestBody SoloGameRound soloGameRound) {
-        soloGameAnswerRepository.save(soloGameRound);
+    public ResponseEntity<SoloGameRound> sendSoloAnswer(@RequestBody SoloGameRound soloGameRound) {
+        if (soloGameRound == null || isNullOrEmpty(soloGameRound.finalAnswer)) {
+            return ResponseEntity.badRequest().build();
+        }
+        SoloGameRound saved = soloGameAnswerRepository.save(soloGameRound);
+        return ResponseEntity.ok(saved);
     }
 
     /**
@@ -50,11 +56,20 @@ public class ResponseController {
 
     /**
      Sends the answer of the SinglePlayer to AbstractQuestion question to the solo.
-     @param multiPlayerGameRound to be sent
+     * @param multiPlayerGameRound to be sent
+     * @return response
      */
     @PostMapping("")
-    public void sendSoloAnswer(@RequestBody MultiPlayerGameRound multiPlayerGameRound) {
-        multiPlayerGameAnswerRepository.save(multiPlayerGameRound);
+    public ResponseEntity<MultiPlayerGameRound> sendSoloAnswer(@RequestBody MultiPlayerGameRound multiPlayerGameRound) {
+        if (multiPlayerGameRound == null || isNullOrEmpty(multiPlayerGameRound.finalAnswer)) {
+            return ResponseEntity.badRequest().build();
+        }
+        MultiPlayerGameRound saved = multiPlayerGameAnswerRepository.save(multiPlayerGameRound);
+        return ResponseEntity.ok(saved);
+    }
+
+    private static boolean isNullOrEmpty(String s) {
+        return s == null || s.isEmpty();
     }
 
 }

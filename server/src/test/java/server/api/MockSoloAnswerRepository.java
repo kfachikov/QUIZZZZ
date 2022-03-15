@@ -33,7 +33,8 @@ public class MockSoloAnswerRepository implements SoloGameAnswerRepository {
 
     @Override
     public List<SoloGameRound> findAll() {
-        return null;
+        calledMethods.add("findAll");
+        return answers;
     }
 
     @Override
@@ -130,7 +131,10 @@ public class MockSoloAnswerRepository implements SoloGameAnswerRepository {
      */
     @Override
     public <S extends SoloGameRound> S save(S entity) {
-        return null;
+        call("save");
+        entity.roundId = (long) answers.size();
+        answers.add(entity);
+        return entity;
     }
 
     @Override
