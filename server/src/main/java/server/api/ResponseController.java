@@ -60,7 +60,7 @@ public class ResponseController {
      * @return response
      */
     @PostMapping("")
-    public ResponseEntity<MultiPlayerGameRound> sendSoloAnswer(@RequestBody MultiPlayerGameRound multiPlayerGameRound) {
+    public ResponseEntity<MultiPlayerGameRound> sendMultiAnswer(@RequestBody MultiPlayerGameRound multiPlayerGameRound) {
         if (multiPlayerGameRound == null || isNullOrEmpty(multiPlayerGameRound.finalAnswer)) {
             return ResponseEntity.badRequest().build();
         }

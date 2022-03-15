@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.MultiPlayerGameRound;
 import commons.SoloGameRound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +48,7 @@ public class ResponseControllerTest {
     }
 
     @Test
-    public void databaseIsUsed() {
+    public void databaseIsUsed1() {
         responseCtrl.sendSoloAnswer(getSoloAnswer(1L, "answer1"));
         assertEquals(List.of("save"), mockSoloAnswerRepository.calledMethods);
     }
@@ -55,6 +56,41 @@ public class ResponseControllerTest {
     private static SoloGameRound getSoloAnswer(long id, String answer) {
         return new SoloGameRound(id, answer);
     }
+
+    private List<MultiPlayerGameRound> addMocKMultiPlayerAnswers() {
+        List<MultiPlayerGameRound> mockMultiPlayerAnswers = new ArrayList<>();
+        for (long i = 0; i < 3; i++) {
+            MultiPlayerGameRound multiPlayerGameRound = new MultiPlayerGameRound(i, "answer" + i);
+            mockMultiPlayerAnswers.add(multiPlayerGameRound);
+        }
+        mockMultiAnswerRepository.answers.addAll(mockMultiPlayerAnswers);
+        return mockMultiPlayerAnswers;
+    }
+
+    @Test
+    public void testGetAllMultiAnswers() {
+        var expected = addMocKMultiPlayerAnswers();
+        var result = responseCtrl.getMultiAnswers();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testMultiMethodCall() {
+        addMocKMultiPlayerAnswers();
+        responseCtrl.getMultiAnswers();
+        assertEquals(List.of("findAll"), mockMultiAnswerRepository.calledMethods);
+    }
+
+    @Test
+    public void databaseIsUsed2() {
+        responseCtrl.sendMultiAnswer(getMultiAnswer(1L, "answer1"));
+        assertEquals(List.of("save"), mockMultiAnswerRepository.calledMethods);
+    }
+
+    private static MultiPlayerGameRound getMultiAnswer(long id, String answer) {
+        return new MultiPlayerGameRound(id, answer);
+    }
+
 
 
 

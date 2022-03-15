@@ -33,6 +33,7 @@ public class MockMultiAnswerRepository implements MultiPlayerGameAnswerRepositor
 
     @Override
     public List<MultiPlayerGameRound> findAll() {
+        calledMethods.add("findAll");
         return answers;
     }
 
@@ -130,7 +131,10 @@ public class MockMultiAnswerRepository implements MultiPlayerGameAnswerRepositor
      */
     @Override
     public <S extends MultiPlayerGameRound> S save(S entity) {
-        return null;
+        call("save");
+        entity.roundId = (long) answers.size();
+        answers.add(entity);
+        return entity;
     }
 
     @Override
