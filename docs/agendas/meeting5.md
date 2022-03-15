@@ -54,7 +54,7 @@ Attendees: Marijn Luime, Florena Buse, Julius Gvozdiovas, Kayra Bahadir
 
 - Everyone has around 2 minutes to give personal **constructive** advice, or praise, as well as to give some general suggestions about the team workflow and comment on what they find great within the current environment.
 
-### [15:45] Closing
+### [14:45] Closing
 
 - Choose the next chairperson and notetakers.
 
