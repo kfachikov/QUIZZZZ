@@ -2,7 +2,7 @@ package commons;
 
 public class GuessQuestionType extends AbstractQuestion {
 
-    private GuessQuestionType() {
+    public GuessQuestionType() {
         super();
     }
 
