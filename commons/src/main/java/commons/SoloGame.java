@@ -10,6 +10,7 @@ public class SoloGame {
     @Column(name = "id", nullable = false)
     public Long gameId;
 
+    @OneToMany
     public List<AbstractQuestion> questions;
 
     public SoloGame(Long gameId, List<AbstractQuestion> questions) {

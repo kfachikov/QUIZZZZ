@@ -36,7 +36,7 @@ public class ResponseController {
      * @param soloGameRound to be sent
      * @return response
      */
-    @PostMapping("")
+    @PostMapping("/soloGame")
     public ResponseEntity<SoloGameRound> sendSoloAnswer(@RequestBody SoloGameRound soloGameRound) {
         if (soloGameRound == null || isNullOrEmpty(soloGameRound.finalAnswer)) {
             return ResponseEntity.badRequest().build();
@@ -49,7 +49,7 @@ public class ResponseController {
      * This endpoint sends the answer of a multiplayer game question to the multiplayer game answer repository.
      * @return list of answers
      */
-    @GetMapping("/soloGame/answers")
+    @GetMapping("/multiGame/answers")
     public List<MultiPlayerGameRound> getMultiAnswers() {
         return multiPlayerGameAnswerRepository.findAll();
     }
@@ -59,7 +59,7 @@ public class ResponseController {
      * @param multiPlayerGameRound to be sent
      * @return response
      */
-    @PostMapping("")
+    @PostMapping("/multiGame")
     public ResponseEntity<MultiPlayerGameRound> sendMultiAnswer(@RequestBody MultiPlayerGameRound multiPlayerGameRound) {
         if (multiPlayerGameRound == null || isNullOrEmpty(multiPlayerGameRound.finalAnswer)) {
             return ResponseEntity.badRequest().build();
