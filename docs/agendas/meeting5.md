@@ -10,9 +10,9 @@ Time: 13.45
 
 Chairperson: Alexandra Darie
 
-Notetakers: Kaloyan Fachikov, Monica Păun
+Notetakers: Marijn Luime, Monica Păun
 
-Attendees: Marijn Luime, Florena Buse, Julius Gvozdiovas, Kayra Bahadir
+Attendees: Kaloyan Fachikov, Florena Buse, Julius Gvozdiovas, Kayra Bahadir
 
 ## Preface
 
