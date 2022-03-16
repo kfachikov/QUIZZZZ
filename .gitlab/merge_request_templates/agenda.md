@@ -9,7 +9,7 @@ Closes <!--- specify issue number here preceded with "#" symbol -->
   - *Feedback* - up to date with the previous week's tasks and deadlines
   - *Action points for next week* - explicitly and elaborately described. The team should have a clear picture of the weekly plan.
   - *Questions to TA* - time allocated for questions that hasn't arisen during any discussion
-  - *Tip&Top* - everyone should be aware of this point and should come prepared
+  - *Tips&Tops* - everyone should be aware of this point and should come prepared
   - *Closing* - choose next chairperson and notetakers
 - [ ] Agenda follow the style used for previous ones. Is it consistent?
 
