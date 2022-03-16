@@ -69,12 +69,12 @@ Approx. 13:55
 - How are things going? What did everyone do in the previous week? Did they manage to complete their tasks?
   - Notes and agenda of the last week
     - Julius and Kaloyan merged the notes into the agenda meeting4
-  - Kaloyan: worked on server, queue, error handler with setVisible textFields, created the fourth sprint and included issues
-  - Julius: worked on queue, fully implemented it. Added a transition between the queue and Multiplayer question, created mockup multiplayer scene
-  - Marijn: implementation for error handler missing username, transition between questions, leaderboard
-  - Monica: create the 4 different classes that inherit from the AbstractQuestion class, contribute to the tests for one of Alexandra’s merge requests
-  - Alexandra: implementation to visualize questions for solo and multiplayer, gameclasses and commons, different types of questions, response controller that sends answers to answer repository, in which solo and multiplayer are separated
-  - Kayra: implementation to receive activities, parse activities, administrator panel where admin can input json files with activities
+- Kaloyan: worked on server, queue, error handler with setVisible textFields, created the fourth sprint and included issues
+- Julius: worked on queue, fully implemented it. Added a transition between the queue and Multiplayer question, created mockup multiplayer scene
+- Marijn: implementation for error handler missing username, transition between questions, leaderboard
+- Monica: create the 4 different classes that inherit from the AbstractQuestion class, contribute to the tests for one of Alexandra’s merge requests
+- Alexandra: implementation to visualize questions for solo and multiplayer, gameclasses and commons, different types of questions, response controller that sends answers to answer repository, in which solo and multiplayer are separated
+- Kayra: implementation to receive activities, parse activities, administrator panel where admin can input json files with activities
 
 - What is left in progress?
   - Marijn -> Transition between questions, leaderboard
@@ -82,39 +82,15 @@ Approx. 13:55
 
 ## Feedback from the TA
 Approx. 14:05
-- Julius has a lot of code
-- Marijn and Alexandra are a bit behind on code
-- Monica, Kayra have a good amount of code
-- Kaloyan has a lot of code
-- People with less code should choose first and more extensive issues
-- Kaloyan helped Marijn
-- Pair programming could be helpful
-- Coding feedback: to add in the agenda showing a demo of the project in the TA meeting
-
-- Yellow flags
-
-- Florena: not everyone uses time estimating for tasks
-  - Julius: time estimates on issues or merge requests?
-- Florena: both are good
-  - Kaloyan: should we all do time estimates on either one or on both?
-- Sander: I recommend assigning time estimates on issues, you don't have to change past things
-
-- Florena: there is still not an equal amount of time spent on the project
-  for Marijn the gap is still too big, the group should use the previous decided method to assign tasks, with extensive issues and decide how to divide them
-- Sander: the gitinspector is still an indicator tool, we look more in depth after the gitinspector
-
-- Florena: I don't like the titles of commits and some commits are too extensive, more focused/smaller commits, more clear titles on commits
-  - Julius: some commits span a lot of files, because some things affect a lot of files, so I have to edit a lot of files, should I commit when it doesn't compile?
-- Florena: you should only commit when it compiles, but try to do more smaller commits
-
-- Florena: code reviewing is not satisfactory, there is an unbalance in code reviewing for Monica and Marijn not enough, they should do more code review
-  - Alexandra: some merge requests are very large and take a lot of time to review or some merge requests have differing views on things, so we should set up rules for merge requests, like when you can approve them, so there should be more consistency
-- Florena: maybe you should make the issues smaller
-- Sander: some merge requests have less code review comments in comparison with others, so try to find a balance, keep merge requests smaller so code review is easier
-  - Julius: for typos or statements missing, can I fix it myself?
-- Sander: you can also add recommended changes in gitlab, do not fix it yourself
-  - Julius: is it fine to do larger merge requests if you can not split it
-- Sander: it is not bad, but it makes it harder to code review, so try to make the merge requests smaller
+- Coding feedback:  
+  - Add in the agenda having a demo of the project in the TA meeting.
+- Merge Request and Gitinspector feedback:
+  - Let people who worked less pick up more extensive, longer issues .
+  - We could do pair programming.
+  - Agree on a procedure regarding the design choices.
+  - Don’t prioritize the refactoring.
+  - Yellow flag: the time estimated is not used by everyone (use it for the issues); some people are not spending the equal amount of work on issues; the gap regarding the code is to big; the title of the commits; to many files for commits
+  - Red flag: code review needs to be more balanced ( we can agree on something from the beginning, create some rules) - avoid lengthy merge request
 
 ## Questions to and from the TA
 
@@ -149,63 +125,68 @@ Approx. 14:05
 
 ## Action points for next week
 Approx. 14:40
-- Decide upon answers for the following questions: How server and client communicate? How the question instances are sent and what do they actually consist of?
-- Update the code of conduct with the new rules
-- Decide upon new deadlines, decide for an internal deadline for the must haves
-- Finish unresolved threads and merge requests from the previous sprint
-- Finish the issues of the 4th sprint
+- Decide upon answers for the following questions: How server and client communicate? How are the question instances sent and what do they actually consist of?
+- Update the code of conduct with the new rules.
+- Decide upon new deadlines. We should decide on an internal deadline for the musts.
+  Deadline:
+  - Merge requests done Friday night before sleep.
+  - The code review is done during the entire week.
 
-Informal meeting
+- Finish the unresolved threads and empty merge requests from the previous sprint.
+- Resolve the issues assigned in the fourth sprint.
 
-- Alexandra: sprint and deadline, finish thursday evening, code review friday evening, save weekend for major changes or unexpected issues
-- Julius: at least 2 issues per person, Kaloyan and jJulius less, deadline wednesday for first implementations
-- Kayra: saturday 12:00 deadline, code review, sunday merging 3pm
-- Kaloyan: people see things differently, so an agreement today would be nice, the person who is implementing an issue can say he/she has achieved completion by friday and code
-  review saturday
-- Julius: I had a discussion with monica about a merge request because I thought it was not finished yet, but I was confused about when it was finished because there is nowhere
-  a definition of finished, also a lot of labels are wrong
-- Alexandra: I think the issues need to be more explicit
-- Kaloyan: so deadline friday before you go to sleep
-  - Deadline: merge requests done friday night before sleep, code review saturday and sunday
-- Kayra: everyone should code review everything
-- Kaloyan: I don't agree with that, that would be a lot of work
-- Julius: I would like people code reviewing merge requests even before they are ready, so they work well before the deadline ended, maybe 2-3 merge requests per person per day
-- Alexandra: what are the requirements for a merge request to be approved, just that it doesn't break the project or that it is perfectly implemented, what can be rules for
-  merge requests for it to be approved
-- Kayra: there are 2 ways of code reviewing, about crucial things or aobut more personal thoughts about things when people don't agree about something
-- Julius: some merge requests can not be approved when it breaks, but it can be approved when there are small things you don't agree with
-- Kaloyan: some threads arise because we don't agree about some things
-- Julius: maybe we can agree on a thread template to indicate its severity
-  - Issue problem: bad tasks
-    - we should delete all the issues and recreate them, create tasks for them on the fly
-      add tasks for the issues when you are working on them
-- Julius: meeting on saturday: sprint planning, assign issues, add tasks, sprint ends on saturday, merge development to main on saturday
-- Kaloyan: for code of conduct, if you don't work consistent, don't expect people to code review your code all weekend, for thread severity choose major/minor problem or suggestion
-- Marijn: look at all unresolved threads before approving and also comment on them if you disagree with them and you think it can be merged
+##THE FOURTH SPRINT
+#A: (Kaloyan)
+- missing javadoc
+- update code of conduct
+- create merge request templates
+- intermediate "answer-revealing" screen"
+#B: (Marijn)
+- missing javadoc
+- multiplayer timer thread
+- fetch images from the server
+#C: (Julius)
+- missing javadoc
+- update the current checkstyle configurations
+- activity instances problem - visualize score counter
+#D: (Kayra)
+- missing javadoc
+- "Congratulations" screen
+- activity instances problem
+- call the generate20Question method and put up the solo game together
+#E: (Alexandra)
+- missing javadoc
+- visualize score counter
+- question scenes
+#F: (Monica)
+- missing javadoc
+- visualize score counter
+- question scenes
+- call the generate20Question method and put up the solo game together
+  Informal meeting
 
 ## Tip & Top
 
 Kaloyan
-
 - top: I really enjoyed the discussion between Julius, Alexandra and Monica with a lot of positive, constructive comments and everyone having the same goal that caused me to
   feel a teamspirit.
 
 Kayra
 
-- tip: to Monica and Marijn, maybe if you could make more indepth reviews so the merge
+- tip: to Monica and Marijn, maybe if you could make more in depth reviews so the merge
   requests get more and better feedback.
-- tip: sometimes the discussions are tense, but if you understand that the other person
-  wants the best for us
-- top: the discussion the day before the TA meeting was very positive, which was a good
-  improvement.
-- top: everyone worked well, which I liked.
+  - tip: sometimes the discussions are tense, but if you understand that the other person
+    wants the best for us
+  - top: the discussion the day before the TA meeting was very positive, which was a good
+    improvement.
+  - top: everyone worked well, which I liked.
 
 Alexandra
 
 - top: I like the workflow when I work with Monica, we communicate a lot when we work	together.
 - top: to Kayra, I liked it when you helped me with the round timer and thank you for all	the advice you gave me.
 - top: to Marijn, I like that he started working more on the project.
-- top: to Julius and Kaloyan, we are finally on the same side nad we understand eachother.
+- top: to Julius and Kaloyan, we are finally on the same side and we understand each other.
 
 Monica
 
@@ -230,5 +211,7 @@ Marijn
 - Choose the next chairperson and notetakers.
   - Chairperson — Marijn
   - Notetakers — Kayra and Alexandra
+
+
 
 
