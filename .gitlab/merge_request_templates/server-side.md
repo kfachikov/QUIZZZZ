@@ -2,7 +2,7 @@ Closes <!--- specify issue number here preceded with "#" symbol -->
 
 # Checklist
 Particular:
-- [ ] Did you have tested your code in all possible manners?
+- [ ] Have you tested your code in all possible manners?
     - Postman - does the back-end endpoints and functionality works are desired
     - Using the *h2 database* console - reached on http://localhost:8080/h2-console in case the server is started on port `8080`
 
