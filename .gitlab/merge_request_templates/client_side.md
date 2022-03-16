@@ -2,16 +2,16 @@ Closes <!--- specify issue number here preceded with "#" symbol -->
 
 # Checklist
 Particular:
-- [ ] Did you have tested your code in all possible manners? 
-  - Postman
-  - Manually by starting the application
-  - Using the *h2 database* console - reached on http://localhost:8080/h2-console in case the server is started on port `8080`
+- [ ] Have you tested your code in all possible manners?
+  - Manually by starting the application - does different actions produce the desired outcome
+    - Send requests to the server
+    - Redirect the client to desired scenes
+    - Follow the common aesthetic of the other scenes created so far
 
 General:
 - [ ] Do you follow all style conventions agreed on in the "Code Of Conduct" and the "Checkstyle"?
   - Classes, fields and variables naming conventions
   - Sufficient Javadoc explaining the achieved functionality
-  - Sufficient test coverage
 - [ ] Make sure you merge into branch `development`
 
 
