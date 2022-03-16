@@ -51,6 +51,9 @@ public class MainCtrl {
     private MultiGameQuestionScreenCtrl multiGameCtrl;
     private Scene multiGame;
 
+    private CongratulationsScreenCtrl congratulationsCtrl;
+    private Scene congratulations;
+
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
      * @param home         is the home screen pair variable
@@ -64,7 +67,8 @@ public class MainCtrl {
                            Pair<SoloGameQuestionScreenCtrl, Parent> soloGame,
                            Pair<QueueScreenCtrl, Parent> queue,
                            Pair<AdministratorScreenCtrl, Parent> administrator,
-                           Pair<MultiGameQuestionScreenCtrl, Parent> multiGame
+                           Pair<MultiGameQuestionScreenCtrl, Parent> multiGame,
+                           Pair<CongratulationsScreenCtrl, Parent> congratulations
     ) {
 
         this.primaryStage = primaryStage;
@@ -89,6 +93,9 @@ public class MainCtrl {
 
         this.multiGameCtrl = multiGame.getKey();
         this.multiGame = new Scene(multiGame.getValue());
+
+        this.congratulationsCtrl = congratulations.getKey();
+        this.congratulations = new Scene(congratulations.getValue());
 
         showHome();
         primaryStage.show();

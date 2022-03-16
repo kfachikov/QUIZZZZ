@@ -43,8 +43,9 @@ public class Main extends Application {
         var queue = FXML.load(QueueScreenCtrl.class, "client", "scenes", "QueueScreen.fxml");
         var administrator = FXML.load(AdministratorScreenCtrl.class, "client", "scenes", "AdministratorScreen.fxml");
         var multiGame = FXML.load(MultiGameQuestionScreenCtrl.class, "client", "scenes", "MultiGameQuestionScreen.fxml");
+        var congratulations = FXML.load(CongratulationsScreenCtrl.class, "client", "scenes", "CongratulationsScreen.fxml");
         
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator, multiGame);
+        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator, multiGame, congratulations);
     }
 }

@@ -34,5 +34,6 @@ public class MyModule implements Module {
         binder.bind(HelpScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(SoloGameQuestionScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(AdministratorScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(CongratulationsScreenCtrl.class).in(Scopes.SINGLETON);
     }
 }
