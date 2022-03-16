@@ -1,5 +1,9 @@
+# Important!
+**Merge before Sunday midnight!**
+
 # Checklist
 - [ ] Make sure you merge branch `development` into `main`
+
 # How to test
 Run `./gradlew build` to make sure that everything builds properly and the checkstyle does not fail.
 
