@@ -1,6 +1,9 @@
 Closes <!--- specify issue number here preceded with "#" symbol -->
 
 # Checklist
+<!---
+Leave the "Particular" section out if your issue covered only a creation of some particular classes.
+-->
 Particular:
 - [ ] Have you tested your code in all possible manners?
   - Postman - does the back-end endpoints and functionality works are desired
@@ -12,6 +15,16 @@ General:
   - Sufficient Javadoc explaining the achieved functionality
   - Sufficient test coverage - all possible outcomes from an endpoint should be tested
 - [ ] Make sure you merge into branch `development`
+
+<!---
+The following section should be omitted if one's issue did not included the creationg of any additional "beans"
+-->
+## New Classes
+<!---
+Include any relevant information about the classes ("beans") you have created.
+Briefly describe your design choices and show your long-term view of how it could be integrated in the application in the big picture.
+-->
+- [ ] Do you have sufficient test coverage for all methods declared and defined?
 
 
 # Details
