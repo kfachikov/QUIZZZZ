@@ -16,6 +16,14 @@ List of branches that should have been merged before the weekly marge of `develo
 Include checklist of all merge requests corresponding to the issues in the current sprint. 
 -->
 
+<!--_
+The following section should be included only in case there are such new features developed.
+-->
+# New features
+
+<!---
+Some pictures and explanations of the expected and the achieved behavior can be included.
+-->
 [//]: <> (
 Information should be inserted instead of the comments of the format "<!--- -->". 
 If not removed, the comments would still preserve the information containing - for example, commented tasks are still counted by GitLAb, so make sure you delete them.
