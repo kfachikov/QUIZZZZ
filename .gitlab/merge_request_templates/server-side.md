@@ -3,14 +3,14 @@ Closes <!--- specify issue number here preceded with "#" symbol -->
 # Checklist
 Particular:
 - [ ] Have you tested your code in all possible manners?
-    - Postman - does the back-end endpoints and functionality works are desired
-    - Using the *h2 database* console - reached on http://localhost:8080/h2-console in case the server is started on port `8080`
+  - Postman - does the back-end endpoints and functionality works are desired
+  - Using the *h2 database* console - reached on http://localhost:8080/h2-console in case the server is started on port `8080`
 
 General:
 - [ ] Do you follow all style conventions agreed on in the "Code Of Conduct" and the "Checkstyle"?
-    - Classes, fields and variables naming conventions
-    - Sufficient Javadoc explaining the achieved functionality
-    - Sufficient test coverage - all possible outcomes from an endpoint should be tested
+  - Classes, fields and variables naming conventions
+  - Sufficient Javadoc explaining the achieved functionality
+  - Sufficient test coverage - all possible outcomes from an endpoint should be tested
 - [ ] Make sure you merge into branch `development`
 
 
