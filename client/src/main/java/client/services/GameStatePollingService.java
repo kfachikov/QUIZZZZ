@@ -5,7 +5,7 @@ import commons.GameState;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-import jakarta.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * Service responsible for repeatedly polling the game state.
