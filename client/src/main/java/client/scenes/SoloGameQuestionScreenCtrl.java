@@ -3,19 +3,15 @@ package client.scenes;
 import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
-import commons.Response;
 import commons.SinglePlayer;
 import commons.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-import java.util.Date;
 import java.util.Optional;
 
 public class SoloGameQuestionScreenCtrl {
@@ -65,8 +61,9 @@ public class SoloGameQuestionScreenCtrl {
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
-     * @param server is the server variable
-     * @param mainCtrl is the main controller variable
+     *
+     * @param server         is the server variable
+     * @param mainCtrl       is the main controller variable
      * @param pollingService GameState polling service
      */
     @Inject
@@ -76,30 +73,30 @@ public class SoloGameQuestionScreenCtrl {
         this.pollingService = pollingService;
     }
 
-//    public void initialize() {
-//        // Overriding the `handle` functionality of the
-//        handler = event -> {
-//            Button chosenAnswer = (Button) event.getSource();
-//            System.out.println("AnswerClicked");
-//            server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer.getText()));
-//        };
-//
-//        pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
-//            if (newGameState != null) {
-//                switch (newGameState.getState()) {
-//                    case QUESTION_STATE:
-//                        // load new question
-//                        break;
-//                    case TRANSITION_STATE:
-//                        // changes background and sets score
-//                        break;
-//                    case GAME_OVER_STATE:
-//                        // goes to congrats screen
-//                        break;
-//                }
-//            }
-//        }));
-//    }
+    //    public void initialize() {
+    //        // Overriding the `handle` functionality of the
+    //        handler = event -> {
+    //            Button chosenAnswer = (Button) event.getSource();
+    //            System.out.println("AnswerClicked");
+    //            server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer.getText()));
+    //        };
+    //
+    //        pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
+    //            if (newGameState != null) {
+    //                switch (newGameState.getState()) {
+    //                    case QUESTION_STATE:
+    //                        // load new question
+    //                        break;
+    //                    case TRANSITION_STATE:
+    //                        // changes background and sets score
+    //                        break;
+    //                    case GAME_OVER_STATE:
+    //                        // goes to congrats screen
+    //                        break;
+    //                }
+    //            }
+    //        }));
+    //    }
 
     /**
      * sets the scene and title to home if the yes button is clicked.
@@ -118,11 +115,11 @@ public class SoloGameQuestionScreenCtrl {
         if (confirmation.get() == yesButton) {
             mainCtrl.showHome();
         }
-
     }
 
     /**
      * Sets the current score.
+     *
      * @param score is the current score of the player
      */
     public void setScore(int score) {
@@ -131,6 +128,7 @@ public class SoloGameQuestionScreenCtrl {
 
     /**
      * Sets the question to the chosen questionText.
+     *
      * @param questionText the question text
      */
     public void setQuestion(Text questionText) {

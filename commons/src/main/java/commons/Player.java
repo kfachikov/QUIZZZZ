@@ -1,6 +1,7 @@
 package commons;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public abstract class Player {
@@ -8,7 +9,8 @@ public abstract class Player {
     private String username;
     private long score;
 
-    public Player() {}
+    public Player() {
+    }
 
     public Player(String username, long score) {
         this.username = username;
