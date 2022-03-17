@@ -12,10 +12,27 @@ public class SingleplayerStateController {
 
     private final Map<Long, SinglePlayerState> games;
 
+    /**
+     * Constructor for singleplayer state controller.
+     * <p>
+     * Initializes the list of games inside of the controller.
+     */
     public SingleplayerStateController() {
         this.games = new HashMap<>();
     }
 
+    /**
+     * GET mapping for the singleplayer game state.
+     * <p>
+     * Internally, the state of the game will be updated. That means, it might
+     * switch to another state (e. g. from QUESTION_STATE to TRANSITION_STATE),
+     * and it might increase the players' scores.
+     * <p>
+     * There is expectation that this endpoint will be called every about 500 ms.
+     *
+     * @param id Id for the singleplayer game
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<SinglePlayerState> getGameState(@PathVariable("id") long id) {
         if (games.containsKey(id)) {
@@ -29,6 +46,14 @@ public class SingleplayerStateController {
         }
     }
 
+    /**
+     * POST mapping for starting a new singleplayer game.
+     * <p>
+     * Constructs a new game object and inserts it in the list of games.
+     *
+     * @param player SinglePlayer that is starting the game.
+     * @return Newly started singleplayer game state
+     */
     @PostMapping("/start")
     public ResponseEntity<SinglePlayerState> startSingleGame(@RequestBody SinglePlayer player) {
         SinglePlayerState newGame = createSingleGame(player);
@@ -36,6 +61,14 @@ public class SingleplayerStateController {
         return ResponseEntity.ok(newGame);
     }
 
+    /**
+     * POST mapping for a response from a player.
+     * <p>
+     * Inserts the new response in the appropriate game for that player.
+     *
+     * @param response Response that the player selected.
+     * @return Response that the player just chose.
+     */
     @PostMapping("/answer")
     public ResponseEntity<Response> postResponse(@RequestBody Response response) {
         long gameId = response.getGameId();
@@ -47,7 +80,18 @@ public class SingleplayerStateController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Compute the final answer that the player chose.
+     * <p>
+     * The set of responses is iterated over, with the last answer choice being
+     * returned. If the last answer choice is selected multiple times, the first
+     * instance in the suffix of the answer choices is returned.
+     *
+     * @param game Singleplayer game for which the answer is computed.
+     * @return The true response of the player.
+     */
     private Response computeFinalAnswer(SinglePlayerState game) {
+        // Dummy response, if the player did not choose anything
         Response playerResponse = new Response(
                 game.getId(),
                 Long.MAX_VALUE,
@@ -55,6 +99,7 @@ public class SingleplayerStateController {
                 game.getPlayer().getUsername(),
                 "wrong answer"
         );
+        // Responses are sorted by the submission time.
         Comparator<Response> comp =
                 (a, b) -> (int) (a.getTimeSubmitted() - b.getTimeSubmitted());
         game.getSubmittedAnswers().sort(comp);
@@ -69,6 +114,19 @@ public class SingleplayerStateController {
         return playerResponse;
     }
 
+    /**
+     * Update the score of the player and clear responses.
+     * <p>
+     * This method runs only in the transition state.
+     * <p>
+     * All responses from the player are aggregated (to determine the true response)
+     * and then cleared.
+     * <p>
+     * Finally, the player's score is updated based on their response (the timing,
+     * whether it is correct etc)
+     *
+     * @param game Singleplayer game state (in the transition state)
+     */
     private void updateScore(SinglePlayerState game) {
         if (game.getState().equals(SinglePlayerState.TRANSITION_STATE)) {
             Response playerResponse = computeFinalAnswer(game);
@@ -78,29 +136,67 @@ public class SingleplayerStateController {
             AbstractQuestion currentQuestion = getCurrentQuestion(game);
             if (checkResponse(playerResponse, currentQuestion)) {
                 SinglePlayer player = game.getPlayer();
-                player.setScore(player.getScore() + computeScore());
+                player.setScore(player.getScore() + computeScore(playerResponse));
             }
         }
     }
 
-    private long computeScore() {
+    /**
+     * Compute the score of a response.
+     * <p>
+     * TODO: this method is just a mock method, and returns 100.
+     *
+     * @param response Response of the player with a correct answer.
+     * @return Number of points to add to the player's score
+     */
+    private long computeScore(Response response) {
         return 100;
     }
 
+    /**
+     * Checks if the response matches the correct answer of the question.
+     *
+     * @param response Response to be checked.
+     * @param question Question to be compared against.
+     * @return Whether the response is correct for the question.
+     */
     private boolean checkResponse(Response response, AbstractQuestion question) {
         String submittedAnswer = response.getAnswerChoice();
         String correctAnswer = getCorrectAnswer(question);
         return submittedAnswer.equals(correctAnswer);
     }
 
+    /**
+     * Gets the correct answer of a question.
+     * <p>
+     * TODO: this method is just a mock method and returns "sample answer"
+     *
+     * @param question Question to get the answer from.
+     * @return Correct answer in String form.
+     */
     private String getCorrectAnswer(AbstractQuestion question) {
         return "sample answer";
     }
 
+    /**
+     * Get the current question of the game.
+     * <p>
+     * Calculates and returns the current question, based on the current round.
+     *
+     * @param game Singleplayer game state.
+     * @return Current question of the game.
+     */
     private AbstractQuestion getCurrentQuestion(SinglePlayerState game) {
         return game.getQuestionList().get(game.getRoundNumber());
     }
 
+    /**
+     * Generates the questions for the singleplayer game.
+     * <p>
+     * TODO: this method is a mock method and returns 20 identical mock questions.
+     *
+     * @return List of 20 newly generated questions
+     */
     private List<AbstractQuestion> generateQuestions() {
         List<AbstractQuestion> questions = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
@@ -131,11 +227,11 @@ public class SingleplayerStateController {
                     game.setNextPhase(game.getNextPhase() + 3000);
                     return true;
                 }
+            } else if (game.getState().equals(SinglePlayerState.TRANSITION_STATE)) {
+                game.setState(SinglePlayerState.QUESTION_STATE);
+                game.setNextPhase(game.getNextPhase() + 8000);
+                game.setRoundNumber(game.getRoundNumber() + 1);
             }
-        } else if (game.getState().equals(SinglePlayerState.TRANSITION_STATE)) {
-            game.setState(SinglePlayerState.QUESTION_STATE);
-            game.setNextPhase(game.getNextPhase() + 8000);
-            game.setRoundNumber(game.getRoundNumber() + 1);
         }
         return false;
     }

@@ -6,8 +6,6 @@ import com.google.inject.Inject;
 import commons.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
@@ -61,8 +59,9 @@ public class SoloGameQuestionScreenCtrl {
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
-     * @param server is the server variable
-     * @param mainCtrl is the main controller variable
+     *
+     * @param server         is the server variable
+     * @param mainCtrl       is the main controller variable
      * @param pollingService GameState polling service
      */
     @Inject
@@ -141,11 +140,11 @@ public class SoloGameQuestionScreenCtrl {
         if (confirmation.get() == yesButton) {
             mainCtrl.showHome();
         }
-
     }
 
     /**
      * Sets the current score.
+     *
      * @param score is the current score of the player
      */
     public void setScore(long score) {
@@ -154,6 +153,7 @@ public class SoloGameQuestionScreenCtrl {
 
     /**
      * Sets the question to the chosen questionText.
+     *
      * @param questionText the question text
      */
     public void setQuestion(Text questionText) {
