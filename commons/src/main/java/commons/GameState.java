@@ -5,7 +5,7 @@ import java.util.List;
 public abstract class GameState {
 
     private final long id;
-    private double nextPhase;
+    private long nextPhase;
     private int roundNumber;
     private List<AbstractQuestion> questionList;
     private List<String> submittedAnswers;
@@ -15,7 +15,7 @@ public abstract class GameState {
      */
     private String state;
 
-    public GameState(long id, double nextPhase, int roundNumber, List<AbstractQuestion> questionList, List<String> submittedAnswers, List<Activity> activityList, String state) {
+    public GameState(long id, long nextPhase, int roundNumber, List<AbstractQuestion> questionList, List<String> submittedAnswers, List<Activity> activityList, String state) {
         this.id = id;
         this.nextPhase = nextPhase;
         this.roundNumber = roundNumber;
@@ -25,11 +25,11 @@ public abstract class GameState {
         this.state = state;
     }
 
-    public double getNextPhase() {
+    public long getNextPhase() {
         return nextPhase;
     }
 
-    public void setNextPhase(double nextPhase) {
+    public void setNextPhase(long nextPhase) {
         this.nextPhase = nextPhase;
     }
 
