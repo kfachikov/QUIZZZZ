@@ -135,35 +135,42 @@ Approx. 14:40
 - Finish the unresolved threads and empty merge requests from the previous sprint.
 - Resolve the issues assigned in the fourth sprint.
 
-##THE FOURTH SPRINT
-#A: (Kaloyan)
-- missing javadoc
-- update code of conduct
-- create merge request templates
-- intermediate "answer-revealing" screen"
-#B: (Marijn)
-- missing javadoc
-- multiplayer timer thread
-- fetch images from the server
-#C: (Julius)
-- missing javadoc
-- update the current checkstyle configurations
-- activity instances problem - visualize score counter
-#D: (Kayra)
-- missing javadoc
-- "Congratulations" screen
-- activity instances problem
-- call the generate20Question method and put up the solo game together
-#E: (Alexandra)
-- missing javadoc
-- visualize score counter
-- question scenes
-#F: (Monica)
-- missing javadoc
-- visualize score counter
-- question scenes
-- call the generate20Question method and put up the solo game together
-  Informal meeting
+###THE FOURTH SPRINT
+
+####Alexandra
+- Refactor Commons classes
+- Integrate the SoloGame
+- Add missing JavaDoc
+
+####Julius
+- Update the current Checkstyle configuration
+- Visualize score counter
+- Create the transition screen
+- Add missing JavaDoc
+
+####Kaloyan
+- Create merge requests templates
+- Update Code of Conduct
+- Visualize score counter
+- Create the transition screen
+- Add missing JavaDoc
+
+####Kayra
+- Refactor Commons classes
+- Integrate the SoloGame
+- Send JSON files to server (Admin Panel)
+- Add missing JavaDoc
+
+####Marijn
+- Create 'Congratulation' screen for the SoloGame
+- Create all the missing scenes
+- Insert the leaderboard in the SoloGame prep screen
+- Add missing JavaDoc
+
+####Monica
+- Refactor Commons classes
+- Integrate the SoloGame
+- Add missing JavaDoc
 
 ## Tip & Top
 
@@ -175,11 +182,11 @@ Kayra
 
 - tip: to Monica and Marijn, maybe if you could make more in depth reviews so the merge
   requests get more and better feedback.
-  - tip: sometimes the discussions are tense, but if you understand that the other person
-    wants the best for us
-  - top: the discussion the day before the TA meeting was very positive, which was a good
-    improvement.
-  - top: everyone worked well, which I liked.
+- tip: sometimes the discussions are tense, but if you understand that the other person
+  wants the best for us
+- top: the discussion the day before the TA meeting was very positive, which was a good
+  improvement.
+- top: everyone worked well, which I liked.
 
 Alexandra
 
