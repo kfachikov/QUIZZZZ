@@ -20,7 +20,7 @@
                 <Font name="SansSerif Regular" size="33.0" />
             </font>
         </Button>
-        <Text fx:id="congratulations" fill="#006e8c" layoutX="52.0" layoutY="59.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="CONGRATULATIONS!" wrappingWidth="495.51336669921875">
+        <Text fill="#006e8c" layoutX="52.0" layoutY="59.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="CONGRATULATIONS!" wrappingWidth="495.51336669921875">
             <font>
                 <Font name="SansSerif Regular" size="48.0" />
             </font>
@@ -32,7 +32,7 @@
                 </DropShadow>
             </effect>
         </Text>
-      <Text fx:id="POINTS" fill="#006e8c" layoutX="278.0" layoutY="124.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="POINTS" wrappingWidth="179.51336669921875">
+      <Text fill="#006e8c" layoutX="278.0" layoutY="124.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="POINTS" wrappingWidth="179.51336669921875">
          <font>
             <Font name="SansSerif Regular" size="48.0" />
          </font>
@@ -44,7 +44,7 @@
             </DropShadow>
          </effect>
       </Text>
-      <Text fx:id="YOU ARE #" fill="#006e8c" layoutX="52.0" layoutY="173.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="YOU ARE #" wrappingWidth="136.3133544921875">
+      <Text fill="#006e8c" layoutX="52.0" layoutY="173.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="YOU ARE #" wrappingWidth="136.3133544921875">
          <font>
             <Font name="SansSerif Bold" size="24.0" />
          </font>
@@ -56,7 +56,7 @@
             </DropShadow>
          </effect>
       </Text>
-      <Text fx:id="ON GLOBAL LEADERBOARD" fill="#006e8c" layoutX="220.0" layoutY="173.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="ON GLOBAL LEADERBOARD" wrappingWidth="338.7135009765625">
+      <Text fill="#006e8c" layoutX="220.0" layoutY="173.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="ON GLOBAL LEADERBOARD" wrappingWidth="338.7135009765625">
          <font>
             <Font name="SansSerif Bold" size="24.0" />
          </font>
