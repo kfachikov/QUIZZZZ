@@ -9,7 +9,7 @@ class SinglePlayerTest {
     @Test
     public void checkConstructor() {
         var p = new SinglePlayer("user", 45);
-        assertEquals("user", p.username);
+        assertEquals("user", p.getUsername());
     }
 
     @Test

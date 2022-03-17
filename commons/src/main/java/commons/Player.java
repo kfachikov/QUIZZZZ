@@ -4,9 +4,9 @@ import javax.persistence.*;
 
 public abstract class Player {
     private String username;
-    private int score;
+    private long score;
 
-    public Player(String username, int score) {
+    public Player(String username, long score) {
         this.username = username;
         this.score = score;
     }
@@ -19,11 +19,11 @@ public abstract class Player {
         this.username = username;
     }
 
-    public int getScore() {
+    public long getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(long score) {
         this.score = score;
     }
 
