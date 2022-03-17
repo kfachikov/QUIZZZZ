@@ -2,6 +2,7 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.SinglePlayerLeaderboardScore;
 import javafx.fxml.FXML;
 
 import javax.swing.table.TableColumn;
@@ -10,12 +11,14 @@ public class PrepScreenCtrl {
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+    private final SinglePlayerLeaderboardScore username;
+    private final SinglePlayerLeaderboardScore score;
 
     @FXML
-    private TableColumn username;
+    private TableColumn columnusername;
 
     @FXML
-    private TableColumn score;
+    private TableColumn columnscore;
 
     /**
      * initializes PrepScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -24,9 +27,11 @@ public class PrepScreenCtrl {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public PrepScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public PrepScreenCtrl(ServerUtils server, MainCtrl mainCtrl, SinglePlayerLeaderboardScore username, SinglePlayerLeaderboardScore score) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.username = username;
+        this.score = score;
     }
 
     /**
@@ -56,7 +61,6 @@ public class PrepScreenCtrl {
     public void showLeaderboard() {
         for (int i = 0; i <= 10; i++) {
             var player = "topplayer";
-
         }
     }
 }

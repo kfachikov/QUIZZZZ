@@ -98,7 +98,7 @@ class SinglePlayerRepositoryTest implements SinglePlayerRepository {
     }
 
     private Optional<SinglePlayer> find(Long id) {
-        return singlePlayers.stream().filter(q -> q.id == id).findFirst();
+        return singlePlayers.stream().findFirst();
     }
 
     @Override
@@ -122,7 +122,6 @@ class SinglePlayerRepositoryTest implements SinglePlayerRepository {
     @Override
     public <S extends SinglePlayer> S save(S entity) {
         call("save");
-        entity.id = (long) singlePlayers.size();
         singlePlayers.add(entity);
         return entity;
     }
