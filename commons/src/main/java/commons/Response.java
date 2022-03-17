@@ -1,12 +1,14 @@
 package commons;
 
 public class Response {
+    private long gameId;
     private double timeSubmitted;
     private int roundNumber;
-    private int playerId;
+    private long playerId;
     private String answerChoice;
 
-    public Response(double timeSubmitted, int roundNumber, int playerId, String answerChoice) {
+    public Response(long gameId, double timeSubmitted, int roundNumber, int playerId, String answerChoice) {
+        this.gameId = gameId;
         this.timeSubmitted = timeSubmitted;
         this.roundNumber = roundNumber;
         this.playerId = playerId;
@@ -29,11 +31,11 @@ public class Response {
         this.roundNumber = roundNumber;
     }
 
-    public int getPlayerId() {
+    public long getPlayerId() {
         return playerId;
     }
 
-    public void setPlayerId(int playerId) {
+    public void setPlayerId(long playerId) {
         this.playerId = playerId;
     }
 
@@ -45,5 +47,8 @@ public class Response {
         this.answerChoice = answerChoice;
     }
 
+    public long getGameId() {
+        return gameId;
+    }
 }
 

@@ -8,14 +8,14 @@ public abstract class GameState {
     private long nextPhase;
     private int roundNumber;
     private List<AbstractQuestion> questionList;
-    private List<String> submittedAnswers;
+    private List<Response> submittedAnswers;
     private List<Activity> activityList;
     /**
      * The state attribute is a String from : transition, intermittent leaderboard, question, game over.
      */
     private String state;
 
-    public GameState(long id, long nextPhase, int roundNumber, List<AbstractQuestion> questionList, List<String> submittedAnswers, List<Activity> activityList, String state) {
+    public GameState(long id, long nextPhase, int roundNumber, List<AbstractQuestion> questionList, List<Response> submittedAnswers, List<Activity> activityList, String state) {
         this.id = id;
         this.nextPhase = nextPhase;
         this.roundNumber = roundNumber;
@@ -49,11 +49,11 @@ public abstract class GameState {
         this.questionList = questionList;
     }
 
-    public List<String> getSubmittedAnswers() {
+    public List<Response> getSubmittedAnswers() {
         return submittedAnswers;
     }
 
-    public void setSubmittedAnswers(List<String> submittedAnswers) {
+    public void setSubmittedAnswers(List<Response> submittedAnswers) {
         this.submittedAnswers = submittedAnswers;
     }
 
