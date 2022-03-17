@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
+import java.io.File;
+
 
 public class AdministratorScreenCtrl {
     private final ServerUtils server;
@@ -37,6 +39,8 @@ public class AdministratorScreenCtrl {
     }
 
     public void chooseFile() {
-        description.setText("You have imported " + mainCtrl.chooseFile(selectFileButton));
+        File selectedFile = mainCtrl.chooseFile(selectFileButton);
+        description.setText("You have imported " + selectedFile.getName());
+        server.importActivities(selectedFile);
     }
 }
