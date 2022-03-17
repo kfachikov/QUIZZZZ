@@ -54,8 +54,13 @@ public class HomeScreenCtrl {
         try {
             setDefault();
             ServerUtils.setCurrentServer(getServer());
-            SinglePlayer singlePlayer = server.addSinglePlayer(getSinglePlayer());
-            mainCtrl.showPrep(singlePlayer);
+            /* The following line is useless, as the SinglePlayer instances would be stored anywhere.
+               Still there could be some sort of POST request to the server, which would be used to check whether the server is valid.
+               The missing username in this case could be handled in the getSinglePlayer() method, which
+               could check whether the textField is null or empty.
+            */
+            // SinglePlayer singlePlayer = server.addSinglePlayer(getSinglePlayer());
+            mainCtrl.showPrep(getSinglePlayer());
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
             case BAD_REQUEST: usernameMissing();

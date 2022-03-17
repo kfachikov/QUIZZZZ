@@ -94,6 +94,10 @@ public class ServerUtils {
                 .post(Entity.entity(response, APPLICATION_JSON), Response.class);
     }
 
+    /* Currently the following method does not work as intended.
+       There is a problem with the "object mapper" for the question classes.
+       Should have some default constructors.
+    */
     /**
      * POST request to /api/solo/start, to start the single-player game.
      *
@@ -103,7 +107,7 @@ public class ServerUtils {
     public SinglePlayerState startSinglePlayerGame(SinglePlayer singlePlayer) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/api/queue/start")
+                .path("/api/solo/start")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(singlePlayer, APPLICATION_JSON), SinglePlayerState.class);

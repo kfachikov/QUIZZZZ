@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class GameState {
 
-    private final long id;
+    private long id;
     private long nextPhase;
     private int roundNumber;
     private List<AbstractQuestion> questionList;
@@ -14,6 +14,10 @@ public abstract class GameState {
      * The state attribute is a String from : transition, intermittent leaderboard, question, game over.
      */
     private String state;
+
+    public GameState () {
+
+    }
 
     public GameState(long id, long nextPhase, int roundNumber, List<AbstractQuestion> questionList, List<Response> submittedAnswers, List<Activity> activityList, String state) {
         this.id = id;

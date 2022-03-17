@@ -11,6 +11,10 @@ public class SinglePlayerState extends GameState {
 
     SinglePlayer player;
 
+    private SinglePlayerState () {
+        super ();
+    }
+
     public SinglePlayerState(long id, long nextPhase, int roundNumber, List<AbstractQuestion> questionList, List<Response> submittedAnswers, List<Activity> activityList, String state, SinglePlayer player) {
         super(id, nextPhase, roundNumber, questionList, submittedAnswers, activityList, state);
         this.player = player;

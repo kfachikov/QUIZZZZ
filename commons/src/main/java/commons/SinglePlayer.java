@@ -8,6 +8,10 @@ import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
 public class SinglePlayer extends Player {
 
+    private SinglePlayer() {
+        super();
+    }
+
     public SinglePlayer(String username, long score) {
         super(username, score);
     }
