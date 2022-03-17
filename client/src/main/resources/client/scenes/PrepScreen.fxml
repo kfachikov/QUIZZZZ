@@ -18,8 +18,8 @@
          </font></Button>
       <TableView layoutX="184.0" layoutY="22.0" prefHeight="268.0" prefWidth="231.0" stylesheets="@../../styling/GameStyle.css">
           <columns>
-          <TableColumn prefWidth="138.80003356933594" text="Username" />
-          <TableColumn prefWidth="79.0" text="Score" />
+          <TableColumn fx:id="columnusername" prefWidth="138.80003356933594" text="Username" />
+          <TableColumn fx:id="columnscore" prefWidth="79.0" text="Score" />
         </columns>
       </TableView>
    </children>
