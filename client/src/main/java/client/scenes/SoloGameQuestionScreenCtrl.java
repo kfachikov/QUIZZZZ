@@ -1,7 +1,13 @@
 package client.scenes;
 
+import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.Response;
+import commons.SinglePlayer;
+import commons.SinglePlayerState;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -9,14 +15,26 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-
+import java.util.Date;
 import java.util.Optional;
 
-
-
 public class SoloGameQuestionScreenCtrl {
+
+    public static final String QUESTION_STATE = "QUESTION";
+    public static final String TRANSITION_STATE = "TRANSITION";
+    public static final String GAME_OVER_STATE = "GAME_OVER";
+
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+    private final GameStatePollingService pollingService;
+
+    private SinglePlayer singlePlayer = new SinglePlayer("kaloyna", 156);
+    private SinglePlayerState singlePlayerState = new SinglePlayerState(15, 51, 15, null, null, null, "hey", singlePlayer);
+
+    /**
+     * This event handler would be responsible for the "submit answer clicked" functionality.
+     */
+    private EventHandler<ActionEvent> handler;
 
     @FXML
     private Label currentScore;
@@ -49,18 +67,44 @@ public class SoloGameQuestionScreenCtrl {
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      * @param server is the server variable
      * @param mainCtrl is the main controller variable
+     * @param pollingService GameState polling service
      */
     @Inject
-    public SoloGameQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public SoloGameQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.pollingService = pollingService;
     }
+
+//    public void initialize() {
+//        // Overriding the `handle` functionality of the
+//        handler = event -> {
+//            Button chosenAnswer = (Button) event.getSource();
+//            System.out.println("AnswerClicked");
+//            server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer.getText()));
+//        };
+//
+//        pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
+//            if (newGameState != null) {
+//                switch (newGameState.getState()) {
+//                    case QUESTION_STATE:
+//                        // load new question
+//                        break;
+//                    case TRANSITION_STATE:
+//                        // changes background and sets score
+//                        break;
+//                    case GAME_OVER_STATE:
+//                        // goes to congrats screen
+//                        break;
+//                }
+//            }
+//        }));
+//    }
 
     /**
      * sets the scene and title to home if the yes button is clicked.
      */
     public void returnHome() {
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText("Leave the game");
@@ -131,5 +175,15 @@ public class SoloGameQuestionScreenCtrl {
         time.setProgress(0.0);
         Thread thread = new Thread(new BeginThread());
         thread.start();
+    }
+
+    /**
+     * Getter for polling service which keeps the state of the current game up to date
+     * by "constantly" polling it from the server.
+     *
+     * @return GameState polling service
+     */
+    public GameStatePollingService getPollingService() {
+        return pollingService;
     }
 }

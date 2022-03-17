@@ -71,9 +71,9 @@ public class ServerUtils {
      * @return The current state of the ongoing game.
      */
     public GameState getGameState() {
-        return  ClientBuilder.newClient(new ClientConfig())
+        return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/api/solo/{id}")
+                .path("/api/solo")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(GameState.class);
