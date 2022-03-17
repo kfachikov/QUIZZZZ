@@ -34,7 +34,7 @@ public class PrepScreenCtrl {
      * sets the scene and title to single-player game.
      */
     public void playSoloGame() {
-        mainCtrl.showSoloGameQuestion();
+        mainCtrl.showSoloGameQuestion(singlePlayer);
     }
 
     /**

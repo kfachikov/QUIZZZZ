@@ -113,6 +113,8 @@ public class SoloGameQuestionScreenCtrl {
         server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
     }
 
+    // The following method should be re-written once the questions are generated and
+    // decision on how to control the different scenes is taken.
     /**
      * Comparison of submitted answer and actual correct one.
      * Both could be accessed through the singlePlayerState instance
@@ -208,5 +210,23 @@ public class SoloGameQuestionScreenCtrl {
      */
     public GameStatePollingService getPollingService() {
         return pollingService;
+    }
+
+    /**
+     * Getter for the player current player instance.
+     *
+     * @return SinglePlayer instance containing the username and the score of the current client.
+     */
+    public SinglePlayer getSinglePlayer() {
+        return singlePlayer;
+    }
+
+    /**
+     * Setter for single-player field - stores the username and the score of our client.
+     *
+     * @param singlePlayer a SinglePlayer instance containing the above-mentioned information.
+     */
+    public void setSinglePlayer(SinglePlayer singlePlayer) {
+        this.singlePlayer = singlePlayer;
     }
 }
