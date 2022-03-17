@@ -15,10 +15,7 @@
  */
 package client.utils;
 
-import commons.Activity;
-import commons.QueueState;
-import commons.QueueUser;
-import commons.SingleUser;
+import commons.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
@@ -64,6 +61,23 @@ public class ServerUtils {
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .delete(QueueUser.class);
+    }
+
+    /**
+     * GET request to api/state.
+     *
+     * Would be used for "constant" polling so that the game state is kept up to date.
+     *
+     * @return The current state of the ongoing game.
+     */
+    public GameState getGameState() {
+        return  ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/state")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(GameState.class);
+
     }
 
     /**
