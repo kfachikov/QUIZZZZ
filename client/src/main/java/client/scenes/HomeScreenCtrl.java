@@ -3,7 +3,7 @@ package client.scenes;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.QueueUser;
-import commons.SingleUser;
+import commons.SinglePlayer;
 import jakarta.ws.rs.ProcessingException;
 import jakarta.ws.rs.WebApplicationException;
 import javafx.fxml.FXML;
@@ -54,7 +54,7 @@ public class HomeScreenCtrl {
         try {
             setDefault();
             ServerUtils.setCurrentServer(getServer());
-            server.addUser(getSingleUser());
+            server.addSinglePlayer(getSinglePlayer());
             mainCtrl.showPrep();
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
@@ -70,9 +70,9 @@ public class HomeScreenCtrl {
     /**
      * @return a new SingleUser object that contains its username and score.
      */
-    public SingleUser getSingleUser() {
+    public SinglePlayer getSinglePlayer() {
         String user = usernameField.getText();
-        return new SingleUser(user, 0);
+        return new SinglePlayer(user, 0);
     }
 
     /**

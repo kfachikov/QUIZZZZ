@@ -2,7 +2,7 @@ package client.utils;
 
 import commons.QueueState;
 import commons.QueueUser;
-import commons.SingleUser;
+import commons.SinglePlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +24,10 @@ public class MockServerUtils extends ServerUtils {
     }
 
     @Override
-    public SingleUser addUser(SingleUser user) {
+    public SinglePlayer addSinglePlayer(SinglePlayer singlePlayer) {
         call("addUser");
-        param = user;
-        return (SingleUser) returnValue;
+        param = singlePlayer;
+        return (SinglePlayer) returnValue;
     }
 
     @Override

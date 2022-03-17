@@ -29,12 +29,12 @@ public class ServerUtils {
 
     private static String currentServer;
 
-    public SingleUser addUser(SingleUser user) {
+    public SinglePlayer addSinglePlayer(SinglePlayer singlePlayer) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(currentServer).path("/api/users") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .post(Entity.entity(user, APPLICATION_JSON), SingleUser.class);
+                .post(Entity.entity(singlePlayer, APPLICATION_JSON), SinglePlayer.class);
     }
 
     public QueueState getQueueState() {
