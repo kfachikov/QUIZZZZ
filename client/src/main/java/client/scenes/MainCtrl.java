@@ -167,10 +167,10 @@ public class MainCtrl {
         primaryStage.setScene(administrator);
     }
 
-    public String chooseFile(Button selectFileButton) {
+    public File chooseFile(Button selectFileButton) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
         File selectedFile =  fileChooser.showOpenDialog(null);
-        return selectedFile.getName();
+        return selectedFile;
     }
 }
