@@ -229,4 +229,24 @@ public class SoloGameQuestionScreenCtrl {
     public void setSinglePlayer(SinglePlayer singlePlayer) {
         this.singlePlayer = singlePlayer;
     }
+
+    /**
+     * Getter fot the current state of the game.
+     *
+     * @return SinglePlayerState instance containing information about the current game.
+     */
+    public SinglePlayerState getSinglePlayerState() {
+        return singlePlayerState;
+    }
+
+    /**
+     * Setter for the game state field. Would be used later to allow the client submit answers, to check correctness,
+     * and to fetch new questions.
+     *
+     * @param singlePlayerState SinglePlayerState instance - would be returned from the server
+     *                          on the initial initialization of the game
+     */
+    public void setSinglePlayerState(SinglePlayerState singlePlayerState) {
+        this.singlePlayerState = singlePlayerState;
+    }
 }

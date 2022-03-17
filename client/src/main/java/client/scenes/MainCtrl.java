@@ -17,6 +17,7 @@ package client.scenes;
 
 import commons.QueueUser;
 import commons.SinglePlayer;
+import commons.SinglePlayerState;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -130,11 +131,12 @@ public class MainCtrl {
     /**
      * sets the title and the scene as single-player game.
      */
-    public synchronized void showSoloGameQuestion(SinglePlayer singlePlayer) {
+    public synchronized void showSoloGameQuestion(SinglePlayer singlePlayer, SinglePlayerState singlePlayerState) {
         primaryStage.setTitle("Quizzz: Single-player Game");
         primaryStage.setScene(soloGame);
         soloGameCtrl.startTimer();
         soloGameCtrl.setSinglePlayer(singlePlayer);
+        soloGameCtrl.setSinglePlayerState(singlePlayerState);
     }
 
     /**

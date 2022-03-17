@@ -64,16 +64,16 @@ public class ServerUtils {
     }
 
     /**
-     * GET request to api/state.
+     * GET request to api/solo.
      *
      * Would be used for "constant" polling so that the game state is kept up to date.
      *
      * @return The current state of the ongoing game.
      */
-    public GameState getGameState() {
+    public GameState getSoloGameState(long id) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/api/solo")
+                .path("/api/solo/" + String.valueOf(id))
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(GameState.class);
@@ -98,15 +98,15 @@ public class ServerUtils {
      * POST request to /api/solo/start, to start the single-player game.
      *
      * @param singlePlayer SinglePlayer instance for the player that is about to begin a game.
-     * @return The updated state of the game
+     * @return The initial state of the game
      */
-    public SinglePlayer startSinglePlayerGame(SinglePlayer singlePlayer) {
+    public SinglePlayerState startSinglePlayerGame(SinglePlayer singlePlayer) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/queue/start")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .post(Entity.entity(singlePlayer, APPLICATION_JSON), SinglePlayer.class);
+                .post(Entity.entity(singlePlayer, APPLICATION_JSON), SinglePlayerState.class);
     }
 
     /**

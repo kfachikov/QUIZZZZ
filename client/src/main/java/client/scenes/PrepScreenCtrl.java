@@ -3,6 +3,7 @@ package client.scenes;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.SinglePlayer;
+import commons.SinglePlayerState;
 
 public class PrepScreenCtrl {
 
@@ -10,6 +11,7 @@ public class PrepScreenCtrl {
     private final MainCtrl mainCtrl;
 
     private SinglePlayer singlePlayer;
+    private SinglePlayerState singlePlayerState;
 
     /**
      * initializes PrepScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -34,7 +36,8 @@ public class PrepScreenCtrl {
      * sets the scene and title to single-player game.
      */
     public void playSoloGame() {
-        mainCtrl.showSoloGameQuestion(singlePlayer);
+        singlePlayerState = server.startSinglePlayerGame(singlePlayer);
+        mainCtrl.showSoloGameQuestion(singlePlayer, singlePlayerState);
     }
 
     /**

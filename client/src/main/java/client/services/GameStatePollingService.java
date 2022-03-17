@@ -2,6 +2,7 @@ package client.services;
 
 import client.utils.ServerUtils;
 import commons.GameState;
+import commons.SinglePlayerState;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
@@ -16,6 +17,7 @@ import javax.inject.Inject;
 public class GameStatePollingService extends Service<GameState> {
 
     private final ServerUtils server;
+    private SinglePlayerState singlePlayerState;
 
     /**
      * Constructor for GameStatePollingService.
@@ -48,7 +50,7 @@ public class GameStatePollingService extends Service<GameState> {
             protected GameState call() throws Exception {
                 GameState gameState;
                 while (true) {
-                    gameState = server.getGameState();
+                    gameState = server.getSoloGameState(singlePlayerState.getId());
                     updateValue(gameState);
                     try {
                         Thread.sleep(500);
@@ -59,5 +61,24 @@ public class GameStatePollingService extends Service<GameState> {
                 return gameState;
             }
         };
+    }
+
+    /**
+     * Getter for current single-player game state.
+     *
+     * @return Current state of game being played.
+     */
+    public SinglePlayerState getSinglePlayerState() {
+        return singlePlayerState;
+    }
+
+    /**
+     * Setter for current single-player game state - would be used for the unique gameId to fetch the correct
+     * SinglePlayerState from the server.
+     *
+     * @param singlePlayerState SinglePlayerState instance, which id would be used for polling.
+     */
+    public void setSinglePlayerState(SinglePlayerState singlePlayerState) {
+        this.singlePlayerState = singlePlayerState;
     }
 }
