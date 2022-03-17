@@ -8,19 +8,10 @@ import javax.persistence.*;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
-@Entity
-public class SinglePlayer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    public long id;
-
-    public String username;
-    public int score;
+public class SinglePlayer extends Player{
 
     public SinglePlayer(String username, int score) {
-        this.username = username;
-        this.score = score;
+        super(username, score);
     }
 
     @Override

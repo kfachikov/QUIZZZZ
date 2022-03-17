@@ -4,14 +4,14 @@ public class Response {
     private long gameId;
     private double timeSubmitted;
     private int roundNumber;
-    private long playerId;
+    private String playerUsername;
     private String answerChoice;
 
-    public Response(long gameId, double timeSubmitted, int roundNumber, int playerId, String answerChoice) {
+    public Response(long gameId, double timeSubmitted, int roundNumber, String playerUsername, String answerChoice) {
         this.gameId = gameId;
         this.timeSubmitted = timeSubmitted;
         this.roundNumber = roundNumber;
-        this.playerId = playerId;
+        this.playerUsername = playerUsername;
         this.answerChoice = answerChoice;
     }
 
@@ -31,14 +31,6 @@ public class Response {
         this.roundNumber = roundNumber;
     }
 
-    public long getPlayerId() {
-        return playerId;
-    }
-
-    public void setPlayerId(long playerId) {
-        this.playerId = playerId;
-    }
-
     public String getAnswerChoice() {
         return answerChoice;
     }
@@ -49,6 +41,14 @@ public class Response {
 
     public long getGameId() {
         return gameId;
+    }
+
+    public void setGameId(long gameId) {
+        this.gameId = gameId;
+    }
+
+    public String getPlayerUsername() {
+        return playerUsername;
     }
 }
 
