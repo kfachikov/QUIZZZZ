@@ -89,6 +89,16 @@ public class CongratulationsScreenCtrl {
     }
 
     /**
+     * shows correct/incorrect answers, the points the user scored and the position the user acquired immediately when
+     * arriving to this scene.
+     */
+    public void initialize() {
+        questionColor();
+        showPoints();
+        showPosition();
+    }
+
+    /**
      * sets title and scene to Home.
      */
     public void returnHome() {
@@ -103,7 +113,7 @@ public class CongratulationsScreenCtrl {
     }
 
     /**
-     * sets the title and scene to answer reveal.
+     * redirects the user to the answer corresponding to the button clicked by the user.
      */
     public void revealAnswer() {
         var id = -1;
@@ -114,6 +124,9 @@ public class CongratulationsScreenCtrl {
         }
     }
 
+    /**
+     * reveals if the answers picked by the user were correct or incorrect.
+     */
     public void questionColor() {
         var correct = false;
         var id = -1;
@@ -125,5 +138,21 @@ public class CongratulationsScreenCtrl {
                 question1.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#ff4400")).toString().substring(2));
             }
         }
+    }
+
+    /**
+     * shows points scored by the user.
+     */
+    public void showPoints() {
+        var point = "0";
+        points.setText(point);
+    }
+
+    /**
+     * shows the position acquired by the user.
+     */
+    public void showPosition() {
+        var place = "1";
+        position.setText(place);
     }
 }
