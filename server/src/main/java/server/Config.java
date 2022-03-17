@@ -17,7 +17,8 @@ package server;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import server.utils.RandomUtils;
+import server.utils.GenerateQuestionUtils;
+
 
 import java.util.Random;
 
@@ -30,7 +31,7 @@ public class Config {
     }
 
     @Bean
-    public RandomUtils getRandomUtils() {
-        return new RandomUtils();
+    public GenerateQuestionUtils getRandomUtils() {
+        return new GenerateQuestionUtils();
     }
 }
