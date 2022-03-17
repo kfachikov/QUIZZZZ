@@ -42,45 +42,7 @@ class SinglePlayerLeaderboardScoreTest {
 
     }
 
-    @Test
-    void setUsername1() {
 
-        SinglePlayerLeaderboardScore singlePlayerLeaderboardScore = new SinglePlayerLeaderboardScore("user", 300);
-        singlePlayerLeaderboardScore.setUsername("new1");
-
-        assertEquals("new1", singlePlayerLeaderboardScore.getUsername());
-
-    }
-
-    @Test
-    void setUsername2() {
-
-        SinglePlayerLeaderboardScore singlePlayerLeaderboardScore = new SinglePlayerLeaderboardScore("user", 300);
-        singlePlayerLeaderboardScore.setUsername("new2");
-
-        assertEquals("new2", singlePlayerLeaderboardScore.getUsername());
-
-    }
-
-    @Test
-    void setUsername3() {
-
-        SinglePlayerLeaderboardScore singlePlayerLeaderboardScore = new SinglePlayerLeaderboardScore("user", 300);
-        singlePlayerLeaderboardScore.setUsername("new3");
-
-        assertEquals("new3", singlePlayerLeaderboardScore.getUsername());
-
-    }
-
-    @Test
-    void setUsername4() {
-
-        SinglePlayerLeaderboardScore singlePlayerLeaderboardScore = new SinglePlayerLeaderboardScore("user", 300);
-        singlePlayerLeaderboardScore.setUsername("new4");
-
-        assertEquals("new4", singlePlayerLeaderboardScore.getUsername());
-
-    }
 
     @Test
     void getScore1() {
@@ -115,46 +77,6 @@ class SinglePlayerLeaderboardScoreTest {
         SinglePlayerLeaderboardScore singlePlayerLeaderboardScore = new SinglePlayerLeaderboardScore("user", 600);
 
         assertEquals(600, singlePlayerLeaderboardScore.getScore());
-
-    }
-
-    @Test
-    void setScore1() {
-
-        SinglePlayerLeaderboardScore singlePlayerLeaderboardScore = new SinglePlayerLeaderboardScore("user", 300);
-        singlePlayerLeaderboardScore.setScore(600);
-
-        assertEquals(600, singlePlayerLeaderboardScore.getScore());
-
-    }
-
-    @Test
-    void setScore2() {
-
-        SinglePlayerLeaderboardScore singlePlayerLeaderboardScore = new SinglePlayerLeaderboardScore("user", 300);
-        singlePlayerLeaderboardScore.setScore(1400);
-
-        assertEquals(1400, singlePlayerLeaderboardScore.getScore());
-
-    }
-
-    @Test
-    void setScore3() {
-
-        SinglePlayerLeaderboardScore singlePlayerLeaderboardScore = new SinglePlayerLeaderboardScore("user", 300);
-        singlePlayerLeaderboardScore.setScore(6400);
-
-        assertEquals(6400, singlePlayerLeaderboardScore.getScore());
-
-    }
-
-    @Test
-    void setScore4() {
-
-        SinglePlayerLeaderboardScore singlePlayerLeaderboardScore = new SinglePlayerLeaderboardScore("user", 300);
-        singlePlayerLeaderboardScore.setScore(407);
-
-        assertEquals(407, singlePlayerLeaderboardScore.getScore());
 
     }
 
