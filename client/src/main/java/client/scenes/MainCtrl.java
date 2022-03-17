@@ -16,6 +16,7 @@
 package client.scenes;
 
 import commons.QueueUser;
+import commons.SinglePlayer;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -112,9 +113,10 @@ public class MainCtrl {
     /**
      * sets the title and the scene as prep.
      */
-    public void showPrep() {
+    public void showPrep(SinglePlayer singlePlayer) {
         primaryStage.setTitle("Quizzz: Prepare");
         primaryStage.setScene(prep);
+        prepCtrl.setSinglePlayer(singlePlayer);
     }
 
     /**

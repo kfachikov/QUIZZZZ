@@ -54,8 +54,8 @@ public class HomeScreenCtrl {
         try {
             setDefault();
             ServerUtils.setCurrentServer(getServer());
-            server.addSinglePlayer(getSinglePlayer());
-            mainCtrl.showPrep();
+            SinglePlayer singlePlayer = server.addSinglePlayer(getSinglePlayer());
+            mainCtrl.showPrep(singlePlayer);
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
             case BAD_REQUEST: usernameMissing();
