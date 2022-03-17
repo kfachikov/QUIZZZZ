@@ -5,10 +5,14 @@ import java.util.Objects;
 
 public class SinglePlayerState extends GameState {
 
+    public static final String QUESTION_STATE = "QUESTION";
+    public static final String TRANSITION_STATE = "TRANSITION";
+    public static final String GAME_OVER_STATE = "GAME_OVER";
+
     SinglePlayer player;
 
-    public SinglePlayerState(double timeLeft, int roundNumber, List<AbstractQuestion> questionList, List<String> submittedAnswers, List<Activity> activityList, String state, SinglePlayer player) {
-        super(timeLeft, roundNumber, questionList, submittedAnswers, activityList, state);
+    public SinglePlayerState(long id, double nextPhase, int roundNumber, List<AbstractQuestion> questionList, List<String> submittedAnswers, List<Activity> activityList, String state, SinglePlayer player) {
+        super(id, nextPhase, roundNumber, questionList, submittedAnswers, activityList, state);
         this.player = player;
     }
 
