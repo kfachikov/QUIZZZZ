@@ -3,7 +3,6 @@ package server.api;
 import commons.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import server.utils.GenerateQuestionUtils;
 
 import java.util.*;
 

@@ -3,7 +3,6 @@ package server.utils;
 import commons.*;
 import server.database.ActivityRepository;
 import commons.Activity;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

@@ -8,8 +8,6 @@ public abstract class Player {
     private String username;
     private long score;
 
-    public Player() {}
-
     public Player(String username, long score) {
         this.username = username;
         this.score = score;
