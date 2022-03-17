@@ -2,9 +2,13 @@ package commons;
 
 import javax.persistence.*;
 
+@Entity
 public abstract class Player {
+    @Id
     private String username;
     private long score;
+
+    public Player() {}
 
     public Player(String username, long score) {
         this.username = username;

@@ -3,6 +3,7 @@ package server.api;
 import commons.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import server.utils.GenerateQuestionUtils;
 
 import java.util.*;
 
@@ -29,7 +30,7 @@ public class SingleplayerStateController {
         }
     }
 
-    @PostMapping("/start/")
+    @PostMapping("/start")
     public ResponseEntity<SinglePlayerState> startSingleGame(@RequestBody SinglePlayer player) {
         SinglePlayerState newGame = createSingleGame(player);
         games.put(newGame.getId(), newGame);
@@ -101,6 +102,16 @@ public class SingleplayerStateController {
         return game.getQuestionList().get(game.getRoundNumber());
     }
 
+    private List<AbstractQuestion> generateQuestions() {
+        List<AbstractQuestion> questions = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            ActivityConsumptionQuestionType acqt = new ActivityConsumptionQuestionType("1 12 121", "mockup", 12);
+            acqt.answerChoices = List.of("1", "12", "121");
+            questions.add(acqt);
+        }
+        return questions;
+    }
+
     /**
      * Updates the state of the singleplayer game state based on the time of the
      * next phase.
@@ -138,11 +149,16 @@ public class SingleplayerStateController {
      */
     private SinglePlayerState createSingleGame(SinglePlayer player) {
         Set<Long> keys = games.keySet();
-        long maxKey = Collections.max(keys);
+        long maxKey;
+        if (keys.isEmpty()) {
+            maxKey = -1;
+        } else {
+            maxKey = Collections.max(keys);
+        }
         long id = maxKey + 1;
         long nextTransition = new Date().getTime() + 8000;
         int roundNumber = 0;
-        List<AbstractQuestion> questionList = new ArrayList<>();
+        List<AbstractQuestion> questionList = generateQuestions();
         List<Response> submittedAnswers = new ArrayList<>();
         List<Activity> activityList = new ArrayList<>();
         String state = SinglePlayerState.QUESTION_STATE;
