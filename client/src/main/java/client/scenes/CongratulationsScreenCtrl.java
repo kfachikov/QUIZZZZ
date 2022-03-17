@@ -3,6 +3,7 @@ package client.scenes;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
@@ -109,6 +110,19 @@ public class CongratulationsScreenCtrl {
         for (int i = 0; i <= 20; i++) {
             if (i == id) {
                 mainCtrl.showSoloGameQuestion();
+            }
+        }
+    }
+
+    public void questionColor() {
+        var correct = false;
+        var id = -1;
+        for (int i = 0; i <= 20; i++) {
+            if (i == id && correct) {
+                question1.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#65cf77")).toString().substring(2));
+            }
+            if (i == id && !correct) {
+                question1.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#ff4400")).toString().substring(2));
             }
         }
     }
