@@ -2,11 +2,20 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import javafx.fxml.FXML;
+
+import javax.swing.table.TableColumn;
 
 public class PrepScreenCtrl {
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+
+    @FXML
+    private TableColumn username;
+
+    @FXML
+    private TableColumn score;
 
     /**
      * initializes PrepScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -21,6 +30,13 @@ public class PrepScreenCtrl {
     }
 
     /**
+     * shows the leaderboard content when arriving to this scene.
+     */
+    public void initialize() {
+        showLeaderboard();
+    }
+
+    /**
      * sets the scene and title to home.
      */
     public void returnHome() {
@@ -32,5 +48,15 @@ public class PrepScreenCtrl {
      */
     public void playSoloGame() {
         mainCtrl.showSoloGameQuestion();
+    }
+
+    /**
+     * shows the top 10 players of the solo mode game.
+     */
+    public void showLeaderboard() {
+        for (int i = 0; i <= 10; i++) {
+            var player = "topplayer";
+
+        }
     }
 }
