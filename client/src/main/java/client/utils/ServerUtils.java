@@ -73,11 +73,25 @@ public class ServerUtils {
     public GameState getGameState() {
         return  ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/api/state")
+                .path("/api/solo/{id}")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(GameState.class);
+    }
 
+    /**
+     * POST request to /api/solo/answer, to "submit" the answer chosen by the user.
+     *
+     * @param response Response object to be posted
+     * @return The response object "posted"
+     */
+    public Response postAnswer(Response response) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("api/solo/answer")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(response, APPLICATION_JSON), Response.class);
     }
 
     /**
