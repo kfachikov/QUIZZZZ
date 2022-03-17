@@ -3,16 +3,14 @@ package client.scenes;
 import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
-import commons.Response;
-import commons.SinglePlayer;
-import commons.SinglePlayerState;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import commons.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
 import java.util.Date;
@@ -28,13 +26,11 @@ public class SoloGameQuestionScreenCtrl {
     private final MainCtrl mainCtrl;
     private final GameStatePollingService pollingService;
 
-    private SinglePlayer singlePlayer = new SinglePlayer("kaloyna", 156);
-    private SinglePlayerState singlePlayerState = new SinglePlayerState(15, 51, 15, null, null, null, "hey", singlePlayer);
+    private SinglePlayer singlePlayer;
+    private SinglePlayerState singlePlayerState;
 
-    /**
-     * This event handler would be responsible for the "submit answer clicked" functionality.
-     */
-    private EventHandler<ActionEvent> handler;
+    @FXML
+    private AnchorPane window;
 
     @FXML
     private Label currentScore;
@@ -76,30 +72,57 @@ public class SoloGameQuestionScreenCtrl {
         this.pollingService = pollingService;
     }
 
-//    public void initialize() {
-//        // Overriding the `handle` functionality of the
-//        handler = event -> {
-//            Button chosenAnswer = (Button) event.getSource();
-//            System.out.println("AnswerClicked");
-//            server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer.getText()));
-//        };
-//
-//        pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
-//            if (newGameState != null) {
-//                switch (newGameState.getState()) {
-//                    case QUESTION_STATE:
-//                        // load new question
-//                        break;
-//                    case TRANSITION_STATE:
-//                        // changes background and sets score
-//                        break;
-//                    case GAME_OVER_STATE:
-//                        // goes to congrats screen
-//                        break;
-//                }
-//            }
-//        }));
-//    }
+    /**
+     * Initializes the single-player game controller by:
+     *
+     * Binding answer choices to a method submitting that answer.
+     * Initializing a listener for the polling service property `state` which ensures the player is shown the right scene.
+     */
+    public void initialize() {
+        firstAnswer.setOnAction((event -> submitAnswer(firstAnswer.getText())));
+        secondAnswer.setOnAction((event -> submitAnswer(secondAnswer.getText())));
+        thirdAnswer.setOnAction((event -> submitAnswer(thirdAnswer.getText())));
+
+        pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
+            if (newGameState != null) {
+                switch (newGameState.getState()) {
+                case QUESTION_STATE:
+                    // load new question
+                    break;
+                case TRANSITION_STATE:
+                    setScore(singlePlayerState.getPlayer().getScore());
+                    if (compareAnswer()) {
+                        window.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("aedd94")).toString().substring(2));
+                    } else {
+                        window.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
+                    }
+                    break;
+                case GAME_OVER_STATE:
+                    // goes to congrats screen
+                    break;
+                }
+            }
+        }));
+    }
+
+    /**
+     * Sends a string to the server sa a chosen answer from the player.
+     *
+     * @param chosenAnswer String value of button clicked - answer chosen
+     */
+    public void submitAnswer(String chosenAnswer) {
+        server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
+    }
+
+    /**
+     * Comparison of submitted answer and actual correct one.
+     * Both could be accessed through the singlePlayerState instance
+     *
+     * @return Boolean value whether the answer is correct or not.
+     */
+    public boolean compareAnswer() {
+        return true;
+    }
 
     /**
      * sets the scene and title to home if the yes button is clicked.
@@ -125,7 +148,7 @@ public class SoloGameQuestionScreenCtrl {
      * Sets the current score.
      * @param score is the current score of the player
      */
-    public void setScore(int score) {
+    public void setScore(long score) {
         currentScore.setText(String.valueOf(score));
     }
 
