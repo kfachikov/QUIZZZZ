@@ -17,7 +17,10 @@ public class ResponseController {
     private final SoloGameAnswerRepository soloGameAnswerRepository;
     private final MultiPlayerGameAnswerRepository multiPlayerGameAnswerRepository;
 
-    public ResponseController(SoloGameAnswerRepository soloGameAnswerRepository, MultiPlayerGameAnswerRepository multiPlayerGameAnswerRepository) {
+    public ResponseController(
+            SoloGameAnswerRepository soloGameAnswerRepository,
+            MultiPlayerGameAnswerRepository multiPlayerGameAnswerRepository
+    ) {
         this.soloGameAnswerRepository = soloGameAnswerRepository;
         this.multiPlayerGameAnswerRepository = multiPlayerGameAnswerRepository;
     }
@@ -64,7 +67,8 @@ public class ResponseController {
      * @return response
      */
     @PostMapping("/multiGame")
-    public ResponseEntity<MultiPlayerGameRound> sendMultiAnswer(@RequestBody MultiPlayerGameRound multiPlayerGameRound) {
+    public ResponseEntity<MultiPlayerGameRound> sendMultiAnswer(
+            @RequestBody MultiPlayerGameRound multiPlayerGameRound) {
         if (multiPlayerGameRound == null || isNullOrEmpty(multiPlayerGameRound.finalAnswer)) {
             return ResponseEntity.badRequest().build();
         }

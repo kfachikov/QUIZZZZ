@@ -292,7 +292,10 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      * @since 2.6
      */
     @Override
-    public <S extends QueueUser, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends QueueUser, R> R findBy(
+            Example<S> example,
+            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction
+    ) {
         return null;
     }
 

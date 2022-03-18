@@ -199,7 +199,9 @@ class SinglePlayerRepositoryTest implements SinglePlayerRepository {
     }
 
     @Override
-    public <S extends SinglePlayer, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends SinglePlayer, R> R findBy(
+            Example<S> example,
+            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         // TODO Auto-generated method stub
         return null;
     }

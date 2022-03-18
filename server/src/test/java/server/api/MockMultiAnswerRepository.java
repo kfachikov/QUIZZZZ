@@ -329,7 +329,9 @@ public class MockMultiAnswerRepository implements MultiPlayerGameAnswerRepositor
      * @since 2.6
      */
     @Override
-    public <S extends MultiPlayerGameRound, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends MultiPlayerGameRound, R> R findBy(
+            Example<S> example,
+            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 }

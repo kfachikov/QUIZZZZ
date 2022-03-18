@@ -329,7 +329,10 @@ public class MockSoloAnswerRepository implements SoloGameAnswerRepository {
      * @since 2.6
      */
     @Override
-    public <S extends SoloGameRound, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends SoloGameRound, R> R findBy(
+            Example<S> example,
+            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction
+    ) {
         return null;
     }
 }

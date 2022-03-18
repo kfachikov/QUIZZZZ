@@ -2,7 +2,6 @@ package server.utils;
 
 import commons.*;
 import server.database.ActivityRepository;
-import commons.Activity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,23 +33,35 @@ public class GenerateQuestionUtils {
 
         while (questionNumber <= 5) {
             Activity activity = activities.get(questionNumber);
-            AlternativeConsumptionQuestionType alternativeConsumptionQuestionType = new AlternativeConsumptionQuestionType(activity.getTitle(), activity.getImage(), activity.getConsumption());
+            AlternativeConsumptionQuestionType altConsumptionQuestion = new AlternativeConsumptionQuestionType(
+                    activity.getTitle(),
+                    activity.getImage(),
+                    activity.getConsumption()
+            );
             //alternativeConsumptionQuestionType.setAnswerChoices(activities);
-            result.add(alternativeConsumptionQuestionType);
+            result.add(altConsumptionQuestion);
             questionNumber++;
         }
 
         while (questionNumber <= 10) {
             Activity activity = activities.get(questionNumber);
-            ActivityConsumptionQuestionType activityConsumptionQuestionType = new ActivityConsumptionQuestionType(activity.getTitle(), activity.getImage(), activity.getConsumption());
-            activityConsumptionQuestionType.setAnswerChoices();
-            result.add(activityConsumptionQuestionType);
+            ActivityConsumptionQuestionType activityConsumptionQuestion = new ActivityConsumptionQuestionType(
+                    activity.getTitle(),
+                    activity.getImage(),
+                    activity.getConsumption()
+            );
+            activityConsumptionQuestion.setAnswerChoices();
+            result.add(activityConsumptionQuestion);
             questionNumber++;
         }
 
         while (questionNumber <= 15) {
             Activity activity = activities.get(questionNumber);
-            HigherConsumptionQuestionType higherConsumptionQuestionType = new HigherConsumptionQuestionType(activity.getTitle(), activity.getImage(), activity.getConsumption());
+            HigherConsumptionQuestionType higherConsumptionQuestionType = new HigherConsumptionQuestionType(
+                    activity.getTitle(),
+                    activity.getImage(),
+                    activity.getConsumption()
+            );
             //higherConsumptionQuestionType.setAnswerChoices(activities);
             result.add(higherConsumptionQuestionType);
             questionNumber++;
@@ -58,7 +69,11 @@ public class GenerateQuestionUtils {
 
         while (questionNumber <= 20) {
             Activity activity = activities.get(questionNumber);
-            GuessQuestionType guessQuestionType = new GuessQuestionType(activity.getTitle(), activity.getImage(), activity.getConsumption());
+            GuessQuestionType guessQuestionType = new GuessQuestionType(
+                    activity.getTitle(),
+                    activity.getImage(),
+                    activity.getConsumption()
+            );
             result.add(guessQuestionType);
             questionNumber++;
         }

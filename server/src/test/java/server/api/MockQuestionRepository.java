@@ -292,7 +292,10 @@ public class MockQuestionRepository implements QuestionRepository {
      * @since 2.6
      */
     @Override
-    public <S extends AbstractQuestion, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends AbstractQuestion, R> R findBy(
+            Example<S> example,
+            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction
+    ) {
         return null;
     }
 }

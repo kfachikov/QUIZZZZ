@@ -9,7 +9,7 @@ class MockActivityConsumption extends ActivityConsumptionQuestionType {
     /**
      * Constructor for the activity's energy consumption question type.
      *
-     * @param baseTitle title for the activity.
+     * @param baseTitle     title for the activity.
      * @param imageFilename file name.
      * @param consumptionWh consumption in wh.
      */
@@ -69,7 +69,11 @@ class ActivityConsumptionQuestionTypeTest {
 
     @Test
     public void testSetAnswerChoices() {
-        ActivityConsumptionQuestionType question = new ActivityConsumptionQuestionType("taking a shower", "image1", 250);
+        ActivityConsumptionQuestionType question = new ActivityConsumptionQuestionType(
+                "taking a shower",
+                "image1",
+                250
+        );
         question.setAnswerChoices();
 
         assertEquals(3, question.answerChoices.size());

@@ -82,7 +82,10 @@ class AlternativeConsumptionQuestionTypeTest {
     public void testToString() {
         AbstractQuestion question = new AlternativeConsumptionQuestionType("taking a shower", "image1", 250);
 
-        assertEquals("What can you do instead of taking a shower and consuming the same amount of energy?", question.toString());
+        assertEquals(
+                "What can you do instead of taking a shower and consuming the same amount of energy?",
+                question.toString()
+        );
     }
 
 
