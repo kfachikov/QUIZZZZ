@@ -92,7 +92,7 @@ class QueueControllerTest {
 
     @Test
     public void testStartGame() {
-        QueueState queueState = new QueueState(addMockUsers(), true, 3000, 1L);
+        QueueState queueState = new QueueState(addMockUsers(), true, 3000, 0L);
         var response = lobbyCtrl.startGame();
         QueueState result = response.getBody();
         assertEquals(queueState, result);
