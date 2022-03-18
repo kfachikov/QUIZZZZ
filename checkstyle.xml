@@ -12,11 +12,6 @@
         <module name="JavadocMissingLeadingAsterisk"/>
         <module name="JavadocMissingWhitespaceAfterAsterisk"/>
         <module name="JavadocTagContinuationIndentation"/>
-        <module name="JavadocType">
-            <property name="severity"
-                      value="${checkstyle.javadoc.severity}"
-                      default="warning"/>
-        </module>
         <module name="MissingJavadocMethod">
             <property name="severity"
                       value="${checkstyle.javadoc.severity}"
