@@ -1,5 +1,6 @@
 package commons;
 
+import commons.question.AbstractQuestion;
 import java.util.List;
 import java.util.Objects;
 
