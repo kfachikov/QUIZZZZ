@@ -9,6 +9,13 @@ class ActivityTest {
     final private Activity activity3 = new Activity("newId", "newTitle", "newSource", "newImage", 110L);
 
     @Test
+    void getSetKey() {
+        Long result = 1L;
+        activity1.setKey(result);
+        assertEquals(result, activity1.getKey());
+    }
+
+    @Test
     void getId() {
         assertEquals("id", activity1.getId());
     }
