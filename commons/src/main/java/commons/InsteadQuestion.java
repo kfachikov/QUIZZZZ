@@ -5,22 +5,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AlternativeConsumptionQuestionType extends AbstractQuestion {
+public class InsteadQuestion extends AbstractQuestion {
 
-    public List<Activity> answerChoices;
+    private Activity activity;
+    private List<Activity> answerChoices;
 
-    public AlternativeConsumptionQuestionType() {
+    public InsteadQuestion() {
         super();
     }
 
     /**
      * Constructor for the third question type.
-     * @param baseTitle title for the activity.
-     * @param imageFilename file name.
-     * @param consumptionWh consumption in wh.
+     * @param activity the activity that is being compared
      */
-    public AlternativeConsumptionQuestionType(String baseTitle, String imageFilename, long consumptionWh) {
-        super(baseTitle, imageFilename, consumptionWh);
+    public InsteadQuestion(Activity activity) {
+        this.activity = activity;
         this.answerChoices = new ArrayList<>();
     }
 
@@ -29,11 +28,11 @@ public class AlternativeConsumptionQuestionType extends AbstractQuestion {
      */
     public void setAnswerChoices(List<Activity> activities) {
         List<Activity> correct = activities.stream()
-                .filter(x -> x.getConsumption() <= consumptionWh)
+                .filter(x -> x.getConsumption() <= activity.getConsumption())
                 .collect(Collectors.toList());
         Collections.shuffle(correct);
         List<Activity> incorrect = activities.stream()
-                .filter(x -> x.getConsumption() > consumptionWh)
+                .filter(x -> x.getConsumption() > activity.getConsumption())
                 .collect(Collectors.toList());
         Collections.shuffle(incorrect);
         answerChoices.add(correct.get(0));
@@ -47,7 +46,19 @@ public class AlternativeConsumptionQuestionType extends AbstractQuestion {
      */
     public String toString() {
         String question;
-        question = "What can you do instead of " + this.baseTitle + " and consuming the same amount of energy?";
+        question = "What can you do instead of " + activity.getTitle() + " and consuming the same amount of energy?";
         return question;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    public List<Activity> getAnswerChoices() {
+        return answerChoices;
     }
 }

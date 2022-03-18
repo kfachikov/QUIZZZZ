@@ -2,23 +2,20 @@ package commons;
 
 import java.util.*;
 
-public class ActivityConsumptionQuestionType extends AbstractQuestion {
+public class ConsumptionQuestion extends AbstractQuestion {
+    private Activity activity;
+    private List<String> answerChoices;
 
-    public List<String> answerChoices;
-
-    public ActivityConsumptionQuestionType() {
+    public ConsumptionQuestion() {
         super();
     }
 
     /**
      * Constructor for the activity's energy consumption question type.
-     *
-     * @param baseTitle     title for the activity.
-     * @param imageFilename file name.
-     * @param consumptionWh consumption in wh.
+     * @param activity the activity the question is about
      */
-    public ActivityConsumptionQuestionType(String baseTitle, String imageFilename, long consumptionWh) {
-        super(baseTitle, imageFilename, consumptionWh);
+    public ConsumptionQuestion(Activity activity) {
+        this.activity = activity;
         answerChoices = new ArrayList<>();
     }
 
@@ -27,7 +24,7 @@ public class ActivityConsumptionQuestionType extends AbstractQuestion {
      */
     public void setAnswerChoices() {
         Random rnd = new Random();
-        long correct = this.consumptionWh;
+        long correct = activity.getConsumption();
         long lowerBound = correct / 2;
         long upperBound = correct * 3 / 2;
         long answer1 = lowerBound + rnd.nextInt((int) (upperBound - lowerBound + 1));
@@ -45,7 +42,7 @@ public class ActivityConsumptionQuestionType extends AbstractQuestion {
      */
     public String toString() {
         String question;
-        question = "How much does " + this.baseTitle + " consume?";
+        question = "How much does " + activity.getTitle() + " consume?";
         return question;
     }
 
@@ -60,12 +57,28 @@ public class ActivityConsumptionQuestionType extends AbstractQuestion {
         if (!super.equals(o)) {
             return false;
         }
-        ActivityConsumptionQuestionType that = (ActivityConsumptionQuestionType) o;
+        ConsumptionQuestion that = (ConsumptionQuestion) o;
         return Objects.equals(answerChoices, that.answerChoices);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), answerChoices);
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public List<String> getAnswerChoices() {
+        return answerChoices;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    public void setAnswerChoices(List<String> answerChoices) {
+        this.answerChoices = answerChoices;
     }
 }

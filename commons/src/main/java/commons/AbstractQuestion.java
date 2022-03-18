@@ -13,27 +13,28 @@ public abstract class AbstractQuestion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long id;
-
-    public String baseTitle;
-    public String imageFilename;
-    public long consumptionWh;
-
-    @SuppressWarnings("unused")
-    AbstractQuestion() {
-        //for object mapper
-    }
+    private long id;
 
     /**
      * Constructor for the abstract question.
-     * @param baseTitle title for the activity.
-     * @param imageFilename file name.
-     * @param consumptionWh consumption in wh.
      */
-    public AbstractQuestion(String baseTitle, String imageFilename, long consumptionWh) {
-        this.baseTitle = baseTitle;
-        this.imageFilename = imageFilename;
-        this.consumptionWh = consumptionWh;
+    public AbstractQuestion () {
+    }
+
+    /**
+     * getter for long id.
+     * @return id of the AbstractQuestion
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * setter for long id.
+     * @param id long value to set as id
+     */
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override

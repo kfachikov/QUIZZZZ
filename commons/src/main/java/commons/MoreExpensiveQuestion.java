@@ -3,23 +3,23 @@ package commons;
 import java.util.Collections;
 import java.util.List;
 
-public class HigherConsumptionQuestionType extends AbstractQuestion {
+public class MoreExpensiveQuestion extends AbstractQuestion {
+    
+    /**
+     * List of activities that the players will choose from.
+     */
+    private List<Activity> answerChoices;
 
-    public List<Activity> answerChoices;
-    public Activity correctAnswer;
-
-    public HigherConsumptionQuestionType() {
-        super();
-    }
+    /**
+     * This is the correct choice activity.
+     */
+    private Activity correctAnswer;
 
     /**
      * Constructor for the fourth question type.
-     * @param baseTitle title for the activity.
-     * @param imageFilename file name.
-     * @param consumptionWh consumption in wh.
      */
-    public HigherConsumptionQuestionType(String baseTitle, String imageFilename, long consumptionWh) {
-        super(baseTitle, imageFilename, consumptionWh);
+    public MoreExpensiveQuestion() {
+        super();
     }
 
     /**
@@ -44,5 +44,17 @@ public class HigherConsumptionQuestionType extends AbstractQuestion {
         String question;
         question = "What activity has a higher energy consumption?";
         return question;
+    }
+
+    public List<Activity> getAnswerChoices() {
+        return answerChoices;
+    }
+
+    public Activity getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(Activity correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 }
