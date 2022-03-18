@@ -81,6 +81,14 @@ public class Activity {
     }
 
     /**
+     * Sets key of an entity.
+     * @param key Long value to be set as the key value.
+     */
+    public void setKey(Long key) {
+        this.key = key;
+    }
+
+    /**
      * Get the identifying attribute, consisting of group number and the activity itself.
      * @return The id attribute of a particular entry.
      */
