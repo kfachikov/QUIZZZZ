@@ -141,7 +141,7 @@ public class QueueScreenCtrl {
 
                 for (QueueUser multiplayer : queueUsers) {
                     Node currentNode = presentPlayers.get(currentNodeIndex);
-                    ((Label) currentNode).setText(multiplayer.username);
+                    ((Label) currentNode).setText(multiplayer.getUsername());
                     currentNode.setVisible(true);
                     currentNodeIndex++;
                     if (currentNodeIndex > PLAYERSCOUNT) {

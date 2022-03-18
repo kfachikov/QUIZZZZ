@@ -48,9 +48,9 @@ public class QueueController {
      */
     @PostMapping("")
     public ResponseEntity<QueueUser> add(@RequestBody QueueUser user) {
-        if (user == null || isNullOrEmpty(user.username)) {
+        if (user == null || isNullOrEmpty(user.getUsername())) {
             return ResponseEntity.badRequest().build();
-        } else if (repo.existsQueueUserByUsername(user.username)) {
+        } else if (repo.existsQueueUserByUsername(user.getUsername())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         QueueUser saved = repo.save(user);

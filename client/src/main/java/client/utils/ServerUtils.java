@@ -57,7 +57,7 @@ public class ServerUtils {
     }
 
     public QueueUser deleteQueueUser(QueueUser user) {
-        long id = user.id;
+        long id = user.getId();
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/queue/" + String.valueOf(id))
