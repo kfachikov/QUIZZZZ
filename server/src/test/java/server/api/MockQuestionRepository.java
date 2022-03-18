@@ -24,7 +24,7 @@ public class MockQuestionRepository implements QuestionRepository {
     }
 
     private Optional<AbstractQuestion> find(Long id) {
-        return questions.stream().filter(q -> q.id == id).findFirst();
+        return questions.stream().filter(q -> q.getId() == id).findFirst();
     }
 
     @Override
@@ -130,7 +130,7 @@ public class MockQuestionRepository implements QuestionRepository {
     @Override
     public <S extends AbstractQuestion> S save(S entity) {
         call("save");
-        entity.id = questions.size();
+        entity.setId(questions.size());
         questions.add(entity);
         return entity;
     }

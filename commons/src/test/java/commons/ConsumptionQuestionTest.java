@@ -8,8 +8,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MockConsumptionQuestion extends ConsumptionQuestion {
-    private Activity activity;
-    private List<String> answerChoices;
+
+    private Activity activity1 = new Activity("id", "title", "source", "image", 100L);
+    private List<String> answerChoicesMock;
 
     /**
      * Constructor for the activity's energy consumption question type.
@@ -17,14 +18,19 @@ class MockConsumptionQuestion extends ConsumptionQuestion {
      */
     public MockConsumptionQuestion(Activity activity) {
         super(activity);
+        answerChoicesMock = new ArrayList<String>();
     }
 
     @Override
     public void setAnswerChoices() {
-        long consumption = activity.getConsumption();
-        answerChoices.add(consumption + "Wh");
-        answerChoices.add(consumption - 10 + "Wh");
-        answerChoices.add(consumption + 10 + "Wh");
+        long consumption = activity1.getConsumption();
+        answerChoicesMock.add(consumption + "Wh");
+        answerChoicesMock.add(consumption - 10 + "Wh");
+        answerChoicesMock.add(consumption + 10 + "Wh");
+    }
+
+    public List<String> getAnswerChoicesMock() {
+        return answerChoicesMock;
     }
 }
 
