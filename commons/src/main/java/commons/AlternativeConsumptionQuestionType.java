@@ -15,7 +15,8 @@ public class AlternativeConsumptionQuestionType extends AbstractQuestion {
 
     /**
      * Constructor for the third question type.
-     * @param baseTitle title for the activity.
+     *
+     * @param baseTitle     title for the activity.
      * @param imageFilename file name.
      * @param consumptionWh consumption in wh.
      */
@@ -43,6 +44,7 @@ public class AlternativeConsumptionQuestionType extends AbstractQuestion {
 
     /**
      * Creates the third question format for the game.
+     *
      * @return the third question type in a human-readable way.
      */
     public String toString() {

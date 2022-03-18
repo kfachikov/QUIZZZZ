@@ -8,7 +8,8 @@ public class GuessQuestionType extends AbstractQuestion {
 
     /**
      * Constructor for the second question type.
-     * @param baseTitle title for the activity.
+     *
+     * @param baseTitle     title for the activity.
      * @param imageFilename file name.
      * @param consumptionWh consumption in wh.
      */
@@ -18,6 +19,7 @@ public class GuessQuestionType extends AbstractQuestion {
 
     /**
      * Creates the second question format for the game.
+     *
      * @return the second question type in a human-readable way.
      */
     public String toString() {

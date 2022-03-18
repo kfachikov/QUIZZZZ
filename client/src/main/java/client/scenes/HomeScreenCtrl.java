@@ -58,9 +58,11 @@ public class HomeScreenCtrl {
             mainCtrl.showPrep();
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
-            case BAD_REQUEST: usernameMissing();
-            break;
-            default: unknownError();
+                case BAD_REQUEST:
+                    usernameMissing();
+                    break;
+                default:
+                    unknownError();
             }
         } catch (ProcessingException e) {
             serverInvalid();
@@ -85,10 +87,10 @@ public class HomeScreenCtrl {
     /**
      * Sends a POST request to the server, adding the user to the queue,
      * and then switches the scene to the queue.
-     *
+     * <p>
      * If a player tries to enter multiplayer queue without entering username, or using an already existing one,
      * WebApplicationException is thrown and handled accordingly.
-     *
+     * <p>
      * If the server entered is not a valid (running) one, then ProcessingException is thrown.
      */
     public void playMulti() {
@@ -100,11 +102,14 @@ public class HomeScreenCtrl {
             mainCtrl.showQueue(user);
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
-            case FORBIDDEN: usernameNotUnique();
-            break;
-            case BAD_REQUEST: usernameMissing();
-            break;
-            default: unknownError();
+                case FORBIDDEN:
+                    usernameNotUnique();
+                    break;
+                case BAD_REQUEST:
+                    usernameMissing();
+                    break;
+                default:
+                    unknownError();
             }
         } catch (ProcessingException e) {
             serverInvalid();
@@ -117,11 +122,11 @@ public class HomeScreenCtrl {
 
     /**
      * Reusable method to be executed once an invalid server is entered.
-     *
+     * <p>
      * Sets server field background to red to pull the attention of the client.
      * Removes the background of the username field, as the current problem is somewhere else.
      */
-    private void serverInvalid () {
+    private void serverInvalid() {
         serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
         usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
         errorMessage.setText("Invalid URL address!");
@@ -130,11 +135,11 @@ public class HomeScreenCtrl {
 
     /**
      * Reusable method to be executed once the username entered in not unique - already exist in queue.
-     *
+     * <p>
      * Sets username field background to red to pull the attention of the client.
      * Removes the background of the server field, as the current problem is somewhere else.
      */
-    private void usernameNotUnique () {
+    private void usernameNotUnique() {
         usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
         serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
         errorMessage.setText("Username not unique!");
@@ -152,11 +157,11 @@ public class HomeScreenCtrl {
 
     /**
      * Reusable method to be executed once a user tries to join a game without a username
-     *
+     * <p>
      * Sets username field background to red to pull the attention of the client.
      * Removes the background of the server field, as the current problem is somewhere else.
      */
-    private void usernameMissing () {
+    private void usernameMissing() {
         usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
         serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
         errorMessage.setText("Username missing!");
@@ -166,7 +171,7 @@ public class HomeScreenCtrl {
     /**
      * Reusable method to be executed once a user tries to join a game and an unknown error arises.
      */
-    private void unknownError () {
+    private void unknownError() {
         usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
         serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
         errorMessage.setText("Make sure you have entered a unique username and a valid URL address!");

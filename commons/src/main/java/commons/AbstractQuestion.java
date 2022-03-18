@@ -4,7 +4,10 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
@@ -26,7 +29,8 @@ public abstract class AbstractQuestion {
 
     /**
      * Constructor for the abstract question.
-     * @param baseTitle title for the activity.
+     *
+     * @param baseTitle     title for the activity.
      * @param imageFilename file name.
      * @param consumptionWh consumption in wh.
      */

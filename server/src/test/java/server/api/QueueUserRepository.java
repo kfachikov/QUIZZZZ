@@ -299,12 +299,13 @@ class QueueUserRepository implements server.database.QueueUserRepository {
     /**
      * Checks whether a username is already present in our Lobby database - would keep only the players currently in
      * lobby of a particular server.
+     *
      * @param username String variable to check whether it exists.
      * @return Boolean value whether the username exists.
      */
     @Override
     public boolean existsQueueUserByUsername(String username) {
-        for (QueueUser currentUser: queueUsers) {
+        for (QueueUser currentUser : queueUsers) {
             if (Objects.equals(username, currentUser.username)) {
                 return true;
             }

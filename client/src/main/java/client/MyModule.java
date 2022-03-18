@@ -24,6 +24,7 @@ public class MyModule implements Module {
 
     /**
      * creates the binder user for injection.
+     *
      * @param binder is the Binder variable
      */
     @Override

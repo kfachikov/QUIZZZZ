@@ -14,7 +14,8 @@ public class HigherConsumptionQuestionType extends AbstractQuestion {
 
     /**
      * Constructor for the fourth question type.
-     * @param baseTitle title for the activity.
+     *
+     * @param baseTitle     title for the activity.
      * @param imageFilename file name.
      * @param consumptionWh consumption in wh.
      */
@@ -38,6 +39,7 @@ public class HigherConsumptionQuestionType extends AbstractQuestion {
 
     /**
      * Creates the fourth question format for the game.
+     *
      * @return the fourth question type in a human-readable way.
      */
     public String toString() {

@@ -10,7 +10,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
-
 import javax.inject.Inject;
 import java.util.Optional;
 
@@ -94,6 +93,7 @@ public class MultiGameQuestionScreenCtrl {
 
     /**
      * Sets the question to the chosen questionText.
+     *
      * @param questionText the question text
      */
     public void setQuestion(Text questionText) {
