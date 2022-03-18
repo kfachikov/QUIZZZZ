@@ -1,6 +1,6 @@
 package server.utils;
 
-import commons.*;
+import commons.question.*;
 import server.database.ActivityRepository;
 import commons.Activity;
 

@@ -1,6 +1,6 @@
 package server.api;
 
-import commons.QueueUser;
+import commons.queue.QueueUser;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
