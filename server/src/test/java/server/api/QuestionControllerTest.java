@@ -1,7 +1,8 @@
 package server.api;
 
 import commons.AbstractQuestion;
-import commons.BasicMultipleChoiceQuestion;
+import commons.Activity;
+import commons.GuessQuestion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.utils.GenerateQuestionUtils;
@@ -16,9 +17,7 @@ public class QuestionControllerTest {
 
     private GenerateQuestionUtils generateQuestionUtils;
     private MockQuestionRepository repo;
-
     private QuestionController ctrl;
-
     private int nextId;
 
     @BeforeEach
@@ -32,10 +31,8 @@ public class QuestionControllerTest {
     private void addMockQuestions() {
         List<AbstractQuestion> mockQuestions = new ArrayList<>();
         for (long i = 0; i < 20; i++) {
-            mockQuestions.add(
-                    new BasicMultipleChoiceQuestion("q" + nextId, "f" + nextId, nextId)
-            );
-            mockQuestions.get((int) i).id = nextId++;
+            mockQuestions.add(new GuessQuestion(new Activity("id" + nextId, "title" + nextId, "source" + nextId, "image" + nextId, 100L + nextId)));
+            mockQuestions.get((int) i).setId(nextId++);
         }
         repo.questions.addAll(mockQuestions);
     }
@@ -54,7 +51,7 @@ public class QuestionControllerTest {
         assertEquals(List.of("existsById", "getById"), repo.calledMethods);
 
         AbstractQuestion aq = result.getBody();
-        assertEquals(new BasicMultipleChoiceQuestion("q0", "f0", 0), aq);
+        assertEquals(new GuessQuestion(new Activity("id0", "title0", "source0", "image0", 100L)), aq);
     }
 
     @Test
@@ -64,8 +61,8 @@ public class QuestionControllerTest {
         assertEquals(List.of("existsById", "getById"), repo.calledMethods);
 
         AbstractQuestion aq = result.getBody();
-        AbstractQuestion expected = new BasicMultipleChoiceQuestion("q15", "f15", 15);
-        expected.id = 15;
+        AbstractQuestion expected = new GuessQuestion(new Activity("id15", "title15", "source15", "image15", 115L));
+        expected.setId(15);
         assertEquals(expected, aq);
     }
 
@@ -100,7 +97,7 @@ public class QuestionControllerTest {
             var result = ctrl.getByGameRound(0, i);
             AbstractQuestion aq = result.getBody();
 
-            assertEquals(myShuffledList.get((int) i), aq.id);
+            assertEquals(myShuffledList.get((int) i), aq.getId());
             assertEquals(3 * i + 3, repo.calledMethods.size());
         }
     }
