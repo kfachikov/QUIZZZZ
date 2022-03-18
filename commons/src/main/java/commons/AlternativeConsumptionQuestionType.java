@@ -27,6 +27,8 @@ public class AlternativeConsumptionQuestionType extends AbstractQuestion {
 
     /**
      * Sets the possible answers for a question in a random way, having between them the correct answer.
+     *
+     * @param activities List of all activities
      */
     public void setAnswerChoices(List<Activity> activities) {
         List<Activity> correct = activities.stream()

@@ -40,11 +40,11 @@ public class Activity {
     /**
      * Constructs an Activity object.
      *
-     * @param id
-     * @param title
-     * @param source
-     * @param image
-     * @param consumption
+     * @param id          Id (e. g. "00-shower")
+     * @param title       Title
+     * @param source      Source for the information
+     * @param image       Image path
+     * @param consumption Consumption in watt-hours
      */
     public Activity(String id, String title, String source, String image, Long consumption) {
         this.id = id;

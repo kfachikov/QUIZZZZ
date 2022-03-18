@@ -52,10 +52,14 @@ public class MainCtrl {
     private Scene multiGame;
 
     /**
-     * @param primaryStage is the Stage representing the initial stage variable.
-     * @param home         is the home screen pair variable
-     * @param help         is the help screen pair variable
-     * @param prep         is the prepare screen pair variable
+     * @param primaryStage  Stage representing the initial stage variable.
+     * @param home          Home screen pair variable
+     * @param help          Help screen pair variable
+     * @param prep          Prepare screen pair variable
+     * @param administrator Administrator screen pair variable
+     * @param multiGame     Multiplayer game question screen pair variable
+     * @param queue         Queue screen pair variable
+     * @param soloGame      Solo game question screen pair variable
      */
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
@@ -170,7 +174,7 @@ public class MainCtrl {
     public String chooseFile(Button selectFileButton) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
-        File selectedFile =  fileChooser.showOpenDialog(null);
+        File selectedFile = fileChooser.showOpenDialog(null);
         return selectedFile.getName();
     }
 }

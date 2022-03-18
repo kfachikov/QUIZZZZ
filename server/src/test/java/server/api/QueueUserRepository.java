@@ -41,7 +41,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
     /**
      * Returns a {@link Page} of entities meeting the paging restriction provided in the {@code Pageable} object.
      *
-     * @param pageable
+     * @param pageable Pageable item
      * @return a page of entities
      */
     @Override
