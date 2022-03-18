@@ -46,8 +46,8 @@ class QueueControllerTest {
         var expected = new QueueState(addMockUsers());
         var response = lobbyCtrl.getQueueState();
         var result = response.getBody();
-        assertEquals(expected.users, result.users);
-        assertEquals(expected.gameStarting, result.gameStarting);
+        assertEquals(expected.getUsers(), result.getUsers());
+        assertEquals(expected.isGameStarting(), result.isGameStarting());
     }
 
     @Test
@@ -92,7 +92,7 @@ class QueueControllerTest {
 
     @Test
     public void testStartGame() {
-        QueueState queueState = new QueueState(addMockUsers(), true, 3000);
+        QueueState queueState = new QueueState(addMockUsers(), true, 3000, 1L);
         var response = lobbyCtrl.startGame();
         QueueState result = response.getBody();
         assertEquals(queueState, result);

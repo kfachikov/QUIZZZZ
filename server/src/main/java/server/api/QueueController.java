@@ -18,6 +18,7 @@ public class QueueController {
 
     private boolean gameStarting;
     private long startTimeInMs;
+    private long upcomingGameId;
 
     public QueueController(QueueUserRepository repo) {
         this.repo = repo;
@@ -36,7 +37,7 @@ public class QueueController {
     }
 
     private QueueState getCurrentQueue() {
-        return new QueueState(repo.findAll(), gameStarting, startTimeInMs - new Date().getTime());
+        return new QueueState(repo.findAll(), gameStarting, startTimeInMs - new Date().getTime(), upcomingGameId);
     }
 
     /**

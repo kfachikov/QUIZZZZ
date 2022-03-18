@@ -132,7 +132,7 @@ public class QueueScreenCtrl {
          */
         pollingService.valueProperty().addListener((observable, oldValue, newQueueState) -> {
             if (newQueueState != null) {
-                List<QueueUser> queueUsers = newQueueState.users;
+                List<QueueUser> queueUsers = newQueueState.getUsers();
                 queueLabel.textProperty().set("Queue: " + queueUsers.size() + " players");
 
                 int currentNodeIndex = 0;
@@ -154,7 +154,7 @@ public class QueueScreenCtrl {
                 }
 
                 // Internal state should be consistent with server state
-                gameStarting.set(newQueueState.gameStarting);
+                gameStarting.set(newQueueState.isGameStarting());
             }
         });
 
