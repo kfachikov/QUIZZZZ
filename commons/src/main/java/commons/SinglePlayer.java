@@ -3,8 +3,6 @@ package commons;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-
-
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
 /**
@@ -13,16 +11,13 @@ import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
  */
 public class SinglePlayer extends Player {
 
-
     /**
      * Constructor for the SinglePlayer instances.
      * @param username the name of the player
      * @param score current score of the player
      */
     public SinglePlayer(String username, int score) {
-
         super(username, score);
-
     }
 
     /**
@@ -88,5 +83,4 @@ public class SinglePlayer extends Player {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
     }
-
 }
