@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.scenes.multi.QueueScreenCtrl;
 import client.services.MockQueueCountdownService;
 import client.services.MockQueuePollingService;
 import client.utils.MockServerUtils;

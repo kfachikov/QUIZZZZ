@@ -1,4 +1,4 @@
-package client.scenes;
+package client.scenes.misc;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
