@@ -16,15 +16,18 @@ import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
  * is going on in the queue.
  */
 public class QueueState {
+
     /**
      * List of users currently in the queue.
      */
-    public List<QueueUser> users;
+    private List<QueueUser> users;
+
     /**
      * Whether the game is currently starting, and showing the
      * "Game is starting in X..." label for the client.
      */
-    public boolean gameStarting;
+    private boolean gameStarting;
+
     /**
      * Milliseconds until the start of the game.
      * <p>
@@ -32,7 +35,12 @@ public class QueueState {
      * <p>
      * It starts at 3000, and goes down to 0.
      */
-    public long msToStart;
+    private long msToStart;
+
+    /**
+     * GameId of the associated MultiPlayerGame.
+     */
+    private long upcomingGameId;
 
     /**
      * Default constructor for the state of the queue.
@@ -65,14 +73,79 @@ public class QueueState {
     /**
      * Complete constructor of the queue.
      *
-     * @param users        Users that are in the queue.
-     * @param gameStarting Whether the game is starting.
-     * @param msToStart    Milliseconds until the start of the game.
+     * @param users          Users that are in the queue.
+     * @param gameStarting   Whether the game is starting.
+     * @param msToStart      Milliseconds until the start of the game.
+     * @param upcomingGameId gameId of the MultiPlayerGame
      */
-    public QueueState(List<QueueUser> users, boolean gameStarting, long msToStart) {
+    public QueueState(List<QueueUser> users, boolean gameStarting, long msToStart, long upcomingGameId) {
         this.users = users;
         this.gameStarting = gameStarting;
         this.msToStart = msToStart;
+        this.upcomingGameId = upcomingGameId;
+    }
+
+    /**
+     *
+     * @return list of QueueUsers
+     */
+    public List<QueueUser> getUsers() {
+        return users;
+    }
+
+    /**
+     * sets the list of QueueUsers as the passed list.
+     * @param users list of QueueUsers
+     */
+    public void setUsers(List<QueueUser> users) {
+        this.users = users;
+    }
+
+    /**
+     *
+     * @return boolean value of whether the multiplayer game starts or not
+     */
+    public boolean isGameStarting() {
+        return gameStarting;
+    }
+
+    /**
+     * sets gameStarting boolean value as the passed value.
+     * @param gameStarting boolean value of whether game starts or not
+     */
+    public void setGameStarting(boolean gameStarting) {
+        this.gameStarting = gameStarting;
+    }
+
+    /**
+     * @return long millisecond until the start
+     */
+    public long getMsToStart() {
+        return msToStart;
+    }
+
+    /**
+     * sets msToStart long value as the passed value.
+     * @param msToStart long value of millisecond until the start
+     */
+    public void setMsToStart(long msToStart) {
+        this.msToStart = msToStart;
+    }
+
+    /**
+     *
+     * @return long gameId of the MultiPlayerGame
+     */
+    public long getUpcomingGameId() {
+        return upcomingGameId;
+    }
+
+    /**
+     * sets upcomingGameId long value as the passed value.
+     * @param upcomingGameId long value of gameId of the MultiPlayerGame
+     */
+    public void setUpcomingGameId(long upcomingGameId) {
+        this.upcomingGameId = upcomingGameId;
     }
 
     /**
