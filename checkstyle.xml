@@ -12,14 +12,37 @@
         <module name="JavadocMissingLeadingAsterisk"/>
         <module name="JavadocMissingWhitespaceAfterAsterisk"/>
         <module name="JavadocTagContinuationIndentation"/>
-        <!-- <module name="JavadocType"/> -->
-        <!-- <module name="MissingJavadocMethod"/> -->
-        <!-- <module name="MissingJavadocType"/> -->
+        <module name="JavadocType">
+            <property name="severity"
+                      value="${checkstyle.javadoc.severity}"
+                      default="warning"/>
+        </module>
+        <module name="MissingJavadocMethod">
+            <property name="severity"
+                      value="${checkstyle.javadoc.severity}"
+                      default="warning"/>
+        </module>
+        <module name="MissingJavadocType">
+            <property name="severity"
+                      value="${checkstyle.javadoc.severity}"
+                      default="warning"/>
+        </module>
         <module name="NonEmptyAtclauseDescription"/>
         <module name="RequireEmptyLineBeforeBlockTagGroup"/>
         <module name="SingleLineJavadoc"/>
-        
-    
+
+        <module name="AnonInnerLength"/>
+        <module name="ExecutableStatementCount"/>
+        <module name="LambdaBodyLength">
+            <property name="max" value="35"/>
+        </module>
+
+        <module name="MethodLength"/>
+        <module name="MethodParamPad"/>
+
+        <module name="ArrayTypeStyle"/>
+
+
         <module name="UnusedImports"/>
         <module name="CovariantEquals"/>
         <module name="LeftCurly"/>
@@ -64,4 +87,9 @@
         </module>
     </module>
     <module name="FileTabCharacter"/>
+    <module name="LineLength">
+        <property name="ignorePattern" value="^(//)?\s+\*\s+.+?$"/>
+        <property name="max" value="120"/>
+        <property name="fileExtensions" value="java"/>
+    </module>
 </module>
