@@ -5,6 +5,21 @@
 
 <module name="Checker">
     <module name="TreeWalker">
+        <module name="InvalidJavadocPosition"/>
+        <module name="JavadocBlockTagLocation"/>
+        <module name="JavadocContentLocationCheck"/>
+        <module name="JavadocMethod"/>
+        <module name="JavadocMissingLeadingAsterisk"/>
+        <module name="JavadocMissingWhitespaceAfterAsterisk"/>
+        <module name="JavadocTagContinuationIndentation"/>
+        <!-- <module name="JavadocType"/> -->
+        <!-- <module name="MissingJavadocMethod"/> -->
+        <!-- <module name="MissingJavadocType"/> -->
+        <module name="NonEmptyAtclauseDescription"/>
+        <module name="RequireEmptyLineBeforeBlockTagGroup"/>
+        <module name="SingleLineJavadoc"/>
+        
+    
         <module name="UnusedImports"/>
         <module name="CovariantEquals"/>
         <module name="LeftCurly"/>
@@ -27,7 +42,6 @@
         <module name="CyclomaticComplexity"/>
         <module name="CommentsIndentation"/>
         <module name="Indentation">
-            <property name="caseIndent" value="0"/>
         </module>
         <module name="AbbreviationAsWordInName"/>
         <module name="ClassTypeParameterName"/>
