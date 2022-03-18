@@ -1,4 +1,4 @@
-package commons;
+package commons.misc;
 
 import commons.question.AbstractQuestion;
 import java.util.List;

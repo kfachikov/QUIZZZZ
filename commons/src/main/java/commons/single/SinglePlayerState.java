@@ -1,7 +1,7 @@
 package commons.single;
 
-import commons.Activity;
-import commons.GameState;
+import commons.misc.Activity;
+import commons.misc.GameState;
 import commons.question.AbstractQuestion;
 
 import java.util.List;

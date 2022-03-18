@@ -1,7 +1,6 @@
 package commons.question;
 
-import commons.Activity;
-import commons.question.GuessQuestion;
+import commons.misc.Activity;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -15,7 +15,7 @@
  */
 package client.utils;
 
-import commons.Activity;
+import commons.misc.Activity;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import commons.single.SingleUser;

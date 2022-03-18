@@ -1,5 +1,6 @@
-package commons;
+package commons.misc;
 
+import commons.misc.Response;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

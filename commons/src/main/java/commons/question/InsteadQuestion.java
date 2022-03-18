@@ -1,7 +1,6 @@
 package commons.question;
 
-import commons.Activity;
-import commons.question.AbstractQuestion;
+import commons.misc.Activity;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,11 +1,9 @@
 package commons.single;
 
-import commons.Activity;
-import commons.GameState;
+import commons.misc.Activity;
+import commons.misc.GameState;
 import commons.question.AbstractQuestion;
 import commons.question.GuessQuestion;
-import commons.single.SinglePlayer;
-import commons.single.SinglePlayerState;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

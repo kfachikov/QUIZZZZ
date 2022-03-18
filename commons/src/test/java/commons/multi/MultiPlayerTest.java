@@ -1,7 +1,6 @@
 package commons.multi;
 
-import commons.Player;
-import commons.multi.MultiPlayer;
+import commons.misc.Player;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

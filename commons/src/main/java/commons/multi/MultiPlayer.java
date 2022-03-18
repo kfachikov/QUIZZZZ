@@ -1,7 +1,7 @@
 package commons.multi;
 
 
-import commons.Player;
+import commons.misc.Player;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package commons;
+package commons.misc;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,4 +1,4 @@
-package commons;
+package commons.misc;
 
 import java.util.Objects;
 

@@ -1,6 +1,6 @@
 package commons.question;
 
-import commons.Activity;
+import commons.misc.Activity;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

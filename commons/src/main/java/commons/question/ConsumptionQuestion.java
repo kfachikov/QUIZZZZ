@@ -1,6 +1,6 @@
 package commons.question;
 
-import commons.Activity;
+import commons.misc.Activity;
 
 import java.util.*;
 
