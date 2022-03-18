@@ -7,8 +7,8 @@ import java.util.Objects;
  */
 public abstract class Player {
 
-    String username;
-    int score;
+    private String username;
+    private int score;
 
     /**
      * Constructor for Singleplayer and Multiplayer.
