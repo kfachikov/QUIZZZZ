@@ -15,7 +15,12 @@
  */
 package client;
 
-import client.scenes.*;
+import client.scenes.misc.AdministratorScreenCtrl;
+import client.scenes.misc.HelpScreenCtrl;
+import client.scenes.misc.HomeScreenCtrl;
+import client.scenes.misc.MainCtrl;
+import client.scenes.solo.PrepScreenCtrl;
+import client.scenes.solo.SoloGameQuestionScreenCtrl;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Scopes;

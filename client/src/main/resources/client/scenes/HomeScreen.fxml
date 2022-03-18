@@ -6,7 +6,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.HomeScreenCtrl">
+<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.misc.HomeScreenCtrl">
     <children>
         <Text fill="#006e8a" layoutX="117.0" layoutY="127.0" stroke="#3cacc3" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="QUIZ">
             <font>

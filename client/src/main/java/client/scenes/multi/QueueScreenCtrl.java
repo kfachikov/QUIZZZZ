@@ -1,5 +1,6 @@
-package client.scenes;
+package client.scenes.multi;
 
+import client.scenes.misc.MainCtrl;
 import client.services.QueueCountdownService;
 import client.services.QueuePollingService;
 import client.utils.ServerUtils;

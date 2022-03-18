@@ -1,5 +1,6 @@
-package client.scenes;
+package client.scenes.multi;
 
+import client.scenes.misc.MainCtrl;
 import client.utils.ServerUtils;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
