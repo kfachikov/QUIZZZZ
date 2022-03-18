@@ -22,11 +22,25 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 public class QueueUserTest {
+    final private QueueUser queueUser = new QueueUser("username");
 
     @Test
-    public void checkConstructor() {
-        var p = new QueueUser("user");
-        assertEquals("user", p.username);
+    public void getUsername() {
+        assertEquals("username", queueUser.getUsername());
+    }
+
+    @Test
+    public void setUsername() {
+        String result = "newUsername";
+        queueUser.setUsername(result);
+        assertEquals(result, queueUser.getUsername());
+    }
+
+    @Test
+    public void getSetId() {
+        Long result = 1L;
+        queueUser.setId(result);
+        assertEquals(result, queueUser.getId());
     }
 
     @Test
