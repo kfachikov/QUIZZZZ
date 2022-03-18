@@ -31,7 +31,7 @@ class QueueControllerTest {
             users.add(
                     new QueueUser("p" + nextId)
             );
-            users.get((int) i).id = nextId++;
+            users.get((int) i).setId(nextId++);
         }
         repo.queueUsers.addAll(users);
         return users;
