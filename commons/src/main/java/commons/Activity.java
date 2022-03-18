@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Activity class/instance is an entity-type/entity in the database. Stored since they are requested to stay after restart in Backlog.
+ */
 @Entity
 public class Activity {
 
@@ -17,15 +20,34 @@ public class Activity {
 
     /**
      * id field consists of information about the group that contributed it and the activity itself in the format "XX-{activity}".
-     * Examples: 00-shower, 01-driving
+     * Example: 00-shower
      */
     private String id;
+
+    /**
+     * title field consists of information about the activity.
+     * Example: Taking a hot shower for 6 minutes
+     */
     private String title;
+
+    /**
+     * source field consisting of URL string of the resource where the information was gathered.
+     * Example: https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower
+     */
     private String source;
 
+    /**
+     * image field consisting of string of the file name of the image.
+     * is called an "image_path" in json file format, therefore mapped to the shorter "image" name
+     * Example: 00/shower.png
+     */
     @JsonProperty("image_path")
     private String image;
 
+    /**
+     * consumption field consisting of long of the consumption of the activity in wh.
+     * is called an "consumptio_in_wh" in json file format, therefore mapped to the shorter "consumption" name
+     */
     @JsonProperty("consumption_in_wh")
     private Long consumption;
 
@@ -56,14 +78,6 @@ public class Activity {
      */
     public Long getKey() {
         return key;
-    }
-
-    /**
-     * Sets row field - primary key in table.
-     * @param key Long value to be set as row attribute.
-     */
-    public void setKey(Long key) {
-        this.key = key;
     }
 
     /**
