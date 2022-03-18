@@ -46,6 +46,11 @@ public class ConsumptionQuestion extends AbstractQuestion {
         return question;
     }
 
+    /**
+     * compares the equality of the passed object, with the ConsumptionQuestion instance its called over.
+     * @param o object that is subject to comparison
+     * @return true/false corresponding to equal/unequal
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -61,11 +66,19 @@ public class ConsumptionQuestion extends AbstractQuestion {
         return Objects.equals(answerChoices, that.answerChoices);
     }
 
+    /**
+     *
+     * @return hashcode of the ConsumptionQuestion instance
+     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), answerChoices);
     }
 
+    /**
+     *
+     * @return activity
+     */
     public Activity getActivity() {
         return activity;
     }
