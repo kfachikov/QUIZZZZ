@@ -1,4 +1,4 @@
-package commons;
+package commons.question;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -8,33 +8,12 @@ import javax.persistence.*;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
-@Entity
 public abstract class AbstractQuestion {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
 
     /**
      * Constructor for the abstract question.
      */
     public AbstractQuestion () {
-    }
-
-    /**
-     * getter for long id.
-     * @return id of the AbstractQuestion
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * setter for long id.
-     * @param id long value to set as id
-     */
-    public void setId(long id) {
-        this.id = id;
     }
 
     @Override

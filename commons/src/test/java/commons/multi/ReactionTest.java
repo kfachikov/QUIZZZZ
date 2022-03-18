@@ -1,5 +1,6 @@
-package commons;
+package commons.multi;
 
+import commons.multi.Reaction;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

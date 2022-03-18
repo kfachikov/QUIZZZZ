@@ -1,5 +1,7 @@
-package commons;
+package commons.queue;
 
+import commons.queue.QueueState;
+import commons.queue.QueueUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;

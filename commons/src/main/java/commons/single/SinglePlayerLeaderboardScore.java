@@ -1,5 +1,5 @@
 
-package commons;
+package commons.single;
 
 import javax.persistence.*;
 

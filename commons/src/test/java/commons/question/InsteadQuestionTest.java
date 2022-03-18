@@ -1,5 +1,7 @@
-package commons;
+package commons.question;
 
+import commons.Activity;
+import commons.question.InsteadQuestion;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,39 +17,39 @@ class InsteadQuestionTest {
 
     @Test
     public void testEquals() {
-        AbstractQuestion question1 = new InsteadQuestion(activity);
-        AbstractQuestion question2 = new InsteadQuestion(activity);
+        InsteadQuestion question1 = new InsteadQuestion(activity);
+        InsteadQuestion question2 = new InsteadQuestion(activity);
 
         assertEquals(question1, question2);
     }
 
     @Test
     public void testNotEquals1() {
-        AbstractQuestion question1 = new InsteadQuestion(activity);
-        AbstractQuestion question2 = new InsteadQuestion(activity2);
+        InsteadQuestion question1 = new InsteadQuestion(activity);
+        InsteadQuestion question2 = new InsteadQuestion(activity2);
 
         assertNotEquals(question1, question2);
     }
 
     @Test
     public void testHashCode() {
-        AbstractQuestion question1 = new InsteadQuestion(activity);
-        AbstractQuestion question2 = new InsteadQuestion(activity);
+        InsteadQuestion question1 = new InsteadQuestion(activity);
+        InsteadQuestion question2 = new InsteadQuestion(activity);
 
         assertEquals(question1.hashCode(), question2.hashCode());
     }
 
     @Test
     public void testHashCode1() {
-        AbstractQuestion question1 = new InsteadQuestion(activity);
-        AbstractQuestion question2 = new InsteadQuestion(activity2);
+        InsteadQuestion question1 = new InsteadQuestion(activity);
+        InsteadQuestion question2 = new InsteadQuestion(activity2);
 
         assertNotEquals(question1.hashCode(), question2.hashCode());
     }
 
     @Test
     public void testToString() {
-        AbstractQuestion question = new InsteadQuestion(activity);
+        InsteadQuestion question = new InsteadQuestion(activity);
         assertEquals("What can you do instead of title and consuming the same amount of energy?", question.toString());
     }
 

@@ -1,5 +1,6 @@
-package commons;
+package commons.single;
 
+import commons.Player;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -20,41 +21,7 @@ public class SinglePlayer extends Player {
         super(username, score);
     }
 
-    /**
-     * getter for the player's username.
-     * @return the name of the user
-     */
-    @Override
-    public String getUsername() {
-        return this.username;
-    }
 
-    /**
-     * setter for the player's username.
-     * @param username new name of the user
-     */
-    @Override
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /**
-     * getter for the score of the player.
-     * @return score of the player
-     */
-    @Override
-    public int getScore() {
-        return score;
-    }
-
-    /**
-     * setter for the score of the player.
-     * @param score of the player
-     */
-    @Override
-    public void setScore(int score) {
-        this.score = score;
-    }
 
     /**
      * The method checks whether two instances of SinglePlayer are equal.

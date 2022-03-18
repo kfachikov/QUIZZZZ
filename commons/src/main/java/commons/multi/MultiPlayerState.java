@@ -1,4 +1,8 @@
-package commons;
+package commons.multi;
+
+import commons.Activity;
+import commons.GameState;
+import commons.question.AbstractQuestion;
 
 import java.util.List;
 import java.util.Objects;

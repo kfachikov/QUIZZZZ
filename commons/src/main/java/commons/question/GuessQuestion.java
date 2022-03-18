@@ -1,4 +1,7 @@
-package commons;
+package commons.question;
+
+import commons.Activity;
+import commons.question.AbstractQuestion;
 
 public class GuessQuestion extends AbstractQuestion {
     /**

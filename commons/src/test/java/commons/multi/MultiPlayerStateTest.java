@@ -1,5 +1,12 @@
-package commons;
+package commons.multi;
 
+import commons.Activity;
+import commons.GameState;
+import commons.multi.MultiPlayer;
+import commons.multi.MultiPlayerState;
+import commons.multi.Reaction;
+import commons.question.AbstractQuestion;
+import commons.question.GuessQuestion;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

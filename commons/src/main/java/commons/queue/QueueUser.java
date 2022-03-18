@@ -13,42 +13,82 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package commons;
+package commons.queue;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
-public class SingleUser {
+public class QueueUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long id;
+    private long id;
 
-    public String username;
-    public int score;
+    private String username;
 
     @SuppressWarnings("unused")
-    private SingleUser() {
+    public QueueUser() {
         // for object mapper
     }
 
-    public SingleUser(String username, int score) {
+    public QueueUser(String username) {
         this.username = username;
-        this.score = score;
     }
 
+    /**
+     * @return id of the QueueUser
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * @return username of the QueueUser
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * sets the id of the QueueUser as the passed long.
+     * @param id long value to be set as the new id
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
+     * sets the username of the QueueUser as the passed string.
+     * @param username string value to be set as the new username
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * checks whether the passed object is a QueueUser, and is equal (fields) to the QueueUser the method is called over.
+     * @param obj to be compared
+     * @return boolean true/false value
+     */
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    /**
+     *
+     * @return readable string display of the QueueUser instance
+     */
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
     }
 
     @Override
@@ -56,8 +96,4 @@ public class SingleUser {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
-    }
 }

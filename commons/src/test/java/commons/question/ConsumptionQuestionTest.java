@@ -1,5 +1,6 @@
-package commons;
+package commons.question;
 
+import commons.Activity;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -45,17 +46,17 @@ class ConsumptionQuestionTest {
 
     @Test
     public void testEquals() {
-        AbstractQuestion question1 = new ConsumptionQuestion(activity);
-        AbstractQuestion question2 = new ConsumptionQuestion(activity);
+        ConsumptionQuestion question1 = new ConsumptionQuestion(activity);
+        ConsumptionQuestion question2 = new ConsumptionQuestion(activity);
 
         assertEquals(question1, question2);
     }
 
     @Test
     public void testNotEquals1() {
-        AbstractQuestion question1 = new ConsumptionQuestion(activity);
+        ConsumptionQuestion question1 = new ConsumptionQuestion(activity);
         Activity activity2 = new Activity("iddd", "title", "source", "image", 100L);
-        AbstractQuestion question2 = new ConsumptionQuestion(activity2);
+        ConsumptionQuestion question2 = new ConsumptionQuestion(activity2);
 
         assertNotEquals(question1, question2);
     }
@@ -82,23 +83,23 @@ class ConsumptionQuestionTest {
 
     @Test
     public void testHashCode() {
-        AbstractQuestion question1 = new ConsumptionQuestion(activity);
-        AbstractQuestion question2 = new ConsumptionQuestion(activity);
+        ConsumptionQuestion question1 = new ConsumptionQuestion(activity);
+        ConsumptionQuestion question2 = new ConsumptionQuestion(activity);
 
         assertEquals(question1.hashCode(), question2.hashCode());
     }
 
     @Test
     public void testHashCode1() {
-        AbstractQuestion question1 = new ConsumptionQuestion(activity);
-        AbstractQuestion question2 = new ConsumptionQuestion(new Activity("iddd", "title", "source", "image", 100L));
+        ConsumptionQuestion question1 = new ConsumptionQuestion(activity);
+        ConsumptionQuestion question2 = new ConsumptionQuestion(new Activity("iddd", "title", "source", "image", 100L));
 
         assertNotEquals(question1.hashCode(), question2.hashCode());
     }
 
     @Test
     public void testToString() {
-        AbstractQuestion question = new ConsumptionQuestion(activity);
+        ConsumptionQuestion question = new ConsumptionQuestion(activity);
 
         assertEquals("How much does title consume?", question.toString());
     }

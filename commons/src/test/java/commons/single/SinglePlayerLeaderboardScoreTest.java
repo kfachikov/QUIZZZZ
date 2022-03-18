@@ -1,5 +1,6 @@
-package commons;
+package commons.single;
 
+import commons.single.SinglePlayerLeaderboardScore;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
