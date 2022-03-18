@@ -16,9 +16,9 @@
 package client.utils;
 
 import commons.Activity;
-import commons.QueueState;
-import commons.QueueUser;
-import commons.SingleUser;
+import commons.queue.QueueState;
+import commons.queue.QueueUser;
+import commons.single.SingleUser;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;

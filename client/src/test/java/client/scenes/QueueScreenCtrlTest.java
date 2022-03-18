@@ -3,7 +3,7 @@ package client.scenes;
 import client.services.MockQueueCountdownService;
 import client.services.MockQueuePollingService;
 import client.utils.MockServerUtils;
-import commons.QueueUser;
+import commons.queue.QueueUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

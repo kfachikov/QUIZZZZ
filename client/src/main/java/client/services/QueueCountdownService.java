@@ -1,7 +1,7 @@
 package client.services;
 
 import client.utils.ServerUtils;
-import commons.QueueState;
+import commons.queue.QueueState;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;

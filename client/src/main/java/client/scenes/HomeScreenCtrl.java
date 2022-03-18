@@ -2,8 +2,8 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
-import commons.QueueUser;
-import commons.SingleUser;
+import commons.queue.QueueUser;
+import commons.single.SingleUser;
 import jakarta.ws.rs.ProcessingException;
 import jakarta.ws.rs.WebApplicationException;
 import javafx.fxml.FXML;

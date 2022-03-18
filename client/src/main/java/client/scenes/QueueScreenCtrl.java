@@ -3,7 +3,7 @@ package client.scenes;
 import client.services.QueueCountdownService;
 import client.services.QueuePollingService;
 import client.utils.ServerUtils;
-import commons.QueueUser;
+import commons.queue.QueueUser;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

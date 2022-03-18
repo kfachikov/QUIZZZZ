@@ -15,7 +15,7 @@
  */
 package client.scenes;
 
-import commons.QueueUser;
+import commons.queue.QueueUser;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
