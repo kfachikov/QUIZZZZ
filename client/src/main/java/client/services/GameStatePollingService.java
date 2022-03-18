@@ -72,6 +72,12 @@ public class GameStatePollingService extends Service<GameState> {
         return singlePlayerState;
     }
 
+    /*
+    The following method should be called once the game is initialized.
+    When the `startSinglePlayerGame` is called and request is sent to the server,
+    the returned instance is `SinglePlayerState`. This instance should be passed
+    as argument, so the polling service is set properly.
+     */
     /**
      * Setter for current single-player game state - would be used for the unique gameId to fetch the correct
      * SinglePlayerState from the server.

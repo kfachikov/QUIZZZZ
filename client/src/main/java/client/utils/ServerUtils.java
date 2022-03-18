@@ -29,6 +29,14 @@ public class ServerUtils {
 
     private static String currentServer;
 
+    /*
+    The following endpoint is somehow useless currently, as we plan not to use
+    SingleUser at all (how the initial endpoint have been created), or
+    SinglePlayer as entities which we would store.
+    Thus, I believe the endpoint could be properly renamed and used for
+    SinglePlayerLeaderboardScore entities, but some refactoring would be required.
+    Also, I suggest changing the server path, as this one is a bit unclear.
+     */
     public SinglePlayer addSinglePlayer(SinglePlayer singlePlayer) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(currentServer).path("/api/users") //
@@ -94,9 +102,10 @@ public class ServerUtils {
                 .post(Entity.entity(response, APPLICATION_JSON), Response.class);
     }
 
-    /* Currently the following method does not work as intended.
-       There is a problem with the "object mapper" for the question classes.
-       Should have some default constructors.
+    /*
+    Currently, the following method does not work as intended.
+    There is a problem with the "object mapper" for the question classes.
+    Should have some default constructors.
     */
     /**
      * POST request to /api/solo/start, to start the single-player game.

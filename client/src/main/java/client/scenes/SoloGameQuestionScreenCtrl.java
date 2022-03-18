@@ -22,6 +22,10 @@ public class SoloGameQuestionScreenCtrl {
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+
+    /*
+    Would be used for constant polling of the current game state.
+     */
     private final GameStatePollingService pollingService;
 
     private SinglePlayer singlePlayer;
@@ -76,6 +80,7 @@ public class SoloGameQuestionScreenCtrl {
      *
      * Binding answer choices to a method submitting that answer.
      * Initializing a listener for the polling service property `state` which ensures the player is shown the right scene.
+     * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
     public void initialize() {
         firstAnswer.setOnAction((event -> submitAnswer(firstAnswer.getText())));
@@ -113,8 +118,10 @@ public class SoloGameQuestionScreenCtrl {
         server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
     }
 
-    // The following method should be re-written once the questions are generated and
-    // decision on how to control the different scenes is taken.
+    /*
+    The following method should be re-written once the questions are generated and
+    decision on how to control the different scenes is taken.
+     */
     /**
      * Comparison of submitted answer and actual correct one.
      * Both could be accessed through the singlePlayerState instance

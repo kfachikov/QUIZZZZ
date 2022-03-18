@@ -3,15 +3,17 @@ package client.scenes;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.SinglePlayer;
-import commons.SinglePlayerState;
 
 public class PrepScreenCtrl {
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
+    /*
+    The following field is required to store the `SinglePlayer` instance,
+    consisting of the username entered on the `Main Screen` and a default score - 0.
+     */
     private SinglePlayer singlePlayer;
-    private SinglePlayerState singlePlayerState;
 
     /**
      * initializes PrepScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -36,8 +38,11 @@ public class PrepScreenCtrl {
      * sets the scene and title to single-player game.
      */
     public void playSoloGame() {
-        singlePlayerState = server.startSinglePlayerGame(singlePlayer);
-        mainCtrl.showSoloGameQuestion(singlePlayer, singlePlayerState);
+        /*
+        Our single-player game controller should keep reference to the player and the corresponding game
+        they are currently playing. Thus, they are passed as arguments here.
+         */
+        mainCtrl.showSoloGameQuestion(singlePlayer, server.startSinglePlayerGame(singlePlayer));
     }
 
     /**
