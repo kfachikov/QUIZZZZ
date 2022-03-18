@@ -34,7 +34,7 @@ public class QueueUser {
     private String username;
 
     @SuppressWarnings("unused")
-    private QueueUser() {
+    public QueueUser() {
         // for object mapper
     }
 
