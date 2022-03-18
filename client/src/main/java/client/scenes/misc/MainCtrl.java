@@ -15,13 +15,10 @@
  */
 package client.scenes.misc;
 
-import client.scenes.misc.AdministratorScreenCtrl;
-import client.scenes.misc.HelpScreenCtrl;
-import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
-import client.scenes.solo.PrepScreenCtrl;
-import client.scenes.solo.SoloGameQuestionScreenCtrl;
+import client.scenes.single.PrepScreenCtrl;
+import client.scenes.single.SoloGameQuestionScreenCtrl;
 import commons.QueueUser;
 import javafx.application.Platform;
 import javafx.scene.Parent;

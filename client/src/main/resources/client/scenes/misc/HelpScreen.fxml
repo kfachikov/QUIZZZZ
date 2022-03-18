@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" id="anchor" stylesheets="@../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.misc.HelpScreenCtrl">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" id="anchor" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.misc.HelpScreenCtrl">
     <children>
         <Text fill="#006e8a" layoutX="117.0" layoutY="127.0" stroke="#3cacc3" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="QUIZ">
             <font>
@@ -37,11 +37,11 @@
             <BoxBlur />
             </effect>
         </Text>
-        <TextField alignment="TOP_CENTER" layoutX="220.0" layoutY="170.0" promptText="enter username" stylesheets="@../../styling/GameStyle.css">
+        <TextField alignment="TOP_CENTER" layoutX="220.0" layoutY="170.0" promptText="enter username" stylesheets="@../../../styling/GameStyle.css">
          <effect>
             <BoxBlur />
          </effect></TextField>
-        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="86.0" layoutY="273.0" mnemonicParsing="false" stylesheets="@../../styling/GameStyle.css" text="SOLO" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
+        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="86.0" layoutY="273.0" mnemonicParsing="false" stylesheets="@../../../styling/GameStyle.css" text="SOLO" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
             <font>
                 <Font name="SansSerif Regular" size="34.0" />
             </font>
@@ -49,7 +49,7 @@
             <BoxBlur />
          </effect>
         </Button>
-        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="257.0" layoutY="273.0" mnemonicParsing="false" stylesheets="@../../styling/GameStyle.css" text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
+        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="257.0" layoutY="273.0" mnemonicParsing="false" stylesheets="@../../../styling/GameStyle.css" text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS">
             <font>
                 <Font name="SansSerif Regular" size="34.0" />
             </font>
@@ -57,7 +57,7 @@
             <BoxBlur />
          </effect>
         </Button>
-        <TextField alignment="TOP_CENTER" layoutX="220.0" layoutY="210.0" promptText="http://localhost:3000" stylesheets="@../../styling/GameStyle.css">
+        <TextField alignment="TOP_CENTER" layoutX="220.0" layoutY="210.0" promptText="http://localhost:3000" stylesheets="@../../../styling/GameStyle.css">
          <effect>
             <BoxBlur />
          </effect></TextField>
@@ -66,7 +66,7 @@
                 <Font name="AppleMyungjo Regular" size="50.0" />
             </font>
         </Text>
-      <TextArea stylesheets="@../../styling/GameStyle.css" editable="false" layoutX="63.0" layoutY="49.0" prefHeight="299.0" prefWidth="473.0" text="Test your knowledge? Click on &quot;Solo&quot;, prepare and do the best you can! Want to play with friends? &#10;&#10;1. Set up a username so that you know who is who.&#10;2. Make one of you join a lobby by clicking the &quot;Multiplayer&quot; button and then send you the server address.&#10;3. Paste it into the box provided and join his lobby.&#10;4. When your group is full, simply press enter to begin the competition!&#10;&#10;Joker cards (only in multiplayer):&#10;- ﻿Double points if your answer is correct!&#10;- Remove an incorrect answer.&#10;- Shorten the remaining time for your opponents." wrapText="true">
+      <TextArea stylesheets="@../../../styling/GameStyle.css" editable="false" layoutX="63.0" layoutY="49.0" prefHeight="299.0" prefWidth="473.0" text="Test your knowledge? Click on &quot;Solo&quot;, prepare and do the best you can! Want to play with friends? &#10;&#10;1. Set up a username so that you know who is who.&#10;2. Make one of you join a lobby by clicking the &quot;Multiplayer&quot; button and then send you the server address.&#10;3. Paste it into the box provided and join his lobby.&#10;4. When your group is full, simply press enter to begin the competition!&#10;&#10;Joker cards (only in multiplayer):&#10;- ﻿Double points if your answer is correct!&#10;- Remove an incorrect answer.&#10;- Shorten the remaining time for your opponents." wrapText="true">
          <font>
             <Font name="SansSerif Regular" size="15.5" />
          </font>

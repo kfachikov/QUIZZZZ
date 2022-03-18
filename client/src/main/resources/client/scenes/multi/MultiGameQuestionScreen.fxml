@@ -6,12 +6,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.MultiGameQuestionScreenCtrl">
+<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.MultiGameQuestionScreenCtrl">
    <effect>
       <ColorAdjust />
    </effect>
    <children>
-      <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
+      <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
          <font>
             <Font name="SansSerif Regular" size="12.0" />
          </font>

@@ -1,4 +1,4 @@
-package client.scenes.solo;
+package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
 import client.utils.ServerUtils;
