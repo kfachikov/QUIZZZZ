@@ -6,13 +6,11 @@ import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 import java.util.Optional;
 
-public class GuessQuestionScreenCtrl {
+public class ConsumptionQuestionScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
@@ -46,7 +44,7 @@ public class GuessQuestionScreenCtrl {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public GuessQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
@@ -124,7 +122,7 @@ public class GuessQuestionScreenCtrl {
     @FXML
     public synchronized void startTimer() {
         time.setProgress(0.0);
-        Thread thread = new Thread(new GuessQuestionScreenCtrl.BeginThread());
+        Thread thread = new Thread(new ConsumptionQuestionScreenCtrl.BeginThread());
         thread.start();
     }
 }

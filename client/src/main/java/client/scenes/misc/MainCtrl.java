@@ -57,8 +57,8 @@ public class MainCtrl {
     private MoreExpensiveQuestionScreenCtrl moreExpensiveCtrl;
     private Scene moreExpensive;
 
-    private GuessQuestionScreenCtrl guessCtrl;
-    private Scene guess;
+    private ConsumptionQuestionScreenCtrl consumptionCtrl;
+    private Scene consumption;
 
     private InsteadQuestionScreenCtrl insteadCtrl;
     private Scene instead;
@@ -69,7 +69,7 @@ public class MainCtrl {
      * @param help         is the help screen pair variable
      * @param prep         is the prepare screen pair variable
      * @param moreExpensive is the moreExpensiveQuestion screen pair variable
-     * @param guess is the guessQuestion screen pair variable
+     * @param consumption is the consumptionQuestion screen pair variable
      * @param instead is the insteadQuestion screen pair variable
      */
     public void initialize(Stage primaryStage,
@@ -81,7 +81,7 @@ public class MainCtrl {
                            Pair<AdministratorScreenCtrl, Parent> administrator,
                            Pair<MultiGameQuestionScreenCtrl, Parent> multiGame,
                            Pair<MoreExpensiveQuestionScreenCtrl, Parent> moreExpensive,
-                           Pair<GuessQuestionScreenCtrl, Parent> guess,
+                           Pair<ConsumptionQuestionScreenCtrl, Parent> consumption,
                            Pair<InsteadQuestionScreenCtrl, Parent> instead) {
 
         this.primaryStage = primaryStage;
@@ -110,8 +110,8 @@ public class MainCtrl {
         this.moreExpensiveCtrl = moreExpensive.getKey();
         this.moreExpensive = new Scene(moreExpensive.getValue());
 
-        this.guessCtrl = guess.getKey();
-        this.guess = new Scene(guess.getValue());
+        this.consumptionCtrl = consumption.getKey();
+        this.consumption = new Scene(consumption.getValue());
 
         this.insteadCtrl = instead.getKey();
         this.instead = new Scene(instead.getValue());
@@ -210,12 +210,12 @@ public class MainCtrl {
     }
 
     /**
-     * sets the title and the scene as guessQuestion screen.
+     * sets the title and the scene as consumptionQuestion screen.
      */
-    public void showGuessQuestion() {
-        primaryStage.setTitle("Quizzz: GuessQuestion");
-        primaryStage.setScene(guess);
-        guessCtrl.startTimer();
+    public void showConsumptionQuestion() {
+        primaryStage.setTitle("Quizzz: ConsumptionQuestion");
+        primaryStage.setScene(consumption);
+        consumptionCtrl.startTimer();
     }
 
     /**
@@ -224,6 +224,6 @@ public class MainCtrl {
     public void showInsteadQuestion() {
         primaryStage.setTitle("Quizzz: InsteadQuestion");
         primaryStage.setScene(instead);
-        guessCtrl.startTimer();
+        insteadCtrl.startTimer();
     }
 }
