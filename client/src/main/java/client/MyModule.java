@@ -21,6 +21,7 @@ import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
 import client.scenes.single.PrepScreenCtrl;
 import client.scenes.single.SoloGameQuestionScreenCtrl;
+import client.scenes.single.CongratulationsScreenCtrl;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
