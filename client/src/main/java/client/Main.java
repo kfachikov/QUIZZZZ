@@ -21,9 +21,7 @@ import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
-import client.scenes.single.PrepScreenCtrl;
-import client.scenes.single.SoloGameQuestionScreenCtrl;
-import client.scenes.single.CongratulationsScreenCtrl;
+import client.scenes.single.*;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -51,9 +49,13 @@ public class Main extends Application {
         var queue = FXML.load(QueueScreenCtrl.class, "client", "scenes", "multi", "QueueScreen.fxml");
         var administrator = FXML.load(AdministratorScreenCtrl.class, "client", "scenes", "misc", "AdministratorScreen.fxml");
         var multiGame = FXML.load(MultiGameQuestionScreenCtrl.class, "client", "scenes", "multi", "MultiGameQuestionScreen.fxml");
+        var moreExpensive = FXML.load(MoreExpensiveQuestionScreenCtrl.class, "client", "scenes", "single", "MoreExpensiveQuestionScreen.fxml");
+        var consumption = FXML.load(ConsumptionQuestionScreenCtrl.class, "client", "scenes", "single", "consumptionQuestionScreen.fxml");
+        var instead = FXML.load(InsteadQuestionScreenCtrl.class, "client", "scenes", "single", "InsteadQuestionScreen.fxml");
+        var guess = FXML.load(GuessQuestionScreenCtrl.class, "client", "scenes", "single", "GuessQuestionScreen.fxml");
         var congratulations = FXML.load(CongratulationsScreenCtrl.class, "client", "scenes", "single", "CongratulationsScreen.fxml");
         
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator, multiGame, congratulations);
+        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator, multiGame, moreExpensive, consumption, instead, guess, congratulations);
     }
 }
