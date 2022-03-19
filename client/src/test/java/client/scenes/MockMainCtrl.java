@@ -1,6 +1,7 @@
 package client.scenes;
 
-import commons.QueueUser;
+import commons.queue.QueueUser;
+import client.scenes.misc.MainCtrl;
 
 import java.util.ArrayList;
 import java.util.List;

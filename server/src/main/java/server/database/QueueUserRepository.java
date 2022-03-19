@@ -15,7 +15,7 @@
  */
 package server.database;
 
-import commons.QueueUser;
+import commons.queue.QueueUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface QueueUserRepository extends JpaRepository<QueueUser, Long> {

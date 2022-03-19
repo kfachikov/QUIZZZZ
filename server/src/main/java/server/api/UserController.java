@@ -1,6 +1,6 @@
 package server.api;
 
-import commons.SingleUser;
+import commons.single.SingleUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.database.UserRepository;

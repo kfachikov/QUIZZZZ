@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import server.database.ActivityRepository;
-import commons.Activity;
+import commons.misc.Activity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
