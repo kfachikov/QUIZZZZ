@@ -80,7 +80,6 @@ public class MainCtrl {
                            Pair<HomeScreenCtrl, Parent> home,
                            Pair<HelpScreenCtrl, Parent> help,
                            Pair<PrepScreenCtrl, Parent> prep,
-                           Pair<SoloGameQuestionScreenCtrl, Parent> soloGame,
                            Pair<QueueScreenCtrl, Parent> queue,
                            Pair<AdministratorScreenCtrl, Parent> administrator,
                            Pair<MultiGameQuestionScreenCtrl, Parent> multiGame,
@@ -102,9 +101,6 @@ public class MainCtrl {
 
         this.queueCtrl = queue.getKey();
         this.queue = new Scene(queue.getValue());
-
-        this.soloGameCtrl = soloGame.getKey();
-        this.soloGame = new Scene(soloGame.getValue());
 
         this.administratorCtrl = administrator.getKey();
         this.administrator = new Scene(administrator.getValue());

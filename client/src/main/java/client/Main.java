@@ -45,7 +45,6 @@ public class Main extends Application {
         var home = FXML.load(HomeScreenCtrl.class, "client", "scenes", "misc", "HomeScreen.fxml");
         var prep = FXML.load(PrepScreenCtrl.class, "client", "scenes", "single", "PrepScreen.fxml");
         var help = FXML.load(HelpScreenCtrl.class, "client", "scenes", "misc", "HelpScreen.fxml");
-        var soloGame = FXML.load(SoloGameQuestionScreenCtrl.class, "client", "scenes", "single", "SoloGameQuestionScreen.fxml");
         var queue = FXML.load(QueueScreenCtrl.class, "client", "scenes", "multi", "QueueScreen.fxml");
         var administrator = FXML.load(AdministratorScreenCtrl.class, "client", "scenes", "misc", "AdministratorScreen.fxml");
         var multiGame = FXML.load(MultiGameQuestionScreenCtrl.class, "client", "scenes", "multi", "MultiGameQuestionScreen.fxml");
@@ -55,6 +54,6 @@ public class Main extends Application {
         var guess = FXML.load(GuessQuestionScreenCtrl.class, "client", "scenes", "single", "GuessQuestionScreen.fxml");
         
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator, multiGame, moreExpensive, consumption, instead, guess);
+        mainCtrl.initialize(primaryStage, home, help, prep, queue, administrator, multiGame, moreExpensive, consumption, instead, guess);
     }
 }
