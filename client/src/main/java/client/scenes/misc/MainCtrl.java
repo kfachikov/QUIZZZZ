@@ -17,10 +17,7 @@ package client.scenes.misc;
 
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
-import client.scenes.single.GuessQuestionScreenCtrl;
-import client.scenes.single.MoreExpensiveQuestionScreenCtrl;
-import client.scenes.single.PrepScreenCtrl;
-import client.scenes.single.SoloGameQuestionScreenCtrl;
+import client.scenes.single.*;
 import commons.queue.QueueUser;
 import javafx.application.Platform;
 import javafx.scene.Parent;
@@ -63,6 +60,9 @@ public class MainCtrl {
     private GuessQuestionScreenCtrl guessCtrl;
     private Scene guess;
 
+    private InsteadQuestionScreenCtrl insteadCtrl;
+    private Scene instead;
+
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
      * @param home         is the home screen pair variable
@@ -70,6 +70,7 @@ public class MainCtrl {
      * @param prep         is the prepare screen pair variable
      * @param moreExpensive is the moreExpensiveQuestion screen pair variable
      * @param guess is the guessQuestion screen pair variable
+     * @param instead is the insteadQuestion screen pair variable
      */
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
@@ -80,7 +81,8 @@ public class MainCtrl {
                            Pair<AdministratorScreenCtrl, Parent> administrator,
                            Pair<MultiGameQuestionScreenCtrl, Parent> multiGame,
                            Pair<MoreExpensiveQuestionScreenCtrl, Parent> moreExpensive,
-                           Pair<GuessQuestionScreenCtrl, Parent> guess) {
+                           Pair<GuessQuestionScreenCtrl, Parent> guess,
+                           Pair<InsteadQuestionScreenCtrl, Parent> instead) {
 
         this.primaryStage = primaryStage;
 
@@ -110,6 +112,9 @@ public class MainCtrl {
 
         this.guessCtrl = guess.getKey();
         this.guess = new Scene(guess.getValue());
+
+        this.insteadCtrl = instead.getKey();
+        this.instead = new Scene(instead.getValue());
 
         showHome();
         primaryStage.show();
@@ -210,6 +215,15 @@ public class MainCtrl {
     public void showGuessQuestion() {
         primaryStage.setTitle("Quizzz: GuessQuestion");
         primaryStage.setScene(guess);
+        guessCtrl.startTimer();
+    }
+
+    /**
+     * sets the title and the scene as insteadQuestion screen.
+     */
+    public void showInsteadQuestion() {
+        primaryStage.setTitle("Quizzz: InsteadQuestion");
+        primaryStage.setScene(instead);
         guessCtrl.startTimer();
     }
 }

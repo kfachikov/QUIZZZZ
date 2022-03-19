@@ -21,10 +21,7 @@ import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
-import client.scenes.single.GuessQuestionScreenCtrl;
-import client.scenes.single.MoreExpensiveQuestionScreenCtrl;
-import client.scenes.single.PrepScreenCtrl;
-import client.scenes.single.SoloGameQuestionScreenCtrl;
+import client.scenes.single.*;
 import com.google.inject.Injector;
 import commons.question.GuessQuestion;
 import javafx.application.Application;
@@ -55,6 +52,7 @@ public class Main extends Application {
         var multiGame = FXML.load(MultiGameQuestionScreenCtrl.class, "client", "scenes", "multi", "MultiGameQuestionScreen.fxml");
         var moreExpensive = FXML.load(MoreExpensiveQuestionScreenCtrl.class, "client", "single", "MoreExpensiveQuestionScreen.fxml");
         var guess = FXML.load(GuessQuestionScreenCtrl.class, "client", "single", "GuessQuestionScreen.fxml");
+        var instead = FXML.load(InsteadQuestionScreenCtrl.class, "client", "single", "InsteadQuestionScreen.fxml");
         
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator, multiGame, moreExpensive, guess);
