@@ -23,7 +23,6 @@ import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
 import com.google.inject.Injector;
-import commons.question.GuessQuestion;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
