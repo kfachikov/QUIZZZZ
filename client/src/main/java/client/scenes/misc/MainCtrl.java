@@ -17,7 +17,7 @@ package client.scenes.misc;
 
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
-import client.scenes.single.MoreEnergyQuestionScreenCtrl;
+import client.scenes.single.MoreExpensiveQuestionScreenCtrl;
 import client.scenes.single.PrepScreenCtrl;
 import client.scenes.single.SoloGameQuestionScreenCtrl;
 import commons.queue.QueueUser;
@@ -56,7 +56,7 @@ public class MainCtrl {
     private MultiGameQuestionScreenCtrl multiGameCtrl;
     private Scene multiGame;
 
-    private MoreEnergyQuestionScreenCtrl moreEnergyCtrl;
+    private MoreExpensiveQuestionScreenCtrl moreEnergyCtrl;
     private Scene moreEnergy;
 
     /**
@@ -74,7 +74,7 @@ public class MainCtrl {
                            Pair<QueueScreenCtrl, Parent> queue,
                            Pair<AdministratorScreenCtrl, Parent> administrator,
                            Pair<MultiGameQuestionScreenCtrl, Parent> multiGame,
-                           Pair<MoreEnergyQuestionScreenCtrl, Parent> moreEnergy) {
+                           Pair<MoreExpensiveQuestionScreenCtrl, Parent> moreEnergy) {
 
         this.primaryStage = primaryStage;
 
@@ -187,10 +187,10 @@ public class MainCtrl {
     }
 
     /**
-     * sets the title and the scene as moreEnergyQuestion screen.
+     * sets the title and the scene as moreExpensiveQuestion screen.
      */
-    public void showMoreEnergyQuestion() {
-        primaryStage.setTitle("Quizzz: MoreEnergyQuestion");
+    public void showMoreExpensiveQuestion() {
+        primaryStage.setTitle("Quizzz: MoreExpensiveQuestion");
         primaryStage.setScene(moreEnergy);
         moreEnergyCtrl.startTimer();
     }

@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 
 import java.util.Optional;
 
-public class MoreEnergyQuestionScreenCtrl {
+public class MoreExpensiveQuestionScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
@@ -47,7 +47,7 @@ public class MoreEnergyQuestionScreenCtrl {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public MoreEnergyQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
@@ -125,7 +125,7 @@ public class MoreEnergyQuestionScreenCtrl {
     @FXML
     public synchronized void startTimer() {
         time.setProgress(0.0);
-        Thread thread = new Thread(new MoreEnergyQuestionScreenCtrl.BeginThread());
+        Thread thread = new Thread(new MoreExpensiveQuestionScreenCtrl.BeginThread());
         thread.start();
     }
 }
