@@ -180,4 +180,12 @@ public class MainCtrl {
         File selectedFile =  fileChooser.showOpenDialog(null);
         return selectedFile.getName();
     }
+
+    /**
+     * Sets the current scene to Congratulations screen.
+     */
+    public void showCongratulations() {
+        primaryStage.setTitle("Quizzz: Congratulations");
+        primaryStage.setScene(congratulations);
+    }
 }
