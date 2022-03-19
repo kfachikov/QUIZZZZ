@@ -23,6 +23,7 @@ import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.PrepScreenCtrl;
 import client.scenes.single.SoloGameQuestionScreenCtrl;
+import client.scenes.single.CongratulationsScreenCtrl;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;

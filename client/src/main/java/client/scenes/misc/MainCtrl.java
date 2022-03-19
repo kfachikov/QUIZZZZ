@@ -19,6 +19,7 @@ import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.PrepScreenCtrl;
 import client.scenes.single.SoloGameQuestionScreenCtrl;
+import client.scenes.single.CongratulationsScreenCtrl;
 import commons.queue.QueueUser;
 import javafx.application.Platform;
 import javafx.scene.Parent;
