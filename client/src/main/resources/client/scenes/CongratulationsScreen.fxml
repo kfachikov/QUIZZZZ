@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.CongratulationsScreenCtrl">
+<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.single.CongratulationsScreenCtrl">
     <children>
         <Button fx:id="backButton" layoutX="37.0" layoutY="298.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="78.0" prefWidth="218.0" stylesheets="@../../styling/GameStyle.css" text="Main Page" textFill="#006e8c">
             <font>
