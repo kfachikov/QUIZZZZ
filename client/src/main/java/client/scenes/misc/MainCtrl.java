@@ -63,6 +63,9 @@ public class MainCtrl {
     private InsteadQuestionScreenCtrl insteadCtrl;
     private Scene instead;
 
+    private GuessQuestionScreenCtrl guessCtrl;
+    private Scene guess;
+
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
      * @param home         is the home screen pair variable
@@ -71,6 +74,7 @@ public class MainCtrl {
      * @param moreExpensive is the moreExpensiveQuestion screen pair variable
      * @param consumption is the consumptionQuestion screen pair variable
      * @param instead is the insteadQuestion screen pair variable
+     * @param guess is the guessQuestion screen pair variable
      */
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
@@ -82,7 +86,8 @@ public class MainCtrl {
                            Pair<MultiGameQuestionScreenCtrl, Parent> multiGame,
                            Pair<MoreExpensiveQuestionScreenCtrl, Parent> moreExpensive,
                            Pair<ConsumptionQuestionScreenCtrl, Parent> consumption,
-                           Pair<InsteadQuestionScreenCtrl, Parent> instead) {
+                           Pair<InsteadQuestionScreenCtrl, Parent> instead,
+                           Pair<GuessQuestionScreenCtrl, Parent> guess) {
 
         this.primaryStage = primaryStage;
 
@@ -115,6 +120,9 @@ public class MainCtrl {
 
         this.insteadCtrl = instead.getKey();
         this.instead = new Scene(instead.getValue());
+
+        this.guessCtrl = guess.getKey();
+        this.guess = new Scene(guess.getValue());
 
         showHome();
         primaryStage.show();
@@ -224,6 +232,15 @@ public class MainCtrl {
     public void showInsteadQuestion() {
         primaryStage.setTitle("Quizzz: InsteadQuestion");
         primaryStage.setScene(instead);
+        insteadCtrl.startTimer();
+    }
+
+    /**
+     * sets the title and the scene as guessQuestion screen.
+     */
+    public void showGuessQuestion() {
+        primaryStage.setTitle("Quizzz: GuessQuestion");
+        primaryStage.setScene(guess);
         insteadCtrl.startTimer();
     }
 }

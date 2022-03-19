@@ -52,8 +52,9 @@ public class Main extends Application {
         var moreExpensive = FXML.load(MoreExpensiveQuestionScreenCtrl.class, "client", "scenes", "single", "MoreExpensiveQuestionScreen.fxml");
         var consumption = FXML.load(ConsumptionQuestionScreenCtrl.class, "client", "scenes", "single", "consumptionQuestionScreen.fxml");
         var instead = FXML.load(InsteadQuestionScreenCtrl.class, "client", "scenes", "single", "InsteadQuestionScreen.fxml");
+        var guess = FXML.load(GuessQuestionScreenCtrl.class, "client", "scenes", "single", "GuessQuestionScreen.fxml");
         
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator, multiGame, moreExpensive, consumption, instead);
+        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator, multiGame, moreExpensive, consumption, instead, guess);
     }
 }
