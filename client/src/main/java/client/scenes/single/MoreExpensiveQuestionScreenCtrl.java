@@ -5,17 +5,12 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-
 import java.util.Optional;
 
-
-
-public class SoloGameQuestionScreenCtrl {
+public class MoreExpensiveQuestionScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
@@ -32,12 +27,6 @@ public class SoloGameQuestionScreenCtrl {
     private Button thirdAnswer;
 
     @FXML
-    private ImageView imageQuestion;
-
-    @FXML
-    private Text question;
-
-    @FXML
     private ProgressBar time;
 
     @FXML
@@ -46,13 +35,31 @@ public class SoloGameQuestionScreenCtrl {
     @FXML
     private Label questionTitle;
 
+    @FXML
+    private ImageView image1;
+
+    @FXML
+    private ImageView image2;
+
+    @FXML
+    private ImageView image3;
+
+    @FXML
+    private Text description1;
+
+    @FXML
+    private Text description2;
+
+    @FXML
+    private Text description3;
+
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      * @param server is the server variable
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public SoloGameQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
@@ -130,7 +137,7 @@ public class SoloGameQuestionScreenCtrl {
     @FXML
     public synchronized void startTimer() {
         time.setProgress(0.0);
-        Thread thread = new Thread(new BeginThread());
+        Thread thread = new Thread(new MoreExpensiveQuestionScreenCtrl.BeginThread());
         thread.start();
     }
 }

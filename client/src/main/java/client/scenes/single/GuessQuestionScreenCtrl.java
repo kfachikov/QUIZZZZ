@@ -5,17 +5,12 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-
 import java.util.Optional;
 
-
-
-public class SoloGameQuestionScreenCtrl {
+public class GuessQuestionScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
@@ -23,19 +18,10 @@ public class SoloGameQuestionScreenCtrl {
     private Label currentScore;
 
     @FXML
-    private Button firstAnswer;
+    private ImageView image;
 
     @FXML
-    private Button secondAnswer;
-
-    @FXML
-    private Button thirdAnswer;
-
-    @FXML
-    private ImageView imageQuestion;
-
-    @FXML
-    private Text question;
+    private Label questionTitle;
 
     @FXML
     private ProgressBar time;
@@ -44,7 +30,10 @@ public class SoloGameQuestionScreenCtrl {
     private Button leaveButton;
 
     @FXML
-    private Label questionTitle;
+    private Text description;
+
+    @FXML
+    private TextField input;
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -52,7 +41,7 @@ public class SoloGameQuestionScreenCtrl {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public SoloGameQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public GuessQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
@@ -130,7 +119,15 @@ public class SoloGameQuestionScreenCtrl {
     @FXML
     public synchronized void startTimer() {
         time.setProgress(0.0);
-        Thread thread = new Thread(new BeginThread());
+        Thread thread = new Thread(new GuessQuestionScreenCtrl.BeginThread());
         thread.start();
+    }
+
+    /**
+     * The method saves the input of the user.
+     */
+    public String userInput() {
+        String userAnswer = input.getText();
+        return userAnswer;
     }
 }
