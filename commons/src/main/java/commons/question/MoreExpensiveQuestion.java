@@ -1,11 +1,20 @@
 package commons.question;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import commons.misc.Activity;
 
 import java.util.Collections;
 import java.util.List;
 
+@JsonTypeName(value = "moreExpensive")
 public class MoreExpensiveQuestion extends AbstractQuestion {
+
+    /**
+     * Constructor for the fourth question type.
+     */
+    public MoreExpensiveQuestion() {
+        super();
+    }
     
     /**
      * List of activities that the players will choose from.
@@ -17,12 +26,6 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
      */
     private Activity correctAnswer;
 
-    /**
-     * Constructor for the fourth question type.
-     */
-    public MoreExpensiveQuestion() {
-        super();
-    }
 
     /**
      * Sets the possible answers for a question in a random way, having between them the correct answer.
