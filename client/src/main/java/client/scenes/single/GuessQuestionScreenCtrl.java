@@ -3,6 +3,7 @@ package client.scenes.single;
 import client.scenes.misc.MainCtrl;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.question.GuessQuestion;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class GuessQuestionScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+    private GuessQuestion question;
 
     @FXML
     private Label currentScore;
@@ -77,10 +79,13 @@ public class GuessQuestionScreenCtrl {
 
     /**
      * Sets the question to the chosen questionText.
-     * @param questionText the question text
      */
-    public void setQuestion(Text questionText) {
-        questionTitle.setText(String.valueOf(questionText));
+    public void setQuestionPrompt() {
+        questionTitle.setText(question.toString());
+    }
+
+    public void setQuestion(GuessQuestion question) {
+        this.question = question;
     }
 
     class BeginThread implements Runnable {

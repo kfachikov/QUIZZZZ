@@ -165,12 +165,12 @@ public class MainCtrl {
      */
     public synchronized void showSoloGameQuestion(SinglePlayer singlePlayer, SinglePlayerState singlePlayerState) {
         primaryStage.setTitle("Quizzz: Single-player Game");
-        soloGameCtrl.startTimer();
-        soloGameCtrl.setSinglePlayer(singlePlayer);
-        soloGameCtrl.setSinglePlayerState(singlePlayerState);
         List<AbstractQuestion> questionList = singlePlayerState.getQuestionList();
         for (int i = 0 ; i <= 19; i++) {
             if (questionList.get(i) instanceof ConsumptionQuestion) {
+                consumptionCtrl.startTimer();
+                consumptionCtrl.setSinglePlayer(singlePlayer);
+                consumptionCtrl.setSinglePlayerState(singlePlayerState);
                 showConsumptionQuestion((ConsumptionQuestion) questionList.get(i));
             }
             if (questionList.get(i) instanceof GuessQuestion) {
@@ -240,6 +240,7 @@ public class MainCtrl {
      * sets the title and the scene as consumptionQuestion screen.
      */
     public void showConsumptionQuestion(ConsumptionQuestion question) {
+        //consumptionCtrl.setQuestion(question);
         primaryStage.setScene(consumption);
         consumptionCtrl.startTimer();
     }
@@ -248,6 +249,7 @@ public class MainCtrl {
      * sets the title and the scene as insteadQuestion screen.
      */
     public void showInsteadQuestion(InsteadQuestion question) {
+        //insteadCtrl.setQuestion(question);
         primaryStage.setScene(instead);
         insteadCtrl.startTimer();
     }
@@ -256,6 +258,7 @@ public class MainCtrl {
      * sets the title and the scene as guessQuestion screen.
      */
     public void showGuessQuestion(GuessQuestion question) {
+        //guessCtrl.setQuestion(question);
         primaryStage.setScene(guess);
         insteadCtrl.startTimer();
     }

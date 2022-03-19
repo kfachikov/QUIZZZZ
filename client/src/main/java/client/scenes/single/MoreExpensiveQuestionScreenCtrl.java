@@ -97,10 +97,17 @@ public class MoreExpensiveQuestionScreenCtrl {
 
     /**
      * Sets the question to the chosen questionText.
-     * @param questionText the question text
      */
-    public void setQuestion(Text questionText) {
-        questionTitle.setText(String.valueOf(questionText));
+    public void setQuestionPrompt() {
+        questionTitle.setText(question.toString());
+    }
+
+    public MoreExpensiveQuestion getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(MoreExpensiveQuestion question) {
+        this.question = question;
     }
 
     class BeginThread implements Runnable {
