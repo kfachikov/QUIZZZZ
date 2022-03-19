@@ -1,5 +1,6 @@
 package commons.multi;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import commons.misc.Activity;
 import commons.misc.GameState;
 import commons.misc.Response;
@@ -8,6 +9,7 @@ import commons.question.AbstractQuestion;
 import java.util.List;
 import java.util.Objects;
 
+@JsonTypeName(value = "multi")
 public class MultiPlayerState extends GameState {
 
     private List<MultiPlayer> players;

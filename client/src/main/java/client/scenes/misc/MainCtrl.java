@@ -141,6 +141,8 @@ public class MainCtrl {
         soloGameCtrl.startTimer();
         soloGameCtrl.setSinglePlayer(singlePlayer);
         soloGameCtrl.setSinglePlayerState(singlePlayerState);
+        soloGameCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
+        soloGameCtrl.getPollingService().start();
     }
 
     /**

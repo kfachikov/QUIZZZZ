@@ -1,9 +1,22 @@
 package commons.misc;
 
-import commons.question.AbstractQuestion;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import commons.multi.MultiPlayerState;
+import commons.question.*;
+import commons.single.SinglePlayerState;
+
 import java.util.List;
 import java.util.Objects;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = SinglePlayerState.class, name = "single"),
+        @JsonSubTypes.Type(value = MultiPlayerState.class, name = "multi")
+})
 public abstract class GameState {
 
     private long id;

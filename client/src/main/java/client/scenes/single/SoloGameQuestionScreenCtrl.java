@@ -99,9 +99,9 @@ public class SoloGameQuestionScreenCtrl {
                 case TRANSITION_STATE:
                     setScore(singlePlayerState.getPlayer().getScore());
                     if (compareAnswer()) {
-                        window.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("aedd94")).toString().substring(2));
+                        window.setStyle("-fx-background-color: #" + (Paint.valueOf("aedd94")).toString().substring(2));
                     } else {
-                        window.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
+                        window.setStyle("-fx-background-color: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
                     }
                     break;
                 case GAME_OVER_STATE:
