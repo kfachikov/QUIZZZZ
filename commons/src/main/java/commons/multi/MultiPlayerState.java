@@ -2,6 +2,7 @@ package commons.multi;
 
 import commons.misc.Activity;
 import commons.misc.GameState;
+import commons.misc.Response;
 import commons.question.AbstractQuestion;
 
 import java.util.List;
@@ -14,7 +15,8 @@ public class MultiPlayerState extends GameState {
 
     /**
      * Constructor for the state of the multiplayer game.
-     *  @param timeLeft the time left during a round.
+     * @param id the id of the game.
+     * @param nextPhase the time of the next phase.
      * @param roundNumber the round number of the game.
      * @param questionList the list of question for a game.
      * @param submittedAnswers the answers submitted by players during game.
@@ -23,8 +25,8 @@ public class MultiPlayerState extends GameState {
      * @param players the list of players currently in the game.
      * @param reaction the reactions used in a game.
      */
-    public MultiPlayerState(double timeLeft, int roundNumber, List<AbstractQuestion> questionList, List<String> submittedAnswers, List<Activity> activityList, String state, List<MultiPlayer> players, Reaction reaction) {
-        super(timeLeft, roundNumber, questionList, submittedAnswers, activityList, state);
+    public MultiPlayerState(long id, long nextPhase, int roundNumber, List<AbstractQuestion> questionList, List<Response> submittedAnswers, List<Activity> activityList, String state, List<MultiPlayer> players, Reaction reaction) {
+        super(id, nextPhase, roundNumber, questionList, submittedAnswers, activityList, state);
         this.players = players;
         this.reaction = reaction;
     }

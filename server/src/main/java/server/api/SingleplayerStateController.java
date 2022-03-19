@@ -154,7 +154,7 @@ public class SingleplayerStateController {
      * @param response Response of the player with a correct answer.
      * @return Number of points to add to the player's score
      */
-    private long computeScore(Response response) {
+    private int computeScore(Response response) {
         return 100;
     }
 
