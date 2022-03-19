@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import server.database.ActivityRepository;
-import server.database.entities.Activity;
+import commons.misc.Activity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +25,7 @@ class ActivityControllerTest {
         repo = new TestActivityRepository();
         ctrl = new ActivityController(repo);
 
-        initialActivity = new Activity("id", "image", "title", 100L, "source");
+        initialActivity = new Activity("id", "image", "source", "title", 100L);
     }
 
     @Test
@@ -97,7 +97,7 @@ class ActivityControllerTest {
     @Test
     public void testGetAllActivities() {
         ctrl.addActivity(initialActivity);
-        Activity activity =  new Activity("newId", "newImage", "newTitle", 200L, "newSource");
+        Activity activity =  new Activity("newId", "newTitle", "newSource", "newImage", 200L);
         ctrl.addActivity(activity);
         assertEquals(new ResponseEntity<>(Arrays.asList(initialActivity, activity), OK), ctrl.getAllActivities());
     }
@@ -105,7 +105,7 @@ class ActivityControllerTest {
     @Test
     public void testUpdateActivityId() {
         ctrl.addActivity(initialActivity);
-        Activity activity =  new Activity("newId", "image", "title", 100L, "source");
+        Activity activity =  new Activity("newId", "title", "source", "image", 100L);
 
         assertEquals(activity.getId(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getId());
     }
@@ -113,7 +113,7 @@ class ActivityControllerTest {
     @Test
     public void testUpdateActivityTitle() {
         ctrl.addActivity(initialActivity);
-        Activity activity =  new Activity("id", "image", "newTitle", 100L, "source");
+        Activity activity =  new Activity("id", "newTitle", "source", "image", 100L);
 
         assertEquals(activity.getTitle(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getTitle());
     }
@@ -121,7 +121,7 @@ class ActivityControllerTest {
     @Test
     public void testUpdateActivitySource() {
         ctrl.addActivity(initialActivity);
-        Activity activity =  new Activity("id", "image", "title", 100L, "newSource");
+        Activity activity =  new Activity("id", "title", "newSource", "image", 100L);
 
         assertEquals(activity.getSource(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getSource());
     }
@@ -129,7 +129,7 @@ class ActivityControllerTest {
     @Test
     public void testUpdateActivityImage() {
         ctrl.addActivity(initialActivity);
-        Activity activity =  new Activity("id", "newImage", "title", 100L, "source");
+        Activity activity =  new Activity("id", "title", "source", "image", 100L);
 
         assertEquals(activity.getImage(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getImage());
     }
@@ -137,14 +137,14 @@ class ActivityControllerTest {
     @Test
     public void testUpdateActivityConsumption() {
         ctrl.addActivity(initialActivity);
-        Activity activity = new Activity("id", "image", "title", 101L, "source");
+        Activity activity = new Activity("id", "title", "source", "image", 101L);
 
         assertEquals(activity.getConsumption(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getConsumption());
     }
 
     @Test
     public void testUpdateActivityNotPresent() {
-        Activity activity = new Activity("newId", "newImage", "newTitle", 200L, "newSource");
+        Activity activity = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
         var result = ctrl.updateActivity(initialActivity.getKey(), activity);
 
         assertEquals(BAD_REQUEST, result.getStatusCode());
@@ -152,8 +152,8 @@ class ActivityControllerTest {
 
     @Test
     public void testAddActivitiesNullAttribute() {
-        Activity activity1 = new Activity(null, "newImage", "newTitle", 200L, "newSource");
-        Activity activity2 = new Activity("newId", "newImage", "newTitle", 200L, "newSource");
+        Activity activity1 = new Activity(null, "newTitle", "newSource", "newImage", 200L);
+        Activity activity2 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
         List<Activity> activities = new ArrayList<>();
         activities.add(activity1);
         activities.add(activity2);
@@ -164,8 +164,8 @@ class ActivityControllerTest {
 
     @Test
     public void testAddActivities() {
-        Activity activity1 = new Activity("newId", "newImage", "newTitle", 200L, "newSource");
-        Activity activity2 = new Activity("newId2", "newImage2", "newTitle2", 201L, "newSource2");
+        Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
+        Activity activity2 = new Activity("newId2", "newTitle2", "newSource2", "newImage2", 201L);
         List<Activity> activities = new ArrayList<>();
         activities.add(activity1);
         activities.add(activity2);

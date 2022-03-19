@@ -1,6 +1,6 @@
 package server.api;
 
-import commons.QueueUser;
+import commons.queue.QueueUser;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -24,7 +24,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
     }
 
     private Optional<QueueUser> find(Long id) {
-        return queueUsers.stream().filter(q -> q.id == id).findFirst();
+        return queueUsers.stream().filter(q -> q.getId() == id).findFirst();
     }
 
     @Override
@@ -129,7 +129,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
     @Override
     public <S extends QueueUser> S save(S entity) {
         call("save");
-        entity.id = queueUsers.size();
+        entity.setId(queueUsers.size());
         queueUsers.add(entity);
         return entity;
     }
@@ -305,7 +305,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
     @Override
     public boolean existsQueueUserByUsername(String username) {
         for (QueueUser currentUser: queueUsers) {
-            if (Objects.equals(username, currentUser.username)) {
+            if (Objects.equals(username, currentUser.getUsername())) {
                 return true;
             }
         }

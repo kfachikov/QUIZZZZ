@@ -15,12 +15,16 @@
  */
 package client.utils;
 
-import commons.QueueState;
-import commons.QueueUser;
-import commons.SingleUser;
+import commons.misc.Activity;
+import commons.queue.QueueState;
+import commons.queue.QueueUser;
+import commons.single.SingleUser;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.GenericType;
 import org.glassfish.jersey.client.ClientConfig;
+
+import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -53,7 +57,7 @@ public class ServerUtils {
     }
 
     public QueueUser deleteQueueUser(QueueUser user) {
-        long id = user.id;
+        long id = user.getId();
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/queue/" + String.valueOf(id))
@@ -87,5 +91,13 @@ public class ServerUtils {
      */
     public static void setCurrentServer(String currentServer) {
         ServerUtils.currentServer = currentServer;
+    }
+
+    public List<Activity> getActivities() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer).path("/api/activities")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Activity>>() {});
     }
 }

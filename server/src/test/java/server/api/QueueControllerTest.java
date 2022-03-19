@@ -1,7 +1,7 @@
 package server.api;
 
-import commons.QueueState;
-import commons.QueueUser;
+import commons.queue.QueueState;
+import commons.queue.QueueUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.*;
 
 class QueueControllerTest {
 
@@ -32,7 +31,7 @@ class QueueControllerTest {
             users.add(
                     new QueueUser("p" + nextId)
             );
-            users.get((int) i).id = nextId++;
+            users.get((int) i).setId(nextId++);
         }
         repo.queueUsers.addAll(users);
         return users;
@@ -47,8 +46,8 @@ class QueueControllerTest {
         var expected = new QueueState(addMockUsers());
         var response = lobbyCtrl.getQueueState();
         var result = response.getBody();
-        assertEquals(expected.users, result.users);
-        assertEquals(expected.gameStarting, result.gameStarting);
+        assertEquals(expected.getUsers(), result.getUsers());
+        assertEquals(expected.isGameStarting(), result.isGameStarting());
     }
 
     @Test
@@ -93,7 +92,7 @@ class QueueControllerTest {
 
     @Test
     public void testStartGame() {
-        QueueState queueState = new QueueState(addMockUsers(), true, 3000);
+        QueueState queueState = new QueueState(addMockUsers(), true, 3000, 0L);
         var response = lobbyCtrl.startGame();
         QueueState result = response.getBody();
         assertEquals(queueState, result);

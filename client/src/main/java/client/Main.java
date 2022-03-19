@@ -15,7 +15,14 @@
  */
 package client;
 
-import client.scenes.*;
+import client.scenes.misc.AdministratorScreenCtrl;
+import client.scenes.misc.HelpScreenCtrl;
+import client.scenes.misc.HomeScreenCtrl;
+import client.scenes.misc.MainCtrl;
+import client.scenes.multi.MultiGameQuestionScreenCtrl;
+import client.scenes.multi.QueueScreenCtrl;
+import client.scenes.single.PrepScreenCtrl;
+import client.scenes.single.SoloGameQuestionScreenCtrl;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -36,18 +43,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-
-        var home = FXML.load(HomeScreenCtrl.class, "client", "scenes", "HomeScreen.fxml");
-        var prep = FXML.load(PrepScreenCtrl.class, "client", "scenes", "PrepScreen.fxml");
-        var help = FXML.load(HelpScreenCtrl.class, "client", "scenes", "HelpScreen.fxml");
-        var soloGame = FXML.load(SoloGameQuestionScreenCtrl.class, "client",
-                "scenes", "SoloGameQuestionScreen.fxml");
-        var queue = FXML.load(QueueScreenCtrl.class, "client", "scenes", "QueueScreen.fxml");
-        var multiGame = FXML.load(MultiGameQuestionScreenCtrl.class, "client",
-                "scenes", "MultiGameQuestionScreen.fxml");
-
+        var home = FXML.load(HomeScreenCtrl.class, "client", "scenes", "misc", "HomeScreen.fxml");
+        var prep = FXML.load(PrepScreenCtrl.class, "client", "scenes", "single", "PrepScreen.fxml");
+        var help = FXML.load(HelpScreenCtrl.class, "client", "scenes", "misc", "HelpScreen.fxml");
+        var soloGame = FXML.load(SoloGameQuestionScreenCtrl.class, "client", "scenes", "single", "SoloGameQuestionScreen.fxml");
+        var queue = FXML.load(QueueScreenCtrl.class, "client", "scenes", "multi", "QueueScreen.fxml");
+        var administrator = FXML.load(AdministratorScreenCtrl.class, "client", "scenes", "misc", "AdministratorScreen.fxml");
+        var multiGame = FXML.load(MultiGameQuestionScreenCtrl.class, "client", "scenes", "multi", "MultiGameQuestionScreen.fxml");
+        
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-
-        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, multiGame);
+        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator, multiGame);
     }
 }
