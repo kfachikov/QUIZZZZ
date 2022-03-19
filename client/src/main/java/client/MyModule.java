@@ -21,6 +21,7 @@ import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
 import client.scenes.single.PrepScreenCtrl;
 import client.scenes.single.SoloGameQuestionScreenCtrl;
+import client.scenes.single.MoreEnergyQuestionScreenCtrl;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
@@ -39,5 +40,6 @@ public class MyModule implements Module {
         binder.bind(HelpScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(SoloGameQuestionScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(AdministratorScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(MoreEnergyQuestionScreenCtrl.class).in(Scopes.SINGLETON);
     }
 }

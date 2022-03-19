@@ -21,8 +21,10 @@ import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
+import client.scenes.single.MoreEnergyQuestionScreenCtrl;
 import client.scenes.single.PrepScreenCtrl;
 import client.scenes.single.SoloGameQuestionScreenCtrl;
+import client.scenes.single.MoreEnergyQuestionScreenCtrl;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -50,8 +52,9 @@ public class Main extends Application {
         var queue = FXML.load(QueueScreenCtrl.class, "client", "scenes", "multi", "QueueScreen.fxml");
         var administrator = FXML.load(AdministratorScreenCtrl.class, "client", "scenes", "misc", "AdministratorScreen.fxml");
         var multiGame = FXML.load(MultiGameQuestionScreenCtrl.class, "client", "scenes", "multi", "MultiGameQuestionScreen.fxml");
+        var moreEnergy = FXML.load(MoreEnergyQuestionScreenCtrl.class, "client", "single", "MoreEnergyQuestionScreen.fxml");
         
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator, multiGame);
+        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator, multiGame, moreEnergy);
     }
 }

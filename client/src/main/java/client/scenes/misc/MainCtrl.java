@@ -17,6 +17,7 @@ package client.scenes.misc;
 
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
+import client.scenes.single.MoreEnergyQuestionScreenCtrl;
 import client.scenes.single.PrepScreenCtrl;
 import client.scenes.single.SoloGameQuestionScreenCtrl;
 import commons.queue.QueueUser;
@@ -55,11 +56,15 @@ public class MainCtrl {
     private MultiGameQuestionScreenCtrl multiGameCtrl;
     private Scene multiGame;
 
+    private MoreEnergyQuestionScreenCtrl moreEnergyCtrl;
+    private Scene moreEnergy;
+
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
      * @param home         is the home screen pair variable
      * @param help         is the help screen pair variable
      * @param prep         is the prepare screen pair variable
+     * @param moreEnergy
      */
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
@@ -68,8 +73,8 @@ public class MainCtrl {
                            Pair<SoloGameQuestionScreenCtrl, Parent> soloGame,
                            Pair<QueueScreenCtrl, Parent> queue,
                            Pair<AdministratorScreenCtrl, Parent> administrator,
-                           Pair<MultiGameQuestionScreenCtrl, Parent> multiGame
-    ) {
+                           Pair<MultiGameQuestionScreenCtrl, Parent> multiGame,
+                           Pair<MoreEnergyQuestionScreenCtrl, Parent> moreEnergy) {
 
         this.primaryStage = primaryStage;
 
@@ -93,6 +98,9 @@ public class MainCtrl {
 
         this.multiGameCtrl = multiGame.getKey();
         this.multiGame = new Scene(multiGame.getValue());
+
+        this.moreEnergyCtrl = moreEnergy.getKey();
+        this.moreEnergy = new Scene(moreEnergy.getValue());
 
         showHome();
         primaryStage.show();
@@ -176,5 +184,14 @@ public class MainCtrl {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
         File selectedFile =  fileChooser.showOpenDialog(null);
         return selectedFile.getName();
+    }
+
+    /**
+     * sets the title and the scene as moreEnergyQuestion screen.
+     */
+    public void showMoreEnergyQuestion() {
+        primaryStage.setTitle("Quizzz: MoreEnergyQuestion");
+        primaryStage.setScene(moreEnergy);
+        moreEnergyCtrl.startTimer();
     }
 }
