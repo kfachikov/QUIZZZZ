@@ -3,6 +3,7 @@ package client.scenes.single;
 import client.scenes.misc.MainCtrl;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.question.MoreExpensiveQuestion;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class MoreExpensiveQuestionScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+    private MoreExpensiveQuestion question;
 
     @FXML
     private Label currentScore;

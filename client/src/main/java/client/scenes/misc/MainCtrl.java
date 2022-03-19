@@ -18,6 +18,7 @@ package client.scenes.misc;
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
+import commons.question.*;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
@@ -30,6 +31,7 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.File;
+import java.util.List;
 
 public class MainCtrl {
 
@@ -163,10 +165,24 @@ public class MainCtrl {
      */
     public synchronized void showSoloGameQuestion(SinglePlayer singlePlayer, SinglePlayerState singlePlayerState) {
         primaryStage.setTitle("Quizzz: Single-player Game");
-        primaryStage.setScene(soloGame);
         soloGameCtrl.startTimer();
         soloGameCtrl.setSinglePlayer(singlePlayer);
         soloGameCtrl.setSinglePlayerState(singlePlayerState);
+        List<AbstractQuestion> questionList = singlePlayerState.getQuestionList();
+        for (int i = 0 ; i <= 19; i++) {
+            if (questionList.get(i) instanceof ConsumptionQuestion) {
+                showConsumptionQuestion((ConsumptionQuestion) questionList.get(i));
+            }
+            if (questionList.get(i) instanceof GuessQuestion) {
+                showGuessQuestion((GuessQuestion) questionList.get(i));
+            }
+            if (questionList.get(i) instanceof InsteadQuestion) {
+                showInsteadQuestion((InsteadQuestion) questionList.get(i));
+            }
+            if (questionList.get(i) instanceof MoreExpensiveQuestion) {
+                showMoreExpensiveQuestion((MoreExpensiveQuestion) questionList.get(i));
+            }
+        }
         soloGameCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
         soloGameCtrl.getPollingService().start();
     }
@@ -214,8 +230,8 @@ public class MainCtrl {
     /**
      * sets the title and the scene as moreExpensiveQuestion screen.
      */
-    public void showMoreExpensiveQuestion() {
-        primaryStage.setTitle("Quizzz: MoreExpensiveQuestion");
+    public void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
+        //moreExpensiveCtrl.setQuestion(question);
         primaryStage.setScene(moreExpensive);
         moreExpensiveCtrl.startTimer();
     }
@@ -223,8 +239,7 @@ public class MainCtrl {
     /**
      * sets the title and the scene as consumptionQuestion screen.
      */
-    public void showConsumptionQuestion() {
-        primaryStage.setTitle("Quizzz: ConsumptionQuestion");
+    public void showConsumptionQuestion(ConsumptionQuestion question) {
         primaryStage.setScene(consumption);
         consumptionCtrl.startTimer();
     }
@@ -232,8 +247,7 @@ public class MainCtrl {
     /**
      * sets the title and the scene as insteadQuestion screen.
      */
-    public void showInsteadQuestion() {
-        primaryStage.setTitle("Quizzz: InsteadQuestion");
+    public void showInsteadQuestion(InsteadQuestion question) {
         primaryStage.setScene(instead);
         insteadCtrl.startTimer();
     }
@@ -241,8 +255,7 @@ public class MainCtrl {
     /**
      * sets the title and the scene as guessQuestion screen.
      */
-    public void showGuessQuestion() {
-        primaryStage.setTitle("Quizzz: GuessQuestion");
+    public void showGuessQuestion(GuessQuestion question) {
         primaryStage.setScene(guess);
         insteadCtrl.startTimer();
     }

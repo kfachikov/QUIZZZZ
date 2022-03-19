@@ -32,7 +32,8 @@ public class SinglePlayerState extends GameState {
      * @param state the status of the game.
      * @param player the player that is currently in the game.
      */
-    public SinglePlayerState(long id, long nextPhase, int roundNumber, List<AbstractQuestion> questionList, List<Response> submittedAnswers, List<Activity> activityList, String state, SinglePlayer player) {
+    public SinglePlayerState(long id, long nextPhase, int roundNumber, List<AbstractQuestion> questionList,
+                             List<Response> submittedAnswers, List<Activity> activityList, String state, SinglePlayer player) {
         super(id, nextPhase, roundNumber, questionList, submittedAnswers, activityList, state);
         this.player = player;
     }

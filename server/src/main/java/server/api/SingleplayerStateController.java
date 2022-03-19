@@ -1,13 +1,14 @@
 package server.api;
 
 import commons.misc.Response;
-import commons.question.ConsumptionQuestion;
 import commons.single.SinglePlayerState;
 import commons.misc.Activity;
 import commons.question.AbstractQuestion;
 import commons.single.SinglePlayer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import server.database.ActivityRepository;
+import server.utils.GenerateQuestionUtils;
 
 import java.util.*;
 
@@ -16,13 +17,16 @@ import java.util.*;
 public class SingleplayerStateController {
 
     private final Map<Long, SinglePlayerState> games;
+    private final ActivityRepository repo;
+    private Random random;
 
     /**
      * Constructor for singleplayer state controller.
      * <p>
      * Initializes the list of games inside of the controller.
      */
-    public SingleplayerStateController() {
+    public SingleplayerStateController(ActivityRepository repo) {
+        this.repo = repo;
         this.games = new HashMap<>();
     }
 
@@ -203,13 +207,9 @@ public class SingleplayerStateController {
      * @return List of 20 newly generated questions
      */
     private List<AbstractQuestion> generateQuestions() {
-        List<AbstractQuestion> questions = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            ConsumptionQuestion acqt = new ConsumptionQuestion();
-            acqt.setAnswerChoices(List.of("1", "12", "121"));
-            questions.add(acqt);
-        }
-        return questions;
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils();
+        List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions(random, repo);
+        return questionList;
     }
 
     /**
