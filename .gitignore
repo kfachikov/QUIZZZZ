@@ -8,6 +8,7 @@ build/
 
 **/*.mv.db
 **/*.trace.db
+*.trace.db
 
 **/*.swp
 
