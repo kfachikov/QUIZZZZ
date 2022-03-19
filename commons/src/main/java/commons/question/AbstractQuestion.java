@@ -11,14 +11,14 @@ import javax.persistence.*;
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
 @JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "type")
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = ConsumptionQuestion.class, name = "consumption"),
-        @JsonSubTypes.Type(value = GuessQuestion.class, name = "guess"),
-        @JsonSubTypes.Type(value = InsteadQuestion.class, name = "instead"),
-        @JsonSubTypes.Type(value = MoreExpensiveQuestion.class, name = "moreExpensive")
+    @JsonSubTypes.Type(value = ConsumptionQuestion.class, name = "consumption"),
+    @JsonSubTypes.Type(value = GuessQuestion.class, name = "guess"),
+    @JsonSubTypes.Type(value = InsteadQuestion.class, name = "instead"),
+    @JsonSubTypes.Type(value = MoreExpensiveQuestion.class, name = "moreExpensive")
 })
 public abstract class AbstractQuestion {
 
