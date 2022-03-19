@@ -1,20 +1,40 @@
 package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
+import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.misc.Response;
 import commons.question.GuessQuestion;
+import commons.single.SinglePlayer;
+import commons.single.SinglePlayerState;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
+import java.util.Date;
 import java.util.Optional;
+
+import static commons.single.SinglePlayerState.*;
 
 public class GuessQuestionScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private GuessQuestion question;
+    /*
+       Would be used for constant polling of the current game state.
+        */
+    private final GameStatePollingService pollingService;
+
+    private SinglePlayer singlePlayer;
+    private SinglePlayerState singlePlayerState;
+
+
+    @FXML
+    private AnchorPane window;
 
     @FXML
     private Label currentScore;
@@ -43,9 +63,76 @@ public class GuessQuestionScreenCtrl {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public GuessQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public GuessQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
+        this.pollingService = pollingService;
         this.server = server;
         this.mainCtrl = mainCtrl;
+    }
+
+
+    /*
+    The following method should be re-written once the questions are generated and
+    decision on how to control the different scenes is taken.
+     */
+    /**
+     * Comparison of submitted answer and actual correct one.
+     * Both could be accessed through the singlePlayerState instance
+     *
+     * @return Boolean value whether the answer is correct or not.
+     */
+    public boolean compareAnswer() {
+        return true;
+    }
+
+    /**
+     * Initializes the single-player game controller by:
+     *
+     * Binding answer choices to a method submitting that answer.
+     * Initializing a listener for the polling service property `state` which ensures the player is shown the right scene.
+     * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
+     */
+    @SuppressWarnings("checkstyle:Indentation")
+    public void initialize() {
+        input.setOnAction((event -> submitAnswer(input.getText())));
+
+        pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
+            if (newGameState != null) {
+                switch (newGameState.getState()) {
+                case QUESTION_STATE:
+                    // load new question
+                    break;
+                case TRANSITION_STATE:
+                    setScore(singlePlayerState.getPlayer().getScore());
+                    if (compareAnswer()) {
+                        window.setStyle("-fx-background-color: #" + (Paint.valueOf("aedd94")).toString().substring(2));
+                    } else {
+                        window.setStyle("-fx-background-color: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
+                    }
+                    break;
+                case GAME_OVER_STATE:
+                    // goes to congrats screen
+                    break;
+                }
+            }
+        }));
+    }
+
+    /**
+     * Sends a string to the server sa a chosen answer from the player.
+     *
+     * @param chosenAnswer String value of button clicked - answer chosen
+     */
+    public void submitAnswer(String chosenAnswer) {
+        server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
+    }
+
+    /**
+     * Sets the current score.
+     *
+     * @param score is the current score of the player
+     */
+    public void setScore(long score) {
+        currentScore.setText(String.valueOf(score));
     }
 
     /**
@@ -134,5 +221,53 @@ public class GuessQuestionScreenCtrl {
     public String userInput() {
         String userAnswer = input.getText();
         return userAnswer;
+    }
+
+    /**
+     * Getter for polling service which keeps the state of the current game up to date
+     * by "constantly" polling it from the server.
+     *
+     * @return GameState polling service
+     */
+    public GameStatePollingService getPollingService() {
+        return pollingService;
+    }
+
+    /**
+     * Getter for the player current player instance.
+     *
+     * @return SinglePlayer instance containing the username and the score of the current client.
+     */
+    public SinglePlayer getSinglePlayer() {
+        return singlePlayer;
+    }
+
+    /**
+     * Setter for single-player field - stores the username and the score of our client.
+     *
+     * @param singlePlayer a SinglePlayer instance containing the above-mentioned information.
+     */
+    public void setSinglePlayer(SinglePlayer singlePlayer) {
+        this.singlePlayer = singlePlayer;
+    }
+
+    /**
+     * Getter fot the current state of the game.
+     *
+     * @return SinglePlayerState instance containing information about the current game.
+     */
+    public SinglePlayerState getSinglePlayerState() {
+        return singlePlayerState;
+    }
+
+    /**
+     * Setter for the game state field. Would be used later to allow the client submit answers, to check correctness,
+     * and to fetch new questions.
+     *
+     * @param singlePlayerState SinglePlayerState instance - would be returned from the server
+     *                          on the initial initialization of the game
+     */
+    public void setSinglePlayerState(SinglePlayerState singlePlayerState) {
+        this.singlePlayerState = singlePlayerState;
     }
 }

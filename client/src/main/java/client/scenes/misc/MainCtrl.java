@@ -49,9 +49,6 @@ public class MainCtrl {
     private QueueScreenCtrl queueCtrl;
     private Scene queue;
 
-    private SoloGameQuestionScreenCtrl soloGameCtrl;
-    private Scene soloGame;
-
     private AdministratorScreenCtrl administratorCtrl;
     private Scene administrator;
 
@@ -172,19 +169,34 @@ public class MainCtrl {
                 consumptionCtrl.setSinglePlayer(singlePlayer);
                 consumptionCtrl.setSinglePlayerState(singlePlayerState);
                 showConsumptionQuestion((ConsumptionQuestion) questionList.get(i));
+                consumptionCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
+                consumptionCtrl.getPollingService().start();
             }
             if (questionList.get(i) instanceof GuessQuestion) {
+                guessCtrl.startTimer();
+                guessCtrl.setSinglePlayer(singlePlayer);
+                guessCtrl.setSinglePlayerState(singlePlayerState);
                 showGuessQuestion((GuessQuestion) questionList.get(i));
+                guessCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
+                guessCtrl.getPollingService().start();
             }
             if (questionList.get(i) instanceof InsteadQuestion) {
+                insteadCtrl.startTimer();
+                insteadCtrl.setSinglePlayer(singlePlayer);
+                insteadCtrl.setSinglePlayerState(singlePlayerState);
                 showInsteadQuestion((InsteadQuestion) questionList.get(i));
+                insteadCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
+                insteadCtrl.getPollingService().start();
             }
             if (questionList.get(i) instanceof MoreExpensiveQuestion) {
+                moreExpensiveCtrl.startTimer();
+                moreExpensiveCtrl.setSinglePlayer(singlePlayer);
+                moreExpensiveCtrl.setSinglePlayerState(singlePlayerState);
                 showMoreExpensiveQuestion((MoreExpensiveQuestion) questionList.get(i));
+                moreExpensiveCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
+                moreExpensiveCtrl.getPollingService().start();
             }
         }
-        soloGameCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
-        soloGameCtrl.getPollingService().start();
     }
 
     /**

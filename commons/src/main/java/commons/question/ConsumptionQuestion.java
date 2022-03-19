@@ -9,10 +9,12 @@ import java.util.*;
 public class ConsumptionQuestion extends AbstractQuestion {
     private Activity activity;
     private List<String> answerChoices;
+    private long correct;
 
     public ConsumptionQuestion() {
         super();
     }
+
 
     /**
      * Constructor for the activity's energy consumption question type.
@@ -24,11 +26,19 @@ public class ConsumptionQuestion extends AbstractQuestion {
     }
 
     /**
+     * Getter for the correct answer.
+     * @return long variable
+     */
+    public long getCorrect() {
+        return correct;
+    }
+
+    /**
      * Sets the possible answers for a question in a random way, having between them the correct answer.
      */
     public void setAnswerChoices() {
         Random rnd = new Random();
-        long correct = activity.getConsumption();
+        this.correct = activity.getConsumption();
         long lowerBound = correct / 2;
         long upperBound = correct * 3 / 2;
         long answer1 = lowerBound + rnd.nextInt((int) (upperBound - lowerBound + 1));
