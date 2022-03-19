@@ -169,8 +169,8 @@ class ActivityControllerTest {
         List<Activity> activities = new ArrayList<>();
         activities.add(activity1);
         activities.add(activity2);
+        List<Activity> result = ctrl.addActivities(activities).getBody();
 
-        ctrl.addActivities(activities);
-        assertEquals(2, repo.count());
+        assertEquals(activities, result);
     }
 }
