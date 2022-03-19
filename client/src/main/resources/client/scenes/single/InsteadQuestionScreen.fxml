@@ -5,13 +5,13 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.image.Image?>
 <AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.single.InsteadQuestionScreenCtrl">
     <children>
-        <Button layoutX="14.0" layoutY="108.0" mnemonicParsing="false" prefHeight="250.0" prefWidth="208.0" />
+        <Button layoutX="25.0" layoutY="108.0" mnemonicParsing="false" prefHeight="283.0" prefWidth="233.0" />
         <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
             <font>
                 <Font name="SansSerif Regular" size="12.0" />
@@ -33,50 +33,39 @@
                 <Font name="SansSerif Bold" size="24.0" />
             </font>
         </Label>
-        <Button fx:id="firstAnswer" layoutX="250.0" layoutY="140.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="277.0" stylesheets="@../../../styling/GameStyle.css" textFill="#006e8c">
+        <Button fx:id="firstAnswer" layoutX="282.0" layoutY="139.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="277.0" stylesheets="@../../../styling/GameStyle.css" text="Cook a meal ten times" textFill="#006e8c">
             <font>
-                <Font name="SansSerif Bold" size="18.0" />
+                <Font name="SansSerif Bold" size="15.0" />
             </font>
         </Button>
-        <Button fx:id="secondAnswer" layoutX="250.0" layoutY="190.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="277.0" stylesheets="@../../../styling/GameStyle.css" textFill="#006e8c">
+        <Button fx:id="secondAnswer" layoutX="282.0" layoutY="191.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="277.0" stylesheets="@../../../styling/GameStyle.css" text="Light my entire house for a week" textFill="#006e8c">
             <font>
-                <Font name="SansSerif Bold" size="18.0" />
+                <Font name="SansSerif Bold" size="15.0" />
             </font>
         </Button>
-        <Button fx:id="thirdAnswer" layoutX="250.0" layoutY="240.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="277.0" stylesheets="@../../../styling/GameStyle.css" textFill="#006e8c">
+        <Button fx:id="thirdAnswer" layoutX="282.0" layoutY="247.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="277.0" stylesheets="@../../../styling/GameStyle.css" text="Keep the fridge on for 3.5 days" textFill="#006e8c">
             <font>
-                <Font name="SansSerif Bold" size="18.0" />
+                <Font name="SansSerif Bold" size="15.0" />
             </font>
         </Button>
-        <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="-191.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true" />
-        <Text layoutX="25.0" layoutY="322.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="180.0">
+        <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="-191.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../../../../../../../29/washingMachine.png" />
+        </image>
+        </ImageView>
+        <Text fx:id="description" layoutX="34.0" layoutY="349.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="216.0">
             <font>
-                <Font size="15.0" />
+                <Font size="20.0" />
             </font></Text>
-        <ImageView fitHeight="180.0" fitWidth="180.0" layoutX="28.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="-214.0" layoutY="-105.0" pickOnBounds="true" preserveRatio="true" />
-        <Button fx:id="submit" layoutX="290.0" layoutY="297.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="180.0" stylesheets="@../../../styling/GameStyle.css" text="Answer" textFill="#006e8c">
-            <font>
-                <Font name="SansSerif Bold" size="18.0" />
-            </font>
-        </Button>
-        <Text layoutX="290.0" layoutY="167.0" text="Cook a meal ten times" wrappingWidth="229.0">
-            <font>
-                <Font size="15.0" />
-            </font>
-        </Text>
-        <Text layoutX="290.0" layoutY="217.0" text="Light my entire house for a week" wrappingWidth="229.0">
-            <font>
-                <Font size="15.0" />
-            </font>
-        </Text>
-        <Text layoutX="290.0" layoutY="267.0" text="Keep the fridge on for 3.5 days" wrappingWidth="229.0">
-            <font>
-                <Font size="15.0" />
-            </font>
-        </Text>
-        <Circle fx:id="circle1" fill="WHITE" layoutX="275.0" layoutY="161.0" onMouseClicked="#turnBlack1" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-        <Circle fx:id="circle2" fill="WHITE" layoutX="275.0" layoutY="212.0" onMouseClicked="#turnBlack2" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-        <Circle fx:id="circle3" fill="WHITE" layoutX="275.0" layoutY="263.0" onMouseClicked="#turnBlack3" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <ImageView fx:id="image" fitHeight="200.0" fitWidth="200.0" layoutX="42.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../29/washingMachine.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="-214.0" layoutY="-105.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../29/washingMachine.png" />
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

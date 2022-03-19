@@ -29,10 +29,7 @@ public class InsteadQuestionScreenCtrl {
     private Button thirdAnswer;
 
     @FXML
-    private ImageView imageQuestion;
-
-    @FXML
-    private Text question;
+    private ImageView image;
 
     @FXML
     private ProgressBar time;
@@ -44,13 +41,7 @@ public class InsteadQuestionScreenCtrl {
     private Label questionTitle;
 
     @FXML
-    private Circle circle1;
-
-    @FXML
-    private Circle circle2;
-
-    @FXML
-    private Circle circle3;
+    private Text description;
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -97,7 +88,7 @@ public class InsteadQuestionScreenCtrl {
      * @param questionText the question text
      */
     public void setQuestion(Text questionText) {
-        question.setText(String.valueOf(questionText));
+        questionTitle.setText(String.valueOf(questionText));
     }
 
     class BeginThread implements Runnable {
@@ -138,26 +129,5 @@ public class InsteadQuestionScreenCtrl {
         time.setProgress(0.0);
         Thread thread = new Thread(new InsteadQuestionScreenCtrl.BeginThread());
         thread.start();
-    }
-
-    /**
-     * Turns the first circle black.
-     */
-    public void turnBlack1() {
-        circle1.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#000000")).toString().substring(2));
-    }
-
-    /**
-     * Turns the second circle black.
-     */
-    public void turnBlack2() {
-        circle2.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#000000")).toString().substring(2));
-    }
-
-    /**
-     * Turns the third circle black.
-     */
-    public void turnBlack3() {
-        circle3.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#000000")).toString().substring(2));
     }
 }

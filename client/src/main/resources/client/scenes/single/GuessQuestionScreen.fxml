@@ -5,13 +5,13 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.image.Image?>
 <AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.single.GuessQuestionScreenCtrl">
     <children>
-      <Button layoutX="14.0" layoutY="108.0" mnemonicParsing="false" prefHeight="278.0" prefWidth="217.0" />
+      <Button layoutX="83.0" layoutY="110.0" mnemonicParsing="false" prefHeight="278.0" prefWidth="217.0" />
         <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
             <font>
                 <Font name="SansSerif Regular" size="12.0" />
@@ -33,50 +33,39 @@
                 <Font name="SansSerif Bold" size="24.0" />
             </font>
         </Label>
-        <Button fx:id="firstAnswer" layoutX="320.0" layoutY="139.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="180.0" stylesheets="@../../../styling/GameStyle.css" textFill="#006e8c">
+        <Button fx:id="firstAnswer" layoutX="320.0" layoutY="139.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="180.0" stylesheets="@../../../styling/GameStyle.css" text="500 Wh" textFill="#006e8c">
             <font>
                 <Font name="SansSerif Bold" size="18.0" />
             </font>
         </Button>
-        <Button fx:id="secondAnswer" layoutX="320.0" layoutY="192.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="180.0" stylesheets="@../../../styling/GameStyle.css" textFill="#006e8c">
+        <Button fx:id="secondAnswer" layoutX="320.0" layoutY="192.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="180.0" stylesheets="@../../../styling/GameStyle.css" text="75 Wh" textFill="#006e8c">
             <font>
                 <Font name="SansSerif Bold" size="18.0" />
             </font>
         </Button>
-        <Button fx:id="thirdAnswer" layoutX="320.0" layoutY="242.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="180.0" stylesheets="@../../../styling/GameStyle.css" textFill="#006e8c">
+        <Button fx:id="thirdAnswer" layoutX="320.0" layoutY="242.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="180.0" stylesheets="@../../../styling/GameStyle.css" text="150 Wh" textFill="#006e8c">
             <font>
                 <Font name="SansSerif Bold" size="18.0" />
             </font>
         </Button>
-        <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="-191.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true" />
-        <Text layoutX="23.0" layoutY="343.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="200.0">
+        <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="-191.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../29/washingMachine.png" />
+            </image>
+        </ImageView>
+        <Text fx:id="description" layoutX="92.0" layoutY="349.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="200.0">
             <font>
                 <Font size="20.0" />
             </font></Text>
-        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="23.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="-214.0" layoutY="-105.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="submit" layoutX="320.0" layoutY="314.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="180.0" stylesheets="@../../../styling/GameStyle.css" text="Answer" textFill="#006e8c">
-         <font>
-            <Font name="SansSerif Bold" size="18.0" />
-         </font>
-      </Button>
-      <Text layoutX="429.0" layoutY="166.0" text="500 Wh" wrappingWidth="59.0">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <Text layoutX="435.0" layoutY="219.0" text="75 Wh" wrappingWidth="48.0">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <Text layoutX="423.0" layoutY="269.0" text="150 Wh" wrappingWidth="59.0">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <Circle fx:id="circle1" fill="WHITE" layoutX="350.0" layoutY="161.0" onMouseClicked="#turnBlack1" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="circle2" fill="WHITE" layoutX="350.0" layoutY="214.0" onMouseClicked="#turnBlack2" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="circle3" fill="WHITE" layoutX="350.0" layoutY="264.0" onMouseClicked="#turnBlack3" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <ImageView fx:id="image" fitHeight="200.0" fitWidth="200.0" layoutX="92.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../29/washingMachine.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="-214.0" layoutY="-105.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../29/washingMachine.png" />
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

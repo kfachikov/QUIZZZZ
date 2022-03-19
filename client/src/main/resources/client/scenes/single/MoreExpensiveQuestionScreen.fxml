@@ -8,6 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.image.Image?>
 <AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.single.MoreExpensiveQuestionScreenCtrl">
 <children>
     <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
@@ -46,19 +47,31 @@
             <Font name="SansSerif Bold" size="18.0" />
         </font>
     </Button>
-      <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="25.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true" />
-    <Text layoutX="26.0" layoutY="305.0" text="Taking a hot shower. (50l water)" wrappingWidth="159.0">
+      <ImageView fx:id="image1" fitHeight="160.0" fitWidth="160.0" layoutX="25.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+              <Image url="@../../../../../../../29/washingMachine.png" />
+          </image>
+      </ImageView>
+    <Text fx:id="description1" layoutX="26.0" layoutY="305.0" text="Taking a hot shower. (50l water)" wrappingWidth="159.0">
          <font>
             <Font size="15.0" />
          </font></Text>
-      <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="220.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="415.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true" />
-      <Text layoutX="221.0" layoutY="304.0" text="Cooking a meal on your hot plate (30 min)" wrappingWidth="159.0">
+      <ImageView fx:id="image2" fitHeight="160.0" fitWidth="160.0" layoutX="220.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+    <image>
+        <Image url="@../../../../../../../29/washingMachine.png" />
+    </image>
+    </ImageView>
+      <ImageView fx:id="image3" fitHeight="160.0" fitWidth="160.0" layoutX="415.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+              <Image url="@../../../../../../../29/washingMachine.png" />
+          </image>
+    </ImageView>
+      <Text fx:id="description2" layoutX="221.0" layoutY="304.0" text="Cooking a meal on your hot plate (30 min)" wrappingWidth="159.0">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <Text layoutX="416.0" layoutY="304.0" text="Playing a game on your Playstation (3h)" wrappingWidth="159.0">
+      <Text fx:id="description3" layoutX="416.0" layoutY="304.0" text="Playing a game on your Playstation (3h)" wrappingWidth="159.0">
          <font>
             <Font size="15.0" />
          </font>

@@ -91,7 +91,7 @@ public class SoloGameQuestionScreenCtrl {
      * @param questionText the question text
      */
     public void setQuestion(Text questionText) {
-        question.setText(String.valueOf(questionText));
+        questionTitle.setText(String.valueOf(questionText));
     }
 
     class BeginThread implements Runnable {

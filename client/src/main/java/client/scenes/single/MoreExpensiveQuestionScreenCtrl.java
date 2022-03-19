@@ -27,12 +27,6 @@ public class MoreExpensiveQuestionScreenCtrl {
     private Button thirdAnswer;
 
     @FXML
-    private ImageView imageQuestion;
-
-    @FXML
-    private Text question;
-
-    @FXML
     private ProgressBar time;
 
     @FXML
@@ -40,6 +34,24 @@ public class MoreExpensiveQuestionScreenCtrl {
 
     @FXML
     private Label questionTitle;
+
+    @FXML
+    private ImageView image1;
+
+    @FXML
+    private ImageView image2;
+
+    @FXML
+    private ImageView image3;
+
+    @FXML
+    private Text description1;
+
+    @FXML
+    private Text description2;
+
+    @FXML
+    private Text description3;
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -86,7 +98,7 @@ public class MoreExpensiveQuestionScreenCtrl {
      * @param questionText the question text
      */
     public void setQuestion(Text questionText) {
-        question.setText(String.valueOf(questionText));
+        questionTitle.setText(String.valueOf(questionText));
     }
 
     class BeginThread implements Runnable {

@@ -29,28 +29,16 @@ public class GuessQuestionScreenCtrl {
     private Button thirdAnswer;
 
     @FXML
-    private ImageView imageQuestion;
+    private ImageView image;
 
     @FXML
-    private Text question;
+    private Label questionTitle;
 
     @FXML
     private ProgressBar time;
 
     @FXML
     private Button leaveButton;
-
-    @FXML
-    private Label questionTitle;
-
-    @FXML
-    private Circle circle1;
-
-    @FXML
-    private Circle circle2;
-
-    @FXML
-    private Circle circle3;
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -97,7 +85,7 @@ public class GuessQuestionScreenCtrl {
      * @param questionText the question text
      */
     public void setQuestion(Text questionText) {
-        question.setText(String.valueOf(questionText));
+        questionTitle.setText(String.valueOf(questionText));
     }
 
     class BeginThread implements Runnable {
@@ -138,26 +126,5 @@ public class GuessQuestionScreenCtrl {
         time.setProgress(0.0);
         Thread thread = new Thread(new GuessQuestionScreenCtrl.BeginThread());
         thread.start();
-    }
-
-    /**
-     * Turns the first circle black.
-     */
-    public void turnBlack1() {
-        circle1.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#000000")).toString().substring(2));
-    }
-
-    /**
-     * Turns the second circle black.
-     */
-    public void turnBlack2() {
-        circle2.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#000000")).toString().substring(2));
-    }
-
-    /**
-     * Turns the third circle black.
-     */
-    public void turnBlack3() {
-        circle3.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#000000")).toString().substring(2));
     }
 }
