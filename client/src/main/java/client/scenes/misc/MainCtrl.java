@@ -87,11 +87,11 @@ public class MainCtrl {
                            Pair<QueueScreenCtrl, Parent> queue,
                            Pair<AdministratorScreenCtrl, Parent> administrator,
                            Pair<MultiGameQuestionScreenCtrl, Parent> multiGame,
-                           Pair<CongratulationsScreenCtrl, Parent> congratulations
                            Pair<MoreExpensiveQuestionScreenCtrl, Parent> moreExpensive,
                            Pair<ConsumptionQuestionScreenCtrl, Parent> consumption,
                            Pair<InsteadQuestionScreenCtrl, Parent> instead,
-                           Pair<GuessQuestionScreenCtrl, Parent> guess) {
+                           Pair<GuessQuestionScreenCtrl, Parent> guess,
+                           Pair<CongratulationsScreenCtrl, Parent> congratulations) {
 
         this.primaryStage = primaryStage;
 
