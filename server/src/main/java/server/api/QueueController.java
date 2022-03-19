@@ -1,8 +1,8 @@
 package server.api;
 
 
-import commons.QueueState;
-import commons.QueueUser;
+import commons.queue.QueueState;
+import commons.queue.QueueUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +18,7 @@ public class QueueController {
 
     private boolean gameStarting;
     private long startTimeInMs;
+    private long upcomingGameId;
 
     public QueueController(QueueUserRepository repo) {
         this.repo = repo;
@@ -36,7 +37,7 @@ public class QueueController {
     }
 
     private QueueState getCurrentQueue() {
-        return new QueueState(repo.findAll(), gameStarting, startTimeInMs - new Date().getTime());
+        return new QueueState(repo.findAll(), gameStarting, startTimeInMs - new Date().getTime(), upcomingGameId);
     }
 
     /**
@@ -48,9 +49,9 @@ public class QueueController {
      */
     @PostMapping("")
     public ResponseEntity<QueueUser> add(@RequestBody QueueUser user) {
-        if (user == null || isNullOrEmpty(user.username)) {
+        if (user == null || isNullOrEmpty(user.getUsername())) {
             return ResponseEntity.badRequest().build();
-        } else if (repo.existsQueueUserByUsername(user.username)) {
+        } else if (repo.existsQueueUserByUsername(user.getUsername())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         QueueUser saved = repo.save(user);

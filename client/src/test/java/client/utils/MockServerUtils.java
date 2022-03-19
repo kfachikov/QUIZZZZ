@@ -1,8 +1,8 @@
 package client.utils;
 
-import commons.QueueState;
-import commons.QueueUser;
-import commons.SingleUser;
+import commons.queue.QueueState;
+import commons.queue.QueueUser;
+import commons.single.SingleUser;
 
 import java.util.ArrayList;
 import java.util.List;

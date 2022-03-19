@@ -1,6 +1,6 @@
 package server.api;
 
-import commons.SingleUser;
+import commons.single.SingleUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

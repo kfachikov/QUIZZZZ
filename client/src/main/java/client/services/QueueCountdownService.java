@@ -1,7 +1,7 @@
 package client.services;
 
 import client.utils.ServerUtils;
-import commons.QueueState;
+import commons.queue.QueueState;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -77,7 +77,7 @@ public class QueueCountdownService extends Service<Long> {
 
                 getCount().set(3000);
 
-                timeline.playFrom(Duration.millis(3000 - queueState.msToStart));
+                timeline.playFrom(Duration.millis(3000 - queueState.getMsToStart()));
 
                 // TODO
                 // Set gameId to the actual gameId, instead of a dummy value
