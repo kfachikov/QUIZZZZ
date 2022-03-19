@@ -75,8 +75,8 @@
             <Font size="15.0" />
          </font>
       </Text>
-      <Circle fill="WHITE" layoutX="350.0" layoutY="161.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="WHITE" layoutX="350.0" layoutY="214.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="WHITE" layoutX="350.0" layoutY="264.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle1" fill="WHITE" layoutX="350.0" layoutY="161.0" onMouseClicked="#turnBlack1" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle2" fill="WHITE" layoutX="350.0" layoutY="214.0" onMouseClicked="#turnBlack2" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle3" fill="WHITE" layoutX="350.0" layoutY="264.0" onMouseClicked="#turnBlack3" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
     </children>
 </AnchorPane>

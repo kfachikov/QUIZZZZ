@@ -6,6 +6,8 @@ import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 import java.util.Optional;
@@ -40,6 +42,15 @@ public class HowMuchQuestionScreenCtrl {
 
     @FXML
     private Label questionTitle;
+
+    @FXML
+    private Circle circle1;
+
+    @FXML
+    private Circle circle2;
+
+    @FXML
+    private Circle circle3;
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -127,5 +138,26 @@ public class HowMuchQuestionScreenCtrl {
         time.setProgress(0.0);
         Thread thread = new Thread(new HowMuchQuestionScreenCtrl.BeginThread());
         thread.start();
+    }
+
+    /**
+     * Turns the circle black.
+     */
+    public void turnBlack1() {
+        circle1.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#000000")).toString().substring(2));
+    }
+
+    /**
+     * Turns the circle black.
+     */
+    public void turnBlack2() {
+        circle2.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#000000")).toString().substring(2));
+    }
+
+    /**
+     * Turns the circle black.
+     */
+    public void turnBlack3() {
+        circle3.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#000000")).toString().substring(2));
     }
 }
