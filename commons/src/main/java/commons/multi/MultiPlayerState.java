@@ -13,6 +13,10 @@ public class MultiPlayerState extends GameState {
     private List<MultiPlayer> players;
     private Reaction reaction;
 
+    public MultiPlayerState() {
+        
+    }
+
     /**
      * Constructor for the state of the multiplayer game.
      * @param id the id of the game.

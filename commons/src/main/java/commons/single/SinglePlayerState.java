@@ -15,6 +15,10 @@ public class SinglePlayerState extends GameState {
     public static final String TRANSITION_STATE = "TRANSITION";
     SinglePlayer player;
 
+    public SinglePlayerState() {
+
+    }
+
     /**
      * Constructor for the state of the solo game.
      * @param id the id of the game.

@@ -17,6 +17,10 @@ public abstract class GameState {
      */
     private String state;
 
+    public GameState() {
+
+    }
+
     /**
      * Constructor for the state of the game.
      * @param id the id of the game.

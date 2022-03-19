@@ -10,6 +10,9 @@ public abstract class Player {
     private String username;
     private int score;
 
+    public Player() {
+    }
+
     /**
      * Constructor for Singleplayer and Multiplayer.
      * @param username the name of the user

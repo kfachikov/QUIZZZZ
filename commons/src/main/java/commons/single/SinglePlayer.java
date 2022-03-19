@@ -12,6 +12,10 @@ import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
  */
 public class SinglePlayer extends Player {
 
+    public SinglePlayer() {
+        super();
+    }
+
     /**
      * Constructor for the SinglePlayer instances.
      * @param username the name of the player
@@ -20,8 +24,6 @@ public class SinglePlayer extends Player {
     public SinglePlayer(String username, int score) {
         super(username, score);
     }
-
-
 
     /**
      * The method checks whether two instances of SinglePlayer are equal.
