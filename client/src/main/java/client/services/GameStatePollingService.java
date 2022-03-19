@@ -1,8 +1,8 @@
 package client.services;
 
 import client.utils.ServerUtils;
-import commons.GameState;
-import commons.SinglePlayerState;
+import commons.misc.GameState;
+import commons.single.SinglePlayerState;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 

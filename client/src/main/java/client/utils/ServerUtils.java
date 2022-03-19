@@ -15,7 +15,14 @@
  */
 package client.utils;
 
-import commons.*;
+import commons.misc.Activity;
+import commons.misc.GameState;
+import commons.misc.Response;
+import commons.queue.QueueState;
+import commons.queue.QueueUser;
+import commons.single.SinglePlayer;
+import commons.single.SinglePlayerState;
+import commons.single.SingleUser;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
@@ -62,7 +69,7 @@ public class ServerUtils {
     }
 
     public QueueUser deleteQueueUser(QueueUser user) {
-        long id = user.id;
+        long id = user.getId();
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/queue/" + String.valueOf(id))

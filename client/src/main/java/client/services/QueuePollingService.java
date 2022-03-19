@@ -1,7 +1,7 @@
 package client.services;
 
 import client.utils.ServerUtils;
-import commons.QueueState;
+import commons.queue.QueueState;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 

@@ -1,6 +1,11 @@
 package server.api;
 
-import commons.*;
+import commons.misc.Response;
+import commons.question.ConsumptionQuestion;
+import commons.single.SinglePlayerState;
+import commons.misc.Activity;
+import commons.question.AbstractQuestion;
+import commons.single.SinglePlayer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -200,8 +205,8 @@ public class SingleplayerStateController {
     private List<AbstractQuestion> generateQuestions() {
         List<AbstractQuestion> questions = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            ActivityConsumptionQuestionType acqt = new ActivityConsumptionQuestionType("1 12 121", "mockup", 12);
-            acqt.answerChoices = List.of("1", "12", "121");
+            ConsumptionQuestion acqt = new ConsumptionQuestion();
+            acqt.setAnswerChoices(List.of("1", "12", "121"));
             questions.add(acqt);
         }
         return questions;

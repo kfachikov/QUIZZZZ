@@ -1,5 +1,8 @@
 package commons;
 
+import commons.misc.Activity;
+import commons.question.AbstractQuestion;
+
 import java.util.List;
 
 public abstract class GameState {
