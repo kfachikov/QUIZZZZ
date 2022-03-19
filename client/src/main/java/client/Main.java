@@ -55,6 +55,6 @@ public class Main extends Application {
         var instead = FXML.load(InsteadQuestionScreenCtrl.class, "client", "single", "InsteadQuestionScreen.fxml");
         
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator, multiGame, moreExpensive, guess);
+        mainCtrl.initialize(primaryStage, home, help, prep, soloGame, queue, administrator, multiGame, moreExpensive, guess, instead);
     }
 }
