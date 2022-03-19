@@ -19,6 +19,8 @@ import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
 import commons.queue.QueueUser;
+import commons.single.SinglePlayer;
+import commons.single.SinglePlayerState;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -142,9 +144,10 @@ public class MainCtrl {
     /**
      * sets the title and the scene as prep.
      */
-    public void showPrep() {
+    public void showPrep(SinglePlayer singlePlayer) {
         primaryStage.setTitle("Quizzz: Prepare");
         primaryStage.setScene(prep);
+        prepCtrl.setSinglePlayer(singlePlayer);
     }
 
     /**
@@ -158,10 +161,14 @@ public class MainCtrl {
     /**
      * sets the title and the scene as single-player game.
      */
-    public synchronized void showSoloGameQuestion() {
+    public synchronized void showSoloGameQuestion(SinglePlayer singlePlayer, SinglePlayerState singlePlayerState) {
         primaryStage.setTitle("Quizzz: Single-player Game");
         primaryStage.setScene(soloGame);
         soloGameCtrl.startTimer();
+        soloGameCtrl.setSinglePlayer(singlePlayer);
+        soloGameCtrl.setSinglePlayerState(singlePlayerState);
+        soloGameCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
+        soloGameCtrl.getPollingService().start();
     }
 
     /**

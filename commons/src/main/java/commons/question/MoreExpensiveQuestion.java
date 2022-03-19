@@ -1,10 +1,12 @@
 package commons.question;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import commons.misc.Activity;
 
 import java.util.Collections;
 import java.util.List;
 
+@JsonTypeName(value = "moreExpensive")
 public class MoreExpensiveQuestion extends AbstractQuestion {
     
     /**
