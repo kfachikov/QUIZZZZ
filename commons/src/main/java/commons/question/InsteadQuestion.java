@@ -1,5 +1,6 @@
 package commons.question;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import commons.misc.Activity;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@JsonTypeName(value = "instead")
 public class InsteadQuestion extends AbstractQuestion {
 
     private Activity activity;

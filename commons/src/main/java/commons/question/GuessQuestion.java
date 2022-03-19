@@ -1,7 +1,9 @@
 package commons.question;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import commons.misc.Activity;
 
+@JsonTypeName(value = "guess")
 public class GuessQuestion extends AbstractQuestion {
     /**
      * The activity the question is about.

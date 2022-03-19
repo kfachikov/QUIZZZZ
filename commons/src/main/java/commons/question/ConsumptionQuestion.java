@@ -1,9 +1,11 @@
 package commons.question;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import commons.misc.Activity;
 
 import java.util.*;
 
+@JsonTypeName(value = "consumption")
 public class ConsumptionQuestion extends AbstractQuestion {
     private Activity activity;
     private List<String> answerChoices;

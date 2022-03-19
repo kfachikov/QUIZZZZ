@@ -10,8 +10,12 @@ public class Response {
     private long gameId;
     private double timeSubmitted;
     private int roundNumber;
-    private final String playerUsername;
+    private String playerUsername;
     private String answerChoice;
+
+    private Response() {
+
+    }
 
     /**
      * Constructor for the response instance.
