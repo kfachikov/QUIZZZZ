@@ -122,4 +122,12 @@ public class GuessQuestionScreenCtrl {
         Thread thread = new Thread(new GuessQuestionScreenCtrl.BeginThread());
         thread.start();
     }
+
+    /**
+     * The method saves the input of the user.
+     */
+    public String userInput() {
+        String userAnswer = input.getText();
+        return userAnswer;
+    }
 }

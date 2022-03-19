@@ -28,7 +28,7 @@
                 <Font name="System Bold" size="18.0" />
             </font>
         </Label>
-        <Label fx:id="questionTitle" layoutX="119.0" layoutY="71.0" prefHeight="39.0" prefWidth="363.0" stylesheets="@../../../styling/GameStyle.css" text="How much energy does it take?" textAlignment="CENTER" textFill="#006e8c">
+        <Label fx:id="questionTitle" layoutX="90.0" layoutY="71.0" prefHeight="39.0" prefWidth="438.0" stylesheets="@../../../styling/GameStyle.css" text="How much energy does it take in Wh?" textAlignment="CENTER" textFill="#006e8c">
             <font>
                 <Font name="SansSerif Bold" size="24.0" />
             </font>
