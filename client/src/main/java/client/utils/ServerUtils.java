@@ -22,7 +22,6 @@ import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
-import commons.single.SingleUser;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
@@ -80,7 +79,7 @@ public class ServerUtils {
 
     /**
      * GET request to api/solo.
-     *
+     * <p>
      * Would be used for "constant" polling so that the game state is kept up to date.
      *
      * @return The current state of the ongoing game.
@@ -114,6 +113,7 @@ public class ServerUtils {
     There is a problem with the "object mapper" for the question classes.
     Should have some default constructors.
     */
+
     /**
      * POST request to /api/solo/start, to start the single-player game.
      *
@@ -161,6 +161,7 @@ public class ServerUtils {
                 .target(currentServer).path("/api/activities")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<List<Activity>>() {});
+                .get(new GenericType<List<Activity>>() {
+                });
     }
 }

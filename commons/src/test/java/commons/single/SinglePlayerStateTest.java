@@ -1,11 +1,7 @@
 package commons.single;
 
 import commons.misc.Activity;
-import commons.misc.GameState;
 import commons.misc.Response;
-import commons.multi.MultiPlayer;
-import commons.multi.MultiPlayerState;
-import commons.multi.Reaction;
 import commons.question.AbstractQuestion;
 import commons.question.GuessQuestion;
 import org.junit.jupiter.api.BeforeEach;
@@ -65,9 +61,9 @@ class SinglePlayerStateTest {
 
         player2 = new SinglePlayer("Lu", 10);
 
-        game = new SinglePlayerState(37, 5500,2, questions, answers, activities, "question", player1);
-        game2 = new SinglePlayerState(37, 5500,2, questions, answers, activities, "question", player1);
-        game3 = new SinglePlayerState(37, 5500,2, questions, answers2, activities, "question", player2);
+        game = new SinglePlayerState(37, 5500, 2, questions, answers, activities, "question", player1);
+        game2 = new SinglePlayerState(37, 5500, 2, questions, answers, activities, "question", player1);
+        game3 = new SinglePlayerState(37, 5500, 2, questions, answers2, activities, "question", player2);
     }
 
     @Test

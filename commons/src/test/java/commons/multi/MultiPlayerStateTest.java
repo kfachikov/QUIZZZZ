@@ -1,7 +1,6 @@
 package commons.multi;
 
 import commons.misc.Activity;
-import commons.misc.GameState;
 import commons.misc.Response;
 import commons.question.AbstractQuestion;
 import commons.question.GuessQuestion;
@@ -69,9 +68,9 @@ class MultiPlayerStateTest {
 
         reaction = new Reaction(Arrays.asList("sad", "tired"));
 
-        game = new MultiPlayerState(37, 5500,2, questions, answers, activities, "question", players, reaction);
-        game2 = new MultiPlayerState(37, 5500,2, questions, answers, activities, "question", players, reaction);
-        game3 = new MultiPlayerState(37, 5500,2, questions, answers2, activities, "question", players, reaction);
+        game = new MultiPlayerState(37, 5500, 2, questions, answers, activities, "question", players, reaction);
+        game2 = new MultiPlayerState(37, 5500, 2, questions, answers, activities, "question", players, reaction);
+        game3 = new MultiPlayerState(37, 5500, 2, questions, answers2, activities, "question", players, reaction);
     }
 
     @Test
