@@ -17,6 +17,7 @@ package client.scenes.misc;
 
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
+import client.scenes.single.GuessQuestionScreenCtrl;
 import client.scenes.single.MoreExpensiveQuestionScreenCtrl;
 import client.scenes.single.PrepScreenCtrl;
 import client.scenes.single.SoloGameQuestionScreenCtrl;
@@ -56,15 +57,19 @@ public class MainCtrl {
     private MultiGameQuestionScreenCtrl multiGameCtrl;
     private Scene multiGame;
 
-    private MoreExpensiveQuestionScreenCtrl moreEnergyCtrl;
-    private Scene moreEnergy;
+    private MoreExpensiveQuestionScreenCtrl moreExpensiveCtrl;
+    private Scene moreExpensive;
+
+    private GuessQuestionScreenCtrl guessCtrl;
+    private Scene guess;
 
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
      * @param home         is the home screen pair variable
      * @param help         is the help screen pair variable
      * @param prep         is the prepare screen pair variable
-     * @param moreEnergy
+     * @param moreExpensive is the moreExpensiveQuestion screen pair variable
+     * @param guess is the guessQuestion screen pair variable
      */
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
@@ -74,7 +79,8 @@ public class MainCtrl {
                            Pair<QueueScreenCtrl, Parent> queue,
                            Pair<AdministratorScreenCtrl, Parent> administrator,
                            Pair<MultiGameQuestionScreenCtrl, Parent> multiGame,
-                           Pair<MoreExpensiveQuestionScreenCtrl, Parent> moreEnergy) {
+                           Pair<MoreExpensiveQuestionScreenCtrl, Parent> moreExpensive,
+                           Pair<GuessQuestionScreenCtrl, Parent> guess) {
 
         this.primaryStage = primaryStage;
 
@@ -99,8 +105,11 @@ public class MainCtrl {
         this.multiGameCtrl = multiGame.getKey();
         this.multiGame = new Scene(multiGame.getValue());
 
-        this.moreEnergyCtrl = moreEnergy.getKey();
-        this.moreEnergy = new Scene(moreEnergy.getValue());
+        this.moreExpensiveCtrl = moreExpensive.getKey();
+        this.moreExpensive = new Scene(moreExpensive.getValue());
+
+        this.guessCtrl = guess.getKey();
+        this.guess = new Scene(guess.getValue());
 
         showHome();
         primaryStage.show();
@@ -191,7 +200,16 @@ public class MainCtrl {
      */
     public void showMoreExpensiveQuestion() {
         primaryStage.setTitle("Quizzz: MoreExpensiveQuestion");
-        primaryStage.setScene(moreEnergy);
-        moreEnergyCtrl.startTimer();
+        primaryStage.setScene(moreExpensive);
+        moreExpensiveCtrl.startTimer();
+    }
+
+    /**
+     * sets the title and the scene as guessQuestion screen.
+     */
+    public void showGuessQuestion() {
+        primaryStage.setTitle("Quizzz: GuessQuestion");
+        primaryStage.setScene(guess);
+        guessCtrl.startTimer();
     }
 }

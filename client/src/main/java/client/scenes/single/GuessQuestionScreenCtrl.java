@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
 
 import java.util.Optional;
 
-public class HowMuchQuestionScreenCtrl {
+public class GuessQuestionScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
@@ -58,7 +58,7 @@ public class HowMuchQuestionScreenCtrl {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public HowMuchQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public GuessQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
@@ -136,26 +136,26 @@ public class HowMuchQuestionScreenCtrl {
     @FXML
     public synchronized void startTimer() {
         time.setProgress(0.0);
-        Thread thread = new Thread(new HowMuchQuestionScreenCtrl.BeginThread());
+        Thread thread = new Thread(new GuessQuestionScreenCtrl.BeginThread());
         thread.start();
     }
 
     /**
-     * Turns the circle black.
+     * Turns the first circle black.
      */
     public void turnBlack1() {
         circle1.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#000000")).toString().substring(2));
     }
 
     /**
-     * Turns the circle black.
+     * Turns the second circle black.
      */
     public void turnBlack2() {
         circle2.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#000000")).toString().substring(2));
     }
 
     /**
-     * Turns the circle black.
+     * Turns the third circle black.
      */
     public void turnBlack3() {
         circle3.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#000000")).toString().substring(2));

@@ -19,6 +19,7 @@ import client.scenes.misc.AdministratorScreenCtrl;
 import client.scenes.misc.HelpScreenCtrl;
 import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
+import client.scenes.single.GuessQuestionScreenCtrl;
 import client.scenes.single.PrepScreenCtrl;
 import client.scenes.single.SoloGameQuestionScreenCtrl;
 import client.scenes.single.MoreExpensiveQuestionScreenCtrl;
@@ -41,5 +42,6 @@ public class MyModule implements Module {
         binder.bind(SoloGameQuestionScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(AdministratorScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(MoreExpensiveQuestionScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(GuessQuestionScreenCtrl.class).in(Scopes.SINGLETON);
     }
 }
