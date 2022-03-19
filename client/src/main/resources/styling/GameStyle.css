@@ -46,7 +46,15 @@
     -fx-border-width: 3;
     visibility: false;
 }
-
 #start-label {
     -fx-background-color: #ffffffaa;
+}
+#error {
+    -fx-background-color: #f2dede;
+    -fx-background-radius: 15;
+    visibility: false;
+
+    -fx-border-width: 2;
+    -fx-border-color: #c62828;
+    -fx-border-radius: 15;
 }
