@@ -17,21 +17,21 @@ package server;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import server.utils.GenerateQuestionUtils;
+
 
 
 import java.util.Random;
 
 @Configuration
 public class Config {
-
+    /**
+     * Getter for a new random instance.
+     * @return new random instance
+     */
     @Bean
     public Random getRandom() {
         return new Random();
     }
 
-    @Bean
-    public GenerateQuestionUtils getRandomUtils() {
-        return new GenerateQuestionUtils();
-    }
+
 }

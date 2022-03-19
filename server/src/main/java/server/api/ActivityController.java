@@ -14,6 +14,10 @@ public class ActivityController {
 
     private final ActivityRepository repo;
 
+    /**
+     * Constructor for the activity controller.
+     * @param repo ActivityRepository instance
+     */
     public ActivityController(ActivityRepository repo) {
         this.repo = repo;
     }
@@ -101,18 +105,16 @@ public class ActivityController {
      */
     @PostMapping("/addToRepo")
     public ResponseEntity<List<Activity>> addActivities(@RequestBody List<Activity> activities) {
-        for (int i = 0; i < activities.size(); i++) {
-            if (isNullOrEmpty(activities.get(i).getId()) ||
-                    isNullOrEmpty(activities.get(i).getTitle()) ||
-                    isNullOrEmpty(activities.get(i).getSource()) ||
-                    isNullOrEmpty(activities.get(i).getImage()) ||
-                    activities.get(i).getConsumption() < 0) {
+        for (Activity value : activities) {
+            if (isNullOrEmpty(value.getId()) ||
+                    isNullOrEmpty(value.getTitle()) ||
+                    isNullOrEmpty(value.getSource()) ||
+                    isNullOrEmpty(value.getImage()) ||
+                    value.getConsumption() < 0) {
                 return ResponseEntity.badRequest().build();
             }
         }
-        for (Activity activity : activities) {
-            repo.save(activity);
-        }
+        repo.saveAll(activities);
         return ResponseEntity.ok(activities);
     }
 

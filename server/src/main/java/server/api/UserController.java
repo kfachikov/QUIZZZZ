@@ -13,10 +13,18 @@ public class UserController {
 
     private final UserRepository repo;
 
+    /**
+     * Constructor for the user controller.
+     * @param repo User repository final instance
+     */
     public UserController(UserRepository repo) {
         this.repo = repo;
     }
 
+    /**
+     * Get endpoint that retrieves all users from the user repository.
+     * @return the users existing in the repository
+     */
     @GetMapping("")
     public List<SingleUser> getAllUsers() {
         return repo.findAll();
@@ -35,6 +43,11 @@ public class UserController {
         return ResponseEntity.ok(saved);
     }
 
+    /**
+     * Checks whether a string is empty or not.
+     * @param s String variable
+     * @return true/false
+     */
     private static boolean isNullOrEmpty(String s) {
         return s == null || s.isEmpty();
     }
