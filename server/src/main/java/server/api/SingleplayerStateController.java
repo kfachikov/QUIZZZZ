@@ -28,6 +28,7 @@ public class SingleplayerStateController {
     public SingleplayerStateController(ActivityRepository repo) {
         this.repo = repo;
         this.games = new HashMap<>();
+        random = new Random();
     }
 
     /**
@@ -208,6 +209,7 @@ public class SingleplayerStateController {
      */
     private List<AbstractQuestion> generateQuestions() {
         GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils();
+
         List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions(random, repo);
         return questionList;
     }
@@ -225,7 +227,7 @@ public class SingleplayerStateController {
         // Check if we should be changing the state of the game
         if (time >= game.getNextPhase()) {
             if (game.getState().equals(SinglePlayerState.QUESTION_STATE)) {
-                if (game.getRoundNumber() >= 20) {
+                if (game.getRoundNumber() >= 3) {
                     game.setState(SinglePlayerState.GAME_OVER_STATE);
                 } else {
                     game.setState(SinglePlayerState.TRANSITION_STATE);

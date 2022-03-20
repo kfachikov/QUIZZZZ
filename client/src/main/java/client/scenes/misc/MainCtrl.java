@@ -162,40 +162,42 @@ public class MainCtrl {
      */
     public synchronized void showSoloGameQuestion(SinglePlayer singlePlayer, SinglePlayerState singlePlayerState) {
         primaryStage.setTitle("Quizzz: Single-player Game");
-        List<AbstractQuestion> questionList = singlePlayerState.getQuestionList();
-        for (int i = 0 ; i <= 19; i++) {
-            if (questionList.get(i) instanceof ConsumptionQuestion) {
-                consumptionCtrl.startTimer();
-                consumptionCtrl.setSinglePlayer(singlePlayer);
-                consumptionCtrl.setSinglePlayerState(singlePlayerState);
-                showConsumptionQuestion((ConsumptionQuestion) questionList.get(i));
-                consumptionCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
-                consumptionCtrl.getPollingService().start();
-            }
-            if (questionList.get(i) instanceof GuessQuestion) {
-                guessCtrl.startTimer();
-                guessCtrl.setSinglePlayer(singlePlayer);
-                guessCtrl.setSinglePlayerState(singlePlayerState);
-                showGuessQuestion((GuessQuestion) questionList.get(i));
-                guessCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
-                guessCtrl.getPollingService().start();
-            }
-            if (questionList.get(i) instanceof InsteadQuestion) {
-                insteadCtrl.startTimer();
-                insteadCtrl.setSinglePlayer(singlePlayer);
-                insteadCtrl.setSinglePlayerState(singlePlayerState);
-                showInsteadQuestion((InsteadQuestion) questionList.get(i));
-                insteadCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
-                insteadCtrl.getPollingService().start();
-            }
-            if (questionList.get(i) instanceof MoreExpensiveQuestion) {
-                moreExpensiveCtrl.startTimer();
-                moreExpensiveCtrl.setSinglePlayer(singlePlayer);
-                moreExpensiveCtrl.setSinglePlayerState(singlePlayerState);
-                showMoreExpensiveQuestion((MoreExpensiveQuestion) questionList.get(i));
-                moreExpensiveCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
-                moreExpensiveCtrl.getPollingService().start();
-            }
+        AbstractQuestion current = singlePlayerState.getQuestionList().get(singlePlayerState.getRoundNumber());
+        if (current instanceof ConsumptionQuestion) {
+            consumptionCtrl.getPollingService().stop();
+            consumptionCtrl.startTimer();
+            consumptionCtrl.setSinglePlayer(singlePlayer);
+            consumptionCtrl.setSinglePlayerState(singlePlayerState);
+            showConsumptionQuestion((ConsumptionQuestion) current);
+            consumptionCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
+            consumptionCtrl.getPollingService().start();
+        }
+        if (current instanceof GuessQuestion) {
+            guessCtrl.getPollingService().stop();
+            guessCtrl.startTimer();
+            guessCtrl.setSinglePlayer(singlePlayer);
+            guessCtrl.setSinglePlayerState(singlePlayerState);
+            showGuessQuestion((GuessQuestion) current);
+            guessCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
+            guessCtrl.getPollingService().start();
+        }
+        if (current instanceof InsteadQuestion) {
+            insteadCtrl.getPollingService().stop();
+            insteadCtrl.startTimer();
+            insteadCtrl.setSinglePlayer(singlePlayer);
+            insteadCtrl.setSinglePlayerState(singlePlayerState);
+            showInsteadQuestion((InsteadQuestion) current);
+            insteadCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
+            insteadCtrl.getPollingService().start();
+        }
+        if (current instanceof MoreExpensiveQuestion) {
+            moreExpensiveCtrl.getPollingService().stop();
+            moreExpensiveCtrl.startTimer();
+            moreExpensiveCtrl.setSinglePlayer(singlePlayer);
+            moreExpensiveCtrl.setSinglePlayerState(singlePlayerState);
+            showMoreExpensiveQuestion((MoreExpensiveQuestion) current);
+            moreExpensiveCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
+            moreExpensiveCtrl.getPollingService().start();
         }
     }
 

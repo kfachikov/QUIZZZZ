@@ -92,7 +92,10 @@ public class InsteadQuestionScreenCtrl {
             if (newGameState != null) {
                 switch (newGameState.getState()) {
                 case QUESTION_STATE:
-                    // load new question
+                    /*
+                    Should be fixed.
+                     */
+                    mainCtrl.showSoloGameQuestion(singlePlayer, singlePlayerState);
                     break;
                 case TRANSITION_STATE:
                     setScore(singlePlayerState.getPlayer().getScore());

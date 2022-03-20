@@ -31,17 +31,18 @@ public class InsteadQuestion extends AbstractQuestion {
      * Sets the possible answers for a question in a random way, having between them the correct answer.
      */
     public void setAnswerChoices(List<Activity> activities) {
+        this.answerChoices = new ArrayList<>();
         List<Activity> correct = activities.stream()
                 .filter(x -> x.getConsumption() <= activity.getConsumption())
                 .collect(Collectors.toList());
         Collections.shuffle(correct);
         List<Activity> incorrect = activities.stream()
-                .filter(x -> x.getConsumption() > activity.getConsumption())
+                .filter(x -> x.getConsumption() >= activity.getConsumption())
                 .collect(Collectors.toList());
         Collections.shuffle(incorrect);
         answerChoices.add(correct.get(0));
         answerChoices.add(incorrect.get(0));
-        answerChoices.add(incorrect.get(1));
+        answerChoices.add(incorrect.get(0));
     }
 
     /**
