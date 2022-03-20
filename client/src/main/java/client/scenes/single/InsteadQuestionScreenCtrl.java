@@ -69,10 +69,11 @@ public class InsteadQuestionScreenCtrl {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
+    public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, InsteadQuestion question) {
         this.pollingService = pollingService;
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.question = question;
     }
 
     /**
@@ -120,6 +121,7 @@ public class InsteadQuestionScreenCtrl {
      */
     public void submitAnswer(String chosenAnswer) {
         server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
+        singlePlayerState.addSubmittedAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
     }
 
     /**
@@ -163,7 +165,7 @@ public class InsteadQuestionScreenCtrl {
      * @return Boolean value whether the answer is correct or not.
      */
     public boolean compareAnswer() {
-        return true;
+        return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
     }
 
     /**

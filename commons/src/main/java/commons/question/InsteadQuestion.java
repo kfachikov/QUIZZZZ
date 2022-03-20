@@ -13,6 +13,7 @@ public class InsteadQuestion extends AbstractQuestion {
 
     private Activity activity;
     private List<Activity> answerChoices;
+    private Activity correctAnswer;
 
     public InsteadQuestion() {
         super();
@@ -43,6 +44,8 @@ public class InsteadQuestion extends AbstractQuestion {
         answerChoices.add(correct.get(0));
         answerChoices.add(incorrect.get(0));
         answerChoices.add(incorrect.get(0));
+        this.correctAnswer = answerChoices.get(0);
+        Collections.shuffle(answerChoices);
     }
 
     /**
@@ -65,5 +68,9 @@ public class InsteadQuestion extends AbstractQuestion {
 
     public List<Activity> getAnswerChoices() {
         return answerChoices;
+    }
+
+    public Activity getCorrectAnswer() {
+        return correctAnswer;
     }
 }

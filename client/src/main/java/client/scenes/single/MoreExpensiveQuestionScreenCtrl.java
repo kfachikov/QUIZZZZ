@@ -4,6 +4,7 @@ import client.scenes.misc.MainCtrl;
 import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.misc.Response;
 import commons.question.MoreExpensiveQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
@@ -11,9 +12,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
+import java.util.Date;
 import java.util.Optional;
+
+import static commons.single.SinglePlayerState.*;
 
 public class MoreExpensiveQuestionScreenCtrl {
     private final ServerUtils server;
@@ -78,10 +83,70 @@ public class MoreExpensiveQuestionScreenCtrl {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
+    public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, MoreExpensiveQuestion question) {
         this.pollingService = pollingService;
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.question = question;
+    }
+
+    /**
+     * Initializes the single-player game controller by:
+     *
+     * Binding answer choices to a method submitting that answer.
+     * Initializing a listener for the polling service property `state` which ensures the player is shown the right scene.
+     * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
+     */
+    @SuppressWarnings("checkstyle:Indentation")
+    public void initialize() {
+        firstAnswer.setOnAction((event -> submitAnswer(firstAnswer.getText())));
+        secondAnswer.setOnAction((event -> submitAnswer(secondAnswer.getText())));
+        thirdAnswer.setOnAction((event -> submitAnswer(thirdAnswer.getText())));
+
+        pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
+            if (newGameState != null) {
+                switch (newGameState.getState()) {
+                case QUESTION_STATE:
+                    // load new question
+                    break;
+                case TRANSITION_STATE:
+                    setScore(singlePlayerState.getPlayer().getScore());
+                    if (compareAnswer()) {
+                        window.setStyle("-fx-background-color: #" + (Paint.valueOf("aedd94")).toString().substring(2));
+                    } else {
+                        window.setStyle("-fx-background-color: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
+                    }
+                    break;
+                case GAME_OVER_STATE:
+                    // goes to congrats screen
+                    break;
+                }
+            }
+        }));
+    }
+
+    /**
+     * Sends a string to the server sa a chosen answer from the player.
+     *
+     * @param chosenAnswer String value of button clicked - answer chosen
+     */
+    public void submitAnswer(String chosenAnswer) {
+        server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
+        singlePlayerState.addSubmittedAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
+    }
+
+    /*
+    The following method should be re-written once the questions are generated and
+    decision on how to control the different scenes is taken.
+    */
+    /**
+     * Comparison of submitted answer and actual correct one.
+     * Both could be accessed through the singlePlayerState instance
+     *
+     * @return Boolean value whether the answer is correct or not.
+     */
+    public boolean compareAnswer() {
+        return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
     }
 
     /**

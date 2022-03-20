@@ -9,6 +9,7 @@ public class GuessQuestion extends AbstractQuestion {
      * The activity the question is about.
      */
     private Activity activity;
+    private long correctAnswer;
 
     public GuessQuestion() {
         super();
@@ -38,5 +39,13 @@ public class GuessQuestion extends AbstractQuestion {
 
     public void setActivity(Activity activity) {
         this.activity = activity;
+    }
+
+    public long getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer() {
+        this.correctAnswer = this.activity.getConsumption();
     }
 }

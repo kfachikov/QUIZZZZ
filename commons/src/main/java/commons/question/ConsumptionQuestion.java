@@ -9,7 +9,7 @@ import java.util.*;
 public class ConsumptionQuestion extends AbstractQuestion {
     private Activity activity;
     private List<String> answerChoices;
-    private long correct;
+    private long correctAnswer;
 
     public ConsumptionQuestion() {
         super();
@@ -29,8 +29,8 @@ public class ConsumptionQuestion extends AbstractQuestion {
      * Getter for the correct answer.
      * @return long variable
      */
-    public long getCorrect() {
-        return correct;
+    public long getCorrectAnswer() {
+        return correctAnswer;
     }
 
     /**
@@ -38,14 +38,14 @@ public class ConsumptionQuestion extends AbstractQuestion {
      */
     public void setAnswerChoices() {
         Random rnd = new Random();
-        this.correct = activity.getConsumption();
-        long lowerBound = correct / 2;
-        long upperBound = correct * 3 / 2;
+        this.correctAnswer = activity.getConsumption();
+        long lowerBound = correctAnswer / 2;
+        long upperBound = correctAnswer * 3 / 2;
         long answer1 = lowerBound + rnd.nextInt((int) (upperBound - lowerBound + 1));
         long answer2 = lowerBound + rnd.nextInt((int) (upperBound - lowerBound + 1));
         answerChoices.add(answer1 + "Wh");
         answerChoices.add(answer2 + "Wh");
-        answerChoices.add(correct + "Wh");
+        answerChoices.add(correctAnswer + "Wh");
         Collections.shuffle(answerChoices);
     }
 

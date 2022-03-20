@@ -3,7 +3,7 @@ package commons.misc;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import commons.multi.MultiPlayerState;
-import commons.question.*;
+import commons.question.AbstractQuestion;
 import commons.single.SinglePlayerState;
 
 import java.util.List;
@@ -190,5 +190,9 @@ public abstract class GameState {
     @Override
     public int hashCode() {
         return Objects.hash(nextPhase, roundNumber, questionList, submittedAnswers, activityList, state);
+    }
+
+    public void addSubmittedAnswer(Response response) {
+        this.submittedAnswers.add(response);
     }
 }

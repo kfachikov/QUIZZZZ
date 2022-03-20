@@ -81,6 +81,10 @@ public class GuessQuestionScreenCtrl {
      * @return Boolean value whether the answer is correct or not.
      */
     public boolean compareAnswer() {
+        //        if(singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer())))
+        //            return true;
+        //        else
+        //            return false;
         return true;
     }
 
