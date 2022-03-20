@@ -5,10 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import server.database.ActivityRepository;
 import commons.misc.Activity;
+import server.utils.GenerateQuestionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -172,5 +174,21 @@ class ActivityControllerTest {
         List<Activity> result = ctrl.addActivities(activities).getBody();
 
         assertEquals(activities, result);
+    }
+
+    @Test
+    public void testGenerateQuestions() {
+        Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
+        Activity activity2 = new Activity("newId2", "newTitle2", "newSource2", "newImage2", 201L);
+        Activity activity3 = new Activity("newId3", "newTitle3", "newSource3", "newImage3", 201L);
+
+        List<Activity> activities = new ArrayList<>();
+        activities.add(activity1);
+        activities.add(activity2);
+        List<Activity> result = ctrl.addActivities(activities).getBody();
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils();
+        Random random = new Random();
+
+        assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
     }
 }
