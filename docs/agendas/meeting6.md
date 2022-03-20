@@ -2,7 +2,7 @@
 
 Location: Drebbelweg, PC1, Cubicle 8
 
-Date: March 22th, Tuesday
+Date: March 22nd, Tuesday
 
 Time: 13.45
 
@@ -12,7 +12,7 @@ Chairperson: Marijn Luime
 
 Notetakers: Alexandra Darie, Kayra Bahadir
 
-Attendees: Florena Buse, Julius Gvozdiovas, Kaloyan Fachikov,  Monica Păun
+Attendees: Florena Buse, Julius Gvozdiovas, Kaloyan Fachikov, Monica Păun
 
 ## Preface
 
