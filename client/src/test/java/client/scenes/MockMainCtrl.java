@@ -1,6 +1,8 @@
 package client.scenes;
 
-import commons.QueueUser;
+import commons.queue.QueueUser;
+import client.scenes.misc.MainCtrl;
+import commons.single.SinglePlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,7 @@ public class MockMainCtrl extends MainCtrl {
      * sets the title and the scene as prep.
      */
     @Override
-    public void showPrep() {
+    public void showPrep(SinglePlayer singlePlayer) {
         call("showHome");
     }
 

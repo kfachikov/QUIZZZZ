@@ -1,8 +1,8 @@
 package server.utils;
 
-import commons.*;
+import commons.misc.Activity;
+import commons.question.*;
 import server.database.ActivityRepository;
-import commons.Activity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,31 +34,30 @@ public class GenerateQuestionUtils {
 
         while (questionNumber <= 5) {
             Activity activity = activities.get(questionNumber);
-            AlternativeConsumptionQuestionType alternativeConsumptionQuestionType = new AlternativeConsumptionQuestionType(activity.getTitle(), activity.getImage(), activity.getConsumption());
-            //alternativeConsumptionQuestionType.setAnswerChoices(activities);
-            result.add(alternativeConsumptionQuestionType);
+            InsteadQuestion insteadQuestion = new InsteadQuestion(activity);
+            insteadQuestion.setAnswerChoices(activities);
+            result.add(insteadQuestion);
             questionNumber++;
         }
 
         while (questionNumber <= 10) {
             Activity activity = activities.get(questionNumber);
-            ActivityConsumptionQuestionType activityConsumptionQuestionType = new ActivityConsumptionQuestionType(activity.getTitle(), activity.getImage(), activity.getConsumption());
-            activityConsumptionQuestionType.setAnswerChoices();
-            result.add(activityConsumptionQuestionType);
+            ConsumptionQuestion consumptionQuestion = new ConsumptionQuestion(activity);
+            consumptionQuestion.setAnswerChoices();
+            result.add(consumptionQuestion);
             questionNumber++;
         }
 
         while (questionNumber <= 15) {
-            Activity activity = activities.get(questionNumber);
-            HigherConsumptionQuestionType higherConsumptionQuestionType = new HigherConsumptionQuestionType(activity.getTitle(), activity.getImage(), activity.getConsumption());
-            //higherConsumptionQuestionType.setAnswerChoices(activities);
-            result.add(higherConsumptionQuestionType);
+            MoreExpensiveQuestion moreExpensiveQuestion = new MoreExpensiveQuestion();
+            moreExpensiveQuestion.setAnswerChoices(activities);
+            result.add(moreExpensiveQuestion);
             questionNumber++;
         }
 
         while (questionNumber <= 20) {
             Activity activity = activities.get(questionNumber);
-            GuessQuestionType guessQuestionType = new GuessQuestionType(activity.getTitle(), activity.getImage(), activity.getConsumption());
+            GuessQuestion guessQuestionType = new GuessQuestion(activity);
             result.add(guessQuestionType);
             questionNumber++;
         }

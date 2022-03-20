@@ -1,6 +1,6 @@
 package server.api;
 
-import commons.QueueUser;
+import commons.queue.QueueUser;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -24,7 +24,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
     }
 
     private Optional<QueueUser> find(Long id) {
-        return queueUsers.stream().filter(q -> q.id == id).findFirst();
+        return queueUsers.stream().filter(q -> q.getId() == id).findFirst();
     }
 
     @Override
@@ -41,7 +41,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
     /**
      * Returns a {@link Page} of entities meeting the paging restriction provided in the {@code Pageable} object.
      *
-     * @param pageable
+     * @param pageable Pageable item
      * @return a page of entities
      */
     @Override
@@ -129,7 +129,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
     @Override
     public <S extends QueueUser> S save(S entity) {
         call("save");
-        entity.id = queueUsers.size();
+        entity.setId(queueUsers.size());
         queueUsers.add(entity);
         return entity;
     }
@@ -292,20 +292,24 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      * @since 2.6
      */
     @Override
-    public <S extends QueueUser, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends QueueUser, R> R findBy(
+            Example<S> example,
+            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction
+    ) {
         return null;
     }
 
     /**
      * Checks whether a username is already present in our Lobby database - would keep only the players currently in
      * lobby of a particular server.
+     *
      * @param username String variable to check whether it exists.
      * @return Boolean value whether the username exists.
      */
     @Override
     public boolean existsQueueUserByUsername(String username) {
-        for (QueueUser currentUser: queueUsers) {
-            if (Objects.equals(username, currentUser.username)) {
+        for (QueueUser currentUser : queueUsers) {
+            if (Objects.equals(username, currentUser.getUsername())) {
                 return true;
             }
         }
