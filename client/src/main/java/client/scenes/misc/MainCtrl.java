@@ -31,7 +31,6 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.File;
-import java.util.List;
 
 public class MainCtrl {
 
