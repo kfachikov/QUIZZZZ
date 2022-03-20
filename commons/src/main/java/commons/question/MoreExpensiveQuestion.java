@@ -3,6 +3,7 @@ package commons.question;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import commons.misc.Activity;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
      */
     public MoreExpensiveQuestion() {
         super();
+        answerChoices = new ArrayList<>();
     }
 
     /**

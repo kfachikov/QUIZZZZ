@@ -49,7 +49,7 @@ public class Main extends Application {
         var administrator = FXML.load(AdministratorScreenCtrl.class, "client", "scenes", "misc", "AdministratorScreen.fxml");
         var multiGame = FXML.load(MultiGameQuestionScreenCtrl.class, "client", "scenes", "multi", "MultiGameQuestionScreen.fxml");
         var moreExpensive = FXML.load(MoreExpensiveQuestionScreenCtrl.class, "client", "scenes", "single", "question", "MoreExpensiveQuestionScreen.fxml");
-        var consumption = FXML.load(ConsumptionQuestionScreenCtrl.class, "client", "scenes", "single", "question", "consumptionQuestionScreen.fxml");
+        var consumption = FXML.load(ConsumptionQuestionScreenCtrl.class, "client", "scenes", "single", "question", "ConsumptionQuestionScreen.fxml");
         var instead = FXML.load(InsteadQuestionScreenCtrl.class, "client", "scenes", "single", "question", "InsteadQuestionScreen.fxml");
         var guess = FXML.load(GuessQuestionScreenCtrl.class, "client", "scenes", "single", "question", "GuessQuestionScreen.fxml");
         
