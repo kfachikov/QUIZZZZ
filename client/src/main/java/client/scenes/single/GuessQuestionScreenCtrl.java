@@ -37,7 +37,8 @@ public class GuessQuestionScreenCtrl {
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
-     * @param server is the server variable
+     *
+     * @param server   is the server variable
      * @param mainCtrl is the main controller variable
      */
     @Inject
@@ -69,6 +70,7 @@ public class GuessQuestionScreenCtrl {
 
     /**
      * Sets the current score.
+     *
      * @param score is the current score of the player
      */
     public void setScore(int score) {
@@ -77,6 +79,7 @@ public class GuessQuestionScreenCtrl {
 
     /**
      * Sets the question to the chosen questionText.
+     *
      * @param questionText the question text
      */
     public void setQuestion(Text questionText) {
@@ -125,6 +128,8 @@ public class GuessQuestionScreenCtrl {
 
     /**
      * The method saves the input of the user.
+     *
+     * @return Input of the user
      */
     public String userInput() {
         String userAnswer = input.getText();

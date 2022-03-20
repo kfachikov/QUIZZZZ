@@ -122,7 +122,11 @@ class SinglePlayerStateTest {
 
     @Test
     public void testSetQuestionList() {
-        List<AbstractQuestion> newQuestions = Arrays.asList(new GuessQuestion(new Activity("3", "taking a shower", "source3", "imag3", 270L)), new GuessQuestion(new Activity("2", "taking a shower", "source2", "imag2", 260L)));
+        List<AbstractQuestion> newQuestions =
+                Arrays.asList(
+                        new GuessQuestion(
+                                new Activity("3", "taking a shower", "source3", "imag3", 270L)),
+                        new GuessQuestion(new Activity("2", "taking a shower", "source2", "imag2", 260L)));
         game.setQuestionList(newQuestions);
 
         assertEquals(newQuestions, game.getQuestionList());

@@ -15,8 +15,9 @@ public abstract class Player {
 
     /**
      * Constructor for Singleplayer and Multiplayer.
+     *
      * @param username the name of the user
-     * @param score the score of the user
+     * @param score    the score of the user
      */
     public Player(String username, int score) {
         this.username = username;
@@ -25,6 +26,7 @@ public abstract class Player {
 
     /**
      * getter for the username.
+     *
      * @return the username of the entry
      */
     public String getUsername() {
@@ -33,6 +35,7 @@ public abstract class Player {
 
     /**
      * setter for the username.
+     *
      * @param username the new username of the entry
      */
     public void setUsername(String username) {
@@ -41,6 +44,7 @@ public abstract class Player {
 
     /**
      * getter for the score of the entry.
+     *
      * @return the score of the entry
      */
     public int getScore() {
@@ -49,6 +53,7 @@ public abstract class Player {
 
     /**
      * setter for the of the entry.
+     *
      * @param score new score of the entry
      */
     public void setScore(int score) {
@@ -57,6 +62,7 @@ public abstract class Player {
 
     /**
      * Checks if two instances are equal.
+     *
      * @param o the object that needs to be checked for equality
      * @return true/false
      */
@@ -74,6 +80,7 @@ public abstract class Player {
 
     /**
      * Generates the hashcode of the instance.
+     *
      * @return the hashcode of the entry
      */
     @Override
@@ -83,6 +90,7 @@ public abstract class Player {
 
     /**
      * Generates string value of the instance.
+     *
      * @return String version of the entry
      */
     @Override

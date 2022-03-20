@@ -16,6 +16,7 @@ public class GuessQuestion extends AbstractQuestion {
 
     /**
      * Constructor for the second question type.
+     *
      * @param activity the activity the question is about
      */
     public GuessQuestion(Activity activity) {
@@ -24,6 +25,7 @@ public class GuessQuestion extends AbstractQuestion {
 
     /**
      * Creates the second question format for the game.
+     *
      * @return the second question type in a human-readable way.
      */
     public String toString() {

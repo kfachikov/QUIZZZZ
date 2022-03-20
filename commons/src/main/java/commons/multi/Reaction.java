@@ -11,6 +11,7 @@ public class Reaction {
 
     /**
      * Constructor for the emojis.
+     *
      * @param emojis names of the reactions.
      */
     public Reaction(List<String> emojis) {
@@ -19,6 +20,7 @@ public class Reaction {
 
     /**
      * Getter for the list of emojis.
+     *
      * @return the list of emojis.
      */
     public List<String> getEmojis() {
@@ -27,6 +29,7 @@ public class Reaction {
 
     /**
      * Setter for the list of emojis.
+     *
      * @param emojis a list of emojis.
      */
     public void setEmojis(List<String> emojis) {
@@ -35,6 +38,7 @@ public class Reaction {
 
     /**
      * Compares two entities.
+     *
      * @param o the instance that is compared to.
      * @return true if the two entities are equal, otherwise it will be returned false.
      */
@@ -52,6 +56,7 @@ public class Reaction {
 
     /**
      * Computes the object's hash code.
+     *
      * @return the object's hash code.
      */
     @Override

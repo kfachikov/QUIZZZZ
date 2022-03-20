@@ -8,7 +8,7 @@ import java.util.List;
 
 @JsonTypeName(value = "moreExpensive")
 public class MoreExpensiveQuestion extends AbstractQuestion {
-    
+
     /**
      * List of activities that the players will choose from.
      */
@@ -28,6 +28,8 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
 
     /**
      * Sets the possible answers for a question in a random way, having between them the correct answer.
+     *
+     * @param activities List of all activities
      */
     public void setAnswerChoices(List<Activity> activities) {
         Collections.shuffle(activities);
@@ -42,6 +44,7 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
 
     /**
      * Creates the fourth question format for the game.
+     *
      * @return the fourth question type in a human-readable way.
      */
     public String toString() {

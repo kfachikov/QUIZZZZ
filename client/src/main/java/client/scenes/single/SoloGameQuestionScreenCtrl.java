@@ -1,7 +1,7 @@
 package client.scenes.single;
 
-import client.services.GameStatePollingService;
 import client.scenes.misc.MainCtrl;
+import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.misc.Response;
@@ -80,7 +80,7 @@ public class SoloGameQuestionScreenCtrl {
 
     /**
      * Initializes the single-player game controller by:
-     *
+     * <p>
      * Binding answer choices to a method submitting that answer.
      * Initializing a listener for the polling service property `state` which ensures the player is shown the right scene.
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
@@ -93,20 +93,22 @@ public class SoloGameQuestionScreenCtrl {
         pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
             if (newGameState != null) {
                 switch (newGameState.getState()) {
-                case QUESTION_STATE:
-                    // load new question
-                    break;
-                case TRANSITION_STATE:
-                    setScore(singlePlayerState.getPlayer().getScore());
-                    if (compareAnswer()) {
-                        window.setStyle("-fx-background-color: #" + (Paint.valueOf("aedd94")).toString().substring(2));
-                    } else {
-                        window.setStyle("-fx-background-color: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
-                    }
-                    break;
-                case GAME_OVER_STATE:
-                    // goes to congrats screen
-                    break;
+                    case QUESTION_STATE:
+                        // load new question
+                        break;
+                    case TRANSITION_STATE:
+                        setScore(singlePlayerState.getPlayer().getScore());
+                        if (compareAnswer()) {
+                            window.setStyle("-fx-background-color: #" +
+                                    (Paint.valueOf("aedd94")).toString().substring(2));
+                        } else {
+                            window.setStyle("-fx-background-color: #" +
+                                    (Paint.valueOf("ff8a84")).toString().substring(2));
+                        }
+                        break;
+                    case GAME_OVER_STATE:
+                        // goes to congrats screen
+                        break;
                 }
             }
         }));
@@ -118,13 +120,16 @@ public class SoloGameQuestionScreenCtrl {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
-        server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
+        server.postAnswer(new Response(singlePlayerState.getId(),
+                singlePlayerState.getNextPhase() - new Date().getTime(),
+                singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
     }
 
     /*
     The following method should be re-written once the questions are generated and
     decision on how to control the different scenes is taken.
      */
+
     /**
      * Comparison of submitted answer and actual correct one.
      * Both could be accessed through the singlePlayerState instance

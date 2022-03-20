@@ -19,11 +19,12 @@ public class Response {
 
     /**
      * Constructor for the response instance.
-     * @param gameId the id of the game in which the response was generated
-     * @param timeSubmitted the time it took the player to answer
-     * @param roundNumber the number of the current round
+     *
+     * @param gameId         the id of the game in which the response was generated
+     * @param timeSubmitted  the time it took the player to answer
+     * @param roundNumber    the number of the current round
      * @param playerUsername the name of the player
-     * @param answerChoice the final answer choice of the player
+     * @param answerChoice   the final answer choice of the player
      */
     public Response(long gameId, double timeSubmitted, int roundNumber, String playerUsername, String answerChoice) {
         this.gameId = gameId;
@@ -35,6 +36,7 @@ public class Response {
 
     /**
      * getter for the timeSubmitter.
+     *
      * @return timeSubmitted
      */
     public double getTimeSubmitted() {
@@ -43,6 +45,7 @@ public class Response {
 
     /**
      * setter for the timeSubmitted.
+     *
      * @param timeSubmitted the new timeSubmitted of the entry
      */
     public void setTimeSubmitted(double timeSubmitted) {
@@ -51,6 +54,7 @@ public class Response {
 
     /**
      * getter for the round number.
+     *
      * @return round number
      */
     public int getRoundNumber() {
@@ -59,6 +63,7 @@ public class Response {
 
     /**
      * setter for the round number.
+     *
      * @param roundNumber the new round number
      */
     public void setRoundNumber(int roundNumber) {
@@ -67,6 +72,7 @@ public class Response {
 
     /**
      * getter for the answer choice.
+     *
      * @return the answer choice
      */
     public String getAnswerChoice() {
@@ -75,6 +81,7 @@ public class Response {
 
     /**
      * setter for the answer choice.
+     *
      * @param answerChoice the new answer choice.
      */
     public void setAnswerChoice(String answerChoice) {
@@ -83,6 +90,7 @@ public class Response {
 
     /**
      * getter for the game id.
+     *
      * @return the game id
      */
     public long getGameId() {
@@ -91,6 +99,7 @@ public class Response {
 
     /**
      * setter for the game id.
+     *
      * @param gameId the new game id
      */
     public void setGameId(long gameId) {
@@ -99,6 +108,7 @@ public class Response {
 
     /**
      * getter for the player's name.
+     *
      * @return the player's name
      */
     public String getPlayerUsername() {
@@ -107,6 +117,7 @@ public class Response {
 
     /**
      * Checks whether two instances are equal.
+     *
      * @param o object that needs to be checked for equality
      * @return true/false
      */
@@ -119,11 +130,14 @@ public class Response {
             return false;
         }
         Response response = (Response) o;
-        return gameId == response.gameId && Double.compare(response.timeSubmitted, timeSubmitted) == 0 && roundNumber == response.roundNumber && playerUsername.equals(response.playerUsername) && answerChoice.equals(response.answerChoice);
+        return gameId == response.gameId && Double.compare(response.timeSubmitted, timeSubmitted) == 0 &&
+                roundNumber == response.roundNumber && playerUsername.equals(response.playerUsername) &&
+                answerChoice.equals(response.answerChoice);
     }
 
     /**
      * Generates hashcode for the entry.
+     *
      * @return hashcode
      */
     @Override
@@ -133,6 +147,7 @@ public class Response {
 
     /**
      * Generates string version of the entry.
+     *
      * @return string version of the entry
      */
     @Override

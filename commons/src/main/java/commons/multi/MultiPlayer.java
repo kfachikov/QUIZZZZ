@@ -6,7 +6,7 @@ import commons.misc.Player;
 import java.util.Objects;
 
 /**
- *The MultiPlayer class is used to represent the current player of the multiplayer game.
+ * The MultiPlayer class is used to represent the current player of the multiplayer game.
  */
 public class MultiPlayer extends Player {
 
@@ -20,13 +20,15 @@ public class MultiPlayer extends Player {
 
     /**
      * Constructor for the player who is playing multiplayer game.
-     * @param username the player's username.
-     * @param score the player's score.
-     * @param timeJoker the joker for reducing the time
+     *
+     * @param username             the player's username.
+     * @param score                the player's score.
+     * @param timeJoker            the joker for reducing the time
      * @param incorrectAnswerJoker the joker for eliminating an incorrect answer
-     * @param pointsDoubledJoker the joker for doubling the points.
+     * @param pointsDoubledJoker   the joker for doubling the points.
      */
-    public MultiPlayer(String username, int score, boolean timeJoker, boolean incorrectAnswerJoker, boolean pointsDoubledJoker) {
+    public MultiPlayer(String username, int score, boolean timeJoker,
+                       boolean incorrectAnswerJoker, boolean pointsDoubledJoker) {
         super(username, score);
         this.timeJoker = timeJoker;
         this.incorrectAnswerJoker = incorrectAnswerJoker;
@@ -35,6 +37,7 @@ public class MultiPlayer extends Player {
 
     /**
      * getter for the time joker.
+     *
      * @return timeJoker
      */
     public boolean getTimeJoker() {
@@ -43,6 +46,7 @@ public class MultiPlayer extends Player {
 
     /**
      * getter for the IncorrectAnswerJoker.
+     *
      * @return IncorrectAnswerJoker
      */
     public boolean getIncorrectAnswerJoker() {
@@ -51,6 +55,7 @@ public class MultiPlayer extends Player {
 
     /**
      * getter for the PointsDoubledJoker.
+     *
      * @return PointsDoubledJoker
      */
     public boolean getPointsDoubledJoker() {
@@ -59,6 +64,7 @@ public class MultiPlayer extends Player {
 
     /**
      * setter for the TimeJoker.
+     *
      * @param timeJoker the new TimeJoker
      */
     public void setTimeJoker(boolean timeJoker) {
@@ -67,6 +73,7 @@ public class MultiPlayer extends Player {
 
     /**
      * setter for the IncorrectAnswerJoker.
+     *
      * @param incorrectAnswerJoker the new IncorrectAnswerJoker
      */
     public void setIncorrectAnswerJoker(boolean incorrectAnswerJoker) {
@@ -75,6 +82,7 @@ public class MultiPlayer extends Player {
 
     /**
      * setter for the PointsDoubledJoker.
+     *
      * @param pointsDoubledJoker the new PointsDoubledJoker
      */
     public void setPointsDoubledJoker(boolean pointsDoubledJoker) {
@@ -83,6 +91,7 @@ public class MultiPlayer extends Player {
 
     /**
      * Checks wheter two instances are equal.
+     *
      * @param o the object that needs to be checked for equality
      * @return true/false
      */
@@ -95,12 +104,15 @@ public class MultiPlayer extends Player {
             return false;
         }
         MultiPlayer that = (MultiPlayer) o;
-        return timeJoker == that.timeJoker && incorrectAnswerJoker == that.incorrectAnswerJoker && pointsDoubledJoker == that.pointsDoubledJoker;
+        return timeJoker == that.timeJoker &&
+                incorrectAnswerJoker == that.incorrectAnswerJoker &&
+                pointsDoubledJoker == that.pointsDoubledJoker;
     }
 
     /**
      * Generates hashcode for the instance.
-     * @return  hashcode for the instance
+     *
+     * @return hashcode for the instance
      */
     @Override
     public int hashCode() {

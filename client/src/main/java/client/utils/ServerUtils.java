@@ -82,6 +82,7 @@ public class ServerUtils {
      * <p>
      * Would be used for "constant" polling so that the game state is kept up to date.
      *
+     * @param id Id of the game.
      * @return The current state of the ongoing game.
      */
     public GameState getSoloGameState(long id) {

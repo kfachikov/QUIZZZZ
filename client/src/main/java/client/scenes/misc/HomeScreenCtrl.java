@@ -55,7 +55,8 @@ public class HomeScreenCtrl {
             setDefault();
             ServerUtils.setCurrentServer(getServer());
             /* The following line is useless, as the SinglePlayer instances would be stored anywhere.
-               Still there could be some sort of POST request to the server, which would be used to check whether the server is valid.
+               Still there could be some sort of POST request to the server,
+               which would be used to check whether the server is valid.
                The missing username in this case could be handled in the getSinglePlayer() method, which
                could check whether the textField is null or empty.
             */
@@ -63,11 +64,11 @@ public class HomeScreenCtrl {
             mainCtrl.showPrep(getSinglePlayer());
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
-            case BAD_REQUEST:
-                usernameMissing();
-                break;
-            default:
-                unknownError();
+                case BAD_REQUEST:
+                    usernameMissing();
+                    break;
+                default:
+                    unknownError();
             }
         } catch (ProcessingException e) {
             serverInvalid();
@@ -107,14 +108,14 @@ public class HomeScreenCtrl {
             mainCtrl.showQueue(user);
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
-            case FORBIDDEN:
-                usernameNotUnique();
-                break;
-            case BAD_REQUEST:
-                usernameMissing();
-                break;
-            default:
-                unknownError();
+                case FORBIDDEN:
+                    usernameNotUnique();
+                    break;
+                case BAD_REQUEST:
+                    usernameMissing();
+                    break;
+                default:
+                    unknownError();
             }
         } catch (ProcessingException e) {
             serverInvalid();

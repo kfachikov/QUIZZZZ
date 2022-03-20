@@ -23,22 +23,26 @@ public class SinglePlayerState extends GameState {
 
     /**
      * Constructor for the state of the solo game.
-     * @param id the id of the game.
-     * @param nextPhase the time of the next phase.
-     * @param roundNumber the round number of the game.
-     * @param questionList the list of question for a game.
+     *
+     * @param id               the id of the game.
+     * @param nextPhase        the time of the next phase.
+     * @param roundNumber      the round number of the game.
+     * @param questionList     the list of question for a game.
      * @param submittedAnswers the answers submitted by players during game.
-     * @param activityList the list of activities used for the game.
-     * @param state the status of the game.
-     * @param player the player that is currently in the game.
+     * @param activityList     the list of activities used for the game.
+     * @param state            the status of the game.
+     * @param player           the player that is currently in the game.
      */
-    public SinglePlayerState(long id, long nextPhase, int roundNumber, List<AbstractQuestion> questionList, List<Response> submittedAnswers, List<Activity> activityList, String state, SinglePlayer player) {
+    public SinglePlayerState(long id, long nextPhase, int roundNumber, List<AbstractQuestion> questionList,
+                             List<Response> submittedAnswers,
+                             List<Activity> activityList, String state, SinglePlayer player) {
         super(id, nextPhase, roundNumber, questionList, submittedAnswers, activityList, state);
         this.player = player;
     }
 
     /**
      * Getter for the player.
+     *
      * @return a SinglePlayer representing the player that is currently in the game.
      */
     public SinglePlayer getPlayer() {
@@ -47,6 +51,7 @@ public class SinglePlayerState extends GameState {
 
     /**
      * Setter for the player.
+     *
      * @param player the player that is currently in the game.
      */
     public void setPlayer(SinglePlayer player) {
@@ -55,6 +60,7 @@ public class SinglePlayerState extends GameState {
 
     /**
      * Compares the two entities.
+     *
      * @param o the instance that is compared to.
      * @return true if the two entities are equal, otherwise it will be returned false.
      */
@@ -75,6 +81,7 @@ public class SinglePlayerState extends GameState {
 
     /**
      * Computes the object's hash code.
+     *
      * @return the object's hash code.
      */
     @Override

@@ -36,7 +36,7 @@ public class SingleplayerStateController {
      * There is expectation that this endpoint will be called every about 500 ms.
      *
      * @param id Id for the singleplayer game
-     * @return
+     * @return SinglePlayerState after updating internal state.
      */
     @GetMapping("/{id}")
     public ResponseEntity<SinglePlayerState> getGameState(@PathVariable("id") long id) {

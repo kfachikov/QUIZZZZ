@@ -6,14 +6,12 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.*;
-
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
 @JsonTypeInfo(
-    use = JsonTypeInfo.Id.NAME,
-    include = JsonTypeInfo.As.PROPERTY,
-    property = "type")
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = ConsumptionQuestion.class, name = "consumption"),
     @JsonSubTypes.Type(value = GuessQuestion.class, name = "guess"),
@@ -25,7 +23,7 @@ public abstract class AbstractQuestion {
     /**
      * Constructor for the abstract question.
      */
-    protected AbstractQuestion () {
+    protected AbstractQuestion() {
     }
 
     @Override
