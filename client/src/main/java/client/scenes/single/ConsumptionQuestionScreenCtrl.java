@@ -21,7 +21,7 @@ import java.util.Optional;
 
 import static commons.single.SinglePlayerState.*;
 
-public class ConsumptionQuestionScreenCtrl implements QuestionScreen{
+public class ConsumptionQuestionScreenCtrl implements QuestionScreen {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private ConsumptionQuestion question;
@@ -183,7 +183,7 @@ public class ConsumptionQuestionScreenCtrl implements QuestionScreen{
      */
     public boolean compareAnswer() {
         return true;
-//        return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
+        //return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
     }
 
     /**

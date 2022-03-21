@@ -202,15 +202,15 @@ public class MainCtrl {
                 singlePlayerState = (SinglePlayerState) newGameState;
                 updateSinglePlayerState();
                 switch (newGameState.getState()) {
-                    case QUESTION_STATE:
-                        showSoloGameQuestion();
-                        break;
-                    case TRANSITION_STATE:
-                        updateState(typeCurrentQuestion(newGameState));
-                        break;
-                    case GAME_OVER_STATE:
-                        // goes to congrats screen
-                        break;
+                case QUESTION_STATE:
+                    showSoloGameQuestion();
+                    break;
+                case TRANSITION_STATE:
+                    updateState(typeCurrentQuestion(newGameState));
+                    break;
+                case GAME_OVER_STATE:
+                    // goes to congrats screen
+                    break;
                 }
             }
         }));
@@ -220,7 +220,7 @@ public class MainCtrl {
 
     public QuestionScreen typeCurrentQuestion(GameState gameState) {
         AbstractQuestion currentQuestion = gameState.getQuestionList().get(gameState.getRoundNumber());
-        if(currentQuestion instanceof ConsumptionQuestion) {
+        if (currentQuestion instanceof ConsumptionQuestion) {
             return consumptionCtrl;
         } else if (currentQuestion instanceof InsteadQuestion) {
             return insteadCtrl;

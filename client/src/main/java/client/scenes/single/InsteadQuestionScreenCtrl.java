@@ -168,7 +168,7 @@ public class InsteadQuestionScreenCtrl implements QuestionScreen {
      */
     public boolean compareAnswer() {
         return true;
-//        return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
+        //return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
     }
 
     /**

@@ -37,10 +37,6 @@ public class MoreExpensiveQuestionScreenCtrl implements QuestionScreen {
     private SinglePlayerState singlePlayerState;
 
 
-    public AnchorPane getWindow() {
-        return window;
-    }
-
     @FXML
     private AnchorPane window;
 
@@ -154,6 +150,10 @@ public class MoreExpensiveQuestionScreenCtrl implements QuestionScreen {
         }));
     }
 
+    public AnchorPane getWindow() {
+        return window;
+    }
+
     /**
      * Sends a string to the server sa a chosen answer from the player.
      *
@@ -176,7 +176,7 @@ public class MoreExpensiveQuestionScreenCtrl implements QuestionScreen {
      */
     public boolean compareAnswer() {
         return true;
-//        return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
+        //return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
     }
 
     /**
