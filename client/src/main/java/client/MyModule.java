@@ -24,6 +24,9 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
 
+/**
+ *
+ */
 public class MyModule implements Module {
 
     /**
@@ -43,5 +46,6 @@ public class MyModule implements Module {
         binder.bind(ConsumptionQuestionScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(InsteadQuestionScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(GuessQuestionScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(CongratulationsScreenCtrl.class).in(Scopes.SINGLETON);
     }
 }

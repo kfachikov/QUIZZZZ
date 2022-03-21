@@ -31,6 +31,9 @@ import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
+/**
+ *
+ */
 public class ServerUtils {
 
     private static String currentServer;
@@ -43,6 +46,10 @@ public class ServerUtils {
     SinglePlayerLeaderboardScore entities, but some refactoring would be required.
     Also, I suggest changing the server path, as this one is a bit unclear.
      */
+    /**
+     * @param singlePlayer is a Singleplayer entity.
+     * @return it returns a client Singleplayer.
+     */
     public SinglePlayer addSinglePlayer(SinglePlayer singlePlayer) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(currentServer).path("/api/users") //
@@ -51,6 +58,9 @@ public class ServerUtils {
                 .post(Entity.entity(singlePlayer, APPLICATION_JSON), SinglePlayer.class);
     }
 
+    /**
+     * @return it returns a client QueueState.
+     */
     public QueueState getQueueState() {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer).path("/api/queue")
@@ -59,6 +69,10 @@ public class ServerUtils {
                 .get(QueueState.class);
     }
 
+    /**
+     * @param user is a QueueUser user.
+     * @return it returns a client QueueUser user
+     */
     public QueueUser addQueueUser(QueueUser user) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer).path("/api/queue")
@@ -67,6 +81,10 @@ public class ServerUtils {
                 .post(Entity.entity(user, APPLICATION_JSON), QueueUser.class);
     }
 
+    /**
+     * @param user is a QueueUser user
+     * @return it returns a client QueueUser
+     */
     public QueueUser deleteQueueUser(QueueUser user) {
         long id = user.getId();
         return ClientBuilder.newClient(new ClientConfig())
@@ -144,6 +162,9 @@ public class ServerUtils {
                 .post(null, QueueState.class);
     }
 
+    /**
+     * @return it returns a currentServer.
+     */
     public static String getCurrentServer() {
         return currentServer;
     }
@@ -157,6 +178,9 @@ public class ServerUtils {
         ServerUtils.currentServer = currentServer;
     }
 
+    /**
+     * @return it returns a client GenericType List Activity.
+     */
     public List<Activity> getActivities() {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer).path("/api/activities")

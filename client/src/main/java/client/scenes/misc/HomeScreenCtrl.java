@@ -11,6 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 
+/**
+ *
+ */
 public class HomeScreenCtrl {
 
     private static final int FORBIDDEN = 403;
@@ -122,6 +125,9 @@ public class HomeScreenCtrl {
         }
     }
 
+    /**
+     * shows the administrator panel.
+     */
     public void showAdministratorPanel() {
         mainCtrl.showAdministrator();
     }
