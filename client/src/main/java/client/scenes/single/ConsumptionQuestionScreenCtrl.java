@@ -17,20 +17,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 
 import java.util.Date;
-import java.util.Optional;
 
-import static commons.single.SinglePlayerState.*;
+public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
-public class ConsumptionQuestionScreenCtrl implements QuestionScreen {
-    private final ServerUtils server;
-    private final MainCtrl mainCtrl;
     private ConsumptionQuestion question;
-
-    /*
-    Would be used for constant polling of the current game state.
-     */
-    private final GameStatePollingService pollingService;
-
     private SinglePlayer singlePlayer;
     private SinglePlayerState singlePlayerState;
 
@@ -68,9 +58,7 @@ public class ConsumptionQuestionScreenCtrl implements QuestionScreen {
      */
     @Inject
     public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
-        this.pollingService = pollingService;
-        this.server = server;
-        this.mainCtrl = mainCtrl;
+        super(server, mainCtrl, pollingService);
     }
 
     /**
@@ -129,25 +117,6 @@ public class ConsumptionQuestionScreenCtrl implements QuestionScreen {
         currentScore.setText(String.valueOf(score));
     }
 
-    /**
-     * sets the scene and title to home if the yes button is clicked.
-     */
-    public void returnHome() {
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setHeaderText("Leave the game");
-        alert.setContentText("Are you sure you want to leave the game?");
-        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
-
-        alert.getButtonTypes().setAll(yesButton, noButton);
-
-        Optional<ButtonType> confirmation = alert.showAndWait();
-        if (confirmation.get() == yesButton) {
-            mainCtrl.showHome();
-        }
-    }
 
     /*
     The following method should be re-written once the questions are generated and
@@ -185,47 +154,17 @@ public class ConsumptionQuestionScreenCtrl implements QuestionScreen {
 
     public void setQuestion(ConsumptionQuestion question) {
         this.question = question;
-    }
-
-    class BeginThread implements Runnable {
-
-        /**
-         * When an object implementing interface {@code Runnable} is used
-         * to create a thread, starting the thread causes the object's
-         * {@code run} method to be called in that separately executing
-         * thread.
-         * <p>
-         * The general contract of the method {@code run} is that it may
-         * take any action whatsoever.
-         *
-         * @see Thread#run()
+        setQuestionPrompt();
+        /*
+        The following setup was made purely for testing purposes.
+        Should be optimized - extracted as functionality (eventually).
          */
-        @Override
-        public synchronized void run() {
-            time.setStyle("-fx-accent: #006e8c");
-            for (int i = 0; i < 100; i++) {
-                if (i > 70) {
-                    time.setStyle("-fx-accent: red");
-                }
-                time.setProgress(i / 100.0);
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        firstAnswer.setText(question.getAnswerChoices().get(0));
+        secondAnswer.setText(question.getAnswerChoices().get(1));
+        thirdAnswer.setText(question.getAnswerChoices().get(2));
     }
 
-    /**
-     * The method starts the timer thread.
-     */
-    @FXML
-    public synchronized void startTimer() {
-        time.setProgress(0.0);
-        Thread thread = new Thread(new ConsumptionQuestionScreenCtrl.BeginThread());
-        thread.start();
-    }
+
 
     /**
      * Getter for polling service which keeps the state of the current game up to date

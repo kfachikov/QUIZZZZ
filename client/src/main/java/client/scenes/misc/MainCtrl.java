@@ -356,9 +356,9 @@ public class MainCtrl {
      * @param question Question to be loaded - the next from the sequence.
      */
     public void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
-        //moreExpensiveCtrl.setQuestion(question);
+        moreExpensiveCtrl.setQuestion(question);
         primaryStage.setScene(moreExpensive);
-        moreExpensiveCtrl.startTimer();
+        moreExpensiveCtrl.timer();
     }
 
     /**
@@ -367,9 +367,9 @@ public class MainCtrl {
      * @param question Question to be loaded - the next from the sequence.
      */
     public void showConsumptionQuestion(ConsumptionQuestion question) {
-        //consumptionCtrl.setQuestion(question);
+        consumptionCtrl.setQuestion(question);
         primaryStage.setScene(consumption);
-        consumptionCtrl.startTimer();
+        consumptionCtrl.timer();
     }
 
     /**
@@ -380,7 +380,7 @@ public class MainCtrl {
     public void showInsteadQuestion(InsteadQuestion question) {
         insteadCtrl.setQuestion(question);
         primaryStage.setScene(instead);
-        insteadCtrl.startTimer();
+        insteadCtrl.timer();
     }
 
     /**
@@ -389,9 +389,9 @@ public class MainCtrl {
      * @param question Question to be loaded - the next from the sequence.
      */
     public void showGuessQuestion(GuessQuestion question) {
-        //guessCtrl.setQuestion(question);
+        guessCtrl.setQuestion(question);
         primaryStage.setScene(guess);
-        insteadCtrl.startTimer();
+        insteadCtrl.timer();
     }
 
     /**

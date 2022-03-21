@@ -1,5 +1,4 @@
 package client.scenes.single;
-
 import client.scenes.misc.MainCtrl;
 import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
@@ -16,23 +15,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-
 import java.util.Date;
-import java.util.Optional;
 
-import static commons.single.SinglePlayerState.*;
-
-public class MoreExpensiveQuestionScreenCtrl implements QuestionScreen {
-    private final ServerUtils server;
-    private final MainCtrl mainCtrl;
+public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     private MoreExpensiveQuestion question;
-
-
-    /*
-    Would be used for constant polling of the current game state.
-     */
-    private final GameStatePollingService pollingService;
-
     private SinglePlayer singlePlayer;
     private SinglePlayerState singlePlayerState;
 
@@ -86,9 +72,7 @@ public class MoreExpensiveQuestionScreenCtrl implements QuestionScreen {
      */
     @Inject
     public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
-        this.pollingService = pollingService;
-        this.server = server;
-        this.mainCtrl = mainCtrl;
+        super(server, mainCtrl, pollingService);
     }
 
     /**
@@ -154,27 +138,6 @@ public class MoreExpensiveQuestionScreenCtrl implements QuestionScreen {
     }
 
     /**
-     * sets the scene and title to home if the yes button is clicked.
-     */
-    public void returnHome() {
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setHeaderText("Leave the game");
-        alert.setContentText("Are you sure you want to leave the game?");
-        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
-
-        alert.getButtonTypes().setAll(yesButton, noButton);
-
-        Optional<ButtonType> confirmation = alert.showAndWait();
-        if (confirmation.get() == yesButton) {
-            mainCtrl.showHome();
-        }
-
-    }
-
-    /**
      * Sets the current score.
      * @param score is the current score of the player
      */
@@ -189,52 +152,26 @@ public class MoreExpensiveQuestionScreenCtrl implements QuestionScreen {
         questionTitle.setText(question.toString());
     }
 
-    public MoreExpensiveQuestion getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(MoreExpensiveQuestion question) {
-        this.question = question;
-    }
-
-    class BeginThread implements Runnable {
-
-        /**
-         * When an object implementing interface {@code Runnable} is used
-         * to create a thread, starting the thread causes the object's
-         * {@code run} method to be called in that separately executing
-         * thread.
-         * <p>
-         * The general contract of the method {@code run} is that it may
-         * take any action whatsoever.
-         *
-         * @see Thread#run()
-         */
-        @Override
-        public synchronized void run() {
-            time.setStyle("-fx-accent: #006e8c");
-            for (int i = 0; i < 100; i++) {
-                if (i > 70) {
-                    time.setStyle("-fx-accent: red");
-                }
-                time.setProgress(i / 100.0);
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 
     /**
-     * The method starts the timer thread.
+     * Sets the question and the corresponding fields with proper information.
+     * @param question Question to be visualized on the particular scene.
      */
-    @FXML
-    public synchronized void startTimer() {
-        time.setProgress(0.0);
-        Thread thread = new Thread(new MoreExpensiveQuestionScreenCtrl.BeginThread());
-        thread.start();
+    public void setQuestion(MoreExpensiveQuestion question) {
+        this.question = question;
+        setQuestionPrompt();
+        /*
+        The following setup was made purely for testing purposes.
+        Should be optimized - extracted as functionality (eventually).
+         */
+        firstAnswer.setText(question.getAnswerChoices().get(0).getTitle());
+        secondAnswer.setText(question.getAnswerChoices().get(1).getTitle());
+        thirdAnswer.setText(question.getAnswerChoices().get(2).getTitle());
+    }
+
+
+    public MoreExpensiveQuestion getQuestion() {
+        return question;
     }
 
     /**
