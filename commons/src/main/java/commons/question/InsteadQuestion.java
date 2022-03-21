@@ -1,5 +1,6 @@
 package commons.question;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import commons.misc.Activity;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@JsonTypeName(value = "instead")
 public class InsteadQuestion extends AbstractQuestion {
 
     private Activity activity;
@@ -18,6 +20,7 @@ public class InsteadQuestion extends AbstractQuestion {
 
     /**
      * Constructor for the third question type.
+     *
      * @param activity the activity that is being compared
      */
     public InsteadQuestion(Activity activity) {
@@ -27,6 +30,8 @@ public class InsteadQuestion extends AbstractQuestion {
 
     /**
      * Sets the possible answers for a question in a random way, having between them the correct answer.
+     *
+     * @param activities List of all activities
      */
     public void setAnswerChoices(List<Activity> activities) {
         List<Activity> correct = activities.stream()
@@ -44,6 +49,7 @@ public class InsteadQuestion extends AbstractQuestion {
 
     /**
      * Creates the third question format for the game.
+     *
      * @return the third question type in a human-readable way.
      */
     public String toString() {

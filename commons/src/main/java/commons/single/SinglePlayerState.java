@@ -1,33 +1,48 @@
 package commons.single;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import commons.misc.Activity;
 import commons.misc.GameState;
+import commons.misc.Response;
 import commons.question.AbstractQuestion;
 
 import java.util.List;
 import java.util.Objects;
 
+@JsonTypeName(value = "single")
 public class SinglePlayerState extends GameState {
 
+    public static final String QUESTION_STATE = "QUESTION";
+    public static final String GAME_OVER_STATE = "GAME_OVER";
+    public static final String TRANSITION_STATE = "TRANSITION";
     SinglePlayer player;
+
+    public SinglePlayerState() {
+
+    }
 
     /**
      * Constructor for the state of the solo game.
-     * @param timeLeft the time left during a round.
-     * @param roundNumber the round number of the game.
-     * @param questionList the list of question for a game.
+     *
+     * @param id               the id of the game.
+     * @param nextPhase        the time of the next phase.
+     * @param roundNumber      the round number of the game.
+     * @param questionList     the list of question for a game.
      * @param submittedAnswers the answers submitted by players during game.
-     * @param activityList the list of activities used for the game.
-     * @param state the status of the game.
-     * @param player the player that is currently in the game.
+     * @param activityList     the list of activities used for the game.
+     * @param state            the status of the game.
+     * @param player           the player that is currently in the game.
      */
-    public SinglePlayerState(double timeLeft, int roundNumber, List<AbstractQuestion> questionList, List<String> submittedAnswers, List<Activity> activityList, String state, SinglePlayer player) {
-        super(timeLeft, roundNumber, questionList, submittedAnswers, activityList, state);
+    public SinglePlayerState(long id, long nextPhase, int roundNumber, List<AbstractQuestion> questionList,
+                             List<Response> submittedAnswers,
+                             List<Activity> activityList, String state, SinglePlayer player) {
+        super(id, nextPhase, roundNumber, questionList, submittedAnswers, activityList, state);
         this.player = player;
     }
 
     /**
      * Getter for the player.
+     *
      * @return a SinglePlayer representing the player that is currently in the game.
      */
     public SinglePlayer getPlayer() {
@@ -36,6 +51,7 @@ public class SinglePlayerState extends GameState {
 
     /**
      * Setter for the player.
+     *
      * @param player the player that is currently in the game.
      */
     public void setPlayer(SinglePlayer player) {
@@ -44,6 +60,7 @@ public class SinglePlayerState extends GameState {
 
     /**
      * Compares the two entities.
+     *
      * @param o the instance that is compared to.
      * @return true if the two entities are equal, otherwise it will be returned false.
      */
@@ -64,6 +81,7 @@ public class SinglePlayerState extends GameState {
 
     /**
      * Computes the object's hash code.
+     *
      * @return the object's hash code.
      */
     @Override

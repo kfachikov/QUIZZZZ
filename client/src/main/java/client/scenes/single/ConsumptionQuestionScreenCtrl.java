@@ -40,7 +40,8 @@ public class ConsumptionQuestionScreenCtrl {
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
-     * @param server is the server variable
+     *
+     * @param server   is the server variable
      * @param mainCtrl is the main controller variable
      */
     @Inject
@@ -72,6 +73,7 @@ public class ConsumptionQuestionScreenCtrl {
 
     /**
      * Sets the current score.
+     *
      * @param score is the current score of the player
      */
     public void setScore(int score) {
@@ -80,6 +82,7 @@ public class ConsumptionQuestionScreenCtrl {
 
     /**
      * Sets the question to the chosen questionText.
+     *
      * @param questionText the question text
      */
     public void setQuestion(Text questionText) {

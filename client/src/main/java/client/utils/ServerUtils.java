@@ -16,9 +16,12 @@
 package client.utils;
 
 import commons.misc.Activity;
+import commons.misc.GameState;
+import commons.misc.Response;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
-import commons.single.SingleUser;
+import commons.single.SinglePlayer;
+import commons.single.SinglePlayerState;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
@@ -32,12 +35,20 @@ public class ServerUtils {
 
     private static String currentServer;
 
-    public SingleUser addUser(SingleUser user) {
+    /*
+    The following endpoint is somehow useless currently, as we plan not to use
+    SingleUser at all (how the initial endpoint have been created), or
+    SinglePlayer as entities which we would store.
+    Thus, I believe the endpoint could be properly renamed and used for
+    SinglePlayerLeaderboardScore entities, but some refactoring would be required.
+    Also, I suggest changing the server path, as this one is a bit unclear.
+     */
+    public SinglePlayer addSinglePlayer(SinglePlayer singlePlayer) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(currentServer).path("/api/users") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .post(Entity.entity(user, APPLICATION_JSON), SingleUser.class);
+                .post(Entity.entity(singlePlayer, APPLICATION_JSON), SinglePlayer.class);
     }
 
     public QueueState getQueueState() {
@@ -64,6 +75,59 @@ public class ServerUtils {
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .delete(QueueUser.class);
+    }
+
+    /**
+     * GET request to api/solo.
+     * <p>
+     * Would be used for "constant" polling so that the game state is kept up to date.
+     *
+     * @param id Id of the game.
+     * @return The current state of the ongoing game.
+     */
+    public GameState getSoloGameState(long id) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/solo/" + String.valueOf(id))
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(GameState.class);
+    }
+
+    /**
+     * POST request to /api/solo/answer, to "submit" the answer chosen by the user.
+     *
+     * @param response Response object to be posted
+     * @return The response object "posted"
+     */
+    public Response postAnswer(Response response) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("api/solo/answer")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(response, APPLICATION_JSON), Response.class);
+    }
+
+    /*
+    Currently, the following method does not work as intended.
+    There is a problem with the "object mapper" for the question classes.
+    Should have some default constructors.
+    */
+
+    /**
+     * POST request to /api/solo/start, to start the single-player game.
+     *
+     * @param singlePlayer SinglePlayer instance for the player that is about to begin a game.
+     * @return The initial state of the game
+     */
+    public SinglePlayerState startSinglePlayerGame(SinglePlayer singlePlayer) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/solo/start")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(singlePlayer, APPLICATION_JSON), SinglePlayerState.class);
     }
 
     /**
@@ -98,6 +162,7 @@ public class ServerUtils {
                 .target(currentServer).path("/api/activities")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<List<Activity>>() {});
+                .get(new GenericType<List<Activity>>() {
+                });
     }
 }

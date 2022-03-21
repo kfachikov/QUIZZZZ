@@ -1,16 +1,16 @@
 package server.api;
 
+import commons.misc.Activity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import server.database.ActivityRepository;
-import commons.misc.Activity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -97,7 +97,7 @@ class ActivityControllerTest {
     @Test
     public void testGetAllActivities() {
         ctrl.addActivity(initialActivity);
-        Activity activity =  new Activity("newId", "newTitle", "newSource", "newImage", 200L);
+        Activity activity = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
         ctrl.addActivity(activity);
         assertEquals(new ResponseEntity<>(Arrays.asList(initialActivity, activity), OK), ctrl.getAllActivities());
     }
@@ -105,7 +105,7 @@ class ActivityControllerTest {
     @Test
     public void testUpdateActivityId() {
         ctrl.addActivity(initialActivity);
-        Activity activity =  new Activity("newId", "title", "source", "image", 100L);
+        Activity activity = new Activity("newId", "title", "source", "image", 100L);
 
         assertEquals(activity.getId(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getId());
     }
@@ -113,7 +113,7 @@ class ActivityControllerTest {
     @Test
     public void testUpdateActivityTitle() {
         ctrl.addActivity(initialActivity);
-        Activity activity =  new Activity("id", "newTitle", "source", "image", 100L);
+        Activity activity = new Activity("id", "newTitle", "source", "image", 100L);
 
         assertEquals(activity.getTitle(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getTitle());
     }
@@ -121,15 +121,18 @@ class ActivityControllerTest {
     @Test
     public void testUpdateActivitySource() {
         ctrl.addActivity(initialActivity);
-        Activity activity =  new Activity("id", "title", "newSource", "image", 100L);
+        Activity activity = new Activity("id", "title", "newSource", "image", 100L);
 
-        assertEquals(activity.getSource(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getSource());
+        assertEquals(
+                activity.getSource(),
+                ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getSource()
+        );
     }
 
     @Test
     public void testUpdateActivityImage() {
         ctrl.addActivity(initialActivity);
-        Activity activity =  new Activity("id", "title", "source", "image", 100L);
+        Activity activity = new Activity("id", "title", "source", "image", 100L);
 
         assertEquals(activity.getImage(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getImage());
     }
@@ -139,7 +142,10 @@ class ActivityControllerTest {
         ctrl.addActivity(initialActivity);
         Activity activity = new Activity("id", "title", "source", "image", 101L);
 
-        assertEquals(activity.getConsumption(), ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getConsumption());
+        assertEquals(
+                activity.getConsumption(),
+                ctrl.updateActivity(initialActivity.getKey(), activity).getBody().getConsumption()
+        );
     }
 
     @Test

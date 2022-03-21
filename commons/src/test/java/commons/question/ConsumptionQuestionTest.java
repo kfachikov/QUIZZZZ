@@ -15,6 +15,7 @@ class MockConsumptionQuestion extends ConsumptionQuestion {
 
     /**
      * Constructor for the activity's energy consumption question type.
+     *
      * @param activity the activity the question is about
      */
     public MockConsumptionQuestion(Activity activity) {

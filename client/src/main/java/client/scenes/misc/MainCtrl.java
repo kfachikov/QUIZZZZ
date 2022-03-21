@@ -19,6 +19,8 @@ import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
 import commons.queue.QueueUser;
+import commons.single.SinglePlayer;
+import commons.single.SinglePlayerState;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -70,14 +72,18 @@ public class MainCtrl {
     private Scene congratulations;
 
     /**
-     * @param primaryStage is the Stage representing the initial stage variable.
-     * @param home         is the home screen pair variable
-     * @param help         is the help screen pair variable
-     * @param prep         is the prepare screen pair variable
+     * @param primaryStage  is the Stage representing the initial stage variable.
+     * @param home          is the home screen pair variable
+     * @param help          is the help screen pair variable
+     * @param prep          is the prepare screen pair variable
+     * @param soloGame      Solo game question screen pair variable
+     * @param queue         Queue screen pair variable
+     * @param administrator Administrator screen pair variable
+     * @param multiGame     Multiplayer game question screen pair variable
      * @param moreExpensive is the moreExpensiveQuestion screen pair variable
-     * @param consumption is the consumptionQuestion screen pair variable
-     * @param instead is the insteadQuestion screen pair variable
-     * @param guess is the guessQuestion screen pair variable
+     * @param consumption   is the consumptionQuestion screen pair variable
+     * @param instead       is the insteadQuestion screen pair variable
+     * @param guess         is the guessQuestion screen pair variable
      */
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
@@ -152,10 +158,13 @@ public class MainCtrl {
 
     /**
      * sets the title and the scene as prep.
+     *
+     * @param singlePlayer Player who is joining the game.
      */
-    public void showPrep() {
+    public void showPrep(SinglePlayer singlePlayer) {
         primaryStage.setTitle("Quizzz: Prepare");
         primaryStage.setScene(prep);
+        prepCtrl.setSinglePlayer(singlePlayer);
     }
 
     /**
@@ -168,11 +177,18 @@ public class MainCtrl {
 
     /**
      * sets the title and the scene as single-player game.
+     *
+     * @param singlePlayer      SinglePlayer who is playing the game.
+     * @param singlePlayerState SinglePlayerState of the game
      */
-    public synchronized void showSoloGameQuestion() {
+    public synchronized void showSoloGameQuestion(SinglePlayer singlePlayer, SinglePlayerState singlePlayerState) {
         primaryStage.setTitle("Quizzz: Single-player Game");
         primaryStage.setScene(soloGame);
         soloGameCtrl.startTimer();
+        soloGameCtrl.setSinglePlayer(singlePlayer);
+        soloGameCtrl.setSinglePlayerState(singlePlayerState);
+        soloGameCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
+        soloGameCtrl.getPollingService().start();
     }
 
     /**
@@ -211,7 +227,7 @@ public class MainCtrl {
     public String chooseFile(Button selectFileButton) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
-        File selectedFile =  fileChooser.showOpenDialog(null);
+        File selectedFile = fileChooser.showOpenDialog(null);
         return selectedFile.getName();
     }
 

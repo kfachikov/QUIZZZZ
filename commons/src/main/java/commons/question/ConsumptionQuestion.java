@@ -1,9 +1,11 @@
 package commons.question;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import commons.misc.Activity;
 
 import java.util.*;
 
+@JsonTypeName(value = "consumption")
 public class ConsumptionQuestion extends AbstractQuestion {
     private Activity activity;
     private List<String> answerChoices;
@@ -14,6 +16,7 @@ public class ConsumptionQuestion extends AbstractQuestion {
 
     /**
      * Constructor for the activity's energy consumption question type.
+     *
      * @param activity the activity the question is about
      */
     public ConsumptionQuestion(Activity activity) {
@@ -50,6 +53,7 @@ public class ConsumptionQuestion extends AbstractQuestion {
 
     /**
      * compares the equality of the passed object, with the ConsumptionQuestion instance its called over.
+     *
      * @param o object that is subject to comparison
      * @return true/false corresponding to equal/unequal
      */
@@ -69,7 +73,6 @@ public class ConsumptionQuestion extends AbstractQuestion {
     }
 
     /**
-     *
      * @return hashcode of the ConsumptionQuestion instance
      */
     @Override
@@ -78,7 +81,6 @@ public class ConsumptionQuestion extends AbstractQuestion {
     }
 
     /**
-     *
      * @return activity
      */
     public Activity getActivity() {
