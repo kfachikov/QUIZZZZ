@@ -78,7 +78,7 @@ public class MoreExpensiveQuestionScreenCtrl {
     private Text description3;
 
     /**
-     * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
+     * initializes MoreExpensiveQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      * @param server is the server variable
      * @param mainCtrl is the main controller variable
      */

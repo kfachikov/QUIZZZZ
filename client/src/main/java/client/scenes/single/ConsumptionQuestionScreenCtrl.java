@@ -60,7 +60,7 @@ public class ConsumptionQuestionScreenCtrl {
     private Button leaveButton;
 
     /**
-     * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
+     * initializes ConsumptionQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      * @param server is the server variable
      * @param mainCtrl is the main controller variable
      */
