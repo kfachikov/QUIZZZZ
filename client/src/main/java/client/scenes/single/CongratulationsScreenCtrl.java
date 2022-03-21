@@ -3,6 +3,7 @@ package client.scenes.single;
 import client.scenes.misc.MainCtrl;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.single.SinglePlayer;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -12,6 +13,12 @@ public class CongratulationsScreenCtrl {
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+
+    /*
+    The following field is required to store the `SinglePlayer` instance,
+    consisting of the username entered on the `Main Screen` and a default score - 0.
+     */
+    private SinglePlayer singlePlayer;
 
     @FXML
     private Text position;
@@ -110,7 +117,7 @@ public class CongratulationsScreenCtrl {
      * sets the scene and title to single-player game.
      */
     public void playSoloGame() {
-        mainCtrl.showSoloGameQuestion();
+        mainCtrl.showSoloGameQuestion(singlePlayer, server.startSinglePlayerGame(singlePlayer));
     }
 
     /**
@@ -120,7 +127,7 @@ public class CongratulationsScreenCtrl {
         var id = -1;
         for (int i = 0; i <= 20; i++) {
             if (i == id) {
-                mainCtrl.showSoloGameQuestion();
+                mainCtrl.showSoloGameQuestion(singlePlayer, server.startSinglePlayerGame(singlePlayer));
             }
         }
     }
