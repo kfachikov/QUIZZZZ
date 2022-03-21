@@ -8,6 +8,8 @@ import commons.misc.Response;
 import commons.question.InsteadQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -85,10 +87,33 @@ public class InsteadQuestionScreenCtrl {
      */
     @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
-        firstAnswer.setOnAction((event -> submitAnswer(firstAnswer.getText())));
-        secondAnswer.setOnAction((event -> submitAnswer(secondAnswer.getText())));
-        thirdAnswer.setOnAction((event -> submitAnswer(thirdAnswer.getText())));
-
+        firstAnswer.setDisable(false);
+        secondAnswer.setDisable(false);
+        thirdAnswer.setDisable(false);
+        firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                submitAnswer(firstAnswer.getText());
+                firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+                secondAnswer.setDisable(true);
+                thirdAnswer.setDisable(true);
+            }
+        });
+        secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                submitAnswer(secondAnswer.getText());
+                secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+                firstAnswer.setDisable(true);
+                thirdAnswer.setDisable(true);
+            }
+        });
+        thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                submitAnswer(thirdAnswer.getText());
+                thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+                firstAnswer.setDisable(true);
+                secondAnswer.setDisable(true);
+            }
+        });
         pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
             if (newGameState != null) {
                 switch (newGameState.getState()) {
