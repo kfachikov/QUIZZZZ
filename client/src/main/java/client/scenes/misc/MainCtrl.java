@@ -31,6 +31,9 @@ import javafx.util.Pair;
 
 import java.io.File;
 
+/**
+ *
+ */
 public class MainCtrl {
 
     private Stage primaryStage;
@@ -84,6 +87,7 @@ public class MainCtrl {
      * @param consumption   is the consumptionQuestion screen pair variable
      * @param instead       is the insteadQuestion screen pair variable
      * @param guess         is the guessQuestion screen pair variable
+     * @param congratulations is the congratulations screen pair variable
      */
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
@@ -219,11 +223,18 @@ public class MainCtrl {
         multiGameCtrl.setGameId(id);
     }
 
+    /**
+     * sets the title and the scene as Administrator Panel screen.
+     */
     public void showAdministrator() {
         primaryStage.setTitle("Quizzz: Administrator Panel");
         primaryStage.setScene(administrator);
     }
 
+    /**
+     * @param selectFileButton is a Button.
+     * @return it returns a name with the selectedFile.getName method
+     */
     public String chooseFile(Button selectFileButton) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));

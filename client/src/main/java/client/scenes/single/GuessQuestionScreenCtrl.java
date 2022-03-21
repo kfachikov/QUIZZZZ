@@ -10,6 +10,9 @@ import javafx.scene.text.Text;
 
 import java.util.Optional;
 
+/**
+ *
+ */
 public class GuessQuestionScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;

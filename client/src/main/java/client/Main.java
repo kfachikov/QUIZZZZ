@@ -31,11 +31,19 @@ import java.net.URISyntaxException;
 
 import static com.google.inject.Guice.createInjector;
 
+/**
+ *
+ */
 public class Main extends Application {
 
     private static final Injector INJECTOR = createInjector(new MyModule());
     private static final MyFXML FXML = new MyFXML(INJECTOR);
 
+    /**
+     * @param args is a String[] args
+     * @throws URISyntaxException is an exception
+     * @throws IOException is an exception
+     */
     public static void main(String[] args) throws URISyntaxException, IOException {
         launch();
     }

@@ -6,6 +6,9 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.single.SinglePlayer;
 
+/**
+ *
+ */
 public class PrepScreenCtrl {
 
     private final ServerUtils server;

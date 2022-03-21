@@ -9,6 +9,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
+/**
+ *
+ */
 public class CongratulationsScreenCtrl {
 
     private final ServerUtils server;

@@ -17,6 +17,9 @@ import javafx.scene.text.Text;
 import java.util.Date;
 import java.util.Optional;
 
+/**
+ *
+ */
 public class SoloGameQuestionScreenCtrl {
 
     public static final String QUESTION_STATE = "QUESTION";
