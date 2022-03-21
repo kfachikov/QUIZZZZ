@@ -18,6 +18,8 @@ package client.scenes.misc;
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
+import client.services.GameStatePollingService;
+import commons.misc.GameState;
 import commons.question.*;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -26,11 +28,14 @@ import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.File;
+
+import static commons.single.SinglePlayerState.*;
 
 public class MainCtrl {
 
@@ -65,6 +70,10 @@ public class MainCtrl {
 
     private GuessQuestionScreenCtrl guessCtrl;
     private Scene guess;
+
+    private GameStatePollingService pollingService;
+    private SinglePlayer singlePlayer;
+    private SinglePlayerState singlePlayerState;
 
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
@@ -156,47 +165,99 @@ public class MainCtrl {
         primaryStage.setScene(help);
     }
 
+    public void playSoloGame(SinglePlayer singlePlayer, SinglePlayerState singlePlayerState) {
+        this.singlePlayer = singlePlayer;
+        this.singlePlayerState = singlePlayerState;
+        this.pollingService = consumptionCtrl.getPollingService();
+
+        initializePollingService();
+
+        consumptionCtrl.setSinglePlayer(singlePlayer);
+        consumptionCtrl.setSinglePlayerState(singlePlayerState);
+
+        guessCtrl.setSinglePlayer(singlePlayer);
+        guessCtrl.setSinglePlayerState(singlePlayerState);
+
+        insteadCtrl.setSinglePlayer(singlePlayer);
+        insteadCtrl.setSinglePlayerState(singlePlayerState);
+
+        moreExpensiveCtrl.setSinglePlayer(singlePlayer);
+        moreExpensiveCtrl.setSinglePlayerState(singlePlayerState);
+
+        showSoloGameQuestion();
+    }
+
+    public void updateSinglePlayerState() {
+        consumptionCtrl.setSinglePlayerState(singlePlayerState);
+        guessCtrl.setSinglePlayerState(singlePlayerState);
+        insteadCtrl.setSinglePlayerState(singlePlayerState);
+        moreExpensiveCtrl.setSinglePlayerState(singlePlayerState);
+    }
+
+    public void initializePollingService() {
+        pollingService.setSinglePlayerState(singlePlayerState);
+
+        pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
+            if (newGameState != null) {
+                singlePlayerState = (SinglePlayerState) newGameState;
+                updateSinglePlayerState();
+                switch (newGameState.getState()) {
+                    case QUESTION_STATE:
+                        showSoloGameQuestion();
+                        break;
+                    case TRANSITION_STATE:
+                        updateState(typeCurrentQuestion(newGameState));
+                        break;
+                    case GAME_OVER_STATE:
+                        // goes to congrats screen
+                        break;
+                }
+            }
+        }));
+
+        pollingService.start();
+    }
+
+    public QuestionScreen typeCurrentQuestion(GameState gameState) {
+        AbstractQuestion currentQuestion = gameState.getQuestionList().get(gameState.getRoundNumber());
+        if(currentQuestion instanceof ConsumptionQuestion) {
+            return consumptionCtrl;
+        } else if (currentQuestion instanceof InsteadQuestion) {
+            return insteadCtrl;
+        } else if (currentQuestion instanceof GuessQuestion) {
+            return guessCtrl;
+        } else {
+            return moreExpensiveCtrl;
+        }
+    }
+
+    public void updateState(QuestionScreen questionScreen) {
+        questionScreen.setScore(singlePlayerState.getPlayer().getScore());
+        if (questionScreen.compareAnswer()) {
+            questionScreen.getWindow().setStyle("-fx-background-color: #" + (Paint.valueOf("aedd94")).toString().substring(2));
+        } else {
+            questionScreen.getWindow().setStyle("-fx-background-color: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
+        }
+    }
+
+
     /**
      * sets the title and the scene as single-player game.
      */
-    public synchronized void showSoloGameQuestion(SinglePlayer singlePlayer, SinglePlayerState singlePlayerState) {
+    public void showSoloGameQuestion() {
         primaryStage.setTitle("Quizzz: Single-player Game");
         AbstractQuestion current = singlePlayerState.getQuestionList().get(singlePlayerState.getRoundNumber());
         if (current instanceof ConsumptionQuestion) {
-            consumptionCtrl.getPollingService().stop();
-            consumptionCtrl.startTimer();
-            consumptionCtrl.setSinglePlayer(singlePlayer);
-            consumptionCtrl.setSinglePlayerState(singlePlayerState);
             showConsumptionQuestion((ConsumptionQuestion) current);
-            consumptionCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
-            consumptionCtrl.getPollingService().start();
         }
         if (current instanceof GuessQuestion) {
-            guessCtrl.getPollingService().stop();
-            guessCtrl.startTimer();
-            guessCtrl.setSinglePlayer(singlePlayer);
-            guessCtrl.setSinglePlayerState(singlePlayerState);
             showGuessQuestion((GuessQuestion) current);
-            guessCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
-            guessCtrl.getPollingService().start();
         }
         if (current instanceof InsteadQuestion) {
-            insteadCtrl.getPollingService().stop();
-            insteadCtrl.startTimer();
-            insteadCtrl.setSinglePlayer(singlePlayer);
-            insteadCtrl.setSinglePlayerState(singlePlayerState);
             showInsteadQuestion((InsteadQuestion) current);
-            insteadCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
-            insteadCtrl.getPollingService().start();
         }
         if (current instanceof MoreExpensiveQuestion) {
-            moreExpensiveCtrl.getPollingService().stop();
-            moreExpensiveCtrl.startTimer();
-            moreExpensiveCtrl.setSinglePlayer(singlePlayer);
-            moreExpensiveCtrl.setSinglePlayerState(singlePlayerState);
             showMoreExpensiveQuestion((MoreExpensiveQuestion) current);
-            moreExpensiveCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
-            moreExpensiveCtrl.getPollingService().start();
         }
     }
 

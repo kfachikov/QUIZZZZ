@@ -22,7 +22,7 @@ import java.util.Optional;
 
 import static commons.single.SinglePlayerState.*;
 
-public class MoreExpensiveQuestionScreenCtrl {
+public class MoreExpensiveQuestionScreenCtrl implements QuestionScreen {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private MoreExpensiveQuestion question;
@@ -36,6 +36,10 @@ public class MoreExpensiveQuestionScreenCtrl {
     private SinglePlayer singlePlayer;
     private SinglePlayerState singlePlayerState;
 
+
+    public AnchorPane getWindow() {
+        return window;
+    }
 
     @FXML
     private AnchorPane window;
@@ -171,7 +175,8 @@ public class MoreExpensiveQuestionScreenCtrl {
      * @return Boolean value whether the answer is correct or not.
      */
     public boolean compareAnswer() {
-        return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
+        return true;
+//        return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
     }
 
     /**
@@ -199,7 +204,7 @@ public class MoreExpensiveQuestionScreenCtrl {
      * Sets the current score.
      * @param score is the current score of the player
      */
-    public void setScore(int score) {
+    public void setScore(long score) {
         currentScore.setText(String.valueOf(score));
     }
 

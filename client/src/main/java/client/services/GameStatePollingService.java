@@ -57,7 +57,6 @@ public class GameStatePollingService extends Service<GameState> {
                     } catch (InterruptedException e) {
                         break;
                     }
-                    System.out.println(singlePlayerState);
                 }
                 return gameState;
             }

@@ -22,7 +22,7 @@ import java.util.Optional;
 
 import static commons.single.SinglePlayerState.*;
 
-public class InsteadQuestionScreenCtrl {
+public class InsteadQuestionScreenCtrl implements QuestionScreen {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private InsteadQuestion question;
@@ -114,29 +114,6 @@ public class InsteadQuestionScreenCtrl {
                 secondAnswer.setDisable(true);
             }
         });
-        pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
-            if (newGameState != null) {
-                switch (newGameState.getState()) {
-                case QUESTION_STATE:
-                    /*
-                    Should be fixed.
-                     */
-                    mainCtrl.showSoloGameQuestion(singlePlayer, singlePlayerState);
-                    break;
-                case TRANSITION_STATE:
-                    setScore(singlePlayerState.getPlayer().getScore());
-                    if (compareAnswer()) {
-                        window.setStyle("-fx-background-color: #" + (Paint.valueOf("aedd94")).toString().substring(2));
-                    } else {
-                        window.setStyle("-fx-background-color: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
-                    }
-                    break;
-                case GAME_OVER_STATE:
-                    // goes to congrats screen
-                    break;
-                }
-            }
-        }));
     }
 
     /**
@@ -190,7 +167,8 @@ public class InsteadQuestionScreenCtrl {
      * @return Boolean value whether the answer is correct or not.
      */
     public boolean compareAnswer() {
-        return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
+        return true;
+//        return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
     }
 
     /**
@@ -304,4 +282,7 @@ public class InsteadQuestionScreenCtrl {
         this.singlePlayerState = singlePlayerState;
     }
 
+    public AnchorPane getWindow() {
+        return window;
+    }
 }

@@ -22,7 +22,7 @@ import java.util.Optional;
 
 import static commons.single.SinglePlayerState.*;
 
-public class GuessQuestionScreenCtrl {
+public class GuessQuestionScreenCtrl implements QuestionScreen {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private GuessQuestion question;
@@ -280,5 +280,9 @@ public class GuessQuestionScreenCtrl {
      */
     public void setSinglePlayerState(SinglePlayerState singlePlayerState) {
         this.singlePlayerState = singlePlayerState;
+    }
+
+    public AnchorPane getWindow() {
+        return window;
     }
 }
