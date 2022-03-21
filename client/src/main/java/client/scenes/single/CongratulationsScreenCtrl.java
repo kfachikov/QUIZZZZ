@@ -58,8 +58,10 @@ public class CongratulationsScreenCtrl {
 
     @FXML
     private Circle question11;
+
     @FXML
     private Circle question12;
+
     @FXML
     private Circle question13;
 
@@ -140,10 +142,12 @@ public class CongratulationsScreenCtrl {
         var id = -1;
         for (int i = 0; i <= 20; i++) {
             if (i == id && correct) {
-                question1.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#65cf77")).toString().substring(2));
+                question1.setStyle("-fx-control-inner-background: #" +
+                        (Paint.valueOf("#65cf77")).toString().substring(2));
             }
             if (i == id && !correct) {
-                question1.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("#ff4400")).toString().substring(2));
+                question1.setStyle("-fx-control-inner-background: #" +
+                        (Paint.valueOf("#ff4400")).toString().substring(2));
             }
         }
     }
