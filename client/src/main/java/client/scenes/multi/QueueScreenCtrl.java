@@ -18,6 +18,9 @@ import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ *
+ */
 public class QueueScreenCtrl {
 
     /**
@@ -228,6 +231,9 @@ public class QueueScreenCtrl {
         return server.deleteQueueUser(user);
     }
 
+    /**
+     * @param serverAddress is a String
+     */
     public void setServerAddress(String serverAddress) {
         this.serverAddress.setText("Server address: " + serverAddress);
     }

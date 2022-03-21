@@ -10,6 +10,9 @@ import javafx.scene.text.Text;
 
 import java.util.Optional;
 
+/**
+ *
+ */
 public class ConsumptionQuestionScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;

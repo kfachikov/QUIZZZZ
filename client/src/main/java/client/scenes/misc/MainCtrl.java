@@ -31,6 +31,9 @@ import javafx.util.Pair;
 
 import java.io.File;
 
+/**
+ *
+ */
 public class MainCtrl {
 
     private Stage primaryStage;
@@ -68,6 +71,9 @@ public class MainCtrl {
     private GuessQuestionScreenCtrl guessCtrl;
     private Scene guess;
 
+    private CongratulationsScreenCtrl congratulationsCtrl;
+    private Scene congratulations;
+
     /**
      * @param primaryStage  is the Stage representing the initial stage variable.
      * @param home          is the home screen pair variable
@@ -81,6 +87,7 @@ public class MainCtrl {
      * @param consumption   is the consumptionQuestion screen pair variable
      * @param instead       is the insteadQuestion screen pair variable
      * @param guess         is the guessQuestion screen pair variable
+     * @param congratulations is the congratulations screen pair variable
      */
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
@@ -93,7 +100,8 @@ public class MainCtrl {
                            Pair<MoreExpensiveQuestionScreenCtrl, Parent> moreExpensive,
                            Pair<ConsumptionQuestionScreenCtrl, Parent> consumption,
                            Pair<InsteadQuestionScreenCtrl, Parent> instead,
-                           Pair<GuessQuestionScreenCtrl, Parent> guess) {
+                           Pair<GuessQuestionScreenCtrl, Parent> guess,
+                           Pair<CongratulationsScreenCtrl, Parent> congratulations) {
 
         this.primaryStage = primaryStage;
 
@@ -129,6 +137,9 @@ public class MainCtrl {
 
         this.guessCtrl = guess.getKey();
         this.guess = new Scene(guess.getValue());
+
+        this.congratulationsCtrl = congratulations.getKey();
+        this.congratulations = new Scene(congratulations.getValue());
 
         showHome();
         primaryStage.show();
@@ -212,11 +223,18 @@ public class MainCtrl {
         multiGameCtrl.setGameId(id);
     }
 
+    /**
+     * sets the title and the scene as Administrator Panel screen.
+     */
     public void showAdministrator() {
         primaryStage.setTitle("Quizzz: Administrator Panel");
         primaryStage.setScene(administrator);
     }
 
+    /**
+     * @param selectFileButton is a Button.
+     * @return it returns a name with the selectedFile.getName method
+     */
     public String chooseFile(Button selectFileButton) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
@@ -258,5 +276,13 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz: GuessQuestion");
         primaryStage.setScene(guess);
         insteadCtrl.startTimer();
+    }
+
+    /**
+     * Sets the current scene to Congratulations screen.
+     */
+    public void showCongratulations() {
+        primaryStage.setTitle("Quizzz: Congratulations");
+        primaryStage.setScene(congratulations);
     }
 }

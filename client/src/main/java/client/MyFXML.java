@@ -28,6 +28,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
+/**
+ *
+ */
 public class MyFXML {
 
     private final Injector injector;

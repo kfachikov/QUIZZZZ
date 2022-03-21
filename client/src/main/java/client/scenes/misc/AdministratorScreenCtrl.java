@@ -7,6 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 
+/**
+ *
+ */
 public class AdministratorScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
@@ -36,6 +39,9 @@ public class AdministratorScreenCtrl {
         mainCtrl.showHome();
     }
 
+    /**
+     * displays which file the administrator has imported.
+     */
     public void chooseFile() {
         description.setText("You have imported " + mainCtrl.chooseFile(selectFileButton));
     }
