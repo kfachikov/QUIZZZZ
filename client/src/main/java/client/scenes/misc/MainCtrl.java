@@ -71,6 +71,11 @@ public class MainCtrl {
     private GuessQuestionScreenCtrl guessCtrl;
     private Scene guess;
 
+
+    /*
+    Instances used for the single-player mode to extract polling service functionality.
+    SinglePlayer and SinglePlayerState instances of the current pair Player-Game on the client-side.
+     */
     private GameStatePollingService pollingService;
     private SinglePlayer singlePlayer;
     private SinglePlayerState singlePlayerState;
@@ -80,6 +85,9 @@ public class MainCtrl {
      * @param home         is the home screen pair variable
      * @param help         is the help screen pair variable
      * @param prep         is the prepare screen pair variable
+     * @param queue        is the queue screen pair variable
+     * @param administrator is the administrator panel screen panel pair variable
+     * @param multiGame     is the multiplayer game screen pair variable
      * @param moreExpensive is the moreExpensiveQuestion screen pair variable
      * @param consumption is the consumptionQuestion screen pair variable
      * @param instead is the insteadQuestion screen pair variable
@@ -165,13 +173,32 @@ public class MainCtrl {
         primaryStage.setScene(help);
     }
 
+    /**
+     * Method called from the PrepScreenCtrl once the "GO!" button is pressed.
+     * Passed as arguments are the instance for the current player, and the game he is "connected" to.
+     *
+     * Initializes both polling service, fields in separate screen controllers, and makes the initial call
+     * so the first question is shown.
+     *
+     * @param singlePlayer      Player instance consisting of username and initial score - 0
+     * @param singlePlayerState GameState instance consisting of all information required for a game.
+     */
     public void playSoloGame(SinglePlayer singlePlayer, SinglePlayerState singlePlayerState) {
         this.singlePlayer = singlePlayer;
         this.singlePlayerState = singlePlayerState;
         this.pollingService = consumptionCtrl.getPollingService();
 
         initializePollingService();
+        initializeSoloControllers();
 
+        showNextQuestionSinglePlayer();
+    }
+
+    /**
+     * The instances of SinglePlayer and SinglePlayerState are assigned to the corresponding
+     * fields in the single-player game mode controllers.
+     */
+    public void initializeSoloControllers() {
         consumptionCtrl.setSinglePlayer(singlePlayer);
         consumptionCtrl.setSinglePlayerState(singlePlayerState);
 
@@ -183,17 +210,17 @@ public class MainCtrl {
 
         moreExpensiveCtrl.setSinglePlayer(singlePlayer);
         moreExpensiveCtrl.setSinglePlayerState(singlePlayerState);
-
-        showSoloGameQuestion();
     }
 
-    public void updateSinglePlayerState() {
-        consumptionCtrl.setSinglePlayerState(singlePlayerState);
-        guessCtrl.setSinglePlayerState(singlePlayerState);
-        insteadCtrl.setSinglePlayerState(singlePlayerState);
-        moreExpensiveCtrl.setSinglePlayerState(singlePlayerState);
-    }
-
+    /**
+     * The polling service is initialized by receiving the GameState it should pull from
+     * the server constantly (every 500 milliseconds).
+     *
+     * A listener is assigned to its property which looks for changes of the
+     * GameState instance on the server.
+     *
+     * The polling service is started.
+     */
     public void initializePollingService() {
         pollingService.setSinglePlayerState(singlePlayerState);
 
@@ -203,13 +230,14 @@ public class MainCtrl {
                 updateSinglePlayerState();
                 switch (newGameState.getState()) {
                 case QUESTION_STATE:
-                    showSoloGameQuestion();
+                    setDefaultQuestionBackground();
+                    showNextQuestionSinglePlayer();
                     break;
                 case TRANSITION_STATE:
-                    updateState(typeCurrentQuestion(newGameState));
+                    updateBackground(typeCurrentQuestion(newGameState));
                     break;
                 case GAME_OVER_STATE:
-                    // goes to congrats screen
+                    pollingService.stop();
                     break;
                 }
             }
@@ -218,6 +246,23 @@ public class MainCtrl {
         pollingService.start();
     }
 
+    /**
+     * Updates the SinglePlayerState instances of the controllers after
+     * receiving the new value from the polling service.
+     */
+    public void updateSinglePlayerState() {
+        consumptionCtrl.setSinglePlayerState(singlePlayerState);
+        guessCtrl.setSinglePlayerState(singlePlayerState);
+        insteadCtrl.setSinglePlayerState(singlePlayerState);
+        moreExpensiveCtrl.setSinglePlayerState(singlePlayerState);
+    }
+
+    /**
+     * Checks the type of the current question, so that it's background color can be changed later.
+     *
+     * @param gameState Current game state object - the game the client is playing.
+     * @return An instance of the current question screen controller.
+     */
     public QuestionScreen typeCurrentQuestion(GameState gameState) {
         AbstractQuestion currentQuestion = gameState.getQuestionList().get(gameState.getRoundNumber());
         if (currentQuestion instanceof ConsumptionQuestion) {
@@ -231,7 +276,11 @@ public class MainCtrl {
         }
     }
 
-    public void updateState(QuestionScreen questionScreen) {
+    /**
+     * Updates the background of the current scene according to the correctness of the answer given.
+     * @param questionScreen Controller of the current question scene.
+     */
+    public void updateBackground(QuestionScreen questionScreen) {
         questionScreen.setScore(singlePlayerState.getPlayer().getScore());
         if (questionScreen.compareAnswer()) {
             questionScreen.getWindow().setStyle("-fx-background-color: #" + (Paint.valueOf("aedd94")).toString().substring(2));
@@ -240,11 +289,11 @@ public class MainCtrl {
         }
     }
 
-
     /**
-     * sets the title and the scene as single-player game.
+     * "Reveals" the next question on the client-side.
+     * Checks its type and decides on the scene to be loaded accordingly.
      */
-    public void showSoloGameQuestion() {
+    public void showNextQuestionSinglePlayer() {
         primaryStage.setTitle("Quizzz: Single-player Game");
         AbstractQuestion current = singlePlayerState.getQuestionList().get(singlePlayerState.getRoundNumber());
         if (current instanceof ConsumptionQuestion) {
@@ -302,7 +351,9 @@ public class MainCtrl {
     }
 
     /**
-     * sets the title and the scene as moreExpensiveQuestion screen.
+     * "Redirects" the client to the scene of MoreExpensiveQuestion type.
+     *
+     * @param question Question to be loaded - the next from the sequence.
      */
     public void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
         //moreExpensiveCtrl.setQuestion(question);
@@ -311,7 +362,9 @@ public class MainCtrl {
     }
 
     /**
-     * sets the title and the scene as consumptionQuestion screen.
+     * "Redirects" the client to the scene of ConsumptionQuestion type.
+     *
+     * @param question Question to be loaded - the next from the sequence.
      */
     public void showConsumptionQuestion(ConsumptionQuestion question) {
         //consumptionCtrl.setQuestion(question);
@@ -320,20 +373,35 @@ public class MainCtrl {
     }
 
     /**
-     * sets the title and the scene as insteadQuestion screen.
+     * "Redirects" the client to the scene of InsteadQuestion type.
+     *
+     * @param question Question to be loaded - the next from the sequence.
      */
     public void showInsteadQuestion(InsteadQuestion question) {
-        //insteadCtrl.setQuestion(question);
+        insteadCtrl.setQuestion(question);
         primaryStage.setScene(instead);
         insteadCtrl.startTimer();
     }
 
     /**
-     * sets the title and the scene as guessQuestion screen.
+     * "Redirects" the client to the scene of GuessQuestion type.
+     *
+     * @param question Question to be loaded - the next from the sequence.
      */
     public void showGuessQuestion(GuessQuestion question) {
         //guessCtrl.setQuestion(question);
         primaryStage.setScene(guess);
         insteadCtrl.startTimer();
     }
+
+    /**
+     * Used to change the color of the background of all question scenes to the initial blue color.
+     */
+    private void setDefaultQuestionBackground() {
+        consumptionCtrl.getWindow().setStyle("-fx-background-color: #" + (Paint.valueOf("a8c6fa")).toString().substring(2));
+        insteadCtrl.getWindow().setStyle("-fx-background-color: #" + (Paint.valueOf("a8c6fa")).toString().substring(2));
+        moreExpensiveCtrl.getWindow().setStyle("-fx-background-color: #" + (Paint.valueOf("a8c6fa")).toString().substring(2));
+        guessCtrl.getWindow().setStyle("-fx-background-color: #" + (Paint.valueOf("a8c6fa")).toString().substring(2));
+    }
+
 }

@@ -71,18 +71,16 @@ public class InsteadQuestionScreenCtrl implements QuestionScreen {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, InsteadQuestion question) {
+    public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
         this.pollingService = pollingService;
         this.server = server;
         this.mainCtrl = mainCtrl;
-        this.question = question;
     }
 
     /**
      * Initializes the single-player game controller by:
      *
      * Binding answer choices to a method submitting that answer.
-     * Initializing a listener for the polling service property `state` which ensures the player is shown the right scene.
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
     @SuppressWarnings("checkstyle:Indentation")
@@ -190,8 +188,20 @@ public class InsteadQuestionScreenCtrl implements QuestionScreen {
         return question;
     }
 
+    /**
+     * Sets the question and the corresponding fields with proper information.
+     * @param question Question to be visualized on the particular scene.
+     */
     public void setQuestion(InsteadQuestion question) {
         this.question = question;
+        setQuestionPrompt();
+        /*
+        The following setup was made purely for testing purposes.
+        Should be optimized - extracted as functionality (eventually).
+         */
+        firstAnswer.setText(question.getAnswerChoices().get(0).getTitle());
+        secondAnswer.setText(question.getAnswerChoices().get(1).getTitle());
+        thirdAnswer.setText(question.getAnswerChoices().get(2).getTitle());
     }
 
     class BeginThread implements Runnable {
@@ -282,6 +292,10 @@ public class InsteadQuestionScreenCtrl implements QuestionScreen {
         this.singlePlayerState = singlePlayerState;
     }
 
+    /**
+     * Getter for the window object - used to change the background in MainCtrl.
+     * @return AnchorPane object with reference to the particular window of this scene.
+     */
     public AnchorPane getWindow() {
         return window;
     }

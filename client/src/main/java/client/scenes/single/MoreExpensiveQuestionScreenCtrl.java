@@ -85,18 +85,16 @@ public class MoreExpensiveQuestionScreenCtrl implements QuestionScreen {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, MoreExpensiveQuestion question) {
+    public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
         this.pollingService = pollingService;
         this.server = server;
         this.mainCtrl = mainCtrl;
-        this.question = question;
     }
 
     /**
      * Initializes the single-player game controller by:
      *
      * Binding answer choices to a method submitting that answer.
-     * Initializing a listener for the polling service property `state` which ensures the player is shown the right scene.
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
     @SuppressWarnings("checkstyle:Indentation")
@@ -128,30 +126,6 @@ public class MoreExpensiveQuestionScreenCtrl implements QuestionScreen {
                 secondAnswer.setDisable(true);
             }
         });
-        pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
-            if (newGameState != null) {
-                switch (newGameState.getState()) {
-                case QUESTION_STATE:
-                    // load new question
-                    break;
-                case TRANSITION_STATE:
-                    setScore(singlePlayerState.getPlayer().getScore());
-                    if (compareAnswer()) {
-                        window.setStyle("-fx-background-color: #" + (Paint.valueOf("aedd94")).toString().substring(2));
-                    } else {
-                        window.setStyle("-fx-background-color: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
-                    }
-                    break;
-                case GAME_OVER_STATE:
-                    // goes to congrats screen
-                    break;
-                }
-            }
-        }));
-    }
-
-    public AnchorPane getWindow() {
-        return window;
     }
 
     /**
@@ -310,4 +284,15 @@ public class MoreExpensiveQuestionScreenCtrl implements QuestionScreen {
     public void setSinglePlayerState(SinglePlayerState singlePlayerState) {
         this.singlePlayerState = singlePlayerState;
     }
+
+    /**
+     * Getter for the window object - used to change the background in MainCtrl.
+     * @return AnchorPane object with reference to the particular window of this scene.
+     */
+    public AnchorPane getWindow() {
+        return window;
+    }
+
+
+
 }
