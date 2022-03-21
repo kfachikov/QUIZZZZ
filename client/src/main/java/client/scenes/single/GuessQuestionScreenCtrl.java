@@ -8,6 +8,8 @@ import commons.misc.Response;
 import commons.question.GuessQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -97,8 +99,13 @@ public class GuessQuestionScreenCtrl {
      */
     @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
-        input.setOnAction((event -> submitAnswer(input.getText())));
-
+        input.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                submitAnswer(input.getText());
+                input.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+                input.setDisable(true);
+            }
+        });
         pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
             if (newGameState != null) {
                 switch (newGameState.getState()) {
