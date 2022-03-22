@@ -138,6 +138,8 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         //return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
     }
 
+
+
     /**
      * Sets the current score.
      * @param score is the current score of the player
@@ -231,6 +233,13 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         return window;
     }
 
-
-
+    /**
+     * Overridden getTime() methods. Used to access the private time field.
+     *
+     * @return  Reference to the JavaFX node in the scene corresponding to this controller.
+     */
+    @Override
+    public ProgressBar getTime() {
+        return time;
+    }
 }

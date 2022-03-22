@@ -19,6 +19,7 @@ import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
 import client.services.GameStatePollingService;
+import client.utils.TimerThread;
 import commons.misc.GameState;
 import commons.question.*;
 import commons.queue.QueueUser;
@@ -28,12 +29,15 @@ import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static commons.single.SinglePlayerState.*;
 
@@ -79,6 +83,8 @@ public class MainCtrl {
     private GameStatePollingService pollingService;
     private SinglePlayer singlePlayer;
     private SinglePlayerState singlePlayerState;
+
+    private TimerThread timerThread;
 
     /**
      * @param primaryStage is the Stage representing the initial stage variable.
@@ -281,6 +287,7 @@ public class MainCtrl {
      * @param questionScreen Controller of the current question scene.
      */
     public void updateBackground(QuestionScreen questionScreen) {
+        startTimer(questionScreen);
         questionScreen.setScore(singlePlayerState.getPlayer().getScore());
         if (questionScreen.compareAnswer()) {
             questionScreen.getWindow().setStyle("-fx-background-color: #" + (Paint.valueOf("aedd94")).toString().substring(2));
@@ -308,6 +315,16 @@ public class MainCtrl {
         if (current instanceof MoreExpensiveQuestion) {
             showMoreExpensiveQuestion((MoreExpensiveQuestion) current);
         }
+    }
+
+    private void startTimer (QuestionScreen questionScreen) {
+        ProgressBar time = questionScreen.getTime();
+        long nextPhase = singlePlayerState.getNextPhase();
+        if(timerThread != null && timerThread.isAlive()) {
+            timerThread.interrupt();
+        }
+        timerThread = new TimerThread(time, nextPhase);
+        timerThread.start();
     }
 
     /**
@@ -358,6 +375,7 @@ public class MainCtrl {
     public void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
         moreExpensiveCtrl.setQuestion(question);
         primaryStage.setScene(moreExpensive);
+        startTimer(moreExpensiveCtrl);
     }
 
     /**
@@ -368,6 +386,7 @@ public class MainCtrl {
     public void showConsumptionQuestion(ConsumptionQuestion question) {
         consumptionCtrl.setQuestion(question);
         primaryStage.setScene(consumption);
+        startTimer(consumptionCtrl);
     }
 
     /**
@@ -378,6 +397,7 @@ public class MainCtrl {
     public void showInsteadQuestion(InsteadQuestion question) {
         insteadCtrl.setQuestion(question);
         primaryStage.setScene(instead);
+        startTimer(insteadCtrl);
     }
 
     /**
@@ -388,6 +408,7 @@ public class MainCtrl {
     public void showGuessQuestion(GuessQuestion question) {
         guessCtrl.setQuestion(question);
         primaryStage.setScene(guess);
+        startTimer(guessCtrl);
     }
 
     /**

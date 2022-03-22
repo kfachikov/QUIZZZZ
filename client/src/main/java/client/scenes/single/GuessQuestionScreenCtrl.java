@@ -197,4 +197,14 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
     public AnchorPane getWindow() {
         return window;
     }
+
+    /**
+     * Overridden getTime() methods. Used to access the private time field.
+     *
+     * @return  Reference to the JavaFX node in the scene corresponding to this controller.
+     */
+    @Override
+    public ProgressBar getTime() {
+        return time;
+    }
 }

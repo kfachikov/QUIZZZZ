@@ -21,9 +21,6 @@ public abstract class QuestionScreen {
     public final GameStatePollingService pollingService;
 
     @FXML
-    ProgressBar time = new ProgressBar();
-
-    @FXML
     private Button firstAnswer;
 
     @FXML
@@ -91,5 +88,12 @@ public abstract class QuestionScreen {
         }
 
     }
+
+    /**
+     * Declare getTime() method existence in subclasses.
+     *
+     * @return  ProgressBar instance of the particular one in the desired question controller.
+     */
+    public abstract ProgressBar getTime();
 
 }
