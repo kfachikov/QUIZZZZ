@@ -240,19 +240,26 @@ public class MainCtrl {
 
         pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
             if (newGameState != null) {
-                singlePlayerState = (SinglePlayerState) newGameState;
-                updateSinglePlayerState();
-                switch (newGameState.getState()) {
-                case QUESTION_STATE:
-                    setDefaultQuestionBackground();
-                    showNextQuestionSinglePlayer();
-                    break;
-                case TRANSITION_STATE:
-                    updateBackground(typeCurrentQuestion(newGameState));
-                    break;
-                case GAME_OVER_STATE:
-                    pollingService.stop();
-                    break;
+                /*
+                The polling service "throws" a new instance of the game state every time it poll.
+                Thus, without the existence of the following comparison, the questions scenes
+                are updated constantly, even when there is no need of it.
+                 */
+                if (!singlePlayerState.getState().equals(newGameState.getState())) {
+                    singlePlayerState = (SinglePlayerState) newGameState;
+                    updateSinglePlayerState();
+                    switch (newGameState.getState()) {
+                    case QUESTION_STATE:
+                        setDefaultQuestionBackground();
+                        showNextQuestionSinglePlayer();
+                        break;
+                    case TRANSITION_STATE:
+                        updateBackground(typeCurrentQuestion(newGameState));
+                        break;
+                    case GAME_OVER_STATE:
+                        pollingService.stop();
+                        break;
+                    }
                 }
             }
         }));
