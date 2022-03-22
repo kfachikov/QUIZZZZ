@@ -101,17 +101,19 @@ public class ActivityController {
      */
     @PostMapping("/addToRepo")
     public ResponseEntity<List<Activity>> addActivities(@RequestBody List<Activity> activities) {
+        int savedActivities = 0;
         for (int i = 0; i < activities.size(); i++) {
-            if (isNullOrEmpty(activities.get(i).getId()) ||
-                    isNullOrEmpty(activities.get(i).getTitle()) ||
-                    isNullOrEmpty(activities.get(i).getSource()) ||
-                    isNullOrEmpty(activities.get(i).getImage()) ||
-                    activities.get(i).getConsumption() < 0) {
-                return ResponseEntity.badRequest().build();
+            if (!isNullOrEmpty(activities.get(i).getId()) ||
+                    !isNullOrEmpty(activities.get(i).getTitle()) ||
+                    !isNullOrEmpty(activities.get(i).getSource()) ||
+                    !isNullOrEmpty(activities.get(i).getImage()) ||
+                    activities.get(i).getConsumption() >= 0) {
+                repo.save(activities.get(i));
+                savedActivities++;
             }
         }
-        for (Activity activity : activities) {
-            repo.save(activity);
+        if (savedActivities == 0) {
+            return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(activities);
     }
