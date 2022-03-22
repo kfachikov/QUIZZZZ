@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
@@ -88,6 +89,8 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
     @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
         input.setDisable(false);
+        input.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
+
         input.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 submitAnswer(input.getText());
