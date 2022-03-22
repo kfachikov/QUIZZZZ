@@ -317,9 +317,19 @@ public class MainCtrl {
         }
     }
 
+    /**
+     * Initializes a new instance of TimerThread and starts it.
+     * Used at the beginning of each "scene-showing" process.
+     *
+     * @param questionScreen    Controller for the corresponding scene to be visualized.
+     */
     private void startTimer (QuestionScreen questionScreen) {
         ProgressBar time = questionScreen.getTime();
         long nextPhase = singlePlayerState.getNextPhase();
+        /*
+        The following line is used so no concurrent threads occur.
+        Any existing ones are interrupted and thus, the task they execute are canceled.
+         */
         if(timerThread != null && timerThread.isAlive()) {
             timerThread.interrupt();
         }
