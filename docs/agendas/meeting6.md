@@ -187,8 +187,8 @@ Marijn
 
 ## Closing
 - Choose the next chairperson and notetakers.
-  - Chairperson — Kaloyan
-  - Notetakers —  Julius and Monica
+  - Chairperson — Julius
+  - Notetakers —  Kaloyan and Monica
 
 
 
