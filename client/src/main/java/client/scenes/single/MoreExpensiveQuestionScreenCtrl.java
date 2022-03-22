@@ -85,6 +85,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
      */
     @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
+
         firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 submitAnswer(firstAnswer.getText());
@@ -94,6 +95,23 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
                 thirdAnswer.setDisable(true);
             }
         });
+
+        image1.setOnMouseClicked(e -> {
+            submitAnswer(firstAnswer.getText());
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
+        description1.setOnMouseClicked(e -> {
+            submitAnswer(firstAnswer.getText());
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
         secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 submitAnswer(secondAnswer.getText());
@@ -103,6 +121,23 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
                 thirdAnswer.setDisable(true);
             }
         });
+
+        image2.setOnMouseClicked(e -> {
+            submitAnswer(secondAnswer.getText());
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
+        description2.setOnMouseClicked(e -> {
+            submitAnswer(secondAnswer.getText());
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
         thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 submitAnswer(thirdAnswer.getText());
@@ -112,6 +147,23 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
                 thirdAnswer.setDisable(true);
             }
         });
+
+        image3.setOnMouseClicked(e -> {
+            submitAnswer(thirdAnswer.getText());
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
+        description3.setOnMouseClicked(e -> {
+            submitAnswer(thirdAnswer.getText());
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
     }
 
     /**
