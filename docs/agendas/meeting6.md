@@ -102,22 +102,16 @@ Approx.
   - We are past the GitInspector discussion
   - Give nice titles in commits
 
-**GREENS**
-
-- Code style is **green**
-  - Merge Requests and feature branches are **green**
+- Code style is good
+  - Merge Requests and feature branches are also good
     - Monica and Kayra didn't have
-  - Code reviews are **green**
-
-**YELLOWS**
-
-- Currently testing is **yellow**
-  - Continous work is **yellow**
-  - Granularity of tasks is **yellow**
-    - Issue being concluded by one
-      - It was like a rollercoaster
+  - Code reviews are good
+  
+- Currently testing is not great
+  - The members' work rate was not constant during the last sprint
+  - Issue creation was not intended for a single person (not desired)
         - *(multiple issues have multiple people)*
-  - Task distribution is **yellow**
+  - Task distribution was a little underwhelming
 
 ---
 
@@ -188,7 +182,7 @@ Marijn
 ## Closing
 - Choose the next chairperson and notetakers.
   - Chairperson — Julius
-  - Notetakers —  Kaloyan and Monica
+  - Notetakers —  Kaloyan and Kayra
 
 
 
