@@ -5,12 +5,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import server.database.ActivityRepository;
+import server.utils.GenerateQuestionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -175,8 +177,120 @@ class ActivityControllerTest {
         List<Activity> activities = new ArrayList<>();
         activities.add(activity1);
         activities.add(activity2);
+        List<Activity> result = ctrl.addActivities(activities).getBody();
+
+        assertEquals(activities, result);
+    }
+
+    @Test
+    public void testGenerateQuestions1() {
+        Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
+        Activity activity2 = new Activity("newId2", "newTitle2", "newSource2", "newImage2", 201L);
+        Activity activity3 = new Activity("newId3", "newTitle3", "newSource3", "newImage3", 201L);
+
+        List<Activity> activities = new ArrayList<>();
+        activities.add(activity1);
+        activities.add(activity2);
+        activities.add(activity3);
+        ctrl.addActivities(activities);
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils();
+        Random random = new Random();
+
+        assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
+    }
+
+    @Test
+    public void testGenerateQuestions2() {
+        Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
+        Activity activity2 = new Activity("newId2", "newTitle2", "newSource2", "newImage2", 201L);
+        Activity activity3 = new Activity("newId3", "newTitle3", "newSource3", "newImage3", 201L);
+        Activity activity4 = new Activity("newId4", "newTitle4", "newSource4", "newImage4", 201L);
+
+
+        List<Activity> activities = new ArrayList<>();
+        activities.add(activity1);
+        activities.add(activity2);
+        activities.add(activity3);
+        activities.add(activity4);
 
         ctrl.addActivities(activities);
-        assertEquals(2, repo.count());
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils();
+        Random random = new Random();
+
+        assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
     }
+
+    @Test
+    public void testGenerateQuestions3() {
+        Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
+        Activity activity2 = new Activity("newId2", "newTitle2", "newSource2", "newImage2", 201L);
+        Activity activity3 = new Activity("newId3", "newTitle3", "newSource3", "newImage3", 201L);
+        Activity activity4 = new Activity("newId4", "newTitle4", "newSource4", "newImage4", 201L);
+        Activity activity5 = new Activity("newId5", "newTitle5", "newSource5", "newImage5", 201L);
+
+
+        List<Activity> activities = new ArrayList<>();
+        activities.add(activity1);
+        activities.add(activity2);
+        activities.add(activity3);
+        activities.add(activity4);
+        activities.add(activity5);
+        ctrl.addActivities(activities);
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils();
+        Random random = new Random();
+
+        assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
+    }
+
+    @Test
+    public void testGenerateQuestions4() {
+        Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
+        Activity activity2 = new Activity("newId2", "newTitle2", "newSource2", "newImage2", 201L);
+        Activity activity3 = new Activity("newId3", "newTitle3", "newSource3", "newImage3", 201L);
+        Activity activity4 = new Activity("newId4", "newTitle4", "newSource4", "newImage4", 201L);
+        Activity activity5 = new Activity("newId5", "newTitle5", "newSource5", "newImage5", 201L);
+        Activity activity6 = new Activity("newId6", "newTitle6", "newSource6", "newImage6", 201L);
+
+        List<Activity> activities = new ArrayList<>();
+        activities.add(activity1);
+        activities.add(activity2);
+        activities.add(activity3);
+        activities.add(activity4);
+        activities.add(activity5);
+        activities.add(activity6);
+
+        ctrl.addActivities(activities);
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils();
+        Random random = new Random();
+
+        assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
+    }
+
+    @Test
+    public void testGenerateQuestions5() {
+        Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
+        Activity activity2 = new Activity("newId2", "newTitle2", "newSource2", "newImage2", 201L);
+        Activity activity3 = new Activity("newId3", "newTitle3", "newSource3", "newImage3", 201L);
+        Activity activity4 = new Activity("newId4", "newTitle4", "newSource4", "newImage4", 201L);
+        Activity activity5 = new Activity("newId5", "newTitle5", "newSource5", "newImage5", 201L);
+        Activity activity6 = new Activity("newId6", "newTitle6", "newSource6", "newImage6", 201L);
+        Activity activity7 = new Activity("newId7", "newTitle7", "newSource7", "newImage7", 201L);
+
+
+        List<Activity> activities = new ArrayList<>();
+        activities.add(activity1);
+        activities.add(activity2);
+        activities.add(activity3);
+        activities.add(activity4);
+        activities.add(activity5);
+        activities.add(activity6);
+        activities.add(activity7);
+
+        ctrl.addActivities(activities);
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils();
+        Random random = new Random();
+
+        assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
+    }
+
 }

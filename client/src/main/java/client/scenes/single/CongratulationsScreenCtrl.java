@@ -122,9 +122,12 @@ public class CongratulationsScreenCtrl {
      * sets the scene and title to single-player game.
      */
     public void playSoloGame() {
-        mainCtrl.showSoloGameQuestion(singlePlayer, server.startSinglePlayerGame(singlePlayer));
+        mainCtrl.playSoloGame(singlePlayer, server.startSinglePlayerGame(singlePlayer));
     }
 
+    /*
+    The following method would be implemented later, as it would require some additional set up in the MainCtrl.
+     */
     /**
      * redirects the user to the answer corresponding to the button clicked by the user.
      */
@@ -132,11 +135,14 @@ public class CongratulationsScreenCtrl {
         var id = -1;
         for (int i = 0; i <= 20; i++) {
             if (i == id) {
-                mainCtrl.showSoloGameQuestion(singlePlayer, server.startSinglePlayerGame(singlePlayer));
+                //mainCtrl.showSoloGameQuestion(singlePlayer, server.startSinglePlayerGame(singlePlayer));
             }
         }
     }
 
+    /*
+    The following method would not be working as a "constant" boolean value is used - namely `correct`.
+     */
     /**
      * reveals if the answers picked by the user were correct or incorrect.
      */

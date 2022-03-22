@@ -22,14 +22,27 @@ import server.utils.GenerateQuestionUtils;
 
 import java.util.Random;
 
+/**
+ * Config class.
+ */
 @Configuration
 public class Config {
 
+    /**
+     * Getter for a new random instance.
+     *
+     * @return new random instance.
+     */
     @Bean
     public Random getRandom() {
         return new Random();
     }
 
+    /**
+     * Getter for a new instance of the GenerateQuestionUtils class.
+     *
+     * @return A new GenerateQuestionUtils instance.
+     */
     @Bean
     public GenerateQuestionUtils getRandomUtils() {
         return new GenerateQuestionUtils();

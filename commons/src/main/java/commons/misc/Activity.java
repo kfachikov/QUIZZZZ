@@ -54,6 +54,9 @@ public class Activity {
     @JsonProperty("consumption_in_wh")
     private Long consumption;
 
+    /**
+     * Default constructor for Activity. Used in the JSON parsing.
+     */
     @SuppressWarnings("unused")
     public Activity() {
         // for object mapper

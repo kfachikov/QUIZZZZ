@@ -13,6 +13,7 @@ public class InsteadQuestion extends AbstractQuestion {
 
     private Activity activity;
     private List<Activity> answerChoices;
+    private Activity correctAnswer;
 
     public InsteadQuestion() {
         super();
@@ -34,17 +35,20 @@ public class InsteadQuestion extends AbstractQuestion {
      * @param activities List of all activities
      */
     public void setAnswerChoices(List<Activity> activities) {
+        this.answerChoices = new ArrayList<>();
         List<Activity> correct = activities.stream()
                 .filter(x -> x.getConsumption() <= activity.getConsumption())
                 .collect(Collectors.toList());
         Collections.shuffle(correct);
         List<Activity> incorrect = activities.stream()
-                .filter(x -> x.getConsumption() > activity.getConsumption())
+                .filter(x -> x.getConsumption() >= activity.getConsumption())
                 .collect(Collectors.toList());
         Collections.shuffle(incorrect);
         answerChoices.add(correct.get(0));
         answerChoices.add(incorrect.get(0));
-        answerChoices.add(incorrect.get(1));
+        answerChoices.add(incorrect.get(0));
+        this.correctAnswer = answerChoices.get(0);
+        Collections.shuffle(answerChoices);
     }
 
     /**
@@ -68,5 +72,9 @@ public class InsteadQuestion extends AbstractQuestion {
 
     public List<Activity> getAnswerChoices() {
         return answerChoices;
+    }
+
+    public Activity getCorrectAnswer() {
+        return correctAnswer;
     }
 }

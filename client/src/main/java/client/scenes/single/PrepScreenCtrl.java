@@ -47,7 +47,7 @@ public class PrepScreenCtrl {
         Our single-player game controller should keep reference to the player and the corresponding game
         they are currently playing. Thus, they are passed as arguments here.
          */
-        mainCtrl.showSoloGameQuestion(singlePlayer, server.startSinglePlayerGame(singlePlayer));
+        mainCtrl.playSoloGame(singlePlayer, server.startSinglePlayerGame(singlePlayer));
     }
 
     public SinglePlayer getSinglePlayer() {

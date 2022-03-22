@@ -214,4 +214,8 @@ public abstract class GameState {
     public int hashCode() {
         return Objects.hash(nextPhase, roundNumber, questionList, submittedAnswers, activityList, state);
     }
+
+    public void addSubmittedAnswer(Response response) {
+        this.submittedAnswers.add(response);
+    }
 }
