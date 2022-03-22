@@ -302,7 +302,7 @@ public class MainCtrl {
      * @param questionScreen Controller of the current question scene.
      */
     public void updateBackground(QuestionScreen questionScreen) {
-        startTimer(questionScreen);
+        //startTimer(questionScreen);
         questionScreen.setScore(singlePlayerState.getPlayer().getScore());
         if (questionScreen.compareAnswer()) {
             questionScreen.getWindow().setStyle("-fx-background-color: #" + (Paint.valueOf("aedd94")).toString().substring(2));
