@@ -36,8 +36,6 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.File;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static commons.single.SinglePlayerState.*;
 
@@ -330,7 +328,7 @@ public class MainCtrl {
         The following line is used so no concurrent threads occur.
         Any existing ones are interrupted and thus, the task they execute are canceled.
          */
-        if(timerThread != null && timerThread.isAlive()) {
+        if (timerThread != null && timerThread.isAlive()) {
             timerThread.interrupt();
         }
         timerThread = new TimerThread(time, nextPhase);
