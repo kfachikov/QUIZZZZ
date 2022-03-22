@@ -192,6 +192,7 @@ class ActivityControllerTest {
 
         assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
     }
+
     @Test
     public void testGenerateQuestions2() {
         Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
@@ -212,6 +213,7 @@ class ActivityControllerTest {
 
         assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
     }
+
     @Test
     public void testGenerateQuestions3() {
         Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
@@ -233,6 +235,7 @@ class ActivityControllerTest {
 
         assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
     }
+
     @Test
     public void testGenerateQuestions4() {
         Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
@@ -256,6 +259,7 @@ class ActivityControllerTest {
 
         assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
     }
+
     @Test
     public void testGenerateQuestions5() {
         Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
