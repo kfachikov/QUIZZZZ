@@ -107,7 +107,8 @@ public class ActivityController {
                     !isNullOrEmpty(activities.get(i).getTitle()) &&
                     !isNullOrEmpty(activities.get(i).getSource()) &&
                     !isNullOrEmpty(activities.get(i).getImage()) &&
-                    activities.get(i).getConsumption() >= 0) {
+                    activities.get(i).getConsumption() > 0 &&
+                    activities.get(i).getSource().length() < 240) {
                 repo.save(activities.get(i));
                 savedActivities++;
             }
