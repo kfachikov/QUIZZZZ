@@ -172,7 +172,8 @@ Alexandra
 
 Monica
 
-- top:
+- top: The new rules regarding the merge requests are taken into consideration and this fact improved our work.
+- tip: We should all be more careful when implementing something having in mind that our code have to be integrated in the final version, but Florena already said that.
 
 Julius
 - top for Alexandra: a week ago you worked hard on the issue distribution; before the meeting you compiled a list of issues. I appreciate the stepping up of that
