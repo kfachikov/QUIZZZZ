@@ -103,10 +103,10 @@ public class ActivityController {
     public ResponseEntity<List<Activity>> addActivities(@RequestBody List<Activity> activities) {
         int savedActivities = 0;
         for (int i = 0; i < activities.size(); i++) {
-            if (!isNullOrEmpty(activities.get(i).getId()) ||
-                    !isNullOrEmpty(activities.get(i).getTitle()) ||
-                    !isNullOrEmpty(activities.get(i).getSource()) ||
-                    !isNullOrEmpty(activities.get(i).getImage()) ||
+            if (!isNullOrEmpty(activities.get(i).getId()) &&
+                    !isNullOrEmpty(activities.get(i).getTitle()) &&
+                    !isNullOrEmpty(activities.get(i).getSource()) &&
+                    !isNullOrEmpty(activities.get(i).getImage()) &&
                     activities.get(i).getConsumption() >= 0) {
                 repo.save(activities.get(i));
                 savedActivities++;
