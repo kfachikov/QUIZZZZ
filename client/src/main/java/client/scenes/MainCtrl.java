@@ -167,7 +167,7 @@ public class MainCtrl {
         primaryStage.setScene(administrator);
     }
 
-    public File chooseFile(Button selectFileButton) {
+    public File chooseFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
         File selectedFile =  fileChooser.showOpenDialog(null);

@@ -40,7 +40,7 @@ public class AdministratorScreenCtrl {
     }
 
     public void chooseFile() throws IOException {
-        File selectedFile = mainCtrl.chooseFile(selectFileButton);
+        File selectedFile = mainCtrl.chooseFile();
         String fileAsString = Files.readString(selectedFile.toPath());
         description.setText("You have imported " + selectedFile.getName());
         server.importActivities(fileAsString);
