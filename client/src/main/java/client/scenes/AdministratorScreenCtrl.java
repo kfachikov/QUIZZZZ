@@ -7,7 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 import java.io.File;
-
+import java.io.IOException;
+import java.nio.file.Files;
 
 public class AdministratorScreenCtrl {
     private final ServerUtils server;
@@ -38,9 +39,10 @@ public class AdministratorScreenCtrl {
         mainCtrl.showHome();
     }
 
-    public void chooseFile() {
+    public void chooseFile() throws IOException {
         File selectedFile = mainCtrl.chooseFile(selectFileButton);
+        String fileAsString = Files.readString(selectedFile.toPath());
         description.setText("You have imported " + selectedFile.getName());
-        server.importActivities(selectedFile);
+        server.importActivities(fileAsString);
     }
 }

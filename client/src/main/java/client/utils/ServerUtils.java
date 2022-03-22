@@ -24,7 +24,6 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import org.glassfish.jersey.client.ClientConfig;
 
-import java.io.File;
 import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -102,12 +101,13 @@ public class ServerUtils {
                 .get(new GenericType<List<Activity>>() {});
     }
 
-    public List<Activity> importActivities(File activities) {
+    public List<Activity> importActivities(String fileAsString) {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer).path("/addToRepo")
-                .queryParam("activities", activities)
+                .target(currentServer)
+                .path("/api/activities/addToRepo")
+                //.queryParam("activities", activities)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<List<Activity>>() {});
+                .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<Activity>>() {});
     }
 }
