@@ -28,24 +28,24 @@
                 <Font name="System Bold" size="18.0" />
             </font>
         </Label>
-        <Label fx:id="questionTitle" layoutX="115.0" layoutY="69.0" prefHeight="39.0" prefWidth="387.0" stylesheets="@../../../../styling/GameStyle.css" text="Instead of ..., you could instead ..." textAlignment="CENTER" textFill="#006e8c">
+        <Label fx:id="questionTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="69.0" prefHeight="39.0" prefWidth="559.0" stylesheets="@../../../../styling/GameStyle.css" text="Instead of ..., you could instead ..." textAlignment="CENTER" textFill="#006e8c">
             <font>
-                <Font name="SansSerif Bold" size="24.0" />
+                <Font name="SansSerif Bold" size="18.0" />
             </font>
         </Label>
         <Button fx:id="firstAnswer" layoutX="282.0" layoutY="139.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="277.0" stylesheets="@../../../../styling/GameStyle.css" text="Cook a meal ten times" textFill="#006e8c">
             <font>
-                <Font name="SansSerif Bold" size="15.0" />
+                <Font name="SansSerif Bold" size="14.0" />
             </font>
         </Button>
         <Button fx:id="secondAnswer" layoutX="282.0" layoutY="215.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="277.0" stylesheets="@../../../../styling/GameStyle.css" text="Light my entire house for a week" textFill="#006e8c">
             <font>
-                <Font name="SansSerif Bold" size="15.0" />
+                <Font name="SansSerif Bold" size="14.0" />
             </font>
         </Button>
         <Button fx:id="thirdAnswer" layoutX="282.0" layoutY="294.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="277.0" stylesheets="@../../../../styling/GameStyle.css" text="Keep the fridge on for 3.5 days" textFill="#006e8c">
             <font>
-                <Font name="SansSerif Bold" size="15.0" />
+                <Font name="SansSerif Bold" size="14.0" />
             </font>
         </Button>
         <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="-191.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
@@ -53,7 +53,7 @@
             <Image url="@../../../../../../../29/washingMachine.png" />
         </image>
         </ImageView>
-        <Text fx:id="description" layoutX="34.0" layoutY="349.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="216.0">
+        <Text fx:id="description" fill="#006e8c" layoutX="34.0" layoutY="349.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="216.0">
             <font>
                 <Font size="20.0" />
             </font></Text>

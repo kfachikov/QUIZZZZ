@@ -28,16 +28,16 @@
                 <Font name="System Bold" size="18.0" />
             </font>
         </Label>
-        <Label fx:id="questionTitle" layoutX="90.0" layoutY="71.0" prefHeight="39.0" prefWidth="438.0" stylesheets="@../../../../styling/GameStyle.css" text="How much energy does it take in Wh?" textAlignment="CENTER" textFill="#006e8c">
+        <Label fx:id="questionTitle" alignment="CENTER" layoutX="21.0" layoutY="71.0" prefHeight="39.0" prefWidth="558.0" stylesheets="@../../../../styling/GameStyle.css" text="How much energy does it take in Wh?" textAlignment="CENTER" textFill="#006e8c">
             <font>
                 <Font name="SansSerif Bold" size="24.0" />
             </font>
         </Label>
-        <Text fx:id="description" layoutX="98.0" layoutY="312.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="410.0">
+        <Text fx:id="description" fill="#006e8c" layoutX="98.0" layoutY="312.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="410.0">
             <font>
                 <Font size="20.0" />
             </font></Text>
-      <TextField fx:id="input" layoutX="87.0" layoutY="329.0" prefHeight="64.0" prefWidth="427.0" text="            Type your guess here...">
+      <TextField fx:id="input" alignment="CENTER" layoutX="87.0" layoutY="329.0" prefHeight="64.0" prefWidth="427.0" promptText="Type your guess here">
          <font>
             <Font size="24.0" />
          </font>
