@@ -87,6 +87,7 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      */
     @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
+        input.setDisable(false);
         input.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 submitAnswer(input.getText());

@@ -73,13 +73,11 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      */
     @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
-        firstAnswer.setDisable(false);
-        secondAnswer.setDisable(false);
-        thirdAnswer.setDisable(false);
         firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 submitAnswer(firstAnswer.getText());
                 firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+                firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
                 thirdAnswer.setDisable(true);
             }
@@ -89,6 +87,7 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
                 submitAnswer(secondAnswer.getText());
                 secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
+                secondAnswer.setDisable(true);
                 thirdAnswer.setDisable(true);
             }
         });
@@ -98,6 +97,7 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
                 thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
+                thirdAnswer.setDisable(true);
             }
         });
     }
@@ -161,6 +161,10 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      * @param question Question to be visualized on the particular scene.
      */
     public void setQuestion(InsteadQuestion question) {
+        firstAnswer.setDisable(false);
+        secondAnswer.setDisable(false);
+        thirdAnswer.setDisable(false);
+
         this.question = question;
         setQuestionPrompt();
         /*
