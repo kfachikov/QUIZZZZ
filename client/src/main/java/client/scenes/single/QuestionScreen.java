@@ -9,9 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.Optional;
-import java.util.Timer;
-
-import java.util.TimerTask;
 
 /*
 Parent class used for the shared functionality of the different question screen
@@ -69,24 +66,6 @@ public abstract class QuestionScreen {
      * @return Corresponding boolean value.
      */
     public abstract boolean compareAnswer();
-
-    /**
-     *
-     */
-    public void timer() {
-        this.time.setProgress(0.0);
-        Timer timer = new Timer();
-        TimerTask timerTask1 = new TimerTask() {
-            @Override
-            public void run() {
-                int i = 0;
-                time.setStyle("-fx-accent: #006e8c");
-
-                //time.setStyle("-fx-accent: red");
-                }
-            };
-        timer.schedule(timerTask1, 200L, 300L);
-    }
 
 
     /**

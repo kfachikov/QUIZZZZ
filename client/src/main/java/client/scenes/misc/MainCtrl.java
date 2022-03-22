@@ -358,7 +358,6 @@ public class MainCtrl {
     public void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
         moreExpensiveCtrl.setQuestion(question);
         primaryStage.setScene(moreExpensive);
-        moreExpensiveCtrl.timer();
     }
 
     /**
@@ -369,7 +368,6 @@ public class MainCtrl {
     public void showConsumptionQuestion(ConsumptionQuestion question) {
         consumptionCtrl.setQuestion(question);
         primaryStage.setScene(consumption);
-        consumptionCtrl.timer();
     }
 
     /**
@@ -380,7 +378,6 @@ public class MainCtrl {
     public void showInsteadQuestion(InsteadQuestion question) {
         insteadCtrl.setQuestion(question);
         primaryStage.setScene(instead);
-        insteadCtrl.timer();
     }
 
     /**
@@ -391,7 +388,6 @@ public class MainCtrl {
     public void showGuessQuestion(GuessQuestion question) {
         guessCtrl.setQuestion(question);
         primaryStage.setScene(guess);
-        insteadCtrl.timer();
     }
 
     /**

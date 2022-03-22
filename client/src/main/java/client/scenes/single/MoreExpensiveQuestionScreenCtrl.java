@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 import java.util.Date;
 
 public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
+
     private MoreExpensiveQuestion question;
     private SinglePlayer singlePlayer;
     private SinglePlayerState singlePlayerState;
