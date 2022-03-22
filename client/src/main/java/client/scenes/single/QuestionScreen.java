@@ -81,7 +81,7 @@ public abstract class QuestionScreen {
 
         Optional<ButtonType> confirmation = alert.showAndWait();
         if (confirmation.get() == yesButton) {
-            mainCtrl.showHome();
+            mainCtrl.leaveSingleGame();
             firstAnswer.setDisable(false);
             secondAnswer.setDisable(false);
             thirdAnswer.setDisable(false);

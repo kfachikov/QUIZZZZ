@@ -161,6 +161,16 @@ public class MainCtrl {
     }
 
     /**
+     * Once a player decides on leaving a single-player game mode,
+     * the polling service should be stopped in addition to the
+     * home screen being revealed.
+     */
+    public void leaveSingleGame() {
+        pollingService.stop();
+        showHome();
+    }
+
+    /**
      * sets the title and the scene as prep.
      */
     public void showPrep(SinglePlayer singlePlayer) {
