@@ -113,7 +113,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
                 new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
-                chosenAnswer
+                chosenAnswer.substring(0, chosenAnswer.length() - 2)
                 ));
     }
 
@@ -126,15 +126,6 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
         currentScore.setText(String.valueOf(score));
     }
 
-
-    /**
-     * Sets the current score.
-     *
-     * @param score is the current score of the player
-     */
-    public void setScore(int score) {
-        currentScore.setText(String.valueOf(score));
-    }
 
     /**
      * Sets the question to the chosen questionText.
@@ -163,21 +154,9 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
         The following setup was made purely for testing purposes.
         Should be optimized - extracted as functionality (eventually).
          */
-        firstAnswer.setText(question.getAnswerChoices().get(0));
-        secondAnswer.setText(question.getAnswerChoices().get(1));
-        thirdAnswer.setText(question.getAnswerChoices().get(2));
-    }
-
-
-
-    /**
-     * Getter for polling service which keeps the state of the current game up to date
-     * by "constantly" polling it from the server.
-     *
-     * @return GameState polling service
-     */
-    public GameStatePollingService getPollingService() {
-        return pollingService;
+        firstAnswer.setText(question.getAnswerChoices().get(0) + "Wh");
+        secondAnswer.setText(question.getAnswerChoices().get(1) + "Wh");
+        thirdAnswer.setText(question.getAnswerChoices().get(2) + "Wh");
     }
 
     /**

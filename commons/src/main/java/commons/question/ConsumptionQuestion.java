@@ -15,7 +15,7 @@ import java.util.*;
 @JsonTypeName(value = "consumption")
 public class ConsumptionQuestion extends AbstractQuestion {
     private Activity activity;
-    private List<String> answerChoices;
+    private List<Long> answerChoices;
 
     /**
      * Default constructor. Used for the JSON parsing of the different question instances.
@@ -53,9 +53,9 @@ public class ConsumptionQuestion extends AbstractQuestion {
         long upperBound = correct * 3 / 2;
         long answer1 = lowerBound + rnd.nextInt((int) (upperBound - lowerBound + 1));
         long answer2 = lowerBound + rnd.nextInt((int) (upperBound - lowerBound + 1));
-        answerChoices.add(answer1 + "Wh");
-        answerChoices.add(answer2 + "Wh");
-        answerChoices.add(correct + "Wh");
+        answerChoices.add(answer1);
+        answerChoices.add(answer2);
+        answerChoices.add(correct);
         Collections.shuffle(answerChoices);
     }
 
@@ -111,7 +111,7 @@ public class ConsumptionQuestion extends AbstractQuestion {
      *
      * @return The answerChoices field of that particular question instance.
      */
-    public List<String> getAnswerChoices() {
+    public List<Long> getAnswerChoices() {
         return answerChoices;
     }
 
@@ -119,7 +119,7 @@ public class ConsumptionQuestion extends AbstractQuestion {
         this.activity = activity;
     }
 
-    public void setAnswerChoices(List<String> answerChoices) {
+    public void setAnswerChoices(List<Long> answerChoices) {
         this.answerChoices = answerChoices;
     }
 }
