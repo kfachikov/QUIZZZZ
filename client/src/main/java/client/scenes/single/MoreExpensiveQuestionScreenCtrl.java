@@ -6,6 +6,7 @@ import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.question.MoreExpensiveQuestion;
 import commons.single.SinglePlayer;
+import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -169,22 +170,6 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {}
-
-    /*
-    The following method should be re-written once the questions are generated and
-    decision on how to control the different scenes is taken.
-    */
-    /**
-     * Comparison of submitted answer and actual correct one.
-     * Both could be accessed through the singlePlayerState instance
-     *
-     * @return Boolean value whether the answer is correct or not.
-     */
-    public boolean compareAnswer() {
-        return true;
-        //return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
-    }
-
 
 
     /**

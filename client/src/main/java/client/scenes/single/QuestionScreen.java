@@ -70,13 +70,6 @@ public abstract class QuestionScreen {
      */
     public abstract AnchorPane getWindow();
 
-    /**
-     * Compares the submitted answer with the correct one - both stored in the GameState object.
-     *
-     * @return Corresponding boolean value.
-     */
-    public abstract boolean compareAnswer();
-
 
     /**
      * sets the scene and title to home if the yes button is clicked.

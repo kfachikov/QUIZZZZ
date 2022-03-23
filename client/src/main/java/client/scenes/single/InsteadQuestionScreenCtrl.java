@@ -116,21 +116,6 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     }
 
 
-    /*
-    The following method should be re-written once the questions are generated and
-    decision on how to control the different scenes is taken.
-     */
-    /**
-     * Comparison of submitted answer and actual correct one.
-     * Both could be accessed through the singlePlayerState instance
-     *
-     * @return Boolean value whether the answer is correct or not.
-     */
-    public boolean compareAnswer() {
-        return true;
-        //return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
-    }
-
     /**
      * Sets the current score.
      *

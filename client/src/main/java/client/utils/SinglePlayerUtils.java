@@ -3,6 +3,7 @@ package client.utils;
 import client.scenes.misc.MainCtrl;
 import client.scenes.single.QuestionScreen;
 import client.services.GameStatePollingService;
+import commons.misc.Response;
 import commons.question.*;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
@@ -162,7 +163,7 @@ public class SinglePlayerUtils {
     public void revealAnswerCorrectness() {
         //startTimer(questionScreen);
         currentController.setScore(singlePlayerState.getPlayer().getScore());
-        if (currentController.compareAnswer()) {
+        if (singlePlayerState.compareAnswer()) {
             currentController.getWindow()
                     .setStyle("-fx-background-color: #" + (Paint.valueOf("aedd94")).toString().substring(2));
         } else {
