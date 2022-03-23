@@ -165,15 +165,4 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz: Administrator Panel");
         primaryStage.setScene(administrator);
     }
-
-    /**
-     * Pops up local file directory for the user to choose a .json file of activities (JsonArray).
-     * @return input file
-     */
-    public File chooseFile() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
-        File selectedFile =  fileChooser.showOpenDialog(null);
-        return selectedFile;
-    }
 }

@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,12 +42,15 @@ public class AdministratorScreenCtrl {
 
     /**
      * Provides functionality to the Import Activities button.
-     * Calls chooseFile() method from MainCtrl, which returns the file that is selected
+     * Pops up local file directory for the user to choose a .json file of activities (JsonArray).
      * Passes the file (in String) to the ServerUtils' method ImportActivities, which sends the file to server using POST
      * @throws IOException
      */
     public void chooseFile() throws IOException {
-        File selectedFile = mainCtrl.chooseFile();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+        File selectedFile =  fileChooser.showOpenDialog(null);
+
         String fileAsString = Files.readString(selectedFile.toPath());
         description.setText("You have imported " + selectedFile.getName());
         server.importActivities(fileAsString);
