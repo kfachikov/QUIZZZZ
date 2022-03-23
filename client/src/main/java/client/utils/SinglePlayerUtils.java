@@ -27,7 +27,6 @@ public class SinglePlayerUtils {
     SinglePlayer and SinglePlayerState instances of the current pair Player-Game on the client-side.
      */
     private final GameStatePollingService pollingService;
-    private SinglePlayer singlePlayer;
     private SinglePlayerState singlePlayerState;
 
     private TimerThread timerThread;
@@ -54,11 +53,9 @@ public class SinglePlayerUtils {
      *
      * The polling service would thus be initialized with the corresponding desired functionality.
      *
-     * @param singlePlayer          SinglePlayer instance on the current player - the client.
      * @param singlePlayerState     SinglePlayerState instance of the current game the client is playing.
      */
-    public void setSinglePlayerAttributes(SinglePlayer singlePlayer, SinglePlayerState singlePlayerState) {
-        this.singlePlayer = singlePlayer;
+    public void setSinglePlayerAttributes(SinglePlayerState singlePlayerState) {
         this.singlePlayerState = singlePlayerState;
 
         initializePollingService();
@@ -92,10 +89,6 @@ public class SinglePlayerUtils {
                                 First, the question should be chosen, so that the current controller is set accordingly.
                                 */
                                 chooseNextQuestion();
-                                /*
-                                Only then, the default background should change.
-                                */
-                                setDefault();
                                 break;
                             case TRANSITION_STATE:
                                 /*
@@ -138,6 +131,12 @@ public class SinglePlayerUtils {
         if (current instanceof MoreExpensiveQuestion) {
             mainCtrl.showMoreExpensiveQuestion((MoreExpensiveQuestion) current);
         }
+        /*
+        Only now, when the currentController is set by the main controller
+        (happens in one of the "show" methods above)
+        , the default background should change.
+        */
+        setDefault();
         startTimer(currentController);
     }
 
@@ -193,24 +192,6 @@ public class SinglePlayerUtils {
      */
     public void stopPollingService() {
         pollingService.stop();
-    }
-
-    /**
-     * Getter for the single-player instance of current player-game relation.
-     *
-     * @return  SinglePlayer instance.
-     */
-    public SinglePlayer getSinglePlayer() {
-        return singlePlayer;
-    }
-
-    /**
-     * Setter for the single-player field.
-     *
-     * @param singlePlayer  Current single-player instance.
-     */
-    public void setSinglePlayer(SinglePlayer singlePlayer) {
-        this.singlePlayer = singlePlayer;
     }
 
     /**
