@@ -202,13 +202,14 @@ public class MainCtrl {
      * the QueueUser instance of the person joining the queue.
      *
      * @param user QueueUser which is joining the queue
+     * @param serverAddress server address to be shown in the queue screen
      */
-    public void showQueue(QueueUser user) {
+    public void showQueue(QueueUser user, String serverAddress) {
         primaryStage.setTitle("Quizzz: Queue");
         primaryStage.setScene(queue);
         queueCtrl.getPollingService().start();
         queueCtrl.setUser(user);
-        queueCtrl.setServerAddress(homeCtrl.getServer());
+        queueCtrl.setServerAddress(serverAddress);
         queueCtrl.resetScene();
     }
 
