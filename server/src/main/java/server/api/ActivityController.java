@@ -5,8 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
 import commons.Activity;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -106,7 +104,6 @@ public class ActivityController {
     @PostMapping("/addToRepo")
     public ResponseEntity<List<Activity>> addActivities(@RequestBody List<Activity> activities) {
         int savedActivityCount = 0;
-        List<Activity> savedActivityList = new ArrayList<>();
         for (int i = 0; i < activities.size(); i++) {
             if (!isNullOrEmpty(activities.get(i).getId()) &&
                     !isNullOrEmpty(activities.get(i).getTitle()) &&
@@ -116,13 +113,12 @@ public class ActivityController {
                     activities.get(i).getSource().length() < 240) {
                 repo.save(activities.get(i));
                 savedActivityCount++;
-                savedActivityList.add(activities.get(i));
             }
         }
         if (savedActivityCount == 0) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(savedActivityList);
+        return ResponseEntity.ok(repo.findAll());
     }
 
     /**
