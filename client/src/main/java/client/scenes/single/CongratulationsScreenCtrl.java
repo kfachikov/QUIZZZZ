@@ -5,7 +5,6 @@ import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.single.SinglePlayer;
-import commons.single.SinglePlayerState;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
