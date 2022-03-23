@@ -88,7 +88,8 @@ public abstract class QuestionScreen {
 
         Optional<ButtonType> confirmation = alert.showAndWait();
         if (confirmation.get() == yesButton) {
-            mainCtrl.leaveSingleGame();
+            singlePlayerUtils.stopPollingService();
+            mainCtrl.showHome();
             firstAnswer.setDisable(false);
             secondAnswer.setDisable(false);
             thirdAnswer.setDisable(false);
@@ -103,4 +104,13 @@ public abstract class QuestionScreen {
      */
     public abstract ProgressBar getTime();
 
+    /**
+     * Getter for the utility instance.
+     *
+     * @return  SinglePlayerUtils instance consisting of information about
+     * current game state and current player.
+     */
+    public SinglePlayerUtils getSinglePlayerUtils() {
+        return singlePlayerUtils;
+    }
 }

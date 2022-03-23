@@ -3,6 +3,7 @@ package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
 import client.utils.ServerUtils;
+import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.single.SinglePlayer;
 
@@ -20,6 +21,8 @@ public class PrepScreenCtrl {
      */
     private SinglePlayer singlePlayer;
 
+    private SinglePlayerUtils singlePlayerUtils;
+
     /**
      * initializes PrepScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
@@ -27,9 +30,10 @@ public class PrepScreenCtrl {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public PrepScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public PrepScreenCtrl(ServerUtils server, MainCtrl mainCtrl, SinglePlayerUtils singlePlayerUtils) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.singlePlayerUtils = singlePlayerUtils;
     }
 
     /**
@@ -44,11 +48,13 @@ public class PrepScreenCtrl {
      */
     public void playSoloGame() {
         /*
-        Our single-player game controller should keep reference to the player and the corresponding game
+        The single-player game logic utility should keep reference to the player and the corresponding game
         they are currently playing. Thus, they are passed as arguments here.
          */
-        mainCtrl.playSoloGame(singlePlayer, server.startSinglePlayerGame(singlePlayer));
+        singlePlayerUtils.setSinglePlayerAttributes(singlePlayer, server.startSinglePlayerGame(singlePlayer));
+        mainCtrl.playSoloGame(singlePlayerUtils);
     }
+
 
     public SinglePlayer getSinglePlayer() {
         return singlePlayer;

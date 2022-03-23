@@ -2,6 +2,7 @@ package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
 import client.utils.ServerUtils;
+import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.single.SinglePlayer;
 import javafx.fxml.FXML;
@@ -22,6 +23,8 @@ public class CongratulationsScreenCtrl {
     consisting of the username entered on the `Main Screen` and a default score - 0.
      */
     private SinglePlayer singlePlayer;
+
+    SinglePlayerUtils singlePlayerUtils;
 
     @FXML
     private Text position;
@@ -96,9 +99,10 @@ public class CongratulationsScreenCtrl {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public CongratulationsScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public CongratulationsScreenCtrl(ServerUtils server, MainCtrl mainCtrl, SinglePlayerUtils singlePlayerUtils) {
         this.mainCtrl = mainCtrl;
         this.server = server;
+        this.singlePlayerUtils = singlePlayerUtils;
     }
 
     /**
@@ -122,7 +126,8 @@ public class CongratulationsScreenCtrl {
      * sets the scene and title to single-player game.
      */
     public void playSoloGame() {
-        mainCtrl.playSoloGame(singlePlayer, server.startSinglePlayerGame(singlePlayer));
+        singlePlayerUtils.setSinglePlayerAttributes(singlePlayer, server.startSinglePlayerGame(singlePlayer));
+        mainCtrl.playSoloGame(singlePlayerUtils);
     }
 
     /*
