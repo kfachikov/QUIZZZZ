@@ -3,11 +3,9 @@ package client.scenes.single;
 import client.scenes.misc.MainCtrl;
 import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
+import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
-import commons.misc.Response;
 import commons.question.GuessQuestion;
-import commons.single.SinglePlayer;
-import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,8 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-
-import java.util.Date;
 
 public class GuessQuestionScreenCtrl extends QuestionScreen {
 
@@ -55,8 +51,9 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public GuessQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
-        super(server, mainCtrl, pollingService);
+    public GuessQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+        super(server, mainCtrl, pollingService, singlePlayerUtils);
+        System.out.println(singlePlayerUtils + "guess");
     }
 
 

@@ -3,6 +3,7 @@ package client.scenes.single;
 import client.scenes.misc.MainCtrl;
 import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
+import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -19,6 +20,11 @@ public abstract class QuestionScreen {
     public final MainCtrl mainCtrl;
     public final ServerUtils server;
     public final GameStatePollingService pollingService;
+    /*
+    Utils class instance, which would contain the whole single-player game logic.
+    In addition, it would hold the single-player and the game state instances of the current game.
+     */
+    public final SinglePlayerUtils singlePlayerUtils;
 
     @FXML
     private Button firstAnswer;
@@ -36,10 +42,11 @@ public abstract class QuestionScreen {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public QuestionScreen(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
+    public QuestionScreen(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
         this.pollingService = pollingService;
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.singlePlayerUtils = singlePlayerUtils;
     }
 
     /**

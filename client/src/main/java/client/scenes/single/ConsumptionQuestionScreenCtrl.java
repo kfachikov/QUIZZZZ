@@ -3,11 +3,9 @@ package client.scenes.single;
 import client.scenes.misc.MainCtrl;
 import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
+import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
-import commons.misc.Response;
 import commons.question.ConsumptionQuestion;
-import commons.single.SinglePlayer;
-import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -61,8 +59,8 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      * @param pollingService is the injected polling service to be used to poll the game state.
      */
     @Inject
-    public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
-        super(server, mainCtrl, pollingService);
+    public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+        super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 
     /**
