@@ -140,10 +140,14 @@ public class SingleplayerStateController {
     private void updateScore(SinglePlayerState game) {
         if (game.getState().equals(SinglePlayerState.TRANSITION_STATE)) {
             Response playerResponse = computeFinalAnswer(game);
-            // Clear the game from any previous answers
+            /*
+            Saves the latest response of the player in the list of answers submitted as final.
+             */
+            game.getFinalAnswers().add(playerResponse);
+
+//            // Clear the game from any previous answers
             game.getSubmittedAnswers().clear();
 
-            AbstractQuestion currentQuestion = getCurrentQuestion(game);
             if (game.compareAnswer()) {
                 SinglePlayer player = game.getPlayer();
                 player.setScore(player.getScore() + computeScore(playerResponse));
@@ -227,17 +231,17 @@ public class SingleplayerStateController {
         // Check if we should be changing the state of the game
         if (time >= game.getNextPhase()) {
             if (game.getState().equals(SinglePlayerState.QUESTION_STATE)) {
-                if (game.getRoundNumber() >= 3) {
+                game.setState(SinglePlayerState.TRANSITION_STATE);
+                game.setNextPhase(game.getNextPhase() + 3000);
+                return true;
+            } else if (game.getState().equals(SinglePlayerState.TRANSITION_STATE)) {
+                if (game.getRoundNumber() >= 20) {
                     game.setState(SinglePlayerState.GAME_OVER_STATE);
                 } else {
-                    game.setState(SinglePlayerState.TRANSITION_STATE);
-                    game.setNextPhase(game.getNextPhase() + 3000);
-                    return true;
+                    game.setState(SinglePlayerState.QUESTION_STATE);
+                    game.setNextPhase(game.getNextPhase() + 8000);
+                    game.setRoundNumber(game.getRoundNumber() + 1);
                 }
-            } else if (game.getState().equals(SinglePlayerState.TRANSITION_STATE)) {
-                game.setState(SinglePlayerState.QUESTION_STATE);
-                game.setNextPhase(game.getNextPhase() + 8000);
-                game.setRoundNumber(game.getRoundNumber() + 1);
             }
         }
         return false;
@@ -262,6 +266,7 @@ public class SingleplayerStateController {
         int roundNumber = 0;
         List<AbstractQuestion> questionList = generateQuestions();
         List<Response> submittedAnswers = new ArrayList<>();
+        List<Response> finalAnswers = new ArrayList<>();
         List<Activity> activityList = new ArrayList<>();
         String state = SinglePlayerState.QUESTION_STATE;
         return new SinglePlayerState(
@@ -269,6 +274,7 @@ public class SingleplayerStateController {
                 nextTransition,
                 roundNumber,
                 questionList,
+                finalAnswers,
                 submittedAnswers,
                 activityList,
                 state,

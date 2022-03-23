@@ -5,7 +5,9 @@ import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
+import commons.misc.Response;
 import commons.question.ConsumptionQuestion;
+import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +16,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+
+import java.util.Date;
 
 /**
  * Controller for the consumption question scene.
@@ -104,6 +108,13 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
+        SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
+        server.postAnswer(new Response(singlePlayerState.getId(),
+                new Date().getTime(),
+                singlePlayerState.getRoundNumber(),
+                singlePlayerState.getPlayer().getUsername(),
+                chosenAnswer
+                ));
     }
 
     /**
@@ -114,6 +125,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
     public void setScore(long score) {
         currentScore.setText(String.valueOf(score));
     }
+
 
     /**
      * Sets the current score.

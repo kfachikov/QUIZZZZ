@@ -48,14 +48,14 @@ public class ConsumptionQuestion extends AbstractQuestion {
      */
     public void setAnswerChoices() {
         Random rnd = new Random();
-        long correctAnswer = activity.getConsumption();
-        long lowerBound = correctAnswer / 2;
-        long upperBound = correctAnswer * 3 / 2;
+        long correct = activity.getConsumption();
+        long lowerBound = correct / 2;
+        long upperBound = correct * 3 / 2;
         long answer1 = lowerBound + rnd.nextInt((int) (upperBound - lowerBound + 1));
         long answer2 = lowerBound + rnd.nextInt((int) (upperBound - lowerBound + 1));
         answerChoices.add(answer1 + "Wh");
         answerChoices.add(answer2 + "Wh");
-        answerChoices.add(correctAnswer + "Wh");
+        answerChoices.add(correct + "Wh");
         Collections.shuffle(answerChoices);
     }
 

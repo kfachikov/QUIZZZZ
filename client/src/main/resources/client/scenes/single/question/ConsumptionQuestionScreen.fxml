@@ -54,7 +54,7 @@
             </font></Text>
         <ImageView fx:id="image" fitHeight="177.0" fitWidth="244.0" layoutX="45.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../../../../../29/washingMachine.png" />
+<!--                <Image url="@../../../../../../../29/washingMachine.png" />-->
             </image>
         </ImageView>
     </children>

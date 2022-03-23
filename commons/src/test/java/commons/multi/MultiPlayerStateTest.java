@@ -20,6 +20,7 @@ class MultiPlayerStateTest {
     private Response response2;
     private Response response3;
     private Response response4;
+
     private List<Response> answers;
     private List<Response> answers2;
 

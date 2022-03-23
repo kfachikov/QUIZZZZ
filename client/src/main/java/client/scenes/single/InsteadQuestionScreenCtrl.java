@@ -5,7 +5,9 @@ import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
+import commons.misc.Response;
 import commons.question.InsteadQuestion;
+import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,6 +17,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+
+import java.util.Date;
 
 public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
@@ -103,6 +107,13 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
+        SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
+        server.postAnswer(new Response(singlePlayerState.getId(),
+                new Date().getTime(),
+                singlePlayerState.getRoundNumber(),
+                singlePlayerState.getPlayer().getUsername(),
+                chosenAnswer
+        ));
     }
 
     /**

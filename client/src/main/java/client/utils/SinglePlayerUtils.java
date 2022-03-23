@@ -96,6 +96,13 @@ public class SinglePlayerUtils {
                                 setDefaultQuestionBackground();
                                 break;
                             case TRANSITION_STATE:
+                                /*
+                                Whenever an answer is submitted and that is registered on the server,
+                                the game state on the client-side is also updated.
+                                */
+                                if (!singlePlayerState.getSubmittedAnswers().equals(newGameState.getSubmittedAnswers())) {
+                                    singlePlayerState = (SinglePlayerState) newGameState;
+                                }
                                 revealAnswerCorrectness();
                                 break;
                             case GAME_OVER_STATE:
@@ -103,13 +110,7 @@ public class SinglePlayerUtils {
                                 break;
                         }
                     }
-                    /*
-                    Whenever an answer is submitted and that is registered on the server,
-                    the game state on the client-side is also updated.
-                    */
-                    if (!singlePlayerState.getSubmittedAnswers().equals(newGameState.getSubmittedAnswers())) {
-                        singlePlayerState = (SinglePlayerState) newGameState;
-                    }
+
                 }
                 }));
 

@@ -16,11 +16,6 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
     private List<Activity> answerChoices;
 
     /**
-     * This is the correct choice activity.
-     */
-    private Activity correctAnswer;
-
-    /**
      * Constructor for the fourth question type.
      */
     public MoreExpensiveQuestion() {
@@ -38,10 +33,10 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
         answerChoices.add(activities.get(0));
         answerChoices.add(activities.get(1));
         answerChoices.add(activities.get(2));
-        correctAnswer = (answerChoices.get(1).getConsumption() > answerChoices.get(0).getConsumption()) ?
+        Activity correct = (answerChoices.get(1).getConsumption() > answerChoices.get(0).getConsumption()) ?
                 answerChoices.get(1) : answerChoices.get(0);
-        correctAnswer = (answerChoices.get(2).getConsumption() > correctAnswer.getConsumption()) ?
-                answerChoices.get(2) : correctAnswer;
+        correct = (answerChoices.get(2).getConsumption() > correct.getConsumption()) ?
+                answerChoices.get(2) : correct;
     }
 
     /**
@@ -60,6 +55,6 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
     }
 
     public String getCorrectAnswer() {
-        return correctAnswer.toString();
+        return "hello";
     }
 }
