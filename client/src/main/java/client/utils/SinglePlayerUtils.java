@@ -109,6 +109,7 @@ public class SinglePlayerUtils {
                                 break;
                             case GAME_OVER_STATE:
                                 pollingService.stop();
+                                mainCtrl.showCongratulations();
                                 break;
                         }
                     }

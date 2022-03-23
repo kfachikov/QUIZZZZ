@@ -5,6 +5,7 @@ import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.single.SinglePlayer;
+import commons.single.SinglePlayerState;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -19,11 +20,8 @@ public class CongratulationsScreenCtrl {
     private final MainCtrl mainCtrl;
 
     /*
-    The following field is required to store the `SinglePlayer` instance,
-    consisting of the username entered on the `Main Screen` and a default score - 0.
+    The following field contains the game state and the player instance of the game just finished.
      */
-    private SinglePlayer singlePlayer;
-
     private SinglePlayerUtils singlePlayerUtils;
 
     @FXML
@@ -124,10 +122,15 @@ public class CongratulationsScreenCtrl {
     }
 
     /**
-     * sets the scene and title to single-player game.
+     * Establishes a new game on the server.
      */
     public void playSoloGame() {
-        singlePlayerUtils.setSinglePlayerAttributes(singlePlayer, server.startSinglePlayerGame(singlePlayer));
+        /*
+        The player will begin the new game with the same username, but his points should be set
+        to the default value - 0;
+         */
+        SinglePlayer newPlayer = new SinglePlayer(singlePlayerUtils.getSinglePlayer().getUsername(), 0);
+        singlePlayerUtils.setSinglePlayerAttributes(newPlayer, server.startSinglePlayerGame(newPlayer));
         mainCtrl.playSoloGame(singlePlayerUtils);
     }
 
