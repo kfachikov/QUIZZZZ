@@ -194,7 +194,6 @@ public class ServerUtils {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/activities/addToRepo")
-                //.queryParam("activities", activities)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<Activity>>() {});
