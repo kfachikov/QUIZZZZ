@@ -48,7 +48,8 @@ public class AdministratorScreenCtrl {
      * Pops up local file directory for the user to choose a .json file of activities (JsonArray).
      * Sets the text on the screen as "You have imported file.json".
      * Passes the file (in String) to the ServerUtils' method ImportActivities, which sends the file to server using POST.
-     * @throws IOException
+     *
+     * @throws IOException IO Exception that's being thrown.
      */
     public void chooseFile() throws IOException {
         File selectedFile = fileSelection();
@@ -58,7 +59,8 @@ public class AdministratorScreenCtrl {
 
     /**
      * Sets the text prompt on the screen as "You have imported file.json".
-     * @param selectedFile the file selected by the user.
+     *
+     * @param selectedFile the file selected by the user
      */
     public void setDescription(File selectedFile) {
         description.setText("You have imported " + selectedFile.getName());
@@ -66,20 +68,22 @@ public class AdministratorScreenCtrl {
 
     /**
      * Pops up local file directory for the user to choose a .json file of activities (JsonArray).
-     * @return the selected file.
+     *
+     * @return the selected file
      */
     public File fileSelection() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
-        File selectedFile =  fileChooser.showOpenDialog(null);
+        File selectedFile = fileChooser.showOpenDialog(null);
         return selectedFile;
     }
 
     /**
      * Stringifies the contents of the file.
-     * @param selectedFile the file selected by the user.
+     *
+     * @param selectedFile the file selected by the user
      * @return String of the contents of the file.
-     * @throws IOException
+     * @throws IOException IO Exception that's being thrown
      */
     public String extractFile(File selectedFile) throws IOException {
         return Files.readString(selectedFile.toPath());
