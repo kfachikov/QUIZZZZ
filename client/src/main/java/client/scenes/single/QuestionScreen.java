@@ -19,7 +19,7 @@ public abstract class QuestionScreen {
 
     public final MainCtrl mainCtrl;
     public final ServerUtils server;
-    public final GameStatePollingService pollingService;
+
     /*
     Utils class instance, which would contain the whole single-player game logic.
     In addition, it would hold the single-player and the game state instances of the current game.
@@ -49,7 +49,6 @@ public abstract class QuestionScreen {
                           MainCtrl mainCtrl,
                           GameStatePollingService pollingService,
                           SinglePlayerUtils singlePlayerUtils) {
-        this.pollingService = pollingService;
         this.server = server;
         this.mainCtrl = mainCtrl;
         this.singlePlayerUtils = singlePlayerUtils;

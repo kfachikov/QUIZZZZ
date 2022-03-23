@@ -1,7 +1,7 @@
 package client.utils;
 
 import client.scenes.misc.MainCtrl;
-import client.scenes.single.QuestionScreen;
+import client.scenes.single.*;
 import client.services.GameStatePollingService;
 import commons.misc.Response;
 import commons.question.*;
@@ -33,6 +33,8 @@ public class SinglePlayerUtils {
     private TimerThread timerThread;
 
     private QuestionScreen currentController;
+
+
 
     /**
      * Constructor used for Spring injection.
@@ -93,7 +95,7 @@ public class SinglePlayerUtils {
                                 /*
                                 Only then, the default background should change.
                                 */
-                                setDefaultQuestionBackground();
+                                setDefault();
                                 break;
                             case TRANSITION_STATE:
                                 /*
@@ -175,10 +177,12 @@ public class SinglePlayerUtils {
 
     /**
      * Used to change the color of the background of the current question scene to the initial blue color.
+     * Also, updates the score the player have accumulated so far.
      */
-    private void setDefaultQuestionBackground() {
+    private void setDefault() {
         currentController.getWindow()
                 .setStyle("-fx-background-color: #" + (Paint.valueOf("a8c6fa")).toString().substring(2));
+        currentController.setScore(singlePlayerState.getPlayer().getScore());
     }
 
 

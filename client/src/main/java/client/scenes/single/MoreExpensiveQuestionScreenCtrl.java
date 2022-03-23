@@ -11,6 +11,7 @@ import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -67,6 +68,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     @FXML
     private Text description3;
 
+
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
@@ -89,7 +91,11 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
         firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                submitAnswer(firstAnswer.getText());
+                /*
+                The change in the following line was made so that the button can lack text.
+                Otherwise, it could overlap with the image, which would disrupt the client.
+                 */
+                submitAnswer(description1.getText());
                 firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
@@ -98,7 +104,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         });
 
         image1.setOnMouseClicked(e -> {
-            submitAnswer(firstAnswer.getText());
+            submitAnswer(description1.getText());
             firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
             firstAnswer.setDisable(true);
             secondAnswer.setDisable(true);
@@ -106,7 +112,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         });
 
         description1.setOnMouseClicked(e -> {
-            submitAnswer(firstAnswer.getText());
+            submitAnswer(description1.getText());
             firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
             firstAnswer.setDisable(true);
             secondAnswer.setDisable(true);
@@ -115,7 +121,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
         secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                submitAnswer(secondAnswer.getText());
+                submitAnswer(description2.getText());
                 secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
@@ -124,7 +130,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         });
 
         image2.setOnMouseClicked(e -> {
-            submitAnswer(secondAnswer.getText());
+            submitAnswer(description2.getText());
             secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
             firstAnswer.setDisable(true);
             secondAnswer.setDisable(true);
@@ -132,7 +138,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         });
 
         description2.setOnMouseClicked(e -> {
-            submitAnswer(secondAnswer.getText());
+            submitAnswer(description2.getText());
             secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
             firstAnswer.setDisable(true);
             secondAnswer.setDisable(true);
@@ -141,7 +147,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
         thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                submitAnswer(thirdAnswer.getText());
+                submitAnswer(description3.getText());
                 thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
@@ -150,7 +156,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         });
 
         image3.setOnMouseClicked(e -> {
-            submitAnswer(thirdAnswer.getText());
+            submitAnswer(description3.getText());
             thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
             firstAnswer.setDisable(true);
             secondAnswer.setDisable(true);
@@ -158,7 +164,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         });
 
         description3.setOnMouseClicked(e -> {
-            submitAnswer(thirdAnswer.getText());
+            submitAnswer(description3.getText());
             thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
             firstAnswer.setDisable(true);
             secondAnswer.setDisable(true);
@@ -217,28 +223,15 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
         this.question = question;
         setQuestionPrompt();
-        /*
-        The following setup was made purely for testing purposes.
-        Should be optimized - extracted as functionality (eventually).
-         */
-        firstAnswer.setText(question.getAnswerChoices().get(0).getTitle());
-        secondAnswer.setText(question.getAnswerChoices().get(1).getTitle());
-        thirdAnswer.setText(question.getAnswerChoices().get(2).getTitle());
+
+        description1.setText(question.getAnswerChoices().get(0).getTitle());
+        description2.setText(question.getAnswerChoices().get(1).getTitle());
+        description3.setText(question.getAnswerChoices().get(2).getTitle());
     }
 
 
     public MoreExpensiveQuestion getQuestion() {
         return question;
-    }
-
-    /**
-     * Getter for polling service which keeps the state of the current game up to date
-     * by "constantly" polling it from the server.
-     *
-     * @return GameState polling service
-     */
-    public GameStatePollingService getPollingService() {
-        return pollingService;
     }
 
     /**

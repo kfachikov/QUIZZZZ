@@ -104,6 +104,8 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * Sends a string to the server sa a chosen answer from the player.
+     * The last two symbols from the string should be removed, as they
+     * denote the "Wh" in the button text field.
      *
      * @param chosenAnswer String value of button clicked - answer chosen
      */
