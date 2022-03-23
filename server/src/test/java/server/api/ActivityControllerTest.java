@@ -159,7 +159,7 @@ class ActivityControllerTest {
         activities.add(activity2);
 
         var result = ctrl.addActivities(activities);
-        assertEquals(BAD_REQUEST, result.getStatusCode());
+        assertEquals(activity2, result.getBody().get(0));
     }
 
     @Test
