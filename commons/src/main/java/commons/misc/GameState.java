@@ -59,6 +59,18 @@ public abstract class GameState {
     }
 
     /**
+     * Comparing answer function making use of the abstract functionality declared
+     * in the parent abstract class of the different question types.
+     *
+     * @return  Boolean value corresponding to the correctness of the answer.
+     */
+    private boolean compareAnswer() {
+        String chosenAnswer = submittedAnswers.get(roundNumber).getAnswerChoice();
+        String rightAnswer = questionList.get(roundNumber).getCorrectAnswer();
+        return chosenAnswer.equals(rightAnswer);
+    }
+
+    /**
      * Getter for the id of the game.
      *
      * @return id of the game.

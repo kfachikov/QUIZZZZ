@@ -59,11 +59,7 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
         return answerChoices;
     }
 
-    public Activity getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public void setCorrectAnswer(Activity correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public String getCorrectAnswer() {
+        return correctAnswer.toString();
     }
 }

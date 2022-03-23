@@ -29,6 +29,8 @@ public abstract class AbstractQuestion {
     protected AbstractQuestion() {
     }
 
+    public abstract String getCorrectAnswer();
+
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);

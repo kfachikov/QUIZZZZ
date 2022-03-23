@@ -74,7 +74,7 @@ public class InsteadQuestion extends AbstractQuestion {
         return answerChoices;
     }
 
-    public Activity getCorrectAnswer() {
-        return correctAnswer;
+    public String getCorrectAnswer() {
+        return correctAnswer.toString();
     }
 }

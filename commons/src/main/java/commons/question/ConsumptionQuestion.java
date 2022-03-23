@@ -16,7 +16,6 @@ import java.util.*;
 public class ConsumptionQuestion extends AbstractQuestion {
     private Activity activity;
     private List<String> answerChoices;
-    private long correctAnswer;
 
     /**
      * Default constructor. Used for the JSON parsing of the different question instances.
@@ -40,8 +39,8 @@ public class ConsumptionQuestion extends AbstractQuestion {
      * Getter for the correct answer.
      * @return long variable
      */
-    public long getCorrectAnswer() {
-        return correctAnswer;
+    public String getCorrectAnswer() {
+        return activity.getConsumption().toString();
     }
 
     /**
@@ -49,7 +48,7 @@ public class ConsumptionQuestion extends AbstractQuestion {
      */
     public void setAnswerChoices() {
         Random rnd = new Random();
-        this.correctAnswer = activity.getConsumption();
+        long correctAnswer = activity.getConsumption();
         long lowerBound = correctAnswer / 2;
         long upperBound = correctAnswer * 3 / 2;
         long answer1 = lowerBound + rnd.nextInt((int) (upperBound - lowerBound + 1));
