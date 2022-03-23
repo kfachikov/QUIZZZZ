@@ -171,17 +171,6 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
         thirdAnswer.setText(question.getAnswerChoices().get(2).getTitle());
     }
 
-
-    /**
-     * Getter for polling service which keeps the state of the current game up to date
-     * by "constantly" polling it from the server.
-     *
-     * @return GameState polling service
-     */
-    public GameStatePollingService getPollingService() {
-        return pollingService;
-    }
-
     /**
      * Getter for the window object - used to change the background in MainCtrl.
      * @return AnchorPane object with reference to the particular window of this scene.
