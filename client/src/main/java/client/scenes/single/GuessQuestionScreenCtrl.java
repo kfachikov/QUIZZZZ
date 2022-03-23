@@ -86,6 +86,7 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
+
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
         server.postAnswer(new Response(singlePlayerState.getId(),
                 new Date().getTime(),
@@ -118,8 +119,23 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
         questionTitle.setText(question.toString());
     }
 
+    /**
+     * Sets the current question.
+     *
+     * @param question  GuessQuestion instance to be used.
+     */
     public void setQuestion(GuessQuestion question) {
         this.question = question;
+        inputFieldDefault();
+    }
+
+    /**
+     * Sets the "attributes" of the input field to the default ones.
+     */
+    public void inputFieldDefault() {
+        input.setDisable(false);
+        input.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
+        input.clear();
     }
 
     /**
@@ -131,17 +147,6 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
         String userAnswer = input.getText();
         return userAnswer;
     }
-
-    /**
-     * Getter for polling service which keeps the state of the current game up to date
-     * by "constantly" polling it from the server.
-     *
-     * @return GameState polling service
-     */
-    public GameStatePollingService getPollingService() {
-        return pollingService;
-    }
-
 
     /**
      * Getter for the window object - used to change the background in MainCtrl.
