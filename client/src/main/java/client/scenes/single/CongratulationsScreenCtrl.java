@@ -116,8 +116,9 @@ public class CongratulationsScreenCtrl {
      * arriving to this scene.
      */
     public void initialize() {
-        questionColor();
-        showPosition();
+        /*
+        Actions handlers on circular "buttons" should be established here.
+         */
     }
 
     /**
@@ -186,7 +187,7 @@ public class CongratulationsScreenCtrl {
     /**
      * shows the position acquired by the user.
      */
-    public void showPosition() {
+    public void setPosition() {
         var place = "1";
         position.setText(place);
     }

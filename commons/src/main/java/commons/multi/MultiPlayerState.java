@@ -15,6 +15,9 @@ public class MultiPlayerState extends GameState {
     private List<MultiPlayer> players;
     private Reaction reaction;
 
+    /**
+     * Default constructor to be used for the JSON parsing.
+     */
     public MultiPlayerState() {
 
     }

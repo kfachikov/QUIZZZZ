@@ -24,7 +24,6 @@ public class ConsumptionQuestion extends AbstractQuestion {
         super();
     }
 
-
     /**
      * Constructor for the activity's energy consumption question type.
      *
@@ -33,14 +32,6 @@ public class ConsumptionQuestion extends AbstractQuestion {
     public ConsumptionQuestion(Activity activity) {
         this.activity = activity;
         answerChoices = new ArrayList<>();
-    }
-
-    /**
-     * Getter for the correct answer.
-     * @return long variable
-     */
-    public String getCorrectAnswer() {
-        return activity.getConsumption().toString();
     }
 
     /**
@@ -121,5 +112,13 @@ public class ConsumptionQuestion extends AbstractQuestion {
 
     public void setAnswerChoices(List<Long> answerChoices) {
         this.answerChoices = answerChoices;
+    }
+
+    /**
+     * Getter for the correct answer.
+     * @return long variable
+     */
+    public String getCorrectAnswer() {
+        return activity.getConsumption().toString();
     }
 }

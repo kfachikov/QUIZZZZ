@@ -6,12 +6,10 @@ import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.misc.Response;
 import commons.question.MoreExpensiveQuestion;
-import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -24,7 +22,6 @@ import java.util.Date;
 public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
     private MoreExpensiveQuestion question;
-    private SinglePlayer singlePlayer;
 
     @FXML
     private AnchorPane window;
@@ -233,25 +230,6 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     public MoreExpensiveQuestion getQuestion() {
         return question;
     }
-
-    /**
-     * Getter for the player current player instance.
-     *
-     * @return SinglePlayer instance containing the username and the score of the current client.
-     */
-    public SinglePlayer getSinglePlayer() {
-        return singlePlayer;
-    }
-
-    /**
-     * Setter for single-player field - stores the username and the score of our client.
-     *
-     * @param singlePlayer a SinglePlayer instance containing the above-mentioned information.
-     */
-    public void setSinglePlayer(SinglePlayer singlePlayer) {
-        this.singlePlayer = singlePlayer;
-    }
-
 
     /**
      * Getter for the window object - used to change the background in MainCtrl.
