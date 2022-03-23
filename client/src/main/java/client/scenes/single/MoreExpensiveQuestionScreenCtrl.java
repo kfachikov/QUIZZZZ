@@ -22,7 +22,6 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
     private MoreExpensiveQuestion question;
     private SinglePlayer singlePlayer;
-    private SinglePlayerState singlePlayerState;
 
     @FXML
     private AnchorPane window;
@@ -176,10 +175,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
      *
      * @param chosenAnswer String value of button clicked - answer chosen
      */
-    public void submitAnswer(String chosenAnswer) {
-        server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
-        singlePlayerState.addSubmittedAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
-    }
+    public void submitAnswer(String chosenAnswer) {}
 
     /*
     The following method should be re-written once the questions are generated and
@@ -274,25 +270,6 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         this.singlePlayer = singlePlayer;
     }
 
-    /**
-     * Getter fot the current state of the game.
-     *
-     * @return SinglePlayerState instance containing information about the current game.
-     */
-    public SinglePlayerState getSinglePlayerState() {
-        return singlePlayerState;
-    }
-
-    /**
-     * Setter for the game state field. Would be used later to allow the client submit answers, to check correctness,
-     * and to fetch new questions.
-     *
-     * @param singlePlayerState SinglePlayerState instance - would be returned from the server
-     *                          on the initial initialization of the game
-     */
-    public void setSinglePlayerState(SinglePlayerState singlePlayerState) {
-        this.singlePlayerState = singlePlayerState;
-    }
 
     /**
      * Getter for the window object - used to change the background in MainCtrl.

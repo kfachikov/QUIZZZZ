@@ -211,27 +211,8 @@ public class MainCtrl {
         this.pollingService = consumptionCtrl.getPollingService();
 
         initializePollingService();
-        initializeSoloControllers();
 
         showNextQuestionSinglePlayer();
-    }
-
-    /**
-     * The instances of SinglePlayer and SinglePlayerState are assigned to the corresponding
-     * fields in the single-player game mode controllers.
-     */
-    public void initializeSoloControllers() {
-        consumptionCtrl.setSinglePlayer(singlePlayer);
-        consumptionCtrl.setSinglePlayerState(singlePlayerState);
-
-        guessCtrl.setSinglePlayer(singlePlayer);
-        guessCtrl.setSinglePlayerState(singlePlayerState);
-
-        insteadCtrl.setSinglePlayer(singlePlayer);
-        insteadCtrl.setSinglePlayerState(singlePlayerState);
-
-        moreExpensiveCtrl.setSinglePlayer(singlePlayer);
-        moreExpensiveCtrl.setSinglePlayerState(singlePlayerState);
     }
 
     /**
@@ -255,7 +236,6 @@ public class MainCtrl {
                  */
                 if (!singlePlayerState.getState().equals(newGameState.getState())) {
                     singlePlayerState = (SinglePlayerState) newGameState;
-                    updateSinglePlayerState();
                     switch (newGameState.getState()) {
                         case QUESTION_STATE:
                             setDefaultQuestionBackground();
@@ -273,17 +253,6 @@ public class MainCtrl {
         }));
 
         pollingService.start();
-    }
-
-    /**
-     * Updates the SinglePlayerState instances of the controllers after
-     * receiving the new value from the polling service.
-     */
-    public void updateSinglePlayerState() {
-        consumptionCtrl.setSinglePlayerState(singlePlayerState);
-        guessCtrl.setSinglePlayerState(singlePlayerState);
-        insteadCtrl.setSinglePlayerState(singlePlayerState);
-        moreExpensiveCtrl.setSinglePlayerState(singlePlayerState);
     }
 
     /**
