@@ -144,7 +144,7 @@ public class SingleplayerStateController {
             game.getSubmittedAnswers().clear();
 
             AbstractQuestion currentQuestion = getCurrentQuestion(game);
-            if (checkResponse(playerResponse, currentQuestion)) {
+            if (game.compareAnswer()) {
                 SinglePlayer player = game.getPlayer();
                 player.setScore(player.getScore() + computeScore(playerResponse));
             }

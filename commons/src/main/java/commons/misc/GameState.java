@@ -64,7 +64,7 @@ public abstract class GameState {
      *
      * @return  Boolean value corresponding to the correctness of the answer.
      */
-    private boolean compareAnswer() {
+    public boolean compareAnswer() {
         String chosenAnswer = submittedAnswers.get(roundNumber).getAnswerChoice();
         String rightAnswer = questionList.get(roundNumber).getCorrectAnswer();
         return chosenAnswer.equals(rightAnswer);
