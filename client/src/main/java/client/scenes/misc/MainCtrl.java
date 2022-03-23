@@ -196,26 +196,6 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz: Single-player Game");
     }
 
-
-    /**
-     * Checks the type of the current question, so that it's background color can be changed later.
-     *
-     * @param gameState Current game state object - the game the client is playing.
-     * @return An instance of the current question screen controller.
-     */
-    public QuestionScreen typeCurrentQuestion(GameState gameState) {
-        AbstractQuestion currentQuestion = gameState.getQuestionList().get(gameState.getRoundNumber());
-        if (currentQuestion instanceof ConsumptionQuestion) {
-            return consumptionCtrl;
-        } else if (currentQuestion instanceof InsteadQuestion) {
-            return insteadCtrl;
-        } else if (currentQuestion instanceof GuessQuestion) {
-            return guessCtrl;
-        } else {
-            return moreExpensiveCtrl;
-        }
-    }
-
     /**
      * Sets the current scene to the queue screen, starts the queue polling
      * service and initializes the queue scene controller with
