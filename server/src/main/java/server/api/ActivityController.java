@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.misc.Activity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,18 +8,27 @@ import server.database.ActivityRepository;
 import commons.Activity;
 import java.util.List;
 
+/**
+ * Server-side controller for the activities stored in the database.
+ */
 @RestController
 @RequestMapping("/api/activities")
 public class ActivityController {
 
     private final ActivityRepository repo;
 
+    /**
+     * Constructor for the activity controller.
+     *
+     * @param repo ActivityRepository instance.
+     */
     public ActivityController(ActivityRepository repo) {
         this.repo = repo;
     }
 
     /**
      * Lists all entries currently present in the repository.
+     *
      * @return ResponseEntity consisting of a list of all activities.
      */
     @GetMapping("")
@@ -28,6 +38,7 @@ public class ActivityController {
 
     /**
      * Add an Activity entry into the ActivityRepository if a valid one is passed.
+     *
      * @param activity An activity to be added - requested in a APPLICATION_JSON format.
      * @return Either a Bad Request or OK, depending on whether all fields of the entry are specified.
      */
@@ -47,6 +58,7 @@ public class ActivityController {
 
     /**
      * Delete an activity (only if present) from the repository.
+     *
      * @param key Primary-key attribute to search by.
      * @return ResponseEntity consisting of the deleted entry if present, or a Not Found error if not found.
      */
@@ -63,7 +75,8 @@ public class ActivityController {
 
     /**
      * Update an activity (only if present) in the repository.
-     * @param key Primary-key attribute to search by.
+     *
+     * @param key             Primary-key attribute to search by.
      * @param activityDetails An activity with values as those to be updates as - requested in a APPLICATION_JSON format.
      * @return ResponseEntity consisting of the updated entry if present, or a Not Found error if not found.
      */
@@ -123,6 +136,7 @@ public class ActivityController {
 
     /**
      * Checks whether a String is null or empty.
+     *
      * @param s String to be checked.
      * @return Either true or false depending on whether the argument is a present one.
      */

@@ -26,7 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 
-import commons.SingleUser;
+import commons.single.SingleUser;
 import server.database.UserRepository;
 
 public class MockUserRepository implements UserRepository {

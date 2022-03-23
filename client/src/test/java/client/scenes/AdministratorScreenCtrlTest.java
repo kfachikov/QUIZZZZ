@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.utils.MockServerUtils;
+import client.scenes.misc.AdministratorScreenCtrl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
