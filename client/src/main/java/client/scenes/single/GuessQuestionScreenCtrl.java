@@ -127,6 +127,7 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
     public void setQuestion(GuessQuestion question) {
         this.question = question;
         inputFieldDefault();
+        description.setText(question.getActivity().getTitle());
     }
 
     /**
