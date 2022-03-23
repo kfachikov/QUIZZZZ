@@ -104,13 +104,19 @@ public class CongratulationsScreenCtrl {
         this.singlePlayerUtils = singlePlayerUtils;
     }
 
+    /*
+    I believe the following method is useless for now. Perhaps once the questionColor()
+    and showPosition() functionality is implemented.
+
+    In addition, this is a method to initialize the functionality of the scene, so the functionality of
+    each circle to be clicked would be implemented here.
+     */
     /**
      * shows correct/incorrect answers, the points the user scored and the position the user acquired immediately when
      * arriving to this scene.
      */
     public void initialize() {
         questionColor();
-        showPoints();
         showPosition();
     }
 
@@ -129,8 +135,8 @@ public class CongratulationsScreenCtrl {
         The player will begin the new game with the same username, but his points should be set
         to the default value - 0;
          */
-        SinglePlayer newPlayer = new SinglePlayer(singlePlayerUtils.getSinglePlayer().getUsername(), 0);
-        singlePlayerUtils.setSinglePlayerAttributes(newPlayer, server.startSinglePlayerGame(newPlayer));
+        SinglePlayer newPlayer = new SinglePlayer(singlePlayerUtils.getSinglePlayerState().getPlayer().getUsername(), 0);
+        singlePlayerUtils.setSinglePlayerAttributes(server.startSinglePlayerGame(newPlayer));
         mainCtrl.playSoloGame(singlePlayerUtils);
     }
 
@@ -171,11 +177,10 @@ public class CongratulationsScreenCtrl {
     }
 
     /**
-     * shows points scored by the user.
+     * Sets the score of the player at the corresponding position.
      */
-    public void showPoints() {
-        var point = "0";
-        points.setText(point);
+    public void setPoints() {
+        points.setText(String.valueOf(singlePlayerUtils.getSinglePlayerState().getPlayer().getScore()));
     }
 
     /**

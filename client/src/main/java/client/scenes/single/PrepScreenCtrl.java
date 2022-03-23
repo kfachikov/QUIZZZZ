@@ -52,7 +52,7 @@ public class PrepScreenCtrl {
         The single-player game logic utility should keep reference to the player and the corresponding game
         they are currently playing. Thus, they are passed as arguments here.
          */
-        singlePlayerUtils.setSinglePlayerAttributes(singlePlayer, server.startSinglePlayerGame(singlePlayer));
+        singlePlayerUtils.setSinglePlayerAttributes(server.startSinglePlayerGame(singlePlayer));
         mainCtrl.playSoloGame(singlePlayerUtils);
     }
 
