@@ -166,6 +166,10 @@ public class MainCtrl {
         primaryStage.setScene(administrator);
     }
 
+    /**
+     * Pops up local file directory for the user to choose a .json file of activities (JsonArray).
+     * @return input file
+     */
     public File chooseFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));

@@ -39,6 +39,12 @@ public class AdministratorScreenCtrl {
         mainCtrl.showHome();
     }
 
+    /**
+     * Provides functionality to the Import Activities button.
+     * Calls chooseFile() method from MainCtrl, which returns the file that is selected
+     * Passes the file (in String) to the ServerUtils' method ImportActivities, which sends the file to server using POST
+     * @throws IOException
+     */
     public void chooseFile() throws IOException {
         File selectedFile = mainCtrl.chooseFile();
         String fileAsString = Files.readString(selectedFile.toPath());
