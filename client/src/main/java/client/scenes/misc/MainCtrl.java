@@ -300,15 +300,19 @@ public class MainCtrl {
         AbstractQuestion current = singlePlayerState.getQuestionList().get(singlePlayerState.getRoundNumber());
         if (current instanceof ConsumptionQuestion) {
             showConsumptionQuestion((ConsumptionQuestion) current);
+            startTimer(consumptionCtrl);
         }
         if (current instanceof GuessQuestion) {
             showGuessQuestion((GuessQuestion) current);
+            startTimer(guessCtrl);
         }
         if (current instanceof InsteadQuestion) {
             showInsteadQuestion((InsteadQuestion) current);
+            startTimer(insteadCtrl);
         }
         if (current instanceof MoreExpensiveQuestion) {
             showMoreExpensiveQuestion((MoreExpensiveQuestion) current);
+            startTimer(moreExpensiveCtrl);
         }
     }
 
@@ -387,7 +391,6 @@ public class MainCtrl {
     public void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
         moreExpensiveCtrl.setQuestion(question);
         primaryStage.setScene(moreExpensive);
-        startTimer(moreExpensiveCtrl);
     }
 
     /**
@@ -398,7 +401,6 @@ public class MainCtrl {
     public void showConsumptionQuestion(ConsumptionQuestion question) {
         consumptionCtrl.setQuestion(question);
         primaryStage.setScene(consumption);
-        startTimer(consumptionCtrl);
     }
 
     /**
@@ -409,7 +411,6 @@ public class MainCtrl {
     public void showInsteadQuestion(InsteadQuestion question) {
         insteadCtrl.setQuestion(question);
         primaryStage.setScene(instead);
-        startTimer(insteadCtrl);
     }
 
     /**
@@ -420,7 +421,6 @@ public class MainCtrl {
     public void showGuessQuestion(GuessQuestion question) {
         guessCtrl.setQuestion(question);
         primaryStage.setScene(guess);
-        startTimer(guessCtrl);
     }
 
     /**
