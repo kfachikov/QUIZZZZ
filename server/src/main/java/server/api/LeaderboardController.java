@@ -8,7 +8,7 @@ import server.database.LeaderboardRepository;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/leaderboard/players")
 public class LeaderboardController {
 
     private final LeaderboardRepository repo;
