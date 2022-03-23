@@ -32,7 +32,6 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.File;
-import static commons.single.SinglePlayerState.*;
 
 /**
  * Main controller which would take care of all scene and controller changes.
