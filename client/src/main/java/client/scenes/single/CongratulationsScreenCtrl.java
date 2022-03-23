@@ -24,7 +24,7 @@ public class CongratulationsScreenCtrl {
      */
     private SinglePlayer singlePlayer;
 
-    SinglePlayerUtils singlePlayerUtils;
+    private SinglePlayerUtils singlePlayerUtils;
 
     @FXML
     private Text position;
@@ -97,6 +97,7 @@ public class CongratulationsScreenCtrl {
      *
      * @param server   is the server variable
      * @param mainCtrl is the main controller variable
+     * @param singlePlayerUtils is the shared single-player utility instance
      */
     @Inject
     public CongratulationsScreenCtrl(ServerUtils server, MainCtrl mainCtrl, SinglePlayerUtils singlePlayerUtils) {

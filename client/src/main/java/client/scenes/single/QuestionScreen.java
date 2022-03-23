@@ -11,9 +11,9 @@ import javafx.scene.layout.AnchorPane;
 
 import java.util.Optional;
 
-/*
-Parent class used for the shared functionality of the different question screen
-controllers.
+/**
+ * Parent class used for the shared functionality of the different question screen
+ * controllers.
  */
 public abstract class QuestionScreen {
 
@@ -38,11 +38,17 @@ public abstract class QuestionScreen {
 
     /**
      * initializes MoreExpensiveQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
+     *
      * @param server is the server variable
      * @param mainCtrl is the main controller variable
+     * @param pollingService is the shared single-player game polling service
+     * @param singlePlayerUtils is the shared single-player utility instance
      */
     @Inject
-    public QuestionScreen(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+    public QuestionScreen(ServerUtils server,
+                          MainCtrl mainCtrl,
+                          GameStatePollingService pollingService,
+                          SinglePlayerUtils singlePlayerUtils) {
         this.pollingService = pollingService;
         this.server = server;
         this.mainCtrl = mainCtrl;

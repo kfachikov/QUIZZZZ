@@ -18,20 +18,15 @@ package client.scenes.misc;
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
-import client.services.GameStatePollingService;
 import client.utils.SinglePlayerUtils;
-import client.utils.TimerThread;
 import commons.misc.GameState;
 import commons.question.*;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
-import commons.single.SinglePlayerState;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -39,6 +34,9 @@ import javafx.util.Pair;
 import java.io.File;
 import static commons.single.SinglePlayerState.*;
 
+/**
+ * Main controller which would take care of all scene and controller changes.
+ */
 public class MainCtrl {
 
     private Stage primaryStage;

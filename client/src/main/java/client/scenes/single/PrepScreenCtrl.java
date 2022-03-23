@@ -28,6 +28,7 @@ public class PrepScreenCtrl {
      *
      * @param server   is the server variable
      * @param mainCtrl is the main controller variable
+     * @param singlePlayerUtils is the shared single-player utility instance.
      */
     @Inject
     public PrepScreenCtrl(ServerUtils server, MainCtrl mainCtrl, SinglePlayerUtils singlePlayerUtils) {
@@ -56,6 +57,11 @@ public class PrepScreenCtrl {
     }
 
 
+    /**
+     * Getter for the single-player instance create once the client has been redirected to the preparation screen.
+     *
+     * @return  SinglePlayer instance.
+     */
     public SinglePlayer getSinglePlayer() {
         return singlePlayer;
     }

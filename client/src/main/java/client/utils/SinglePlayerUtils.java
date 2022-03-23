@@ -33,6 +33,12 @@ public class SinglePlayerUtils {
 
     private QuestionScreen currentController;
 
+    /**
+     * Constructor used for Spring injection.
+     *
+     * @param mainCtrl          Common main controller instance.
+     * @param pollingService    Common single-player game state polling service.
+     */
     @Inject
     public SinglePlayerUtils(MainCtrl mainCtrl, GameStatePollingService pollingService) {
         this.mainCtrl = mainCtrl;
@@ -67,43 +73,44 @@ public class SinglePlayerUtils {
     public void initializePollingService() {
         pollingService.setSinglePlayerState(singlePlayerState);
 
-        pollingService.valueProperty().addListener(((observable, oldGameState, newGameState) -> {
-            if (newGameState != null) {
-                /*
-                The polling service "throws" a new instance of the game state every time it poll.
-                Thus, without the existence of the following comparison, the questions scenes
-                are updated constantly, even when there is no need of it.
-                 */
-                if (!singlePlayerState.getState().equals(newGameState.getState())) {
-                    singlePlayerState = (SinglePlayerState) newGameState;
-                    switch (newGameState.getState()) {
-                        case QUESTION_STATE:
-                            /*
-                            First, the question should be chosen, so that the current controller is set accordingly.
-                             */
-                            chooseNextQuestion();
-                            /*
-                            Only then, the default background should change.
-                             */
-                            setDefaultQuestionBackground();
-                            break;
-                        case TRANSITION_STATE:
-                            revealAnswerCorrectness();
-                            break;
-                        case GAME_OVER_STATE:
-                            pollingService.stop();
-                            break;
+        pollingService.valueProperty().addListener(
+                ((observable, oldGameState, newGameState) -> {
+                if (newGameState != null) {
+                    /*
+                    The polling service "throws" a new instance of the game state every time it poll.
+                    Thus, without the existence of the following comparison, the questions scenes
+                    are updated constantly, even when there is no need of it.
+                    */
+                    if (!singlePlayerState.getState().equals(newGameState.getState())) {
+                        singlePlayerState = (SinglePlayerState) newGameState;
+                        switch (newGameState.getState()) {
+                            case QUESTION_STATE:
+                                /*
+                                First, the question should be chosen, so that the current controller is set accordingly.
+                                */
+                                chooseNextQuestion();
+                                /*
+                                Only then, the default background should change.
+                                */
+                                setDefaultQuestionBackground();
+                                break;
+                            case TRANSITION_STATE:
+                                revealAnswerCorrectness();
+                                break;
+                            case GAME_OVER_STATE:
+                                pollingService.stop();
+                                break;
+                        }
+                    }
+                    /*
+                    Whenever an answer is submitted and that is registered on the server,
+                    the game state on the client-side is also updated.
+                    */
+                    if (!singlePlayerState.getSubmittedAnswers().equals(newGameState.getSubmittedAnswers())) {
+                        singlePlayerState = (SinglePlayerState) newGameState;
                     }
                 }
-                /*
-                Whenever an answer is submitted and that is registered on the server,
-                the game state on the client-side is also updated.
-                 */
-                if (!singlePlayerState.getSubmittedAnswers().equals(newGameState.getSubmittedAnswers())) {
-                    singlePlayerState = (SinglePlayerState) newGameState;
-                }
-            }
-        }));
+                }));
 
         pollingService.start();
     }
