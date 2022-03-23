@@ -235,7 +235,10 @@ public class SingleplayerStateController {
                 game.setNextPhase(game.getNextPhase() + 3000);
                 return true;
             } else if (game.getState().equals(SinglePlayerState.TRANSITION_STATE)) {
-                if (game.getRoundNumber() >= 20) {
+                /*
+                Should be 19, as that would mean that the 19th round is just over.
+                 */
+                if (game.getRoundNumber() >= 19) {
                     game.setState(SinglePlayerState.GAME_OVER_STATE);
                 } else {
                     game.setState(SinglePlayerState.QUESTION_STATE);
