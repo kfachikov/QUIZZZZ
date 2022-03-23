@@ -53,7 +53,6 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
     @Inject
     public GuessQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
         super(server, mainCtrl, pollingService, singlePlayerUtils);
-        System.out.println(singlePlayerUtils + "guess");
     }
 
 

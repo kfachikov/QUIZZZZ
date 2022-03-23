@@ -58,7 +58,6 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     @Inject
     public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
         super(server, mainCtrl, pollingService, singlePlayerUtils);
-        System.out.println(singlePlayerUtils + "instead");
     }
 
     /**
