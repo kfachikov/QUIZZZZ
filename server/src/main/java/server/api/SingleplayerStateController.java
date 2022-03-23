@@ -160,7 +160,7 @@ public class SingleplayerStateController {
      * <p>
      * TODO: this method is just a mock method, and returns 100.
      *
-     * @param response Response of the player with a correct answer.
+     * @param response Response of the player with a correct answer. TODO: The time submitted to be used for computations.
      * @return Number of points to add to the player's score
      */
     private int computeScore(Response response) {
