@@ -19,11 +19,8 @@ import commons.QueueUser;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
-import java.io.File;
 
 public class MainCtrl {
 
