@@ -21,14 +21,28 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
+/**
+ * Representation of user inside of the queue.
+ * <p>
+ * Since only 1 queue exists at any given point in time, and users in the queue must have unique usernames,
+ * QueueUser instances only have a username field.
+ */
 public class QueueUser {
     private String username;
 
+    /**
+     * Default (empty) constructor for object mapper.
+     */
     @SuppressWarnings("unused")
     public QueueUser() {
         // for object mapper
     }
 
+    /**
+     * Constructor for QueueUser.
+     *
+     * @param username Username of the user.
+     */
     public QueueUser(String username) {
         this.username = username;
     }
@@ -68,6 +82,9 @@ public class QueueUser {
         return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
     }
 
+    /**
+     * @return Hashcode of the QueueUser.
+     */
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
