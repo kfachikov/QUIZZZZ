@@ -27,7 +27,7 @@ class QueueScreenCtrlTest {
         mainCtrl = new MockMainCtrl();
         pollingService = new MockQueuePollingService(server);
         countdownService = new MockQueueCountdownService(server);
-        queueScreenCtrl = new QueueScreenCtrl(server, mainCtrl, pollingService, countdownService);
+        queueScreenCtrl = new QueueScreenCtrl(server, mainCtrl, null, pollingService, countdownService);
     }
 
     @Test

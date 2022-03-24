@@ -15,7 +15,7 @@
  */
 package client.scenes.misc;
 
-import client.scenes.multi.MultiGameQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
 import client.utils.SinglePlayerUtils;
@@ -57,7 +57,7 @@ public class MainCtrl {
     private AdministratorScreenCtrl administratorCtrl;
     private Scene administrator;
 
-    private MultiGameQuestionScreenCtrl multiGameCtrl;
+    private MultiGameQuestionAScreenCtrl multiGameCtrl;
     private Scene multiGame;
 
     private MoreExpensiveQuestionScreenCtrl moreExpensiveCtrl;
@@ -102,7 +102,7 @@ public class MainCtrl {
                            Pair<PrepScreenCtrl, Parent> prep,
                            Pair<QueueScreenCtrl, Parent> queue,
                            Pair<AdministratorScreenCtrl, Parent> administrator,
-                           Pair<MultiGameQuestionScreenCtrl, Parent> multiGame,
+                           Pair<MultiGameQuestionAScreenCtrl, Parent> multiGame,
                            Pair<MoreExpensiveQuestionScreenCtrl, Parent> moreExpensive,
                            Pair<ConsumptionQuestionScreenCtrl, Parent> consumption,
                            Pair<InsteadQuestionScreenCtrl, Parent> instead,
@@ -153,6 +153,10 @@ public class MainCtrl {
             }
             Platform.exit();
         }));
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     /**
@@ -212,18 +216,6 @@ public class MainCtrl {
         queueCtrl.setUser(user);
         queueCtrl.setServerAddress(serverAddress);
         queueCtrl.resetScene();
-    }
-
-    /**
-     * Set the current scene to Multiplayer game question screen.
-     *
-     * @param id        Multiplayer game id
-     * @param queueUser QueueUser of the user who was just in the queue
-     */
-    public void showMultiGameQuestion(long id, QueueUser queueUser) {
-        primaryStage.setTitle("Quizzz: Multi-player Game");
-        primaryStage.setScene(multiGame);
-        multiGameCtrl.setGameId(id);
     }
 
     /**

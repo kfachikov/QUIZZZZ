@@ -19,7 +19,8 @@ import client.scenes.misc.AdministratorScreenCtrl;
 import client.scenes.misc.HelpScreenCtrl;
 import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
-import client.scenes.multi.MultiGameQuestionScreenCtrl;
+import client.scenes.multi.MultiplayerCtrl;
+import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
 import com.google.inject.Injector;
@@ -63,7 +64,7 @@ public class Main extends Application {
         var administrator = FXML.load(
                 AdministratorScreenCtrl.class, "client", "scenes", "misc", "AdministratorScreen.fxml");
         var multiGame = FXML.load(
-                MultiGameQuestionScreenCtrl.class, "client", "scenes", "multi", "MultiGameQuestionScreen.fxml");
+                MultiGameQuestionAScreenCtrl.class, "client", "scenes", "multi", "MultiGameQuestionScreen.fxml");
         var moreExpensive = FXML.load(
                 MoreExpensiveQuestionScreenCtrl.class, "client", "scenes", "single",
                 "question", "MoreExpensiveQuestionScreen.fxml");
@@ -80,5 +81,7 @@ public class Main extends Application {
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, home, help, prep, queue, administrator,
                 multiGame, moreExpensive, consumption, instead, guess, congratulations);
+
+        var multiCtrl = INJECTOR.getInstance(MultiplayerCtrl.class);
     }
 }
