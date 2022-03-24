@@ -1,8 +1,9 @@
 package client.utils;
 
-import commons.QueueState;
-import commons.QueueUser;
-import commons.SingleUser;
+import commons.queue.QueueState;
+import commons.queue.QueueUser;
+import commons.single.SinglePlayer;
+import commons.single.SinglePlayerLeaderboardScore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +25,10 @@ public class MockServerUtils extends ServerUtils {
     }
 
     @Override
-    public SingleUser addUser(SingleUser user) {
-        call("addUser");
-        param = user;
-        return (SingleUser) returnValue;
+    public SinglePlayerLeaderboardScore addSinglePlayer(SinglePlayerLeaderboardScore leaderboardEntry) {
+        call("addLeaderboardEntry");
+        param = leaderboardEntry;
+        return (SinglePlayerLeaderboardScore) returnValue;
     }
 
     @Override

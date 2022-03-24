@@ -1,6 +1,8 @@
 package client.scenes;
 
-import commons.QueueUser;
+import commons.queue.QueueUser;
+import client.scenes.misc.MainCtrl;
+import commons.single.SinglePlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,7 @@ public class MockMainCtrl extends MainCtrl {
      * sets the title and the scene as prep.
      */
     @Override
-    public void showPrep() {
+    public void showPrep(SinglePlayer singlePlayer) {
         call("showHome");
     }
 
@@ -50,7 +52,7 @@ public class MockMainCtrl extends MainCtrl {
      * @param user QueueUser which is joining the queue
      */
     @Override
-    public void showQueue(QueueUser user) {
+    public void showQueue(QueueUser user, String serverAddress) {
         this.param = user;
         call("showQueue");
     }

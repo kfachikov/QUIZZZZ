@@ -38,9 +38,14 @@
 Contribution to GitLab:
 - Issues and merge requests follow the templates
 - Commits only affect a couple of files, commit messages give a clear summary of the change
+  - Developers regularly *push* to the remote branch, so their work can easily be followed by the other team members.
+  - A single *push* could contain several commits if they all address the same "atomic" feature developed. The attention is on regular commits - defining particular code snippets, and regular contributions to the remote repository so the other team members are kept up to date.
 - When developing, a separate branch is created to isolate the new feature, which is later merged into the main branch using a merge request
 - Merge requests do not stay open for prolonged periods of time
 - Team members not only contribute, but also do code review
+  - Code reviews are done regularly, as commits and *push*-es
+  - Code reviews should be objective. People could regularly end up having different opinions and ideas, but it could be the case when both approaches work and accomplish a functional piece of code that could be used in the long term. Thus, reviews and threads should be marked as either "suggestion" or "problems". The former should suggest an approach that can only improve the efficiency of the cod. The latter should regard possible problems that could occur. In their description, the situation, that could cause this problem should be explicitly stated - could be either a client desire, a server bug, or simply a plan for future integration of that particular feature.
+- Team members make use of the *Time tracking* feature of the **issues** created
 
 Code Style:
 - 4 spaces
@@ -56,8 +61,9 @@ Java Doc
 
 - Every singleUser gets prepared for the check-in by noting down 2 sentences of what they did, so that the opening consumes as little time as possible.
 
-- Set inner group deadlines. Have the “tutor” (the TA in our case) to check briefly on how we did the things and only submit them.
-
+- Set inner group deadlines. Have the “tutor” (the TA in our case) to check briefly on how we did the things and only submit then.
+  - Merge requests should be staged as ready by Friday 23:59 each week. A sort of soft deadline, allowing people working at night to finish their contribution even if that means they should work overtime. The goal is to have all the merge requests ready when everyone wakes up on Saturday.
+  - *Clarification*: If someone leaves their tasks for the last moment, that person should be ready for some major problems to occur when it comes to others’ opinions. Thus, they should be ready to spend some time giving insight into their code to others. However, if they *commit* and *push* regularly, the other has the responsibility to review their code regularly so problems are found before they become unsolvable. In other words, it's developers' responsibility to allow others to be familiar with their workflow, while it's the reviewers' responsibility to keep up to date with the code themselves.
 - Each meeting, any action points that can be divided into smaller tasks for individual people, or for smaller groups of people, will be assigned (either by voluntary basis, or, if that fails, randomly) that task.
 
 - For such smaller tasks, a “soft” deadline will be negotiated, taking into account that time should be left for others to review the completed task before the “hard” deadline approaches.
@@ -133,11 +139,11 @@ Notetakers:
 
 - After each TA meeting, a short session will be held, to discuss things that were said and figured out during the TA meeting.
 
-- At least one more meeting per week. During which, we would discuss how the work is going, how everyone feels and to confirm on the upcoming deadlines.
-
+- At least one more meeting per week. During it, we would discuss how the work is going, how everyone feels, and confirm the upcoming deadlines.
+  - As everyone will have the goal to keep the others up to date with their date, the topics to be covered in this meeting could be already talked about. Thus, despite the possible occurrence of the above-mentioned meeting, an additional one concerning the upcoming week's planning will be held. During it, the team would discuss what should be accomplished in the week to come. Also, team members will create the next *milestone*, will create the different issues and tasks, and would assign them to different team members.
 - Additional meetings can be planned, either at the end of any meeting/session, or asynchronously on our communication applications (in this case, such a meeting should be planned at least a day in advance, to allow everyone to see the time and date of the meeting)
 
-- In case a meeting is to be canceled – some of the members get urgent schedule changes, for a reason of course (otherwise seen as being late and even worse – not attending at all), then it would be rescheduled for as soon as possible. However, if the reason is that some work is still undone and there’s just no point in the meeting, then the case is considered as missed deadline kind of, which has its own consequences.
+- In case a meeting is to be canceled – some members get urgent schedule changes, for a reason of course (otherwise seen as being late and even worse – not attending at all), then it would be rescheduled for as soon as possible. However, if the reason is that some work is still undone and there’s just no point in the meeting, then the case is considered as missed deadline kind of, which has its own consequences.
 
 ### What preparation is needed for the meetings?
 
