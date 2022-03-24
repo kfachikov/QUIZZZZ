@@ -3,6 +3,7 @@ package client.scenes.single;
 import client.scenes.misc.MainCtrl;
 import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
+import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,15 +11,20 @@ import javafx.scene.layout.AnchorPane;
 
 import java.util.Optional;
 
-/*
-Parent class used for the shared functionality of the different question screen
-controllers.
+/**
+ * Parent class used for the shared functionality of the different question screen
+ * controllers.
  */
 public abstract class QuestionScreen {
 
     public final MainCtrl mainCtrl;
     public final ServerUtils server;
-    public final GameStatePollingService pollingService;
+
+    /*
+    Utils class instance, which would contain the whole single-player game logic.
+    In addition, it would hold the single-player and the game state instances of the current game.
+     */
+    public final SinglePlayerUtils singlePlayerUtils;
 
     @FXML
     private Button firstAnswer;
@@ -32,14 +38,20 @@ public abstract class QuestionScreen {
 
     /**
      * initializes MoreExpensiveQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
+     *
      * @param server is the server variable
      * @param mainCtrl is the main controller variable
+     * @param pollingService is the shared single-player game polling service
+     * @param singlePlayerUtils is the shared single-player utility instance
      */
     @Inject
-    public QuestionScreen(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
-        this.pollingService = pollingService;
+    public QuestionScreen(ServerUtils server,
+                          MainCtrl mainCtrl,
+                          GameStatePollingService pollingService,
+                          SinglePlayerUtils singlePlayerUtils) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.singlePlayerUtils = singlePlayerUtils;
     }
 
     /**
@@ -56,13 +68,6 @@ public abstract class QuestionScreen {
      * @return A reference to the particular AnchorPane object.
      */
     public abstract AnchorPane getWindow();
-
-    /**
-     * Compares the submitted answer with the correct one - both stored in the GameState object.
-     *
-     * @return Corresponding boolean value.
-     */
-    public abstract boolean compareAnswer();
 
 
     /**
@@ -81,7 +86,8 @@ public abstract class QuestionScreen {
 
         Optional<ButtonType> confirmation = alert.showAndWait();
         if (confirmation.get() == yesButton) {
-            mainCtrl.leaveSingleGame();
+            singlePlayerUtils.stopPollingService();
+            mainCtrl.showHome();
             firstAnswer.setDisable(false);
             secondAnswer.setDisable(false);
             thirdAnswer.setDisable(false);
@@ -96,4 +102,13 @@ public abstract class QuestionScreen {
      */
     public abstract ProgressBar getTime();
 
+    /**
+     * Getter for the utility instance.
+     *
+     * @return  SinglePlayerUtils instance consisting of information about
+     * current game state and current player.
+     */
+    public SinglePlayerUtils getSinglePlayerUtils() {
+        return singlePlayerUtils;
+    }
 }

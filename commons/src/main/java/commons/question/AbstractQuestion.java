@@ -1,5 +1,6 @@
 package commons.question;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -21,6 +22,14 @@ import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
     @JsonSubTypes.Type(value = InsteadQuestion.class, name = "instead"),
     @JsonSubTypes.Type(value = MoreExpensiveQuestion.class, name = "moreExpensive")
 })
+/*
+Required as otherwise the JSON stringifier would create a key-value pair
+of correct answer, because of the getter declared.
+
+This would result in impossible parsing, as the question classes do not have
+"correctAnswer" field.
+ */
+@JsonIgnoreProperties(value = { "correctAnswer" })
 public abstract class AbstractQuestion {
 
     /**
@@ -28,6 +37,8 @@ public abstract class AbstractQuestion {
      */
     protected AbstractQuestion() {
     }
+
+    public abstract String getCorrectAnswer();
 
     @Override
     public boolean equals(Object obj) {

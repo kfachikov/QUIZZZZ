@@ -3,10 +3,10 @@ package client.scenes.single;
 import client.scenes.misc.MainCtrl;
 import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
+import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.misc.Response;
 import commons.question.ConsumptionQuestion;
-import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,8 +25,6 @@ import java.util.Date;
 public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     private ConsumptionQuestion question;
-    private SinglePlayer singlePlayer;
-    private SinglePlayerState singlePlayerState;
 
     @FXML
     private AnchorPane window;
@@ -63,8 +61,8 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      * @param pollingService is the injected polling service to be used to poll the game state.
      */
     @Inject
-    public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
-        super(server, mainCtrl, pollingService);
+    public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+        super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 
     /**
@@ -106,12 +104,19 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * Sends a string to the server sa a chosen answer from the player.
+     * The last two symbols from the string should be removed, as they
+     * denote the "Wh" in the button text field.
      *
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
-        server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
-        singlePlayerState.addSubmittedAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
+        SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
+        server.postAnswer(new Response(singlePlayerState.getId(),
+                new Date().getTime(),
+                singlePlayerState.getRoundNumber(),
+                singlePlayerState.getPlayer().getUsername(),
+                chosenAnswer.substring(0, chosenAnswer.length() - 2)
+                ));
     }
 
     /**
@@ -123,30 +128,6 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
         currentScore.setText(String.valueOf(score));
     }
 
-
-    /*
-    The following method should be re-written once the questions are generated and
-    decision on how to control the different scenes is taken.
-     */
-    /**
-     * Comparison of submitted answer and actual correct one.
-     * Both could be accessed through the singlePlayerState instance
-     *
-     * @return Boolean value whether the answer is correct or not.
-     */
-    public boolean compareAnswer() {
-        return true;
-        //return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
-    }
-
-    /**
-     * Sets the current score.
-     *
-     * @param score is the current score of the player
-     */
-    public void setScore(int score) {
-        currentScore.setText(String.valueOf(score));
-    }
 
     /**
      * Sets the question to the chosen questionText.
@@ -175,59 +156,9 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
         The following setup was made purely for testing purposes.
         Should be optimized - extracted as functionality (eventually).
          */
-        firstAnswer.setText(question.getAnswerChoices().get(0));
-        secondAnswer.setText(question.getAnswerChoices().get(1));
-        thirdAnswer.setText(question.getAnswerChoices().get(2));
-    }
-
-
-
-    /**
-     * Getter for polling service which keeps the state of the current game up to date
-     * by "constantly" polling it from the server.
-     *
-     * @return GameState polling service
-     */
-    public GameStatePollingService getPollingService() {
-        return pollingService;
-    }
-
-    /**
-     * Getter for the player current player instance.
-     *
-     * @return SinglePlayer instance containing the username and the score of the current client.
-     */
-    public SinglePlayer getSinglePlayer() {
-        return singlePlayer;
-    }
-
-    /**
-     * Setter for single-player field - stores the username and the score of our client.
-     *
-     * @param singlePlayer a SinglePlayer instance containing the above-mentioned information.
-     */
-    public void setSinglePlayer(SinglePlayer singlePlayer) {
-        this.singlePlayer = singlePlayer;
-    }
-
-    /**
-     * Getter fot the current state of the game.
-     *
-     * @return SinglePlayerState instance containing information about the current game.
-     */
-    public SinglePlayerState getSinglePlayerState() {
-        return singlePlayerState;
-    }
-
-    /**
-     * Setter for the game state field. Would be used later to allow the client submit answers, to check correctness,
-     * and to fetch new questions.
-     *
-     * @param singlePlayerState SinglePlayerState instance - would be returned from the server
-     *                          on the initial initialization of the game
-     */
-    public void setSinglePlayerState(SinglePlayerState singlePlayerState) {
-        this.singlePlayerState = singlePlayerState;
+        firstAnswer.setText(question.getAnswerChoices().get(0) + "Wh");
+        secondAnswer.setText(question.getAnswerChoices().get(1) + "Wh");
+        thirdAnswer.setText(question.getAnswerChoices().get(2) + "Wh");
     }
 
     /**

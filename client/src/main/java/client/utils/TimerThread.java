@@ -5,8 +5,8 @@ import javafx.scene.control.ProgressBar;
 
 import java.util.Date;
 
-/*
-Thread to be instantiated every time a new scene is shown.
+/**
+ * Thread to be instantiated every time a new scene is shown.
  */
 public class TimerThread extends Thread {
 
