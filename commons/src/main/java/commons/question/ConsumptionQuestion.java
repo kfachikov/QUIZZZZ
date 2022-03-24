@@ -15,8 +15,7 @@ import java.util.*;
 @JsonTypeName(value = "consumption")
 public class ConsumptionQuestion extends AbstractQuestion {
     private Activity activity;
-    private List<String> answerChoices;
-    private long correctAnswer;
+    private List<Long> answerChoices;
 
     /**
      * Default constructor. Used for the JSON parsing of the different question instances.
@@ -24,7 +23,6 @@ public class ConsumptionQuestion extends AbstractQuestion {
     public ConsumptionQuestion() {
         super();
     }
-
 
     /**
      * Constructor for the activity's energy consumption question type.
@@ -37,26 +35,18 @@ public class ConsumptionQuestion extends AbstractQuestion {
     }
 
     /**
-     * Getter for the correct answer.
-     * @return long variable
-     */
-    public long getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    /**
      * Sets the possible answers for a question in a random way, having between them the correct answer.
      */
     public void setAnswerChoices() {
         Random rnd = new Random();
-        this.correctAnswer = activity.getConsumption();
-        long lowerBound = correctAnswer / 2;
-        long upperBound = correctAnswer * 3 / 2;
+        long correct = activity.getConsumption();
+        long lowerBound = correct / 2;
+        long upperBound = correct * 3 / 2;
         long answer1 = lowerBound + rnd.nextInt((int) (upperBound - lowerBound + 1));
         long answer2 = lowerBound + rnd.nextInt((int) (upperBound - lowerBound + 1));
-        answerChoices.add(answer1 + "Wh");
-        answerChoices.add(answer2 + "Wh");
-        answerChoices.add(correctAnswer + "Wh");
+        answerChoices.add(answer1);
+        answerChoices.add(answer2);
+        answerChoices.add(correct);
         Collections.shuffle(answerChoices);
     }
 
@@ -112,7 +102,7 @@ public class ConsumptionQuestion extends AbstractQuestion {
      *
      * @return The answerChoices field of that particular question instance.
      */
-    public List<String> getAnswerChoices() {
+    public List<Long> getAnswerChoices() {
         return answerChoices;
     }
 
@@ -120,7 +110,15 @@ public class ConsumptionQuestion extends AbstractQuestion {
         this.activity = activity;
     }
 
-    public void setAnswerChoices(List<String> answerChoices) {
+    public void setAnswerChoices(List<Long> answerChoices) {
         this.answerChoices = answerChoices;
+    }
+
+    /**
+     * Getter for the correct answer.
+     * @return long variable
+     */
+    public String getCorrectAnswer() {
+        return activity.getConsumption().toString();
     }
 }

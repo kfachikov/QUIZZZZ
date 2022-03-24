@@ -52,7 +52,7 @@ public class MockMainCtrl extends MainCtrl {
      * @param user QueueUser which is joining the queue
      */
     @Override
-    public void showQueue(QueueUser user) {
+    public void showQueue(QueueUser user, String serverAddress) {
         this.param = user;
         call("showQueue");
     }

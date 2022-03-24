@@ -13,7 +13,7 @@ public class InsteadQuestion extends AbstractQuestion {
 
     private Activity activity;
     private List<Activity> answerChoices;
-    private Activity correctAnswer;
+    private String correctAnswer;
 
     public InsteadQuestion() {
         super();
@@ -37,17 +37,32 @@ public class InsteadQuestion extends AbstractQuestion {
     public void setAnswerChoices(List<Activity> activities) {
         this.answerChoices = new ArrayList<>();
         List<Activity> correct = activities.stream()
-                .filter(x -> x.getConsumption() <= activity.getConsumption())
+                .filter(x -> x.getConsumption() < activity.getConsumption())
                 .collect(Collectors.toList());
         Collections.shuffle(correct);
         List<Activity> incorrect = activities.stream()
-                .filter(x -> x.getConsumption() >= activity.getConsumption())
+                .filter(x -> x.getConsumption() > activity.getConsumption())
                 .collect(Collectors.toList());
         Collections.shuffle(incorrect);
-        answerChoices.add(correct.get(0));
-        answerChoices.add(incorrect.get(0));
-        answerChoices.add(incorrect.get(0));
-        this.correctAnswer = answerChoices.get(0);
+        if(correct.isEmpty()) {
+            answerChoices.add(incorrect.get(0));
+            answerChoices.add(incorrect.get(1));
+            answerChoices.add(incorrect.get(2));
+        } else {
+            answerChoices.add(correct.get(0));
+            correctAnswer = activities.get(0).getTitle();
+            if(incorrect.isEmpty()) {
+                answerChoices.add(correct.get(1));
+                answerChoices.add(correct.get(2));
+            } else if (incorrect.size() == 1) {
+                answerChoices.add(correct.get(1));
+                answerChoices.add(incorrect.get(0));
+            } else {
+                answerChoices.add(incorrect.get(0));
+                answerChoices.add(incorrect.get(1));
+            }
+        }
+
         Collections.shuffle(answerChoices);
     }
 
@@ -74,7 +89,11 @@ public class InsteadQuestion extends AbstractQuestion {
         return answerChoices;
     }
 
-    public Activity getCorrectAnswer() {
-        return correctAnswer;
-    }
+    /**
+     * Returns the title of the activity to be checked.
+     * Should be compared to the submitted answer's consumption.
+     *
+     * @return  String of the consumption of the "right" activity.
+     */
+    public String getCorrectAnswer() { return correctAnswer; }
 }

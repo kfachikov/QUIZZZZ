@@ -20,6 +20,10 @@ class SinglePlayerStateTest {
     private Response response2;
     private Response response3;
     private Response response4;
+
+    private List<Response> finalAnswers;
+    private List<Response> finalAnswers2;
+
     private List<Response> answers;
     private List<Response> answers2;
 
@@ -52,6 +56,9 @@ class SinglePlayerStateTest {
         answers = Arrays.asList(response1, response3);
         answers2 = Arrays.asList(response2, response4);
 
+        finalAnswers = Arrays.asList(response3);
+        finalAnswers2 = Arrays.asList(response4);
+
         activities = Arrays.asList(
                 new Activity("1", "title1", "source1", "image1", 250L),
                 new Activity("2", "title2", "source2", "image2", 260L)
@@ -61,9 +68,9 @@ class SinglePlayerStateTest {
 
         player2 = new SinglePlayer("Lu", 10);
 
-        game = new SinglePlayerState(37, 5500, 2, questions, answers, activities, "question", player1);
-        game2 = new SinglePlayerState(37, 5500, 2, questions, answers, activities, "question", player1);
-        game3 = new SinglePlayerState(37, 5500, 2, questions, answers2, activities, "question", player2);
+        game = new SinglePlayerState(37, 5500, 2, questions, finalAnswers, answers, activities, "question", player1);
+        game2 = new SinglePlayerState(37, 5500, 2, questions, finalAnswers, answers, activities, "question", player1);
+        game3 = new SinglePlayerState(37, 5500, 2, questions, finalAnswers2, answers2, activities, "question", player2);
     }
 
     @Test

@@ -2,6 +2,8 @@ package server.utils;
 
 import commons.misc.Activity;
 import commons.question.*;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
@@ -9,12 +11,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-
+@Component
+@ComponentScan(basePackageClasses = Random.class)
 public class GenerateQuestionUtils {
 
+    private final Random random;
 
+    public GenerateQuestionUtils(Random random) {
+        this.random = random;
+    }
 
-    public List<AbstractQuestion> generate20Questions(Random random, ActivityRepository repo) {
+    public List<AbstractQuestion> generate20Questions(ActivityRepository repo) {
 
         List<AbstractQuestion> result = new ArrayList<>();
         List<Activity> activities = repo.findAll();

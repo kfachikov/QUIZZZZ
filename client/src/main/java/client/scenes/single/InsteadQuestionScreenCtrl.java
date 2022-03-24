@@ -3,10 +3,10 @@ package client.scenes.single;
 import client.scenes.misc.MainCtrl;
 import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
+import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.misc.Response;
 import commons.question.InsteadQuestion;
-import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,8 +23,6 @@ import java.util.Date;
 public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
     private InsteadQuestion question;
-    private SinglePlayer singlePlayer;
-    private SinglePlayerState singlePlayerState;
 
     @FXML
     private AnchorPane window;
@@ -62,8 +60,8 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService) {
-        super(server, mainCtrl, pollingService);
+    public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+        super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 
     /**
@@ -109,8 +107,13 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
-        server.postAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
-        singlePlayerState.addSubmittedAnswer(new Response(singlePlayerState.getId(), singlePlayerState.getNextPhase() - new Date().getTime(), singlePlayerState.getRoundNumber(), singlePlayer.getUsername(), chosenAnswer));
+        SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
+        server.postAnswer(new Response(singlePlayerState.getId(),
+                new Date().getTime(),
+                singlePlayerState.getRoundNumber(),
+                singlePlayerState.getPlayer().getUsername(),
+                chosenAnswer
+        ));
     }
 
     /**
@@ -122,21 +125,6 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
         currentScore.setText(String.valueOf(score));
     }
 
-
-    /*
-    The following method should be re-written once the questions are generated and
-    decision on how to control the different scenes is taken.
-     */
-    /**
-     * Comparison of submitted answer and actual correct one.
-     * Both could be accessed through the singlePlayerState instance
-     *
-     * @return Boolean value whether the answer is correct or not.
-     */
-    public boolean compareAnswer() {
-        return true;
-        //return singlePlayerState.getSubmittedAnswers().get(singlePlayerState.getRoundNumber()).equals(String.valueOf(question.getCorrectAnswer()));
-    }
 
     /**
      * Sets the current score.
@@ -181,55 +169,6 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
         firstAnswer.setText(question.getAnswerChoices().get(0).getTitle());
         secondAnswer.setText(question.getAnswerChoices().get(1).getTitle());
         thirdAnswer.setText(question.getAnswerChoices().get(2).getTitle());
-    }
-
-
-    /**
-     * Getter for polling service which keeps the state of the current game up to date
-     * by "constantly" polling it from the server.
-     *
-     * @return GameState polling service
-     */
-    public GameStatePollingService getPollingService() {
-        return pollingService;
-    }
-
-    /**
-     * Getter for the player current player instance.
-     *
-     * @return SinglePlayer instance containing the username and the score of the current client.
-     */
-    public SinglePlayer getSinglePlayer() {
-        return singlePlayer;
-    }
-
-    /**
-     * Setter for single-player field - stores the username and the score of our client.
-     *
-     * @param singlePlayer a SinglePlayer instance containing the above-mentioned information.
-     */
-    public void setSinglePlayer(SinglePlayer singlePlayer) {
-        this.singlePlayer = singlePlayer;
-    }
-
-    /**
-     * Getter fot the current state of the game.
-     *
-     * @return SinglePlayerState instance containing information about the current game.
-     */
-    public SinglePlayerState getSinglePlayerState() {
-        return singlePlayerState;
-    }
-
-    /**
-     * Setter for the game state field. Would be used later to allow the client submit answers, to check correctness,
-     * and to fetch new questions.
-     *
-     * @param singlePlayerState SinglePlayerState instance - would be returned from the server
-     *                          on the initial initialization of the game
-     */
-    public void setSinglePlayerState(SinglePlayerState singlePlayerState) {
-        this.singlePlayerState = singlePlayerState;
     }
 
     /**
