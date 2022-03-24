@@ -5,7 +5,6 @@ import commons.misc.Activity;
 import commons.misc.GameState;
 import commons.misc.Response;
 import commons.question.AbstractQuestion;
-import commons.queue.QueueUser;
 
 import java.util.List;
 import java.util.Objects;
@@ -87,7 +86,7 @@ public class SinglePlayerState extends GameState {
      * @return  Boolean value corresponding to the correctness of the answer.
      */
     public boolean compareAnswer() {
-        if(finalAnswers.get(getRoundNumber()) == null) {
+        if (finalAnswers.get(getRoundNumber()) == null) {
             return false;
         }
         String chosenAnswer = finalAnswers.get(getRoundNumber()).getAnswerChoice();
