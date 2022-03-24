@@ -10,7 +10,6 @@ import client.utils.ServerUtils;
 import commons.multi.MultiPlayerState;
 import commons.question.*;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -104,6 +103,8 @@ public class MultiplayerCtrl {
         this.username = username;
 
         pollingService.start(gameId);
+
+        switchState(pollingService.poll());
 
         System.out.println("Starting game " + gameId + " as " + username);
     }

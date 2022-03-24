@@ -66,8 +66,6 @@ public class Main extends Application {
                 QueueScreenCtrl.class, "client", "scenes", "multi", "QueueScreen.fxml");
         var administrator = FXML.load(
                 AdministratorScreenCtrl.class, "client", "scenes", "misc", "AdministratorScreen.fxml");
-        var multiGame = FXML.load(
-                MultiGameQuestionAScreenCtrl.class, "client", "scenes", "multi", "MultiGameQuestionScreen.fxml");
         var moreExpensive = FXML.load(
                 MoreExpensiveQuestionScreenCtrl.class, "client", "scenes", "single",
                 "question", "MoreExpensiveQuestionScreen.fxml");
@@ -81,26 +79,27 @@ public class Main extends Application {
                 GuessQuestionScreenCtrl.class, "client", "scenes", "single",
                 "question", "GuessQuestionScreen.fxml");
 
-        var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, home, help, prep, queue, administrator,
-                multiGame, moreExpensive, consumption, instead, guess, congratulations);
-
         var consumptionMulti = FXML.load(
-                MultiGameQuestionAScreenCtrl.class, "client", "scenes", "multi",
+                MultiGameQuestionAScreenCtrl.class, "client", "scenes", "multi", "question",
                 "MultiGameQuestionAScreen.fxml"
         );
         var guessMulti = FXML.load(
-                MultiGameQuestionBScreenCtrl.class, "client", "scenes", "multi",
+                MultiGameQuestionBScreenCtrl.class, "client", "scenes", "multi", "question",
                 "MultiGameQuestionBScreen.fxml"
         );
         var insteadMulti = FXML.load(
-                MultiGameQuestionCScreenCtrl.class, "client", "scenes", "multi",
+                MultiGameQuestionCScreenCtrl.class, "client", "scenes", "multi", "question",
                 "MultiGameQuestionCScreen.fxml"
         );
         var moreExpensiveMulti = FXML.load(
-                MultiGameQuestionDScreenCtrl.class, "client", "scenes", "multi",
+                MultiGameQuestionDScreenCtrl.class, "client", "scenes", "multi", "question",
                 "MultiGameQuestionDScreen.fxml"
         );
+
+        var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
+        mainCtrl.initialize(primaryStage, home, help, prep, queue, administrator,
+                moreExpensive, consumption, instead, guess, congratulations);
+
 
         var multiCtrl = INJECTOR.getInstance(MultiplayerCtrl.class);
         multiCtrl.initialize(consumptionMulti, guessMulti, insteadMulti, moreExpensiveMulti);

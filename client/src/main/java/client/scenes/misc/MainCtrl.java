@@ -15,7 +15,6 @@
  */
 package client.scenes.misc;
 
-import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
 import client.utils.SinglePlayerUtils;
@@ -32,7 +31,6 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
 
 import java.io.File;
 
@@ -57,9 +55,6 @@ public class MainCtrl {
 
     private AdministratorScreenCtrl administratorCtrl;
     private Scene administrator;
-
-    private MultiGameQuestionAScreenCtrl multiGameCtrl;
-    private Scene multiGame;
 
     private MoreExpensiveQuestionScreenCtrl moreExpensiveCtrl;
     private Scene moreExpensive;
@@ -90,7 +85,6 @@ public class MainCtrl {
      * @param prep            is the prepare screen pair variable
      * @param queue           is the queue screen pair variable
      * @param administrator   is the administrator panel screen panel pair variable
-     * @param multiGame       is the multiplayer game screen pair variable
      * @param moreExpensive   is the moreExpensiveQuestion screen pair variable
      * @param consumption     is the consumptionQuestion screen pair variable
      * @param instead         is the insteadQuestion screen pair variable
@@ -103,7 +97,6 @@ public class MainCtrl {
                            Pair<PrepScreenCtrl, Parent> prep,
                            Pair<QueueScreenCtrl, Parent> queue,
                            Pair<AdministratorScreenCtrl, Parent> administrator,
-                           Pair<MultiGameQuestionAScreenCtrl, Parent> multiGame,
                            Pair<MoreExpensiveQuestionScreenCtrl, Parent> moreExpensive,
                            Pair<ConsumptionQuestionScreenCtrl, Parent> consumption,
                            Pair<InsteadQuestionScreenCtrl, Parent> instead,
@@ -126,9 +119,6 @@ public class MainCtrl {
 
         this.administratorCtrl = administrator.getKey();
         this.administrator = new Scene(administrator.getValue());
-
-        this.multiGameCtrl = multiGame.getKey();
-        this.multiGame = new Scene(multiGame.getValue());
 
         this.moreExpensiveCtrl = moreExpensive.getKey();
         this.moreExpensive = new Scene(moreExpensive.getValue());

@@ -232,6 +232,7 @@ public class QueueScreenCtrl {
     public QueueUser leaveQueue() {
         pollingService.stop();
         countdownService.stop();
+        multiCtrl.stop();
         return server.deleteQueueUser(user);
     }
 

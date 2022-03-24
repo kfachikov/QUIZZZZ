@@ -2,6 +2,8 @@ package client.services;
 
 import client.utils.ServerUtils;
 import commons.multi.MultiPlayerState;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 
 import javax.inject.Inject;
 
@@ -11,7 +13,7 @@ import javax.inject.Inject;
  * The task of this class will continuously update its temporary value to the
  * current state of the ongoing game.
  */
-public class MultiplayerGameStatePollingService extends PollingService<MultiPlayerState> {
+public class MultiplayerGameStatePollingService extends Service<MultiPlayerState> {
 
     private final ServerUtils server;
     private long gameId;
@@ -33,9 +35,16 @@ public class MultiplayerGameStatePollingService extends PollingService<MultiPlay
      */
     public void start(long gameId) {
         this.gameId = gameId;
-        super.start(this::poll);
+        this.start();
 
         System.out.println("Starting polling service");
+    }
+
+    public void stop() {
+        this.cancel();
+        this.reset();
+
+        System.out.println("Stopping service");
     }
 
     /**
@@ -45,5 +54,26 @@ public class MultiplayerGameStatePollingService extends PollingService<MultiPlay
      */
     public MultiPlayerState poll() {
         return server.getMultiGameState(gameId);
+    }
+
+    @Override
+    protected Task<MultiPlayerState> createTask() {
+        return new Task<MultiPlayerState>() {
+            @Override
+            protected MultiPlayerState call()  {
+                MultiPlayerState state;
+                while (true) {
+                    System.out.println("Polling from task");
+                    state = poll();
+                    updateValue(state);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        break;
+                    }
+                }
+                return state;
+            }
+        };
     }
 }
