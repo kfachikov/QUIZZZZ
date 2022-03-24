@@ -6,6 +6,8 @@ import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.single.SinglePlayer;
+import javafx.fxml.FXML;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -22,6 +24,12 @@ public class PrepScreenCtrl {
     private SinglePlayer singlePlayer;
 
     private SinglePlayerUtils singlePlayerUtils;
+
+    @FXML
+    private TableColumn columnscore;
+
+    @FXML
+    private TableColumn columnusername;
 
     /**
      * initializes PrepScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -73,5 +81,12 @@ public class PrepScreenCtrl {
      */
     public void setSinglePlayer(SinglePlayer singlePlayer) {
         this.singlePlayer = singlePlayer;
+    }
+
+    /**
+     *
+     */
+    public void setTable() {
+
     }
 }
