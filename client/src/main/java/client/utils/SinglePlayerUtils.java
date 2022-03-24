@@ -2,7 +2,7 @@ package client.utils;
 
 import client.scenes.misc.MainCtrl;
 import client.scenes.single.QuestionScreen;
-import client.services.GameStatePollingService;
+import client.services.SingleplayerGameStatePollingService;
 import commons.question.*;
 import commons.single.SinglePlayerState;
 import javafx.scene.control.ProgressBar;
@@ -24,7 +24,7 @@ public class SinglePlayerUtils {
     Instances used for the single-player mode to extract polling service functionality.
     SinglePlayer and SinglePlayerState instances of the current pair Player-Game on the client-side.
      */
-    private final GameStatePollingService pollingService;
+    private final SingleplayerGameStatePollingService pollingService;
     private SinglePlayerState singlePlayerState;
 
     private TimerThread timerThread;
@@ -39,7 +39,7 @@ public class SinglePlayerUtils {
      * @param pollingService Common single-player game state polling service.
      */
     @Inject
-    public SinglePlayerUtils(MainCtrl mainCtrl, GameStatePollingService pollingService) {
+    public SinglePlayerUtils(MainCtrl mainCtrl, SingleplayerGameStatePollingService pollingService) {
         this.mainCtrl = mainCtrl;
         this.pollingService = pollingService;
     }

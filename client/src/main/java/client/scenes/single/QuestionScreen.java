@@ -1,7 +1,7 @@
 package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
-import client.services.GameStatePollingService;
+import client.services.SingleplayerGameStatePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
@@ -47,7 +47,7 @@ public abstract class QuestionScreen {
     @Inject
     public QuestionScreen(ServerUtils server,
                           MainCtrl mainCtrl,
-                          GameStatePollingService pollingService,
+                          SingleplayerGameStatePollingService pollingService,
                           SinglePlayerUtils singlePlayerUtils) {
         this.server = server;
         this.mainCtrl = mainCtrl;

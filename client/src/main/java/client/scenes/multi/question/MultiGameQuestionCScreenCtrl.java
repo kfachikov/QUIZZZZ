@@ -3,7 +3,6 @@ package client.scenes.multi.question;
 import client.scenes.multi.MultiplayerCtrl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.text.Text;
 
 import javax.inject.Inject;
 
@@ -14,13 +13,11 @@ import javax.inject.Inject;
  * showing the current game ID.
  */
 public class MultiGameQuestionCScreenCtrl {
+
     private final MultiplayerCtrl multiCtrl;
 
     @FXML
-    private Label gameIdLabel;
-
-    @FXML
-    private Text question;
+    private Label gameStateLabel;
 
     /**
      * Constructor for the multiplayer game question screen.
@@ -41,12 +38,11 @@ public class MultiGameQuestionCScreenCtrl {
     }
 
     /**
-     * Setter for the associated game ID label.
+     * Setter for a mock label.
      *
      * @param labelText New value of the label
      */
-    public void setGameIdLabelText(String labelText) {
-        gameIdLabel.setText(labelText);
+    public void setGameStateLabelText(String labelText) {
+        gameStateLabel.setText(labelText);
     }
-
 }

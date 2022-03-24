@@ -1,7 +1,7 @@
 package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
-import client.services.GameStatePollingService;
+import client.services.SingleplayerGameStatePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
@@ -59,14 +59,15 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param server   is the server variable
-     * @param mainCtrl is the main controller variable
+     * @param server            is the server variable
+     * @param mainCtrl          is the main controller variable
      * @param pollingService    is the injected polling service to be used to poll the game state.
      * @param singlePlayerUtils is the injected singleplayer utils for managing logic
      */
     @Inject
     public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
-                                     GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+                                     SingleplayerGameStatePollingService pollingService,
+                                     SinglePlayerUtils singlePlayerUtils) {
         super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 

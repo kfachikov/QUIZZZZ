@@ -1,7 +1,7 @@
 package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
-import client.services.GameStatePollingService;
+import client.services.SingleplayerGameStatePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
@@ -61,7 +61,8 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      */
     @Inject
     public GuessQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
-                                   GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+                                   SingleplayerGameStatePollingService pollingService,
+                                   SinglePlayerUtils singlePlayerUtils) {
         super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 

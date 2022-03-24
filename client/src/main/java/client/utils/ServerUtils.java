@@ -18,6 +18,7 @@ package client.utils;
 import commons.misc.Activity;
 import commons.misc.GameState;
 import commons.misc.Response;
+import commons.multi.MultiPlayerState;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -105,6 +106,15 @@ public class ServerUtils {
                 .get(GameState.class);
     }
 
+    public MultiPlayerState getMultiGameState(long id) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(MultiPlayerState.class);
+    }
+
     /**
      * POST request to /api/solo/answer, to "submit" the answer chosen by the user.
      *
@@ -119,12 +129,6 @@ public class ServerUtils {
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(response, APPLICATION_JSON), Response.class);
     }
-
-    /*
-    Currently, the following method does not work as intended.
-    There is a problem with the "object mapper" for the question classes.
-    Should have some default constructors.
-    */
 
     /**
      * POST request to /api/solo/start, to start the single-player game.

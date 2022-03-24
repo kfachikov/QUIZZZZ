@@ -20,7 +20,7 @@ import client.scenes.misc.HelpScreenCtrl;
 import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
 import client.scenes.single.*;
-import client.services.GameStatePollingService;
+import client.services.SingleplayerGameStatePollingService;
 import client.utils.HomeUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Binder;
@@ -49,7 +49,7 @@ public class MyModule implements Module {
         binder.bind(InsteadQuestionScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(GuessQuestionScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(CongratulationsScreenCtrl.class).in(Scopes.SINGLETON);
-        binder.bind(GameStatePollingService.class).in(Scopes.SINGLETON);
+        binder.bind(SingleplayerGameStatePollingService.class).in(Scopes.SINGLETON);
         binder.bind(SinglePlayerUtils.class).in(Scopes.SINGLETON);
         binder.bind(HomeUtils.class).in(Scopes.SINGLETON);
     }

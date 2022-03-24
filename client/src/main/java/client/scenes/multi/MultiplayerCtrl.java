@@ -5,7 +5,12 @@ import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
 import client.scenes.multi.question.MultiGameQuestionBScreenCtrl;
 import client.scenes.multi.question.MultiGameQuestionCScreenCtrl;
 import client.scenes.multi.question.MultiGameQuestionDScreenCtrl;
+import client.services.MultiplayerGameStatePollingService;
 import client.utils.ServerUtils;
+import commons.multi.MultiPlayerState;
+import commons.question.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -18,7 +23,7 @@ import java.util.Optional;
 
 /**
  * Class responsible for managing the multiplayer game for the client.
- *
+ * <p>
  * It keeps track of any logical changes on the server side, and updates the scenes and their controllers accordingly.
  */
 public class MultiplayerCtrl {
@@ -38,14 +43,32 @@ public class MultiplayerCtrl {
 
     private final MainCtrl mainCtrl;
     private final ServerUtils serverUtils;
+    private final MultiplayerGameStatePollingService pollingService;
 
     private long gameId;
     private String username;
 
+    private final ChangeListener<MultiPlayerState> onPoll = new ChangeListener<MultiPlayerState>() {
+        @Override
+        public void changed(
+                ObservableValue<? extends MultiPlayerState> observable,
+                MultiPlayerState oldValue,
+                MultiPlayerState newValue) {
+            // If state has changed, we probably have to switch scenes
+            if (!oldValue.getState().equals(newValue.getState())) {
+                switchState(newValue);
+            }
+        }
+    };
+
     @Inject
-    public MultiplayerCtrl(MainCtrl mainCtrl, ServerUtils serverUtils) {
+    public MultiplayerCtrl(MainCtrl mainCtrl,
+                           ServerUtils serverUtils,
+                           MultiplayerGameStatePollingService pollingService
+    ) {
         this.mainCtrl = mainCtrl;
         this.serverUtils = serverUtils;
+        this.pollingService = pollingService;
     }
 
     public void initialize(
@@ -65,12 +88,34 @@ public class MultiplayerCtrl {
 
         this.questionDScreenCtrl = questionDScreen.getKey();
         this.questionDScreen = new Scene(questionDScreen.getValue());
+
+        pollingService.valueProperty().addListener(onPoll);
     }
 
+    /**
+     * Start a multiplayer session.
+     * <p>
+     * Will automatically switch scenes to multiplayer question screens, leaderboard etc.
+     * <p>
+     * Can be stopped using `stop()`
+     *
+     * @param gameId   Id of the multiplayer game
+     * @param username Name of the player in the game
+     */
     public void start(long gameId, String username) {
         this.gameId = gameId;
         this.username = username;
 
+        pollingService.start(gameId);
+    }
+
+    /**
+     * Stop the multiplayer session.
+     * <p>
+     * Resets the controller to a state where another multiplayer game can be played later.
+     */
+    public void stop() {
+        pollingService.stop();
     }
 
     /**
@@ -89,7 +134,55 @@ public class MultiplayerCtrl {
 
         Optional<ButtonType> confirmation = alert.showAndWait();
         if (confirmation.isPresent() && confirmation.get() == yesButton) {
+            stop();
             mainCtrl.showHome();
         }
+    }
+
+    private void switchState(MultiPlayerState game) {
+        String state = game.getState();
+        if (MultiPlayerState.QUESTION_STATE.equals(state)) {
+            switchToQuestion(game);
+        }
+    }
+
+    private void switchToQuestion(MultiPlayerState game) {
+        int roundNumber = game.getRoundNumber();
+        if (roundNumber < 0 || roundNumber >= 20) {
+            System.err.println("Tried to switch to a question scene with invalid round number");
+            return;
+        }
+
+        AbstractQuestion question = game.getQuestionList().get(roundNumber);
+
+        if (question instanceof ConsumptionQuestion) {
+            ConsumptionQuestion consumptionQuestion = (ConsumptionQuestion) question;
+            showConsumptionQuestion(consumptionQuestion);
+        } else if (question instanceof GuessQuestion) {
+            GuessQuestion guessQuestion = (GuessQuestion) question;
+            showGuessQuestion(guessQuestion);
+        } else if (question instanceof InsteadQuestion) {
+            InsteadQuestion insteadQuestion = (InsteadQuestion) question;
+            showInsteadQuestion(insteadQuestion);
+        } else if (question instanceof MoreExpensiveQuestion) {
+            MoreExpensiveQuestion moreExpensiveQuestion = (MoreExpensiveQuestion) question;
+            showMoreExpensiveQuestion(moreExpensiveQuestion);
+        }
+    }
+
+    private void showConsumptionQuestion(ConsumptionQuestion question) {
+
+    }
+
+    private void showGuessQuestion(GuessQuestion question) {
+
+    }
+
+    private void showInsteadQuestion(InsteadQuestion question) {
+
+    }
+
+    private void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
+
     }
 }
