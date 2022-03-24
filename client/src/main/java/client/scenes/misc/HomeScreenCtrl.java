@@ -29,9 +29,9 @@ public class HomeScreenCtrl {
     /**
      * initializes HomeScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param server    is the server variable
-     * @param mainCtrl  is the main controller variable
-     * @param homeUtils is the injected utility class for home
+     * @param server   is the server variable
+     * @param mainCtrl is the main controller variable
+     * @param homeUtils is the home screen utility class
      */
     @Inject
     public HomeScreenCtrl(ServerUtils server, MainCtrl mainCtrl, HomeUtils homeUtils) {
@@ -79,7 +79,7 @@ public class HomeScreenCtrl {
      * shows the administrator panel.
      */
     public void showAdministratorPanel() {
-        mainCtrl.showAdministrator();
+        homeUtils.enterAdministrationPanel();
     }
 
 
