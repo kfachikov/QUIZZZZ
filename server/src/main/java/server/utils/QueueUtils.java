@@ -7,13 +7,24 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Queue;
 
+/**
+ * Utilities class, responsible for keeping state of a multiplayer queue.
+ */
 @Component
 public class QueueUtils {
 
-    private QueueState queueState;
+    private final QueueState queueState;
 
+    /**
+     * Default constructor for QueueUtils.
+     * <p>
+     * Initializes the starting queue to a default state:
+     * - No users in the queue.
+     * - Game is not starting.
+     * - The start of the game is as far into the future as possible.
+     * - Upcoming game ID is 0.
+     */
     public QueueUtils() {
         this.queueState = new QueueState(
                 new ArrayList<>(),
@@ -23,17 +34,33 @@ public class QueueUtils {
         );
     }
 
+    /**
+     * Complete constructor for QueueUtils.
+     *
+     * @param queueState Initial QueueState.
+     */
+    public QueueUtils(QueueState queueState) {
+        this.queueState = queueState;
+    }
+
 
     /**
      * Getter for the current queue state.
      *
-     * @return a QueueState instance containing corresponding information -
-     * as the QueueState on all clients already residing in the queue.
+     * @return a QueueState instance containing corresponding information as the QueueState on all clients already residing in the queue.
      */
     public QueueState getQueue() {
         return queueState;
     }
 
+    /**
+     * Add a user to the queue.
+     * <p>
+     * User is added to the queue, and the countdown for the start of the game is reset.
+     *
+     * @param user QueueUser to add to the queue.
+     * @return QueueUser (if added successfully), null otherwise
+     */
     public QueueUser addUser(QueueUser user) {
         if (isInvalid(user)) {
             return null;
@@ -46,6 +73,12 @@ public class QueueUtils {
         }
     }
 
+    /**
+     * Remove a user from the queue.
+     *
+     * @param user QueueUser to remove from the queue.
+     * @return QueueUser that was removed (if valid and in the queue), null otherwise
+     */
     public QueueUser removeUser(QueueUser user) {
         if (isInvalid(user)) {
             return null;
@@ -57,6 +90,15 @@ public class QueueUtils {
         }
     }
 
+    /**
+     * Begins the countdown for the queue.
+     * <p>
+     * Sets the game starting variable to true, and the start time to 3 seconds in the future.
+     * <p>
+     * The method does nothing and returns false if the countdown is already started.
+     *
+     * @return true iff countdown wasn't started already.
+     */
     public boolean startCountdown() {
         if (queueState.isGameStarting()) {
             return false;
@@ -67,11 +109,27 @@ public class QueueUtils {
         }
     }
 
+    /**
+     * Reset the countdown for the queue.
+     * <p>
+     * Sets the game starting variable to false, and the start time as far away in the future as possible.
+     */
     public void resetCountdown() {
         queueState.setGameStarting(false);
         queueState.setStartTimeInMs(Long.MAX_VALUE);
     }
 
+    /**
+     * Check if a QueueUser instance is invalid.
+     * <p>
+     * A QueueUser instance is considered invalid iff any of the following hold:
+     * - It is null.
+     * - Its username is null.
+     * - Its username is empty.
+     *
+     * @param user QueueUser to check for incorrectness.
+     * @return true iff QueueUser is invalid.
+     */
     public boolean isInvalid(QueueUser user) {
         if (user == null) {
             return true;
@@ -82,16 +140,33 @@ public class QueueUtils {
         }
     }
 
+    /**
+     * Check if a QueueUser is already present in the queue.
+     *
+     * @param user QueueUser to check if they are in the queue.
+     * @return true iff the user is already in the queue.
+     */
     public boolean containsUser(QueueUser user) {
         return getUsers().contains(user);
     }
 
+    /**
+     * Get a user in the queue by their username.
+     *
+     * @param username Username of the user
+     * @return QueueUser who is in the queue, with the given username.
+     */
     public QueueUser getByUsername(String username) {
         return getUsers().stream()
                 .filter((user -> user.getUsername().equals(username)))
                 .findAny().orElse(null);
     }
 
+    /**
+     * Shorthand method for getting list of users in the queue.
+     *
+     * @return List of users in the queue.
+     */
     private List<QueueUser> getUsers() {
         return queueState.getUsers();
     }
