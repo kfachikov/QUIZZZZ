@@ -20,7 +20,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import server.database.ActivityRepository;
 import server.utils.GenerateQuestionUtils;
-import server.utils.MultiPlayerStateUtils;
 import server.utils.QueueUtils;
 import server.utils.SinglePlayerStateUtils;
 
