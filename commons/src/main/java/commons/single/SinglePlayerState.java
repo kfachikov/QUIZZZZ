@@ -65,7 +65,7 @@ public class SinglePlayerState extends GameState {
     /**
      * Getter for the list of answers submitted as final.
      *
-     * @return  a list of Responses representing the answers given by the players.
+     * @return a list of Responses representing the answers given by the players.
      */
     public List<Response> getFinalAnswers() {
         return finalAnswers;
@@ -75,10 +75,10 @@ public class SinglePlayerState extends GameState {
      * Comparing answer function making use of the abstract functionality declared
      * in the parent abstract class of the different question types.
      *
-     * @return  Boolean value corresponding to the correctness of the answer.
+     * @return Boolean value corresponding to the correctness of the answer.
      */
     public boolean compareAnswer() {
-        if(finalAnswers.get(getRoundNumber()) == null) {
+        if (finalAnswers.get(getRoundNumber()) == null) {
             return false;
         }
         String chosenAnswer = finalAnswers.get(getRoundNumber()).getAnswerChoice();

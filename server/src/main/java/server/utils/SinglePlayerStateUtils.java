@@ -6,7 +6,6 @@ import commons.question.AbstractQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import server.database.ActivityRepository;
 
@@ -31,8 +30,8 @@ public class SinglePlayerStateUtils {
      * Get particular game state instance by its key in the games map.
      * Update its state if required.
      *
-     * @param id    Key value to search for.
-     * @return      SinglePlayerState instance in case it exists, null otherwise.
+     * @param id Key value to search for.
+     * @return SinglePlayerState instance in case it exists, null otherwise.
      */
     public SinglePlayerState getGameStateById(long id) {
         if (games.containsKey(id)) {
@@ -48,8 +47,8 @@ public class SinglePlayerStateUtils {
      * Posts an answer in the current game - particular instance found by gameId stored in the
      * Response object sent.
      *
-     * @param response  Response sent from client.
-     * @return          Response instance in case the gameId is valid, or null otherwise.
+     * @param response Response sent from client.
+     * @return Response instance in case the gameId is valid, or null otherwise.
      */
     public Response postAnswer(Response response) {
         long gameId = response.getGameId();
@@ -181,10 +180,11 @@ public class SinglePlayerStateUtils {
      * Constructs a new single-player game state.
      *
      * @param player Player who is playing in the game
+     * @param repo   ActivityRepository instance.
      * @return The newly constructed SinglePlayer game state
      */
     public SinglePlayerState createSingleGame(SinglePlayer player,
-                                               ActivityRepository repo) {
+                                              ActivityRepository repo) {
         Set<Long> keys = games.keySet();
         long maxKey;
         if (keys.isEmpty()) {

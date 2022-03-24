@@ -19,8 +19,10 @@ import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
 import client.utils.SinglePlayerUtils;
-import commons.misc.GameState;
-import commons.question.*;
+import commons.question.ConsumptionQuestion;
+import commons.question.GuessQuestion;
+import commons.question.InsteadQuestion;
+import commons.question.MoreExpensiveQuestion;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
 import javafx.application.Platform;
@@ -80,19 +82,18 @@ public class MainCtrl {
     private SinglePlayerUtils singlePlayerUtils;
 
 
-
     /**
-     * @param primaryStage is the Stage representing the initial stage variable.
-     * @param home         is the home screen pair variable
-     * @param help         is the help screen pair variable
-     * @param prep         is the prepare screen pair variable
-     * @param queue        is the queue screen pair variable
-     * @param administrator is the administrator panel screen panel pair variable
-     * @param multiGame     is the multiplayer game screen pair variable
-     * @param moreExpensive is the moreExpensiveQuestion screen pair variable
-     * @param consumption   is the consumptionQuestion screen pair variable
-     * @param instead       is the insteadQuestion screen pair variable
-     * @param guess         is the guessQuestion screen pair variable
+     * @param primaryStage    is the Stage representing the initial stage variable.
+     * @param home            is the home screen pair variable
+     * @param help            is the help screen pair variable
+     * @param prep            is the prepare screen pair variable
+     * @param queue           is the queue screen pair variable
+     * @param administrator   is the administrator panel screen panel pair variable
+     * @param multiGame       is the multiplayer game screen pair variable
+     * @param moreExpensive   is the moreExpensiveQuestion screen pair variable
+     * @param consumption     is the consumptionQuestion screen pair variable
+     * @param instead         is the insteadQuestion screen pair variable
+     * @param guess           is the guessQuestion screen pair variable
      * @param congratulations is the congratulations screen pair variable
      */
     public void initialize(Stage primaryStage,
@@ -184,7 +185,7 @@ public class MainCtrl {
     /**
      * Method called from the PrepScreenCtrl once the "GO!" button is pressed.
      * Passed as arguments are the instance for the current player, and the game he is "connected" to.
-     *
+     * <p>
      * Initializes both polling service, fields in separate screen controllers, and makes the initial call
      * so the first question is shown.
      *
@@ -201,7 +202,7 @@ public class MainCtrl {
      * service and initializes the queue scene controller with
      * the QueueUser instance of the person joining the queue.
      *
-     * @param user QueueUser which is joining the queue
+     * @param user          QueueUser which is joining the queue
      * @param serverAddress server address to be shown in the queue screen
      */
     public void showQueue(QueueUser user, String serverAddress) {

@@ -29,10 +29,7 @@ public class GenerateQuestionUtils {
 
         Collections.shuffle(activities, random);
 
-        while (questionNumber <= 5) {
-            if (questionNumber > activities.size()) {
-                break;
-            }
+        while (questionNumber <= 5 && questionNumber <= activities.size()) {
             Activity activity = activities.get(questionNumber - 1);
             InsteadQuestion insteadQuestion = new InsteadQuestion(activity);
             insteadQuestion.setAnswerChoices(activities);
@@ -40,10 +37,7 @@ public class GenerateQuestionUtils {
             questionNumber++;
         }
 
-        while (questionNumber <= 10) {
-            if (questionNumber > activities.size()) {
-                break;
-            }
+        while (questionNumber <= 10 && questionNumber <= activities.size()) {
             Activity activity = activities.get(questionNumber - 1);
             ConsumptionQuestion consumptionQuestion = new ConsumptionQuestion(activity);
             consumptionQuestion.setAnswerChoices();
@@ -51,20 +45,14 @@ public class GenerateQuestionUtils {
             questionNumber++;
         }
 
-        while (questionNumber <= 15) {
-            if (questionNumber > activities.size()) {
-                break;
-            }
+        while (questionNumber <= 15 && questionNumber <= activities.size()) {
             MoreExpensiveQuestion moreExpensiveQuestion = new MoreExpensiveQuestion();
             moreExpensiveQuestion.setAnswerChoices(activities);
             result.add(moreExpensiveQuestion);
             questionNumber++;
         }
 
-        while (questionNumber <= 20) {
-            if (questionNumber > activities.size()) {
-                break;
-            }
+        while (questionNumber <= 20 && questionNumber <= activities.size()) {
             Activity activity = activities.get(questionNumber - 1);
             GuessQuestion guessQuestionType = new GuessQuestion(activity);
             result.add(guessQuestionType);

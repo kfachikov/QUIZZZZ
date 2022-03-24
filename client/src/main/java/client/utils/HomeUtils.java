@@ -1,6 +1,5 @@
 package client.utils;
 
-import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -27,8 +26,8 @@ public class HomeUtils {
     /**
      * Constructor for instantiating a HomeUtils instance using Spring injection.
      *
-     * @param mainCtrl          Main controller tackles all scene and controller changes.
-     * @param server            A Server instance to be set to the serverUtils field.
+     * @param mainCtrl Main controller tackles all scene and controller changes.
+     * @param server   A Server instance to be set to the serverUtils field.
      */
     @Inject
     public HomeUtils(MainCtrl mainCtrl, ServerUtils server) {
@@ -39,7 +38,7 @@ public class HomeUtils {
     /**
      * Sets the current server to the entered one.
      * Creates a SinglePlayer instance from the username entered and a default score - 0.
-     *
+     * <p>
      * TODO: A simple GET method should be create so the server is validated somehow.
      */
     public void enterSinglePlayerMode() {
@@ -116,9 +115,9 @@ public class HomeUtils {
     }
 
     /**
-     * @return a new SingleUser object that contains its username and score.
-     *
      * TODO: Should check whether the username is empty and behave accordingly.
+     *
+     * @return a new SingleUser object that contains its username and score.
      */
     public SinglePlayer getSinglePlayer() {
         String user = usernameField.getText();

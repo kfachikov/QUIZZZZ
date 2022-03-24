@@ -29,8 +29,9 @@ public class HomeScreenCtrl {
     /**
      * initializes HomeScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param server   is the server variable
-     * @param mainCtrl is the main controller variable
+     * @param server    is the server variable
+     * @param mainCtrl  is the main controller variable
+     * @param homeUtils is the injected utility class for home
      */
     @Inject
     public HomeScreenCtrl(ServerUtils server, MainCtrl mainCtrl, HomeUtils homeUtils) {

@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import server.database.QueueUserRepository;
 import server.utils.QueueUtils;
 
-import java.util.Date;
-
 @RestController
 @RequestMapping("/api/queue")
 public class QueueController {

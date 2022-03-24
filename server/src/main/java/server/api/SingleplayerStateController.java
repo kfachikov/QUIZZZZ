@@ -1,8 +1,8 @@
 package server.api;
 
 import commons.misc.Response;
-import commons.single.SinglePlayerState;
 import commons.single.SinglePlayer;
+import commons.single.SinglePlayerState;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +27,9 @@ public class SingleplayerStateController {
      * Constructor for singleplayer state controller.
      * <p>
      * Initializes the list of games inside of the controller.
+     *
+     * @param repo                   ActivityRepository instance.
+     * @param singlePlayerStateUtils injected instance of SinglePlayerStateUtils
      */
     public SingleplayerStateController(ActivityRepository repo, SinglePlayerStateUtils singlePlayerStateUtils) {
         this.repo = repo;
