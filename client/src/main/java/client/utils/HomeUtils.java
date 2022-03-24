@@ -103,6 +103,26 @@ public class HomeUtils {
     }
 
     /**
+     * Method to check whether the server entered is a valid one and proceed
+     * with redirecting the user to the page they want to visit.
+     */
+    public void enterAdministrationPanel() {
+        try{
+            ServerUtils.setCurrentServer(getServer());
+            /*
+            A GET/POST request should be sent over to the server, so that a
+            "validation" process occur.
+             */
+            mainCtrl.showAdministrator();
+        /*
+        Exception thrown should be specified in regard to exception returned from the server.
+         */
+        } catch (Exception e){
+            // ...
+        }
+    }
+
+    /**
      * Setter for all attributes corresponding to the fields to be altered on the home screen.
      *
      * @param usernameField is the field where the client would enter their username

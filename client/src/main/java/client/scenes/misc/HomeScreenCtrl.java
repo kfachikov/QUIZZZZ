@@ -31,6 +31,7 @@ public class HomeScreenCtrl {
      *
      * @param server   is the server variable
      * @param mainCtrl is the main controller variable
+     * @param homeUtils is the home screen utility class
      */
     @Inject
     public HomeScreenCtrl(ServerUtils server, MainCtrl mainCtrl, HomeUtils homeUtils) {
@@ -78,8 +79,7 @@ public class HomeScreenCtrl {
      * shows the administrator panel.
      */
     public void showAdministratorPanel() {
-        ServerUtils.setCurrentServer(getServer());
-        mainCtrl.showAdministrator();
+        homeUtils.enterAdministrationPanel();
     }
 
 
