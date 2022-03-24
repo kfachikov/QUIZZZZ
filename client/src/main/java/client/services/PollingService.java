@@ -34,6 +34,8 @@ public class PollingService<T> extends Service<T> {
         this.poll = poll;
         this.periodMs = periodMs;
         super.start();
+
+        System.out.println("Started polling service with " + poll + " every " + periodMs);
     }
 
     /**
@@ -58,6 +60,7 @@ public class PollingService<T> extends Service<T> {
                 updateValue(null);
                 while (true) {
                     value = poll.get();
+                    System.out.println("Old value was: " + getValue() + ", new value: " + value);
                     updateValue(value);
                     try {
                         Thread.sleep(periodMs);

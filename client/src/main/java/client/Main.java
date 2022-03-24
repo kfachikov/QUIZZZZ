@@ -20,8 +20,11 @@ import client.scenes.misc.HelpScreenCtrl;
 import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
 import client.scenes.multi.MultiplayerCtrl;
-import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
+import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
+import client.scenes.multi.question.MultiGameQuestionBScreenCtrl;
+import client.scenes.multi.question.MultiGameQuestionCScreenCtrl;
+import client.scenes.multi.question.MultiGameQuestionDScreenCtrl;
 import client.scenes.single.*;
 import com.google.inject.Injector;
 import javafx.application.Application;
@@ -43,7 +46,7 @@ public class Main extends Application {
     /**
      * @param args is a String[] args
      * @throws URISyntaxException is an exception
-     * @throws IOException is an exception
+     * @throws IOException        is an exception
      */
     public static void main(String[] args) throws URISyntaxException, IOException {
         launch();
@@ -82,6 +85,24 @@ public class Main extends Application {
         mainCtrl.initialize(primaryStage, home, help, prep, queue, administrator,
                 multiGame, moreExpensive, consumption, instead, guess, congratulations);
 
+        var consumptionMulti = FXML.load(
+                MultiGameQuestionAScreenCtrl.class, "client", "scenes", "multi",
+                "MultiGameQuestionAScreen.fxml"
+        );
+        var guessMulti = FXML.load(
+                MultiGameQuestionBScreenCtrl.class, "client", "scenes", "multi",
+                "MultiGameQuestionBScreen.fxml"
+        );
+        var insteadMulti = FXML.load(
+                MultiGameQuestionCScreenCtrl.class, "client", "scenes", "multi",
+                "MultiGameQuestionCScreen.fxml"
+        );
+        var moreExpensiveMulti = FXML.load(
+                MultiGameQuestionDScreenCtrl.class, "client", "scenes", "multi",
+                "MultiGameQuestionDScreen.fxml"
+        );
+
         var multiCtrl = INJECTOR.getInstance(MultiplayerCtrl.class);
+        multiCtrl.initialize(consumptionMulti, guessMulti, insteadMulti, moreExpensiveMulti);
     }
 }

@@ -34,6 +34,8 @@ public class MultiplayerGameStatePollingService extends PollingService<MultiPlay
     public void start(long gameId) {
         this.gameId = gameId;
         super.start(this::poll);
+
+        System.out.println("Starting polling service");
     }
 
     /**

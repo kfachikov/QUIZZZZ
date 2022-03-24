@@ -48,17 +48,11 @@ public class MultiplayerCtrl {
     private long gameId;
     private String username;
 
-    private final ChangeListener<MultiPlayerState> onPoll = new ChangeListener<MultiPlayerState>() {
-        @Override
-        public void changed(
-                ObservableValue<? extends MultiPlayerState> observable,
-                MultiPlayerState oldValue,
-                MultiPlayerState newValue) {
-            System.out.println("Poll!");
-            // If state has changed, we probably have to switch scenes
-            if (!oldValue.getState().equals(newValue.getState())) {
-                switchState(newValue);
-            }
+    private final ChangeListener<MultiPlayerState> onPoll = (observable, oldValue, newValue) -> {
+        System.out.println("Poll!");
+        // If state has changed, we probably have to switch scenes
+        if (!oldValue.getState().equals(newValue.getState())) {
+            switchState(newValue);
         }
     };
 
@@ -89,6 +83,10 @@ public class MultiplayerCtrl {
 
         this.questionDScreenCtrl = questionDScreen.getKey();
         this.questionDScreen = new Scene(questionDScreen.getValue());
+
+        pollingService.valueProperty().addListener(onPoll);
+
+        System.out.println("Initialized Multiplayer Controller");
     }
 
     /**
@@ -105,9 +103,9 @@ public class MultiplayerCtrl {
         this.gameId = gameId;
         this.username = username;
 
-        pollingService.valueProperty().addListener(onPoll);
-
         pollingService.start(gameId);
+
+        System.out.println("Starting game " + gameId + " as " + username);
     }
 
     /**
@@ -117,6 +115,8 @@ public class MultiplayerCtrl {
      */
     public void stop() {
         pollingService.stop();
+
+        System.out.println("Stopped multiplayer");
     }
 
     /**
@@ -145,6 +145,8 @@ public class MultiplayerCtrl {
         if (MultiPlayerState.QUESTION_STATE.equals(state)) {
             switchToQuestion(game);
         }
+
+        System.out.println("Switching state for game " + game);
     }
 
     private void switchToQuestion(MultiPlayerState game) {
