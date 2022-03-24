@@ -42,7 +42,7 @@ public class QueueState {
     private long upcomingGameId;
 
     public QueueState() {
-        
+
     }
 
     /**
