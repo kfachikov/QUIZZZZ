@@ -15,6 +15,7 @@
  */
 package client.scenes.misc;
 
+
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
@@ -35,9 +36,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+
 import java.io.File;
+
 import static commons.single.SinglePlayerState.*;
 
+/**
+ *
+ */
 public class MainCtrl {
 
     private Stage primaryStage;
@@ -86,17 +92,17 @@ public class MainCtrl {
     private TimerThread timerThread;
 
     /**
-     * @param primaryStage is the Stage representing the initial stage variable.
-     * @param home         is the home screen pair variable
-     * @param help         is the help screen pair variable
-     * @param prep         is the prepare screen pair variable
-     * @param queue        is the queue screen pair variable
-     * @param administrator is the administrator panel screen panel pair variable
-     * @param multiGame     is the multiplayer game screen pair variable
-     * @param moreExpensive is the moreExpensiveQuestion screen pair variable
-     * @param consumption   is the consumptionQuestion screen pair variable
-     * @param instead       is the insteadQuestion screen pair variable
-     * @param guess         is the guessQuestion screen pair variable
+     * @param primaryStage    is the Stage representing the initial stage variable.
+     * @param home            is the home screen pair variable
+     * @param help            is the help screen pair variable
+     * @param prep            is the prepare screen pair variable
+     * @param queue           is the queue screen pair variable
+     * @param administrator   is the administrator panel screen panel pair variable
+     * @param multiGame       is the multiplayer game screen pair variable
+     * @param moreExpensive   is the moreExpensiveQuestion screen pair variable
+     * @param consumption     is the consumptionQuestion screen pair variable
+     * @param instead         is the insteadQuestion screen pair variable
+     * @param guess           is the guessQuestion screen pair variable
      * @param congratulations is the congratulations screen pair variable
      */
     public void initialize(Stage primaryStage,
@@ -198,7 +204,7 @@ public class MainCtrl {
     /**
      * Method called from the PrepScreenCtrl once the "GO!" button is pressed.
      * Passed as arguments are the instance for the current player, and the game he is "connected" to.
-     *
+     * <p>
      * Initializes both polling service, fields in separate screen controllers, and makes the initial call
      * so the first question is shown.
      *
@@ -237,10 +243,10 @@ public class MainCtrl {
     /**
      * The polling service is initialized by receiving the GameState it should pull from
      * the server constantly (every 500 milliseconds).
-     *
+     * <p>
      * A listener is assigned to its property which looks for changes of the
      * GameState instance on the server.
-     *
+     * <p>
      * The polling service is started.
      */
     public void initializePollingService() {
@@ -347,7 +353,7 @@ public class MainCtrl {
      * Initializes a new instance of TimerThread and starts it.
      * Used at the beginning of each "scene-showing" process.
      *
-     * @param questionScreen    Controller for the corresponding scene to be visualized.
+     * @param questionScreen Controller for the corresponding scene to be visualized.
      */
     private void startTimer(QuestionScreen questionScreen) {
         ProgressBar time = questionScreen.getTime();

@@ -189,4 +189,13 @@ public class ServerUtils {
                 .get(new GenericType<List<Activity>>() {
                 });
     }
+
+    public List<Activity> importActivities(String fileAsString) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/addToRepo")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<Activity>>() {});
+    }
 }
