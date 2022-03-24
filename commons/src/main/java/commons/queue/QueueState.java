@@ -1,5 +1,6 @@
 package commons.queue;
 
+import commons.single.SinglePlayerLeaderboardScore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -41,6 +42,11 @@ public class QueueState {
      * GameId of the associated MultiPlayerGame.
      */
     private long upcomingGameId;
+
+    /**
+     * List of leaderboardScores currently in the database.
+     */
+    private List<SinglePlayerLeaderboardScore> leaderboardScores;
 
     /**
      * Default constructor for the state of the queue.
@@ -187,5 +193,12 @@ public class QueueState {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
+    }
+
+    /**
+     * @return list of leaderboardscores
+     */
+    public List<SinglePlayerLeaderboardScore> getLeaderboardScores() {
+        return leaderboardScores;
     }
 }

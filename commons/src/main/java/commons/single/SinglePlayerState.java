@@ -5,6 +5,7 @@ import commons.misc.Activity;
 import commons.misc.GameState;
 import commons.misc.Response;
 import commons.question.AbstractQuestion;
+import commons.queue.QueueUser;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,9 +19,10 @@ public class SinglePlayerState extends GameState {
     private SinglePlayer player;
     private List<Response> finalAnswers;
 
-    public SinglePlayerState() {
-
-    }
+    /**
+     * List of leaderboardScores currently in the database.
+     */
+    private List<SinglePlayerLeaderboardScore> leaderboardScores;
 
     /**
      * Constructor for the state of the solo game.
@@ -69,6 +71,13 @@ public class SinglePlayerState extends GameState {
      */
     public List<Response> getFinalAnswers() {
         return finalAnswers;
+    }
+
+    /**
+     * @return list of leaderboardscores
+     */
+    public List<SinglePlayerLeaderboardScore> getLeaderboardScores() {
+        return leaderboardScores;
     }
 
     /**

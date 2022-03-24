@@ -2,20 +2,38 @@
 package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
+import client.services.QueuePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
+import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
+import commons.single.SinglePlayerLeaderboardScore;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
+
 import javax.swing.table.TableColumn;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
  */
 public class PrepScreenCtrl {
 
+    /**
+     * Initialize class constant for the number of player's usernames visible on screen.
+     */
+    private static final int PLAYERSCOUNT = 16;
+
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+    private final QueuePollingService pollingService;
+
+    private SinglePlayerLeaderboardScore leaderboardscore;
 
     /*
     The following field is required to store the `SinglePlayer` instance,
@@ -26,10 +44,7 @@ public class PrepScreenCtrl {
     private SinglePlayerUtils singlePlayerUtils;
 
     @FXML
-    private TableColumn columnscore;
-
-    @FXML
-    private TableColumn columnusername;
+    private FlowPane bubbles;
 
     /**
      * initializes PrepScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -39,10 +54,12 @@ public class PrepScreenCtrl {
      * @param singlePlayerUtils is the shared single-player utility instance.
      */
     @Inject
-    public PrepScreenCtrl(ServerUtils server, MainCtrl mainCtrl, SinglePlayerUtils singlePlayerUtils) {
+    public PrepScreenCtrl(ServerUtils server, MainCtrl mainCtrl, SinglePlayerUtils singlePlayerUtils,
+                          QueuePollingService pollingService) {
         this.server = server;
         this.mainCtrl = mainCtrl;
         this.singlePlayerUtils = singlePlayerUtils;
+        this.pollingService = pollingService;
     }
 
     /**
@@ -84,9 +101,57 @@ public class PrepScreenCtrl {
     }
 
     /**
+     * Getter for the queue polling service.
      *
+     * @return Queue polling service
      */
-    public void setTable() {
+    public QueuePollingService getPollingService() {
+        return pollingService;
+    }
+
+
+    /**
+     * Initializes the queue screen controller by binding the queue label the queue "bubbles" to the
+     * results of the polling service.
+     * <p>
+     * The queue polling service will repeatedly poll the server, and update its
+     * own value.
+     * When such update occurs, any attached event listeners are called.
+     * This method attaches such an event listener to the value of the polling
+     * service. Thus, whenever the polling service updates its value, this event
+     * listener is called.
+     * <p>
+     * The actual callback of the event listener simply sets the queue label to
+     * the appropriate value.
+     */
+    public void initialize() {
+
+        /*
+        Create an event listener for short-polling
+         */
+        pollingService.valueProperty().addListener((observable, oldValue, newSinglePlayerState) -> {
+            if (newSinglePlayerState != null) {
+                List<SinglePlayerLeaderboardScore> leaderboardScores = newSinglePlayerState.getLeaderboardScores();
+
+                int currentNodeIndex = 0;
+                List<Node> presentPlayers = bubbles.getChildren();
+                Collections.reverse(leaderboardScores);
+
+                for (SinglePlayerLeaderboardScore singleplayer : leaderboardScores) {
+                    Node currentNode = presentPlayers.get(currentNodeIndex);
+                    ((Label) currentNode).setText(singleplayer.getUsername() + " " + singleplayer.getScore());
+                    currentNode.setVisible(true);
+                    currentNodeIndex++;
+                    if (currentNodeIndex > PLAYERSCOUNT) {
+                        break;
+                    }
+                }
+                for (int i = currentNodeIndex; i <= PLAYERSCOUNT; i++) {
+                    Node currentNode = presentPlayers.get(currentNodeIndex);
+                    currentNode.setVisible(false);
+                }
+            }
+        });
 
     }
 }
