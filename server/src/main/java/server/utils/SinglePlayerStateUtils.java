@@ -6,6 +6,7 @@ import commons.question.AbstractQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import server.database.ActivityRepository;
 
@@ -18,10 +19,45 @@ import java.util.*;
 @ComponentScan(basePackageClasses = GenerateQuestionUtils.class)
 public class SinglePlayerStateUtils {
 
-    private GenerateQuestionUtils generateQuestionUtils;
+    private final Map<Long, SinglePlayerState> games;
+    private final GenerateQuestionUtils generateQuestionUtils;
 
     public SinglePlayerStateUtils(GenerateQuestionUtils generateQuestionUtils) {
         this.generateQuestionUtils = generateQuestionUtils;
+        games = new HashMap<>();
+    }
+
+    /**
+     * Get particular game state instance by its key in the games map.
+     * Update its state if required.
+     *
+     * @param id    Key value to search for.
+     * @return      SinglePlayerState instance in case it exists, null otherwise.
+     */
+    public SinglePlayerState getGameStateById(long id) {
+        if (games.containsKey(id)) {
+            SinglePlayerState game = games.get(id);
+            updateState(game);
+            return game;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Posts an answer in the current game - particular instance found by gameId stored in the
+     * Response object sent.
+     *
+     * @param response  Response sent from client.
+     * @return          Response instance in case the gameId is valid, or null otherwise.
+     */
+    public Response postAnswer(Response response) {
+        long gameId = response.getGameId();
+        if (!games.containsKey(gameId)) {
+            return null;
+        }
+        games.get(gameId).getSubmittedAnswers().add(response);
+        return response;
     }
 
     /**
@@ -148,8 +184,6 @@ public class SinglePlayerStateUtils {
      * @return The newly constructed SinglePlayer game state
      */
     public SinglePlayerState createSingleGame(SinglePlayer player,
-                                               Map<Long, SinglePlayerState> games,
-                                               Random random,
                                                ActivityRepository repo) {
         Set<Long> keys = games.keySet();
         long maxKey;
@@ -161,12 +195,13 @@ public class SinglePlayerStateUtils {
         long id = maxKey + 1;
         long nextTransition = new Date().getTime() + 8000;
         int roundNumber = 0;
-        List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions(random, repo);
+        List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions(repo);
         List<Response> submittedAnswers = new ArrayList<>();
         List<Response> finalAnswers = new ArrayList<>();
         List<Activity> activityList = new ArrayList<>();
         String state = SinglePlayerState.QUESTION_STATE;
-        return new SinglePlayerState(
+
+        SinglePlayerState newGame = new SinglePlayerState(
                 id,
                 nextTransition,
                 roundNumber,
@@ -177,5 +212,7 @@ public class SinglePlayerStateUtils {
                 state,
                 player
         );
+        games.put(newGame.getId(), newGame);
+        return newGame;
     }
 }

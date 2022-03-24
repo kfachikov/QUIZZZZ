@@ -47,7 +47,7 @@ public class Config {
      */
     @Bean
     public GenerateQuestionUtils getGenerateQuestionUtils() {
-        return new GenerateQuestionUtils();
+        return new GenerateQuestionUtils(getRandom());
     }
 
     /**

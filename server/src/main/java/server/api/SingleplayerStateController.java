@@ -12,15 +12,17 @@ import server.utils.SinglePlayerStateUtils;
 
 import java.util.*;
 
+/**
+ * Controller responsible for handling the client requests regarding any single-player game.
+ */
 @Configuration
 @ComponentScan(basePackageClasses = SinglePlayerStateUtils.class)
 @RestController
 @RequestMapping("/api/solo")
 public class SingleplayerStateController {
 
-    private final Map<Long, SinglePlayerState> games;
+
     private final ActivityRepository repo;
-    private final Random random;
     private final SinglePlayerStateUtils singlePlayerStateUtils;
 
     /**
@@ -28,11 +30,9 @@ public class SingleplayerStateController {
      * <p>
      * Initializes the list of games inside of the controller.
      */
-    public SingleplayerStateController(ActivityRepository repo, SinglePlayerStateUtils singlePlayerStateUtils, Random random) {
+    public SingleplayerStateController(ActivityRepository repo, SinglePlayerStateUtils singlePlayerStateUtils) {
         this.repo = repo;
-        this.random = random;
         this.singlePlayerStateUtils = singlePlayerStateUtils;
-        this.games = new HashMap<>();
     }
 
     /**
@@ -49,9 +49,8 @@ public class SingleplayerStateController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<SinglePlayerState> getGameState(@PathVariable("id") long id) {
-        if (games.containsKey(id)) {
-            SinglePlayerState game = games.get(id);
-            singlePlayerStateUtils.updateState(game);
+        SinglePlayerState game = singlePlayerStateUtils.getGameStateById(id);
+        if (game != null) {
             return ResponseEntity.ok(game);
         } else {
             return ResponseEntity.notFound().build();
@@ -68,8 +67,7 @@ public class SingleplayerStateController {
      */
     @PostMapping("/start")
     public ResponseEntity<SinglePlayerState> startSingleGame(@RequestBody SinglePlayer player) {
-        SinglePlayerState newGame = singlePlayerStateUtils.createSingleGame(player, games, random, repo);
-        games.put(newGame.getId(), newGame);
+        SinglePlayerState newGame = singlePlayerStateUtils.createSingleGame(player, repo);
         return ResponseEntity.ok(newGame);
     }
 
@@ -83,12 +81,10 @@ public class SingleplayerStateController {
      */
     @PostMapping("/answer")
     public ResponseEntity<Response> postResponse(@RequestBody Response response) {
-        long gameId = response.getGameId();
-        if (!games.containsKey(gameId)) {
-            return ResponseEntity.notFound().build();
+        Response responsePosted = singlePlayerStateUtils.postAnswer(response);
+        if (responsePosted != null) {
+            return ResponseEntity.ok(response);
         }
-        SinglePlayerState game = games.get(gameId);
-        game.getSubmittedAnswers().add(response);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.notFound().build();
     }
 }

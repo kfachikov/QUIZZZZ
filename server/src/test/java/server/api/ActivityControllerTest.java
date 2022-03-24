@@ -21,12 +21,13 @@ class ActivityControllerTest {
     private ActivityRepository repo;
     private ActivityController ctrl;
     private Activity initialActivity;
+    private Random random;
 
     @BeforeEach
     public void setup() {
         repo = new TestActivityRepository();
         ctrl = new ActivityController(repo);
-
+        random = new Random();
         initialActivity = new Activity("id", "image", "source", "title", 100L);
     }
 
@@ -193,10 +194,8 @@ class ActivityControllerTest {
         activities.add(activity2);
         activities.add(activity3);
         ctrl.addActivities(activities);
-        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils();
-        Random random = new Random();
-
-        assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils(random);
+        assertNotNull(generateQuestionUtils.generate20Questions(repo));
     }
 
     @Test
@@ -214,10 +213,9 @@ class ActivityControllerTest {
         activities.add(activity4);
 
         ctrl.addActivities(activities);
-        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils();
-        Random random = new Random();
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils(random);
 
-        assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
+        assertNotNull(generateQuestionUtils.generate20Questions(repo));
     }
 
     @Test
@@ -236,10 +234,9 @@ class ActivityControllerTest {
         activities.add(activity4);
         activities.add(activity5);
         ctrl.addActivities(activities);
-        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils();
-        Random random = new Random();
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils(random);
 
-        assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
+        assertNotNull(generateQuestionUtils.generate20Questions(repo));
     }
 
     @Test
@@ -260,10 +257,9 @@ class ActivityControllerTest {
         activities.add(activity6);
 
         ctrl.addActivities(activities);
-        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils();
-        Random random = new Random();
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils(random);
 
-        assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
+        assertNotNull(generateQuestionUtils.generate20Questions(repo));
     }
 
     @Test
@@ -287,10 +283,9 @@ class ActivityControllerTest {
         activities.add(activity7);
 
         ctrl.addActivities(activities);
-        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils();
-        Random random = new Random();
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils(random);
 
-        assertNotNull(generateQuestionUtils.generate20Questions(random, repo));
+        assertNotNull(generateQuestionUtils.generate20Questions(repo));
     }
 
 }
