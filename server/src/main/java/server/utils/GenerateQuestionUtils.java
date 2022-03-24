@@ -62,4 +62,8 @@ public class GenerateQuestionUtils {
         Collections.shuffle(result, random);
         return result;
     }
+
+    public List<AbstractQuestion> generate20Questions() {
+        return null;
+    }
 }

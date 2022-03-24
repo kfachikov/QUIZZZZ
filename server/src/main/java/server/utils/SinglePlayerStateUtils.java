@@ -208,7 +208,6 @@ public class SinglePlayerStateUtils {
                 questionList,
                 finalAnswers,
                 submittedAnswers,
-                activityList,
                 state,
                 player
         );

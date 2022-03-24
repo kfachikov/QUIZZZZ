@@ -1,7 +1,6 @@
 package commons.multi;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import commons.misc.Activity;
 import commons.misc.GameState;
 import commons.misc.Response;
 import commons.question.AbstractQuestion;
@@ -11,6 +10,12 @@ import java.util.Objects;
 
 @JsonTypeName(value = "multi")
 public class MultiPlayerState extends GameState {
+
+    public static final String NOT_STARTED_STATE = "NOT_STARTED";
+    public static final String QUESTION_STATE = "QUESTION";
+    public static final String GAME_OVER_STATE = "GAME_OVER";
+    public static final String TRANSITION_STATE = "TRANSITION";
+    public static final String LEADERBOARD_STATE = "LEADERBOARD";
 
     private List<MultiPlayer> players;
     private Reaction reaction;
@@ -30,7 +35,6 @@ public class MultiPlayerState extends GameState {
      * @param roundNumber      the round number of the game.
      * @param questionList     the list of question for a game.
      * @param submittedAnswers the answers submitted by players during game in a single round.
-     * @param activityList     the list of activities used for the game.
      * @param state            the status of the game.
      * @param players          the list of players currently in the game.
      * @param reaction         the reactions used in a game.
@@ -38,9 +42,9 @@ public class MultiPlayerState extends GameState {
     public MultiPlayerState(long id, long nextPhase, int roundNumber,
                             List<AbstractQuestion> questionList,
                             List<Response> submittedAnswers,
-                            List<Activity> activityList, String state,
+                            String state,
                             List<MultiPlayer> players, Reaction reaction) {
-        super(id, nextPhase, roundNumber, questionList, submittedAnswers, activityList, state);
+        super(id, nextPhase, roundNumber, questionList, submittedAnswers, state);
         this.players = players;
         this.reaction = reaction;
     }

@@ -70,7 +70,7 @@ public class Config {
      */
     @Bean
     public MultiPlayerStateUtils getMultiPlayerStateUtils() {
-        return new MultiPlayerStateUtils(getGenerateQuestionUtils());
+        return new MultiPlayerStateUtils(getGenerateQuestionUtils(), getQueueUtils());
     }
 
     /**

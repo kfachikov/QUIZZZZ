@@ -1,7 +1,6 @@
 package commons.single;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import commons.misc.Activity;
 import commons.misc.GameState;
 import commons.misc.Response;
 import commons.question.AbstractQuestion;
@@ -31,15 +30,14 @@ public class SinglePlayerState extends GameState {
      * @param questionList     the list of question for a game.
      * @param finalAnswers     the list of answers submitted as final by players during a game
      * @param submittedAnswers the answers submitted by players during game in a single round.
-     * @param activityList     the list of activities used for the game.
      * @param state            the status of the game.
      * @param player           the player that is currently in the game.
      */
     public SinglePlayerState(long id, long nextPhase, int roundNumber, List<AbstractQuestion> questionList,
                              List<Response> finalAnswers,
                              List<Response> submittedAnswers,
-                             List<Activity> activityList, String state, SinglePlayer player) {
-        super(id, nextPhase, roundNumber, questionList, submittedAnswers, activityList, state);
+                             String state, SinglePlayer player) {
+        super(id, nextPhase, roundNumber, questionList, submittedAnswers, state);
         this.player = player;
         this.finalAnswers = finalAnswers;
     }
