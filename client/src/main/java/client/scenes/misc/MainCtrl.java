@@ -15,6 +15,7 @@
  */
 package client.scenes.misc;
 
+
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
@@ -30,6 +31,7 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+
 
 import java.io.File;
 
@@ -82,17 +84,17 @@ public class MainCtrl {
 
 
     /**
-     * @param primaryStage is the Stage representing the initial stage variable.
-     * @param home         is the home screen pair variable
-     * @param help         is the help screen pair variable
-     * @param prep         is the prepare screen pair variable
-     * @param queue        is the queue screen pair variable
-     * @param administrator is the administrator panel screen panel pair variable
-     * @param multiGame     is the multiplayer game screen pair variable
-     * @param moreExpensive is the moreExpensiveQuestion screen pair variable
-     * @param consumption   is the consumptionQuestion screen pair variable
-     * @param instead       is the insteadQuestion screen pair variable
-     * @param guess         is the guessQuestion screen pair variable
+     * @param primaryStage    is the Stage representing the initial stage variable.
+     * @param home            is the home screen pair variable
+     * @param help            is the help screen pair variable
+     * @param prep            is the prepare screen pair variable
+     * @param queue           is the queue screen pair variable
+     * @param administrator   is the administrator panel screen panel pair variable
+     * @param multiGame       is the multiplayer game screen pair variable
+     * @param moreExpensive   is the moreExpensiveQuestion screen pair variable
+     * @param consumption     is the consumptionQuestion screen pair variable
+     * @param instead         is the insteadQuestion screen pair variable
+     * @param guess           is the guessQuestion screen pair variable
      * @param congratulations is the congratulations screen pair variable
      */
     public void initialize(Stage primaryStage,
@@ -184,7 +186,7 @@ public class MainCtrl {
     /**
      * Method called from the PrepScreenCtrl once the "GO!" button is pressed.
      * Passed as arguments are the instance for the current player, and the game he is "connected" to.
-     *
+     * <p>
      * Initializes both polling service, fields in separate screen controllers, and makes the initial call
      * so the first question is shown.
      *

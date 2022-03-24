@@ -78,6 +78,7 @@ public class HomeScreenCtrl {
      * shows the administrator panel.
      */
     public void showAdministratorPanel() {
+        ServerUtils.setCurrentServer(getServer());
         mainCtrl.showAdministrator();
     }
 
