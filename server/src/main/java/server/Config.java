@@ -18,6 +18,7 @@ package server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import server.utils.GenerateQuestionUtils;
+import server.utils.SinglePlayerStateUtils;
 
 
 import java.util.Random;
@@ -40,11 +41,22 @@ public class Config {
 
     /**
      * Getter for a new instance of the GenerateQuestionUtils class.
+     * Notated as bean, it would be only a single one used by all controllers/utilities.
      *
      * @return A new GenerateQuestionUtils instance.
      */
     @Bean
-    public GenerateQuestionUtils getRandomUtils() {
+    public GenerateQuestionUtils getGenerateQuestionUtils() {
         return new GenerateQuestionUtils();
     }
+
+    /**
+     * Getter for a new instance of SinglePlayerStateUtils.
+     * Notated as bean, it would be only a single one used by all controllers.
+     *
+     * @return A new SinglePlayerStateUtils intance.
+     */
+    @Bean
+    public SinglePlayerStateUtils getSinglePlayerStateUtils() { return new SinglePlayerStateUtils(getGenerateQuestionUtils()); }
+
 }

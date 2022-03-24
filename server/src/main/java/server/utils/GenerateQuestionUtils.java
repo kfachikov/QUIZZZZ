@@ -12,8 +12,6 @@ import java.util.Random;
 
 public class GenerateQuestionUtils {
 
-
-
     public List<AbstractQuestion> generate20Questions(Random random, ActivityRepository repo) {
 
         List<AbstractQuestion> result = new ArrayList<>();
