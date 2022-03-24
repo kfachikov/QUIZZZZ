@@ -3,9 +3,7 @@ package client.utils;
 import client.scenes.misc.MainCtrl;
 import client.scenes.single.*;
 import client.services.GameStatePollingService;
-import commons.misc.Response;
 import commons.question.*;
-import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.paint.Paint;
@@ -95,7 +93,8 @@ public class SinglePlayerUtils {
                                 Whenever an answer is submitted and that is registered on the server,
                                 the game state on the client-side is also updated.
                                 */
-                                if (!singlePlayerState.getSubmittedAnswers().equals(newGameState.getSubmittedAnswers())) {
+                                if (!singlePlayerState.getSubmittedAnswers().equals(
+                                        newGameState.getSubmittedAnswers())) {
                                     singlePlayerState = (SinglePlayerState) newGameState;
                                 }
                                 revealAnswerCorrectness();
