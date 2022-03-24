@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
 import server.utils.SinglePlayerStateUtils;
 
-import java.util.*;
-
 /**
  * Controller responsible for handling the client requests regarding any single-player game.
  */
