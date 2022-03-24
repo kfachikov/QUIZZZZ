@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.scenes.misc.MainCtrl;
+import client.scenes.multi.MultiGameMockScreenCtrl;
 import client.scenes.multi.MultiplayerCtrl;
 import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
 import client.scenes.multi.question.MultiGameQuestionBScreenCtrl;
@@ -41,7 +42,8 @@ public class MockMultiplayerCtrl extends MultiplayerCtrl {
             Pair<MultiGameQuestionAScreenCtrl, Parent> questionAScreen,
             Pair<MultiGameQuestionBScreenCtrl, Parent> questionBScreen,
             Pair<MultiGameQuestionCScreenCtrl, Parent> questionCScreen,
-            Pair<MultiGameQuestionDScreenCtrl, Parent> questionDScreen) {
+            Pair<MultiGameQuestionDScreenCtrl, Parent> questionDScreen,
+            Pair<MultiGameMockScreenCtrl, Parent> mockMulti) {
         call("initialize");
     }
 

@@ -36,15 +36,14 @@ public class MultiplayerGameStatePollingService extends Service<MultiPlayerState
     public void start(long gameId) {
         this.gameId = gameId;
         this.start();
-
-        System.out.println("Starting polling service");
     }
 
+    /**
+     * Stop the service.
+     */
     public void stop() {
         this.cancel();
         this.reset();
-
-        System.out.println("Stopping service");
     }
 
     /**
@@ -60,10 +59,9 @@ public class MultiplayerGameStatePollingService extends Service<MultiPlayerState
     protected Task<MultiPlayerState> createTask() {
         return new Task<MultiPlayerState>() {
             @Override
-            protected MultiPlayerState call()  {
+            protected MultiPlayerState call() {
                 MultiPlayerState state;
                 while (true) {
-                    System.out.println("Polling from task");
                     state = poll();
                     updateValue(state);
                     try {

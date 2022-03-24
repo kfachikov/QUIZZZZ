@@ -19,6 +19,7 @@ import client.scenes.misc.AdministratorScreenCtrl;
 import client.scenes.misc.HelpScreenCtrl;
 import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
+import client.scenes.multi.MultiGameMockScreenCtrl;
 import client.scenes.multi.MultiplayerCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
@@ -79,29 +80,28 @@ public class Main extends Application {
                 GuessQuestionScreenCtrl.class, "client", "scenes", "single",
                 "question", "GuessQuestionScreen.fxml");
 
-        var consumptionMulti = FXML.load(
-                MultiGameQuestionAScreenCtrl.class, "client", "scenes", "multi", "question",
-                "MultiGameQuestionAScreen.fxml"
-        );
-        var guessMulti = FXML.load(
-                MultiGameQuestionBScreenCtrl.class, "client", "scenes", "multi", "question",
-                "MultiGameQuestionBScreen.fxml"
-        );
-        var insteadMulti = FXML.load(
-                MultiGameQuestionCScreenCtrl.class, "client", "scenes", "multi", "question",
-                "MultiGameQuestionCScreen.fxml"
-        );
-        var moreExpensiveMulti = FXML.load(
-                MultiGameQuestionDScreenCtrl.class, "client", "scenes", "multi", "question",
-                "MultiGameQuestionDScreen.fxml"
-        );
-
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, home, help, prep, queue, administrator,
                 moreExpensive, consumption, instead, guess, congratulations);
 
+        var consumptionMulti = FXML.load(
+                MultiGameQuestionAScreenCtrl.class, "client", "scenes", "multi", "question",
+                "MultiGameQuestionAScreen.fxml");
+        var guessMulti = FXML.load(
+                MultiGameQuestionBScreenCtrl.class, "client", "scenes", "multi", "question",
+                "MultiGameQuestionBScreen.fxml");
+        var insteadMulti = FXML.load(
+                MultiGameQuestionCScreenCtrl.class, "client", "scenes", "multi", "question",
+                "MultiGameQuestionCScreen.fxml");
+        var moreExpensiveMulti = FXML.load(
+                MultiGameQuestionDScreenCtrl.class, "client", "scenes", "multi", "question",
+                "MultiGameQuestionDScreen.fxml");
+
+        var mockMulti = FXML.load(
+                MultiGameMockScreenCtrl.class, "client", "scenes", "multi",
+                "MultiGameMockScreen.fxml");
 
         var multiCtrl = INJECTOR.getInstance(MultiplayerCtrl.class);
-        multiCtrl.initialize(consumptionMulti, guessMulti, insteadMulti, moreExpensiveMulti);
+        multiCtrl.initialize(consumptionMulti, guessMulti, insteadMulti, moreExpensiveMulti, mockMulti);
     }
 }

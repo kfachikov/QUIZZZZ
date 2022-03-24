@@ -39,6 +39,9 @@ public class MultiplayerCtrl {
     private MultiGameQuestionDScreenCtrl questionDScreenCtrl;
     private Scene questionDScreen;
 
+    private MultiGameMockScreenCtrl mockScreenCtrl;
+    private Scene mockScreen;
+
 
     private final MainCtrl mainCtrl;
     private final ServerUtils serverUtils;
@@ -48,9 +51,8 @@ public class MultiplayerCtrl {
     private String username;
 
     private final ChangeListener<MultiPlayerState> onPoll = (observable, oldValue, newValue) -> {
-        System.out.println("Poll!");
         // If state has changed, we probably have to switch scenes
-        if (!oldValue.getState().equals(newValue.getState())) {
+        if (oldValue == null || !newValue.getState().equals(oldValue.getState())) {
             switchState(newValue);
         }
     };
@@ -69,8 +71,8 @@ public class MultiplayerCtrl {
             Pair<MultiGameQuestionAScreenCtrl, Parent> questionAScreen,
             Pair<MultiGameQuestionBScreenCtrl, Parent> questionBScreen,
             Pair<MultiGameQuestionCScreenCtrl, Parent> questionCScreen,
-            Pair<MultiGameQuestionDScreenCtrl, Parent> questionDScreen
-    ) {
+            Pair<MultiGameQuestionDScreenCtrl, Parent> questionDScreen,
+            Pair<MultiGameMockScreenCtrl, Parent> mockMulti) {
         this.questionAScreenCtrl = questionAScreen.getKey();
         this.questionAScreen = new Scene(questionAScreen.getValue());
 
@@ -83,9 +85,10 @@ public class MultiplayerCtrl {
         this.questionDScreenCtrl = questionDScreen.getKey();
         this.questionDScreen = new Scene(questionDScreen.getValue());
 
-        pollingService.valueProperty().addListener(onPoll);
+        this.mockScreenCtrl = mockMulti.getKey();
+        this.mockScreen = new Scene(mockMulti.getValue());
 
-        System.out.println("Initialized Multiplayer Controller");
+        pollingService.valueProperty().addListener(onPoll);
     }
 
     /**
@@ -105,8 +108,6 @@ public class MultiplayerCtrl {
         pollingService.start(gameId);
 
         switchState(pollingService.poll());
-
-        System.out.println("Starting game " + gameId + " as " + username);
     }
 
     /**
@@ -116,8 +117,6 @@ public class MultiplayerCtrl {
      */
     public void stop() {
         pollingService.stop();
-
-        System.out.println("Stopped multiplayer");
     }
 
     /**
@@ -145,9 +144,14 @@ public class MultiplayerCtrl {
         String state = game.getState();
         if (MultiPlayerState.QUESTION_STATE.equals(state)) {
             switchToQuestion(game);
+        } else {
+            switchToMock(game);
         }
+    }
 
-        System.out.println("Switching state for game " + game);
+    private void switchToMock(MultiPlayerState game) {
+        mockScreenCtrl.setGameStateLabelText(game.toString());
+        mainCtrl.getPrimaryStage().setScene(mockScreen);
     }
 
     private void switchToQuestion(MultiPlayerState game) {
@@ -175,23 +179,23 @@ public class MultiplayerCtrl {
     }
 
     private void showConsumptionQuestion(ConsumptionQuestion question) {
-        questionAScreenCtrl.setGameStateLabelText(question.toString());
+        questionAScreenCtrl.setGameStateLabelText(question.debugString());
         mainCtrl.getPrimaryStage().setScene(questionAScreen);
     }
 
     private void showGuessQuestion(GuessQuestion question) {
-        questionBScreenCtrl.setGameStateLabelText(question.toString());
+        questionBScreenCtrl.setGameStateLabelText(question.debugString());
         mainCtrl.getPrimaryStage().setScene(questionBScreen);
     }
 
     private void showInsteadQuestion(InsteadQuestion question) {
-        questionCScreenCtrl.setGameStateLabelText(question.toString());
+        questionCScreenCtrl.setGameStateLabelText(question.debugString());
         mainCtrl.getPrimaryStage().setScene(questionCScreen);
 
     }
 
     private void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
-        questionDScreenCtrl.setGameStateLabelText(question.toString());
+        questionDScreenCtrl.setGameStateLabelText(question.debugString());
         mainCtrl.getPrimaryStage().setScene(questionDScreen);
     }
 }
