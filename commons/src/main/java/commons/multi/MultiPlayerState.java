@@ -12,6 +12,7 @@ import java.util.Objects;
 public class MultiPlayerState extends GameState {
 
     public static final String NOT_STARTED_STATE = "NOT_STARTED";
+    public static final String STARTING_STATE = "STARTING";
     public static final String QUESTION_STATE = "QUESTION";
     public static final String GAME_OVER_STATE = "GAME_OVER";
     public static final String TRANSITION_STATE = "TRANSITION";

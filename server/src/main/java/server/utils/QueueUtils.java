@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * Utilities class, responsible for keeping state of a multiplayer queue.
@@ -15,6 +16,7 @@ import java.util.List;
 public class QueueUtils {
 
     private final QueueState queueState;
+    private Supplier<Long> onStart;
 
     /**
      * Default constructor for QueueUtils.
@@ -42,7 +44,6 @@ public class QueueUtils {
     public QueueUtils(QueueState queueState) {
         this.queueState = queueState;
     }
-
 
     /**
      * Getter for the current queue state.
@@ -105,8 +106,24 @@ public class QueueUtils {
         } else {
             queueState.setGameStarting(true);
             queueState.setStartTimeInMs(new Date().getTime() + 3000);
+
+            long upcomingGameId = onStart.get();
+            queueState.setUpcomingGameId(upcomingGameId);
+
             return true;
         }
+    }
+
+    /**
+     * Setter for upcoming game id supplier, that is called when game starts.
+     * <p>
+     * This method is used to signal to MultiPlayerStateUtils that a new game is starting,
+     * to allow it to generate a new instance of a game, and set the instance `nextGame` to start.
+     *
+     * @param onStart Supplier that returns upcoming game id.
+     */
+    public void setOnStart(Supplier<Long> onStart) {
+        this.onStart = onStart;
     }
 
     /**
