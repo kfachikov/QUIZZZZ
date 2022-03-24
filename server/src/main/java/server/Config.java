@@ -18,9 +18,11 @@ package server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import server.utils.GenerateQuestionUtils;
+import server.utils.MultiPlayerStateUtils;
 import server.utils.SinglePlayerStateUtils;
 
 
+import java.nio.channels.MulticastChannel;
 import java.util.Random;
 
 /**
@@ -54,9 +56,20 @@ public class Config {
      * Getter for a new instance of SinglePlayerStateUtils.
      * Notated as bean, it would be only a single one used by all controllers.
      *
-     * @return A new SinglePlayerStateUtils intance.
+     * @return A new SinglePlayerStateUtils instance.
      */
     @Bean
     public SinglePlayerStateUtils getSinglePlayerStateUtils() { return new SinglePlayerStateUtils(getGenerateQuestionUtils()); }
+
+    /**
+     * Getter for a new instance of MultiPlayerStateUtils.
+     * Notated as bean, it would be only a single one used by all controllers.
+     *
+     * @return A new MultiPlayerStateUtils instance.
+     */
+    @Bean
+    public MultiPlayerStateUtils getMultiPlayerStateUtils() {
+        return new MultiPlayerStateUtils(getGenerateQuestionUtils());
+    }
 
 }
