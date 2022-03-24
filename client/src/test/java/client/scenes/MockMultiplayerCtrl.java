@@ -11,28 +11,38 @@ import client.utils.ServerUtils;
 import javafx.scene.Parent;
 import javafx.util.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Mock method for testing other classes that use MultiplayerCtrl
+ * Mock method for testing other classes that use MultiplayerCtrl.
  */
 public class MockMultiplayerCtrl extends MultiplayerCtrl {
 
     public List<String> calledMethods;
     public Object returnValue;
-    public Object param;
+    public Object param1;
+    public Object param2;
+
+    public MockMultiplayerCtrl(MainCtrl mainCtrl,
+                               ServerUtils serverUtils,
+                               MultiplayerGameStatePollingService pollingService) {
+        super(mainCtrl, serverUtils, pollingService);
+        this.calledMethods = new ArrayList<>();
+    }
 
     private void call(String method) {
         calledMethods.add(method);
     }
 
-    public MockMultiplayerCtrl(MainCtrl mainCtrl, ServerUtils serverUtils, MultiplayerGameStatePollingService pollingService) {
-        super(mainCtrl, serverUtils, pollingService);
-    }
 
     @Override
-    public void initialize(Pair<MultiGameQuestionAScreenCtrl, Parent> questionAScreen, Pair<MultiGameQuestionBScreenCtrl, Parent> questionBScreen, Pair<MultiGameQuestionCScreenCtrl, Parent> questionCScreen, Pair<MultiGameQuestionDScreenCtrl, Parent> questionDScreen) {
-        super.initialize(questionAScreen, questionBScreen, questionCScreen, questionDScreen);
+    public void initialize(
+            Pair<MultiGameQuestionAScreenCtrl, Parent> questionAScreen,
+            Pair<MultiGameQuestionBScreenCtrl, Parent> questionBScreen,
+            Pair<MultiGameQuestionCScreenCtrl, Parent> questionCScreen,
+            Pair<MultiGameQuestionDScreenCtrl, Parent> questionDScreen) {
+        call("initialize");
     }
 
     /**
@@ -47,7 +57,9 @@ public class MockMultiplayerCtrl extends MultiplayerCtrl {
      */
     @Override
     public void start(long gameId, String username) {
-        super.start(gameId, username);
+        param1 = gameId;
+        param2 = username;
+        call("start");
     }
 
     /**
@@ -57,7 +69,7 @@ public class MockMultiplayerCtrl extends MultiplayerCtrl {
      */
     @Override
     public void stop() {
-        super.stop();
+        call("stop");
     }
 
     /**
@@ -66,6 +78,6 @@ public class MockMultiplayerCtrl extends MultiplayerCtrl {
      */
     @Override
     public void promptLeave() {
-        super.promptLeave();
+        call("promptLeave");
     }
 }
