@@ -6,16 +6,12 @@ import client.services.QueuePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
-import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerLeaderboardScore;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-
-import javax.swing.table.TableColumn;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,6 +48,7 @@ public class PrepScreenCtrl {
      * @param server   is the server variable
      * @param mainCtrl is the main controller variable
      * @param singlePlayerUtils is the shared single-player utility instance.
+     * @param pollingService is the polling service variable
      */
     @Inject
     public PrepScreenCtrl(ServerUtils server, MainCtrl mainCtrl, SinglePlayerUtils singlePlayerUtils,
