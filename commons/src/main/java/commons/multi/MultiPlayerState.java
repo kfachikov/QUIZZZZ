@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import commons.misc.GameState;
 import commons.misc.Response;
 import commons.question.AbstractQuestion;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.List;
 import java.util.Objects;
+
+import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
 @JsonTypeName(value = "multi")
 public class MultiPlayerState extends GameState {
@@ -115,5 +118,17 @@ public class MultiPlayerState extends GameState {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), players, reaction);
+    }
+
+    /**
+     * Multiline string representation of the multiplayer game state.
+     * <p>
+     * Automatically generated using ToStringBuilder.
+     *
+     * @return Multiline string of the multiplayer game state.
+     */
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
     }
 }

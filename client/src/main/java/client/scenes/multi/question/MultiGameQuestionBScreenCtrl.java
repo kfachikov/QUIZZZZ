@@ -34,7 +34,7 @@ public class MultiGameQuestionBScreenCtrl {
      * return to the home screen.
      */
     public void returnHome() {
-        multiCtrl.promptReturn();
+        multiCtrl.promptLeave();
     }
 
     /**

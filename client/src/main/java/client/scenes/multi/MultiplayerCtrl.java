@@ -54,6 +54,7 @@ public class MultiplayerCtrl {
                 ObservableValue<? extends MultiPlayerState> observable,
                 MultiPlayerState oldValue,
                 MultiPlayerState newValue) {
+            System.out.println("Poll!");
             // If state has changed, we probably have to switch scenes
             if (!oldValue.getState().equals(newValue.getState())) {
                 switchState(newValue);
@@ -88,8 +89,6 @@ public class MultiplayerCtrl {
 
         this.questionDScreenCtrl = questionDScreen.getKey();
         this.questionDScreen = new Scene(questionDScreen.getValue());
-
-        pollingService.valueProperty().addListener(onPoll);
     }
 
     /**
@@ -105,6 +104,8 @@ public class MultiplayerCtrl {
     public void start(long gameId, String username) {
         this.gameId = gameId;
         this.username = username;
+
+        pollingService.valueProperty().addListener(onPoll);
 
         pollingService.start(gameId);
     }
@@ -122,7 +123,7 @@ public class MultiplayerCtrl {
      * Confirms if the user really wants to leave the game and allows them to
      * return to the home screen.
      */
-    public void promptReturn() {
+    public void promptLeave() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText("Leave the game");
@@ -171,18 +172,23 @@ public class MultiplayerCtrl {
     }
 
     private void showConsumptionQuestion(ConsumptionQuestion question) {
-
+        questionAScreenCtrl.setGameStateLabelText(question.toString());
+        mainCtrl.getPrimaryStage().setScene(questionAScreen);
     }
 
     private void showGuessQuestion(GuessQuestion question) {
-
+        questionBScreenCtrl.setGameStateLabelText(question.toString());
+        mainCtrl.getPrimaryStage().setScene(questionBScreen);
     }
 
     private void showInsteadQuestion(InsteadQuestion question) {
+        questionCScreenCtrl.setGameStateLabelText(question.toString());
+        mainCtrl.getPrimaryStage().setScene(questionCScreen);
 
     }
 
     private void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
-
+        questionDScreenCtrl.setGameStateLabelText(question.toString());
+        mainCtrl.getPrimaryStage().setScene(questionDScreen);
     }
 }
