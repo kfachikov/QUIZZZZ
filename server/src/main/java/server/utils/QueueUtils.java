@@ -119,6 +119,11 @@ public class QueueUtils {
      * <p>
      * This method is used to signal to MultiPlayerStateUtils that a new game is starting,
      * to allow it to generate a new instance of a game, and set the instance `nextGame` to start.
+     * <p>
+     * The reason for doing this is to keep a clear hierarchy of dependency injection.
+     * Other solutions might end up inverting it
+     * (e.g. multiplayer games would be a dependency for queue),
+     * or accidentally creating a dependency cycle.
      *
      * @param onStart Supplier that returns upcoming game id.
      */

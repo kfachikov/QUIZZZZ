@@ -40,6 +40,16 @@ public class MultiPlayerStateUtils {
         queueUtils.setOnStart(this::startNewGame);
     }
 
+    public MultiPlayerState getGameState(long id) {
+        if (games.containsKey(id)) {
+            MultiPlayerState game = games.get(id);
+            updateState(game);
+            return game;
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Check and update (if needed) the state of the game.
      *
@@ -57,7 +67,7 @@ public class MultiPlayerStateUtils {
      * @param game Game to be checked
      * @return true iff current time is beyond time of update for the state of the game.
      */
-    public boolean checkIfUpdate(MultiPlayerState game) {
+    private boolean checkIfUpdate(MultiPlayerState game) {
         return game.getNextPhase() <= new Date().getTime();
     }
 
@@ -69,7 +79,7 @@ public class MultiPlayerStateUtils {
      *
      * @param game Game whose state is to be switched to the next one.
      */
-    public void switchState(MultiPlayerState game) {
+    private void switchState(MultiPlayerState game) {
         // Only update state if needed
         String state = game.getState();
         if (MultiPlayerState.STARTING_STATE.equals(state)) {

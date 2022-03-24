@@ -15,13 +15,16 @@ import java.util.Random;
 @ComponentScan(basePackageClasses = Random.class)
 public class GenerateQuestionUtils {
 
+    private final ActivityRepository repo;
     private final Random random;
 
-    public GenerateQuestionUtils(Random random) {
+
+    public GenerateQuestionUtils(ActivityRepository repo, Random random) {
+        this.repo = repo;
         this.random = random;
     }
 
-    public List<AbstractQuestion> generate20Questions(ActivityRepository repo) {
+    public List<AbstractQuestion> generate20Questions() {
 
         List<AbstractQuestion> result = new ArrayList<>();
         List<Activity> activities = repo.findAll();
@@ -61,9 +64,5 @@ public class GenerateQuestionUtils {
 
         Collections.shuffle(result, random);
         return result;
-    }
-
-    public List<AbstractQuestion> generate20Questions() {
-        return null;
     }
 }

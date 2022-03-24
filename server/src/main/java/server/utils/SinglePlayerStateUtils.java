@@ -195,7 +195,7 @@ public class SinglePlayerStateUtils {
         long id = maxKey + 1;
         long nextTransition = new Date().getTime() + 8000;
         int roundNumber = 0;
-        List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions(repo);
+        List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions();
         List<Response> submittedAnswers = new ArrayList<>();
         List<Response> finalAnswers = new ArrayList<>();
         List<Activity> activityList = new ArrayList<>();

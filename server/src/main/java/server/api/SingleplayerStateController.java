@@ -40,7 +40,7 @@ public class SingleplayerStateController {
      * GET mapping for the singleplayer game state.
      * <p>
      * Internally, the state of the game will be updated. That means, it might
-     * switch to another state (e. g. from QUESTION_STATE to TRANSITION_STATE),
+     * switch to another state (e.g. from QUESTION_STATE to TRANSITION_STATE),
      * and it might increase the players' scores.
      * <p>
      * There is expectation that this endpoint will be called every about 500 ms.

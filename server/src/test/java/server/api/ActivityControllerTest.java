@@ -197,7 +197,7 @@ class ActivityControllerTest {
         activities.add(activity4);
         repo.saveAll(activities);
         ctrl.addActivities(activities);
-        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils(random);
-        assertNotNull(generateQuestionUtils.generate20Questions(repo));
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils(repo, random);
+        assertNotNull(generateQuestionUtils.generate20Questions());
     }
 }
