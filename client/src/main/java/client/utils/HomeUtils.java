@@ -1,5 +1,6 @@
 package client.utils;
 
+import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -106,7 +107,7 @@ public class HomeUtils {
      * with redirecting the user to the page they want to visit.
      */
     public void enterAdministrationPanel() {
-        try {
+        try{
             ServerUtils.setCurrentServer(getServer());
             /*
             A GET/POST request should be sent over to the server, so that a
@@ -116,7 +117,7 @@ public class HomeUtils {
         /*
         Exception thrown should be specified in regard to exception returned from the server.
          */
-        } catch (Exception e) {
+        } catch (Exception e){
             // ...
         }
     }
