@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import server.utils.GenerateQuestionUtils;
 import server.utils.MultiPlayerStateUtils;
+import server.utils.QueueUtils;
 import server.utils.SinglePlayerStateUtils;
 
 
@@ -70,6 +71,17 @@ public class Config {
     @Bean
     public MultiPlayerStateUtils getMultiPlayerStateUtils() {
         return new MultiPlayerStateUtils(getGenerateQuestionUtils());
+    }
+
+    /**
+     * Getter for a new instance of QueueUtils.
+     * Notated as bean, it would be only a single one used by all controllers.
+     *
+     * @return A new QueueUtils instance.
+     */
+    @Bean
+    public QueueUtils getQueueUtils() {
+        return new QueueUtils();
     }
 
 }
