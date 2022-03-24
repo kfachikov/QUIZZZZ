@@ -72,23 +72,31 @@ public class MultiPlayerStateUtils {
     public void switchState(MultiPlayerState game) {
         // Only update state if needed
         String state = game.getState();
-        if (MultiPlayerState.NOT_STARTED_STATE.equals(state)) {
-            // All game states are started when put into `games`, so
-            // if a state somehow has not started yet, an error has occurred.
-            //
-            // However, there is not really a good way to resolve the error,
-            // so we just log it.
-            System.err.println("Attempted to update state of game that hasn't started yet.");
-        } else if (MultiPlayerState.STARTING_STATE.equals(state)) {
+        if (MultiPlayerState.STARTING_STATE.equals(state)) {
             // We should definitely switch to a question phase.
-            startNextRound(game);
+            switchToQuestion(game);
         } else if (MultiPlayerState.QUESTION_STATE.equals(state)) {
-
+            // Always show the correct answer after a question
+            switchToTransition(game);
+        } else if (MultiPlayerState.TRANSITION_STATE.equals(state)) {
+            if (game.getRoundNumber() >= 19) {
+                switchToGameOver(game);
+            } else if (game.getRoundNumber() < 19 & game.getRoundNumber() % 5 == 4) {
+                // Show leaderboard every 5 rounds:
+                // After rounds 4, 9 and 14
+                switchToLeaderboard(game);
+            } else {
+                switchToQuestion(game);
+            }
+        } else if (MultiPlayerState.LEADERBOARD_STATE.equals(state)) {
+            // Always switch to question after leaderboard
+            switchToQuestion(game);
         }
+        // We do not switch in other cases
     }
 
     /**
-     * Start the next round of the game.
+     * Start the next question round of the game.
      * <p>
      * This is one of the state transitions of the game:
      * - STARTING -> QUESTION
@@ -96,10 +104,12 @@ public class MultiPlayerStateUtils {
      * - LEADERBOARD -> QUESTION
      * <p>
      * The next state after calling this method is guaranteed to be QUESTION.
+     * <p>
+     * The question phase takes 8 seconds.
      *
      * @param game Game whose state is updated to QUESTION.
      */
-    private void startNextRound(MultiPlayerState game) {
+    private void switchToQuestion(MultiPlayerState game) {
         int currentRound = game.getRoundNumber();
         long nextPhase = game.getNextPhase();
 
@@ -107,6 +117,72 @@ public class MultiPlayerStateUtils {
         game.setState(MultiPlayerState.QUESTION_STATE);
         // 8 seconds for questions
         game.setNextPhase(nextPhase + 8000);
+    }
+
+    /**
+     * Show the intermittent leaderboard.
+     * <p>
+     * This is one of the state transitions of the game:
+     * - TRANSITION -> LEADERBOARD
+     * <p>
+     * The next state after calling this method is guaranteed to be LEADERBOARD.
+     * <p>
+     * The leaderboard phase takes 5 seconds.
+     *
+     * @param game Game whose state is updated to LEADERBOARD.
+     */
+    private void switchToLeaderboard(MultiPlayerState game) {
+        long nextPhase = game.getNextPhase();
+
+        game.setState(MultiPlayerState.LEADERBOARD_STATE);
+        // 5 seconds for leaderboard screen between rounds
+        game.setNextPhase(nextPhase + 5000);
+    }
+
+    /**
+     * Show the game over screen, and stop the game.
+     * <p>
+     * This is one of the state transitions of the game:
+     * - TRANSITION -> GAME_OVER
+     * <p>
+     * The next state after calling this method is guaranteed to be GAME_OVER.
+     * <p>
+     * The game over phase is indefinite, and will never switch to anything else.
+     *
+     * @param game Game whose state is updated to GAME_OVER.
+     */
+    private void switchToGameOver(MultiPlayerState game) {
+        game.setState(MultiPlayerState.GAME_OVER_STATE);
+        // Make sure the game does not progress anymore.
+        game.setNextPhase(Long.MAX_VALUE);
+    }
+
+    /**
+     * Update scores and show transition screen.
+     * <p>
+     * Scores are also updated for all players.
+     * <p>
+     * This is one of the state transitions of the game:
+     * - QUESTION -> TRANSITION
+     * <p>
+     * The next state after calling this method is guaranteed to be TRANSITION.
+     * <p>
+     * The transition phase takes 3 seconds.
+     *
+     * @param game Game whose state is updated to TRANSITION.
+     */
+    private void switchToTransition(MultiPlayerState game) {
+        long nextPhase = game.getNextPhase();
+
+        updateScores(game);
+
+        game.setState(MultiPlayerState.TRANSITION_STATE);
+        // 3 seconds for transition phase
+        game.setNextPhase(nextPhase + 3000);
+    }
+
+    private void updateScores(MultiPlayerState game) {
+
     }
 
     /**
