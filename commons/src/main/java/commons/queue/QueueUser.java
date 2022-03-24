@@ -26,13 +26,7 @@ import javax.persistence.Id;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
-@Entity
 public class QueueUser {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
     private String username;
 
     @SuppressWarnings("unused")
@@ -45,26 +39,10 @@ public class QueueUser {
     }
 
     /**
-     * @return id of the QueueUser
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
      * @return username of the QueueUser
      */
     public String getUsername() {
         return username;
-    }
-
-    /**
-     * sets the id of the QueueUser as the passed long.
-     *
-     * @param id long value to be set as the new id
-     */
-    public void setId(long id) {
-        this.id = id;
     }
 
     /**

@@ -195,8 +195,8 @@ public class QueueScreenCtrl {
          * Switch scene once countdown reaches 0
          */
         countdownService.getTimeline().setOnFinished(event -> {
-            Long result = countdownService.getValue();
-            mainCtrl.showMultiGameQuestion(result, leaveQueue());
+            Long upcomingGameId = countdownService.getValue();
+            mainCtrl.showMultiGameQuestion(upcomingGameId, leaveQueue());
         });
     }
 

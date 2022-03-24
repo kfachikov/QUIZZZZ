@@ -79,10 +79,10 @@ public class ServerUtils {
      * @return it returns a client QueueUser
      */
     public QueueUser deleteQueueUser(QueueUser user) {
-        long id = user.getId();
+        String username = user.getUsername();
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/api/queue/" + String.valueOf(id))
+                .path("/api/queue/" + username)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .delete(QueueUser.class);

@@ -6,18 +6,15 @@ import commons.queue.QueueUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import server.database.QueueUserRepository;
 import server.utils.QueueUtils;
 
 @RestController
 @RequestMapping("/api/queue")
 public class QueueController {
 
-    private final QueueUserRepository repo;
     private final QueueUtils queueUtils;
 
-    public QueueController(QueueUserRepository repo, QueueUtils queueUtils) {
-        this.repo = repo;
+    public QueueController(QueueUtils queueUtils) {
         this.queueUtils = queueUtils;
     }
 
@@ -30,7 +27,7 @@ public class QueueController {
      */
     @GetMapping("")
     public ResponseEntity<QueueState> getQueueState() {
-        return ResponseEntity.ok(queueUtils.getCurrentQueue(repo));
+        return ResponseEntity.ok(queueUtils.getQueue());
     }
 
 
@@ -43,14 +40,12 @@ public class QueueController {
      */
     @PostMapping("")
     public ResponseEntity<QueueUser> add(@RequestBody QueueUser user) {
-        if (user == null || isNullOrEmpty(user.getUsername())) {
+        if (queueUtils.isInvalid(user)) {
             return ResponseEntity.badRequest().build();
-        } else if (repo.existsQueueUserByUsername(user.getUsername())) {
+        } else if (queueUtils.containsUser(user)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-        QueueUser saved = repo.save(user);
-        queueUtils.setGameStarting(false);
-        return ResponseEntity.ok(saved);
+        return ResponseEntity.ok(queueUtils.addUser(user));
     }
 
     /**
@@ -62,31 +57,24 @@ public class QueueController {
      */
     @PostMapping("/start")
     public ResponseEntity<QueueState> startGame() {
-        if (queueUtils.isGameStarting()) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        if (queueUtils.startCountdown()) {
+            return ResponseEntity.ok(queueUtils.getQueue());
         } else {
-            queueUtils.beginCountdown();
-            return ResponseEntity.ok(queueUtils.getCurrentQueue(repo));
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
     }
-
-    private static boolean isNullOrEmpty(String s) {
-        return s == null || s.isEmpty();
-    }
-
 
     /**
      * Delete a user if present from the repository.
      *
-     * @param id Primary-key attribute to search with
+     * @param username Username of the user to be deleted from the queue
      * @return returns a ResponseEntity consisting of the deleted user if present or a Not Found error if not found.
      */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<QueueUser> deleteUser(@PathVariable("id") long id) {
-        QueueUser removed = repo.findById(id).orElse(null);
+    @DeleteMapping("/{username}")
+    public ResponseEntity<QueueUser> deleteUser(@PathVariable("username") String username) {
+        QueueUser target = queueUtils.getByUsername(username);
+        QueueUser removed = queueUtils.removeUser(target);
         if (removed != null) {
-            repo.delete(removed);
-            queueUtils.setGameStarting(false);
             return ResponseEntity.ok(removed);
         } else {
             return ResponseEntity.badRequest().build();

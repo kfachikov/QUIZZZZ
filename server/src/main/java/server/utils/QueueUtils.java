@@ -1,51 +1,98 @@
 package server.utils;
 
 import commons.queue.QueueState;
-import server.database.QueueUserRepository;
+import commons.queue.QueueUser;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Queue;
 
+@Component
 public class QueueUtils {
 
-    private boolean gameStarting;
-    private long startTimeInMs;
-    private long upcomingGameId;
+    private QueueState queueState;
+
+    public QueueUtils() {
+        this.queueState = new QueueState(
+                new ArrayList<>(),
+                false,
+                Long.MAX_VALUE,
+                0
+        );
+    }
 
 
     /**
      * Getter for the current queue state.
      *
-     * @param repo  is the current repository of clients waiting in the queue screen
-     * @return      a QueueState instance containing corresponding information -
-     *              as the QueueState on all clients already residing in the queue.
+     * @return a QueueState instance containing corresponding information -
+     * as the QueueState on all clients already residing in the queue.
      */
-    public QueueState getCurrentQueue(QueueUserRepository repo) {
-        return new QueueState(repo.findAll(), gameStarting, startTimeInMs - new Date().getTime(), upcomingGameId);
+    public QueueState getQueue() {
+        return queueState;
     }
 
-    /**
-     * Setter for the boolean gameStarting field.
-     *
-     * @param gameStarting  Boolean value to be set.
-     */
-    public void setGameStarting(boolean gameStarting) {
-        this.gameStarting = gameStarting;
+    public QueueUser addUser(QueueUser user) {
+        if (isInvalid(user)) {
+            return null;
+        } else if (containsUser(user)) {
+            return null;
+        } else {
+            getUsers().add(user);
+            resetCountdown();
+            return user;
+        }
     }
 
-    /**
-     * Getter for the boolean field corresponding to whether the game is starting.
-     *
-     * @return  Whether the current queue is in "starting" phase.
-     */
-    public boolean isGameStarting() {
-        return gameStarting;
+    public QueueUser removeUser(QueueUser user) {
+        if (isInvalid(user)) {
+            return null;
+        } else if (!containsUser(user)) {
+            return null;
+        } else {
+            getUsers().remove(user);
+            return user;
+        }
     }
 
-    /**
-     * Initialized the countdown feature and sets the "state" of the queue to starting.
-     */
-    public void beginCountdown() {
-        gameStarting = true;
-        startTimeInMs = new Date().getTime() + 3000;
+    public boolean startCountdown() {
+        if (queueState.isGameStarting()) {
+            return false;
+        } else {
+            queueState.setGameStarting(true);
+            queueState.setStartTimeInMs(new Date().getTime() + 3000);
+            return true;
+        }
+    }
+
+    public void resetCountdown() {
+        queueState.setGameStarting(false);
+        queueState.setStartTimeInMs(Long.MAX_VALUE);
+    }
+
+    public boolean isInvalid(QueueUser user) {
+        if (user == null) {
+            return true;
+        } else if (user.getUsername() == null) {
+            return true;
+        } else {
+            return user.getUsername().isEmpty();
+        }
+    }
+
+    public boolean containsUser(QueueUser user) {
+        return getUsers().contains(user);
+    }
+
+    public QueueUser getByUsername(String username) {
+        return getUsers().stream()
+                .filter((user -> user.getUsername().equals(username)))
+                .findAny().orElse(null);
+    }
+
+    private List<QueueUser> getUsers() {
+        return queueState.getUsers();
     }
 }
