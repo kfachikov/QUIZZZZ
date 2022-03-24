@@ -4,7 +4,7 @@ import client.scenes.misc.MainCtrl;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 
-public class IntermediateLeaderboardScreenCtrl {
+public class LeaderboardScreenCtrl {
     private ServerUtils server;
     private MainCtrl mainCtrl;
 
@@ -15,10 +15,12 @@ public class IntermediateLeaderboardScreenCtrl {
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public IntermediateLeaderboardScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public LeaderboardScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
         this.server = server;
     }
+
+
 
 
 }

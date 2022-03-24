@@ -19,6 +19,7 @@ import client.scenes.misc.AdministratorScreenCtrl;
 import client.scenes.misc.HelpScreenCtrl;
 import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
+import client.scenes.multi.LeaderboardScreenCtrl;
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
@@ -76,9 +77,13 @@ public class Main extends Application {
         var guess = FXML.load(
                 GuessQuestionScreenCtrl.class, "client", "scenes", "single",
                 "question", "GuessQuestionScreen.fxml");
+        var leaderboard = FXML.load(
+                LeaderboardScreenCtrl.class, "client", "scenes", "multi",
+                "LeaderboardScreen.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, home, help, prep, queue, administrator,
-                multiGame, moreExpensive, consumption, instead, guess, congratulations);
+                multiGame, moreExpensive, consumption, instead, guess,
+                congratulations, leaderboard);
     }
 }
