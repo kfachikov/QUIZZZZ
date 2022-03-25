@@ -153,7 +153,7 @@ public class GameResponse {
      */
     @Override
     public String toString() {
-        return "Response{" +
+        return "GameResponse{" +
                 "gameId=" + gameId +
                 ", timeSubmitted=" + timeSubmitted +
                 ", roundNumber=" + roundNumber +

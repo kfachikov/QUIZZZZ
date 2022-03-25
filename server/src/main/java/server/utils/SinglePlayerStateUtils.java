@@ -1,7 +1,7 @@
 package server.utils;
 
 import commons.misc.Activity;
-import commons.misc.Response;
+import commons.misc.GameResponse;
 import commons.question.AbstractQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
@@ -45,18 +45,18 @@ public class SinglePlayerStateUtils {
 
     /**
      * Posts an answer in the current game - particular instance found by gameId stored in the
-     * Response object sent.
+     * GameResponse object sent.
      *
-     * @param response Response sent from client.
-     * @return Response instance in case the gameId is valid, or null otherwise.
+     * @param gameResponse GameResponse sent from client.
+     * @return GameResponse instance in case the gameId is valid, or null otherwise.
      */
-    public Response postAnswer(Response response) {
-        long gameId = response.getGameId();
+    public GameResponse postAnswer(GameResponse gameResponse) {
+        long gameId = gameResponse.getGameId();
         if (!games.containsKey(gameId)) {
             return null;
         }
-        games.get(gameId).getSubmittedAnswers().add(response);
-        return response;
+        games.get(gameId).getSubmittedAnswers().add(gameResponse);
+        return gameResponse;
     }
 
     /**
@@ -90,25 +90,25 @@ public class SinglePlayerStateUtils {
     }
 
     /**
-     * Update the score of the player and clear responses.
+     * Update the score of the player and clear GameResponses.
      * <p>
      * This method runs only in the transition state.
      * <p>
-     * All responses from the player are aggregated (to determine the true response)
+     * All GameResponses from the player are aggregated (to determine the true GameResponse)
      * and then cleared.
      * <p>
-     * Finally, the player's score is updated based on their response (the timing,
+     * Finally, the player's score is updated based on their GameResponse (the timing,
      * whether it is correct etc)
      *
      * @param game Singleplayer game state (in the transition state)
      */
     private void updateScore(SinglePlayerState game) {
         if (game.getState().equals(SinglePlayerState.TRANSITION_STATE)) {
-            Response playerResponse = computeFinalAnswer(game);
+            GameResponse playerGameResponse = computeFinalAnswer(game);
             /*
-            Saves the latest response of the player in the list of answers submitted as final.
+            Saves the latest GameResponse of the player in the list of answers submitted as final.
              */
-            game.getFinalAnswers().add(playerResponse);
+            game.getFinalAnswers().add(playerGameResponse);
 
             /*
             Clear the game from any previous answers.
@@ -124,20 +124,20 @@ public class SinglePlayerStateUtils {
                 If the answer submitted is the same, then the score is updated accordingly.
                  */
                 SinglePlayer player = game.getPlayer();
-                player.setScore(player.getScore() + computeScore(playerResponse));
+                player.setScore(player.getScore() + computeScore(playerGameResponse));
             }
         }
     }
 
     /**
-     * Compute the score of a response.
+     * Compute the score of a GameResponse.
      * <p>
      * TODO: this method is just a mock method, and returns 100.
      *
-     * @param response Response of the player with a correct answer. TODO: The time submitted to be used for computations.
+     * @param gameResponse GameResponse of the player with a correct answer. TODO: The time submitted to be used for computations.
      * @return Number of points to add to the player's score
      */
-    private int computeScore(Response response) {
+    private int computeScore(GameResponse gameResponse) {
         return 100;
     }
 
@@ -145,35 +145,35 @@ public class SinglePlayerStateUtils {
     /**
      * Compute the final answer that the player chose.
      * <p>
-     * The set of responses is iterated over, with the last answer choice being
+     * The set of GameResponses is iterated over, with the last answer choice being
      * returned. If the last answer choice is selected multiple times, the first
      * instance in the suffix of the answer choices is returned.
      *
      * @param game Singleplayer game for which the answer is computed.
-     * @return The true response of the player.
+     * @return The true GameResponse of the player.
      */
-    public Response computeFinalAnswer(SinglePlayerState game) {
-        // Dummy response, if the player did not choose anything
-        Response playerResponse = new Response(
+    public GameResponse computeFinalAnswer(SinglePlayerState game) {
+        // Dummy GameResponse, if the player did not choose anything
+        GameResponse playerGameResponse = new GameResponse(
                 game.getId(),
                 Long.MAX_VALUE,
                 game.getRoundNumber(),
                 game.getPlayer().getUsername(),
                 "wrong answer"
         );
-        // Responses are sorted by the submission time.
-        Comparator<Response> comp =
+        // GameResponses are sorted by the submission time.
+        Comparator<GameResponse> comp =
                 (a, b) -> (int) (a.getTimeSubmitted() - b.getTimeSubmitted());
         game.getSubmittedAnswers().sort(comp);
-        for (Response response : game.getSubmittedAnswers()) {
-            // Only update the response if it differs
+        for (GameResponse GameResponse : game.getSubmittedAnswers()) {
+            // Only update the GameResponse if it differs
             // This is done to avoid punishing the player from clicking
-            // the same response multiple times
-            if (!playerResponse.getAnswerChoice().equals(response.getAnswerChoice())) {
-                playerResponse = response;
+            // the same GameResponse multiple times
+            if (!playerGameResponse.getAnswerChoice().equals(GameResponse.getAnswerChoice())) {
+                playerGameResponse = GameResponse;
             }
         }
-        return playerResponse;
+        return playerGameResponse;
     }
 
     /**
@@ -196,8 +196,8 @@ public class SinglePlayerStateUtils {
         long nextTransition = new Date().getTime() + 8000;
         int roundNumber = 0;
         List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions();
-        List<Response> submittedAnswers = new ArrayList<>();
-        List<Response> finalAnswers = new ArrayList<>();
+        List<GameResponse> submittedAnswers = new ArrayList<>();
+        List<GameResponse> finalAnswers = new ArrayList<>();
         List<Activity> activityList = new ArrayList<>();
         String state = SinglePlayerState.QUESTION_STATE;
 

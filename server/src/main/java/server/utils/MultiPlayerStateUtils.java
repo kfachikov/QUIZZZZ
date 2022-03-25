@@ -1,6 +1,6 @@
 package server.utils;
 
-import commons.misc.Response;
+import commons.misc.GameResponse;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.multi.Reaction;
@@ -260,7 +260,7 @@ public class MultiPlayerStateUtils {
         // Round number is incremented each time, so initial round number is -1
         int roundNumber = -1;
         List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions();
-        List<Response> submittedAnswers = new ArrayList<>();
+        List<GameResponse> submittedAnswers = new ArrayList<>();
         String state = MultiPlayerState.NOT_STARTED_STATE;
         List<MultiPlayer> players = new ArrayList<>();
         // Comment: what does Reaction mean here?
