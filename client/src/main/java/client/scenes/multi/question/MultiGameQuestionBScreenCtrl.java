@@ -5,9 +5,7 @@ import client.utils.ServerUtils;
 import commons.misc.Response;
 import commons.multi.MultiPlayerState;
 import commons.multi.MultiPlayer;
-import commons.question.ConsumptionQuestion;
 import commons.question.GuessQuestion;
-import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -34,10 +32,9 @@ public class MultiGameQuestionBScreenCtrl {
     private final MultiplayerCtrl multiCtrl;
     private final MultiPlayer multiPlayer;
     private final MultiPlayerState multiPlayerState;
+    private final ServerUtils server;
 
     private GuessQuestion question;
-
-    public final ServerUtils server;
 
     @FXML
     private Label gameStateLabel;

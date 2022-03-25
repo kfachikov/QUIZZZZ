@@ -5,7 +5,7 @@ import client.utils.ServerUtils;
 import commons.misc.Response;
 import commons.multi.MultiPlayerState;
 import commons.multi.MultiPlayer;
-import commons.question.ConsumptionQuestion;
+import commons.question.MoreExpensiveQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,10 +31,9 @@ public class MultiGameQuestionDScreenCtrl {
     private final MultiplayerCtrl multiCtrl;
     private final MultiPlayer multiPlayer;
     private final MultiPlayerState multiPlayerState;
+    private final ServerUtils server;
 
-    private ConsumptionQuestion question;
-
-    public final ServerUtils server;
+    private MoreExpensiveQuestion question;
 
     @FXML
     private Label gameStateLabel;
@@ -206,11 +205,11 @@ public class MultiGameQuestionDScreenCtrl {
         questionTitle.setText(question.toString());
     }
 
-    public ConsumptionQuestion getQuestion() {
+    public MoreExpensiveQuestion getQuestion() {
         return question;
     }
 
-    public void setQuestion(ConsumptionQuestion question) {
+    public void setQuestion(MoreExpensiveQuestion question) {
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);

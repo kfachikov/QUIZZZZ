@@ -31,10 +31,9 @@ public class MultiGameQuestionAScreenCtrl {
     private final MultiplayerCtrl multiCtrl;
     private final MultiPlayer multiPlayer;
     private final MultiPlayerState multiPlayerState;
+    private final ServerUtils server;
 
     private ConsumptionQuestion question;
-
-    public final ServerUtils server;
 
     @FXML
     private Label gameStateLabel;
