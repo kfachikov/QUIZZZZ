@@ -23,7 +23,7 @@ public abstract class GameState {
     private long nextPhase;
     private int roundNumber;
     private List<AbstractQuestion> questionList;
-    private List<Response> submittedAnswers;
+    private List<GameResponse> submittedAnswers;
     /**
      * The state attribute is a String from : transition, intermittent leaderboard, question, game over.
      */
@@ -47,7 +47,7 @@ public abstract class GameState {
      */
     public GameState(long id, long nextPhase, int roundNumber,
                      List<AbstractQuestion> questionList,
-                     List<Response> submittedAnswers,
+                     List<GameResponse> submittedAnswers,
                      String state) {
         this.id = id;
         this.nextPhase = nextPhase;
@@ -99,7 +99,7 @@ public abstract class GameState {
      *
      * @return a list of Responses representing the answers given by the players in a single round.
      */
-    public List<Response> getSubmittedAnswers() {
+    public List<GameResponse> getSubmittedAnswers() {
         return submittedAnswers;
     }
 
@@ -154,7 +154,7 @@ public abstract class GameState {
      *
      * @param submittedAnswers the answers submitted by players during game.
      */
-    public void setSubmittedAnswers(List<Response> submittedAnswers) {
+    public void setSubmittedAnswers(List<GameResponse> submittedAnswers) {
         this.submittedAnswers = submittedAnswers;
     }
 
@@ -197,7 +197,7 @@ public abstract class GameState {
         return Objects.hash(nextPhase, roundNumber, questionList, submittedAnswers, state);
     }
 
-    public void addSubmittedAnswer(Response response) {
+    public void addSubmittedAnswer(GameResponse response) {
         this.submittedAnswers.add(response);
     }
 }

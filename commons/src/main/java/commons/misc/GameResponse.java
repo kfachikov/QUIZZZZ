@@ -26,7 +26,8 @@ public class GameResponse {
      * @param playerUsername the name of the player
      * @param answerChoice   the final answer choice of the player
      */
-    public Response(long gameId, double timeSubmitted, int roundNumber, String playerUsername, String answerChoice) {
+    public GameResponse(long gameId, double timeSubmitted, int roundNumber,
+                        String playerUsername, String answerChoice) {
         this.gameId = gameId;
         this.timeSubmitted = timeSubmitted;
         this.roundNumber = roundNumber;
@@ -129,7 +130,7 @@ public class GameResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Response response = (Response) o;
+        GameResponse response = (GameResponse) o;
         return gameId == response.gameId && Double.compare(response.timeSubmitted, timeSubmitted) == 0 &&
                 roundNumber == response.roundNumber && playerUsername.equals(response.playerUsername) &&
                 answerChoice.equals(response.answerChoice);

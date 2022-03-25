@@ -8,7 +8,6 @@ import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-
 import java.util.Optional;
 
 /**
@@ -110,4 +109,5 @@ public abstract class QuestionScreen {
     public SinglePlayerUtils getSinglePlayerUtils() {
         return singlePlayerUtils;
     }
+
 }
