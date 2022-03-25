@@ -1,56 +1,46 @@
-package server.api;
+package server.utils;
 
-import commons.queue.QueueUser;
+import commons.misc.Activity;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
+import server.database.ActivityRepository;
 
-import java.util.ArrayList;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-class QueueUserRepository implements server.database.QueueUserRepository {
-
-    public final List<QueueUser> queueUsers = new ArrayList<>();
-    public final List<String> calledMethods = new ArrayList<>();
-
-    private void call(String name) {
-        calledMethods.add(name);
-    }
-
-    private Optional<QueueUser> find(Long id) {
-        return queueUsers.stream().filter(q -> q.getId() == id).findFirst();
+/**
+ * Mock class to be used when testing other classes that use ActivityRepository.
+ */
+public class MockActivityRepository implements ActivityRepository {
+    @Override
+    public List<Activity> findAll() {
+        return null;
     }
 
     @Override
-    public List<QueueUser> findAll() {
-        call("findAll");
-        return queueUsers;
-    }
-
-    @Override
-    public List<QueueUser> findAll(Sort sort) {
+    public List<Activity> findAll(Sort sort) {
         return null;
     }
 
     /**
      * Returns a {@link Page} of entities meeting the paging restriction provided in the {@code Pageable} object.
      *
-     * @param pageable Pageable item
+     * @param pageable Pageable object
      * @return a page of entities
      */
     @Override
-    public Page<QueueUser> findAll(Pageable pageable) {
+    public Page<Activity> findAll(Pageable pageable) {
         return null;
     }
 
     @Override
-    public List<QueueUser> findAllById(Iterable<Long> longs) {
+    public List<Activity> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -61,8 +51,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      */
     @Override
     public long count() {
-        call("count");
-        return queueUsers.size();
+        return 0;
     }
 
     /**
@@ -83,7 +72,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      * @throws IllegalArgumentException in case the given entity is {@literal null}.
      */
     @Override
-    public void delete(QueueUser entity) {
+    public void delete(Activity entity) {
 
     }
 
@@ -106,7 +95,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      * @throws IllegalArgumentException in case the given {@literal entities} or one of its entities is {@literal null}.
      */
     @Override
-    public void deleteAll(Iterable<? extends QueueUser> entities) {
+    public void deleteAll(Iterable<? extends Activity> entities) {
 
     }
 
@@ -127,42 +116,37 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      * @throws IllegalArgumentException in case the given {@literal entity} is {@literal null}.
      */
     @Override
-    public <S extends QueueUser> S save(S entity) {
-        call("save");
-        entity.setId(queueUsers.size());
-        queueUsers.add(entity);
-        return entity;
+    public <S extends Activity> S save(S entity) {
+        return null;
     }
 
     @Override
-    public <S extends QueueUser> List<S> saveAll(Iterable<S> entities) {
+    public <S extends Activity> List<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     /**
      * Retrieves an entity by its id.
      *
-     * @param id must not be {@literal null}.
+     * @param aLong must not be {@literal null}.
      * @return the entity with the given id or {@literal Optional#empty()} if none found.
      * @throws IllegalArgumentException if {@literal id} is {@literal null}.
      */
     @Override
-    public Optional<QueueUser> findById(Long id) {
+    public Optional<Activity> findById(Long aLong) {
         return Optional.empty();
     }
-
 
     /**
      * Returns whether an entity with the given id exists.
      *
-     * @param id must not be {@literal null}.
+     * @param aLong must not be {@literal null}.
      * @return {@literal true} if an entity with the given id exists, {@literal false} otherwise.
      * @throws IllegalArgumentException if {@literal id} is {@literal null}.
      */
     @Override
-    public boolean existsById(Long id) {
-        call("existsById");
-        return find(id).isPresent();
+    public boolean existsById(Long aLong) {
+        return false;
     }
 
     /**
@@ -180,7 +164,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      * @return the saved entity
      */
     @Override
-    public <S extends QueueUser> S saveAndFlush(S entity) {
+    public <S extends Activity> S saveAndFlush(S entity) {
         return null;
     }
 
@@ -192,15 +176,30 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      * @since 2.5
      */
     @Override
-    public <S extends QueueUser> List<S> saveAllAndFlush(Iterable<S> entities) {
+    public <S extends Activity> List<S> saveAllAndFlush(Iterable<S> entities) {
         return null;
     }
 
+    /**
+     * Deletes the given entities in a batch which means it will create a single query. This kind of operation leaves JPAs
+     * first level cache and the database out of sync. Consider flushing the {@link EntityManager} before calling this
+     * method.
+     *
+     * @param entities entities to be deleted. Must not be {@literal null}.
+     * @since 2.5
+     */
     @Override
-    public void deleteAllInBatch(Iterable<QueueUser> entities) {
+    public void deleteAllInBatch(Iterable<Activity> entities) {
 
     }
 
+    /**
+     * Deletes the entities identified by the given ids using a single query. This kind of operation leaves JPAs first
+     * level cache and the database out of sync. Consider flushing the {@link EntityManager} before calling this method.
+     *
+     * @param longs the ids of the entities to be deleted. Must not be {@literal null}.
+     * @since 2.5
+     */
     @Override
     public void deleteAllByIdInBatch(Iterable<Long> longs) {
 
@@ -214,15 +213,36 @@ class QueueUserRepository implements server.database.QueueUserRepository {
 
     }
 
+    /**
+     * Returns a reference to the entity with the given identifier. Depending on how the JPA persistence provider is
+     * implemented this is very likely to always return an instance and throw an
+     * {@link EntityNotFoundException} on first access. Some of them will reject invalid identifiers
+     * immediately.
+     *
+     * @param aLong must not be {@literal null}.
+     * @return a reference to the entity with the given identifier.
+     * @see EntityManager#getReference(Class, Object) for details on when an exception is thrown.
+     * @deprecated use {@link JpaRepository#getById(ID)} instead.
+     */
     @Override
-    public QueueUser getOne(Long aLong) {
+    public Activity getOne(Long aLong) {
         return null;
     }
 
+    /**
+     * Returns a reference to the entity with the given identifier. Depending on how the JPA persistence provider is
+     * implemented this is very likely to always return an instance and throw an
+     * {@link EntityNotFoundException} on first access. Some of them will reject invalid identifiers
+     * immediately.
+     *
+     * @param aLong must not be {@literal null}.
+     * @return a reference to the entity with the given identifier.
+     * @see EntityManager#getReference(Class, Object) for details on when an exception is thrown.
+     * @since 2.5
+     */
     @Override
-    public QueueUser getById(Long id) {
-        call("getById");
-        return find(id).get();
+    public Activity getById(Long aLong) {
+        return null;
     }
 
     /**
@@ -233,17 +253,17 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      * @throws IncorrectResultSizeDataAccessException if the Example yields more than one result.
      */
     @Override
-    public <S extends QueueUser> Optional<S> findOne(Example<S> example) {
+    public <S extends Activity> Optional<S> findOne(Example<S> example) {
         return Optional.empty();
     }
 
     @Override
-    public <S extends QueueUser> List<S> findAll(Example<S> example) {
+    public <S extends Activity> List<S> findAll(Example<S> example) {
         return null;
     }
 
     @Override
-    public <S extends QueueUser> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends Activity> List<S> findAll(Example<S> example, Sort sort) {
         return null;
     }
 
@@ -256,7 +276,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      * @return a {@link Page} of entities matching the given {@link Example}.
      */
     @Override
-    public <S extends QueueUser> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends Activity> Page<S> findAll(Example<S> example, Pageable pageable) {
         return null;
     }
 
@@ -267,7 +287,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      * @return the number of instances matching the {@link Example}.
      */
     @Override
-    public <S extends QueueUser> long count(Example<S> example) {
+    public <S extends Activity> long count(Example<S> example) {
         return 0;
     }
 
@@ -278,7 +298,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      * @return {@literal true} if the data store contains elements that match the given {@link Example}.
      */
     @Override
-    public <S extends QueueUser> boolean exists(Example<S> example) {
+    public <S extends Activity> boolean exists(Example<S> example) {
         return false;
     }
 
@@ -292,27 +312,8 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      * @since 2.6
      */
     @Override
-    public <S extends QueueUser, R> R findBy(
-            Example<S> example,
-            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction
-    ) {
+    public <S extends Activity, R> R findBy(Example<S> example,
+                                            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
-    }
-
-    /**
-     * Checks whether a username is already present in our Lobby database - would keep only the players currently in
-     * lobby of a particular server.
-     *
-     * @param username String variable to check whether it exists.
-     * @return Boolean value whether the username exists.
-     */
-    @Override
-    public boolean existsQueueUserByUsername(String username) {
-        for (QueueUser currentUser : queueUsers) {
-            if (Objects.equals(username, currentUser.getUsername())) {
-                return true;
-            }
-        }
-        return false;
     }
 }

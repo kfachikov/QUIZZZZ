@@ -20,8 +20,14 @@ import client.scenes.misc.HelpScreenCtrl;
 import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
 import client.scenes.multi.LeaderboardScreenCtrl;
+import client.scenes.multi.MultiGameMockScreenCtrl;
+import client.scenes.multi.MultiplayerCtrl;
+import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
+import client.scenes.multi.question.MultiGameQuestionBScreenCtrl;
+import client.scenes.multi.question.MultiGameQuestionCScreenCtrl;
+import client.scenes.multi.question.MultiGameQuestionDScreenCtrl;
 import client.scenes.single.*;
-import client.services.GameStatePollingService;
+import client.services.SingleplayerGameStatePollingService;
 import client.utils.HomeUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Binder;
@@ -52,8 +58,17 @@ public class MyModule implements Module {
         binder.bind(CongratulationsScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(LeaderboardScreenCtrl.class).in(Scopes.SINGLETON);
 
-        binder.bind(GameStatePollingService.class).in(Scopes.SINGLETON);
+        binder.bind(SingleplayerGameStatePollingService.class).in(Scopes.SINGLETON);
         binder.bind(SinglePlayerUtils.class).in(Scopes.SINGLETON);
         binder.bind(HomeUtils.class).in(Scopes.SINGLETON);
+
+        binder.bind(MultiplayerCtrl.class).in(Scopes.SINGLETON);
+
+        binder.bind(MultiGameQuestionAScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(MultiGameQuestionBScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(MultiGameQuestionCScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(MultiGameQuestionDScreenCtrl.class).in(Scopes.SINGLETON);
+
+        binder.bind(MultiGameMockScreenCtrl.class).in(Scopes.SINGLETON);
     }
 }

@@ -15,13 +15,14 @@
  */
 package client.scenes.misc;
 
-
-import client.scenes.multi.LeaderboardScreenCtrl;
-import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
+import client.scenes.multi.*;
 import client.scenes.single.*;
 import client.utils.SinglePlayerUtils;
-import commons.question.*;
+import commons.question.ConsumptionQuestion;
+import commons.question.GuessQuestion;
+import commons.question.InsteadQuestion;
+import commons.question.MoreExpensiveQuestion;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
 import javafx.application.Platform;
@@ -31,7 +32,6 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
 
 import java.io.File;
 
@@ -56,9 +56,6 @@ public class MainCtrl {
 
     private AdministratorScreenCtrl administratorCtrl;
     private Scene administrator;
-
-    private MultiGameQuestionScreenCtrl multiGameCtrl;
-    private Scene multiGame;
 
     private MoreExpensiveQuestionScreenCtrl moreExpensiveCtrl;
     private Scene moreExpensive;
@@ -85,7 +82,6 @@ public class MainCtrl {
     private SinglePlayerUtils singlePlayerUtils;
 
 
-
     /**
      * @param primaryStage    is the Stage representing the initial stage variable.
      * @param home            is the home screen pair variable
@@ -93,7 +89,6 @@ public class MainCtrl {
      * @param prep            is the prepare screen pair variable
      * @param queue           is the queue screen pair variable
      * @param administrator   is the administrator panel screen panel pair variable
-     * @param multiGame       is the multiplayer game screen pair variable
      * @param moreExpensive   is the moreExpensiveQuestion screen pair variable
      * @param consumption     is the consumptionQuestion screen pair variable
      * @param instead         is the insteadQuestion screen pair variable
@@ -107,7 +102,6 @@ public class MainCtrl {
                            Pair<PrepScreenCtrl, Parent> prep,
                            Pair<QueueScreenCtrl, Parent> queue,
                            Pair<AdministratorScreenCtrl, Parent> administrator,
-                           Pair<MultiGameQuestionScreenCtrl, Parent> multiGame,
                            Pair<MoreExpensiveQuestionScreenCtrl, Parent> moreExpensive,
                            Pair<ConsumptionQuestionScreenCtrl, Parent> consumption,
                            Pair<InsteadQuestionScreenCtrl, Parent> instead,
@@ -131,9 +125,6 @@ public class MainCtrl {
 
         this.administratorCtrl = administrator.getKey();
         this.administrator = new Scene(administrator.getValue());
-
-        this.multiGameCtrl = multiGame.getKey();
-        this.multiGame = new Scene(multiGame.getValue());
 
         this.moreExpensiveCtrl = moreExpensive.getKey();
         this.moreExpensive = new Scene(moreExpensive.getValue());
@@ -162,6 +153,15 @@ public class MainCtrl {
             }
             Platform.exit();
         }));
+    }
+
+    /**
+     * Getter for the primary state of the application.
+     *
+     * @return Primary stage.
+     */
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     /**
@@ -211,7 +211,7 @@ public class MainCtrl {
      * service and initializes the queue scene controller with
      * the QueueUser instance of the person joining the queue.
      *
-     * @param user QueueUser which is joining the queue
+     * @param user          QueueUser which is joining the queue
      * @param serverAddress server address to be shown in the queue screen
      */
     public void showQueue(QueueUser user, String serverAddress) {
@@ -221,18 +221,6 @@ public class MainCtrl {
         queueCtrl.setUser(user);
         queueCtrl.setServerAddress(serverAddress);
         queueCtrl.resetScene();
-    }
-
-    /**
-     * Set the current scene to Multiplayer game question screen.
-     *
-     * @param id        Multiplayer game id
-     * @param queueUser QueueUser of the user who was just in the queue
-     */
-    public void showMultiGameQuestion(long id, QueueUser queueUser) {
-        primaryStage.setTitle("Quizzz: Multi-player Game");
-        primaryStage.setScene(multiGame);
-        multiGameCtrl.setGameId(id);
     }
 
     /**
