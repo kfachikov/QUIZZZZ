@@ -12,7 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -25,7 +26,7 @@ class ActivityControllerTest {
 
     @BeforeEach
     public void setup() {
-        repo = new TestActivityRepository();
+        repo = new MockActivityRepository();
         ctrl = new ActivityController(repo);
         random = new Random();
         initialActivity = new Activity("id", "image", "source", "title", 100L);

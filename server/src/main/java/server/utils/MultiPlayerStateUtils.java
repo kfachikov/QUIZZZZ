@@ -40,6 +40,13 @@ public class MultiPlayerStateUtils {
 
         this.games = new HashMap<>();
 
+        this.initialize();
+    }
+
+    /**
+     * Initialization method, called in the constructor.
+     */
+    protected void initialize() {
         nextGame = createNextGame();
 
         queueUtils.setOnStart(this::startNewGame);
