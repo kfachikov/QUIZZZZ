@@ -168,6 +168,13 @@ public class ServerUtils {
                 .post(null, QueueState.class);
     }
 
+    /**
+     * POST request to /api/multi/ to add a multiplayer user.
+     *
+     * @param id          Id of the multiplayer game.
+     * @param multiPlayer Multiplayer user to be added
+     * @return Multiplayer player that was added.
+     */
     public MultiPlayer addMultiPlayer(long id, MultiPlayer multiPlayer) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
