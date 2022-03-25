@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import server.database.ActivityRepository;
+import server.utils.CurrentTimeUtils;
 import server.utils.GenerateQuestionUtils;
 import server.utils.QueueUtils;
 import server.utils.SinglePlayerStateUtils;
@@ -74,7 +75,18 @@ public class Config {
      */
     @Bean
     public QueueUtils getQueueUtils() {
-        return new QueueUtils();
+        return new QueueUtils(getCurrentTimeUtils());
+    }
+
+    /**
+     * Getter for a new instance of CurrentTimeUtils.
+     * Notated as bean, it would be only a single one used by all controllers.
+     *
+     * @return A new CurrentTimeUtils instance.
+     */
+    @Bean
+    public CurrentTimeUtils getCurrentTimeUtils() {
+        return new CurrentTimeUtils();
     }
 
 }

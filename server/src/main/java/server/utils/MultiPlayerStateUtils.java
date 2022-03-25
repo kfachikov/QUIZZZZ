@@ -101,7 +101,7 @@ public class MultiPlayerStateUtils {
      * @param game Game to be checked
      * @return true iff current time is beyond time of update for the state of the game.
      */
-    private boolean checkIfUpdate(MultiPlayerState game) {
+    public boolean checkIfUpdate(MultiPlayerState game) {
         return game.getNextPhase() <= new Date().getTime();
     }
 
@@ -113,7 +113,7 @@ public class MultiPlayerStateUtils {
      *
      * @param game Game whose state is to be switched to the next one.
      */
-    private void switchState(MultiPlayerState game) {
+    public void switchState(MultiPlayerState game) {
         // Only update state if needed
         String state = game.getState();
         if (MultiPlayerState.STARTING_STATE.equals(state)) {
@@ -153,7 +153,7 @@ public class MultiPlayerStateUtils {
      *
      * @param game Game whose state is updated to QUESTION.
      */
-    private void switchToQuestion(MultiPlayerState game) {
+    public void switchToQuestion(MultiPlayerState game) {
         int currentRound = game.getRoundNumber();
         long nextPhase = game.getNextPhase();
 
@@ -175,7 +175,7 @@ public class MultiPlayerStateUtils {
      *
      * @param game Game whose state is updated to LEADERBOARD.
      */
-    private void switchToLeaderboard(MultiPlayerState game) {
+    public void switchToLeaderboard(MultiPlayerState game) {
         long nextPhase = game.getNextPhase();
 
         game.setState(MultiPlayerState.LEADERBOARD_STATE);
@@ -195,7 +195,7 @@ public class MultiPlayerStateUtils {
      *
      * @param game Game whose state is updated to GAME_OVER.
      */
-    private void switchToGameOver(MultiPlayerState game) {
+    public void switchToGameOver(MultiPlayerState game) {
         game.setState(MultiPlayerState.GAME_OVER_STATE);
         // Make sure the game does not progress anymore.
         game.setNextPhase(Long.MAX_VALUE);
@@ -215,7 +215,7 @@ public class MultiPlayerStateUtils {
      *
      * @param game Game whose state is updated to TRANSITION.
      */
-    private void switchToTransition(MultiPlayerState game) {
+    public void switchToTransition(MultiPlayerState game) {
         long nextPhase = game.getNextPhase();
 
         updateScores(game);
@@ -254,7 +254,7 @@ public class MultiPlayerStateUtils {
      *
      * @return A template MultiPlayerState instance.
      */
-    private MultiPlayerState createNextGame() {
+    public MultiPlayerState createNextGame() {
         long id = generateNextGameId();
         long nextPhase = Long.MAX_VALUE;
         // Round number is incremented each time, so initial round number is -1
@@ -284,7 +284,7 @@ public class MultiPlayerStateUtils {
      *
      * @return Id for the next game.
      */
-    private long generateNextGameId() {
+    public long generateNextGameId() {
         long max = -1;
         for (Long key : games.keySet()) {
             if (key > max) {
