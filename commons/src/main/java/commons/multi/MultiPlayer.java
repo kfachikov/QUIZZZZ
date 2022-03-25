@@ -13,6 +13,7 @@ public class MultiPlayer extends Player {
     private boolean timeJoker;
     private boolean incorrectAnswerJoker;
     private boolean pointsDoubledJoker;
+    private String username;
 
     public MultiPlayer() {
         super();
@@ -42,6 +43,15 @@ public class MultiPlayer extends Player {
      */
     public boolean getTimeJoker() {
         return timeJoker;
+    }
+
+    /**
+     * getter for the username.
+     *
+     * @return username
+     */
+    public String getUsername() {
+        return username;
     }
 
     /**
