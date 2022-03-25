@@ -15,14 +15,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-
 import java.util.Date;
 
+/**
+ *  Controller for the GuessQuestionScreen.
+ */
 public class GuessQuestionScreenCtrl extends QuestionScreen {
 
     private GuessQuestion question;
@@ -123,16 +126,23 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
         currentScore.setText(String.valueOf(score));
     }
 
+    /**
+     * Setter for the question title.
+     */
     public void setQuestionPrompt() {
         questionTitle.setText(question.toString());
     }
 
     /**
      * Sets the current question.
+     * Initialises the image, description and input field.
      *
      * @param question GuessQuestion instance to be used.
      */
     public void setQuestion(GuessQuestion question) {
+
+        image.setImage(new Image(question.getActivity().getImage()));
+
         this.question = question;
         inputFieldDefault();
         description.setText(question.getActivity().getTitle());

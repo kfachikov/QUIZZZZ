@@ -14,11 +14,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
 import java.util.Date;
 
 /**
@@ -143,11 +143,25 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
         questionTitle.setText(question.toString());
     }
 
+    /**
+     * getter for the question instance.
+     *
+     * @return this question instance.
+     */
     public ConsumptionQuestion getQuestion() {
         return question;
     }
 
+    /**
+     * The methods sets all fields of the question: image, answers, title.
+     *
+     * @param question the question instance of ConsumptionQuestion.
+     */
+
     public void setQuestion(ConsumptionQuestion question) {
+
+        image.setImage(new Image(question.getActivity().getImage()));
+
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);

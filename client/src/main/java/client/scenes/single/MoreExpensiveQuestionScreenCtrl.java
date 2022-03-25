@@ -14,14 +14,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-
 import java.util.Date;
 
+/**
+ * Controller for the MoreExpensiveQuestionScreen.
+ */
 public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
     private MoreExpensiveQuestion question;
@@ -214,10 +217,16 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * Sets the question and the corresponding fields with proper information.
+     * Sets the images, answers and question title.
      *
      * @param question Question to be visualized on the particular scene.
      */
     public void setQuestion(MoreExpensiveQuestion question) {
+
+        image1.setImage(new Image(question.getAnswerChoices().get(0).getImage()));
+        image2.setImage(new Image(question.getAnswerChoices().get(1).getImage()));
+        image3.setImage(new Image(question.getAnswerChoices().get(2).getImage()));
+
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);
@@ -237,6 +246,11 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     }
 
 
+    /**
+     * Getter for the question instance.
+     *
+     * @return  this question.
+     */
     public MoreExpensiveQuestion getQuestion() {
         return question;
     }

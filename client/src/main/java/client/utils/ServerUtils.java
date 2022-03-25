@@ -212,6 +212,13 @@ public class ServerUtils {
                 });
     }
 
+    /**
+     * The method imports activities locally using the admin panel.
+     *
+     * @param fileAsString string representing the String version of a file.
+     *
+     * @return list of activities.
+     */
     public List<Activity> importActivities(String fileAsString) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)

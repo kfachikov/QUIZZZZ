@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -22,6 +23,10 @@ import javafx.scene.text.Text;
 
 import java.util.Date;
 
+
+/**
+ *  Controller for the InsteadQuestionScreen.
+ */
 public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
     private InsteadQuestion question;
@@ -151,6 +156,11 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
         questionTitle.setText(question.toString());
     }
 
+    /**
+     * Getter for the question instance.
+     *
+     * @return this question.
+     */
     public InsteadQuestion getQuestion() {
         return question;
     }
@@ -161,6 +171,9 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      * @param question Question to be visualized on the particular scene.
      */
     public void setQuestion(InsteadQuestion question) {
+
+        image.setImage(new Image(question.getActivity().getImage()));
+
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);

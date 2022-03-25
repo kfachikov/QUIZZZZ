@@ -11,6 +11,9 @@ import javafx.scene.paint.Paint;
 
 import javax.inject.Inject;
 
+/**
+ * Class for home utilities.
+ */
 public class HomeUtils {
 
     private static final int FORBIDDEN = 403;
