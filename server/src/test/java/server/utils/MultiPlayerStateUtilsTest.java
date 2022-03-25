@@ -215,7 +215,7 @@ class MultiPlayerStateUtilsTest {
 
         var result = multiUtils.addPlayer(0, player);
         assertNull(result);
-        assertEquals(1, multiUtils.getGameState(0).getPlayers().size());
+        assertEquals(0, multiUtils.getGameState(0).getPlayers().size());
     }
 
     @Test
@@ -231,8 +231,8 @@ class MultiPlayerStateUtilsTest {
         );
 
         var result = multiUtils.addPlayer(0, player);
-        assertEquals(player, result);
-        assertEquals(1, multiUtils.getGameState(0).getPlayers().size());
+        assertEquals(null, result);
+        assertEquals(0, multiUtils.getGameState(0).getPlayers().size());
     }
 
     @Test
@@ -453,6 +453,6 @@ class MultiPlayerStateUtilsTest {
         multiUtils.startNewGame();
         multiUtils.startNewGame();
 
-        assertEquals(2, multiUtils.generateNextGameId());
+        assertEquals(1, multiUtils.generateNextGameId());
     }
 }
