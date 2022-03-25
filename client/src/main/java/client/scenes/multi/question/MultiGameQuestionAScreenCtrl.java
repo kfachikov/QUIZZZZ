@@ -12,13 +12,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-
 import javax.inject.Inject;
-import java.awt.*;
 import java.util.Date;
 
 /**
@@ -51,6 +50,9 @@ public class MultiGameQuestionAScreenCtrl {
 
     @FXML
     private Label questionTitle;
+
+    @FXML
+    private ImageView image;
 
     @FXML
     private Button firstAnswer;
