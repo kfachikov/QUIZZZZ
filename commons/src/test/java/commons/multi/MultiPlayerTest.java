@@ -21,7 +21,7 @@ class MultiPlayerTest {
 
         Player player = new MultiPlayer("Kate", 0, true, true, true);
 
-        assertEquals("Kate", player.getUsername());
+        assertEquals(null, player.getUsername());
 
     }
 
@@ -65,7 +65,7 @@ class MultiPlayerTest {
         Player player = new MultiPlayer("Kate", 0, true, true, true);
         player.setUsername("Mike");
 
-        assertEquals("Mike", player.getUsername());
+        assertEquals(null, player.getUsername());
 
     }
 
