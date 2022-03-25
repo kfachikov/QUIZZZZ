@@ -19,10 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import server.database.ActivityRepository;
-import server.utils.CurrentTimeUtils;
-import server.utils.GenerateQuestionUtils;
-import server.utils.QueueUtils;
-import server.utils.SinglePlayerStateUtils;
+import server.utils.*;
 
 import java.util.Random;
 
@@ -89,4 +86,17 @@ public class Config {
         return new CurrentTimeUtils();
     }
 
+    /**
+     * Getter for a new instance of MultiPlayerStateUtils.
+     * Notated as bean, it would be only a single one used by all controllers.
+     *
+     * @return A new MultiPlayerStateUtils instance.
+     */
+    @Bean
+    public MultiPlayerStateUtils getMultiPlayerStateUtils() {
+        return new MultiPlayerStateUtils(
+                getGenerateQuestionUtils(),
+                getQueueUtils(),
+                getCurrentTimeUtils());
+    }
 }

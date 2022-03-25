@@ -2,7 +2,6 @@ package server.utils;
 
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.function.Supplier;
 /**
  * Utilities class, responsible for keeping state of a multiplayer queue.
  */
-@Component
 public class QueueUtils {
 
     private final CurrentTimeUtils currentTime;

@@ -5,8 +5,6 @@ import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.multi.Reaction;
 import commons.question.AbstractQuestion;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +14,6 @@ import java.util.Map;
 /**
  * Utility class providing functionality for the multiplayer game mode.
  */
-@Component
-@ComponentScan(basePackageClasses = GenerateQuestionUtils.class)
 public class MultiPlayerStateUtils {
 
     private final Map<Long, MultiPlayerState> games;

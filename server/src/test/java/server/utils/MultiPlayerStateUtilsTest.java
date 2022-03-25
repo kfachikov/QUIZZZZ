@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class MultiPlayerStateUtilsTest {
 
     private MockActivityRepository activityRepository;
@@ -74,6 +76,12 @@ class MultiPlayerStateUtilsTest {
     }
 
     @Test
-    void generateNextGameId() {
+    void generateNextGameIdEmpty() {
+        assertEquals(0, multiUtils.generateNextGameId());
+    }
+
+    @Test
+    void generateNextGameIdNonEmpty() {
+        assertEquals(0, multiUtils.generateNextGameId());
     }
 }
