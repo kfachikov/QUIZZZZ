@@ -128,7 +128,7 @@ public class MultiplayerCtrl {
         this.username = username;
 
         pollingService.start(gameId);
-        serverUtils.addMultiPlayer(new MultiPlayer(username, 0, true, true, true));
+        serverUtils.addMultiPlayer(gameId, new MultiPlayer(username, 0, true, true, true));
 
         switchState(pollingService.poll());
     }

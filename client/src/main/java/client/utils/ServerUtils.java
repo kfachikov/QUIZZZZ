@@ -168,7 +168,13 @@ public class ServerUtils {
                 .post(null, QueueState.class);
     }
 
-    public void addMultiPlayer(MultiPlayer multiPlayer) {
+    public MultiPlayer addMultiPlayer(long id, MultiPlayer multiPlayer) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(multiPlayer, APPLICATION_JSON), MultiPlayer.class);
     }
 
     /**

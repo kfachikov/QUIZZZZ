@@ -8,12 +8,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.utils.QueueUtils;
 
+/**
+ * Controller responsible for managing the state of the queue.
+ * <p>
+ * Most logic is delegated to QueueUtils, so this class only sets up the endpoints for the queue.
+ */
 @RestController
 @RequestMapping("/api/queue")
 public class QueueController {
 
     private final QueueUtils queueUtils;
 
+    /**
+     * Constructor for the QueueController.
+     *
+     * @param queueUtils QueueUtils instance, responsible for logic.
+     */
     public QueueController(QueueUtils queueUtils) {
         this.queueUtils = queueUtils;
     }
