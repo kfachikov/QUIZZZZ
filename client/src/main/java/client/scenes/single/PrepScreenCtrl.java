@@ -2,7 +2,6 @@
 package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
-import client.services.QueuePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
@@ -93,29 +92,28 @@ public class PrepScreenCtrl {
     }
 
     /**
-     * loads up the leaderboard on the prep screen
+     * loads up the leaderboard on the prep screen.
      */
     public void initialize() {
+        List<SinglePlayerLeaderboardScore> leaderboardScores = SinglePlayerState.getLeaderboardScores();
 
-                List<SinglePlayerLeaderboardScore> leaderboardScores = SinglePlayerState.getLeaderboardScores();
+        int currentNodeIndex = 0;
+        List<Node> presentPlayers = bubbles.getChildren();
+        Collections.reverse(leaderboardScores);
 
-                int currentNodeIndex = 0;
-                List<Node> presentPlayers = bubbles.getChildren();
-                Collections.reverse(leaderboardScores);
-
-                for (SinglePlayerLeaderboardScore singleplayer : leaderboardScores) {
-                    Node currentNode = presentPlayers.get(currentNodeIndex);
-                    ((Label) currentNode).setText(singleplayer.getUsername() + " " + singleplayer.getScore());
-                    currentNode.setVisible(true);
-                    currentNodeIndex++;
-                    if (currentNodeIndex > PLAYERSCOUNT) {
-                        break;
-                    }
-                }
-                for (int i = currentNodeIndex; i <= PLAYERSCOUNT; i++) {
-                    Node currentNode = presentPlayers.get(currentNodeIndex);
-                    currentNode.setVisible(false);
-                }
+        for (SinglePlayerLeaderboardScore singleplayer : leaderboardScores) {
+            Node currentNode = presentPlayers.get(currentNodeIndex);
+            ((Label) currentNode).setText(singleplayer.getUsername() + " " + singleplayer.getScore());
+            currentNode.setVisible(true);
+            currentNodeIndex++;
+            if (currentNodeIndex > PLAYERSCOUNT) {
+                break;
+            }
+        }
+        for (int i = currentNodeIndex; i <= PLAYERSCOUNT; i++) {
+            Node currentNode = presentPlayers.get(currentNodeIndex);
+            currentNode.setVisible(false);
+        }
 
     }
 }
