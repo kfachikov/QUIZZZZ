@@ -200,4 +200,23 @@ class ActivityControllerTest {
         GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils(repo, random);
         assertNotNull(generateQuestionUtils.generate20Questions());
     }
+
+
+    @Test
+    void getImages() {
+        Activity activity1 = new Activity("newId", "newTitle", "newSource", "00/newImage.png", 200L);
+        Activity activity2 = new Activity("newId2", "newTitle2", "newSource2", "00/newImage2.png", 201L);
+        Activity activity3 = new Activity("newId3", "newTitle3", "newSource3", "00/newImage3.png", 202L);
+        Activity activity4 = new Activity("newId4", "newTitle4", "newSource4", "00/newImage4.png", 203L);
+
+        List<Activity> activities = new ArrayList<>();
+        activities.add(activity1);
+        activities.add(activity2);
+        activities.add(activity3);
+        activities.add(activity4);
+        repo.saveAll(activities);
+        ctrl.addActivities(activities);
+        assertNotNull(ctrl.getImages());
+    }
+
 }
