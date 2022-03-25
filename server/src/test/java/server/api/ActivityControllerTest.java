@@ -216,7 +216,7 @@ class ActivityControllerTest {
         activities.add(activity4);
         repo.saveAll(activities);
         ctrl.addActivities(activities);
-        assertNotNull(ctrl.getImages());
+        assertNotNull(ctrl.getImages(activity1));
     }
 
 }

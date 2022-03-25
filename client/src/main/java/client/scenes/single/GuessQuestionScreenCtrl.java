@@ -143,7 +143,6 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
 
         Image newImage = new Image(server.getAllImages(question.getActivity().getImage()));
         image.setImage(newImage);
-
         this.question = question;
         inputFieldDefault();
         description.setText(question.getActivity().getTitle());

@@ -58,14 +58,11 @@ public class MyModule implements Module {
         binder.bind(SingleplayerGameStatePollingService.class).in(Scopes.SINGLETON);
         binder.bind(SinglePlayerUtils.class).in(Scopes.SINGLETON);
         binder.bind(HomeUtils.class).in(Scopes.SINGLETON);
-
         binder.bind(MultiplayerCtrl.class).in(Scopes.SINGLETON);
-
         binder.bind(MultiGameQuestionAScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(MultiGameQuestionBScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(MultiGameQuestionCScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(MultiGameQuestionDScreenCtrl.class).in(Scopes.SINGLETON);
-
         binder.bind(MultiGameMockScreenCtrl.class).in(Scopes.SINGLETON);
 
     }

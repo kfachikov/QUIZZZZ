@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
-import java.nio.charset.StandardCharsets;
+
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -149,18 +150,19 @@ public class ActivityController {
     /**
      * Creates a ByteArrayResource for the images of activities.
      *
+     * @param activity The path of the image.
+     *
      * @return ResponseEntity consisting of the ByteArrayResource of images
      */
-    @GetMapping("")
-    public ResponseEntity<ByteArrayResource> getImages() {
-        List<Activity> activityList = repo.findAll();
-        String images = new String();
-        int i = 0;
-        for (Activity activity : activityList) {
-            images = images + activity.getImage();
-            i++;
+    @GetMapping("/{imagePath}")
+    public ResponseEntity<ByteArrayResource> getImages(@RequestBody Activity activity) {
+        String path = activity.getImage();
+        byte[] array = new byte[path.length()];
+        try {
+            array = path.getBytes("ASCII");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-        byte[] array = images.getBytes(StandardCharsets.UTF_8);
         ByteArrayResource byteArrayResource = new ByteArrayResource(array);
         return ResponseEntity.ok(byteArrayResource);
     }
