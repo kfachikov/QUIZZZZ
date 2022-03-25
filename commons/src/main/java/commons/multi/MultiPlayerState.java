@@ -23,7 +23,7 @@ public class MultiPlayerState extends GameState {
 
     private List<MultiPlayer> players;
     private Reaction reaction;
-    private long id;
+    private static long id;
 
     /**
      * Default constructor to be used for the JSON parsing.
@@ -77,7 +77,7 @@ public class MultiPlayerState extends GameState {
      *
      * @return id of the game.
      */
-    public long getId() {
+    public static long getId() {
         return id;
     }
 
