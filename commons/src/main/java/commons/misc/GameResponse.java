@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * The Response class will be used in the response controller to send or receive the answers of the player.
  */
-public class Response {
+public class GameResponse {
 
     private long gameId;
     private double timeSubmitted;
@@ -13,7 +13,7 @@ public class Response {
     private String playerUsername;
     private String answerChoice;
 
-    private Response() {
+    private GameResponse() {
 
     }
 

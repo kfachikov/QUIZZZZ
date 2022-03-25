@@ -5,7 +5,7 @@ import client.services.SingleplayerGameStatePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
-import commons.misc.Response;
+import commons.misc.GameResponse;
 import commons.question.MoreExpensiveQuestion;
 import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
@@ -189,7 +189,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new Response(singlePlayerState.getId(),
+        server.postAnswer(new GameResponse(singlePlayerState.getId(),
                 new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
@@ -223,9 +223,12 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
      */
     public void setQuestion(MoreExpensiveQuestion question) {
 
-        image1.setImage(new Image(question.getAnswerChoices().get(0).getImage()));
-        image2.setImage(new Image(question.getAnswerChoices().get(1).getImage()));
-        image3.setImage(new Image(question.getAnswerChoices().get(2).getImage()));
+        Image newImage1 = new Image(server.getAllImages(question.getAnswerChoices().get(0).getImage()));
+        image1.setImage(newImage1);
+        Image newImage2 = new Image(server.getAllImages(question.getAnswerChoices().get(1).getImage()));
+        image1.setImage(newImage2);
+        Image newImage3 = new Image(server.getAllImages(question.getAnswerChoices().get(2).getImage()));
+        image1.setImage(newImage3);
 
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);

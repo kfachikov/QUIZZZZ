@@ -5,7 +5,7 @@ import client.services.SingleplayerGameStatePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
-import commons.misc.Response;
+import commons.misc.GameResponse;
 import commons.question.ConsumptionQuestion;
 import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
@@ -118,7 +118,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new Response(singlePlayerState.getId(),
+        server.postAnswer(new GameResponse(singlePlayerState.getId(),
                 new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
@@ -160,7 +160,8 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     public void setQuestion(ConsumptionQuestion question) {
 
-        image.setImage(new Image(question.getActivity().getImage()));
+        Image newImage = new Image(server.getAllImages(question.getActivity().getImage()));
+        image.setImage(newImage);
 
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
