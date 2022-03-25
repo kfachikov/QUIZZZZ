@@ -58,3 +58,23 @@
     -fx-border-color: #c62828;
     -fx-border-radius: 15;
 }
+
+#emojiButton1 {
+    -fx-background-color: #00000000;
+    -fx-border-color: #00000000;
+}
+
+#emojiButton2 {
+    -fx-background-color: #00000000;
+    -fx-border-color: #00000000;
+}
+
+#emojiButton3 {
+    -fx-background-color: #00000000;
+    -fx-border-color: #00000000;
+}
+
+#emojiButton4 {
+    -fx-background-color: #00000000;
+    -fx-border-color: #00000000;
+}
