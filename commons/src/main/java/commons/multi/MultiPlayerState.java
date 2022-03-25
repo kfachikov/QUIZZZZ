@@ -77,7 +77,7 @@ public class MultiPlayerState extends GameState {
      *
      * @return id of the game.
      */
-    public static long getId() {
+    public long getId() {
         return id;
     }
 
