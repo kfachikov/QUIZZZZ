@@ -29,8 +29,6 @@ public class PrepScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
-    private SinglePlayerLeaderboardScore leaderboardscore;
-
     /*
     The following field is required to store the `SinglePlayer` instance,
     consisting of the username entered on the `Main Screen` and a default score - 0.
