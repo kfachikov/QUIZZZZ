@@ -19,7 +19,7 @@ import java.util.Objects;
 })
 public abstract class GameState {
 
-    private long id;
+    private static long id;
     private long nextPhase;
     private int roundNumber;
     private List<AbstractQuestion> questionList;
@@ -62,7 +62,7 @@ public abstract class GameState {
      *
      * @return id of the game.
      */
-    public long getId() {
+    public static long getId() {
         return id;
     }
 
