@@ -64,7 +64,7 @@ public class Config {
      */
     @Bean
     public SinglePlayerStateUtils getSinglePlayerStateUtils() {
-        return new SinglePlayerStateUtils(getGenerateQuestionUtils());
+        return new SinglePlayerStateUtils(getGenerateQuestionUtils(), getCurrentTimeUtils());
     }
 
     /**

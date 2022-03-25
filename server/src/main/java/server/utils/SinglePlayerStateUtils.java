@@ -19,10 +19,14 @@ import java.util.*;
 public class SinglePlayerStateUtils {
 
     private final Map<Long, SinglePlayerState> games;
-    private final GenerateQuestionUtils generateQuestionUtils;
 
-    public SinglePlayerStateUtils(GenerateQuestionUtils generateQuestionUtils) {
+    private final GenerateQuestionUtils generateQuestionUtils;
+    private final CurrentTimeUtils currentTime;
+
+    public SinglePlayerStateUtils(GenerateQuestionUtils generateQuestionUtils, CurrentTimeUtils currentTime) {
         this.generateQuestionUtils = generateQuestionUtils;
+        this.currentTime = currentTime;
+
         games = new HashMap<>();
     }
 
@@ -66,7 +70,7 @@ public class SinglePlayerStateUtils {
      * @param game SinglePlayer game state to update
      */
     public void updateState(SinglePlayerState game) {
-        long time = new Date().getTime();
+        long time = currentTime.getTime();
 
         // Check if we should be changing the state of the game
         if (time >= game.getNextPhase()) {
@@ -193,7 +197,7 @@ public class SinglePlayerStateUtils {
             maxKey = Collections.max(keys);
         }
         long id = maxKey + 1;
-        long nextTransition = new Date().getTime() + 8000;
+        long nextTransition = currentTime.getTime() + 8000;
         int roundNumber = 0;
         List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions();
         List<Response> submittedAnswers = new ArrayList<>();

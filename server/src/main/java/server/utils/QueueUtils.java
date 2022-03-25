@@ -5,7 +5,6 @@ import commons.queue.QueueUser;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -111,7 +110,7 @@ public class QueueUtils {
             return false;
         } else {
             queueState.setGameStarting(true);
-            queueState.setStartTimeInMs(new Date().getTime() + 3000);
+            queueState.setStartTimeInMs(currentTime.getTime() + 3000);
 
             long upcomingGameId = onStart.get();
             queueState.setUpcomingGameId(upcomingGameId);

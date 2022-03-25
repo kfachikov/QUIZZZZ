@@ -8,7 +8,10 @@ import commons.question.AbstractQuestion;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Utility class providing functionality for the multiplayer game mode.
@@ -22,17 +25,23 @@ public class MultiPlayerStateUtils {
 
     private final GenerateQuestionUtils generateQuestionUtils;
     private final QueueUtils queueUtils;
+    private final CurrentTimeUtils currentTime;
 
     /**
      * Constructor for multiplayer server-side utility class.
      *
      * @param generateQuestionUtils is the "generate questions" utility bean injected by Spring.
      * @param queueUtils            is the class responsible for managing the queue.
+     * @param currentTime           CurrentTimeUtils instance for getting the current time.
      */
     public MultiPlayerStateUtils(GenerateQuestionUtils generateQuestionUtils,
-                                 QueueUtils queueUtils) {
+                                 QueueUtils queueUtils,
+                                 CurrentTimeUtils currentTime
+    ) {
         this.generateQuestionUtils = generateQuestionUtils;
         this.queueUtils = queueUtils;
+        this.currentTime = currentTime;
+
         this.games = new HashMap<>();
 
         nextGame = createNextGame();
@@ -102,7 +111,7 @@ public class MultiPlayerStateUtils {
      * @return true iff current time is beyond time of update for the state of the game.
      */
     public boolean checkIfUpdate(MultiPlayerState game) {
-        return game.getNextPhase() <= new Date().getTime();
+        return game.getNextPhase() <= currentTime.getTime();
     }
 
     /**
@@ -240,7 +249,7 @@ public class MultiPlayerStateUtils {
         long upcomingGameId = nextGame.getId();
         // We set the time of the next phase to +3s, since this method is called
         // whenever anyone in the queue clicks "Go!"
-        nextGame.setNextPhase(new Date().getTime() + 3000);
+        nextGame.setNextPhase(currentTime.getTime() + 3000);
         nextGame.setState(MultiPlayerState.STARTING_STATE);
 
         games.put(nextGame.getId(), nextGame);

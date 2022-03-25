@@ -14,6 +14,8 @@ class MultiPlayerStateUtilsTest {
     private MockCurrentTimeUtils currentTime;
     private MockQueueUtils queueUtils;
 
+    private MultiPlayerStateUtils multiUtils;
+
     @BeforeEach
     void setUp() {
         activityRepository = new MockActivityRepository();
@@ -22,6 +24,8 @@ class MultiPlayerStateUtilsTest {
 
         currentTime = new MockCurrentTimeUtils();
         queueUtils = new MockQueueUtils(currentTime);
+
+        multiUtils = new MultiPlayerStateUtils(generateQuestionUtils, queueUtils, currentTime);
 
     }
 
