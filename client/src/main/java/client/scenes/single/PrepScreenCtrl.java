@@ -24,7 +24,7 @@ public class PrepScreenCtrl {
     /**
      * Initialize class constant for the number of player's usernames visible on screen.
      */
-    private static final int PLAYERSCOUNT = 16;
+    private static final int PLAYERSCOUNT = 20;
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
