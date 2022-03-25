@@ -15,13 +15,13 @@ public class SinglePlayerState extends GameState {
     public static final String QUESTION_STATE = "QUESTION";
     public static final String GAME_OVER_STATE = "GAME_OVER";
     public static final String TRANSITION_STATE = "TRANSITION";
+    private static List<SinglePlayerLeaderboardScore> leaderboardScores;
     private SinglePlayer player;
     private List<Response> finalAnswers;
 
-    /**
-     * List of leaderboardScores currently in the database.
-     */
-    private List<SinglePlayerLeaderboardScore> leaderboardScores;
+    public SinglePlayerState() {
+
+    }
 
     /**
      * Constructor for the state of the solo game.
@@ -75,7 +75,7 @@ public class SinglePlayerState extends GameState {
     /**
      * @return list of leaderboardscores
      */
-    public List<SinglePlayerLeaderboardScore> getLeaderboardScores() {
+    public static List<SinglePlayerLeaderboardScore> getLeaderboardScores() {
         return leaderboardScores;
     }
 
