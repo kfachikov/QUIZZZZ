@@ -7,6 +7,7 @@ import client.scenes.multi.question.MultiGameQuestionCScreenCtrl;
 import client.scenes.multi.question.MultiGameQuestionDScreenCtrl;
 import client.services.MultiplayerGameStatePollingService;
 import client.utils.ServerUtils;
+import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.question.*;
 import javafx.beans.value.ChangeListener;
@@ -52,7 +53,7 @@ public class MultiplayerCtrl {
 
     private final ChangeListener<MultiPlayerState> onPoll = (observable, oldValue, newValue) -> {
         // If state has changed, we probably have to switch scenes
-        if (oldValue == null || !newValue.getState().equals(oldValue.getState())) {
+        if (newValue != null && (oldValue == null || !newValue.getState().equals(oldValue.getState()))) {
             switchState(newValue);
         }
     };
@@ -127,6 +128,7 @@ public class MultiplayerCtrl {
         this.username = username;
 
         pollingService.start(gameId);
+        serverUtils.addMultiPlayer(new MultiPlayer(username, 0, true, true, true));
 
         switchState(pollingService.poll());
     }

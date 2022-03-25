@@ -1,12 +1,10 @@
 package server.api;
 
+import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import server.utils.MultiPlayerStateUtils;
 
 
@@ -51,6 +49,29 @@ public class MultiplayerStateController {
                 return ResponseEntity.notFound().build();
             } else {
                 return ResponseEntity.ok(game);
+            }
+        }
+    }
+
+    /**
+     * POST mapping for a player in a multiplayer game.
+     * <p>
+     * Adds the player to the game with the given id.
+     *
+     * @param id     Id of the multiplayer game.
+     * @param player MultiPlayer that is added.
+     * @return MultiPlayer that was added
+     */
+    @PostMapping("/{id}/player/")
+    public ResponseEntity<MultiPlayer> addMultiPlayer(@PathVariable("id") long id, @RequestBody MultiPlayer player) {
+        if (id < 0) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            MultiPlayer multiPlayer = multiUtils.addPlayer(id, player);
+            if (multiPlayer == null) {
+                return ResponseEntity.badRequest().build();
+            } else {
+                return ResponseEntity.ok(multiPlayer);
             }
         }
     }

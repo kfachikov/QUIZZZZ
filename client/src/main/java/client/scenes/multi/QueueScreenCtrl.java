@@ -200,7 +200,7 @@ public class QueueScreenCtrl {
          */
         countdownService.getTimeline().setOnFinished(event -> {
             Long upcomingGameId = countdownService.getValue();
-            multiCtrl.start(upcomingGameId, user.getUsername());
+            multiCtrl.start(upcomingGameId, leaveQueue().getUsername());
         });
     }
 

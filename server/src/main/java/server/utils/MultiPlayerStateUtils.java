@@ -59,6 +59,32 @@ public class MultiPlayerStateUtils {
     }
 
     /**
+     * Add a player to a multiplayer game.
+     * <p>
+     * Verifies that the player is valid and can be added to the game, and
+     * then adds the player.
+     *
+     * @param id     Id of the multiplayer game.
+     * @param player MultiPlayer to add.
+     * @return Player that was added iff they were added.
+     */
+    public MultiPlayer addPlayer(long id, MultiPlayer player) {
+        MultiPlayerState game = getGameState(id);
+        if (game == null) {
+            return null;
+        } else if (player == null) {
+            return null;
+        } else if (player.getUsername() == null || player.getUsername().isEmpty()) {
+            return null;
+        } else if (game.getPlayers().contains(player)) {
+            return null;
+        } else {
+            game.getPlayers().add(player);
+            return player;
+        }
+    }
+
+    /**
      * Check and update (if needed) the state of the game.
      *
      * @param game Multiplayer game whose state is to be checked and updated.

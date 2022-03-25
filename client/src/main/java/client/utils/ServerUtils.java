@@ -18,6 +18,7 @@ package client.utils;
 import commons.misc.Activity;
 import commons.misc.GameState;
 import commons.misc.Response;
+import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
@@ -165,6 +166,9 @@ public class ServerUtils {
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(null, QueueState.class);
+    }
+
+    public void addMultiPlayer(MultiPlayer multiPlayer) {
     }
 
     /**
