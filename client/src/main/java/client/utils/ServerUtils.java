@@ -178,7 +178,7 @@ public class ServerUtils {
     public MultiPlayer addMultiPlayer(long id, MultiPlayer multiPlayer) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/api/multi/" + id)
+                .path("/api/multi/players/" + String.valueOf(id))
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(multiPlayer, APPLICATION_JSON), MultiPlayer.class);
