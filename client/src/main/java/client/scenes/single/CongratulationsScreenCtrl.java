@@ -2,6 +2,7 @@ package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
 import client.utils.ServerUtils;
+import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.single.SinglePlayer;
 import javafx.fxml.FXML;
@@ -18,10 +19,9 @@ public class CongratulationsScreenCtrl {
     private final MainCtrl mainCtrl;
 
     /*
-    The following field is required to store the `SinglePlayer` instance,
-    consisting of the username entered on the `Main Screen` and a default score - 0.
+    The following field contains the game state and the player instance of the game just finished.
      */
-    private SinglePlayer singlePlayer;
+    private SinglePlayerUtils singlePlayerUtils;
 
     @FXML
     private Text position;
@@ -94,21 +94,30 @@ public class CongratulationsScreenCtrl {
      *
      * @param server   is the server variable
      * @param mainCtrl is the main controller variable
+     * @param singlePlayerUtils is the shared single-player utility instance
      */
     @Inject
-    public CongratulationsScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public CongratulationsScreenCtrl(ServerUtils server, MainCtrl mainCtrl, SinglePlayerUtils singlePlayerUtils) {
         this.mainCtrl = mainCtrl;
         this.server = server;
+        this.singlePlayerUtils = singlePlayerUtils;
     }
 
+    /*
+    I believe the following method is useless for now. Perhaps once the questionColor()
+    and showPosition() functionality is implemented.
+
+    In addition, this is a method to initialize the functionality of the scene, so the functionality of
+    each circle to be clicked would be implemented here.
+     */
     /**
      * shows correct/incorrect answers, the points the user scored and the position the user acquired immediately when
      * arriving to this scene.
      */
     public void initialize() {
-        questionColor();
-        showPoints();
-        showPosition();
+        /*
+        Actions handlers on circular "buttons" should be established here.
+         */
     }
 
     /**
@@ -119,12 +128,21 @@ public class CongratulationsScreenCtrl {
     }
 
     /**
-     * sets the scene and title to single-player game.
+     * Establishes a new game on the server.
      */
     public void playSoloGame() {
-        mainCtrl.showSoloGameQuestion(singlePlayer, server.startSinglePlayerGame(singlePlayer));
+        /*
+        The player will begin the new game with the same username, but his points should be set
+        to the default value - 0;
+         */
+        SinglePlayer newPlayer = new SinglePlayer(singlePlayerUtils.getSinglePlayerState().getPlayer().getUsername(), 0);
+        singlePlayerUtils.setSinglePlayerAttributes(server.startSinglePlayerGame(newPlayer));
+        mainCtrl.playSoloGame(singlePlayerUtils);
     }
 
+    /*
+    The following method would be implemented later, as it would require some additional set up in the MainCtrl.
+     */
     /**
      * redirects the user to the answer corresponding to the button clicked by the user.
      */
@@ -132,11 +150,14 @@ public class CongratulationsScreenCtrl {
         var id = -1;
         for (int i = 0; i <= 20; i++) {
             if (i == id) {
-                mainCtrl.showSoloGameQuestion(singlePlayer, server.startSinglePlayerGame(singlePlayer));
+                //mainCtrl.showSoloGameQuestion(singlePlayer, server.startSinglePlayerGame(singlePlayer));
             }
         }
     }
 
+    /*
+    The following method would not be working as a "constant" boolean value is used - namely `correct`.
+     */
     /**
      * reveals if the answers picked by the user were correct or incorrect.
      */
@@ -156,17 +177,16 @@ public class CongratulationsScreenCtrl {
     }
 
     /**
-     * shows points scored by the user.
+     * Sets the score of the player at the corresponding position.
      */
-    public void showPoints() {
-        var point = "0";
-        points.setText(point);
+    public void setPoints() {
+        points.setText(String.valueOf(singlePlayerUtils.getSinglePlayerState().getPlayer().getScore()));
     }
 
     /**
      * shows the position acquired by the user.
      */
-    public void showPosition() {
+    public void setPosition() {
         var place = "1";
         position.setText(place);
     }

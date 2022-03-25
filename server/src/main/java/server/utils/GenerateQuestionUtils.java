@@ -2,29 +2,26 @@ package server.utils;
 
 import commons.misc.Activity;
 import commons.question.*;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
+@Component
+@ComponentScan(basePackageClasses = Random.class)
 public class GenerateQuestionUtils {
 
-    public List<Long> distinctList(Random random, long count, long upper) {
-        List<Long> result = new ArrayList<>();
-        if (upper < count) {
-            throw new IllegalArgumentException();
-        }
-        for (long i = 0; i < upper; i++) {
-            result.add(i);
-        }
-        Collections.shuffle(result, random);
-        return result.stream().limit(count).collect(Collectors.toList());
+    private final Random random;
+
+    public GenerateQuestionUtils(Random random) {
+        this.random = random;
     }
 
-    public List<AbstractQuestion> generate20Questions(Random random, ActivityRepository repo) {
+    public List<AbstractQuestion> generate20Questions(ActivityRepository repo) {
 
         List<AbstractQuestion> result = new ArrayList<>();
         List<Activity> activities = repo.findAll();
@@ -33,7 +30,10 @@ public class GenerateQuestionUtils {
         Collections.shuffle(activities, random);
 
         while (questionNumber <= 5) {
-            Activity activity = activities.get(questionNumber);
+            if (questionNumber > activities.size()) {
+                break;
+            }
+            Activity activity = activities.get(questionNumber - 1);
             InsteadQuestion insteadQuestion = new InsteadQuestion(activity);
             insteadQuestion.setAnswerChoices(activities);
             result.add(insteadQuestion);
@@ -41,7 +41,10 @@ public class GenerateQuestionUtils {
         }
 
         while (questionNumber <= 10) {
-            Activity activity = activities.get(questionNumber);
+            if (questionNumber > activities.size()) {
+                break;
+            }
+            Activity activity = activities.get(questionNumber - 1);
             ConsumptionQuestion consumptionQuestion = new ConsumptionQuestion(activity);
             consumptionQuestion.setAnswerChoices();
             result.add(consumptionQuestion);
@@ -49,6 +52,9 @@ public class GenerateQuestionUtils {
         }
 
         while (questionNumber <= 15) {
+            if (questionNumber > activities.size()) {
+                break;
+            }
             MoreExpensiveQuestion moreExpensiveQuestion = new MoreExpensiveQuestion();
             moreExpensiveQuestion.setAnswerChoices(activities);
             result.add(moreExpensiveQuestion);
@@ -56,7 +62,10 @@ public class GenerateQuestionUtils {
         }
 
         while (questionNumber <= 20) {
-            Activity activity = activities.get(questionNumber);
+            if (questionNumber > activities.size()) {
+                break;
+            }
+            Activity activity = activities.get(questionNumber - 1);
             GuessQuestion guessQuestionType = new GuessQuestion(activity);
             result.add(guessQuestionType);
             questionNumber++;

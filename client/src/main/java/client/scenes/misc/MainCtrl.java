@@ -15,12 +15,15 @@
  */
 package client.scenes.misc;
 
+
 import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
+import client.utils.SinglePlayerUtils;
+import commons.misc.GameState;
+import commons.question.*;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
-import commons.single.SinglePlayerState;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,10 +32,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+
 import java.io.File;
 
 /**
- *
+ * Main controller which would take care of all scene and controller changes.
  */
 public class MainCtrl {
 
@@ -49,9 +53,6 @@ public class MainCtrl {
 
     private QueueScreenCtrl queueCtrl;
     private Scene queue;
-
-    private SoloGameQuestionScreenCtrl soloGameCtrl;
-    private Scene soloGame;
 
     private AdministratorScreenCtrl administratorCtrl;
     private Scene administrator;
@@ -74,26 +75,32 @@ public class MainCtrl {
     private CongratulationsScreenCtrl congratulationsCtrl;
     private Scene congratulations;
 
+    /*
+    Instance of the utility class for the single-player game mode.
+    Would be used for some in-game logic.
+     */
+    private SinglePlayerUtils singlePlayerUtils;
+
+
+
     /**
-     * @param primaryStage  is the Stage representing the initial stage variable.
-     * @param home          is the home screen pair variable
-     * @param help          is the help screen pair variable
-     * @param prep          is the prepare screen pair variable
-     * @param soloGame      Solo game question screen pair variable
-     * @param queue         Queue screen pair variable
-     * @param administrator Administrator screen pair variable
-     * @param multiGame     Multiplayer game question screen pair variable
-     * @param moreExpensive is the moreExpensiveQuestion screen pair variable
-     * @param consumption   is the consumptionQuestion screen pair variable
-     * @param instead       is the insteadQuestion screen pair variable
-     * @param guess         is the guessQuestion screen pair variable
+     * @param primaryStage    is the Stage representing the initial stage variable.
+     * @param home            is the home screen pair variable
+     * @param help            is the help screen pair variable
+     * @param prep            is the prepare screen pair variable
+     * @param queue           is the queue screen pair variable
+     * @param administrator   is the administrator panel screen panel pair variable
+     * @param multiGame       is the multiplayer game screen pair variable
+     * @param moreExpensive   is the moreExpensiveQuestion screen pair variable
+     * @param consumption     is the consumptionQuestion screen pair variable
+     * @param instead         is the insteadQuestion screen pair variable
+     * @param guess           is the guessQuestion screen pair variable
      * @param congratulations is the congratulations screen pair variable
      */
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
                            Pair<HelpScreenCtrl, Parent> help,
                            Pair<PrepScreenCtrl, Parent> prep,
-                           Pair<SoloGameQuestionScreenCtrl, Parent> soloGame,
                            Pair<QueueScreenCtrl, Parent> queue,
                            Pair<AdministratorScreenCtrl, Parent> administrator,
                            Pair<MultiGameQuestionScreenCtrl, Parent> multiGame,
@@ -116,9 +123,6 @@ public class MainCtrl {
 
         this.queueCtrl = queue.getKey();
         this.queue = new Scene(queue.getValue());
-
-        this.soloGameCtrl = soloGame.getKey();
-        this.soloGame = new Scene(soloGame.getValue());
 
         this.administratorCtrl = administrator.getKey();
         this.administrator = new Scene(administrator.getValue());
@@ -180,19 +184,18 @@ public class MainCtrl {
     }
 
     /**
-     * sets the title and the scene as single-player game.
+     * Method called from the PrepScreenCtrl once the "GO!" button is pressed.
+     * Passed as arguments are the instance for the current player, and the game he is "connected" to.
+     * <p>
+     * Initializes both polling service, fields in separate screen controllers, and makes the initial call
+     * so the first question is shown.
      *
-     * @param singlePlayer      SinglePlayer who is playing the game.
-     * @param singlePlayerState SinglePlayerState of the game
+     * @param singlePlayerUtils is the shared single-player utility instance.
      */
-    public synchronized void showSoloGameQuestion(SinglePlayer singlePlayer, SinglePlayerState singlePlayerState) {
+    public void playSoloGame(SinglePlayerUtils singlePlayerUtils) {
+        this.singlePlayerUtils = singlePlayerUtils;
+        singlePlayerUtils.chooseNextQuestion();
         primaryStage.setTitle("Quizzz: Single-player Game");
-        primaryStage.setScene(soloGame);
-        soloGameCtrl.startTimer();
-        soloGameCtrl.setSinglePlayer(singlePlayer);
-        soloGameCtrl.setSinglePlayerState(singlePlayerState);
-        soloGameCtrl.getPollingService().setSinglePlayerState(singlePlayerState);
-        soloGameCtrl.getPollingService().start();
     }
 
     /**
@@ -201,13 +204,14 @@ public class MainCtrl {
      * the QueueUser instance of the person joining the queue.
      *
      * @param user QueueUser which is joining the queue
+     * @param serverAddress server address to be shown in the queue screen
      */
-    public void showQueue(QueueUser user) {
+    public void showQueue(QueueUser user, String serverAddress) {
         primaryStage.setTitle("Quizzz: Queue");
         primaryStage.setScene(queue);
         queueCtrl.getPollingService().start();
         queueCtrl.setUser(user);
-        queueCtrl.setServerAddress(homeCtrl.getServer());
+        queueCtrl.setServerAddress(serverAddress);
         queueCtrl.resetScene();
     }
 
@@ -243,39 +247,47 @@ public class MainCtrl {
     }
 
     /**
-     * sets the title and the scene as moreExpensiveQuestion screen.
+     * "Redirects" the client to the scene of MoreExpensiveQuestion type.
+     *
+     * @param question Question to be loaded - the next from the sequence.
      */
-    public void showMoreExpensiveQuestion() {
-        primaryStage.setTitle("Quizzz: MoreExpensiveQuestion");
+    public void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
+        singlePlayerUtils.setCurrentController(moreExpensiveCtrl);
+        moreExpensiveCtrl.setQuestion(question);
         primaryStage.setScene(moreExpensive);
-        moreExpensiveCtrl.startTimer();
     }
 
     /**
-     * sets the title and the scene as consumptionQuestion screen.
+     * "Redirects" the client to the scene of ConsumptionQuestion type.
+     *
+     * @param question Question to be loaded - the next from the sequence.
      */
-    public void showConsumptionQuestion() {
-        primaryStage.setTitle("Quizzz: ConsumptionQuestion");
+    public void showConsumptionQuestion(ConsumptionQuestion question) {
+        singlePlayerUtils.setCurrentController(consumptionCtrl);
+        consumptionCtrl.setQuestion(question);
         primaryStage.setScene(consumption);
-        consumptionCtrl.startTimer();
     }
 
     /**
-     * sets the title and the scene as insteadQuestion screen.
+     * "Redirects" the client to the scene of InsteadQuestion type.
+     *
+     * @param question Question to be loaded - the next from the sequence.
      */
-    public void showInsteadQuestion() {
-        primaryStage.setTitle("Quizzz: InsteadQuestion");
+    public void showInsteadQuestion(InsteadQuestion question) {
+        singlePlayerUtils.setCurrentController(insteadCtrl);
+        insteadCtrl.setQuestion(question);
         primaryStage.setScene(instead);
-        insteadCtrl.startTimer();
     }
 
     /**
-     * sets the title and the scene as guessQuestion screen.
+     * "Redirects" the client to the scene of GuessQuestion type.
+     *
+     * @param question Question to be loaded - the next from the sequence.
      */
-    public void showGuessQuestion() {
-        primaryStage.setTitle("Quizzz: GuessQuestion");
+    public void showGuessQuestion(GuessQuestion question) {
+        singlePlayerUtils.setCurrentController(guessCtrl);
+        guessCtrl.setQuestion(question);
         primaryStage.setScene(guess);
-        insteadCtrl.startTimer();
     }
 
     /**
@@ -283,6 +295,8 @@ public class MainCtrl {
      */
     public void showCongratulations() {
         primaryStage.setTitle("Quizzz: Congratulations");
+        congratulationsCtrl.setPoints();
         primaryStage.setScene(congratulations);
     }
+
 }

@@ -21,6 +21,7 @@ import commons.misc.Response;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
+import commons.single.SinglePlayerLeaderboardScore;
 import commons.single.SinglePlayerState;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -38,24 +39,16 @@ public class ServerUtils {
 
     private static String currentServer;
 
-    /*
-    The following endpoint is somehow useless currently, as we plan not to use
-    SingleUser at all (how the initial endpoint have been created), or
-    SinglePlayer as entities which we would store.
-    Thus, I believe the endpoint could be properly renamed and used for
-    SinglePlayerLeaderboardScore entities, but some refactoring would be required.
-    Also, I suggest changing the server path, as this one is a bit unclear.
-     */
     /**
-     * @param singlePlayer is a Singleplayer entity.
-     * @return it returns a client Singleplayer.
+     * @param leaderboardEntry is a SinglePlayerLeaderboardScore entity.
+     * @return it returns a client SinglePlayerLeaderboardScore.
      */
-    public SinglePlayer addSinglePlayer(SinglePlayer singlePlayer) {
+    public SinglePlayerLeaderboardScore addSinglePlayer(SinglePlayerLeaderboardScore leaderboardEntry) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(currentServer).path("/api/users") //
+                .target(currentServer).path("/api/leaderboard/players") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .post(Entity.entity(singlePlayer, APPLICATION_JSON), SinglePlayer.class);
+                .post(Entity.entity(leaderboardEntry, APPLICATION_JSON), SinglePlayerLeaderboardScore.class);
     }
 
     /**
@@ -188,5 +181,14 @@ public class ServerUtils {
                 .accept(APPLICATION_JSON)
                 .get(new GenericType<List<Activity>>() {
                 });
+    }
+
+    public List<Activity> importActivities(String fileAsString) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/addToRepo")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<Activity>>() {});
     }
 }

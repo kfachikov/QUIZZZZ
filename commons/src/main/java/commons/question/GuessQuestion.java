@@ -41,4 +41,8 @@ public class GuessQuestion extends AbstractQuestion {
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
+
+    public String getCorrectAnswer() {
+        return activity.getConsumption().toString();
+    }
 }

@@ -41,7 +41,7 @@ public abstract class GameState {
      * @param nextPhase        the time of the next phase.
      * @param roundNumber      the round number of the game.
      * @param questionList     the list of question for a game.
-     * @param submittedAnswers the answers submitted by players during game.
+     * @param submittedAnswers the answers submitted by players during game in a single round.
      * @param activityList     the list of activities used for the game.
      * @param state            the status of the game.
      */
@@ -94,10 +94,11 @@ public abstract class GameState {
         return roundNumber;
     }
 
+
     /**
      * Getter for the answer submitted.
      *
-     * @return a list of Responses representing the answer given by the players.
+     * @return a list of Responses representing the answers given by the players in a single round.
      */
     public List<Response> getSubmittedAnswers() {
         return submittedAnswers;
@@ -213,5 +214,9 @@ public abstract class GameState {
     @Override
     public int hashCode() {
         return Objects.hash(nextPhase, roundNumber, questionList, submittedAnswers, activityList, state);
+    }
+
+    public void addSubmittedAnswer(Response response) {
+        this.submittedAnswers.add(response);
     }
 }
