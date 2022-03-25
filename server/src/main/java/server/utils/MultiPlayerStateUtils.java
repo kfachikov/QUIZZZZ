@@ -230,7 +230,12 @@ public class MultiPlayerStateUtils {
         game.setNextPhase(nextPhase + 3000);
     }
 
-    private void updateScores(MultiPlayerState game) {
+    /**
+     * Update scores of all the players.
+     *
+     * @param game Game whose players' scores is updated.
+     */
+    public void updateScores(MultiPlayerState game) {
 
     }
 
