@@ -14,7 +14,7 @@ import javax.inject.Inject;
  * The task of this class will continuously update its temporary value to the
  * current state of the ongoing game.
  */
-public class GameStatePollingService extends Service<GameState> {
+public class SingleplayerGameStatePollingService extends Service<GameState> {
 
     private final ServerUtils server;
     private SinglePlayerState singlePlayerState;
@@ -25,7 +25,7 @@ public class GameStatePollingService extends Service<GameState> {
      * @param server Injected ServerUtils instance
      */
     @Inject
-    public GameStatePollingService(ServerUtils server) {
+    public SingleplayerGameStatePollingService(ServerUtils server) {
         this.server = server;
     }
 

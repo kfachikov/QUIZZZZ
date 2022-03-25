@@ -68,9 +68,9 @@ class SinglePlayerStateTest {
 
         player2 = new SinglePlayer("Lu", 10);
 
-        game = new SinglePlayerState(37, 5500, 2, questions, finalAnswers, answers, activities, "question", player1);
-        game2 = new SinglePlayerState(37, 5500, 2, questions, finalAnswers, answers, activities, "question", player1);
-        game3 = new SinglePlayerState(37, 5500, 2, questions, finalAnswers2, answers2, activities, "question", player2);
+        game = new SinglePlayerState(37, 5500, 2, questions, finalAnswers, answers, "question", player1);
+        game2 = new SinglePlayerState(37, 5500, 2, questions, finalAnswers, answers, "question", player1);
+        game3 = new SinglePlayerState(37, 5500, 2, questions, finalAnswers2, answers2, "question", player2);
     }
 
     @Test
@@ -96,11 +96,6 @@ class SinglePlayerStateTest {
     @Test
     public void testGetSubmittedAnswers() {
         assertEquals(answers, game.getSubmittedAnswers());
-    }
-
-    @Test
-    public void testGetActivityList() {
-        assertEquals(activities, game.getActivityList());
     }
 
     @Test
