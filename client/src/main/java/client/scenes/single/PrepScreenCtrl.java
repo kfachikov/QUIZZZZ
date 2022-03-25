@@ -99,6 +99,7 @@ public class PrepScreenCtrl {
 
         int currentNodeIndex = 0;
         List<Node> presentPlayers = bubbles.getChildren();
+        leaderboardScores.sort(null);
         Collections.reverse(leaderboardScores);
 
         for (SinglePlayerLeaderboardScore singleplayer : leaderboardScores) {
