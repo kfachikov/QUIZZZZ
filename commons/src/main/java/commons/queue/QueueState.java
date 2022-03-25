@@ -41,8 +41,10 @@ public class QueueState {
      */
     private long upcomingGameId;
 
+    /**
+     * Default constructor for queue state, used for object mapper.
+     */
     public QueueState() {
-
     }
 
     /**

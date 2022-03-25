@@ -106,6 +106,14 @@ public class ServerUtils {
                 .get(GameState.class);
     }
 
+    /**
+     * GET request to /api/multi
+     * <p>
+     * Used for constant polling of the multiplayer game state.
+     *
+     * @param id Id of the multiplayer game.
+     * @return Multiplayer game state for that id.
+     */
     public MultiPlayerState getMultiGameState(long id) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
@@ -193,6 +201,7 @@ public class ServerUtils {
                 .path("/api/activities/addToRepo")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<Activity>>() {});
+                .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<Activity>>() {
+                });
     }
 }

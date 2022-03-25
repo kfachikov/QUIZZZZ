@@ -40,6 +40,14 @@ public class MultiPlayerStateUtils {
         queueUtils.setOnStart(this::startNewGame);
     }
 
+    /**
+     * Getter for the multiplayer game state.
+     * <p>
+     * Internally updates the state to be up-to-date.
+     *
+     * @param id Id of the multiplayer game.
+     * @return Multiplayer game state with that id.
+     */
     public MultiPlayerState getGameState(long id) {
         if (games.containsKey(id)) {
             MultiPlayerState game = games.get(id);

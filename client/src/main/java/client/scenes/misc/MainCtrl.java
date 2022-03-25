@@ -146,6 +146,11 @@ public class MainCtrl {
         }));
     }
 
+    /**
+     * Getter for the primary state of the application.
+     *
+     * @return Primary stage.
+     */
     public Stage getPrimaryStage() {
         return primaryStage;
     }

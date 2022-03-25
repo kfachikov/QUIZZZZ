@@ -20,6 +20,11 @@ public class MultiplayerStateController {
 
     private final MultiPlayerStateUtils multiUtils;
 
+    /**
+     * Constructor for multiplayer state controller.
+     *
+     * @param multiUtils Multiplayer state utilities.
+     */
     public MultiplayerStateController(MultiPlayerStateUtils multiUtils) {
         this.multiUtils = multiUtils;
     }

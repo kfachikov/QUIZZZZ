@@ -25,6 +25,15 @@ public class MockMultiplayerCtrl extends MultiplayerCtrl {
     public Object param1;
     public Object param2;
 
+    /**
+     * Constructor for mock class.
+     * <p>
+     * Initializes private fields and initializes calledMethods.
+     *
+     * @param mainCtrl       Main controller
+     * @param serverUtils    Server utilities
+     * @param pollingService Multiplayer game state polling service
+     */
     public MockMultiplayerCtrl(MainCtrl mainCtrl,
                                ServerUtils serverUtils,
                                MultiplayerGameStatePollingService pollingService) {

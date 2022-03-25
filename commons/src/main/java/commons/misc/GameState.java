@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Objects;
 
 @JsonTypeInfo(
-    use = JsonTypeInfo.Id.NAME,
-    include = JsonTypeInfo.As.PROPERTY,
-    property = "type")
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = SinglePlayerState.class, name = "single"),
     @JsonSubTypes.Type(value = MultiPlayerState.class, name = "multi")
@@ -29,8 +29,10 @@ public abstract class GameState {
      */
     private String state;
 
+    /**
+     * Default constructor for GameState, for object mapper.
+     */
     public GameState() {
-
     }
 
     /**

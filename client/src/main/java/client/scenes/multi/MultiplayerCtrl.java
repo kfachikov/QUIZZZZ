@@ -57,6 +57,13 @@ public class MultiplayerCtrl {
         }
     };
 
+    /**
+     * Constructor for Multiplayer controller.
+     *
+     * @param mainCtrl       Main controller
+     * @param serverUtils    Server utilities
+     * @param pollingService Multiplayer game state polling service
+     */
     @Inject
     public MultiplayerCtrl(MainCtrl mainCtrl,
                            ServerUtils serverUtils,
@@ -67,6 +74,20 @@ public class MultiplayerCtrl {
         this.pollingService = pollingService;
     }
 
+    /**
+     * Initialization method for multiplayer controller.
+     * <p>
+     * Sets internal controller and scene references.
+     * Sets up the associated polling service.
+     * <p>
+     * This method is called when application is starting up, similarly to MainCtrl:initialize.
+     *
+     * @param questionAScreen Mock question A screen pair
+     * @param questionBScreen Mock question B screen pair
+     * @param questionCScreen Mock question C screen pair
+     * @param questionDScreen Mock question D screen pair
+     * @param mockMulti       Mock miscellaneous screen pair
+     */
     public void initialize(
             Pair<MultiGameQuestionAScreenCtrl, Parent> questionAScreen,
             Pair<MultiGameQuestionBScreenCtrl, Parent> questionBScreen,
@@ -140,6 +161,15 @@ public class MultiplayerCtrl {
         }
     }
 
+    /**
+     * Switch state of the game.
+     * <p>
+     * Switches to appropriate scene/animation based on the new state of the game.
+     * <p>
+     * This method is called whenever a transition happens on the serverside.
+     *
+     * @param game Up-to-date state of the game.
+     */
     private void switchState(MultiPlayerState game) {
         String state = game.getState();
         if (MultiPlayerState.QUESTION_STATE.equals(state)) {
@@ -149,11 +179,25 @@ public class MultiplayerCtrl {
         }
     }
 
+    /**
+     * Switch to a mock scene.
+     *
+     * @param game Current state of the game.
+     */
     private void switchToMock(MultiPlayerState game) {
         mockScreenCtrl.setGameStateLabelText(game.toString());
         mainCtrl.getPrimaryStage().setScene(mockScreen);
     }
 
+    /**
+     * Switch a question scene.
+     * <p>
+     * Uses the current round number of the game and its question list to
+     * determine the current question, then calls the appropriate method
+     * to switch to the relevant question scene.
+     *
+     * @param game Current state of the game.
+     */
     private void switchToQuestion(MultiPlayerState game) {
         int roundNumber = game.getRoundNumber();
         if (roundNumber < 0 || roundNumber >= 20) {
@@ -178,22 +222,42 @@ public class MultiplayerCtrl {
         }
     }
 
+    /**
+     * Show "Consumption" question screen.
+     *
+     * @param question "Consumption" question.
+     */
     private void showConsumptionQuestion(ConsumptionQuestion question) {
         questionAScreenCtrl.setGameStateLabelText(question.debugString());
         mainCtrl.getPrimaryStage().setScene(questionAScreen);
     }
 
+    /**
+     * Show "Guess" question screen.
+     *
+     * @param question "Guess" question.
+     */
     private void showGuessQuestion(GuessQuestion question) {
         questionBScreenCtrl.setGameStateLabelText(question.debugString());
         mainCtrl.getPrimaryStage().setScene(questionBScreen);
     }
 
+    /**
+     * Show "Instead of" question screen.
+     *
+     * @param question "Instead of" question.
+     */
     private void showInsteadQuestion(InsteadQuestion question) {
         questionCScreenCtrl.setGameStateLabelText(question.debugString());
         mainCtrl.getPrimaryStage().setScene(questionCScreen);
 
     }
 
+    /**
+     * Show "More Expensive" question screen.
+     *
+     * @param question "More Expensive" question.
+     */
     private void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
         questionDScreenCtrl.setGameStateLabelText(question.debugString());
         mainCtrl.getPrimaryStage().setScene(questionDScreen);
