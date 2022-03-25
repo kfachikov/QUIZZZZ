@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javax.inject.Inject;
 
 /**
- * Controller responsible for the multiplayer game question screen.
+ * Controller responsible for the multiplayer game more expensive question screen.
  * <p>
  * Currently, this is just a mock scene, containing a leave button and a label
  * showing the current game ID.
