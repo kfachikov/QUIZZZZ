@@ -2,13 +2,20 @@ package server.api;
 
 import commons.misc.Activity;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
-import java.nio.charset.StandardCharsets;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.nio.file.Files.readAllBytes;
+
 
 /**
  * Server-side controller for the activities stored in the database.
@@ -150,20 +157,37 @@ public class ActivityController {
     /**
      * Creates a ByteArrayResource for the images of activities.
      *
-     * @param path The path of the image.
+     * @param fileName The path of the image.
      *
      * @return ResponseEntity consisting of the ByteArrayResource of images
      */
-    @GetMapping("/{imagePath}")
-    public ResponseEntity<ByteArrayResource> getImages(@PathVariable("imagePath") String path) {
-        //path = "@server/src/main/resources/images/" + path;
+    @GetMapping("/image")
+    public ResponseEntity<Resource> getImages(@PathVariable("file") String fileName) {
+        /*//path = "@server/src/main/resources/images/" + path;
         //byte[] array = path.getBytes(StandardCharsets.US_ASCII);
         //ByteArrayResource byteArrayResource = new ByteArrayResource(array);
         ByteArrayResource byteArrayResource = new ByteArrayResource(("@server/src/main/resources/images/"
                 + repo.findAll().stream()
                 .filter(e -> e.getImage().equals(path))
                 .collect(Collectors.toList()).get(0).getImage()).getBytes(StandardCharsets.US_ASCII));
-        return ResponseEntity.ok(byteArrayResource);
+        try {
+            return ResponseEntity.ok((ByteArrayInputStream) byteArrayResource.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;*/
+        File file = new File("server/src/main/resources/images/" + fileName);
+        Path path = Path.of(file.getAbsolutePath());
+        ByteArrayResource resource = null;
+        try {
+            resource = new ByteArrayResource(readAllBytes(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok()
+                .contentLength(file.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
     }
 
 }

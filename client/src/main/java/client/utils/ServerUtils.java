@@ -30,7 +30,6 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
-
 import java.io.InputStream;
 import java.util.List;
 
@@ -245,12 +244,11 @@ public class ServerUtils {
     public InputStream getAllImages(String imagePath) {
         Response response = ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/" + imagePath)
+                .path("/image/" + imagePath)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(new GenericType<Response>() {});
         return response.readEntity(InputStream.class);
     }
-
 
 }
