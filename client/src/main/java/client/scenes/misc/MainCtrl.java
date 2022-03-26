@@ -286,4 +286,8 @@ public class MainCtrl {
         primaryStage.setScene(congratulations);
     }
 
+    public String getURL() {
+        return homeCtrl.getUrl();
+    }
+
 }
