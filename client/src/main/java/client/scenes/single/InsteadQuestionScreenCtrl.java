@@ -212,19 +212,4 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
         return time;
     }
 
-    /*
-     * Called to initialize a controller after its root element has been
-     * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the root object, or
-     *                  {@code null} if the location is not known.
-     * @param resources The resources used to localize the root object, or {@code null} if
-     *
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        File file = new File(server.getAllImages(question.getActivity().getImage()).toString());
-        Image newImage = new Image(file.toURI().toString());
-        image.setImage(newImage);
-    }
-    */
 }
