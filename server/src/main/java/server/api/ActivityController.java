@@ -3,7 +3,6 @@ package server.api;
 import commons.misc.Activity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 /**
  * Server-side controller for the activities stored in the database.
  */
-@Controller
+@RestController
 @RequestMapping("/api/activities")
 public class ActivityController {
 

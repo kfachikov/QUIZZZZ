@@ -228,10 +228,10 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         image1.setImage(new Image(url + "/"  + question.getAnswerChoices().get(0).getImage()));
 
         //image2.setImage(new Image(server.getAllImages(question.getAnswerChoices().get(1).getImage())));
-        image1.setImage(new Image(url + "/"  + question.getAnswerChoices().get(0).getImage()));
+        image2.setImage(new Image(url + "/"  + question.getAnswerChoices().get(0).getImage()));
 
         //image3.setImage(new Image(server.getAllImages(question.getAnswerChoices().get(2).getImage())));
-        image1.setImage(new Image(url + "/"  + question.getAnswerChoices().get(0).getImage()));
+        image3.setImage(new Image(url + "/"  + question.getAnswerChoices().get(0).getImage()));
 
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
