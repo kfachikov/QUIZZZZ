@@ -6,7 +6,6 @@ import commons.question.AbstractQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import server.database.ActivityRepository;
 
@@ -22,6 +21,11 @@ public class SinglePlayerStateUtils {
     private final Map<Long, SinglePlayerState> games;
     private final GenerateQuestionUtils generateQuestionUtils;
 
+    /**
+     * Constructor for the singleplayer state utilities.
+     *
+     * @param generateQuestionUtils the generateQuestions utilities.
+     */
     public SinglePlayerStateUtils(GenerateQuestionUtils generateQuestionUtils) {
         this.generateQuestionUtils = generateQuestionUtils;
         games = new HashMap<>();
@@ -180,6 +184,7 @@ public class SinglePlayerStateUtils {
     /**
      * Constructs a new single-player game state.
      *
+     * @param repo the activity repository
      * @param player Player who is playing in the game
      * @return The newly constructed SinglePlayer game state
      */

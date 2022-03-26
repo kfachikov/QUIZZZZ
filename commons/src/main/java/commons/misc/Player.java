@@ -10,6 +10,9 @@ public abstract class Player {
     private String username;
     private int score;
 
+    /**
+     * Constructor for the player instance.
+     */
     public Player() {
     }
 

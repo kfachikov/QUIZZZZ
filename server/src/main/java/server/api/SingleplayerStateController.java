@@ -26,7 +26,12 @@ public class SingleplayerStateController {
     /**
      * Constructor for singleplayer state controller.
      * <p>
-     * Initializes the list of games inside of the controller.
+     * Initializes the list of games inside the controller.
+     *
+     * @param repo the activity repository.
+     *
+     * @param singlePlayerStateUtils  the singleplayer state utilities instance.
+     *
      */
     public SingleplayerStateController(ActivityRepository repo, SinglePlayerStateUtils singlePlayerStateUtils) {
         this.repo = repo;

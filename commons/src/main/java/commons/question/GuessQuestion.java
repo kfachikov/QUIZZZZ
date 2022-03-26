@@ -37,6 +37,12 @@ public class GuessQuestion extends AbstractQuestion {
         return question;
     }
 
+    /**
+     * Getter for the activity.
+     *
+     * @return the actual activity.
+     *
+     */
     public Activity getActivity() {
         return activity;
     }
