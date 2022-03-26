@@ -19,9 +19,7 @@ import javafx.scene.control.ButtonType;
 import javafx.util.Pair;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.Optional;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * Class responsible for managing the multiplayer game for the client.
@@ -187,10 +185,10 @@ public class MultiplayerCtrl {
                 switchToQuestion(game);
                 break;
             case MultiPlayerState.LEADERBOARD_STATE:
-                showIntermediateLeaderboard();
+                showIntermediateLeaderboard(sortList(game));
                 break;
             case MultiPlayerState.GAME_OVER_STATE:
-                showGameOver();
+                showGameOver(sortList(game));
                 break;
             default:
                 switchToMock(game);
@@ -287,8 +285,8 @@ public class MultiplayerCtrl {
      * Sets the current scene to Leaderboard screen.
      * Sets the title accordingly
      */
-    public void showIntermediateLeaderboard() {
-        leaderboardCtrl.turnIntermediate();
+    public void showIntermediateLeaderboard(List<MultiPlayer> players) {
+        leaderboardCtrl.turnIntermediate(players);
         mainCtrl.getPrimaryStage().setScene(leaderboard);
         System.out.println("Intermediate leaderboard is being displayed.");
     }
@@ -298,8 +296,8 @@ public class MultiplayerCtrl {
      * Sets the current scene to Leaderboard screen.
      * Sets the title accordingly
      */
-    public void showGameOver() {
-        leaderboardCtrl.turnFinal();
+    public void showGameOver(List<MultiPlayer> players) {
+        leaderboardCtrl.turnFinal(players);
         mainCtrl.getPrimaryStage().setScene(leaderboard);
         System.out.println("Game is over and the leaderboard is being displayed.");
     }
@@ -354,19 +352,10 @@ public class MultiplayerCtrl {
     public void surprisedEmoji() {
     }
 
-    public PriorityQueue<MultiPlayer> getSortedUserList(MultiPlayerState game) {
+    public List<MultiPlayer> sortList(MultiPlayerState game) {
         List<MultiPlayer> players = game.getPlayers();
-        PriorityQueue<MultiPlayer> playerQueue = new PriorityQueue<>();
-        for(int i = 0; i < players.size(); i++) {
-            MultiPlayer player = players.get(i);
-            for (int a = 1; a < players.size(); a++) {
-                MultiPlayer comparedPlayer = players.get(a);
-                if (player.getScore() < comparedPlayer.getScore()) {
-                    player = comparedPlayer;
-                }
-            }
-            playerQueue.add(player);
-        }
-        return playerQueue;
+        Collections.sort(players, Comparator.comparing(player1->player1.getScore()));
+        Collections.reverse(players);
+        return players;
     }
 }

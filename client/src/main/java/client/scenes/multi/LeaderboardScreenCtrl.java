@@ -2,6 +2,7 @@ package client.scenes.multi;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.multi.MultiPlayer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Line;
@@ -65,8 +66,9 @@ public class LeaderboardScreenCtrl {
      * Sets the title.
      * Changes the places of the emojis so that the right-hand side of the screen is properly divided.
      * Disables and invisible-s the playAgain button.
+     * @param players
      */
-    public void turnIntermediate() {
+    public void turnIntermediate(List<MultiPlayer> players) {
         title.setText("Quizzz: INTERMEDIATE LEADERBOARD");
 
         laughing.setLayoutX(359);
@@ -86,6 +88,18 @@ public class LeaderboardScreenCtrl {
 
         leave.setVisible(true);
         leave.setDisable(false);
+
+        fillLeaderboard(players);
+    }
+
+    private void fillLeaderboard(List<MultiPlayer> players) {
+        boolean userFound = false;
+        for (int i = 0; i < 6; i++) {
+
+        }
+        if (!userFound) {
+
+        }
     }
 
     /**
@@ -93,8 +107,9 @@ public class LeaderboardScreenCtrl {
      * Sets the title.
      * Pushes the emojis so that the right-hand side of the screen is properly divided.
      * Disables and invisible-s the playAgain button.
+     * @param players
      */
-    public void turnFinal() {
+    public void turnFinal(List<MultiPlayer> players) {
         title.setText("Quizzz: GAME OVER!");
 
         laughing.setLayoutX(359);
