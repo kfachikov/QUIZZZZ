@@ -80,13 +80,11 @@ public class Main extends Application {
         var guess = FXML.load(
                 GuessQuestionScreenCtrl.class, "client", "scenes", "single",
                 "question", "GuessQuestionScreen.fxml");
-        var leaderboard = FXML.load(
-                LeaderboardScreenCtrl.class, "client", "scenes", "multi",
-                "LeaderboardScreen.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, home, help, prep, queue, administrator,
-                moreExpensive, consumption, instead, guess, congratulations, leaderboard);
+                moreExpensive, consumption, instead, guess, congratulations);
+
 
         var consumptionMulti = FXML.load(
                 MultiGameQuestionAScreenCtrl.class, "client", "scenes", "multi", "question",
@@ -100,12 +98,14 @@ public class Main extends Application {
         var moreExpensiveMulti = FXML.load(
                 MultiGameQuestionDScreenCtrl.class, "client", "scenes", "multi", "question",
                 "MultiGameQuestionDScreen.fxml");
-
         var mockMulti = FXML.load(
                 MultiGameMockScreenCtrl.class, "client", "scenes", "multi",
                 "MultiGameMockScreen.fxml");
+        var leaderboard = FXML.load(
+                LeaderboardScreenCtrl.class, "client", "scenes", "multi",
+                "LeaderboardScreen.fxml");
 
         var multiCtrl = INJECTOR.getInstance(MultiplayerCtrl.class);
-        multiCtrl.initialize(consumptionMulti, guessMulti, insteadMulti, moreExpensiveMulti, mockMulti);
+        multiCtrl.initialize(consumptionMulti, guessMulti, insteadMulti, moreExpensiveMulti, mockMulti, leaderboard);
     }
 }
