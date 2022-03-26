@@ -4,7 +4,9 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.multi.MultiPlayer;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import java.util.ArrayList;
@@ -19,16 +21,12 @@ public class LeaderboardScreenCtrl {
 
     @FXML
     private Button angry;
-
     @FXML
     private Button crying;
-
     @FXML
     private Button laughing;
-
     @FXML
     private Button surprised;
-
     private List<Button> emojis;
 
     @FXML
@@ -36,12 +34,64 @@ public class LeaderboardScreenCtrl {
 
     @FXML
     private Button leave;
-
     @FXML
     private Button returnHome;
 
     @FXML
     private Line line;
+
+    @FXML
+    private Label Position1;
+    @FXML
+    private Label Username1;
+    @FXML
+    private Label Score1;
+
+    @FXML
+    private Label Position2;
+    @FXML
+    private Label Username2;
+    @FXML
+    private Label Score2;
+
+    @FXML
+    private Label Position3;
+    @FXML
+    private Label Username3;
+    @FXML
+    private Label Score3;
+
+    @FXML
+    private Label Position4;
+    @FXML
+    private Label Username4;
+    @FXML
+    private Label Score4;
+
+    @FXML
+    private Label Position5;
+    @FXML
+    private Label Username5;
+    @FXML
+    private Label Score5;
+
+    @FXML
+    private Label Position6;
+    @FXML
+    private Label Username6;
+    @FXML
+    private Label Score6;
+
+    @FXML
+    private Label UserPosition;
+    @FXML
+    private Label UserUsername;
+    @FXML
+    private Label UserScore;
+
+    private List<Label> usernameLabels;
+    private List<Label> scoreLabels;
+    private List<Label> positionLabels;
 
     /**
      * initializes IntermediateLeaderboardScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -59,6 +109,52 @@ public class LeaderboardScreenCtrl {
         emojis.add(crying);
         emojis.add(laughing);
         emojis.add(surprised);
+
+        usernameLabels = new ArrayList<>();
+        Username1 = new Label();
+        usernameLabels.add(Username1);
+        Username2 = new Label();
+        usernameLabels.add(Username2);
+        Username3 = new Label();
+        usernameLabels.add(Username3);
+        Username4 = new Label();
+        usernameLabels.add(Username4);
+        Username5 = new Label();
+        usernameLabels.add(Username5);
+        Username6 = new Label();
+        usernameLabels.add(Username6);
+
+        scoreLabels = new ArrayList<>();
+        Score1 = new Label();
+        scoreLabels.add(Score1);
+        Score2 = new Label();
+        scoreLabels.add(Score2);
+        Score3 = new Label();
+        scoreLabels.add(Score3);
+        Score4 = new Label();
+        scoreLabels.add(Score4);
+        Score5 = new Label();
+        scoreLabels.add(Score5);
+        Score6 = new Label();
+        scoreLabels.add(Score6);
+
+        positionLabels = new ArrayList<>();
+        Position1 = new Label();
+        positionLabels.add(Position1);
+        Position2 = new Label();
+        positionLabels.add(Position2);
+        Position3 = new Label();
+        positionLabels.add(Position3);
+        Position4 = new Label();
+        positionLabels.add(Position4);
+        Position5 = new Label();
+        positionLabels.add(Position5);
+        Position6 = new Label();
+        positionLabels.add(Position6);
+
+        UserPosition = new Label();
+        UserUsername = new Label();
+        UserScore = new Label();
     }
 
     /**
@@ -89,17 +185,55 @@ public class LeaderboardScreenCtrl {
         leave.setVisible(true);
         leave.setDisable(false);
 
+        positionLabels.forEach(positionLabel -> positionLabel.setVisible(false));
+        positionLabels.forEach(positionLabel -> System.out.println(positionLabel+" is "+positionLabel.isVisible()));
+        usernameLabels.forEach(usernameLabel -> usernameLabel.setVisible(false));
+        scoreLabels.forEach(scoreLabel -> scoreLabel.setVisible(false));
+        line.setVisible(true);
+
         fillLeaderboard(players);
     }
 
     private void fillLeaderboard(List<MultiPlayer> players) {
         boolean userFound = false;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < players.size(); i++) {
+            MultiPlayer player = players.get(i);
+            String username = player.getUsername();
+            String score = Integer.toString(player.getScore());
 
+            if (username.equals(multiCtrl.getUsername())) {
+                userFound = true;
+            }
+
+            usernameLabels.get(i).setText(username);
+            Username1.setText(username);
+            usernameLabels.get(i).setVisible(true);
+
+            scoreLabels.get(i).setText(score);
+            Score1.setText(score);
+            scoreLabels.get(i).setVisible(true);
         }
+        // if the player is outside top-6
         if (!userFound) {
-
+            displayUserStats(players);
+            line.setVisible(true);
         }
+    }
+
+    public void displayUserStats(List<MultiPlayer> players) {
+        UserUsername.setVisible(true);
+        UserPosition.setVisible(true);
+        UserScore.setVisible(true);
+
+        MultiPlayer user = null;
+
+        for (int i = 0; i < players.size(); i++) {
+            if (multiCtrl.getUsername().equals(players.get(i).getUsername())) {
+                user = players.get(i);
+            }
+        }
+        UserUsername.setText(multiCtrl.getUsername());
+        UserScore.setText(Integer.toString(user.getScore()));
     }
 
     /**
@@ -129,6 +263,13 @@ public class LeaderboardScreenCtrl {
 
         leave.setDisable(true);
         leave.setVisible(false);
+
+        positionLabels.forEach(positionLabel -> positionLabel.setVisible(false));
+        usernameLabels.forEach(usernameLabel -> usernameLabel.setVisible(false));
+        scoreLabels.forEach(scoreLabel -> scoreLabel.setVisible(false));
+        line.setVisible(true);
+
+        fillLeaderboard(players);
     }
 
     /**

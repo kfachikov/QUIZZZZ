@@ -76,7 +76,6 @@
     -fx-border-radius: 15;
     -fx-background-radius: 20;
     -fx-border-width: 3;
-    visibility: true;
     -fx-font-size: 19px;
 }
 #leaderboard>#UserScore {
@@ -85,7 +84,6 @@
     -fx-border-radius: 15;
     -fx-background-radius: 20;
     -fx-border-width: 3;
-    visibility: false;
     -fx-font-size: 19px;
 }
 #leaderboard>#UserUsername {
@@ -94,7 +92,6 @@
     -fx-border-radius: 15;
     -fx-background-radius: 20;
     -fx-border-width: 3;
-    visibility: false;
     -fx-font-size: 19px;
 }
 #leaderboard>#UserPosition {
@@ -103,9 +100,6 @@
     -fx-border-radius: 15;
     -fx-background-radius: 20;
     -fx-border-width: 3;
-    visibility: false;
     -fx-font-size: 19px;
 }
-#line {
-    visibility: false;
-}
+

@@ -358,4 +358,8 @@ public class MultiplayerCtrl {
         Collections.reverse(players);
         return players;
     }
+
+    public String getUsername() {
+        return username;
+    }
 }
