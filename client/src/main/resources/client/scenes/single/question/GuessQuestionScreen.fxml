@@ -38,7 +38,6 @@
             <Font size="24.0" />
          </font>
       </TextField>
-      <ImageView fx:id="image" fitHeight="170.0" fitWidth="399.0" layoutX="103.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" >
-              </ImageView>
+      <ImageView fx:id="image" fitHeight="170.0" fitWidth="399.0" layoutX="103.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>

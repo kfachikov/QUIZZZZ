@@ -44,9 +44,7 @@
                 <Font name="SansSerif Bold" size="14.0" />
             </font>
         </Button>
-        <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="-191.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
-
-        </ImageView>
+        <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="-191.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true"/>
         <Text fx:id="description" fill="#006e8c" layoutX="34.0" layoutY="349.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="216.0">
             <font>
                 <Font size="20.0" />
