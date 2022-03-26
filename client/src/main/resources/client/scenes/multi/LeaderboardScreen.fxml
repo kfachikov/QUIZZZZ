@@ -1,57 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.LeaderboardScreenCtrl">
-    <TableView layoutX="185.0" layoutY="66.0" prefHeight="313.0" prefWidth="231.0" stylesheets="@../../../styling/GameStyle.css">
-        <columns>
-            <TableColumn prefWidth="138.80003356933594" text="Username" />
-            <TableColumn prefWidth="79.0" text="Score" />
-        </columns>
-    </TableView>
-   <Text fill="#006e8c" layoutX="74.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-area" text="INTERMEDIATE LEADERBOARD" textAlignment="CENTER">
+   <Text fx:id="title" fill="#006e8c" layoutX="74.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-area" text="INTERMEDIATE LEADERBOARD" textAlignment="CENTER">
       <font>
          <Font size="33.0" />
       </font>
    </Text>
-    <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
+    <Button fx:id="leave" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#leave" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
         <font>
             <Font name="SansSerif Regular" size="12.0" />
         </font>
     </Button>
 
-    <Button id="emojiButton" layoutX="305.0" layoutY="315.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0" onAction="#laughingEmoji"/>
-      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="43.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
-          <image>
-              <Image url="@../../../emoji/Laughing.png" />
-          </image>
-      </ImageView>
+    <Button id="emojiButton" fx:id="laughing" layoutX="358.0" layoutY="246.0" mnemonicParsing="false" onAction="#laughingEmoji" prefHeight="100.0" prefWidth="100.0" >
+        <graphic>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../../emoji/Laughing.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
 
-    <Button id="emojiButton" layoutX="305.0" layoutY="325.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0" onAction="#angryEmoji"/>
-    <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="460.0" layoutY="246.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@../../../emoji/Angry.png" />
-        </image>
-    </ImageView>
+    <Button id="emojiButton" fx:id="angry" layoutX="476.0" layoutY="123.0" mnemonicParsing="false" onAction="#angryEmoji" prefHeight="100.0" prefWidth="100.0" >
+        <graphic>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../../emoji/Angry.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
 
-    <Button id="emojiButton" layoutX="305.0" layoutY="335.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0" onAction="#cryingEmoji"/>
-    <ImageView fitHeight="108.0" fitWidth="108.0" layoutX="458.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@../../../emoji/Crying.png" />
-        </image>
-    </ImageView>
+    <Button id="emojiButton" fx:id="crying" layoutX="476.0" layoutY="67.0" mnemonicParsing="false" onAction="#cryingEmoji" prefHeight="97.0" prefWidth="100.0" >
+        <graphic>
+            <ImageView fitHeight="108.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../../emoji/Crying.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
 
-    <Button id="emojiButton" layoutX="305.0" layoutY="345.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0" onAction="#surprisedEmoji"/>
-    <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="43.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@../../../emoji/Surprised.png" />
-        </image>
-    </ImageView>
+    <Button id="emojiButton" fx:id="surprised" layoutX="357.0" layoutY="114.0" mnemonicParsing="false" onAction="#surprisedEmoji" prefHeight="100.0" prefWidth="103.0" >
+        <graphic>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../../emoji/Surprised.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+   <FlowPane id="leaderboard" fx:id="leaderboard" layoutX="23.0" layoutY="73.0" prefHeight="280.0" prefWidth="303.0">
+      <children>
+          <Label id="Position1" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="1" textFill="#006e8c" />
+          <Label id="Username1" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+          <Label id="Score1" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+
+          <Label id="Position2" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="2" textFill="#006e8c" />
+          <Label id="Username2" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+          <Label id="Score2" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+
+          <Label id="Position3" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="3" textFill="#006e8c" />
+          <Label id="Username3" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+          <Label id="Score3" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+
+          <Label id="Position4" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="4" textFill="#006e8c" />
+          <Label id="Username4" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+          <Label id="Score4" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+
+          <Label id="Position5" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="5" textFill="#006e8c" />
+          <Label id="Username5" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+          <Label id="Score5" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+
+          <Label id="Position6" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="6" textFill="#006e8c" />
+          <Label id="Username6" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+          <Label id="Score6" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+         <Line id="line" fx:id="line" endX="202.2928924560547" startX="-100.0" stroke="#006e8c" strokeWidth="2.0">
+            <FlowPane.margin>
+               <Insets bottom="-5.0" top="5.0" />
+            </FlowPane.margin>
+            <rotationAxis>
+               <Point3D />
+            </rotationAxis>
+         </Line>
+
+          <Label id="UserPosition" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="16" textFill="#006e8c">
+            <FlowPane.margin>
+               <Insets top="8.0" />
+            </FlowPane.margin></Label>
+          <Label id="UserUsername" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c">
+            <FlowPane.margin>
+               <Insets top="8.0" />
+            </FlowPane.margin></Label>
+          <Label id="UserScore" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c">
+            <FlowPane.margin>
+               <Insets top="8.0" />
+            </FlowPane.margin></Label>
+      </children></FlowPane>
+   <Button fx:id="returnHome" layoutX="339.0" layoutY="300.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../styling/GameStyle.css" text="PLAY AGAIN" textFill="#006e8c">
+      <font>
+         <Font name="SansSerif Regular" size="32.0" />
+      </font>
+   </Button>
 </AnchorPane>

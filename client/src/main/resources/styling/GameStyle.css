@@ -62,3 +62,50 @@
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
 }
+#bubbles {
+    -fx-vgap: 10;
+    -fx-hgap: 5;
+}
+#leaderboard {
+    -fx-vgap: 5;
+    -fx-hgap: 7;
+}
+#leaderboard>.label {
+    -fx-background-color: #c9f1fd;
+    -fx-border-color: #006e8c;
+    -fx-border-radius: 15;
+    -fx-background-radius: 20;
+    -fx-border-width: 3;
+    visibility: true;
+    -fx-font-size: 19px;
+}
+#leaderboard>#UserScore {
+    -fx-background-color: #ffd513;
+    -fx-border-color: #006e8c;
+    -fx-border-radius: 15;
+    -fx-background-radius: 20;
+    -fx-border-width: 3;
+    visibility: false;
+    -fx-font-size: 19px;
+}
+#leaderboard>#UserUsername {
+    -fx-background-color: #ffd513;
+    -fx-border-color: #006e8c;
+    -fx-border-radius: 15;
+    -fx-background-radius: 20;
+    -fx-border-width: 3;
+    visibility: false;
+    -fx-font-size: 19px;
+}
+#leaderboard>#UserPosition {
+    -fx-background-color: #ffd513;
+    -fx-border-color: #006e8c;
+    -fx-border-radius: 15;
+    -fx-background-radius: 20;
+    -fx-border-width: 3;
+    visibility: false;
+    -fx-font-size: 19px;
+}
+#line {
+    visibility: false;
+}
