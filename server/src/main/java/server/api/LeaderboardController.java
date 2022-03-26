@@ -18,7 +18,8 @@ public class LeaderboardController {
 
     /**
      * Constructor for the user controller.
-     * @param repo User repository final instance
+     *
+     * @param repo User repository final instance.
      */
     public LeaderboardController(LeaderboardRepository repo) {
         this.repo = repo;
@@ -26,6 +27,7 @@ public class LeaderboardController {
 
     /**
      * Get endpoint that retrieves all users from the user repository.
+     *
      * @return the users existing in the repository
      */
     @GetMapping("")
@@ -38,7 +40,8 @@ public class LeaderboardController {
      * @return response
      */
     @PostMapping("")
-    public ResponseEntity<SinglePlayerLeaderboardScore> add(@RequestBody SinglePlayerLeaderboardScore leaderboardEntry) {
+    public ResponseEntity<SinglePlayerLeaderboardScore> add(@RequestBody SinglePlayerLeaderboardScore
+                                                                        leaderboardEntry) {
         if (leaderboardEntry == null || isNullOrEmpty(leaderboardEntry.getUsername())) {
             return ResponseEntity.badRequest().build();
         }
@@ -48,6 +51,7 @@ public class LeaderboardController {
 
     /**
      * Checks whether a string is empty or not.
+     *
      * @param s String variable
      * @return true/false
      */

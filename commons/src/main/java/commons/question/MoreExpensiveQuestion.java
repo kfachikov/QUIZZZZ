@@ -67,8 +67,10 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
     }
 
     /**
-     * G
-     * @return
+     * Getter for the correct answer.
+     *
+     * @return the correct answer.
+     *
      */
     public String getCorrectAnswer() {
         return correctAnswer;

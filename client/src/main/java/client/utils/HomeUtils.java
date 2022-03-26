@@ -1,6 +1,4 @@
 package client.utils;
-
-import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -12,6 +10,9 @@ import javafx.scene.paint.Paint;
 
 import javax.inject.Inject;
 
+/**
+ * Class for the home utilities.
+ */
 public class HomeUtils {
 
     private static final int FORBIDDEN = 403;
@@ -107,19 +108,17 @@ public class HomeUtils {
      * with redirecting the user to the page they want to visit.
      */
     public void enterAdministrationPanel() {
-        try{
-            ServerUtils.setCurrentServer(getServer());
-            /*
+
+        ServerUtils.setCurrentServer(getServer());
+        /*
             A GET/POST request should be sent over to the server, so that a
             "validation" process occur.
              */
-            mainCtrl.showAdministrator();
+        mainCtrl.showAdministrator();
         /*
-        Exception thrown should be specified in regard to exception returned from the server.
-         */
-        } catch (Exception e){
-            // ...
-        }
+            Exception thrown should be specified in regard to exception returned from the server.
+            */
+
     }
 
     /**
@@ -138,7 +137,7 @@ public class HomeUtils {
     /**
      * @return a new SingleUser object that contains its username and score.
      *
-     * TODO: Should check whether the username is empty and behave accordingly.
+     *     TODO: Should check whether the username is empty and behave accordingly.
      */
     public SinglePlayer getSinglePlayer() {
         String user = usernameField.getText();

@@ -7,11 +7,17 @@ import javafx.concurrent.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for the mock queue polling servive
+ */
 @SuppressWarnings("unchecked")
 public class MockQueuePollingService extends QueuePollingService {
 
     public Object returnValue;
 
+    /**
+     * The called methods list.
+     */
     public List<String> calledMethods;
 
     public MockQueuePollingService(ServerUtils server) {

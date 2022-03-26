@@ -23,7 +23,7 @@ import server.utils.QueueUtils;
 import server.utils.SinglePlayerStateUtils;
 
 
-import java.nio.channels.MulticastChannel;
+
 import java.util.Random;
 
 /**
@@ -60,7 +60,8 @@ public class Config {
      * @return A new SinglePlayerStateUtils instance.
      */
     @Bean
-    public SinglePlayerStateUtils getSinglePlayerStateUtils() { return new SinglePlayerStateUtils(getGenerateQuestionUtils()); }
+    public SinglePlayerStateUtils getSinglePlayerStateUtils() {
+        return new SinglePlayerStateUtils(getGenerateQuestionUtils()); }
 
     /**
      * Getter for a new instance of MultiPlayerStateUtils.

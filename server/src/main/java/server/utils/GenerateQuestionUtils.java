@@ -41,9 +41,7 @@ public class GenerateQuestionUtils {
         List<AbstractQuestion> result = new ArrayList<>();
         List<Activity> activities = repo.findAll();
         int questionNumber = 1;
-
         Collections.shuffle(activities, random);
-
         while (questionNumber <= 5) {
             if (questionNumber > activities.size()) {
                 break;
@@ -54,7 +52,6 @@ public class GenerateQuestionUtils {
             result.add(insteadQuestion);
             questionNumber++;
         }
-
         while (questionNumber <= 10) {
             if (questionNumber > activities.size()) {
                 break;
@@ -65,7 +62,6 @@ public class GenerateQuestionUtils {
             result.add(consumptionQuestion);
             questionNumber++;
         }
-
         while (questionNumber <= 15) {
             if (questionNumber > activities.size()) {
                 break;
@@ -75,7 +71,6 @@ public class GenerateQuestionUtils {
             result.add(moreExpensiveQuestion);
             questionNumber++;
         }
-
         while (questionNumber <= 20) {
             if (questionNumber > activities.size()) {
                 break;
@@ -85,7 +80,6 @@ public class GenerateQuestionUtils {
             result.add(guessQuestionType);
             questionNumber++;
         }
-
         Collections.shuffle(result, random);
         return result;
     }

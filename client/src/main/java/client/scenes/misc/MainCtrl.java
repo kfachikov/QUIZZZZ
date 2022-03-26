@@ -20,7 +20,6 @@ import client.scenes.multi.MultiGameQuestionScreenCtrl;
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
 import client.utils.SinglePlayerUtils;
-import commons.misc.GameState;
 import commons.question.*;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
