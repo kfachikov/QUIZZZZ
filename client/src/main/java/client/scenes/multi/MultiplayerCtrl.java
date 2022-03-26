@@ -19,7 +19,9 @@ import javafx.scene.control.ButtonType;
 import javafx.util.Pair;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Optional;
+import java.util.PriorityQueue;
 
 /**
  * Class responsible for managing the multiplayer game for the client.
@@ -278,5 +280,93 @@ public class MultiplayerCtrl {
     private void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
         questionDScreenCtrl.setGameStateLabelText(question.debugString());
         mainCtrl.getPrimaryStage().setScene(questionDScreen);
+    }
+
+    /**
+     * Run when intermediate leaderboard is shown
+     * Sets the current scene to Leaderboard screen.
+     * Sets the title accordingly
+     */
+    public void showIntermediateLeaderboard() {
+        leaderboardCtrl.turnIntermediate();
+        mainCtrl.getPrimaryStage().setScene(leaderboard);
+        System.out.println("Intermediate leaderboard is being displayed.");
+    }
+
+    /**
+     * Run when game is over
+     * Sets the current scene to Leaderboard screen.
+     * Sets the title accordingly
+     */
+    public void showGameOver() {
+        leaderboardCtrl.turnFinal();
+        mainCtrl.getPrimaryStage().setScene(leaderboard);
+        System.out.println("Game is over and the leaderboard is being displayed.");
+    }
+
+    /**
+     * Pop-up that asks whether a player really wants to leave the game.
+     * Is assigned to the top-left leave button on screens.
+     */
+    public void leave() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Leave the game");
+        alert.setContentText("Are you sure you want to leave the game?");
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+        alert.getButtonTypes().setAll(yesButton, noButton);
+        Optional<ButtonType> confirmation = alert.showAndWait();
+        if (confirmation.get() == yesButton) {
+            mainCtrl.showHome();
+        }
+    }
+
+    /**
+     * Returns to home screen.
+     * Is assigned to the Return Home button in Game Over screen.
+     */
+    public void returnHome() {
+        mainCtrl.showHome();
+    }
+
+    /**
+     * activates when a player presses angry emoji.
+     */
+    public void angryEmoji() {
+    }
+
+    /**
+     * activates when a player presses crying emoji.
+     */
+    public void cryingEmoji() {
+    }
+
+    /**
+     * activates when a player presses laughing emoji
+     */
+    public void laughingEmoji() {
+    }
+
+    /**
+     * activates when a player presses surprised emoji
+     */
+    public void surprisedEmoji() {
+    }
+
+    public PriorityQueue<MultiPlayer> getSortedUserList(MultiPlayerState game) {
+        List<MultiPlayer> players = game.getPlayers();
+        PriorityQueue<MultiPlayer> playerQueue = new PriorityQueue<>();
+        for(int i = 0; i < players.size(); i++) {
+            MultiPlayer player = players.get(i);
+            for (int a = 1; a < players.size(); a++) {
+                MultiPlayer comparedPlayer = players.get(a);
+                if (player.getScore() < comparedPlayer.getScore()) {
+                    player = comparedPlayer;
+                }
+            }
+            playerQueue.add(player);
+        }
+        return playerQueue;
     }
 }
