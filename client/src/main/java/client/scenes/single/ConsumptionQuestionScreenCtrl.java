@@ -11,7 +11,6 @@ import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -20,11 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
-import java.io.File;
-import java.net.URL;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 /**
  * Controller for the consumption question scene.
@@ -164,9 +159,8 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      */
 
     public void setQuestion(ConsumptionQuestion question) {
-        File file = new File(server.getAllImages(question.getActivity().getImage()).toString());
-        Image newImage = new Image(file.toURI().toString());
-        image.setImage(newImage);
+
+        image.setImage(new Image(server.getAllImages(question.getActivity().getImage())));
 
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
