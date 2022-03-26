@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Server-side controller for the activities stored in the database.
@@ -155,9 +156,13 @@ public class ActivityController {
      */
     @GetMapping("/{imagePath}")
     public ResponseEntity<ByteArrayResource> getImages(@PathVariable("imagePath") String path) {
-        path = "@server/src/main//resources/images/" + path;
-        byte[] array = path.getBytes(StandardCharsets.US_ASCII);
-        ByteArrayResource byteArrayResource = new ByteArrayResource(array);
+        //path = "@server/src/main/resources/images/" + path;
+        //byte[] array = path.getBytes(StandardCharsets.US_ASCII);
+        //ByteArrayResource byteArrayResource = new ByteArrayResource(array);
+        ByteArrayResource byteArrayResource = new ByteArrayResource(("@server/src/main/resources/images/"
+                + repo.findAll().stream()
+                .filter(e -> e.getImage().equals(path))
+                .collect(Collectors.toList()).get(0).getImage()).getBytes(StandardCharsets.US_ASCII));
         return ResponseEntity.ok(byteArrayResource);
     }
 
