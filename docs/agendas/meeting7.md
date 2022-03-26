@@ -10,7 +10,7 @@ Chairperson:
 - Julius Gvozdiovas (@jgvozdiovas)
 
 Notetakers: 
-- Kaloyan Fachikov (@kfachkikov)
+- Kaloyan Fachikov (@kfachikov)
 - Kayra Bahadir (@kbahadr)
 
 Attendees: 
@@ -18,7 +18,7 @@ Attendees:
 - Monica Păun (@mpaun)
 - Alexandra Darie (@aadarie)
 - Kayra Bahadir (@kbahadr)
-- Kaloyan Fachikov (@kfachkikov)
+- Kaloyan Fachikov (@kfachikov)
 - Marijn Luime (@mluime)
 - Julius Gvozdiovas (@jgvozdiovas)
 
