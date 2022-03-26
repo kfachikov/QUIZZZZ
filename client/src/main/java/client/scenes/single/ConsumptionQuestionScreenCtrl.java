@@ -160,7 +160,8 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     public void setQuestion(ConsumptionQuestion question) {
 
-        image.setImage(new Image(server.getAllImages(question.getActivity().getImage())));
+        //image.setImage(new Image(server.getAllImages(question.getActivity().getImage())));
+        image.setImage(new Image("http://localhost:8080/" + question.getActivity().getImage()));
 
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);

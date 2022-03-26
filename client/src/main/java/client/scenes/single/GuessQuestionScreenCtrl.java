@@ -141,7 +141,8 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      */
     public void setQuestion(GuessQuestion question) {
 
-        image.setImage(new Image(server.getAllImages(question.getActivity().getImage())));
+        //image.setImage(new Image(server.getAllImages(question.getActivity().getImage())));
+        image.setImage(new Image("http://localhost:8080/" + question.getActivity().getImage()));
 
         this.question = question;
         inputFieldDefault();
