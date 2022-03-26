@@ -1,21 +1,12 @@
 package server.api;
 
 import commons.misc.Activity;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
-
-import static java.nio.file.Files.readAllBytes;
 
 
 /**
@@ -155,19 +146,18 @@ public class ActivityController {
         return s == null || s.isEmpty();
     }
 
-    /**
+    /*
      * Creates a ByteArrayResource for the images of activities.
      *
      * @param fileName The path of the image.
      *
      * @return ResponseEntity consisting of the ByteArrayResource of images
-     */
+     *
     @GetMapping("/image")
     public ResponseEntity<Resource> getImages(@PathVariable("file") String fileName) {
 
-        File file = new File("server/src/main/resources/Activity_bank" + fileName);
+        File file = new File("server/src/main/resources/Activity_bank/" + fileName);
         Path path = Path.of(file.getAbsolutePath());
-        ActivityController.class.getResource("/Activity_bank/00/fridge.png").toString();
         ByteArrayResource resource = null;
         try {
             resource = new ByteArrayResource(readAllBytes(path));
@@ -180,5 +170,7 @@ public class ActivityController {
                 .body(resource);
 
     }
+
+     */
 
 }
