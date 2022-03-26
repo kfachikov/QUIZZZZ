@@ -3,6 +3,9 @@ package client.scenes.misc;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 
+/**
+ *
+ */
 public class HelpScreenCtrl {
 
     private final ServerUtils server;

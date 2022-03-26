@@ -4,6 +4,7 @@ import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import server.utils.QueueUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +16,15 @@ class QueueControllerTest {
 
     private QueueUserRepository repo;
     private QueueController lobbyCtrl;
+    private QueueUtils queueUtils;
 
     private int nextId;
 
     @BeforeEach
     public void setup() {
         repo = new QueueUserRepository();
-        lobbyCtrl = new QueueController(repo);
+        queueUtils = new QueueUtils();
+        lobbyCtrl = new QueueController(repo, queueUtils);
         nextId = 0;
     }
 

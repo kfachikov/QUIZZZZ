@@ -86,7 +86,6 @@ public class QueueState {
     }
 
     /**
-     *
      * @return list of QueueUsers
      */
     public List<QueueUser> getUsers() {
@@ -95,6 +94,7 @@ public class QueueState {
 
     /**
      * sets the list of QueueUsers as the passed list.
+     *
      * @param users list of QueueUsers
      */
     public void setUsers(List<QueueUser> users) {
@@ -102,7 +102,6 @@ public class QueueState {
     }
 
     /**
-     *
      * @return boolean value of whether the multiplayer game starts or not
      */
     public boolean isGameStarting() {
@@ -111,6 +110,7 @@ public class QueueState {
 
     /**
      * sets gameStarting boolean value as the passed value.
+     *
      * @param gameStarting boolean value of whether game starts or not
      */
     public void setGameStarting(boolean gameStarting) {
@@ -126,6 +126,7 @@ public class QueueState {
 
     /**
      * sets msToStart long value as the passed value.
+     *
      * @param msToStart long value of millisecond until the start
      */
     public void setMsToStart(long msToStart) {
@@ -133,7 +134,6 @@ public class QueueState {
     }
 
     /**
-     *
      * @return long gameId of the MultiPlayerGame
      */
     public long getUpcomingGameId() {
@@ -142,6 +142,7 @@ public class QueueState {
 
     /**
      * sets upcomingGameId long value as the passed value.
+     *
      * @param upcomingGameId long value of gameId of the MultiPlayerGame
      */
     public void setUpcomingGameId(long upcomingGameId) {

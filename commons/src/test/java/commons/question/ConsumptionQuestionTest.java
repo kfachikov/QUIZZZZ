@@ -15,6 +15,7 @@ class MockConsumptionQuestion extends ConsumptionQuestion {
 
     /**
      * Constructor for the activity's energy consumption question type.
+     *
      * @param activity the activity the question is about
      */
     public MockConsumptionQuestion(Activity activity) {
@@ -67,7 +68,7 @@ class ConsumptionQuestionTest {
         question.setAnswerChoices();
 
         assertEquals(3, question.getAnswerChoices().size());
-        assertTrue(question.getAnswerChoices().contains("100Wh"));
+        assertTrue(question.getAnswerChoices().contains(100L));
     }
 
     @Test

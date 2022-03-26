@@ -1,20 +1,33 @@
 package commons.question;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import commons.misc.Activity;
 
 import java.util.*;
 
+/**
+ * Consumption question type. Extends the AbstractQuestion parent class.
+ * Add specific fields and some functionality.
+ *
+ * The "type" value is set to "consumption" so that the instances are created accordingly
+ * on the client-side from the JSON response.
+ */
+@JsonTypeName(value = "consumption")
 public class ConsumptionQuestion extends AbstractQuestion {
     private Activity activity;
-    private List<String> answerChoices;
+    private List<Long> answerChoices;
 
+    /**
+     * Default constructor. Used for the JSON parsing of the different question instances.
+     */
     public ConsumptionQuestion() {
         super();
     }
 
     /**
      * Constructor for the activity's energy consumption question type.
-     * @param activity the activity the question is about
+     *
+     * @param activity the activity the question is about.
      */
     public ConsumptionQuestion(Activity activity) {
         this.activity = activity;
@@ -31,9 +44,9 @@ public class ConsumptionQuestion extends AbstractQuestion {
         long upperBound = correct * 3 / 2;
         long answer1 = lowerBound + rnd.nextInt((int) (upperBound - lowerBound + 1));
         long answer2 = lowerBound + rnd.nextInt((int) (upperBound - lowerBound + 1));
-        answerChoices.add(answer1 + "Wh");
-        answerChoices.add(answer2 + "Wh");
-        answerChoices.add(correct + "Wh");
+        answerChoices.add(answer1);
+        answerChoices.add(answer2);
+        answerChoices.add(correct);
         Collections.shuffle(answerChoices);
     }
 
@@ -50,6 +63,7 @@ public class ConsumptionQuestion extends AbstractQuestion {
 
     /**
      * compares the equality of the passed object, with the ConsumptionQuestion instance its called over.
+     *
      * @param o object that is subject to comparison
      * @return true/false corresponding to equal/unequal
      */
@@ -69,7 +83,6 @@ public class ConsumptionQuestion extends AbstractQuestion {
     }
 
     /**
-     *
      * @return hashcode of the ConsumptionQuestion instance
      */
     @Override
@@ -78,14 +91,18 @@ public class ConsumptionQuestion extends AbstractQuestion {
     }
 
     /**
-     *
      * @return activity
      */
     public Activity getActivity() {
         return activity;
     }
 
-    public List<String> getAnswerChoices() {
+    /**
+     * Getter for the list consisting of the possible answers.
+     *
+     * @return The answerChoices field of that particular question instance.
+     */
+    public List<Long> getAnswerChoices() {
         return answerChoices;
     }
 
@@ -93,7 +110,15 @@ public class ConsumptionQuestion extends AbstractQuestion {
         this.activity = activity;
     }
 
-    public void setAnswerChoices(List<String> answerChoices) {
+    public void setAnswerChoices(List<Long> answerChoices) {
         this.answerChoices = answerChoices;
+    }
+
+    /**
+     * Getter for the correct answer.
+     * @return long variable
+     */
+    public String getCorrectAnswer() {
+        return activity.getConsumption().toString();
     }
 }

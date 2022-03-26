@@ -41,7 +41,7 @@ class QueueUserRepository implements server.database.QueueUserRepository {
     /**
      * Returns a {@link Page} of entities meeting the paging restriction provided in the {@code Pageable} object.
      *
-     * @param pageable
+     * @param pageable Pageable item
      * @return a page of entities
      */
     @Override
@@ -292,19 +292,23 @@ class QueueUserRepository implements server.database.QueueUserRepository {
      * @since 2.6
      */
     @Override
-    public <S extends QueueUser, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends QueueUser, R> R findBy(
+            Example<S> example,
+            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction
+    ) {
         return null;
     }
 
     /**
      * Checks whether a username is already present in our Lobby database - would keep only the players currently in
      * lobby of a particular server.
+     *
      * @param username String variable to check whether it exists.
      * @return Boolean value whether the username exists.
      */
     @Override
     public boolean existsQueueUserByUsername(String username) {
-        for (QueueUser currentUser: queueUsers) {
+        for (QueueUser currentUser : queueUsers) {
             if (Objects.equals(username, currentUser.getUsername())) {
                 return true;
             }

@@ -5,6 +5,39 @@
 
 <module name="Checker">
     <module name="TreeWalker">
+        <module name="InvalidJavadocPosition"/>
+        <module name="JavadocBlockTagLocation"/>
+        <module name="JavadocContentLocationCheck"/>
+        <module name="JavadocMethod"/>
+        <module name="JavadocMissingLeadingAsterisk"/>
+        <module name="JavadocMissingWhitespaceAfterAsterisk"/>
+        <module name="JavadocTagContinuationIndentation"/>
+        <module name="MissingJavadocMethod">
+            <property name="severity"
+                      value="${checkstyle.javadoc.severity}"
+                      default="warning"/>
+        </module>
+        <module name="MissingJavadocType">
+            <property name="severity"
+                      value="${checkstyle.javadoc.severity}"
+                      default="warning"/>
+        </module>
+        <module name="NonEmptyAtclauseDescription"/>
+        <module name="RequireEmptyLineBeforeBlockTagGroup"/>
+        <module name="SingleLineJavadoc"/>
+
+        <module name="AnonInnerLength"/>
+        <module name="ExecutableStatementCount"/>
+        <module name="LambdaBodyLength">
+            <property name="max" value="35"/>
+        </module>
+
+        <module name="MethodLength"/>
+        <module name="MethodParamPad"/>
+
+        <module name="ArrayTypeStyle"/>
+
+
         <module name="UnusedImports"/>
         <module name="CovariantEquals"/>
         <module name="LeftCurly"/>
@@ -27,7 +60,6 @@
         <module name="CyclomaticComplexity"/>
         <module name="CommentsIndentation"/>
         <module name="Indentation">
-            <property name="caseIndent" value="0"/>
         </module>
         <module name="AbbreviationAsWordInName"/>
         <module name="ClassTypeParameterName"/>
@@ -50,4 +82,9 @@
         </module>
     </module>
     <module name="FileTabCharacter"/>
+    <module name="LineLength">
+        <property name="ignorePattern" value="^(//)?\s+\*\s+.+?$"/>
+        <property name="max" value="120"/>
+        <property name="fileExtensions" value="java"/>
+    </module>
 </module>

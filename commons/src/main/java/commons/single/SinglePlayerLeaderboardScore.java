@@ -2,7 +2,6 @@
 package commons.single;
 
 import javax.persistence.*;
-
 import java.util.Objects;
 
 /**
@@ -22,8 +21,9 @@ public class SinglePlayerLeaderboardScore {
 
     /**
      * constructor for the leaderboard entry.
-     * @param username
-     * @param score
+     *
+     * @param username Username of the player
+     * @param score    Score of the player
      */
     public SinglePlayerLeaderboardScore(String username, int score) {
         this.username = username;
@@ -32,6 +32,7 @@ public class SinglePlayerLeaderboardScore {
 
     /**
      * getter for the id of the entry.
+     *
      * @return id
      */
     public Long getId() {
@@ -41,6 +42,7 @@ public class SinglePlayerLeaderboardScore {
 
     /**
      * getter for the username of the entry.
+     *
      * @return the username
      */
     public String getUsername() {
@@ -50,6 +52,7 @@ public class SinglePlayerLeaderboardScore {
 
     /**
      * getter for the score of the entry.
+     *
      * @return he score
      */
     public int getScore() {
@@ -59,6 +62,7 @@ public class SinglePlayerLeaderboardScore {
 
     /**
      * Checks whether two instances are equal.
+     *
      * @param o the object that will be checked for equality
      * @return true/false
      */
@@ -76,6 +80,7 @@ public class SinglePlayerLeaderboardScore {
 
     /**
      * Generates the hashcode of an instance.
+     *
      * @return the hashcode of the entry
      */
     @Override
@@ -85,6 +90,7 @@ public class SinglePlayerLeaderboardScore {
 
     /**
      * Generates string version of the instance.
+     *
      * @return String version of the entity.
      */
     @Override

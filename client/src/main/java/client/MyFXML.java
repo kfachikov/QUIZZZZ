@@ -15,13 +15,7 @@
  */
 package client;
 
-import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-
 import com.google.inject.Injector;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.util.Builder;
@@ -29,12 +23,21 @@ import javafx.util.BuilderFactory;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+
+/**
+ *
+ */
 public class MyFXML {
 
     private final Injector injector;
 
     /**
      * initializes the injector.
+     *
      * @param injector the injector instance
      */
     public MyFXML(Injector injector) {
@@ -42,9 +45,9 @@ public class MyFXML {
     }
 
     /**
-     * @param c class instance
+     * @param c     class instance
      * @param parts all parts of each class
-     * @param <T> type of the class
+     * @param <T>   type of the class
      * @return new pair of controller and parent.
      */
     public <T> Pair<T, Parent> load(Class<T> c, String... parts) {
@@ -60,7 +63,7 @@ public class MyFXML {
 
     /**
      * @param parts is a set of strings representing the parts of each class.
-     * @return  the URL of the parts
+     * @return the URL of the parts
      */
     private URL getLocation(String... parts) {
         var path = Path.of("", parts).toString();

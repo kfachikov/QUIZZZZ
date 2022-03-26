@@ -2,7 +2,10 @@ package commons.misc;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
 /**
@@ -51,6 +54,9 @@ public class Activity {
     @JsonProperty("consumption_in_wh")
     private Long consumption;
 
+    /**
+     * Default constructor for Activity. Used in the JSON parsing.
+     */
     @SuppressWarnings("unused")
     public Activity() {
         // for object mapper
@@ -58,11 +64,12 @@ public class Activity {
 
     /**
      * Constructs an Activity object.
-     * @param id
-     * @param title
-     * @param source
-     * @param image
-     * @param consumption
+     *
+     * @param id          Id (e. g. "00-shower")
+     * @param title       Title
+     * @param source      Source for the information
+     * @param image       Image path
+     * @param consumption Consumption in watt-hours
      */
     public Activity(String id, String title, String source, String image, Long consumption) {
         this.id = id;
@@ -74,6 +81,7 @@ public class Activity {
 
     /**
      * Get the primary-key attribute of an entity.
+     *
      * @return The row attribute of a particular entry.
      */
     public Long getKey() {
@@ -82,6 +90,7 @@ public class Activity {
 
     /**
      * Sets key of an entity.
+     *
      * @param key Long value to be set as the key value.
      */
     public void setKey(Long key) {
@@ -90,6 +99,7 @@ public class Activity {
 
     /**
      * Get the identifying attribute, consisting of group number and the activity itself.
+     *
      * @return The id attribute of a particular entry.
      */
     public String getId() {
@@ -98,6 +108,7 @@ public class Activity {
 
     /**
      * Sets id field of an entry.
+     *
      * @param id String value to be set as an id attribute.
      */
     public void setId(String id) {
@@ -106,6 +117,7 @@ public class Activity {
 
     /**
      * Get the description of an activity.
+     *
      * @return The title attribute of a particular entry.
      */
     public String getTitle() {
@@ -114,6 +126,7 @@ public class Activity {
 
     /**
      * Sets title field of an entry.
+     *
      * @param title String value to be set as a title attribute.
      */
     public void setTitle(String title) {
@@ -122,6 +135,7 @@ public class Activity {
 
     /**
      * Get the source, where the information for the particular activity has been gathered from.
+     *
      * @return The source attribute of a particular entry.
      */
     public String getSource() {
@@ -130,6 +144,7 @@ public class Activity {
 
     /**
      * Sets source field of an entry.
+     *
      * @param source String value to be set as a source attribute.
      */
     public void setSource(String source) {
@@ -138,6 +153,7 @@ public class Activity {
 
     /**
      * Get the image showing the activity "in action".
+     *
      * @return The image attribute of a particular entry.
      */
     public String getImage() {
@@ -146,6 +162,7 @@ public class Activity {
 
     /**
      * Sets image field of an entry.
+     *
      * @param image String value to be set as an image attribute.
      */
     public void setImage(String image) {
@@ -154,6 +171,7 @@ public class Activity {
 
     /**
      * Get the consumption, stored in watt-hours of a particular activity.
+     *
      * @return The title attribute of a particular entry.
      */
     public Long getConsumption() {
@@ -162,6 +180,7 @@ public class Activity {
 
     /**
      * Sets consumption field of an entry.
+     *
      * @param consumption String value to be set as a consumption attribute.
      */
     public void setConsumption(Long consumption) {
