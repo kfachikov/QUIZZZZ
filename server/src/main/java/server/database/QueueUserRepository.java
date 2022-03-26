@@ -18,6 +18,9 @@ package server.database;
 import commons.queue.QueueUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+/**
+ * Queue user repository for the multiplayer queue users.
+ */
 public interface QueueUserRepository extends JpaRepository<QueueUser, Long> {
     /**
      * Generates a method iterating over all entries in the repository and checking whether a username exists.

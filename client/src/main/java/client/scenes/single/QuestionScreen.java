@@ -106,7 +106,7 @@ public abstract class QuestionScreen {
      * Getter for the utility instance.
      *
      * @return  SinglePlayerUtils instance consisting of information about
-     * current game state and current player.
+     *         current game state and current player.
      */
     public SinglePlayerUtils getSinglePlayerUtils() {
         return singlePlayerUtils;

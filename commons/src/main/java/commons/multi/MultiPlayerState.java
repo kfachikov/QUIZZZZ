@@ -9,6 +9,9 @@ import commons.question.AbstractQuestion;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class for the multiplayer game state.
+ */
 @JsonTypeName(value = "multi")
 public class MultiPlayerState extends GameState {
 

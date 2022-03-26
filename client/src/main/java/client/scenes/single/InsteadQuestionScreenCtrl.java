@@ -20,6 +20,9 @@ import javafx.scene.text.Text;
 
 import java.util.Date;
 
+/**
+ * Controller for the instead question scene.
+ */
 public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
     private InsteadQuestion question;
@@ -56,11 +59,20 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
-     * @param server is the server variable
-     * @param mainCtrl is the main controller variable
+     *
+     * @param server is the server variable.
+     *
+     * @param singlePlayerUtils is the singlePlayerUtils.
+     *
+     * @param pollingService is the polling service for service.
+     *
+     * @param mainCtrl is the main controller variable.
+     *
      */
     @Inject
-    public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+    public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
+                                     GameStatePollingService pollingService,
+                                     SinglePlayerUtils singlePlayerUtils) {
         super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 
@@ -142,13 +154,21 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
         questionTitle.setText(question.toString());
     }
 
+    /**
+     * Getter for the instead question.
+     *
+     * @return this question.
+     *
+     */
     public InsteadQuestion getQuestion() {
         return question;
     }
 
     /**
      * Sets the question and the corresponding fields with proper information.
+     *
      * @param question Question to be visualized on the particular scene.
+     *
      */
     public void setQuestion(InsteadQuestion question) {
         firstAnswer.setDisable(false);
@@ -173,7 +193,9 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * Getter for the window object - used to change the background in MainCtrl.
+     *
      * @return AnchorPane object with reference to the particular window of this scene.
+     *
      */
     public AnchorPane getWindow() {
         return window;

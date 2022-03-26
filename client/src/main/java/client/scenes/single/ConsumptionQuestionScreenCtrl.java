@@ -8,8 +8,6 @@ import com.google.inject.Inject;
 import commons.misc.Response;
 import commons.question.ConsumptionQuestion;
 import commons.single.SinglePlayerState;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -56,12 +54,15 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
+     * @param singlePlayerUtils the singleplayer utilities variable.
      * @param server   is the server variable
      * @param mainCtrl is the main controller variable
      * @param pollingService is the injected polling service to be used to poll the game state.
      */
     @Inject
-    public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+    public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
+                                         GameStatePollingService pollingService,
+                                         SinglePlayerUtils singlePlayerUtils) {
         super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 
@@ -71,34 +72,27 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      * Binding answer choices to a method submitting that answer.
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
-    @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
-        firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                submitAnswer(firstAnswer.getText());
-                firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
-            }
+        firstAnswer.setOnAction(e -> {
+            submitAnswer(firstAnswer.getText());
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
         });
-        secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                submitAnswer(secondAnswer.getText());
-                secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
-            }
+        secondAnswer.setOnAction(e -> {
+            submitAnswer(secondAnswer.getText());
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
         });
-        thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                submitAnswer(thirdAnswer.getText());
-                thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
-            }
+        thirdAnswer.setOnAction(e -> {
+            submitAnswer(thirdAnswer.getText());
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
         });
     }
 
@@ -108,6 +102,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      * denote the "Wh" in the button text field.
      *
      * @param chosenAnswer String value of button clicked - answer chosen
+     *
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
@@ -123,6 +118,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      * Sets the current score.
      *
      * @param score is the current score of the player
+     *
      */
     public void setScore(long score) {
         currentScore.setText(String.valueOf(score));
@@ -131,15 +127,29 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * Sets the question to the chosen questionText.
+     *
      */
     public void setQuestionPrompt() {
         questionTitle.setText(question.toString());
     }
 
+    /**
+     * Getter for the consumption question.
+     *
+     * @return this question.
+     *
+     */
     public ConsumptionQuestion getQuestion() {
         return question;
     }
 
+    /**
+     * Setter for the question.
+     * The method sets the answers, prompt,question title and images.
+     *
+     * @param question the consumption question.
+     *
+     */
     public void setQuestion(ConsumptionQuestion question) {
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
@@ -163,6 +173,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * Getter for the window object - used to change the background in MainCtrl.
+     *
      * @return AnchorPane object with reference to the particular window of this scene.
      */
     public AnchorPane getWindow() {

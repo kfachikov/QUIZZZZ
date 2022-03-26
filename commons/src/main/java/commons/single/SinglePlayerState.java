@@ -9,6 +9,9 @@ import commons.question.AbstractQuestion;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class for the singleplayer game state.
+ */
 @JsonTypeName(value = "single")
 public class SinglePlayerState extends GameState {
 
@@ -18,6 +21,9 @@ public class SinglePlayerState extends GameState {
     private SinglePlayer player;
     private List<Response> finalAnswers;
 
+    /**
+     * Constructor for the single player state.
+     */
     public SinglePlayerState() {
 
     }
@@ -78,7 +84,7 @@ public class SinglePlayerState extends GameState {
      * @return  Boolean value corresponding to the correctness of the answer.
      */
     public boolean compareAnswer() {
-        if(finalAnswers.get(getRoundNumber()) == null) {
+        if (finalAnswers.get(getRoundNumber()) == null) {
             return false;
         }
         String chosenAnswer = finalAnswers.get(getRoundNumber()).getAnswerChoice();

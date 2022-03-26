@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import server.database.QueueUserRepository;
 import server.utils.QueueUtils;
 
-import java.util.Date;
-
+/**
+ * Class for the queue controller.
+ */
 @RestController
 @RequestMapping("/api/queue")
 public class QueueController {
@@ -18,6 +19,13 @@ public class QueueController {
     private final QueueUserRepository repo;
     private final QueueUtils queueUtils;
 
+    /**
+     * Constructor for the queue controller.
+     *
+     * @param repo this QueueUser repository.
+     *
+     * @param queueUtils the queue utilities variable.
+     */
     public QueueController(QueueUserRepository repo, QueueUtils queueUtils) {
         this.repo = repo;
         this.queueUtils = queueUtils;

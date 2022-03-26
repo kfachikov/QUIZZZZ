@@ -7,8 +7,6 @@ import com.google.inject.Inject;
 import commons.misc.Response;
 import commons.question.MoreExpensiveQuestion;
 import commons.single.SinglePlayerState;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -19,6 +17,9 @@ import javafx.scene.text.Text;
 
 import java.util.Date;
 
+/**
+ * Controller for the more expensive question scene.
+ */
 public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
     private MoreExpensiveQuestion question;
@@ -69,11 +70,15 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
+     * @param pollingService is the polling service variable.
+     * @param singlePlayerUtils is the singleplayer utilities variable.
      * @param server   is the server variable
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+    public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
+                                           GameStatePollingService pollingService,
+                                           SinglePlayerUtils singlePlayerUtils) {
         super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 
@@ -86,23 +91,23 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
 
-        firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                /*
-                The change in the following line was made so that the button can lack text.
-                Otherwise, it could overlap with the image, which would disrupt the client.
-                 */
-                submitAnswer(description1.getText());
-                firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
-            }
+        firstAnswer.setOnAction(e -> {
+            /*
+            The change in the following line was made so that the button can lack text.
+            Otherwise, it could overlap with the image, which would disrupt the client.
+             */
+            submitAnswer(description1.getText());
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
         });
 
         image1.setOnMouseClicked(e -> {
             submitAnswer(description1.getText());
-            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
             firstAnswer.setDisable(true);
             secondAnswer.setDisable(true);
             thirdAnswer.setDisable(true);
@@ -110,25 +115,26 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
         description1.setOnMouseClicked(e -> {
             submitAnswer(description1.getText());
-            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
             firstAnswer.setDisable(true);
             secondAnswer.setDisable(true);
             thirdAnswer.setDisable(true);
         });
 
-        secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                submitAnswer(description2.getText());
-                secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
-            }
+        secondAnswer.setOnAction(e -> {
+            submitAnswer(description2.getText());
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
         });
 
         image2.setOnMouseClicked(e -> {
             submitAnswer(description2.getText());
-            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
             firstAnswer.setDisable(true);
             secondAnswer.setDisable(true);
             thirdAnswer.setDisable(true);
@@ -136,25 +142,26 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
         description2.setOnMouseClicked(e -> {
             submitAnswer(description2.getText());
-            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
             firstAnswer.setDisable(true);
             secondAnswer.setDisable(true);
             thirdAnswer.setDisable(true);
         });
 
-        thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                submitAnswer(description3.getText());
-                thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
-            }
+        thirdAnswer.setOnAction(e -> {
+            submitAnswer(description3.getText());
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
         });
 
         image3.setOnMouseClicked(e -> {
             submitAnswer(description3.getText());
-            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
             firstAnswer.setDisable(true);
             secondAnswer.setDisable(true);
             thirdAnswer.setDisable(true);
@@ -162,7 +169,8 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
         description3.setOnMouseClicked(e -> {
             submitAnswer(description3.getText());
-            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
             firstAnswer.setDisable(true);
             secondAnswer.setDisable(true);
             thirdAnswer.setDisable(true);
@@ -205,7 +213,9 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * Sets the question and the corresponding fields with proper information.
+     *
      * @param question Question to be visualized on the particular scene.
+     *
      */
     public void setQuestion(MoreExpensiveQuestion question) {
         firstAnswer.setDisable(false);
@@ -227,13 +237,21 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     }
 
 
+    /**
+     * Getter for the more expensive question.
+     *
+     * @return this question.
+     *
+     */
     public MoreExpensiveQuestion getQuestion() {
         return question;
     }
 
     /**
      * Getter for the window object - used to change the background in MainCtrl.
+     *
      * @return AnchorPane object with reference to the particular window of this scene.
+     *
      */
     public AnchorPane getWindow() {
         return window;

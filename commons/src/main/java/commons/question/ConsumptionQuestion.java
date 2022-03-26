@@ -106,6 +106,11 @@ public class ConsumptionQuestion extends AbstractQuestion {
         return answerChoices;
     }
 
+    /**
+     * Setter for the activity.
+     *
+     * @param activity the actual activity.
+     */
     public void setActivity(Activity activity) {
         this.activity = activity;
     }

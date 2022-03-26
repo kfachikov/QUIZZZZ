@@ -7,6 +7,9 @@ import server.database.LeaderboardRepository;
 
 import java.util.List;
 
+/**
+ * Class for the leaderboard controller.
+ */
 @RestController
 @RequestMapping("/api/leaderboard/players")
 public class LeaderboardController {

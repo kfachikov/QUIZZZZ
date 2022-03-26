@@ -10,6 +10,9 @@ public class GuessQuestion extends AbstractQuestion {
      */
     private Activity activity;
 
+    /**
+     * Constructor for the guess question.
+     */
     public GuessQuestion() {
         super();
     }
