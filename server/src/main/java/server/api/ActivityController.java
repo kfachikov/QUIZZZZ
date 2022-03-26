@@ -6,6 +6,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
 
@@ -20,7 +21,7 @@ import static java.nio.file.Files.readAllBytes;
 /**
  * Server-side controller for the activities stored in the database.
  */
-@RestController
+@Controller
 @RequestMapping("/api/activities")
 public class ActivityController {
 
@@ -163,19 +164,7 @@ public class ActivityController {
      */
     @GetMapping("/image")
     public ResponseEntity<Resource> getImages(@PathVariable("file") String fileName) {
-        /*//path = "@server/src/main/resources/images/" + path;
-        //byte[] array = path.getBytes(StandardCharsets.US_ASCII);
-        //ByteArrayResource byteArrayResource = new ByteArrayResource(array);
-        ByteArrayResource byteArrayResource = new ByteArrayResource(("@server/src/main/resources/images/"
-                + repo.findAll().stream()
-                .filter(e -> e.getImage().equals(path))
-                .collect(Collectors.toList()).get(0).getImage()).getBytes(StandardCharsets.US_ASCII));
-        try {
-            return ResponseEntity.ok((ByteArrayInputStream) byteArrayResource.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;*/
+
         File file = new File("server/src/main/resources/images/" + fileName);
         Path path = Path.of(file.getAbsolutePath());
         ByteArrayResource resource = null;
@@ -188,6 +177,7 @@ public class ActivityController {
                 .contentLength(file.length())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource);
+
     }
 
 }

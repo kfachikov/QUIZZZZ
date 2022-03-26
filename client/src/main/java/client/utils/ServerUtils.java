@@ -28,6 +28,7 @@ import commons.single.SinglePlayerState;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 import java.io.InputStream;
@@ -245,8 +246,8 @@ public class ServerUtils {
         Response response = ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/image/" + imagePath)
-                .request(APPLICATION_JSON)
-                .accept(APPLICATION_JSON)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .get(new GenericType<Response>() {});
         return response.readEntity(InputStream.class);
     }
