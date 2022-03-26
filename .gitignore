@@ -43,3 +43,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+###Activity bank
+server/src/main/resources/Activity_bank
