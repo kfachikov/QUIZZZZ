@@ -11,6 +11,7 @@ import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -20,7 +21,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+
+import java.io.File;
+import java.net.URL;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 /**
  * Controller for the MoreExpensiveQuestionScreen.
@@ -222,14 +227,15 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
      * @param question Question to be visualized on the particular scene.
      */
     public void setQuestion(MoreExpensiveQuestion question) {
-
-        Image newImage1 = new Image(server.getAllImages(question.getAnswerChoices().get(0).getImage()));
+        File file1 = new File(server.getAllImages(question.getAnswerChoices().get(0).getImage()).toString());
+        Image newImage1 = new Image(file1.toURI().toString());
         image1.setImage(newImage1);
-        Image newImage2 = new Image(server.getAllImages(question.getAnswerChoices().get(1).getImage()));
+        File file2 = new File(server.getAllImages(question.getAnswerChoices().get(1).getImage()).toString());
+        Image newImage2 = new Image(file2.toURI().toString());
         image1.setImage(newImage2);
-        Image newImage3 = new Image(server.getAllImages(question.getAnswerChoices().get(2).getImage()));
+        File file3 = new File(server.getAllImages(question.getAnswerChoices().get(2).getImage()).toString());
+        Image newImage3 = new Image(file3.toURI().toString());
         image1.setImage(newImage3);
-
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);
@@ -276,4 +282,26 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     public ProgressBar getTime() {
         return time;
     }
+
+    /*
+     * Called to initialize a controller after its root element has been
+     * completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  {@code null} if the location is not known.
+     * @param resources The resources used to localize the root object, or {@code null} if
+     *
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        File file1 = new File(server.getAllImages(question.getAnswerChoices().get(0).getImage()).toString());
+        Image newImage1 = new Image(file1.toURI().toString());
+        image1.setImage(newImage1);
+        File file2 = new File(server.getAllImages(question.getAnswerChoices().get(1).getImage()).toString());
+        Image newImage2 = new Image(file2.toURI().toString());
+        image1.setImage(newImage2);
+        File file3 = new File(server.getAllImages(question.getAnswerChoices().get(2).getImage()).toString());
+        Image newImage3 = new Image(file3.toURI().toString());
+        image1.setImage(newImage3);
+    }
+    */
 }
