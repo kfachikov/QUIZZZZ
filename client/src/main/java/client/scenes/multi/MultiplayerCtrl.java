@@ -43,6 +43,8 @@ public class MultiplayerCtrl {
     private MultiGameMockScreenCtrl mockScreenCtrl;
     private Scene mockScreen;
 
+    private LeaderboardScreenCtrl leaderboardCtrl;
+    private Scene leaderboard;
 
     private final MainCtrl mainCtrl;
     private final ServerUtils serverUtils;
@@ -88,13 +90,15 @@ public class MultiplayerCtrl {
      * @param questionCScreen Mock question C screen pair
      * @param questionDScreen Mock question D screen pair
      * @param mockMulti       Mock miscellaneous screen pair
+     * @param leaderboard     Final/intermediate leaderboard screen pair
      */
     public void initialize(
             Pair<MultiGameQuestionAScreenCtrl, Parent> questionAScreen,
             Pair<MultiGameQuestionBScreenCtrl, Parent> questionBScreen,
             Pair<MultiGameQuestionCScreenCtrl, Parent> questionCScreen,
             Pair<MultiGameQuestionDScreenCtrl, Parent> questionDScreen,
-            Pair<MultiGameMockScreenCtrl, Parent> mockMulti) {
+            Pair<MultiGameMockScreenCtrl, Parent> mockMulti,
+            Pair<LeaderboardScreenCtrl, Parent> leaderboard) {
         this.questionAScreenCtrl = questionAScreen.getKey();
         this.questionAScreen = new Scene(questionAScreen.getValue());
 
@@ -109,6 +113,9 @@ public class MultiplayerCtrl {
 
         this.mockScreenCtrl = mockMulti.getKey();
         this.mockScreen = new Scene(mockMulti.getValue());
+
+        this.leaderboardCtrl = leaderboard.getKey();
+        this.leaderboard = new Scene(leaderboard.getValue());
 
         pollingService.valueProperty().addListener(onPoll);
     }

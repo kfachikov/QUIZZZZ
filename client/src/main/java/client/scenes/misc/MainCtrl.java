@@ -16,7 +16,6 @@
 package client.scenes.misc;
 
 import client.scenes.multi.QueueScreenCtrl;
-import client.scenes.multi.*;
 import client.scenes.single.*;
 import client.utils.SinglePlayerUtils;
 import commons.question.ConsumptionQuestion;
@@ -72,8 +71,6 @@ public class MainCtrl {
     private CongratulationsScreenCtrl congratulationsCtrl;
     private Scene congratulations;
 
-    private LeaderboardScreenCtrl leaderboardCtrl;
-    private Scene leaderboard;
 
     /*
     Instance of the utility class for the single-player game mode.
@@ -94,7 +91,6 @@ public class MainCtrl {
      * @param instead         is the insteadQuestion screen pair variable
      * @param guess           is the guessQuestion screen pair variable
      * @param congratulations is the congratulations screen pair variable
-     * @param leaderboard     is the leaderboard screen pair variable
      */
     public void initialize(Stage primaryStage,
                            Pair<HomeScreenCtrl, Parent> home,
@@ -106,8 +102,8 @@ public class MainCtrl {
                            Pair<ConsumptionQuestionScreenCtrl, Parent> consumption,
                            Pair<InsteadQuestionScreenCtrl, Parent> instead,
                            Pair<GuessQuestionScreenCtrl, Parent> guess,
-                           Pair<CongratulationsScreenCtrl, Parent> congratulations,
-                           Pair<LeaderboardScreenCtrl, Parent> leaderboard) {
+                           Pair<CongratulationsScreenCtrl, Parent> congratulations
+                           ) {
 
         this.primaryStage = primaryStage;
 
@@ -140,9 +136,6 @@ public class MainCtrl {
 
         this.congratulationsCtrl = congratulations.getKey();
         this.congratulations = new Scene(congratulations.getValue());
-
-        this.leaderboardCtrl = leaderboard.getKey();
-        this.leaderboard = new Scene(leaderboard.getValue());
 
         showHome();
         primaryStage.show();
@@ -293,22 +286,6 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz: Congratulations");
         congratulationsCtrl.setPoints();
         primaryStage.setScene(congratulations);
-    }
-
-    /**
-     * TODO this part is still yet to be completed, as there is currently no implementation to determine
-     * TODO whether a game is ongoing or done.
-     * Sets the current scene to Leaderboard screen.
-     * Sets the title depending on ____ as Intermediate Leaderboard or Game Over
-     */
-    public void showLeaderboard() {
-        primaryStage.setScene(leaderboard);
-        //if () {
-        //    primaryStage.setTitle("Quizzz: Game Over");
-        //}
-        //if () {
-        primaryStage.setTitle("Quizzz: Intermediate Leaderboard");
-        //}
     }
 
 }
