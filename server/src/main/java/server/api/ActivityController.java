@@ -165,8 +165,9 @@ public class ActivityController {
     @GetMapping("/image")
     public ResponseEntity<Resource> getImages(@PathVariable("file") String fileName) {
 
-        File file = new File("server/src/main/resources/images/" + fileName);
+        File file = new File("server/src/main/resources/Activity_bank" + fileName);
         Path path = Path.of(file.getAbsolutePath());
+        ActivityController.class.getResource("/Activity_bank/00/fridge.png").toString();
         ByteArrayResource resource = null;
         try {
             resource = new ByteArrayResource(readAllBytes(path));
