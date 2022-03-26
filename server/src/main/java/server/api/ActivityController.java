@@ -155,7 +155,7 @@ public class ActivityController {
      */
     @GetMapping("/{imagePath}")
     public ResponseEntity<ByteArrayResource> getImages(@PathVariable("imagePath") String path) {
-        path = "@../../../../../../../" + path;
+        path = "@server/src/main//resources/images/" + path;
         byte[] array = path.getBytes(StandardCharsets.US_ASCII);
         ByteArrayResource byteArrayResource = new ByteArrayResource(array);
         return ResponseEntity.ok(byteArrayResource);
