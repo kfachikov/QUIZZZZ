@@ -180,11 +180,19 @@ public class MultiplayerCtrl {
      * @param game Up-to-date state of the game.
      */
     private void switchState(MultiPlayerState game) {
-        String state = game.getState();
-        if (MultiPlayerState.QUESTION_STATE.equals(state)) {
-            switchToQuestion(game);
-        } else {
-            switchToMock(game);
+        switch (game.getState()) {
+            case MultiPlayerState.QUESTION_STATE:
+                switchToQuestion(game);
+                break;
+            case MultiPlayerState.LEADERBOARD_STATE:
+                showIntermediateLeaderboard();
+                break;
+            case MultiPlayerState.GAME_OVER_STATE:
+                showGameOver();
+                break;
+            default:
+                switchToMock(game);
+                break;
         }
     }
 
