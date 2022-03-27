@@ -1,7 +1,7 @@
 package server.utils;
 
 import commons.misc.Activity;
-import commons.misc.GameResponse;
+import commons.misc.Response;
 import commons.question.AbstractQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
@@ -19,14 +19,15 @@ import java.util.*;
 public class SinglePlayerStateUtils {
 
     private final Map<Long, SinglePlayerState> games;
-
     private final GenerateQuestionUtils generateQuestionUtils;
-    private final CurrentTimeUtils currentTime;
 
-    public SinglePlayerStateUtils(GenerateQuestionUtils generateQuestionUtils, CurrentTimeUtils currentTime) {
+    /**
+     * Constructor for the singleplayer state utilities.
+     *
+     * @param generateQuestionUtils the generateQuestions utilities.
+     */
+    public SinglePlayerStateUtils(GenerateQuestionUtils generateQuestionUtils) {
         this.generateQuestionUtils = generateQuestionUtils;
-        this.currentTime = currentTime;
-
         games = new HashMap<>();
     }
 
@@ -34,8 +35,8 @@ public class SinglePlayerStateUtils {
      * Get particular game state instance by its key in the games map.
      * Update its state if required.
      *
-     * @param id Key value to search for.
-     * @return SinglePlayerState instance in case it exists, null otherwise.
+     * @param id    Key value to search for.
+     * @return      SinglePlayerState instance in case it exists, null otherwise.
      */
     public SinglePlayerState getGameStateById(long id) {
         if (games.containsKey(id)) {
@@ -49,18 +50,18 @@ public class SinglePlayerStateUtils {
 
     /**
      * Posts an answer in the current game - particular instance found by gameId stored in the
-     * GameResponse object sent.
+     * Response object sent.
      *
-     * @param gameResponse GameResponse sent from client.
-     * @return GameResponse instance in case the gameId is valid, or null otherwise.
+     * @param response  Response sent from client.
+     * @return          Response instance in case the gameId is valid, or null otherwise.
      */
-    public GameResponse postAnswer(GameResponse gameResponse) {
-        long gameId = gameResponse.getGameId();
+    public Response postAnswer(Response response) {
+        long gameId = response.getGameId();
         if (!games.containsKey(gameId)) {
             return null;
         }
-        games.get(gameId).getSubmittedAnswers().add(gameResponse);
-        return gameResponse;
+        games.get(gameId).getSubmittedAnswers().add(response);
+        return response;
     }
 
     /**
@@ -70,7 +71,7 @@ public class SinglePlayerStateUtils {
      * @param game SinglePlayer game state to update
      */
     public void updateState(SinglePlayerState game) {
-        long time = currentTime.getTime();
+        long time = new Date().getTime();
 
         // Check if we should be changing the state of the game
         if (time >= game.getNextPhase()) {
@@ -94,25 +95,25 @@ public class SinglePlayerStateUtils {
     }
 
     /**
-     * Update the score of the player and clear GameResponses.
+     * Update the score of the player and clear responses.
      * <p>
      * This method runs only in the transition state.
      * <p>
-     * All GameResponses from the player are aggregated (to determine the true GameResponse)
+     * All responses from the player are aggregated (to determine the true response)
      * and then cleared.
      * <p>
-     * Finally, the player's score is updated based on their GameResponse (the timing,
+     * Finally, the player's score is updated based on their response (the timing,
      * whether it is correct etc)
      *
      * @param game Singleplayer game state (in the transition state)
      */
     private void updateScore(SinglePlayerState game) {
         if (game.getState().equals(SinglePlayerState.TRANSITION_STATE)) {
-            GameResponse playerGameResponse = computeFinalAnswer(game);
+            Response playerResponse = computeFinalAnswer(game);
             /*
-            Saves the latest GameResponse of the player in the list of answers submitted as final.
+            Saves the latest response of the player in the list of answers submitted as final.
              */
-            game.getFinalAnswers().add(playerGameResponse);
+            game.getFinalAnswers().add(playerResponse);
 
             /*
             Clear the game from any previous answers.
@@ -128,20 +129,20 @@ public class SinglePlayerStateUtils {
                 If the answer submitted is the same, then the score is updated accordingly.
                  */
                 SinglePlayer player = game.getPlayer();
-                player.setScore(player.getScore() + computeScore(playerGameResponse));
+                player.setScore(player.getScore() + computeScore(playerResponse));
             }
         }
     }
 
     /**
-     * Compute the score of a GameResponse.
+     * Compute the score of a response.
      * <p>
      * TODO: this method is just a mock method, and returns 100.
      *
-     * @param gameResponse GameResponse of the player with a correct answer. TODO: The time submitted to be used for computations.
+     * @param response Response of the player with a correct answer. TODO: The time submitted to be used for computations.
      * @return Number of points to add to the player's score
      */
-    private int computeScore(GameResponse gameResponse) {
+    private int computeScore(Response response) {
         return 100;
     }
 
@@ -149,46 +150,46 @@ public class SinglePlayerStateUtils {
     /**
      * Compute the final answer that the player chose.
      * <p>
-     * The set of GameResponses is iterated over, with the last answer choice being
+     * The set of responses is iterated over, with the last answer choice being
      * returned. If the last answer choice is selected multiple times, the first
      * instance in the suffix of the answer choices is returned.
      *
      * @param game Singleplayer game for which the answer is computed.
-     * @return The true GameResponse of the player.
+     * @return The true response of the player.
      */
-    public GameResponse computeFinalAnswer(SinglePlayerState game) {
-        // Dummy GameResponse, if the player did not choose anything
-        GameResponse playerGameResponse = new GameResponse(
+    public Response computeFinalAnswer(SinglePlayerState game) {
+        // Dummy response, if the player did not choose anything
+        Response playerResponse = new Response(
                 game.getId(),
                 Long.MAX_VALUE,
                 game.getRoundNumber(),
                 game.getPlayer().getUsername(),
                 "wrong answer"
         );
-        // GameResponses are sorted by the submission time.
-        Comparator<GameResponse> comp =
+        // Responses are sorted by the submission time.
+        Comparator<Response> comp =
                 (a, b) -> (int) (a.getTimeSubmitted() - b.getTimeSubmitted());
         game.getSubmittedAnswers().sort(comp);
-        for (GameResponse GameResponse : game.getSubmittedAnswers()) {
-            // Only update the GameResponse if it differs
+        for (Response response : game.getSubmittedAnswers()) {
+            // Only update the response if it differs
             // This is done to avoid punishing the player from clicking
-            // the same GameResponse multiple times
-            if (!playerGameResponse.getAnswerChoice().equals(GameResponse.getAnswerChoice())) {
-                playerGameResponse = GameResponse;
+            // the same response multiple times
+            if (!playerResponse.getAnswerChoice().equals(response.getAnswerChoice())) {
+                playerResponse = response;
             }
         }
-        return playerGameResponse;
+        return playerResponse;
     }
 
     /**
      * Constructs a new single-player game state.
      *
+     * @param repo the activity repository
      * @param player Player who is playing in the game
-     * @param repo   ActivityRepository instance.
      * @return The newly constructed SinglePlayer game state
      */
     public SinglePlayerState createSingleGame(SinglePlayer player,
-                                              ActivityRepository repo) {
+                                               ActivityRepository repo) {
         Set<Long> keys = games.keySet();
         long maxKey;
         if (keys.isEmpty()) {
@@ -197,11 +198,11 @@ public class SinglePlayerStateUtils {
             maxKey = Collections.max(keys);
         }
         long id = maxKey + 1;
-        long nextTransition = currentTime.getTime() + 8000;
+        long nextTransition = new Date().getTime() + 8000;
         int roundNumber = 0;
-        List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions();
-        List<GameResponse> submittedAnswers = new ArrayList<>();
-        List<GameResponse> finalAnswers = new ArrayList<>();
+        List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions(repo);
+        List<Response> submittedAnswers = new ArrayList<>();
+        List<Response> finalAnswers = new ArrayList<>();
         List<Activity> activityList = new ArrayList<>();
         String state = SinglePlayerState.QUESTION_STATE;
 
@@ -212,6 +213,7 @@ public class SinglePlayerStateUtils {
                 questionList,
                 finalAnswers,
                 submittedAnswers,
+                activityList,
                 state,
                 player
         );

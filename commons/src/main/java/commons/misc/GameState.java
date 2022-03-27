@@ -9,6 +9,9 @@ import commons.single.SinglePlayerState;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Constructor for the game state.
+ */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -23,16 +26,18 @@ public abstract class GameState {
     private long nextPhase;
     private int roundNumber;
     private List<AbstractQuestion> questionList;
-    private List<GameResponse> submittedAnswers;
+    private List<Response> submittedAnswers;
+    private List<Activity> activityList;
     /**
      * The state attribute is a String from : transition, intermittent leaderboard, question, game over.
      */
     private String state;
 
     /**
-     * Default constructor for GameState, for object mapper.
+     * Constructor for the game state.
      */
     public GameState() {
+
     }
 
     /**
@@ -43,17 +48,19 @@ public abstract class GameState {
      * @param roundNumber      the round number of the game.
      * @param questionList     the list of question for a game.
      * @param submittedAnswers the answers submitted by players during game in a single round.
+     * @param activityList     the list of activities used for the game.
      * @param state            the status of the game.
      */
     public GameState(long id, long nextPhase, int roundNumber,
                      List<AbstractQuestion> questionList,
-                     List<GameResponse> submittedAnswers,
-                     String state) {
+                     List<Response> submittedAnswers,
+                     List<Activity> activityList, String state) {
         this.id = id;
         this.nextPhase = nextPhase;
         this.roundNumber = roundNumber;
         this.questionList = questionList;
         this.submittedAnswers = submittedAnswers;
+        this.activityList = activityList;
         this.state = state;
     }
 
@@ -99,7 +106,7 @@ public abstract class GameState {
      *
      * @return a list of Responses representing the answers given by the players in a single round.
      */
-    public List<GameResponse> getSubmittedAnswers() {
+    public List<Response> getSubmittedAnswers() {
         return submittedAnswers;
     }
 
@@ -112,6 +119,14 @@ public abstract class GameState {
         return questionList;
     }
 
+    /**
+     * Getter for the activities used during a game.
+     *
+     * @return a list of Activity representing the activities needed for the game.
+     */
+    public List<Activity> getActivityList() {
+        return activityList;
+    }
 
     /**
      * Getter for the status of the game.
@@ -154,8 +169,17 @@ public abstract class GameState {
      *
      * @param submittedAnswers the answers submitted by players during game.
      */
-    public void setSubmittedAnswers(List<GameResponse> submittedAnswers) {
+    public void setSubmittedAnswers(List<Response> submittedAnswers) {
         this.submittedAnswers = submittedAnswers;
+    }
+
+    /**
+     * Setter for the activities used during a game.
+     *
+     * @param activityList the list of activities used for the game.
+     */
+    public void setActivityList(List<Activity> activityList) {
+        this.activityList = activityList;
     }
 
     /**
@@ -184,7 +208,8 @@ public abstract class GameState {
         GameState gameState = (GameState) o;
         return Long.compare(gameState.nextPhase, nextPhase) == 0 && roundNumber == gameState.roundNumber &&
                 Objects.equals(questionList, gameState.questionList) &&
-                Objects.equals(submittedAnswers, gameState.submittedAnswers) && Objects.equals(state, gameState.state);
+                Objects.equals(submittedAnswers, gameState.submittedAnswers) &&
+                Objects.equals(activityList, gameState.activityList) && Objects.equals(state, gameState.state);
     }
 
     /**
@@ -194,10 +219,15 @@ public abstract class GameState {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(nextPhase, roundNumber, questionList, submittedAnswers, state);
+        return Objects.hash(nextPhase, roundNumber, questionList, submittedAnswers, activityList, state);
     }
 
-    public void addSubmittedAnswer(GameResponse response) {
+    /**
+     * Adds the submitted answer to the list.
+     *
+     * @param response the player's response.
+     */
+    public void addSubmittedAnswer(Response response) {
         this.submittedAnswers.add(response);
     }
 }

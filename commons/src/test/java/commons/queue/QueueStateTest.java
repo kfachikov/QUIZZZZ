@@ -1,5 +1,7 @@
 package commons.queue;
 
+import commons.queue.QueueState;
+import commons.queue.QueueUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -60,15 +62,15 @@ class QueueStateTest {
     @Test
     void getMsToStart() {
         QueueState queueState = new QueueState(users, gameStarting, msToStart, upcomingGameId);
-        assertEquals(msToStart, queueState.getStartTimeInMs());
+        assertEquals(msToStart, queueState.getMsToStart());
     }
 
     @Test
     void setMsToStart() {
         QueueState queueState = new QueueState(users, gameStarting, msToStart, upcomingGameId);
         long newMsToStart = 1L;
-        queueState.setStartTimeInMs(newMsToStart);
-        assertEquals(1L, queueState.getStartTimeInMs());
+        queueState.setMsToStart(newMsToStart);
+        assertEquals(1L, queueState.getMsToStart());
     }
 
     @Test

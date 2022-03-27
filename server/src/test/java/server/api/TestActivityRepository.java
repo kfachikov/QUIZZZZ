@@ -1,19 +1,19 @@
 package server.api;
 
-import commons.misc.Activity;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import server.database.ActivityRepository;
+import commons.misc.Activity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-class MockActivityRepository implements ActivityRepository {
+class TestActivityRepository implements ActivityRepository {
 
     public final List<Activity> activities = new ArrayList<>();
     public final List<String> calledMethods = new ArrayList<>();

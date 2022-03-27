@@ -8,6 +8,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Class for the instead question.
+ */
 @JsonTypeName(value = "instead")
 public class InsteadQuestion extends AbstractQuestion {
 
@@ -15,6 +18,9 @@ public class InsteadQuestion extends AbstractQuestion {
     private List<Activity> answerChoices;
     private String correctAnswer;
 
+    /**
+     * Constructor for the instead question.
+     */
     public InsteadQuestion() {
         super();
     }
@@ -77,14 +83,29 @@ public class InsteadQuestion extends AbstractQuestion {
         return question;
     }
 
+    /**
+     * Getter for the activity.
+     *
+     * @return this activity.
+     */
     public Activity getActivity() {
         return activity;
     }
 
+    /**
+     * Setter for the activity instance.
+     *
+     * @param activity the actual activity variable.
+     */
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
 
+    /**
+     * Getter for the answer choices.
+     *
+     * @return the actual answer choices.
+     */
     public List<Activity> getAnswerChoices() {
         return answerChoices;
     }
@@ -93,7 +114,7 @@ public class InsteadQuestion extends AbstractQuestion {
      * Returns the title of the activity to be checked.
      * Should be compared to the submitted answer's consumption.
      *
-     * @return String of the consumption of the "right" activity.
+     * @return  String of the consumption of the "right" activity.
      */
     public String getCorrectAnswer() {
         return correctAnswer;

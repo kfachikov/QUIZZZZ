@@ -18,7 +18,6 @@ class QueueScreenCtrlTest {
     private QueueScreenCtrl queueScreenCtrl;
     private MockServerUtils server;
     private MockMainCtrl mainCtrl;
-    private MockMultiplayerCtrl multiCtrl;
     private MockQueuePollingService pollingService;
     private MockQueueCountdownService countdownService;
 
@@ -26,10 +25,9 @@ class QueueScreenCtrlTest {
     void setUp() {
         server = new MockServerUtils();
         mainCtrl = new MockMainCtrl();
-        multiCtrl = new MockMultiplayerCtrl(mainCtrl, server, null);
         pollingService = new MockQueuePollingService(server);
         countdownService = new MockQueueCountdownService(server);
-        queueScreenCtrl = new QueueScreenCtrl(server, mainCtrl, multiCtrl, pollingService, countdownService);
+        queueScreenCtrl = new QueueScreenCtrl(server, mainCtrl, pollingService, countdownService);
     }
 
     @Test

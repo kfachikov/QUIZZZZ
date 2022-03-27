@@ -15,11 +15,14 @@
  */
 package server;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import server.database.ActivityRepository;
-import server.utils.*;
+import server.utils.GenerateQuestionUtils;
+import server.utils.MultiPlayerStateUtils;
+import server.utils.QueueUtils;
+import server.utils.SinglePlayerStateUtils;
+
+
 
 import java.util.Random;
 
@@ -28,9 +31,6 @@ import java.util.Random;
  */
 @Configuration
 public class Config {
-
-    @Autowired
-    private ActivityRepository activityRepository;
 
     /**
      * Getter for a new random instance.
@@ -50,7 +50,7 @@ public class Config {
      */
     @Bean
     public GenerateQuestionUtils getGenerateQuestionUtils() {
-        return new GenerateQuestionUtils(activityRepository, getRandom());
+        return new GenerateQuestionUtils(getRandom());
     }
 
     /**
@@ -61,7 +61,17 @@ public class Config {
      */
     @Bean
     public SinglePlayerStateUtils getSinglePlayerStateUtils() {
-        return new SinglePlayerStateUtils(getGenerateQuestionUtils(), getCurrentTimeUtils());
+        return new SinglePlayerStateUtils(getGenerateQuestionUtils()); }
+
+    /**
+     * Getter for a new instance of MultiPlayerStateUtils.
+     * Notated as bean, it would be only a single one used by all controllers.
+     *
+     * @return A new MultiPlayerStateUtils instance.
+     */
+    @Bean
+    public MultiPlayerStateUtils getMultiPlayerStateUtils() {
+        return new MultiPlayerStateUtils(getGenerateQuestionUtils());
     }
 
     /**
@@ -72,31 +82,7 @@ public class Config {
      */
     @Bean
     public QueueUtils getQueueUtils() {
-        return new QueueUtils(getCurrentTimeUtils());
+        return new QueueUtils();
     }
 
-    /**
-     * Getter for a new instance of CurrentTimeUtils.
-     * Notated as bean, it would be only a single one used by all controllers.
-     *
-     * @return A new CurrentTimeUtils instance.
-     */
-    @Bean
-    public CurrentTimeUtils getCurrentTimeUtils() {
-        return new CurrentTimeUtils();
-    }
-
-    /**
-     * Getter for a new instance of MultiPlayerStateUtils.
-     * Notated as bean, it would be only a single one used by all controllers.
-     *
-     * @return A new MultiPlayerStateUtils instance.
-     */
-    @Bean
-    public MultiPlayerStateUtils getMultiPlayerStateUtils() {
-        return new MultiPlayerStateUtils(
-                getGenerateQuestionUtils(),
-                getQueueUtils(),
-                getCurrentTimeUtils());
-    }
 }

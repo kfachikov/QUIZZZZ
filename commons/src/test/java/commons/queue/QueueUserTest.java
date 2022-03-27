@@ -38,6 +38,13 @@ public class QueueUserTest {
     }
 
     @Test
+    public void getSetId() {
+        Long result = 1L;
+        queueUser.setId(result);
+        assertEquals(result, queueUser.getId());
+    }
+
+    @Test
     public void equalsHashCode() {
         var a = new QueueUser("user");
         var b = new QueueUser("user");

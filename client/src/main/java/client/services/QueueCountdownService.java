@@ -12,7 +12,6 @@ import javafx.concurrent.Task;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
-import java.util.Date;
 
 /**
  * Responsible for the countdown in the queue.
@@ -75,13 +74,16 @@ public class QueueCountdownService extends Service<Long> {
             @Override
             protected Long call() {
                 QueueState queueState = server.getQueueState();
-                long msToStart = queueState.getStartTimeInMs() - new Date().getTime();
 
                 getCount().set(3000);
 
-                timeline.playFrom(Duration.millis(3000 - msToStart));
+                timeline.playFrom(Duration.millis(3000 - queueState.getMsToStart()));
 
-                return queueState.getUpcomingGameId();
+                // TODO
+                // Set gameId to the actual gameId, instead of a dummy value
+                long resultGameId = 99;
+
+                return resultGameId;
             }
         };
     }

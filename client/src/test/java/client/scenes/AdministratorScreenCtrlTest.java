@@ -1,13 +1,11 @@
 package client.scenes;
 
-import client.scenes.misc.AdministratorScreenCtrl;
 import client.utils.MockServerUtils;
+import client.scenes.misc.AdministratorScreenCtrl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AdministratorScreenCtrlTest {
     private AdministratorScreenCtrl administratorScreenCtrl;
@@ -18,9 +16,7 @@ class AdministratorScreenCtrlTest {
     void setUp() {
         server = new MockServerUtils();
         mainCtrl = new MockMainCtrl();
-
-        // TODO: create mock class for ActivityImageUtils
-        administratorScreenCtrl = new AdministratorScreenCtrl(server, mainCtrl, null);
+        administratorScreenCtrl = new AdministratorScreenCtrl(server, mainCtrl);
     }
 
     @Test

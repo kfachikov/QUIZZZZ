@@ -47,16 +47,24 @@
             <Font name="SansSerif Bold" size="18.0" />
         </font>
     </Button>
-      <ImageView fx:id="image1" fitHeight="160.0" fitWidth="160.0" layoutX="25.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true"/>
+      <ImageView fx:id="image1" fitHeight="160.0" fitWidth="160.0" layoutX="25.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+              <Image url="@../../../../../../../29/washingMachine.png" />
+          </image>
+      </ImageView>
     <Text fx:id="description1" layoutX="26.0" layoutY="325.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="159.0">
          <font>
             <Font size="11.0" />
          </font></Text>
       <ImageView fx:id="image2" fitHeight="160.0" fitWidth="160.0" layoutX="220.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
-
+    <image>
+        <Image url="@../../../../../../../29/washingMachine.png" />
+    </image>
     </ImageView>
       <ImageView fx:id="image3" fitHeight="160.0" fitWidth="160.0" layoutX="415.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
-
+          <image>
+              <Image url="@../../../../../../../29/washingMachine.png" />
+          </image>
     </ImageView>
       <Text fx:id="description2" layoutX="221.0" layoutY="318.0" text="Cooking a meal on your hot plate (30 min)" textAlignment="CENTER" wrappingWidth="159.0">
          <font>

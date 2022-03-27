@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Consumption question type. Extends the AbstractQuestion parent class.
  * Add specific fields and some functionality.
- * <p>
+ *
  * The "type" value is set to "consumption" so that the instances are created accordingly
  * on the client-side from the JSON response.
  */
@@ -106,10 +106,21 @@ public class ConsumptionQuestion extends AbstractQuestion {
         return answerChoices;
     }
 
+    /**
+     * Setter for the activity.
+     *
+     * @param activity the actual activity.
+     */
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
 
+    /**
+     * Setter fro the answer choices.
+     *
+     * @param answerChoices the actual answer choices.
+     *
+     */
     public void setAnswerChoices(List<Long> answerChoices) {
         this.answerChoices = answerChoices;
     }

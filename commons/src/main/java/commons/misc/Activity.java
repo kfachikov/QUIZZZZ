@@ -187,12 +187,6 @@ public class Activity {
         this.consumption = consumption;
     }
 
-    /**
-     * Checks whether two activities are equal.
-     *
-     * @param o instance to be checked for equality.
-     * @return true/false
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -29,7 +29,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
 /**
- * FXML class.
+ *
  */
 public class MyFXML {
 

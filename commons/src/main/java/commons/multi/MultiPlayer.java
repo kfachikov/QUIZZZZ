@@ -2,8 +2,8 @@ package commons.multi;
 
 
 import commons.misc.Player;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import java.util.Objects;
 
 /**
  * The MultiPlayer class is used to represent the current player of the multiplayer game.
@@ -14,6 +14,9 @@ public class MultiPlayer extends Player {
     private boolean incorrectAnswerJoker;
     private boolean pointsDoubledJoker;
 
+    /**
+     * Constructor for the multiplayer.
+     */
     public MultiPlayer() {
         super();
     }
@@ -97,7 +100,16 @@ public class MultiPlayer extends Player {
      */
     @Override
     public boolean equals(Object o) {
-        return EqualsBuilder.reflectionEquals(this, o);
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MultiPlayer that = (MultiPlayer) o;
+        return timeJoker == that.timeJoker &&
+                incorrectAnswerJoker == that.incorrectAnswerJoker &&
+                pointsDoubledJoker == that.pointsDoubledJoker;
     }
 
     /**
@@ -107,7 +119,7 @@ public class MultiPlayer extends Player {
      */
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        return Objects.hash(timeJoker, incorrectAnswerJoker, pointsDoubledJoker);
     }
 }
 

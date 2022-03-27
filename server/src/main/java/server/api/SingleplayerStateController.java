@@ -1,8 +1,8 @@
 package server.api;
 
-import commons.misc.GameResponse;
-import commons.single.SinglePlayer;
+import commons.misc.Response;
 import commons.single.SinglePlayerState;
+import commons.single.SinglePlayer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +26,12 @@ public class SingleplayerStateController {
     /**
      * Constructor for singleplayer state controller.
      * <p>
-     * Initializes the list of games inside of the controller.
+     * Initializes the list of games inside the controller.
      *
-     * @param repo                   ActivityRepository instance.
-     * @param singlePlayerStateUtils injected instance of SinglePlayerStateUtils
+     * @param repo the activity repository.
+     *
+     * @param singlePlayerStateUtils  the singleplayer state utilities instance.
+     *
      */
     public SingleplayerStateController(ActivityRepository repo, SinglePlayerStateUtils singlePlayerStateUtils) {
         this.repo = repo;
@@ -40,7 +42,7 @@ public class SingleplayerStateController {
      * GET mapping for the singleplayer game state.
      * <p>
      * Internally, the state of the game will be updated. That means, it might
-     * switch to another state (e.g. from QUESTION_STATE to TRANSITION_STATE),
+     * switch to another state (e. g. from QUESTION_STATE to TRANSITION_STATE),
      * and it might increase the players' scores.
      * <p>
      * There is expectation that this endpoint will be called every about 500 ms.
@@ -81,8 +83,8 @@ public class SingleplayerStateController {
      * @return Response that the player just chose.
      */
     @PostMapping("/answer")
-    public ResponseEntity<GameResponse> postResponse(@RequestBody GameResponse response) {
-        GameResponse responsePosted = singlePlayerStateUtils.postAnswer(response);
+    public ResponseEntity<Response> postResponse(@RequestBody Response response) {
+        Response responsePosted = singlePlayerStateUtils.postAnswer(response);
         if (responsePosted != null) {
             return ResponseEntity.ok(response);
         }

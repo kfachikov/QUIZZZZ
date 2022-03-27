@@ -1,20 +1,17 @@
 package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
-import client.services.SingleplayerGameStatePollingService;
-import client.utils.ActivityImageUtils;
+import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
-import commons.misc.GameResponse;
+import commons.misc.Response;
 import commons.question.InsteadQuestion;
 import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -23,9 +20,8 @@ import javafx.scene.text.Text;
 
 import java.util.Date;
 
-
 /**
- *  Controller for the InsteadQuestionScreen.
+ * Controller for the instead question scene.
  */
 public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
@@ -64,30 +60,32 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param server             is the server variable
-     * @param mainCtrl           is the main controller variable
-     * @param pollingService     is the injected polling service to be used to poll the game state.
-     * @param activityImageUtils is the utilities class responsible for fetching an image of an activity.
-     * @param singlePlayerUtils  is the injected singleplayer utils for managing logic
+     * @param server is the server variable.
+     *
+     * @param singlePlayerUtils is the singlePlayerUtils.
+     *
+     * @param pollingService is the polling service for service.
+     *
+     * @param mainCtrl is the main controller variable.
+     *
      */
     @Inject
     public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
-                                     SingleplayerGameStatePollingService pollingService,
-                                     ActivityImageUtils activityImageUtils,
+                                     GameStatePollingService pollingService,
                                      SinglePlayerUtils singlePlayerUtils) {
-        super(server, mainCtrl, pollingService, activityImageUtils, singlePlayerUtils);
+        super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 
     /**
      * Initializes the single-player game controller by:
-     * <p>
+     *
      * Binding answer choices to a method submitting that answer.
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
+    @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
         firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
+            @Override public void handle(ActionEvent e) {
                 submitAnswer(firstAnswer.getText());
                 firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
@@ -96,8 +94,7 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
             }
         });
         secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
+            @Override public void handle(ActionEvent e) {
                 submitAnswer(secondAnswer.getText());
                 secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
@@ -106,8 +103,7 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
             }
         });
         thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
+            @Override public void handle(ActionEvent e) {
                 submitAnswer(thirdAnswer.getText());
                 thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
@@ -124,7 +120,7 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new GameResponse(singlePlayerState.getId(),
+        server.postAnswer(new Response(singlePlayerState.getId(),
                 new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
@@ -159,9 +155,10 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     }
 
     /**
-     * Getter for the question instance.
+     * Getter for the instead question.
      *
      * @return this question.
+     *
      */
     public InsteadQuestion getQuestion() {
         return question;
@@ -171,11 +168,9 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      * Sets the question and the corresponding fields with proper information.
      *
      * @param question Question to be visualized on the particular scene.
+     *
      */
     public void setQuestion(InsteadQuestion question) {
-
-        image.setImage(getActivityImage(question.getActivity()));
-
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);
@@ -200,6 +195,7 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      * Getter for the window object - used to change the background in MainCtrl.
      *
      * @return AnchorPane object with reference to the particular window of this scene.
+     *
      */
     public AnchorPane getWindow() {
         return window;
@@ -208,11 +204,10 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     /**
      * Overridden getTime() methods. Used to access the private time field.
      *
-     * @return Reference to the JavaFX node in the scene corresponding to this controller.
+     * @return  Reference to the JavaFX node in the scene corresponding to this controller.
      */
     @Override
     public ProgressBar getTime() {
         return time;
     }
-
 }

@@ -1,8 +1,8 @@
 package client.utils;
 
 import client.scenes.misc.MainCtrl;
-import client.scenes.single.QuestionScreen;
-import client.services.SingleplayerGameStatePollingService;
+import client.scenes.single.*;
+import client.services.GameStatePollingService;
 import commons.question.*;
 import commons.single.SinglePlayerState;
 import javafx.scene.control.ProgressBar;
@@ -24,7 +24,7 @@ public class SinglePlayerUtils {
     Instances used for the single-player mode to extract polling service functionality.
     SinglePlayer and SinglePlayerState instances of the current pair Player-Game on the client-side.
      */
-    private final SingleplayerGameStatePollingService pollingService;
+    private final GameStatePollingService pollingService;
     private SinglePlayerState singlePlayerState;
 
     private TimerThread timerThread;
@@ -32,14 +32,15 @@ public class SinglePlayerUtils {
     private QuestionScreen currentController;
 
 
+
     /**
      * Constructor used for Spring injection.
      *
-     * @param mainCtrl       Common main controller instance.
-     * @param pollingService Common single-player game state polling service.
+     * @param mainCtrl          Common main controller instance.
+     * @param pollingService    Common single-player game state polling service.
      */
     @Inject
-    public SinglePlayerUtils(MainCtrl mainCtrl, SingleplayerGameStatePollingService pollingService) {
+    public SinglePlayerUtils(MainCtrl mainCtrl, GameStatePollingService pollingService) {
         this.mainCtrl = mainCtrl;
         this.pollingService = pollingService;
     }
@@ -47,10 +48,10 @@ public class SinglePlayerUtils {
     /**
      * Setter for the client-side single-player and game state instances.
      * Would be used after the initial setup of the game.
-     * <p>
+     *
      * The polling service would thus be initialized with the corresponding desired functionality.
      *
-     * @param singlePlayerState SinglePlayerState instance of the current game the client is playing.
+     * @param singlePlayerState     SinglePlayerState instance of the current game the client is playing.
      */
     public void setSinglePlayerAttributes(SinglePlayerState singlePlayerState) {
         this.singlePlayerState = singlePlayerState;
@@ -61,10 +62,12 @@ public class SinglePlayerUtils {
     /**
      * The polling service is initialized by receiving the GameState it should pull from
      * the server constantly (every 500 milliseconds).
-     * <p>
+     * The polling service "throws" a new instance of the game state every time it poll.
+     *                     Thus, without the existence of the following comparison, the questions scenes
+     *                     are updated constantly, even when there is no need of it.
      * A listener is assigned to its property which looks for changes of the
      * GameState instance on the server.
-     * <p>
+     *
      * The polling service is started.
      */
     public void initializePollingService() {
@@ -72,36 +75,36 @@ public class SinglePlayerUtils {
 
         pollingService.valueProperty().addListener(
                 ((observable, oldGameState, newGameState) -> {
-                    if (newGameState != null) {
-                        /*
-                        The polling service "throws" a new instance of the game state every time it poll.
-                        Thus, without the existence of the following comparison, the questions scenes
-                        are updated constantly, even when there is no need of it.
-                        */
-                        if (!singlePlayerState.getState().equals(newGameState.getState())) {
-                            singlePlayerState = (SinglePlayerState) newGameState;
-                            switch (newGameState.getState()) {
-                                case QUESTION_STATE:
-                                    /*
-                                    First, the question should be chosen,
-                                    so that the current controller is set accordingly.
-                                    */
-                                    chooseNextQuestion();
-                                    break;
-                                case TRANSITION_STATE:
-                                    /*
-                                    Whenever an answer is submitted and that is registered on the server,
-                                    the game state on the client-side is also updated.
-                                    */
-                                    revealAnswerCorrectness();
-                                    break;
-                                case GAME_OVER_STATE:
-                                    pollingService.stop();
-                                    mainCtrl.showCongratulations();
-                                    break;
-                            }
+                if (newGameState != null) {
+                    if (!singlePlayerState.getState().equals(newGameState.getState())) {
+                        singlePlayerState = (SinglePlayerState) newGameState;
+                        switch (newGameState.getState()) {
+                            case QUESTION_STATE:
+                                /*
+                                First, the question should be chosen, so that the current controller is set accordingly.
+                                */
+                                chooseNextQuestion();
+                                break;
+                            case TRANSITION_STATE:
+                                /*
+                                Whenever an answer is submitted and that is registered on the server,
+                                the game state on the client-side is also updated.
+                                */
+                                if (!singlePlayerState.getSubmittedAnswers()
+                                                .equals(newGameState
+                                                .getSubmittedAnswers())) {
+                                    singlePlayerState = (SinglePlayerState) newGameState;
+                                }
+                                revealAnswerCorrectness();
+                                break;
+                            case GAME_OVER_STATE:
+                                pollingService.stop();
+                                mainCtrl.showCongratulations();
+                                break;
                         }
                     }
+
+                }
                 }));
 
         pollingService.start();
@@ -138,7 +141,7 @@ public class SinglePlayerUtils {
      * Initializes a new instance of TimerThread and starts it.
      * Used at the beginning of each "scene-showing" process.
      *
-     * @param questionScreen Controller for the corresponding scene to be visualized.
+     * @param questionScreen    Controller for the corresponding scene to be visualized.
      */
     private void startTimer(QuestionScreen questionScreen) {
         ProgressBar time = questionScreen.getTime();
@@ -191,7 +194,7 @@ public class SinglePlayerUtils {
     /**
      * Getter for the current game state.
      *
-     * @return SinglePlayerState instance.
+     * @return  SinglePlayerState instance.
      */
     public SinglePlayerState getSinglePlayerState() {
         return singlePlayerState;
@@ -209,7 +212,7 @@ public class SinglePlayerUtils {
     /**
      * Getter for the current question screen controller.
      *
-     * @return Instance of one of the subclasses of the QuestionScreen abstract class.
+     * @return  Instance of one of the subclasses of the QuestionScreen abstract class.
      */
     public QuestionScreen getCurrentController() {
         return currentController;

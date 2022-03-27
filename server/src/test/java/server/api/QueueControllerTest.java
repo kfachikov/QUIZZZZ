@@ -4,149 +4,108 @@ import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
-import server.utils.MockCurrentTimeUtils;
-import server.utils.MockQueueUtils;
+import server.utils.QueueUtils;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.http.HttpStatus.*;
 
 class QueueControllerTest {
 
-    private QueueController queueCtrl;
+    private QueueUserRepository repo;
+    private QueueController lobbyCtrl;
+    private QueueUtils queueUtils;
 
-    private MockCurrentTimeUtils currentTime;
-    private MockQueueUtils queueUtils;
-
-    private QueueState queueState;
-    private QueueUser queueUser;
+    private int nextId;
 
     @BeforeEach
-    void setUp() {
-        currentTime = new MockCurrentTimeUtils();
-        queueUtils = new MockQueueUtils(currentTime);
+    public void setup() {
+        repo = new QueueUserRepository();
+        queueUtils = new QueueUtils();
+        lobbyCtrl = new QueueController(repo, queueUtils);
+        nextId = 0;
+    }
 
-        queueCtrl = new QueueController(queueUtils);
+    private List<QueueUser> addMockUsers() {
+        List<QueueUser> users = new ArrayList<>();
+        for (long i = 0; i < 3; i++) {
+            users.add(
+                    new QueueUser("p" + nextId)
+            );
+            users.get((int) i).setId(nextId++);
+        }
+        repo.queueUsers.addAll(users);
+        return users;
+    }
 
-        queueUser = new QueueUser("Username");
-
-        queueState = new QueueState(
-                List.of(queueUser),
-                false,
-                Long.MAX_VALUE,
-                12345
-        );
-
+    private static QueueUser getUser(String username) {
+        return new QueueUser(username);
     }
 
     @Test
-    void getQueueState() {
-        queueUtils.returnValues.add(queueState);
+    public void testGetQueueState() {
+        var expected = new QueueState(addMockUsers());
+        var response = lobbyCtrl.getQueueState();
+        var result = response.getBody();
+        assertEquals(expected.getUsers(), result.getUsers());
+        assertEquals(expected.isGameStarting(), result.isGameStarting());
+    }
 
-        var result = queueCtrl.getQueueState().getBody();
+    @Test
+    public void testMethodCall() {
+        addMockUsers();
+        lobbyCtrl.getQueueState();
+        assertEquals(List.of("findAll"), repo.calledMethods);
+    }
 
+    @Test
+    public void databaseIsUsed() {
+        lobbyCtrl.add(getUser("username"));
+        assertEquals(List.of("save"), repo.calledMethods);
+    }
+
+    @Test
+    public void cannotAddNullPlayer() {
+        var actual = lobbyCtrl.add(getUser(null));
+        assertEquals(BAD_REQUEST, actual.getStatusCode());
+    }
+
+    @Test
+    public void testNotUniqueUsername() {
+        addMockUsers();
+        var actual = lobbyCtrl.add(getUser("p0"));
+        assertEquals(FORBIDDEN, actual.getStatusCode());
+    }
+
+    @Test
+    public void testBadRequest() {
+        var response = lobbyCtrl.deleteUser(1);
+        assertEquals(BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    public void testNotFound() {
+        QueueUser user = new QueueUser("ok" + -1);
+        repo.save(user);
+        var response = lobbyCtrl.deleteUser(-1);
+        assertEquals(BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    public void testStartGame() {
+        QueueState queueState = new QueueState(addMockUsers(), true, 3000, 0L);
+        var response = lobbyCtrl.startGame();
+        QueueState result = response.getBody();
         assertEquals(queueState, result);
-        assertEquals(List.of("getQueue"), queueUtils.calledMethods);
     }
 
     @Test
-    void addInvalid() {
-        // Set isInvalid to true
-        queueUtils.returnValues.add(true);
-
-        var emptyUser = new QueueUser("");
-
-        var result = queueCtrl.add(emptyUser);
-
-        assertEquals(HttpStatus.BAD_REQUEST, result.getStatusCode());
-        assertEquals(List.of("isInvalid"), queueUtils.calledMethods);
-        assertEquals(List.of(emptyUser), queueUtils.params);
-    }
-
-    @Test
-    void addContains() {
-        // Set isInvalid to false
-        queueUtils.returnValues.add(false);
-        // Set containsUser to true
-        queueUtils.returnValues.add(true);
-
-        var result = queueCtrl.add(queueUser);
-
-        assertEquals(HttpStatus.FORBIDDEN, result.getStatusCode());
-        assertEquals(List.of("isInvalid", "containsUser"), queueUtils.calledMethods);
-        assertEquals(List.of(queueUser, queueUser), queueUtils.params);
-    }
-
-    @Test
-    void add() {
-        // Set isInvalid to false
-        queueUtils.returnValues.add(false);
-        // Set containsUser to false
-        queueUtils.returnValues.add(false);
-        // Set return value to a dummy value
-        var dummyUser = new QueueUser("dummy");
-        queueUtils.returnValues.add(dummyUser);
-
-        var result = queueCtrl.add(queueUser);
-
-        assertEquals(dummyUser, result.getBody());
-        assertEquals(List.of("isInvalid", "containsUser", "addUser"), queueUtils.calledMethods);
-        assertEquals(List.of(queueUser, queueUser, queueUser), queueUtils.params);
-    }
-
-    @Test
-    void startGameGood() {
-        // Set startCountdown to true
-        queueUtils.returnValues.add(true);
-        // Set getQueue to given queue
-        queueUtils.returnValues.add(queueState);
-
-        var result = queueCtrl.startGame();
-
-        assertEquals(queueState, result.getBody());
-        assertEquals(List.of("startCountdown", "getQueue"), queueUtils.calledMethods);
-    }
-
-    @Test
-    void startGameBad() {
-        // Set startCountdown to true
-        queueUtils.returnValues.add(false);
-
-        var result = queueCtrl.startGame();
-
-        assertEquals(HttpStatus.FORBIDDEN, result.getStatusCode());
-        assertEquals(List.of("startCountdown"), queueUtils.calledMethods);
-    }
-
-    @Test
-    void deleteUser() {
-        // Set getByUsername to dummy value
-        var dummy1 = new QueueUser("dummy1");
-        queueUtils.returnValues.add(dummy1);
-        // set removeUser to dummy value
-        var dummy2 = new QueueUser("dummy2");
-        queueUtils.returnValues.add(dummy2);
-
-        var result = queueCtrl.deleteUser("Test username");
-        assertEquals(dummy2, result.getBody());
-        assertEquals(List.of("getByUsername", "removeUser"), queueUtils.calledMethods);
-        assertEquals(List.of("Test username", dummy1), queueUtils.params);
-    }
-
-    @Test
-    void deleteUserBad() {
-        // Set getByUsername to dummy value
-        QueueUser dummy1 = null;
-        queueUtils.returnValues.add(dummy1);
-        // set removeUser to dummy value
-        QueueUser dummy2 = null;
-        queueUtils.returnValues.add(dummy2);
-
-        var result = queueCtrl.deleteUser("Test username");
-        assertEquals(dummy2, result.getBody());
-        assertEquals(List.of("getByUsername", "removeUser"), queueUtils.calledMethods);
-        assertEquals(Arrays.asList("Test username", null), queueUtils.params);
+    public void testStartGameTwice() {
+        addMockUsers();
+        lobbyCtrl.startGame();
+        var response = lobbyCtrl.startGame();
+        assertEquals(FORBIDDEN, response.getStatusCode());
     }
 }

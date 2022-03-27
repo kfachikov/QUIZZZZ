@@ -1,15 +1,12 @@
 package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
-import client.services.SingleplayerGameStatePollingService;
-import client.utils.ActivityImageUtils;
+import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
-import commons.misc.Activity;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.Optional;
@@ -20,16 +17,20 @@ import java.util.Optional;
  */
 public abstract class QuestionScreen {
 
-    /*
-    Utils class instance, which would contain the whole single-player game logic.
-    In addition, it would hold the single-player and the game state instances of the current game.
+    /**
+     * The main controller instance.
+     */
+    public final MainCtrl mainCtrl;
+
+    /**
+     * The server instance.
+     */
+    public final ServerUtils server;
+
+    /**
+     * The singleplayer utilities instance.
      */
     public final SinglePlayerUtils singlePlayerUtils;
-
-    public final MainCtrl mainCtrl;
-    public final ServerUtils server;
-    final ActivityImageUtils activityImageUtils;
-
 
     @FXML
     private Button firstAnswer;
@@ -44,21 +45,18 @@ public abstract class QuestionScreen {
     /**
      * initializes MoreExpensiveQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param server             is the server variable
-     * @param mainCtrl           is the main controller variable
-     * @param pollingService     is the shared single-player game polling service
-     * @param activityImageUtils is the utilities class responsible for fetching an image of an activity.
-     * @param singlePlayerUtils  is the shared single-player utility instance
+     * @param server is the server variable
+     * @param mainCtrl is the main controller variable
+     * @param pollingService is the shared single-player game polling service
+     * @param singlePlayerUtils is the shared single-player utility instance
      */
     @Inject
     public QuestionScreen(ServerUtils server,
                           MainCtrl mainCtrl,
-                          SingleplayerGameStatePollingService pollingService,
-                          ActivityImageUtils activityImageUtils,
+                          GameStatePollingService pollingService,
                           SinglePlayerUtils singlePlayerUtils) {
         this.server = server;
         this.mainCtrl = mainCtrl;
-        this.activityImageUtils = activityImageUtils;
         this.singlePlayerUtils = singlePlayerUtils;
     }
 
@@ -106,30 +104,17 @@ public abstract class QuestionScreen {
     /**
      * Declare getTime() method existence in subclasses.
      *
-     * @return ProgressBar instance of the particular one in the desired question controller.
+     * @return  ProgressBar instance of the particular one in the desired question controller.
      */
     public abstract ProgressBar getTime();
 
     /**
      * Getter for the utility instance.
      *
-     * @return SinglePlayerUtils instance consisting of information about current game state and current player.
+     * @return  SinglePlayerUtils instance consisting of information about
+     *         current game state and current player.
      */
     public SinglePlayerUtils getSinglePlayerUtils() {
         return singlePlayerUtils;
     }
-
-    /**
-     * Getter method for getting the image of an activity.
-     *
-     * @param activity Activity to get an image from.
-     * @return JavaFX image of the activity.
-     */
-    public Image getActivityImage(Activity activity) {
-
-        long key = activity.getKey();
-        return activityImageUtils.getActivityImage(key);
-
-    }
-
 }

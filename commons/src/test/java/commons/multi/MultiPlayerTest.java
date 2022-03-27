@@ -123,30 +123,7 @@ class MultiPlayerTest {
         Player player2 = new MultiPlayer("Mike", 10, false, true, true);
 
         assertNotEquals(player1, player2);
-    }
 
-    @Test
-    public void testNotEqualsName() {
-        Player player1 = new MultiPlayer("Kate", 0, true, true, true);
-        Player player2 = new MultiPlayer("Mike", 0, true, true, true);
-
-        assertNotEquals(player1, player2);
-    }
-
-    @Test
-    public void testNotEqualsScore() {
-        Player player1 = new MultiPlayer("Kate", 0, true, true, true);
-        Player player2 = new MultiPlayer("Kate", 10, true, true, true);
-
-        assertNotEquals(player1, player2);
-    }
-
-    @Test
-    public void testNotEqualsJoker() {
-        Player player1 = new MultiPlayer("Kate", 0, true, true, true);
-        Player player2 = new MultiPlayer("Kate", 0, false, true, true);
-
-        assertNotEquals(player1, player2);
     }
 
     @Test

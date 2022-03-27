@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
@@ -34,7 +35,7 @@ public class QueueState {
      * <p>
      * It starts at 3000, and goes down to 0.
      */
-    private long startTimeInMs;
+    private long msToStart;
 
     /**
      * GameId of the associated MultiPlayerGame.
@@ -42,9 +43,31 @@ public class QueueState {
     private long upcomingGameId;
 
     /**
-     * Default constructor for queue state, used for object mapper.
+     * Default constructor for the state of the queue.
+     * <p>
+     * Initializes the queue as expected:
+     * - Not starting
+     * - No users inside
+     * - (3000ms until start)
      */
     public QueueState() {
+        this.users = new ArrayList<>();
+        this.gameStarting = false;
+        this.msToStart = 3000;
+    }
+
+    /**
+     * Constructor of the queue, taking the current users.
+     * <p>
+     * Creates a new instance of the queue which is not starting, but has the
+     * users.
+     *
+     * @param users Users that are already in the queue
+     */
+    public QueueState(List<QueueUser> users) {
+        this.users = users;
+        this.gameStarting = false;
+        this.msToStart = 3000;
     }
 
     /**
@@ -52,13 +75,13 @@ public class QueueState {
      *
      * @param users          Users that are in the queue.
      * @param gameStarting   Whether the game is starting.
-     * @param startTimeInMs  Milliseconds until the start of the game.
+     * @param msToStart      Milliseconds until the start of the game.
      * @param upcomingGameId gameId of the MultiPlayerGame
      */
-    public QueueState(List<QueueUser> users, boolean gameStarting, long startTimeInMs, long upcomingGameId) {
+    public QueueState(List<QueueUser> users, boolean gameStarting, long msToStart, long upcomingGameId) {
         this.users = users;
         this.gameStarting = gameStarting;
-        this.startTimeInMs = startTimeInMs;
+        this.msToStart = msToStart;
         this.upcomingGameId = upcomingGameId;
     }
 
@@ -95,19 +118,19 @@ public class QueueState {
     }
 
     /**
-     * @return long millisecond of the start
+     * @return long millisecond until the start
      */
-    public long getStartTimeInMs() {
-        return startTimeInMs;
+    public long getMsToStart() {
+        return msToStart;
     }
 
     /**
-     * sets setStartTimeInMs long value as the passed value.
+     * sets msToStart long value as the passed value.
      *
-     * @param startTimeInMs long value of millisecond until the start
+     * @param msToStart long value of millisecond until the start
      */
-    public void setStartTimeInMs(long startTimeInMs) {
-        this.startTimeInMs = startTimeInMs;
+    public void setMsToStart(long msToStart) {
+        this.msToStart = msToStart;
     }
 
     /**
