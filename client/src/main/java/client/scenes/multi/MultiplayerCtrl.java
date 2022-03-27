@@ -185,10 +185,10 @@ public class MultiplayerCtrl {
                 switchToQuestion(game);
                 break;
             case MultiPlayerState.LEADERBOARD_STATE:
-                showIntermediateLeaderboard(sortList(game));
+                showIntermediateGameOver(sortList(game), game.getState());
                 break;
             case MultiPlayerState.GAME_OVER_STATE:
-                showGameOver(sortList(game));
+                showIntermediateGameOver(sortList(game), game.getState());
                 break;
             default:
                 switchToMock(game);
@@ -281,25 +281,15 @@ public class MultiplayerCtrl {
     }
 
     /**
-     * Run when intermediate leaderboard is shown
-     * Sets the current scene to Leaderboard screen.
-     * Sets the title accordingly
+     * Sets the scene as leaderboard/gameOver screen.
+     * Calls LeaderBoardScreenCtrl.setScene() and passes
+     * the sorted list of players and the state of the game, either LEADERBOARD or GAME_OVER
+     * @param players the list of players in the game, in descending score order.
+     * @param gameState the state of the game, is either LEADERBOARD or GAME_OVER.
      */
-    public void showIntermediateLeaderboard(List<MultiPlayer> players) {
-        leaderboardCtrl.turnIntermediate(players);
+    public void showIntermediateGameOver(List<MultiPlayer> players, String gameState){
+        leaderboardCtrl.setScene(players, gameState);
         mainCtrl.getPrimaryStage().setScene(leaderboard);
-        System.out.println("Intermediate leaderboard is being displayed.");
-    }
-
-    /**
-     * Run when game is over
-     * Sets the current scene to Leaderboard screen.
-     * Sets the title accordingly
-     */
-    public void showGameOver(List<MultiPlayer> players) {
-        leaderboardCtrl.turnFinal(players);
-        mainCtrl.getPrimaryStage().setScene(leaderboard);
-        System.out.println("Game is over and the leaderboard is being displayed.");
     }
 
     /**
@@ -329,6 +319,26 @@ public class MultiplayerCtrl {
     }
 
     /**
+     * Sorts the list of players in the game in descending score order.
+     * @param game The ongoing game, from which the <strong>unsorted</strong> List<MultiPlayer> is retrieved.
+     * @return the retrieved List<MultiPlayer> players, <strong>sorted</strong>.
+     */
+    public List<MultiPlayer> sortList(MultiPlayerState game) {
+        List<MultiPlayer> players = game.getPlayers();
+        Collections.sort(players, Comparator.comparing(player1 -> player1.getScore()));
+        Collections.reverse(players);
+        return players;
+    }
+
+    /**
+     * Getter for the user username
+     * @return the username of the user that joined the queue.
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
      * activates when a player presses angry emoji.
      */
     public void angryEmoji() {
@@ -350,16 +360,5 @@ public class MultiplayerCtrl {
      * activates when a player presses surprised emoji
      */
     public void surprisedEmoji() {
-    }
-
-    public List<MultiPlayer> sortList(MultiPlayerState game) {
-        List<MultiPlayer> players = game.getPlayers();
-        Collections.sort(players, Comparator.comparing(player1->player1.getScore()));
-        Collections.reverse(players);
-        return players;
-    }
-
-    public String getUsername() {
-        return username;
     }
 }
