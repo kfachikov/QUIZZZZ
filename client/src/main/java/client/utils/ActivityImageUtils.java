@@ -4,7 +4,6 @@ import commons.misc.Activity;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,8 +31,23 @@ public class ActivityImageUtils {
 
     public void addActivitiesImages(
             String activitiesPath,
-            List<Activity> addedActivities) throws FileNotFoundException {
+            List<Activity> addedActivities) {
 
+    }
+
+    /**
+     * Construct an activity id from the given image path.
+     *
+     * @param imagePath Some image path, e.g. C:/Users/User/Bank/00/shower.png
+     * @return Id string of the activity, e.g. 00-shower
+     */
+    public String getActivityId(String imagePath) {
+        Path path = new File(imagePath).toPath();
+        int nameCount = path.getNameCount();
+        String activityName = path.getName(nameCount - 1).toString();
+        String activityGroup = path.getName(nameCount - 2).toString();
+
+        return activityGroup + "-" + removeExtension(activityName);
     }
 
     /**
@@ -41,13 +55,13 @@ public class ActivityImageUtils {
      *
      * @param imagePath File path of the image.
      * @return Base64 encoding of the image found at the given path.
-     * @throws FileNotFoundException If no image exists at the given location.
      */
-    public String readImage(String imagePath) throws FileNotFoundException {
+    public String readImage(String imagePath) {
         File file = new File(imagePath);
-        FileInputStream stream = new FileInputStream(file);
         byte[] bytes = new byte[(int) file.length()];
+
         try {
+            FileInputStream stream = new FileInputStream(file);
             stream.read(bytes);
             stream.close();
         } catch (IOException e) {
@@ -67,7 +81,7 @@ public class ActivityImageUtils {
         ArrayList<String> imagePaths = new ArrayList<>();
         File activitiesFile = new File(activitiesPathString);
         Path activitiesPath = activitiesFile.toPath();
-        Path activitiesBankFolder = activitiesPath.getRoot();
+        Path activitiesBankFolder = activitiesPath.getParent();
         try {
             Stream<Path> paths = Files.find(
                     activitiesBankFolder,
@@ -81,5 +95,16 @@ public class ActivityImageUtils {
             return imagePaths;
         }
         return imagePaths;
+    }
+
+    /**
+     * Remove extension from a file name.
+     *
+     * @param filename File name.
+     * @return File name with extension removed.
+     */
+    private String removeExtension(String filename) {
+        int lastIndex = filename.lastIndexOf('.');
+        return filename.substring(0, lastIndex);
     }
 }
