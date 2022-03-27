@@ -194,22 +194,34 @@ public class LeaderboardScreenCtrl {
     private void fillLeaderboard(List<MultiPlayer> players) {
         //keep track of whether the user is shown in leaderboard.
         boolean userFound = false;
-        //iterate from sorted players list and set username & score labels.
-        for (int i = 0; i < players.size(); i++) {
-            MultiPlayer player = players.get(i);
-            String username = player.getUsername();
-            String score = Integer.toString(player.getScore());
-            //set the labels as visible and display the value.
-            displayLabel(usernameLabels.get(i), username);
-            displayLabel(scoreLabels.get(i), score);
-            //check if the player is displayed (in top-6).
-            if (username.equals(multiCtrl.getUsername())) {
-                userFound = true;
+        if (players.size() <= 6) {
+            //iterate from sorted players list and set username & score labels.
+            for (int i = 0; i < players.size(); i++) {
+                MultiPlayer player = players.get(i);
+                String username = player.getUsername();
+                String score = Integer.toString(player.getScore());
+                //set the labels as visible and display the value.
+                displayLabel(usernameLabels.get(i), username);
+                displayLabel(scoreLabels.get(i), score);
             }
-        }
-        //if the player is outside top-6.
-        if (!userFound) {
-            displayUserStats(players);
+        } else {
+            //iterate from sorted players list and set username & score labels.
+            for (int i = 0; i < 6; i++) {
+                MultiPlayer player = players.get(i);
+                String username = player.getUsername();
+                String score = Integer.toString(player.getScore());
+                //set the labels as visible and display the value.
+                displayLabel(usernameLabels.get(i), username);
+                displayLabel(scoreLabels.get(i), score);
+                //check if the player is displayed (in top-6).
+                if (username.equals(multiCtrl.getUsername())) {
+                    userFound = true;
+                }
+            }
+            //if the player is outside top-6.
+            if (!userFound) {
+                displayUserStats(players);
+            }
         }
     }
 
