@@ -21,7 +21,7 @@ class LeaderboardScreenCtrlTest {
     void setUp() {
         server = new MockServerUtils();
         mainCtrl = new MockMainCtrl();
-        multiCtrl = new MockMultiplayerCtrl(mainCtrl,server, pollingService);
+        multiCtrl = new MockMultiplayerCtrl(mainCtrl, server, pollingService);
         leaderboardScreenCtrl = new LeaderboardScreenCtrl(server, multiCtrl);
     }
 

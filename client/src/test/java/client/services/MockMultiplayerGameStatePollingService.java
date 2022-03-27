@@ -7,7 +7,7 @@ import javafx.concurrent.Task;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MockMultiplayerGameStatePollingService extends MultiplayerGameStatePollingService{
+public class MockMultiplayerGameStatePollingService extends MultiplayerGameStatePollingService {
     public long gameId;
     public Object returnValue;
     public List<String> calledMethods;
@@ -76,7 +76,7 @@ public class MockMultiplayerGameStatePollingService extends MultiplayerGameState
     }
 
     /**
-     * Creates a task which continuously polls the server for the state of the game
+     * Creates a task which continuously polls the server for the state of the game.
      *
      * @return State polling task
      */
