@@ -5,12 +5,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import server.database.ActivityRepository;
+import server.utils.GenerateQuestionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -19,12 +21,13 @@ class ActivityControllerTest {
     private ActivityRepository repo;
     private ActivityController ctrl;
     private Activity initialActivity;
+    private Random random;
 
     @BeforeEach
     public void setup() {
         repo = new TestActivityRepository();
         ctrl = new ActivityController(repo);
-
+        random = new Random();
         initialActivity = new Activity("id", "image", "source", "title", 100L);
     }
 
@@ -165,7 +168,7 @@ class ActivityControllerTest {
         activities.add(activity2);
 
         var result = ctrl.addActivities(activities);
-        assertEquals(BAD_REQUEST, result.getStatusCode());
+        assertEquals(activity2, result.getBody().get(0));
     }
 
     @Test
@@ -175,8 +178,26 @@ class ActivityControllerTest {
         List<Activity> activities = new ArrayList<>();
         activities.add(activity1);
         activities.add(activity2);
+        List<Activity> result = ctrl.addActivities(activities).getBody();
 
+        assertEquals(activities, result);
+    }
+
+    @Test
+    public void testGenerateQuestions1() {
+        Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
+        Activity activity2 = new Activity("newId2", "newTitle2", "newSource2", "newImage2", 201L);
+        Activity activity3 = new Activity("newId3", "newTitle3", "newSource3", "newImage3", 202L);
+        Activity activity4 = new Activity("newId4", "newTitle4", "newSource4", "newImage4", 203L);
+
+        List<Activity> activities = new ArrayList<>();
+        activities.add(activity1);
+        activities.add(activity2);
+        activities.add(activity3);
+        activities.add(activity4);
+        repo.saveAll(activities);
         ctrl.addActivities(activities);
-        assertEquals(2, repo.count());
+        GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils(random);
+        assertNotNull(generateQuestionUtils.generate20Questions(repo));
     }
 }

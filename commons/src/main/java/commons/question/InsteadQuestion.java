@@ -8,12 +8,19 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Class for the instead question.
+ */
 @JsonTypeName(value = "instead")
 public class InsteadQuestion extends AbstractQuestion {
 
     private Activity activity;
     private List<Activity> answerChoices;
+    private String correctAnswer;
 
+    /**
+     * Constructor for the instead question.
+     */
     public InsteadQuestion() {
         super();
     }
@@ -34,17 +41,35 @@ public class InsteadQuestion extends AbstractQuestion {
      * @param activities List of all activities
      */
     public void setAnswerChoices(List<Activity> activities) {
+        this.answerChoices = new ArrayList<>();
         List<Activity> correct = activities.stream()
-                .filter(x -> x.getConsumption() <= activity.getConsumption())
+                .filter(x -> x.getConsumption() < activity.getConsumption())
                 .collect(Collectors.toList());
         Collections.shuffle(correct);
         List<Activity> incorrect = activities.stream()
                 .filter(x -> x.getConsumption() > activity.getConsumption())
                 .collect(Collectors.toList());
         Collections.shuffle(incorrect);
-        answerChoices.add(correct.get(0));
-        answerChoices.add(incorrect.get(0));
-        answerChoices.add(incorrect.get(1));
+        if (correct.isEmpty()) {
+            answerChoices.add(incorrect.get(0));
+            answerChoices.add(incorrect.get(1));
+            answerChoices.add(incorrect.get(2));
+        } else {
+            answerChoices.add(correct.get(0));
+            correctAnswer = activities.get(0).getTitle();
+            if (incorrect.isEmpty()) {
+                answerChoices.add(correct.get(1));
+                answerChoices.add(correct.get(2));
+            } else if (incorrect.size() == 1) {
+                answerChoices.add(correct.get(1));
+                answerChoices.add(incorrect.get(0));
+            } else {
+                answerChoices.add(incorrect.get(0));
+                answerChoices.add(incorrect.get(1));
+            }
+        }
+
+        Collections.shuffle(answerChoices);
     }
 
     /**
@@ -58,15 +83,40 @@ public class InsteadQuestion extends AbstractQuestion {
         return question;
     }
 
+    /**
+     * Getter for the activity.
+     *
+     * @return this activity.
+     */
     public Activity getActivity() {
         return activity;
     }
 
+    /**
+     * Setter for the activity instance.
+     *
+     * @param activity the actual activity variable.
+     */
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
 
+    /**
+     * Getter for the answer choices.
+     *
+     * @return the actual answer choices.
+     */
     public List<Activity> getAnswerChoices() {
         return answerChoices;
+    }
+
+    /**
+     * Returns the title of the activity to be checked.
+     * Should be compared to the submitted answer's consumption.
+     *
+     * @return  String of the consumption of the "right" activity.
+     */
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 }

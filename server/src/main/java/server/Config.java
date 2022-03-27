@@ -18,20 +18,71 @@ package server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import server.utils.GenerateQuestionUtils;
+import server.utils.MultiPlayerStateUtils;
+import server.utils.QueueUtils;
+import server.utils.SinglePlayerStateUtils;
+
 
 
 import java.util.Random;
 
+/**
+ * Config class.
+ */
 @Configuration
 public class Config {
 
+    /**
+     * Getter for a new random instance.
+     *
+     * @return new random instance.
+     */
     @Bean
     public Random getRandom() {
         return new Random();
     }
 
+    /**
+     * Getter for a new instance of the GenerateQuestionUtils class.
+     * Notated as bean, it would be only a single one used by all controllers/utilities.
+     *
+     * @return A new GenerateQuestionUtils instance.
+     */
     @Bean
-    public GenerateQuestionUtils getRandomUtils() {
-        return new GenerateQuestionUtils();
+    public GenerateQuestionUtils getGenerateQuestionUtils() {
+        return new GenerateQuestionUtils(getRandom());
     }
+
+    /**
+     * Getter for a new instance of SinglePlayerStateUtils.
+     * Notated as bean, it would be only a single one used by all controllers.
+     *
+     * @return A new SinglePlayerStateUtils instance.
+     */
+    @Bean
+    public SinglePlayerStateUtils getSinglePlayerStateUtils() {
+        return new SinglePlayerStateUtils(getGenerateQuestionUtils()); }
+
+    /**
+     * Getter for a new instance of MultiPlayerStateUtils.
+     * Notated as bean, it would be only a single one used by all controllers.
+     *
+     * @return A new MultiPlayerStateUtils instance.
+     */
+    @Bean
+    public MultiPlayerStateUtils getMultiPlayerStateUtils() {
+        return new MultiPlayerStateUtils(getGenerateQuestionUtils());
+    }
+
+    /**
+     * Getter for a new instance of QueueUtils.
+     * Notated as bean, it would be only a single one used by all controllers.
+     *
+     * @return A new QueueUtils instance.
+     */
+    @Bean
+    public QueueUtils getQueueUtils() {
+        return new QueueUtils();
+    }
+
 }

@@ -26,6 +26,9 @@ import javax.persistence.Id;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
+/**
+ * Class for the queue user.
+ */
 @Entity
 public class QueueUser {
 
@@ -35,11 +38,17 @@ public class QueueUser {
 
     private String username;
 
-    @SuppressWarnings("unused")
+    /**
+     * Constructor for the queue user.
+     */
     public QueueUser() {
         // for object mapper
     }
 
+    /**
+     * Constructor for the queue user.
+     * @param username the username of the player
+     */
     public QueueUser(String username) {
         this.username = username;
     }

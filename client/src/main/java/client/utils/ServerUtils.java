@@ -21,6 +21,7 @@ import commons.misc.Response;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
+import commons.single.SinglePlayerLeaderboardScore;
 import commons.single.SinglePlayerState;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -31,26 +32,28 @@ import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
+/**
+ *
+ */
 public class ServerUtils {
 
     private static String currentServer;
 
-    /*
-    The following endpoint is somehow useless currently, as we plan not to use
-    SingleUser at all (how the initial endpoint have been created), or
-    SinglePlayer as entities which we would store.
-    Thus, I believe the endpoint could be properly renamed and used for
-    SinglePlayerLeaderboardScore entities, but some refactoring would be required.
-    Also, I suggest changing the server path, as this one is a bit unclear.
+    /**
+     * @param leaderboardEntry is a SinglePlayerLeaderboardScore entity.
+     * @return it returns a client SinglePlayerLeaderboardScore.
      */
-    public SinglePlayer addSinglePlayer(SinglePlayer singlePlayer) {
+    public SinglePlayerLeaderboardScore addSinglePlayer(SinglePlayerLeaderboardScore leaderboardEntry) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(currentServer).path("/api/users") //
+                .target(currentServer).path("/api/leaderboard/players") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .post(Entity.entity(singlePlayer, APPLICATION_JSON), SinglePlayer.class);
+                .post(Entity.entity(leaderboardEntry, APPLICATION_JSON), SinglePlayerLeaderboardScore.class);
     }
 
+    /**
+     * @return it returns a client QueueState.
+     */
     public QueueState getQueueState() {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer).path("/api/queue")
@@ -59,6 +62,10 @@ public class ServerUtils {
                 .get(QueueState.class);
     }
 
+    /**
+     * @param user is a QueueUser user.
+     * @return it returns a client QueueUser user
+     */
     public QueueUser addQueueUser(QueueUser user) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer).path("/api/queue")
@@ -67,6 +74,10 @@ public class ServerUtils {
                 .post(Entity.entity(user, APPLICATION_JSON), QueueUser.class);
     }
 
+    /**
+     * @param user is a QueueUser user
+     * @return it returns a client QueueUser
+     */
     public QueueUser deleteQueueUser(QueueUser user) {
         long id = user.getId();
         return ClientBuilder.newClient(new ClientConfig())
@@ -144,6 +155,9 @@ public class ServerUtils {
                 .post(null, QueueState.class);
     }
 
+    /**
+     * @return it returns a currentServer.
+     */
     public static String getCurrentServer() {
         return currentServer;
     }
@@ -157,6 +171,9 @@ public class ServerUtils {
         ServerUtils.currentServer = currentServer;
     }
 
+    /**
+     * @return it returns a client GenericType List Activity.
+     */
     public List<Activity> getActivities() {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer).path("/api/activities")
@@ -164,5 +181,21 @@ public class ServerUtils {
                 .accept(APPLICATION_JSON)
                 .get(new GenericType<List<Activity>>() {
                 });
+    }
+
+    /**
+     * Method that imports the activities from the admin panel.
+     *
+     * @param fileAsString the file in a String version.
+     *
+     * @return new list of activities.
+     */
+    public List<Activity> importActivities(String fileAsString) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/addToRepo")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<Activity>>() {});
     }
 }

@@ -5,6 +5,11 @@
     -fx-background-radius: 20;
     -fx-border-width: 5;
 }
+.button:pressed {
+    -fx-border-radius: 14;
+    -fx-background-radius: 19;
+    -fx-border-width: 4;
+}
 .text-field {
     -fx-border-color: #006e8c;
     -fx-border-width: 1;
@@ -41,7 +46,15 @@
     -fx-border-width: 3;
     visibility: false;
 }
-
 #start-label {
     -fx-background-color: #ffffffaa;
+}
+#error {
+    -fx-background-color: #f2dede;
+    -fx-background-radius: 15;
+    visibility: false;
+
+    -fx-border-width: 2;
+    -fx-border-color: #c62828;
+    -fx-border-radius: 15;
 }

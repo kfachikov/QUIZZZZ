@@ -1,18 +1,31 @@
 package client.scenes.single;
-
 import client.scenes.misc.MainCtrl;
+import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
+import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
+import commons.misc.Response;
+import commons.question.MoreExpensiveQuestion;
+import commons.single.SinglePlayerState;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
-import java.util.Optional;
+import java.util.Date;
 
-public class MoreExpensiveQuestionScreenCtrl {
-    private final ServerUtils server;
-    private final MainCtrl mainCtrl;
+/**
+ * Controller for the more expensive question scene.
+ */
+public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
+
+    private MoreExpensiveQuestion question;
+
+    @FXML
+    private AnchorPane window;
 
     @FXML
     private Label currentScore;
@@ -53,94 +66,204 @@ public class MoreExpensiveQuestionScreenCtrl {
     @FXML
     private Text description3;
 
+
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
+     * @param pollingService is the polling service variable.
+     * @param singlePlayerUtils is the singleplayer utilities variable.
      * @param server   is the server variable
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
-        this.server = server;
-        this.mainCtrl = mainCtrl;
+    public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
+                                           GameStatePollingService pollingService,
+                                           SinglePlayerUtils singlePlayerUtils) {
+        super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 
     /**
-     * sets the scene and title to home if the yes button is clicked.
+     * Initializes the single-player game controller by:
+     *
+     * Binding answer choices to a method submitting that answer.
+     * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
-    public void returnHome() {
+    @SuppressWarnings("checkstyle:Indentation")
+    public void initialize() {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setHeaderText("Leave the game");
-        alert.setContentText("Are you sure you want to leave the game?");
-        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+        firstAnswer.setOnAction(e -> {
+            /*
+            The change in the following line was made so that the button can lack text.
+            Otherwise, it could overlap with the image, which would disrupt the client.
+             */
+            submitAnswer(description1.getText());
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
 
-        alert.getButtonTypes().setAll(yesButton, noButton);
+        image1.setOnMouseClicked(e -> {
+            submitAnswer(description1.getText());
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
 
-        Optional<ButtonType> confirmation = alert.showAndWait();
-        if (confirmation.get() == yesButton) {
-            mainCtrl.showHome();
-        }
+        description1.setOnMouseClicked(e -> {
+            submitAnswer(description1.getText());
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
+        secondAnswer.setOnAction(e -> {
+            submitAnswer(description2.getText());
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
+        image2.setOnMouseClicked(e -> {
+            submitAnswer(description2.getText());
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
+        description2.setOnMouseClicked(e -> {
+            submitAnswer(description2.getText());
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
+        thirdAnswer.setOnAction(e -> {
+            submitAnswer(description3.getText());
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
+        image3.setOnMouseClicked(e -> {
+            submitAnswer(description3.getText());
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
+        description3.setOnMouseClicked(e -> {
+            submitAnswer(description3.getText());
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b"))
+                    .toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
 
     }
+
+    /**
+     * Sends a string to the server sa a chosen answer from the player.
+     *
+     * @param chosenAnswer String value of button clicked - answer chosen
+     */
+    public void submitAnswer(String chosenAnswer) {
+        SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
+        server.postAnswer(new Response(singlePlayerState.getId(),
+                new Date().getTime(),
+                singlePlayerState.getRoundNumber(),
+                singlePlayerState.getPlayer().getUsername(),
+                chosenAnswer
+        ));
+    }
+
 
     /**
      * Sets the current score.
      *
      * @param score is the current score of the player
      */
-    public void setScore(int score) {
+    public void setScore(long score) {
         currentScore.setText(String.valueOf(score));
     }
 
     /**
      * Sets the question to the chosen questionText.
-     *
-     * @param questionText the question text
      */
-    public void setQuestion(Text questionText) {
-        questionTitle.setText(String.valueOf(questionText));
+    public void setQuestionPrompt() {
+        questionTitle.setText(question.toString());
     }
 
-    class BeginThread implements Runnable {
 
-        /**
-         * When an object implementing interface {@code Runnable} is used
-         * to create a thread, starting the thread causes the object's
-         * {@code run} method to be called in that separately executing
-         * thread.
-         * <p>
-         * The general contract of the method {@code run} is that it may
-         * take any action whatsoever.
-         *
-         * @see Thread#run()
-         */
-        @Override
-        public synchronized void run() {
-            time.setStyle("-fx-accent: #006e8c");
-            for (int i = 0; i < 100; i++) {
-                if (i > 70) {
-                    time.setStyle("-fx-accent: red");
-                }
-                time.setProgress(i / 100.0);
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    /**
+     * Sets the question and the corresponding fields with proper information.
+     *
+     * @param question Question to be visualized on the particular scene.
+     *
+     */
+    public void setQuestion(MoreExpensiveQuestion question) {
+        firstAnswer.setDisable(false);
+        secondAnswer.setDisable(false);
+        thirdAnswer.setDisable(false);
+
+        //setting the button colors back to default(unselected)
+        firstAnswer.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
+        secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
+        thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
+
+
+        this.question = question;
+        setQuestionPrompt();
+
+        description1.setText(question.getAnswerChoices().get(0).getTitle());
+        description2.setText(question.getAnswerChoices().get(1).getTitle());
+        description3.setText(question.getAnswerChoices().get(2).getTitle());
+    }
+
+
+    /**
+     * Getter for the more expensive question.
+     *
+     * @return this question.
+     *
+     */
+    public MoreExpensiveQuestion getQuestion() {
+        return question;
     }
 
     /**
-     * The method starts the timer thread.
+     * Getter for the window object - used to change the background in MainCtrl.
+     *
+     * @return AnchorPane object with reference to the particular window of this scene.
+     *
      */
-    @FXML
-    public synchronized void startTimer() {
-        time.setProgress(0.0);
-        Thread thread = new Thread(new MoreExpensiveQuestionScreenCtrl.BeginThread());
-        thread.start();
+    public AnchorPane getWindow() {
+        return window;
+    }
+
+    /**
+     * Overridden getTime() methods. Used to access the private time field.
+     *
+     * @return  Reference to the JavaFX node in the scene corresponding to this controller.
+     */
+    @Override
+    public ProgressBar getTime() {
+        return time;
     }
 }

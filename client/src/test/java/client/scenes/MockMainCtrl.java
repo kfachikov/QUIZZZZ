@@ -7,15 +7,26 @@ import commons.single.SinglePlayer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for the Mock main controller.
+ */
 public class MockMainCtrl extends MainCtrl {
 
     public List<String> calledMethods;
     public Object param;
 
+    /**
+     * Constructor for the mock main controller.
+     */
     public MockMainCtrl() {
         this.calledMethods = new ArrayList<>();
     }
 
+    /**
+     * Adds the method to the called methods list.
+     *
+     * @param method method name.
+     */
     private void call(String method) {
         calledMethods.add(method);
     }
@@ -52,7 +63,7 @@ public class MockMainCtrl extends MainCtrl {
      * @param user QueueUser which is joining the queue
      */
     @Override
-    public void showQueue(QueueUser user) {
+    public void showQueue(QueueUser user, String serverAddress) {
         this.param = user;
         call("showQueue");
     }

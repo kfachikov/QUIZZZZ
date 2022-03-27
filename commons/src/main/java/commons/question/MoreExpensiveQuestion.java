@@ -3,9 +3,13 @@ package commons.question;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import commons.misc.Activity;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Class for the more expensive question.
+ */
 @JsonTypeName(value = "moreExpensive")
 public class MoreExpensiveQuestion extends AbstractQuestion {
 
@@ -14,16 +18,14 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
      */
     private List<Activity> answerChoices;
 
-    /**
-     * This is the correct choice activity.
-     */
-    private Activity correctAnswer;
+    private String correctAnswer;
 
     /**
      * Constructor for the fourth question type.
      */
     public MoreExpensiveQuestion() {
         super();
+        answerChoices = new ArrayList<>();
     }
 
     /**
@@ -36,10 +38,11 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
         answerChoices.add(activities.get(0));
         answerChoices.add(activities.get(1));
         answerChoices.add(activities.get(2));
-        correctAnswer = (answerChoices.get(1).getConsumption() > answerChoices.get(0).getConsumption()) ?
+        Activity correct = (answerChoices.get(1).getConsumption() > answerChoices.get(0).getConsumption()) ?
                 answerChoices.get(1) : answerChoices.get(0);
-        correctAnswer = (answerChoices.get(2).getConsumption() > correctAnswer.getConsumption()) ?
-                answerChoices.get(2) : correctAnswer;
+        correct = (answerChoices.get(2).getConsumption() > correct.getConsumption()) ?
+                answerChoices.get(2) : correct;
+        correctAnswer = correct.getTitle();
     }
 
     /**
@@ -53,15 +56,23 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
         return question;
     }
 
+    /**
+     * Getter for the answer choices.
+     *
+     * @return the answer choices.
+     *
+     */
     public List<Activity> getAnswerChoices() {
         return answerChoices;
     }
 
-    public Activity getCorrectAnswer() {
+    /**
+     * Getter for the correct answer.
+     *
+     * @return the correct answer.
+     *
+     */
+    public String getCorrectAnswer() {
         return correctAnswer;
-    }
-
-    public void setCorrectAnswer(Activity correctAnswer) {
-        this.correctAnswer = correctAnswer;
     }
 }

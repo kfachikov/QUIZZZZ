@@ -14,6 +14,9 @@ public class MultiPlayer extends Player {
     private boolean incorrectAnswerJoker;
     private boolean pointsDoubledJoker;
 
+    /**
+     * Constructor for the multiplayer.
+     */
     public MultiPlayer() {
         super();
     }

@@ -68,7 +68,7 @@ class ConsumptionQuestionTest {
         question.setAnswerChoices();
 
         assertEquals(3, question.getAnswerChoices().size());
-        assertTrue(question.getAnswerChoices().contains("100Wh"));
+        assertTrue(question.getAnswerChoices().contains(100L));
     }
 
     @Test
