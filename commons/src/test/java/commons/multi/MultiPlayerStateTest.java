@@ -16,15 +16,15 @@ class MultiPlayerStateTest {
 
     private List<AbstractQuestion> questions;
 
-    private GameResponse gameResponse1;
-    private GameResponse gameResponse2;
-    private GameResponse gameResponse3;
-    private GameResponse gameResponse4;
+    private GameResponse response1;
+    private GameResponse response2;
+    private GameResponse response3;
+    private GameResponse response4;
 
-    private List<Response> answers;
-    private List<Response> answers2;
-    private List<Response> answers3;
-    private List<Response> answers4;
+    private List<GameResponse> answers;
+    private List<GameResponse> answers2;
+    private List<GameResponse> answers3;
+    private List<GameResponse> answers4;
 
     private List<Activity> activities;
 
@@ -50,10 +50,10 @@ class MultiPlayerStateTest {
                 )
         );
 
-        gameResponse1 = new GameResponse(37, 5287, 2, "Kate", "200Wh");
-        gameResponse2 = new GameResponse(37, 5300, 2, "Lu", "500Wh");
-        gameResponse3 = new GameResponse(37, 5386, 2, "Kate", "500Wh");
-        gameResponse4 = new GameResponse(37, 5360, 2, "Lu", "200Wh");
+        response1 = new GameResponse(37, 5287, 2, "Kate", "200Wh");
+        response2 = new GameResponse(37, 5300, 2, "Lu", "500Wh");
+        response3 = new GameResponse(37, 5386, 2, "Kate", "500Wh");
+        response4 = new GameResponse(37, 5360, 2, "Lu", "200Wh");
 
         answers = Arrays.asList(response1, response2);
         answers2 = Arrays.asList(response3, response4);
@@ -150,7 +150,7 @@ class MultiPlayerStateTest {
 
     @Test
     public void testSetSubmittedAnswers() {
-        List<GameResponse> newAnswers = Arrays.asList(gameResponse3, gameResponse4);
+        List<GameResponse> newAnswers = Arrays.asList(response3, response4);
         game.setSubmittedAnswers(newAnswers);
 
         assertEquals(newAnswers, game.getSubmittedAnswers());

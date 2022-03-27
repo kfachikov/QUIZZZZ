@@ -140,10 +140,10 @@ public class SinglePlayerStateUtils {
      * If question's type is not GuessQuestion then the score is computed based only on how fast the answer was submitted
      * <p>
      *
-     * @param response Response of the player with a correct answer.
+     * @param response GameResponse of the player with a correct answer.
      * @return Number of points to add to the player's score
      */
-    private int computeScore(Response response) {
+    private int computeScore(GameResponse response) {
         int points = 0;
         if (games.get(response.getGameId()).getQuestionList().get(games.get(response.getGameId()).getRoundNumber())
                 instanceof GuessQuestion) {

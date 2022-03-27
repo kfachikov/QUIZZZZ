@@ -3,7 +3,7 @@ package commons.misc;
 import java.util.Objects;
 
 /**
- * The Response class will be used in the response controller to send or receive the answers of the player.
+ * The GameResponse class will be used in the response controller to send or receive the answers of the player.
  */
 public class GameResponse {
 

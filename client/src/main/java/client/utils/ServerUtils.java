@@ -29,7 +29,6 @@ import commons.single.SinglePlayerState;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 import java.util.List;
 
@@ -131,16 +130,16 @@ public class ServerUtils {
     /**
      * POST request to /api/solo/answer, to "submit" the answer chosen by the user.
      *
-     * @param response Response object to be posted
+     * @param response GameResponse object to be posted
      * @return The response object "posted"
      */
-    public Response postAnswer(GameResponse response) {
+    public GameResponse postAnswer(GameResponse response) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("api/solo/answer")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .post(Entity.entity(response, APPLICATION_JSON), Response.class);
+                .post(Entity.entity(response, APPLICATION_JSON), GameResponse.class);
     }
 
     /**

@@ -261,7 +261,7 @@ public class MultiPlayerStateUtils {
      */
     private void updateScore(MultiPlayerState game) {
         if (game.getState().equals(MultiPlayerState.TRANSITION_STATE)) {
-            List<Response> playersResponse = computeFinalAnswer(game);
+            List<GameResponse> playersResponse = computeFinalAnswer(game);
             for (int i = 0; i < playersResponse.size(); i++) {
                 /*
                 Saves the latest response of the player in the list of answers submitted as final.
@@ -294,10 +294,10 @@ public class MultiPlayerStateUtils {
      * If question's type is not GuessQuestion then the score is computed based only on how fast the answer was submitted
      * <p>
      *
-     * @param response Response of the player with a correct answer.
+     * @param response GameResponse of the player with a correct answer.
      * @return Number of points to add to the player's score
      */
-    private int computeScore(Response response) {
+    private int computeScore(GameResponse response) {
         int points = 0;
         if (games.get(response.getGameId()).getQuestionList().get(games.get(response.getGameId()).getRoundNumber())
                 instanceof GuessQuestion) {
@@ -333,11 +333,11 @@ public class MultiPlayerStateUtils {
      * @param game Singleplayer game for which the answer is computed.
      * @return The true response of the player.
      */
-    public List<Response> computeFinalAnswer(MultiPlayerState game) {
-        List<Response> playersResponse = new ArrayList<>();
+    public List<GameResponse> computeFinalAnswer(MultiPlayerState game) {
+        List<GameResponse> playersResponse = new ArrayList<>();
         // Dummy response, if the player did not choose anything
         for (int i = 0; i < game.getPlayers().size(); i++) {
-            Response playerResponse = new Response(
+            GameResponse playerResponse = new GameResponse(
                     game.getId(),
                     Long.MAX_VALUE,
                     game.getRoundNumber(),
@@ -345,10 +345,10 @@ public class MultiPlayerStateUtils {
                     "wrong answer"
             );
             // Responses are sorted by the submission time.
-            Comparator<Response> comp =
+            Comparator<GameResponse> comp =
                     (a, b) -> (int) (a.getTimeSubmitted() - b.getTimeSubmitted());
             game.getSubmittedAnswers().sort(comp);
-            for (Response response : game.getSubmittedAnswers()) {
+            for (GameResponse response : game.getSubmittedAnswers()) {
                 // Only update the response if it differs
                 // This is done to avoid punishing the player from clicking
                 // the same response multiple times
@@ -392,8 +392,8 @@ public class MultiPlayerStateUtils {
         // Round number is incremented each time, so initial round number is -1
         int roundNumber = -1;
         List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions();
-        List<Response> submittedAnswers = new ArrayList<>();
-        List<Response> finalAnswers = new ArrayList<>();
+        List<GameResponse> submittedAnswers = new ArrayList<>();
+        List<GameResponse> finalAnswers = new ArrayList<>();
         String state = MultiPlayerState.NOT_STARTED_STATE;
         List<MultiPlayer> players = new ArrayList<>();
         // Comment: what does Reaction mean here?

@@ -23,7 +23,7 @@ public class MultiPlayerState extends GameState {
 
     private List<MultiPlayer> players;
     private Reaction reaction;
-    private List<Response> finalAnswers;
+    private List<GameResponse> finalAnswers;
 
     /**
      * Default constructor to be used for the JSON parsing.
@@ -47,8 +47,8 @@ public class MultiPlayerState extends GameState {
      */
     public MultiPlayerState(long id, long nextPhase, int roundNumber,
                             List<AbstractQuestion> questionList,
-                            List<Response> submittedAnswers,
-                            List<Response> finalAnswers,
+                            List<GameResponse> submittedAnswers,
+                            List<GameResponse> finalAnswers,
                             String state,
                             List<MultiPlayer> players, Reaction reaction) {
         super(id, nextPhase, roundNumber, questionList, submittedAnswers, state);
@@ -90,7 +90,7 @@ public class MultiPlayerState extends GameState {
      *
      * @return a list of Responses representing the answers given by the players.
      */
-    public List<Response> getFinalAnswers() {
+    public List<GameResponse> getFinalAnswers() {
         return finalAnswers;
     }
 
