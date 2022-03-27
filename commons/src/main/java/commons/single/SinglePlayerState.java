@@ -15,8 +15,17 @@ import java.util.Objects;
 @JsonTypeName(value = "single")
 public class SinglePlayerState extends GameState {
 
+    /**
+     * The state of the game when the questions screen appears.
+     */
     public static final String QUESTION_STATE = "QUESTION";
+    /**
+     * The state of the game when the congratulation screen appears.
+     */
     public static final String GAME_OVER_STATE = "GAME_OVER";
+    /**
+     * The state of the game when the transition screen appears.
+     */
     public static final String TRANSITION_STATE = "TRANSITION";
     private SinglePlayer player;
     private List<Response> finalAnswers;
