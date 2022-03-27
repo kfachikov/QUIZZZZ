@@ -303,6 +303,17 @@ public class LeaderboardScreenCtrl {
         multiCtrl.returnHome();
     }
 
+    /**
+     * Fills the passed list of labels with passed labels.
+     *
+     * @param objectList the labelList to be passed.
+     * @param a          label1.
+     * @param b          label2.
+     * @param c          label3.
+     * @param d          label4.
+     * @param e          label5.
+     * @param f          label6.
+     */
     public void fillList(List<Label> objectList, Label a, Label b, Label c, Label d, Label e, Label f) {
         objectList.add(a);
         objectList.add(b);
@@ -340,128 +351,39 @@ public class LeaderboardScreenCtrl {
         multiCtrl.surprisedEmoji();
     }
 
-    public Button getAngry() {
-        return angry;
-    }
-
-    public Button getCrying() {
-        return crying;
-    }
-
-    public Button getLaughing() {
-        return laughing;
-    }
-
-    public Button getSurprised() {
-        return surprised;
-    }
-
+    /**
+     * @return List of emoji buttons.
+     */
     public List<Button> getEmojis() {
         return emojis;
     }
 
-
-    public Label getPosition1() {
-        return position1;
-    }
-
-    public Label getUsername1() {
-        return username1;
-    }
-
-    public Label getScore1() {
-        return score1;
-    }
-
-    public Label getPosition2() {
-        return position2;
-    }
-
-    public Label getUsername2() {
-        return username2;
-    }
-
-    public Label getScore2() {
-        return score2;
-    }
-
-    public Label getPosition3() {
-        return position3;
-    }
-
-    public Label getUsername3() {
-        return username3;
-    }
-
-    public Label getScore3() {
-        return score3;
-    }
-
-    public Label getPosition4() {
-        return position4;
-    }
-
-    public Label getUsername4() {
-        return username4;
-    }
-
-    public Label getScore4() {
-        return score4;
-    }
-
-    public Label getPosition5() {
-        return position5;
-    }
-
-    public Label getUsername5() {
-        return username5;
-    }
-
-    public Label getScore5() {
-        return score5;
-    }
-
-    public Label getPosition6() {
-        return position6;
-    }
-
-    public Label getUsername6() {
-        return username6;
-    }
-
-    public Label getScore6() {
-        return score6;
-    }
-
-    public Label getUserPosition() {
-        return userPosition;
-    }
-
-    public Label getUserUsername() {
-        return userUsername;
-    }
-
-    public Label getUserScore() {
-        return userScore;
-    }
-
+    /**
+     * @return List of username labels.
+     */
     public List<Label> getUsernameLabels() {
         return usernameLabels;
     }
 
+    /**
+     * @return List of score labels.
+     */
     public List<Label> getScoreLabels() {
         return scoreLabels;
     }
 
+    /**
+     * @return List of position labels.
+     */
     public List<Label> getPositionLabels() {
         return positionLabels;
     }
 
+    /**
+     * @return List of labels used when user is !inTop-6.
+     */
     public List<Label> getUserLabels() {
         return userLabels;
     }
 
-    public Text getTitle() {
-        return title;
-    }
 }
