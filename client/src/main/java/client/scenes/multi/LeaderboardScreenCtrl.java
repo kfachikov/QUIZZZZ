@@ -94,6 +94,8 @@ public class LeaderboardScreenCtrl {
     private List<Label> scoreLabels;
     @FXML
     private List<Label> positionLabels;
+    @FXML
+    private List<Label> userLabels;
 
     /**
      * initializes IntermediateLeaderboardScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -139,6 +141,10 @@ public class LeaderboardScreenCtrl {
         positionLabels.add(Position4);
         positionLabels.add(Position5);
         positionLabels.add(Position6);
+        userLabels = new ArrayList<>();
+        userLabels.add(UserUsername);
+        userLabels.add(UserScore);
+        userLabels.add(UserPosition);
     }
 
     /**
@@ -178,9 +184,9 @@ public class LeaderboardScreenCtrl {
             leave.setVisible(false);
         }
         //set username & score labels invisible
-        setLabelsInvisible(usernameLabels);
-        setLabelsInvisible(scoreLabels);
-        setUserLabelsVisible(false);
+        setLabelsVisible(usernameLabels, false);
+        setLabelsVisible(scoreLabels, false);
+        setLabelsVisible(positionLabels, false);
 
         fillLeaderboard(players);
     }
@@ -233,7 +239,7 @@ public class LeaderboardScreenCtrl {
      * @param players the list of players in the game, in descending score order.
      */
     public void displayUserStats(List<MultiPlayer> players) {
-        setUserLabelsVisible(true);
+        setLabelsVisible(userLabels, true);
         MultiPlayer user = null;
         for (int i = 0; i < players.size(); i++) {
             if (multiCtrl.getUsername().equals(players.get(i).getUsername())) {
@@ -248,19 +254,36 @@ public class LeaderboardScreenCtrl {
      * Sets all labels in the labelList invisible.
      * @param labelList the list of labels.
      */
-    public void setLabelsInvisible(List<Label> labelList) {
-        labelList.forEach(label -> label.setVisible(false));
+    public void setLabelsVisible(List<Label> labelList, boolean value) {
+        labelList.forEach(label -> label.setVisible(value));
     }
 
     /**
-     * Sets the visibility of fxml items related to displaying the user score in case !inTop-6
-     * @param value the boolean to set the visibility to
+     * Sets the emoji layout to be displayed in intermediate leaderboard screen
      */
-    public void setUserLabelsVisible(boolean value) {
-        UserUsername.setVisible(value);
-        UserPosition.setVisible(value);
-        UserScore.setVisible(value);
-        line.setVisible(value);
+    public void emojiIntermediateLayout() {
+        laughing.setLayoutX(359);
+        laughing.setLayoutY(80);
+        crying.setLayoutX(474);
+        crying.setLayoutY(80);
+        surprised.setLayoutX(359);
+        surprised.setLayoutY(250);
+        angry.setLayoutX(474);
+        angry.setLayoutY(250);
+    }
+
+    /**
+     * Sets the emoji layout to be displayed in game over screen
+     */
+    public void emojiGameOverLayout() {
+        laughing.setLayoutX(359);
+        laughing.setLayoutY(61);
+        crying.setLayoutX(474);
+        crying.setLayoutY(61);
+        surprised.setLayoutX(359);
+        surprised.setLayoutY(175);
+        angry.setLayoutX(474);
+        angry.setLayoutY(175);
     }
 
     /**
@@ -307,33 +330,5 @@ public class LeaderboardScreenCtrl {
      */
     public void surprisedEmoji() {
         multiCtrl.surprisedEmoji();
-    }
-
-    /**
-     * Sets the emoji layout to be displayed in intermediate leaderboard screen
-     */
-    public void emojiIntermediateLayout() {
-        laughing.setLayoutX(359);
-        laughing.setLayoutY(80);
-        crying.setLayoutX(474);
-        crying.setLayoutY(80);
-        surprised.setLayoutX(359);
-        surprised.setLayoutY(250);
-        angry.setLayoutX(474);
-        angry.setLayoutY(250);
-    }
-
-    /**
-     * Sets the emoji layout to be displayed in game over screen
-     */
-    public void emojiGameOverLayout() {
-        laughing.setLayoutX(359);
-        laughing.setLayoutY(61);
-        crying.setLayoutX(474);
-        crying.setLayoutY(61);
-        surprised.setLayoutX(359);
-        surprised.setLayoutY(175);
-        angry.setLayoutX(474);
-        angry.setLayoutY(175);
     }
 }
