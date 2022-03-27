@@ -9,15 +9,30 @@ import commons.question.AbstractQuestion;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class for the singleplayer game state.
+ */
 @JsonTypeName(value = "single")
 public class SinglePlayerState extends GameState {
 
+    /**
+     * The state of the game when the questions screen appears.
+     */
     public static final String QUESTION_STATE = "QUESTION";
+    /**
+     * The state of the game when the congratulation screen appears.
+     */
     public static final String GAME_OVER_STATE = "GAME_OVER";
+    /**
+     * The state of the game when the transition screen appears.
+     */
     public static final String TRANSITION_STATE = "TRANSITION";
     private SinglePlayer player;
     private List<Response> finalAnswers;
 
+    /**
+     * Constructor for the single player state.
+     */
     public SinglePlayerState() {
 
     }
@@ -78,7 +93,7 @@ public class SinglePlayerState extends GameState {
      * @return  Boolean value corresponding to the correctness of the answer.
      */
     public boolean compareAnswer() {
-        if(finalAnswers.get(getRoundNumber()) == null) {
+        if (finalAnswers.get(getRoundNumber()) == null) {
             return false;
         }
         String chosenAnswer = finalAnswers.get(getRoundNumber()).getAnswerChoice();

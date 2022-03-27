@@ -5,6 +5,9 @@ import server.database.QueueUserRepository;
 
 import java.util.Date;
 
+/**
+ * Class for the queue utilities.
+ */
 public class QueueUtils {
 
     private boolean gameStarting;

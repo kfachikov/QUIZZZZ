@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Class for the more expensive question.
+ */
 @JsonTypeName(value = "moreExpensive")
 public class MoreExpensiveQuestion extends AbstractQuestion {
 
@@ -53,10 +56,22 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
         return question;
     }
 
+    /**
+     * Getter for the answer choices.
+     *
+     * @return the answer choices.
+     *
+     */
     public List<Activity> getAnswerChoices() {
         return answerChoices;
     }
 
+    /**
+     * Getter for the correct answer.
+     *
+     * @return the correct answer.
+     *
+     */
     public String getCorrectAnswer() {
         return correctAnswer;
     }

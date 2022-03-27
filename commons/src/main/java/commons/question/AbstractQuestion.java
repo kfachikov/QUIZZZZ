@@ -38,18 +38,44 @@ public abstract class AbstractQuestion {
     protected AbstractQuestion() {
     }
 
+    /**
+     * Getter for the correct answer.
+     *
+     * @return the correct answer.
+     *
+     */
     public abstract String getCorrectAnswer();
 
+    /**
+     * Checker for the equality of two Abstract Questions.
+     *
+     * @param obj the object to be checked for equality.
+     *
+     * @return true/false
+     *
+     */
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
 
+    /**
+     * Generator for the hashcode.
+     *
+     * @return hashcode of this instance.
+     *
+     */
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
+    /**
+     * Convertor to string.
+     *
+     * @return String version of this instance.
+     *
+     */
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);

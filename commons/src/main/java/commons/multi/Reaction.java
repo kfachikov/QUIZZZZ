@@ -3,6 +3,9 @@ package commons.multi;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The class used for reactions in multiplayer.
+ */
 public class Reaction {
     /**
      * The list of reactions that a player is using.

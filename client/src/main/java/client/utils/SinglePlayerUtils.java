@@ -3,9 +3,7 @@ package client.utils;
 import client.scenes.misc.MainCtrl;
 import client.scenes.single.*;
 import client.services.GameStatePollingService;
-import commons.misc.Response;
 import commons.question.*;
-import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.paint.Paint;
@@ -64,7 +62,9 @@ public class SinglePlayerUtils {
     /**
      * The polling service is initialized by receiving the GameState it should pull from
      * the server constantly (every 500 milliseconds).
-     *
+     * The polling service "throws" a new instance of the game state every time it poll.
+     *                     Thus, without the existence of the following comparison, the questions scenes
+     *                     are updated constantly, even when there is no need of it.
      * A listener is assigned to its property which looks for changes of the
      * GameState instance on the server.
      *
@@ -76,11 +76,6 @@ public class SinglePlayerUtils {
         pollingService.valueProperty().addListener(
                 ((observable, oldGameState, newGameState) -> {
                 if (newGameState != null) {
-                    /*
-                    The polling service "throws" a new instance of the game state every time it poll.
-                    Thus, without the existence of the following comparison, the questions scenes
-                    are updated constantly, even when there is no need of it.
-                    */
                     if (!singlePlayerState.getState().equals(newGameState.getState())) {
                         singlePlayerState = (SinglePlayerState) newGameState;
                         switch (newGameState.getState()) {
@@ -95,7 +90,9 @@ public class SinglePlayerUtils {
                                 Whenever an answer is submitted and that is registered on the server,
                                 the game state on the client-side is also updated.
                                 */
-                                if (!singlePlayerState.getSubmittedAnswers().equals(newGameState.getSubmittedAnswers())) {
+                                if (!singlePlayerState.getSubmittedAnswers()
+                                                .equals(newGameState
+                                                .getSubmittedAnswers())) {
                                     singlePlayerState = (SinglePlayerState) newGameState;
                                 }
                                 revealAnswerCorrectness();

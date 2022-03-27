@@ -9,6 +9,9 @@ import commons.single.SinglePlayerState;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Constructor for the game state.
+ */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -30,6 +33,9 @@ public abstract class GameState {
      */
     private String state;
 
+    /**
+     * Constructor for the game state.
+     */
     public GameState() {
 
     }
@@ -216,6 +222,11 @@ public abstract class GameState {
         return Objects.hash(nextPhase, roundNumber, questionList, submittedAnswers, activityList, state);
     }
 
+    /**
+     * Adds the submitted answer to the list.
+     *
+     * @param response the player's response.
+     */
     public void addSubmittedAnswer(Response response) {
         this.submittedAnswers.add(response);
     }

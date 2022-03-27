@@ -2,12 +2,14 @@ package client.utils;
 
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
-import commons.single.SinglePlayer;
 import commons.single.SinglePlayerLeaderboardScore;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Mock server utilities.
+ */
 @SuppressWarnings("unchecked")
 public class MockServerUtils extends ServerUtils {
 
@@ -15,11 +17,19 @@ public class MockServerUtils extends ServerUtils {
     public Object returnValue;
     public Object param;
 
+    /**
+     * Constructor for the mock server utilities instance.
+     */
     public MockServerUtils() {
         this.calledMethods = new ArrayList<>();
         this.returnValue = null;
     }
 
+    /**
+     * Adds the method to the called methods list.
+     *
+     * @param method method name.
+     */
     private void call(String method) {
         calledMethods.add(method);
     }

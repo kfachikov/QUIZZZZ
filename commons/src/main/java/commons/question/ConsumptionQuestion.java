@@ -106,16 +106,28 @@ public class ConsumptionQuestion extends AbstractQuestion {
         return answerChoices;
     }
 
+    /**
+     * Setter for the activity.
+     *
+     * @param activity the actual activity.
+     */
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
 
+    /**
+     * Setter fro the answer choices.
+     *
+     * @param answerChoices the actual answer choices.
+     *
+     */
     public void setAnswerChoices(List<Long> answerChoices) {
         this.answerChoices = answerChoices;
     }
 
     /**
      * Getter for the correct answer.
+     *
      * @return long variable
      */
     public String getCorrectAnswer() {

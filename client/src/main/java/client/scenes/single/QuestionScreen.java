@@ -17,12 +17,18 @@ import java.util.Optional;
  */
 public abstract class QuestionScreen {
 
+    /**
+     * The main controller instance.
+     */
     public final MainCtrl mainCtrl;
+
+    /**
+     * The server instance.
+     */
     public final ServerUtils server;
 
-    /*
-    Utils class instance, which would contain the whole single-player game logic.
-    In addition, it would hold the single-player and the game state instances of the current game.
+    /**
+     * The singleplayer utilities instance.
      */
     public final SinglePlayerUtils singlePlayerUtils;
 
@@ -106,7 +112,7 @@ public abstract class QuestionScreen {
      * Getter for the utility instance.
      *
      * @return  SinglePlayerUtils instance consisting of information about
-     * current game state and current player.
+     *         current game state and current player.
      */
     public SinglePlayerUtils getSinglePlayerUtils() {
         return singlePlayerUtils;

@@ -46,3 +46,15 @@ subprojects {
 		testImplementation 'org.mockito:mockito-core:4.1.0'
 	}
 }
+
+def exportedProjects = [
+		":client",
+		":server",
+		":commons"
+]
+
+task allJavadoc(type: Javadoc) {
+	source exportedProjects.collect { project(it).sourceSets.main.allJava }
+	classpath = files(exportedProjects.collect { project(it).sourceSets.main.compileClasspath })
+	destinationDir = file("${buildDir}/docs/javadoc-all")
+}
