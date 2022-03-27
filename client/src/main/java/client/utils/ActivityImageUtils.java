@@ -3,16 +3,13 @@ package client.utils;
 import commons.misc.Activity;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import javafx.scene.image.Image;
 import org.glassfish.jersey.client.ClientConfig;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -24,6 +21,7 @@ public class ActivityImageUtils {
 
     // This field will be used in the future once ServerUtils doesn't have static members
     private final ServerUtils serverUtils;
+    private final HashMap<Long, Image> activityImageCache;
 
     /**
      * Constructor for ActivityImageUtils.
@@ -32,13 +30,72 @@ public class ActivityImageUtils {
      */
     public ActivityImageUtils(ServerUtils serverUtils) {
         this.serverUtils = serverUtils;
+        this.activityImageCache = new HashMap<>();
     }
 
+    /**
+     * GET mapping for activity image.
+     * <p>
+     * Caches results internally.
+     *
+     * @param key Key of the activity in the repository.
+     * @return JavaFX image of the activity image.
+     */
+    public Image getActivityImage(long key) {
+        if (activityImageCache.containsKey(key)) {
+            return activityImageCache.get(key);
+        } else {
+            String currentServer = ServerUtils.getCurrentServer();
 
+            String imageBase64 = ClientBuilder.newClient(new ClientConfig())
+                    .target(currentServer)
+                    .path("/api/activities/image/" + key)
+                    .request(APPLICATION_JSON)
+                    .accept(APPLICATION_JSON)
+                    .get(String.class);
+
+            byte[] decodedImage = Base64.getDecoder().decode(imageBase64);
+            InputStream imageInputStream = new ByteArrayInputStream(decodedImage);
+
+            Image image = new Image(imageInputStream);
+            return activityImageCache.put(key, image);
+        }
+    }
+
+    /**
+     * Adds all activities' images.
+     *
+     * @param activitiesPath  Path of the activities.json inside the activity bank.
+     * @param addedActivities List of all activities that were just added.
+     */
     public void addActivitiesImages(
             String activitiesPath,
             List<Activity> addedActivities) {
+        List<String> imagePaths = getAllImagePaths(activitiesPath);
+        Map<String, Long> idKeyMap = listToMap(addedActivities);
+        for (String imagePath : imagePaths) {
+            String id = getActivityId(imagePath);
+            String imageBase64 = getImageBase64(imagePath);
+            // Skip activities that were filtered out
+            if (idKeyMap.containsKey(id)) {
+                long key = idKeyMap.get(id);
+                addActivityImage(key, imageBase64);
+            }
+        }
+    }
 
+    /**
+     * Convert list of activites to a map from activity IDs to activity keys.
+     *
+     * @param activityList List of activites.
+     * @return Map of Activity.id to Activity.key
+     */
+    public Map<String, Long> listToMap(List<Activity> activityList) {
+        Map<String, Long> activityMap = new HashMap<>();
+        for (Activity activity : activityList) {
+            activityMap.put(activity.getId(), activity.getKey());
+        }
+        return activityMap;
     }
 
     /**
@@ -79,7 +136,7 @@ public class ActivityImageUtils {
      * @param imagePath File path of the image.
      * @return Base64 encoding of the image found at the given path.
      */
-    public String readImage(String imagePath) {
+    public String getImageBase64(String imagePath) {
         File file = new File(imagePath);
         byte[] bytes = new byte[(int) file.length()];
 
