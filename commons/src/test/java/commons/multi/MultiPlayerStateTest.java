@@ -1,7 +1,7 @@
 package commons.multi;
 
 import commons.misc.Activity;
-import commons.misc.Response;
+import commons.misc.GameResponse;
 import commons.question.AbstractQuestion;
 import commons.question.GuessQuestion;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,10 +16,10 @@ class MultiPlayerStateTest {
 
     private List<AbstractQuestion> questions;
 
-    private Response response1;
-    private Response response2;
-    private Response response3;
-    private Response response4;
+    private GameResponse gameResponse1;
+    private GameResponse gameResponse2;
+    private GameResponse gameResponse3;
+    private GameResponse gameResponse4;
 
     private List<Response> answers;
     private List<Response> answers2;
@@ -50,10 +50,10 @@ class MultiPlayerStateTest {
                 )
         );
 
-        response1 = new Response(37, 5287, 2, "Kate", "200Wh");
-        response2 = new Response(37, 5300, 2, "Lu", "500Wh");
-        response3 = new Response(37, 5386, 2, "Kate", "500Wh");
-        response4 = new Response(37, 5360, 2, "Lu", "200Wh");
+        gameResponse1 = new GameResponse(37, 5287, 2, "Kate", "200Wh");
+        gameResponse2 = new GameResponse(37, 5300, 2, "Lu", "500Wh");
+        gameResponse3 = new GameResponse(37, 5386, 2, "Kate", "500Wh");
+        gameResponse4 = new GameResponse(37, 5360, 2, "Lu", "200Wh");
 
         answers = Arrays.asList(response1, response2);
         answers2 = Arrays.asList(response3, response4);
@@ -150,7 +150,7 @@ class MultiPlayerStateTest {
 
     @Test
     public void testSetSubmittedAnswers() {
-        List<Response> newAnswers = Arrays.asList(response3, response4);
+        List<GameResponse> newAnswers = Arrays.asList(gameResponse3, gameResponse4);
         game.setSubmittedAnswers(newAnswers);
 
         assertEquals(newAnswers, game.getSubmittedAnswers());

@@ -1,8 +1,8 @@
 package commons.multi;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import commons.misc.GameResponse;
 import commons.misc.GameState;
-import commons.misc.Response;
 import commons.question.AbstractQuestion;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 

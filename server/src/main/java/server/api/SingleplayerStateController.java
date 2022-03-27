@@ -1,6 +1,6 @@
 package server.api;
 
-import commons.misc.Response;
+import commons.misc.GameResponse;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import org.springframework.context.annotation.ComponentScan;
@@ -81,8 +81,8 @@ public class SingleplayerStateController {
      * @return Response that the player just chose.
      */
     @PostMapping("/answer")
-    public ResponseEntity<Response> postResponse(@RequestBody Response response) {
-        Response responsePosted = singlePlayerStateUtils.postAnswer(response);
+    public ResponseEntity<GameResponse> postResponse(@RequestBody GameResponse response) {
+        GameResponse responsePosted = singlePlayerStateUtils.postAnswer(response);
         if (responsePosted != null) {
             return ResponseEntity.ok(response);
         }
