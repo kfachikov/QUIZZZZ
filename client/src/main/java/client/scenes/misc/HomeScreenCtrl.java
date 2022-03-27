@@ -82,5 +82,8 @@ public class HomeScreenCtrl {
         homeUtils.enterAdministrationPanel();
     }
 
+    public String getUrl() {
+        return serverURL.getText();
+    }
 
 }

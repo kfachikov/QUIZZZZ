@@ -2,10 +2,11 @@ package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
 import client.services.SingleplayerGameStatePollingService;
+import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
-import commons.misc.Response;
+import commons.misc.GameResponse;
 import commons.question.ConsumptionQuestion;
 import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
@@ -58,16 +59,19 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param server            is the server variable
-     * @param mainCtrl          is the main controller variable
-     * @param pollingService    is the injected polling service to be used to poll the game state.
-     * @param singlePlayerUtils is the injected singleplayer utils for managing logic
+     * @param server             is the server variable
+     * @param mainCtrl           is the main controller variable
+     * @param pollingService     is the injected polling service to be used to poll the game state.
+     * @param activityImageUtils is the utilities class responsible for fetching an image of an activity.
+     * @param singlePlayerUtils  is the injected singleplayer utils for managing logic
      */
     @Inject
     public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
                                          SingleplayerGameStatePollingService pollingService,
-                                         SinglePlayerUtils singlePlayerUtils) {
-        super(server, mainCtrl, pollingService, singlePlayerUtils);
+                                         ActivityImageUtils activityImageUtils,
+                                         SinglePlayerUtils singlePlayerUtils
+    ) {
+        super(server, mainCtrl, pollingService, activityImageUtils, singlePlayerUtils);
     }
 
     /**
@@ -77,6 +81,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
     public void initialize() {
+
         firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -106,6 +111,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
                 secondAnswer.setDisable(true);
                 thirdAnswer.setDisable(true);
             }
+
         });
     }
 
@@ -118,7 +124,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new Response(singlePlayerState.getId(),
+        server.postAnswer(new GameResponse(singlePlayerState.getId(),
                 new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
@@ -143,11 +149,25 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
         questionTitle.setText(question.toString());
     }
 
+    /**
+     * getter for the question instance.
+     *
+     * @return this question instance.
+     */
     public ConsumptionQuestion getQuestion() {
         return question;
     }
 
+    /**
+     * The method sets all fields of the question: image, answers, title.
+     *
+     * @param question the question instance of ConsumptionQuestion.
+     */
+
     public void setQuestion(ConsumptionQuestion question) {
+
+        image.setImage(getActivityImage(question.getActivity()));
+
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);
@@ -186,4 +206,5 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
     public ProgressBar getTime() {
         return time;
     }
+
 }

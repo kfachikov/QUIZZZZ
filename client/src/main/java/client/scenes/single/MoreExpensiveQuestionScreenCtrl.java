@@ -2,10 +2,11 @@ package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
 import client.services.SingleplayerGameStatePollingService;
+import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
-import commons.misc.Response;
+import commons.misc.GameResponse;
 import commons.question.MoreExpensiveQuestion;
 import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
@@ -22,6 +23,9 @@ import javafx.scene.text.Text;
 
 import java.util.Date;
 
+/**
+ * Controller for the MoreExpensiveQuestionScreen.
+ */
 public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
     private MoreExpensiveQuestion question;
@@ -72,16 +76,18 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param server            is the server variable
-     * @param mainCtrl          is the main controller variable
-     * @param pollingService    is the injected polling service to be used to poll the game state.
-     * @param singlePlayerUtils is the injected singleplayer utils for managing logic
+     * @param server             is the server variable
+     * @param mainCtrl           is the main controller variable
+     * @param pollingService     is the injected polling service to be used to poll the game state.
+     * @param activityImageUtils is the utilities class responsible for fetching an image of an activity.
+     * @param singlePlayerUtils  is the injected singleplayer utils for managing logic
      */
     @Inject
     public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
                                            SingleplayerGameStatePollingService pollingService,
+                                           ActivityImageUtils activityImageUtils,
                                            SinglePlayerUtils singlePlayerUtils) {
-        super(server, mainCtrl, pollingService, singlePlayerUtils);
+        super(server, mainCtrl, pollingService, activityImageUtils, singlePlayerUtils);
     }
 
     /**
@@ -186,7 +192,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new Response(singlePlayerState.getId(),
+        server.postAnswer(new GameResponse(singlePlayerState.getId(),
                 new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
@@ -214,10 +220,16 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * Sets the question and the corresponding fields with proper information.
+     * Sets the images, answers and question title.
      *
      * @param question Question to be visualized on the particular scene.
      */
     public void setQuestion(MoreExpensiveQuestion question) {
+
+        image1.setImage(getActivityImage(question.getAnswerChoices().get(0)));
+        image2.setImage(getActivityImage(question.getAnswerChoices().get(1)));
+        image3.setImage(getActivityImage(question.getAnswerChoices().get(2)));
+
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);
@@ -234,9 +246,15 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         description1.setText(question.getAnswerChoices().get(0).getTitle());
         description2.setText(question.getAnswerChoices().get(1).getTitle());
         description3.setText(question.getAnswerChoices().get(2).getTitle());
+
     }
 
 
+    /**
+     * Getter for the question instance.
+     *
+     * @return  this question.
+     */
     public MoreExpensiveQuestion getQuestion() {
         return question;
     }
@@ -259,4 +277,5 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     public ProgressBar getTime() {
         return time;
     }
+
 }

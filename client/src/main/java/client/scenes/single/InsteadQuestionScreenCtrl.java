@@ -2,10 +2,11 @@ package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
 import client.services.SingleplayerGameStatePollingService;
+import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
-import commons.misc.Response;
+import commons.misc.GameResponse;
 import commons.question.InsteadQuestion;
 import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
@@ -22,6 +23,10 @@ import javafx.scene.text.Text;
 
 import java.util.Date;
 
+
+/**
+ *  Controller for the InsteadQuestionScreen.
+ */
 public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
     private InsteadQuestion question;
@@ -59,16 +64,18 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param server            is the server variable
-     * @param mainCtrl          is the main controller variable
-     * @param pollingService    is the injected polling service to be used to poll the game state.
-     * @param singlePlayerUtils is the injected singleplayer utils for managing logic
+     * @param server             is the server variable
+     * @param mainCtrl           is the main controller variable
+     * @param pollingService     is the injected polling service to be used to poll the game state.
+     * @param activityImageUtils is the utilities class responsible for fetching an image of an activity.
+     * @param singlePlayerUtils  is the injected singleplayer utils for managing logic
      */
     @Inject
     public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
                                      SingleplayerGameStatePollingService pollingService,
+                                     ActivityImageUtils activityImageUtils,
                                      SinglePlayerUtils singlePlayerUtils) {
-        super(server, mainCtrl, pollingService, singlePlayerUtils);
+        super(server, mainCtrl, pollingService, activityImageUtils, singlePlayerUtils);
     }
 
     /**
@@ -117,7 +124,7 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new Response(singlePlayerState.getId(),
+        server.postAnswer(new GameResponse(singlePlayerState.getId(),
                 new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
@@ -151,6 +158,11 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
         questionTitle.setText(question.toString());
     }
 
+    /**
+     * Getter for the question instance.
+     *
+     * @return this question.
+     */
     public InsteadQuestion getQuestion() {
         return question;
     }
@@ -161,6 +173,9 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      * @param question Question to be visualized on the particular scene.
      */
     public void setQuestion(InsteadQuestion question) {
+
+        image.setImage(getActivityImage(question.getActivity()));
+
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);
@@ -199,4 +214,5 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     public ProgressBar getTime() {
         return time;
     }
+
 }

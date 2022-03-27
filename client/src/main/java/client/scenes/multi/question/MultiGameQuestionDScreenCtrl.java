@@ -3,6 +3,7 @@ package client.scenes.multi.question;
 import client.scenes.multi.MultiplayerCtrl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 
 import javax.inject.Inject;
 
@@ -18,6 +19,9 @@ public class MultiGameQuestionDScreenCtrl {
 
     @FXML
     private Label gameStateLabel;
+
+    @FXML
+    private ImageView image;
 
     /**
      * Constructor for the multiplayer game question screen.
