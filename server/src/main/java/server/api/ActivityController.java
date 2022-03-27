@@ -1,11 +1,17 @@
 package server.api;
 
 import commons.misc.Activity;
+import commons.misc.ActivityImage;
+import commons.misc.ActivityImageMessage;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import server.database.ActivityImageRepository;
 import server.database.ActivityRepository;
+
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Server-side controller for the activities stored in the database.
@@ -15,14 +21,72 @@ import java.util.List;
 public class ActivityController {
 
     private final ActivityRepository repo;
+    private final ActivityImageRepository imageRepo;
 
     /**
      * Constructor for the activity controller.
      *
-     * @param repo ActivityRepository instance.
+     * @param repo      ActivityRepository instance.
+     * @param imageRepo ActivityImageRepository instance.
      */
-    public ActivityController(ActivityRepository repo) {
+    public ActivityController(
+            ActivityRepository repo,
+            ActivityImageRepository imageRepo
+    ) {
         this.repo = repo;
+        this.imageRepo = imageRepo;
+    }
+
+    /**
+     * POST mapping for adding an image to an activity.
+     *
+     * @param key     Key of the activity in the repository
+     * @param message Base64 encoding of the image message
+     * @return ResponseEntity indicating whether activity image was added.
+     */
+    @PostMapping("/images/{key}")
+    public ResponseEntity<ActivityImageMessage> addActivityImage(
+            @PathVariable("key") long key,
+            @RequestBody ActivityImageMessage message) {
+        Optional<Activity> optionalActivity = repo.findById(key);
+        if (optionalActivity.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            String imageBase64 = message.getImageBase64();
+            Activity activity = optionalActivity.get();
+            byte[] decodedImage = Base64.decodeBase64(imageBase64);
+            String id = activity.getId();
+            ActivityImage activityImage = new ActivityImage(id, decodedImage);
+            imageRepo.save(activityImage);
+            System.out.println("Added image for " + activity.getId() + " activity");
+            return ResponseEntity.ok(message);
+        }
+    }
+
+    /**
+     * GET mapping for retrieving the image of an activity.
+     *
+     * @param key Key of the activity in the repository.
+     * @return Base64 encoding of the image message
+     */
+    @GetMapping("/images/{key}")
+    public ResponseEntity<ActivityImageMessage> getActivityImage(@PathVariable("key") long key) {
+        Optional<Activity> optionalActivity = repo.findById(key);
+        if (optionalActivity.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            Activity activity = optionalActivity.get();
+            String id = activity.getId();
+            Optional<ActivityImage> optionalActivityImage = imageRepo.findById(id);
+            if (optionalActivityImage.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            } else {
+                ActivityImage activityImage = optionalActivityImage.get();
+                String imageBase64 = Base64.encodeBase64String(activityImage.getImage());
+                ActivityImageMessage message = new ActivityImageMessage(imageBase64, key);
+                return ResponseEntity.ok(message);
+            }
+        }
     }
 
     /**

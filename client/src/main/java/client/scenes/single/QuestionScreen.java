@@ -2,12 +2,16 @@ package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
 import client.services.SingleplayerGameStatePollingService;
+import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
+import commons.misc.Activity;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+
 import java.util.Optional;
 
 /**
@@ -16,14 +20,16 @@ import java.util.Optional;
  */
 public abstract class QuestionScreen {
 
-    public final MainCtrl mainCtrl;
-    public final ServerUtils server;
-
     /*
     Utils class instance, which would contain the whole single-player game logic.
     In addition, it would hold the single-player and the game state instances of the current game.
      */
     public final SinglePlayerUtils singlePlayerUtils;
+
+    public final MainCtrl mainCtrl;
+    public final ServerUtils server;
+    final ActivityImageUtils activityImageUtils;
+
 
     @FXML
     private Button firstAnswer;
@@ -38,18 +44,21 @@ public abstract class QuestionScreen {
     /**
      * initializes MoreExpensiveQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param server            is the server variable
-     * @param mainCtrl          is the main controller variable
-     * @param pollingService    is the shared single-player game polling service
-     * @param singlePlayerUtils is the shared single-player utility instance
+     * @param server             is the server variable
+     * @param mainCtrl           is the main controller variable
+     * @param pollingService     is the shared single-player game polling service
+     * @param activityImageUtils is the utilities class responsible for fetching an image of an activity.
+     * @param singlePlayerUtils  is the shared single-player utility instance
      */
     @Inject
     public QuestionScreen(ServerUtils server,
                           MainCtrl mainCtrl,
                           SingleplayerGameStatePollingService pollingService,
+                          ActivityImageUtils activityImageUtils,
                           SinglePlayerUtils singlePlayerUtils) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.activityImageUtils = activityImageUtils;
         this.singlePlayerUtils = singlePlayerUtils;
     }
 
@@ -108,6 +117,18 @@ public abstract class QuestionScreen {
      */
     public SinglePlayerUtils getSinglePlayerUtils() {
         return singlePlayerUtils;
+    }
+
+    /**
+     * Getter method for getting the image of an activity.
+     *
+     * @param activity Activity to get an image from.
+     * @return JavaFX image of the activity.
+     */
+    public Image getActivityImage(Activity activity) {
+        long key = activity.getKey();
+
+        return activityImageUtils.getActivityImage(key);
     }
 
 }

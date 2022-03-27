@@ -27,6 +27,7 @@ import client.scenes.multi.question.MultiGameQuestionCScreenCtrl;
 import client.scenes.multi.question.MultiGameQuestionDScreenCtrl;
 import client.scenes.single.*;
 import client.services.SingleplayerGameStatePollingService;
+import client.utils.ActivityImageUtils;
 import client.utils.HomeUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Binder;
@@ -64,6 +65,8 @@ public class MyModule implements Module {
         binder.bind(MultiGameQuestionCScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(MultiGameQuestionDScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(MultiGameMockScreenCtrl.class).in(Scopes.SINGLETON);
+
+        binder.bind(ActivityImageUtils.class).in(Scopes.SINGLETON);
 
     }
 }

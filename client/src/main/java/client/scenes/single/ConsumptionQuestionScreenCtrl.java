@@ -2,6 +2,7 @@ package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
 import client.services.SingleplayerGameStatePollingService;
+import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
@@ -14,11 +15,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+
 import java.util.Date;
 
 /**
@@ -58,16 +59,19 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param server            is the server variable
-     * @param mainCtrl          is the main controller variable
-     * @param pollingService    is the injected polling service to be used to poll the game state.
-     * @param singlePlayerUtils is the injected singleplayer utils for managing logic
+     * @param server             is the server variable
+     * @param mainCtrl           is the main controller variable
+     * @param pollingService     is the injected polling service to be used to poll the game state.
+     * @param activityImageUtils is the utilities class responsible for fetching an image of an activity.
+     * @param singlePlayerUtils  is the injected singleplayer utils for managing logic
      */
     @Inject
     public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
                                          SingleplayerGameStatePollingService pollingService,
-                                         SinglePlayerUtils singlePlayerUtils) {
-        super(server, mainCtrl, pollingService, singlePlayerUtils);
+                                         ActivityImageUtils activityImageUtils,
+                                         SinglePlayerUtils singlePlayerUtils
+    ) {
+        super(server, mainCtrl, pollingService, activityImageUtils, singlePlayerUtils);
     }
 
     /**
@@ -163,7 +167,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
         String url = mainCtrl.getURL();
 
         //image.setImage(new Image(server.getAllImages(question.getActivity().getImage())));
-        image.setImage(new Image(url + "/" + question.getActivity().getImage()));
+        image.setImage(getActivityImage(question.getActivity()));
 
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
