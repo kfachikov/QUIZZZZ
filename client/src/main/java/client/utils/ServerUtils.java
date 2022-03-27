@@ -31,10 +31,6 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.Base64;
 import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -239,25 +235,11 @@ public class ServerUtils {
     }
 
     /**
-     * The method imports activities locally using the admin panel.
+     * Getter for the activity image.
      *
-     * @param imagePath the path of the image.
-     *
-     * @return and InputStream that will be converted to images.
+     * @param key the key of the image.
+     * @return ActivityImageMessage
      */
-    public InputStream getAllImages(String imagePath) {
-        String response = ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer)
-                .path("/image/" + imagePath)
-                .request(APPLICATION_JSON)
-                .accept(APPLICATION_JSON)
-                .get(new GenericType<String>() {
-                });
-        byte[] asBytes = Base64.getDecoder().decode(response);
-        InputStream is = new ByteArrayInputStream(asBytes);
-        return is;
-    }
-
     public ActivityImageMessage getActivityImage(long key) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
@@ -267,6 +249,12 @@ public class ServerUtils {
                 .get(ActivityImageMessage.class);
     }
 
+    /**
+     * Adds a new ActivityImage to the image repository.
+     *
+     * @param message the activity image message.
+     * @return ActivityImageMessage
+     */
     public ActivityImageMessage addActivityImage(ActivityImageMessage message) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)

@@ -208,23 +208,5 @@ public class ActivityController {
         return s == null || s.isEmpty();
     }
 
-    /*
-     * Creates a ByteArrayResource for the images of activities.
-     *
-     * @param fileName The path of the image.
-     *
-     * @return ResponseEntity consisting of the ByteArrayResource of images
-     *
-    @GetMapping("/image")
-    public ResponseEntity<String> getImages(@PathVariable("file") String fileName) {
-
-        String image = "server/src/main/resources/Activity_bank/" + fileName;
-        String imageBase64 =  Base64.getEncoder().encodeToString(image.getBytes());
-        return ResponseEntity.ok()
-                .contentLength(imageBase64.length())
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(image);
-    }
-    */
 
 }

@@ -40,6 +40,7 @@ public class ActivityImageUtils {
      * @return JavaFX image of the activity image.
      */
     public Image getActivityImage(long key) {
+
         if (activityImageCache.containsKey(key)) {
             return activityImageCache.get(key);
         } else {

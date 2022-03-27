@@ -126,9 +126,10 @@ public abstract class QuestionScreen {
      * @return JavaFX image of the activity.
      */
     public Image getActivityImage(Activity activity) {
-        long key = activity.getKey();
 
+        long key = activity.getKey();
         return activityImageUtils.getActivityImage(key);
+
     }
 
 }

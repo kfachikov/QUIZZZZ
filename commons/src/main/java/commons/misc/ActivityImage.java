@@ -1,8 +1,6 @@
 package commons.misc;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
 /**
  * JPA Entity for storing images of the activities.
@@ -59,4 +57,5 @@ public class ActivityImage {
     public byte[] getImage() {
         return image;
     }
+
 }
