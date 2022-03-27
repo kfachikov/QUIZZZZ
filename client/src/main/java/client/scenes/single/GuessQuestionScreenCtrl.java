@@ -16,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -148,7 +147,7 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
         String url = mainCtrl.getURL();
 
         //image.setImage(new Image(server.getAllImages(question.getActivity().getImage())));
-        image.setImage(new Image(url + "/"  + question.getActivity().getImage()));
+        image.setImage(getActivityImage(question.getActivity()));
 
         this.question = question;
         inputFieldDefault();

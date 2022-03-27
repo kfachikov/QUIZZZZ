@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -229,13 +228,13 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
         String url = mainCtrl.getURL();
         //image1.setImage(new Image(server.getAllImages(question.getAnswerChoices().get(0).getImage())));
-        image1.setImage(new Image(url + "/"  + question.getAnswerChoices().get(0).getImage()));
+        image1.setImage(getActivityImage(question.getAnswerChoices().get(0)));
 
         //image2.setImage(new Image(server.getAllImages(question.getAnswerChoices().get(1).getImage())));
-        image2.setImage(new Image(url + "/"  + question.getAnswerChoices().get(0).getImage()));
+        image2.setImage(getActivityImage(question.getAnswerChoices().get(1)));
 
         //image3.setImage(new Image(server.getAllImages(question.getAnswerChoices().get(2).getImage())));
-        image3.setImage(new Image(url + "/"  + question.getAnswerChoices().get(0).getImage()));
+        image3.setImage(getActivityImage(question.getAnswerChoices().get(2)));
 
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);

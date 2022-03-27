@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -177,7 +176,7 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
         String url = mainCtrl.getURL();
         //image.setImage(new Image(server.getAllImages(question.getActivity().getImage())));
-        image.setImage(new Image(url + "/"  + question.getActivity().getImage()));
+        image.setImage(getActivityImage(question.getActivity()));
 
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
