@@ -65,7 +65,11 @@ public class AdministratorScreenCtrl {
         File selectedFile = fileSelection();
         setDescription(selectedFile);
         List<Activity> addedActivities = server.importActivities(extractFile(selectedFile));
-        activityImageUtils.addActivitiesImages(selectedFile.getPath(), addedActivities);
+        // Create a new thread to avoid blocking UI
+        Thread thread = new Thread(() -> {
+            activityImageUtils.addActivitiesImages(selectedFile.getPath(), addedActivities);
+        });
+        thread.start();
     }
 
     /**

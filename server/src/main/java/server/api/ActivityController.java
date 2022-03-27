@@ -2,6 +2,7 @@ package server.api;
 
 import commons.misc.Activity;
 import commons.misc.ActivityImage;
+import commons.misc.ActivityImageMessage;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,24 +40,25 @@ public class ActivityController {
     /**
      * POST mapping for adding an image to an activity.
      *
-     * @param key         Key of the activity in the repository
-     * @param imageBase64 Base64 encoding of the image
+     * @param key     Key of the activity in the repository
+     * @param message Base64 encoding of the image message
      * @return ResponseEntity indicating whether activity image was added.
      */
     @PostMapping("/images/{key}")
-    public ResponseEntity<Void> addActivityImage(
+    public ResponseEntity<ActivityImageMessage> addActivityImage(
             @PathVariable("key") long key,
-            @RequestBody String imageBase64) {
+            @RequestBody ActivityImageMessage message) {
         Optional<Activity> optionalActivity = repo.findById(key);
         if (optionalActivity.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
+            String imageBase64 = message.getImageBase64();
             Activity activity = optionalActivity.get();
             byte[] decodedImage = Base64.decodeBase64(imageBase64);
             String id = activity.getId();
             ActivityImage activityImage = new ActivityImage(id, decodedImage);
             imageRepo.save(activityImage);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(message);
         }
     }
 
@@ -64,10 +66,10 @@ public class ActivityController {
      * GET mapping for retrieving the image of an activity.
      *
      * @param key Key of the activity in the repository.
-     * @return Base64 encoding of the image
+     * @return Base64 encoding of the image message
      */
     @GetMapping("/images/{key}")
-    public ResponseEntity<String> getActivityImage(@PathVariable("key") long key) {
+    public ResponseEntity<ActivityImageMessage> getActivityImage(@PathVariable("key") long key) {
         Optional<Activity> optionalActivity = repo.findById(key);
         if (optionalActivity.isEmpty()) {
             return ResponseEntity.badRequest().build();
@@ -80,7 +82,8 @@ public class ActivityController {
             } else {
                 ActivityImage activityImage = optionalActivityImage.get();
                 String imageBase64 = Base64.encodeBase64String(activityImage.getImage());
-                return ResponseEntity.ok(imageBase64);
+                ActivityImageMessage message = new ActivityImageMessage(imageBase64, key);
+                return ResponseEntity.ok(message);
             }
         }
     }

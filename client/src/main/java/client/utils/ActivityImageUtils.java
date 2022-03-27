@@ -1,6 +1,8 @@
 package client.utils;
 
 import commons.misc.Activity;
+import commons.misc.ActivityImageMessage;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import javafx.scene.image.Image;
@@ -54,7 +56,8 @@ public class ActivityImageUtils {
                     .path("/api/activities/image/" + key)
                     .request(APPLICATION_JSON)
                     .accept(APPLICATION_JSON)
-                    .get(String.class);
+                    .get(ActivityImageMessage.class)
+                    .getImageBase64();
 
             byte[] decodedImage = Base64.getDecoder().decode(imageBase64);
             InputStream imageInputStream = new ByteArrayInputStream(decodedImage);
@@ -81,15 +84,19 @@ public class ActivityImageUtils {
             // Skip activities that were filtered out
             if (idKeyMap.containsKey(id)) {
                 long key = idKeyMap.get(id);
-                addActivityImage(key, imageBase64);
+                try {
+                    addActivityImage(key, imageBase64);
+                } catch (NotFoundException ignored) {
+                    // Skip if something goes wrong
+                }
             }
         }
     }
 
     /**
-     * Convert list of activites to a map from activity IDs to activity keys.
+     * Convert list of activities to a map from activity IDs to activity keys.
      *
-     * @param activityList List of activites.
+     * @param activityList List of activities.
      * @return Map of Activity.id to Activity.key
      */
     public Map<String, Long> listToMap(List<Activity> activityList) {
@@ -109,12 +116,14 @@ public class ActivityImageUtils {
     public void addActivityImage(long key, String imageBase64) {
         String currentServer = ServerUtils.getCurrentServer();
 
+        ActivityImageMessage message = new ActivityImageMessage(imageBase64, key);
+
         ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/activities/image/" + key)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .post(Entity.entity(imageBase64, APPLICATION_JSON), Void.class);
+                .post(Entity.entity(message, APPLICATION_JSON), ActivityImageMessage.class);
     }
 
     /**
