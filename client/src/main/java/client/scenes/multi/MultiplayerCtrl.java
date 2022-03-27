@@ -19,7 +19,10 @@ import javafx.scene.control.ButtonType;
 import javafx.util.Pair;
 
 import javax.inject.Inject;
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Class responsible for managing the multiplayer game for the client.
@@ -284,10 +287,11 @@ public class MultiplayerCtrl {
      * Sets the scene as leaderboard/gameOver screen.
      * Calls LeaderBoardScreenCtrl.setScene() and passes
      * the sorted list of players and the state of the game, either LEADERBOARD or GAME_OVER
-     * @param players the list of players in the game, in descending score order.
+     *
+     * @param players   the list of players in the game, in descending score order.
      * @param gameState the state of the game, is either LEADERBOARD or GAME_OVER.
      */
-    public void showIntermediateGameOver(List<MultiPlayer> players, String gameState){
+    public void showIntermediateGameOver(List<MultiPlayer> players, String gameState) {
         leaderboardCtrl.setScene(players, gameState);
         mainCtrl.getPrimaryStage().setScene(leaderboard);
     }
@@ -320,8 +324,9 @@ public class MultiplayerCtrl {
 
     /**
      * Sorts the list of players in the game in descending score order.
-     * @param game The ongoing game, from which the <strong>unsorted</strong> List<MultiPlayer> is retrieved.
-     * @return the retrieved List<MultiPlayer> players, <strong>sorted</strong>.
+     *
+     * @param game The ongoing game, from which the <strong>unsorted</strong> List is retrieved
+     * @return the retrieved List players, <strong>sorted</strong>.
      */
     public List<MultiPlayer> sortList(MultiPlayerState game) {
         List<MultiPlayer> players = game.getPlayers();
@@ -331,7 +336,8 @@ public class MultiplayerCtrl {
     }
 
     /**
-     * Getter for the user username
+     * Getter for the user username.
+     *
      * @return the username of the user that joined the queue.
      */
     public String getUsername() {
@@ -351,13 +357,13 @@ public class MultiplayerCtrl {
     }
 
     /**
-     * activates when a player presses laughing emoji
+     * activates when a player presses laughing emoji.
      */
     public void laughingEmoji() {
     }
 
     /**
-     * activates when a player presses surprised emoji
+     * activates when a player presses surprised emoji.
      */
     public void surprisedEmoji() {
     }

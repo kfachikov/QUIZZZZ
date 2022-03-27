@@ -4,12 +4,11 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.multi.MultiPlayer;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,53 +39,54 @@ public class LeaderboardScreenCtrl {
     private Line line;
 
     @FXML
-    private Label Position1;
-    @FXML
-    private Label Username1;
-    @FXML
-    private Label Score1;
+    private Label position1;
 
     @FXML
-    private Label Position2;
+    private Label username1;
     @FXML
-    private Label Username2;
-    @FXML
-    private Label Score2;
+    private Label score1;
 
     @FXML
-    private Label Position3;
+    private Label position2;
     @FXML
-    private Label Username3;
+    private Label username2;
     @FXML
-    private Label Score3;
+    private Label score2;
 
     @FXML
-    private Label Position4;
+    private Label position3;
     @FXML
-    private Label Username4;
+    private Label username3;
     @FXML
-    private Label Score4;
+    private Label score3;
 
     @FXML
-    private Label Position5;
+    private Label position4;
     @FXML
-    private Label Username5;
+    private Label username4;
     @FXML
-    private Label Score5;
+    private Label score4;
 
     @FXML
-    private Label Position6;
+    private Label position5;
     @FXML
-    private Label Username6;
+    private Label username5;
     @FXML
-    private Label Score6;
+    private Label score5;
 
     @FXML
-    private Label UserPosition;
+    private Label position6;
     @FXML
-    private Label UserUsername;
+    private Label username6;
     @FXML
-    private Label UserScore;
+    private Label score6;
+
+    @FXML
+    private Label userPosition;
+    @FXML
+    private Label userUsername;
+    @FXML
+    private Label userScore;
 
     @FXML
     private List<Label> usernameLabels;
@@ -99,7 +99,8 @@ public class LeaderboardScreenCtrl {
 
     /**
      * initializes IntermediateLeaderboardScreenCtrl by connecting it to backend and frontend mainCtrl.
-     * @param server   is the server variable
+     *
+     * @param server    is the server variable.
      * @param multiCtrl is the multiplayer controller variable
      */
     @Inject
@@ -121,34 +122,34 @@ public class LeaderboardScreenCtrl {
         emojis.add(laughing);
         emojis.add(surprised);
         usernameLabels = new ArrayList<Label>();
-        usernameLabels.add(Username1);
-        usernameLabels.add(Username2);
-        usernameLabels.add(Username3);
-        usernameLabels.add(Username4);
-        usernameLabels.add(Username5);
-        usernameLabels.add(Username6);
+        usernameLabels.add(username1);
+        usernameLabels.add(username2);
+        usernameLabels.add(username3);
+        usernameLabels.add(username4);
+        usernameLabels.add(username5);
+        usernameLabels.add(username6);
         scoreLabels = new ArrayList<Label>();
-        scoreLabels.add(Score1);
-        scoreLabels.add(Score2);
-        scoreLabels.add(Score3);
-        scoreLabels.add(Score4);
-        scoreLabels.add(Score5);
-        scoreLabels.add(Score6);
+        scoreLabels.add(score1);
+        scoreLabels.add(score2);
+        scoreLabels.add(score3);
+        scoreLabels.add(score4);
+        scoreLabels.add(score5);
+        scoreLabels.add(score6);
         positionLabels = new ArrayList<Label>();
-        positionLabels.add(Position1);
-        positionLabels.add(Position2);
-        positionLabels.add(Position3);
-        positionLabels.add(Position4);
-        positionLabels.add(Position5);
-        positionLabels.add(Position6);
+        positionLabels.add(position1);
+        positionLabels.add(position2);
+        positionLabels.add(position3);
+        positionLabels.add(position4);
+        positionLabels.add(position5);
+        positionLabels.add(position6);
         userLabels = new ArrayList<>();
-        userLabels.add(UserUsername);
-        userLabels.add(UserScore);
-        userLabels.add(UserPosition);
+        userLabels.add(userUsername);
+        userLabels.add(userScore);
+        userLabels.add(userPosition);
     }
 
     /**
-     * Is called by multiCtrl.showIntermediateGameOver();
+     * Is called by multiCtrl.showIntermediateGameOver();.
      * <p>
      * Sets the scene to fit intermediate leaderboard/game over.
      * <p>
@@ -158,12 +159,13 @@ public class LeaderboardScreenCtrl {
      * <p>
      * Makes all username & score labels invisible, so that they can be set visible when filled
      * <p>
-     * Calls fillLeaderboard(), which populates leaderboard + makes used labels visible
-     * @param players the list of players in the game, in descending score order.
+     * Calls fillLeaderboard(), which populates leaderboard + makes used labels visible.
+     *
+     * @param players   the list of players in the game, in descending score order.
      * @param gameState the state of the game, is either LEADERBOARD or GAME_OVER.
      */
     public void setScene(List<MultiPlayer> players, String gameState) {
-        if (gameState.equals("LEADERBOARD")) {
+        if (("LEADERBOARD").equals(gameState)) {
             title.setText("INTERMEDIATE LEADERBOARD");
             emojiIntermediateLayout();
 
@@ -173,7 +175,7 @@ public class LeaderboardScreenCtrl {
             leave.setDisable(false);
             leave.setVisible(true);
         }
-        if (gameState.equals("GAME_OVER")) {
+        if (("GAME_OVER").equals(gameState)) {
             title.setText("GAME OVER!");
             emojiGameOverLayout();
 
@@ -186,7 +188,9 @@ public class LeaderboardScreenCtrl {
         //set username & score labels invisible
         setLabelsVisible(usernameLabels, false);
         setLabelsVisible(scoreLabels, false);
-        setLabelsVisible(positionLabels, false);
+        setLabelsVisible(positionLabels, true);
+        setLabelsVisible(userLabels, false);
+        line.setVisible(false);
 
         fillLeaderboard(players);
     }
@@ -195,7 +199,8 @@ public class LeaderboardScreenCtrl {
      * Populates the leaderboard.
      * <p>
      * Displays (setVisible(true)) the labels that are filled.
-     * @param players the list of players in the game, in descending score order.
+     *
+     * @param players    the list of players in the game, in descending score order.
      */
     private void fillLeaderboard(List<MultiPlayer> players) {
         //keep track of whether the user is shown in leaderboard.
@@ -223,7 +228,8 @@ public class LeaderboardScreenCtrl {
      * Sets the text of the provided label as provided text.
      * <p>
      * Makes the label visible.
-     * @param label the label to set text of.
+     *
+     * @param label    the label to set text of.
      * @param text the text to se the label with.
      */
     public void displayLabel(Label label, String text) {
@@ -236,30 +242,34 @@ public class LeaderboardScreenCtrl {
      * <p>
      * Makes the user labels visible.
      * Makes the line (pure design element) visible.
-     * @param players the list of players in the game, in descending score order.
+     *
+     * @param players    the list of players in the game, in descending score order.
      */
     public void displayUserStats(List<MultiPlayer> players) {
         setLabelsVisible(userLabels, true);
+        line.setVisible(true);
         MultiPlayer user = null;
         for (int i = 0; i < players.size(); i++) {
             if (multiCtrl.getUsername().equals(players.get(i).getUsername())) {
                 user = players.get(i);
             }
         }
-        displayLabel(UserUsername, multiCtrl.getUsername());
-        displayLabel(UserScore, Integer.toString(user.getScore()));
+        displayLabel(userUsername, multiCtrl.getUsername());
+        displayLabel(userScore, Integer.toString(user.getScore()));
     }
 
     /**
      * Sets all labels in the labelList invisible.
+     *
      * @param labelList the list of labels.
+     * @param value the boolean value to pass to setVisible().
      */
     public void setLabelsVisible(List<Label> labelList, boolean value) {
         labelList.forEach(label -> label.setVisible(value));
     }
 
     /**
-     * Sets the emoji layout to be displayed in intermediate leaderboard screen
+     * Sets the emoji layout to be displayed in intermediate leaderboard screen.
      */
     public void emojiIntermediateLayout() {
         laughing.setLayoutX(359);
@@ -273,7 +283,7 @@ public class LeaderboardScreenCtrl {
     }
 
     /**
-     * Sets the emoji layout to be displayed in game over screen
+     * Sets the emoji layout to be displayed in game over screen.
      */
     public void emojiGameOverLayout() {
         laughing.setLayoutX(359);
@@ -319,14 +329,14 @@ public class LeaderboardScreenCtrl {
     }
 
     /**
-     * activates when a player presses laughing emoji
+     * activates when a player presses laughing emoji.
      */
     public void laughingEmoji() {
         multiCtrl.laughingEmoji();
     }
 
     /**
-     * activates when a player presses surprised emoji
+     * activates when a player presses surprised emoji.
      */
     public void surprisedEmoji() {
         multiCtrl.surprisedEmoji();

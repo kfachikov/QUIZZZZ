@@ -78,7 +78,7 @@
     -fx-border-width: 3;
     -fx-font-size: 19px;
 }
-#leaderboard>#UserScore {
+#leaderboard>#userScore {
     -fx-background-color: #ffd513;
     -fx-border-color: #006e8c;
     -fx-border-radius: 15;
@@ -86,7 +86,7 @@
     -fx-border-width: 3;
     -fx-font-size: 19px;
 }
-#leaderboard>#UserUsername {
+#leaderboard>#userUsername {
     -fx-background-color: #ffd513;
     -fx-border-color: #006e8c;
     -fx-border-radius: 15;
