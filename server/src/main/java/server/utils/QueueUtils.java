@@ -2,18 +2,17 @@ package server.utils;
 
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.function.Supplier;
 
 /**
  * Utilities class, responsible for keeping state of a multiplayer queue.
  */
-@Component
 public class QueueUtils {
+
+    private final CurrentTimeUtils currentTime;
 
     private final QueueState queueState;
     private Supplier<Long> onStart;
@@ -26,23 +25,27 @@ public class QueueUtils {
      * - Game is not starting.
      * - The start of the game is as far into the future as possible.
      * - Upcoming game ID is 0.
+     *
+     * @param currentTime CurrentTimeUtils instance for getting the current time.
      */
-    public QueueUtils() {
-        this.queueState = new QueueState(
+    public QueueUtils(CurrentTimeUtils currentTime) {
+        this(new QueueState(
                 new ArrayList<>(),
                 false,
                 Long.MAX_VALUE,
                 0
-        );
+        ), currentTime);
     }
 
     /**
      * Complete constructor for QueueUtils.
      *
-     * @param queueState Initial QueueState.
+     * @param queueState  Initial QueueState.
+     * @param currentTime CurrentTimeUtils instance for getting the current time.
      */
-    public QueueUtils(QueueState queueState) {
+    public QueueUtils(QueueState queueState, CurrentTimeUtils currentTime) {
         this.queueState = queueState;
+        this.currentTime = currentTime;
     }
 
     /**
@@ -105,7 +108,7 @@ public class QueueUtils {
             return false;
         } else {
             queueState.setGameStarting(true);
-            queueState.setStartTimeInMs(new Date().getTime() + 3000);
+            queueState.setStartTimeInMs(currentTime.getTime() + 3000);
 
             long upcomingGameId = onStart.get();
             queueState.setUpcomingGameId(upcomingGameId);

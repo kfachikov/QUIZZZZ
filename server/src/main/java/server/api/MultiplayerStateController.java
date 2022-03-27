@@ -62,7 +62,7 @@ public class MultiplayerStateController {
      * @param player MultiPlayer that is added.
      * @return MultiPlayer that was added
      */
-    @PostMapping("/{id}/player/")
+    @PostMapping("/players/{id}")
     public ResponseEntity<MultiPlayer> addMultiPlayer(@PathVariable("id") long id, @RequestBody MultiPlayer player) {
         if (id < 0) {
             return ResponseEntity.badRequest().build();

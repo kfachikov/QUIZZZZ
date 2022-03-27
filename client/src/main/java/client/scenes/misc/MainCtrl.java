@@ -71,6 +71,7 @@ public class MainCtrl {
     private CongratulationsScreenCtrl congratulationsCtrl;
     private Scene congratulations;
 
+
     /*
     Instance of the utility class for the single-player game mode.
     Would be used for some in-game logic.
@@ -101,7 +102,8 @@ public class MainCtrl {
                            Pair<ConsumptionQuestionScreenCtrl, Parent> consumption,
                            Pair<InsteadQuestionScreenCtrl, Parent> instead,
                            Pair<GuessQuestionScreenCtrl, Parent> guess,
-                           Pair<CongratulationsScreenCtrl, Parent> congratulations) {
+                           Pair<CongratulationsScreenCtrl, Parent> congratulations
+                           ) {
 
         this.primaryStage = primaryStage;
 

@@ -19,6 +19,7 @@ import client.scenes.misc.AdministratorScreenCtrl;
 import client.scenes.misc.HelpScreenCtrl;
 import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
+import client.scenes.multi.LeaderboardScreenCtrl;
 import client.scenes.multi.MultiGameMockScreenCtrl;
 import client.scenes.multi.MultiplayerCtrl;
 import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
@@ -56,6 +57,8 @@ public class MyModule implements Module {
         binder.bind(InsteadQuestionScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(GuessQuestionScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(CongratulationsScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(LeaderboardScreenCtrl.class).in(Scopes.SINGLETON);
+
         binder.bind(SingleplayerGameStatePollingService.class).in(Scopes.SINGLETON);
         binder.bind(SinglePlayerUtils.class).in(Scopes.SINGLETON);
         binder.bind(HomeUtils.class).in(Scopes.SINGLETON);

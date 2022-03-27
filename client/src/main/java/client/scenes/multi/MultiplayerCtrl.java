@@ -19,6 +19,9 @@ import javafx.scene.control.ButtonType;
 import javafx.util.Pair;
 
 import javax.inject.Inject;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -43,6 +46,8 @@ public class MultiplayerCtrl {
     private MultiGameMockScreenCtrl mockScreenCtrl;
     private Scene mockScreen;
 
+    private LeaderboardScreenCtrl leaderboardCtrl;
+    private Scene leaderboard;
 
     private final MainCtrl mainCtrl;
     private final ServerUtils serverUtils;
@@ -88,13 +93,15 @@ public class MultiplayerCtrl {
      * @param questionCScreen Mock question C screen pair
      * @param questionDScreen Mock question D screen pair
      * @param mockMulti       Mock miscellaneous screen pair
+     * @param leaderboard     Final/intermediate leaderboard screen pair
      */
     public void initialize(
             Pair<MultiGameQuestionAScreenCtrl, Parent> questionAScreen,
             Pair<MultiGameQuestionBScreenCtrl, Parent> questionBScreen,
             Pair<MultiGameQuestionCScreenCtrl, Parent> questionCScreen,
             Pair<MultiGameQuestionDScreenCtrl, Parent> questionDScreen,
-            Pair<MultiGameMockScreenCtrl, Parent> mockMulti) {
+            Pair<MultiGameMockScreenCtrl, Parent> mockMulti,
+            Pair<LeaderboardScreenCtrl, Parent> leaderboard) {
         this.questionAScreenCtrl = questionAScreen.getKey();
         this.questionAScreen = new Scene(questionAScreen.getValue());
 
@@ -109,6 +116,9 @@ public class MultiplayerCtrl {
 
         this.mockScreenCtrl = mockMulti.getKey();
         this.mockScreen = new Scene(mockMulti.getValue());
+
+        this.leaderboardCtrl = leaderboard.getKey();
+        this.leaderboard = new Scene(leaderboard.getValue());
 
         pollingService.valueProperty().addListener(onPoll);
     }
@@ -173,11 +183,19 @@ public class MultiplayerCtrl {
      * @param game Up-to-date state of the game.
      */
     private void switchState(MultiPlayerState game) {
-        String state = game.getState();
-        if (MultiPlayerState.QUESTION_STATE.equals(state)) {
-            switchToQuestion(game);
-        } else {
-            switchToMock(game);
+        switch (game.getState()) {
+            case MultiPlayerState.QUESTION_STATE:
+                switchToQuestion(game);
+                break;
+            case MultiPlayerState.LEADERBOARD_STATE:
+                showIntermediateGameOver(sortList(game), game.getState());
+                break;
+            case MultiPlayerState.GAME_OVER_STATE:
+                showIntermediateGameOver(sortList(game), game.getState());
+                break;
+            default:
+                switchToMock(game);
+                break;
         }
     }
 
@@ -263,5 +281,72 @@ public class MultiplayerCtrl {
     private void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
         questionDScreenCtrl.setGameStateLabelText(question.debugString());
         mainCtrl.getPrimaryStage().setScene(questionDScreen);
+    }
+
+    /**
+     * Sets the scene as leaderboard/gameOver screen.
+     * Calls LeaderBoardScreenCtrl.setScene() and passes
+     * the sorted list of players and the state of the game, either LEADERBOARD or GAME_OVER
+     *
+     * @param players   the list of players in the game, in descending score order.
+     * @param gameState the state of the game, is either LEADERBOARD or GAME_OVER.
+     */
+    public void showIntermediateGameOver(List<MultiPlayer> players, String gameState) {
+        leaderboardCtrl.setScene(players, gameState);
+        mainCtrl.getPrimaryStage().setScene(leaderboard);
+    }
+
+    /**
+     * Returns to home screen.
+     * Is assigned to the Return Home button in Game Over screen.
+     */
+    public void returnHome() {
+        mainCtrl.showHome();
+    }
+
+    /**
+     * Sorts the list of players in the game in descending score order.
+     *
+     * @param game The ongoing game, from which the <strong>unsorted</strong> List is retrieved
+     * @return the retrieved List players, <strong>sorted</strong>.
+     */
+    public List<MultiPlayer> sortList(MultiPlayerState game) {
+        List<MultiPlayer> players = game.getPlayers();
+        Collections.sort(players, Comparator.comparing(player1 -> player1.getScore()));
+        Collections.reverse(players);
+        return players;
+    }
+
+    /**
+     * Getter for the user username.
+     *
+     * @return the username of the user that joined the queue.
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * activates when a player presses angry emoji.
+     */
+    public void angryEmoji() {
+    }
+
+    /**
+     * activates when a player presses crying emoji.
+     */
+    public void cryingEmoji() {
+    }
+
+    /**
+     * activates when a player presses laughing emoji.
+     */
+    public void laughingEmoji() {
+    }
+
+    /**
+     * activates when a player presses surprised emoji.
+     */
+    public void surprisedEmoji() {
     }
 }

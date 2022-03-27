@@ -5,16 +5,15 @@ import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.multi.Reaction;
 import commons.question.AbstractQuestion;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Utility class providing functionality for the multiplayer game mode.
  */
-@Component
-@ComponentScan(basePackageClasses = GenerateQuestionUtils.class)
 public class MultiPlayerStateUtils {
 
     private final Map<Long, MultiPlayerState> games;
@@ -22,19 +21,32 @@ public class MultiPlayerStateUtils {
 
     private final GenerateQuestionUtils generateQuestionUtils;
     private final QueueUtils queueUtils;
+    private final CurrentTimeUtils currentTime;
 
     /**
      * Constructor for multiplayer server-side utility class.
      *
      * @param generateQuestionUtils is the "generate questions" utility bean injected by Spring.
      * @param queueUtils            is the class responsible for managing the queue.
+     * @param currentTime           CurrentTimeUtils instance for getting the current time.
      */
     public MultiPlayerStateUtils(GenerateQuestionUtils generateQuestionUtils,
-                                 QueueUtils queueUtils) {
+                                 QueueUtils queueUtils,
+                                 CurrentTimeUtils currentTime
+    ) {
         this.generateQuestionUtils = generateQuestionUtils;
         this.queueUtils = queueUtils;
+        this.currentTime = currentTime;
+
         this.games = new HashMap<>();
 
+        this.initialize();
+    }
+
+    /**
+     * Initialization method, called in the constructor.
+     */
+    protected void initialize() {
         nextGame = createNextGame();
 
         queueUtils.setOnStart(this::startNewGame);
@@ -76,12 +88,23 @@ public class MultiPlayerStateUtils {
             return null;
         } else if (player.getUsername() == null || player.getUsername().isEmpty()) {
             return null;
-        } else if (game.getPlayers().contains(player)) {
+        } else if (containsPlayer(player, game)) {
             return null;
         } else {
             game.getPlayers().add(player);
             return player;
         }
+    }
+
+    /**
+     * Check if the given game contains the given player.
+     *
+     * @param player Player to be checked for uniqueness.
+     * @param game   Game to be checked in.
+     * @return True iff the given game contains the given player.
+     */
+    public boolean containsPlayer(MultiPlayer player, MultiPlayerState game) {
+        return game.getPlayers().stream().anyMatch(player1 -> player.getUsername().equals(player1.getUsername()));
     }
 
     /**
@@ -101,8 +124,8 @@ public class MultiPlayerStateUtils {
      * @param game Game to be checked
      * @return true iff current time is beyond time of update for the state of the game.
      */
-    private boolean checkIfUpdate(MultiPlayerState game) {
-        return game.getNextPhase() <= new Date().getTime();
+    public boolean checkIfUpdate(MultiPlayerState game) {
+        return game.getNextPhase() <= currentTime.getTime();
     }
 
     /**
@@ -113,7 +136,7 @@ public class MultiPlayerStateUtils {
      *
      * @param game Game whose state is to be switched to the next one.
      */
-    private void switchState(MultiPlayerState game) {
+    public void switchState(MultiPlayerState game) {
         // Only update state if needed
         String state = game.getState();
         if (MultiPlayerState.STARTING_STATE.equals(state)) {
@@ -153,7 +176,7 @@ public class MultiPlayerStateUtils {
      *
      * @param game Game whose state is updated to QUESTION.
      */
-    private void switchToQuestion(MultiPlayerState game) {
+    public void switchToQuestion(MultiPlayerState game) {
         int currentRound = game.getRoundNumber();
         long nextPhase = game.getNextPhase();
 
@@ -175,7 +198,7 @@ public class MultiPlayerStateUtils {
      *
      * @param game Game whose state is updated to LEADERBOARD.
      */
-    private void switchToLeaderboard(MultiPlayerState game) {
+    public void switchToLeaderboard(MultiPlayerState game) {
         long nextPhase = game.getNextPhase();
 
         game.setState(MultiPlayerState.LEADERBOARD_STATE);
@@ -195,7 +218,7 @@ public class MultiPlayerStateUtils {
      *
      * @param game Game whose state is updated to GAME_OVER.
      */
-    private void switchToGameOver(MultiPlayerState game) {
+    public void switchToGameOver(MultiPlayerState game) {
         game.setState(MultiPlayerState.GAME_OVER_STATE);
         // Make sure the game does not progress anymore.
         game.setNextPhase(Long.MAX_VALUE);
@@ -215,7 +238,7 @@ public class MultiPlayerStateUtils {
      *
      * @param game Game whose state is updated to TRANSITION.
      */
-    private void switchToTransition(MultiPlayerState game) {
+    public void switchToTransition(MultiPlayerState game) {
         long nextPhase = game.getNextPhase();
 
         updateScores(game);
@@ -225,7 +248,12 @@ public class MultiPlayerStateUtils {
         game.setNextPhase(nextPhase + 3000);
     }
 
-    private void updateScores(MultiPlayerState game) {
+    /**
+     * Update scores of all the players.
+     *
+     * @param game Game whose players' scores is updated.
+     */
+    public void updateScores(MultiPlayerState game) {
 
     }
 
@@ -240,7 +268,7 @@ public class MultiPlayerStateUtils {
         long upcomingGameId = nextGame.getId();
         // We set the time of the next phase to +3s, since this method is called
         // whenever anyone in the queue clicks "Go!"
-        nextGame.setNextPhase(new Date().getTime() + 3000);
+        nextGame.setNextPhase(currentTime.getTime() + 3000);
         nextGame.setState(MultiPlayerState.STARTING_STATE);
 
         games.put(nextGame.getId(), nextGame);
@@ -254,7 +282,7 @@ public class MultiPlayerStateUtils {
      *
      * @return A template MultiPlayerState instance.
      */
-    private MultiPlayerState createNextGame() {
+    public MultiPlayerState createNextGame() {
         long id = generateNextGameId();
         long nextPhase = Long.MAX_VALUE;
         // Round number is incremented each time, so initial round number is -1
@@ -284,7 +312,7 @@ public class MultiPlayerStateUtils {
      *
      * @return Id for the next game.
      */
-    private long generateNextGameId() {
+    public long generateNextGameId() {
         long max = -1;
         for (Long key : games.keySet()) {
             if (key > max) {
