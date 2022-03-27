@@ -41,6 +41,14 @@ class MultiPlayerStateUtilsTest {
     private Activity activity2;
     private Activity activity3;
 
+    private MultiPlayer playerA1;
+    private MultiPlayer playerA2;
+    private MultiPlayer playerA3;
+    private MultiPlayer playerB1;
+    private MultiPlayer playerB2;
+    private MultiPlayer playerC1;
+    private MultiPlayer playerC2;
+
     @BeforeEach
     void setUp() {
         activityRepository = new MockActivityRepository();
@@ -144,9 +152,60 @@ class MultiPlayerStateUtilsTest {
                 new ArrayList<>(),
                 null
         );
-
-
         multiUtils = new MultiPlayerStateUtils(generateQuestionUtils, queueUtils, currentTime);
+    }
+
+    @BeforeEach
+    void setupPlayers() {
+        playerA1 = new MultiPlayer(
+                "Client A",
+                0,
+                true,
+                true,
+                true
+        );
+        playerA2 = new MultiPlayer(
+                "Client A",
+                1000,
+                true,
+                true,
+                true
+        );
+        playerA3 = new MultiPlayer(
+                "Client A",
+                0,
+                true,
+                true,
+                true
+        );
+        playerB1 = new MultiPlayer(
+                "Client B",
+                0,
+                true,
+                true,
+                true
+        );
+        playerB2 = new MultiPlayer(
+                "Client B",
+                0,
+                true,
+                false,
+                true
+        );
+        playerC1 = new MultiPlayer(
+                "Client C",
+                0,
+                true,
+                true,
+                true
+        );
+        playerC2 = new MultiPlayer(
+                "Client C",
+                100,
+                false,
+                false,
+                false
+        );
     }
 
 
@@ -454,5 +513,38 @@ class MultiPlayerStateUtilsTest {
         multiUtils.startNewGame();
 
         assertEquals(2, multiUtils.generateNextGameId());
+    }
+
+    @Test
+    void containsPlayerSingle() {
+        // Start a game
+        multiUtils.startNewGame();
+
+        multiUtils.addPlayer(0, playerA1);
+        assertFalse(multiUtils.containsPlayer(playerB1, multiUtils.getGameState(0)));
+        assertFalse(multiUtils.containsPlayer(playerB2, multiUtils.getGameState(0)));
+        assertFalse(multiUtils.containsPlayer(playerC1, multiUtils.getGameState(0)));
+        assertFalse(multiUtils.containsPlayer(playerC2, multiUtils.getGameState(0)));
+
+        assertTrue(multiUtils.containsPlayer(playerA1, multiUtils.getGameState(0)));
+        assertTrue(multiUtils.containsPlayer(playerA2, multiUtils.getGameState(0)));
+        assertTrue(multiUtils.containsPlayer(playerA3, multiUtils.getGameState(0)));
+    }
+
+    @Test
+    void containsPlayerMultiple() {
+        // Start a game
+        multiUtils.startNewGame();
+
+        multiUtils.addPlayer(0, playerA1);
+        multiUtils.addPlayer(0, playerB1);
+        assertFalse(multiUtils.containsPlayer(playerC1, multiUtils.getGameState(0)));
+        assertFalse(multiUtils.containsPlayer(playerC2, multiUtils.getGameState(0)));
+
+        assertTrue(multiUtils.containsPlayer(playerA1, multiUtils.getGameState(0)));
+        assertTrue(multiUtils.containsPlayer(playerA2, multiUtils.getGameState(0)));
+        assertTrue(multiUtils.containsPlayer(playerA3, multiUtils.getGameState(0)));
+        assertTrue(multiUtils.containsPlayer(playerB1, multiUtils.getGameState(0)));
+        assertTrue(multiUtils.containsPlayer(playerB2, multiUtils.getGameState(0)));
     }
 }
