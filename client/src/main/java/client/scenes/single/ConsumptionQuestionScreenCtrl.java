@@ -19,8 +19,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-import java.util.Date;
-
 /**
  * Controller for the consumption question scene.
  */

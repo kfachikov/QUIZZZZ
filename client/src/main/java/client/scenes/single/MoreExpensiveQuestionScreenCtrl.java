@@ -20,8 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
-import java.util.Date;
-
 public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
     private MoreExpensiveQuestion question;

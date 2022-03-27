@@ -146,17 +146,23 @@ public class SinglePlayerStateUtils {
     private int computeScore(Response response) {
         int points = 0;
         if (generateQuestionUtils.generate20Questions().get(response.getRoundNumber()) instanceof GuessQuestion) {
-            String correctAnswer = generateQuestionUtils.generate20Questions().get(response.getRoundNumber()).getCorrectAnswer();
+            String correctAnswer = generateQuestionUtils.generate20Questions()
+                    .get(response.getRoundNumber()).getCorrectAnswer();
             String submittedAnswer = response.getAnswerChoice();
-            if(submittedAnswer.equals(correctAnswer))
+            if (submittedAnswer.equals(correctAnswer)) {
                 points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
-            if (Integer.parseInt(correctAnswer) < Integer.parseInt(submittedAnswer) && Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer) <= 500){
-                points = (int) (100 +  (1.0 - response.getTimeSubmitted()) * 50.0 - 0.1 * (Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer)));
+            }
+            if (Integer.parseInt(correctAnswer) < Integer.parseInt(submittedAnswer)
+                    && Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer) <= 500) {
+                points = (int) (100 +  (1.0 - response.getTimeSubmitted()) * 50.0 - 0.1 *
+                        (Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer)));
             } else {
-                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0 - 0.1 * (Integer.parseInt(correctAnswer) - Integer.parseInt(submittedAnswer)));
+                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0
+                        - 0.1 * (Integer.parseInt(correctAnswer)
+                        - Integer.parseInt(submittedAnswer)));
             }
         } else {
-           points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
+            points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
         }
         return points;
     }

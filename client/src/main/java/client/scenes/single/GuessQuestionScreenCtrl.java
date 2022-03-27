@@ -21,8 +21,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
-import java.util.Date;
-
 public class GuessQuestionScreenCtrl extends QuestionScreen {
 
     private GuessQuestion question;
