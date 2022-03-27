@@ -41,10 +41,10 @@ public class ActivityController {
      *
      * @param key         Key of the activity in the repository
      * @param imageBase64 Base64 encoding of the image
-     * @return ActivityImage that was added to the database
+     * @return ResponseEntity indicating whether activity image was added.
      */
     @PostMapping("/images/{key}")
-    public ResponseEntity<ActivityImage> addActivityImage(
+    public ResponseEntity<Void> addActivityImage(
             @PathVariable("key") long key,
             @RequestBody String imageBase64) {
         Optional<Activity> optionalActivity = repo.findById(key);
@@ -56,7 +56,7 @@ public class ActivityController {
             String id = activity.getId();
             ActivityImage activityImage = new ActivityImage(id, decodedImage);
             imageRepo.save(activityImage);
-            return ResponseEntity.ok(activityImage);
+            return ResponseEntity.ok().build();
         }
     }
 
