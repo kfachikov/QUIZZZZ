@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
 import java.util.List;
 
-
 /**
  * Server-side controller for the activities stored in the database.
  */
@@ -153,23 +152,15 @@ public class ActivityController {
      * @return ResponseEntity consisting of the ByteArrayResource of images
      *
     @GetMapping("/image")
-    public ResponseEntity<Resource> getImages(@PathVariable("file") String fileName) {
+    public ResponseEntity<String> getImages(@PathVariable("file") String fileName) {
 
-        File file = new File("server/src/main/resources/Activity_bank/" + fileName);
-        Path path = Path.of(file.getAbsolutePath());
-        ByteArrayResource resource = null;
-        try {
-            resource = new ByteArrayResource(readAllBytes(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String image = "server/src/main/resources/Activity_bank/" + fileName;
+        String imageBase64 =  Base64.getEncoder().encodeToString(image.getBytes());
         return ResponseEntity.ok()
-                .contentLength(file.length())
+                .contentLength(imageBase64.length())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(resource);
-
+                .body(image);
     }
-
-     */
+    */
 
 }

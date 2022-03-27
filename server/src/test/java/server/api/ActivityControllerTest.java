@@ -200,5 +200,5 @@ class ActivityControllerTest {
         GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils(repo, random);
         assertNotNull(generateQuestionUtils.generate20Questions());
     }
-    
+
 }

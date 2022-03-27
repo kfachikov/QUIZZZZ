@@ -28,10 +28,12 @@ import commons.single.SinglePlayerState;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
+
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Base64;
 import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -243,13 +245,15 @@ public class ServerUtils {
      * @return and InputStream that will be converted to images.
      */
     public InputStream getAllImages(String imagePath) {
-        Response response = ClientBuilder.newClient(new ClientConfig())
+        String response = ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/image/" + imagePath)
-                .request(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .get(new GenericType<Response>() {});
-        return response.readEntity(InputStream.class);
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<String>() {});
+        byte[] asBytes = Base64.getDecoder().decode(response);
+        InputStream is = new ByteArrayInputStream(asBytes);
+        return is;
     }
 
 }
