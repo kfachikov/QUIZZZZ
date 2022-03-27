@@ -94,10 +94,9 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
-
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
         server.postAnswer(new Response(singlePlayerState.getId(),
-                new Date().getTime(),
+                time.getProgress(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
                 chosenAnswer

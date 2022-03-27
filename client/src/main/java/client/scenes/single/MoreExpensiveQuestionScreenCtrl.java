@@ -187,7 +187,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
         server.postAnswer(new Response(singlePlayerState.getId(),
-                new Date().getTime(),
+                time.getProgress(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
                 chosenAnswer

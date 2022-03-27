@@ -3,6 +3,7 @@ package server.utils;
 import commons.misc.Activity;
 import commons.misc.Response;
 import commons.question.AbstractQuestion;
+import commons.question.GuessQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import org.springframework.context.annotation.ComponentScan;
@@ -135,14 +136,29 @@ public class SinglePlayerStateUtils {
 
     /**
      * Compute the score of a response.
+     * If question's type is GuessQuestion then the score is computed based on how fast the answer was submitted and how close the player was to the actual answer.
+     * If question's type is not GuessQuestion then the score is computed based only on how fast the answer was submitted
      * <p>
-     * TODO: this method is just a mock method, and returns 100.
      *
-     * @param response Response of the player with a correct answer. TODO: The time submitted to be used for computations.
+     * @param response Response of the player with a correct answer.
      * @return Number of points to add to the player's score
      */
     private int computeScore(Response response) {
-        return 100;
+        int points = 0;
+        if (generateQuestionUtils.generate20Questions().get(response.getRoundNumber()) instanceof GuessQuestion) {
+            String correctAnswer = generateQuestionUtils.generate20Questions().get(response.getRoundNumber()).getCorrectAnswer();
+            String submittedAnswer = response.getAnswerChoice();
+            if(submittedAnswer.equals(correctAnswer))
+                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
+            if (Integer.parseInt(correctAnswer) < Integer.parseInt(submittedAnswer) && Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer) <= 500){
+                points = (int) (100 +  (1.0 - response.getTimeSubmitted()) * 50.0 - 0.1 * (Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer)));
+            } else {
+                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0 - 0.1 * (Integer.parseInt(correctAnswer) - Integer.parseInt(submittedAnswer)));
+            }
+        } else {
+           points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
+        }
+        return points;
     }
 
 
