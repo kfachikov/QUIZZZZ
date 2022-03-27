@@ -88,12 +88,23 @@ public class MultiPlayerStateUtils {
             return null;
         } else if (player.getUsername() == null || player.getUsername().isEmpty()) {
             return null;
-        } else if (game.getPlayers().contains(player)) {
+        } else if (containsPlayer(player, game)) {
             return null;
         } else {
             game.getPlayers().add(player);
             return player;
         }
+    }
+
+    /**
+     * Check if the given game contains the given player.
+     *
+     * @param player Player to be checked for uniqueness.
+     * @param game   Game to be checked in.
+     * @return True iff the given game contains the given player.
+     */
+    public boolean containsPlayer(MultiPlayer player, MultiPlayerState game) {
+        return game.getPlayers().stream().anyMatch(player1 -> player.getUsername().equals(player1.getUsername()));
     }
 
     /**
