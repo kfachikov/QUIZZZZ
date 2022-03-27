@@ -1,6 +1,9 @@
 package client.utils;
 
 import commons.misc.Activity;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import org.glassfish.jersey.client.ClientConfig;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,11 +15,14 @@ import java.util.Base64;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+
 /**
  * Utility class responsible for managing adding and retrieving images of activities.
  */
 public class ActivityImageUtils {
 
+    // This field will be used in the future once ServerUtils doesn't have static members
     private final ServerUtils serverUtils;
 
     /**
@@ -33,6 +39,23 @@ public class ActivityImageUtils {
             String activitiesPath,
             List<Activity> addedActivities) {
 
+    }
+
+    /**
+     * Adds an activity image to the server database.
+     *
+     * @param key         Key of the newly imported activity.
+     * @param imageBase64 Base64 representation of the image.
+     */
+    public void addActivityImage(long key, String imageBase64) {
+        String currentServer = ServerUtils.getCurrentServer();
+
+        ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/image/" + key)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(imageBase64, APPLICATION_JSON), Void.class);
     }
 
     /**
