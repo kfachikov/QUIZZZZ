@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.scenes.misc.MainCtrl;
+import client.scenes.multi.LeaderboardScreenCtrl;
 import client.scenes.multi.MultiGameMockScreenCtrl;
 import client.scenes.multi.MultiplayerCtrl;
 import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
@@ -45,14 +46,14 @@ public class MockMultiplayerCtrl extends MultiplayerCtrl {
         calledMethods.add(method);
     }
 
-
     @Override
     public void initialize(
             Pair<MultiGameQuestionAScreenCtrl, Parent> questionAScreen,
             Pair<MultiGameQuestionBScreenCtrl, Parent> questionBScreen,
             Pair<MultiGameQuestionCScreenCtrl, Parent> questionCScreen,
             Pair<MultiGameQuestionDScreenCtrl, Parent> questionDScreen,
-            Pair<MultiGameMockScreenCtrl, Parent> mockMulti) {
+            Pair<MultiGameMockScreenCtrl, Parent> mockMulti,
+            Pair<LeaderboardScreenCtrl, Parent> leaderboard) {
         call("initialize");
     }
 
