@@ -189,7 +189,6 @@ public class MockMultiPlayerStateUtils extends MultiPlayerStateUtils {
      *
      * @param game Game whose players' scores is updated.
      */
-    @Override
     public void updateScores(MultiPlayerState game) {
         calledMethods.add("updateScores");
         params.add(game);

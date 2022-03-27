@@ -23,6 +23,7 @@ public class MultiPlayerState extends GameState {
 
     private List<MultiPlayer> players;
     private Reaction reaction;
+    private List<Response> finalAnswers;
 
     /**
      * Default constructor to be used for the JSON parsing.
@@ -39,6 +40,7 @@ public class MultiPlayerState extends GameState {
      * @param roundNumber      the round number of the game.
      * @param questionList     the list of question for a game.
      * @param submittedAnswers the answers submitted by players during game in a single round.
+     * @param finalAnswers     the list of answers submitted as final by players during a game.
      * @param state            the status of the game.
      * @param players          the list of players currently in the game.
      * @param reaction         the reactions used in a game.
@@ -46,11 +48,14 @@ public class MultiPlayerState extends GameState {
     public MultiPlayerState(long id, long nextPhase, int roundNumber,
                             List<AbstractQuestion> questionList,
                             List<Response> submittedAnswers,
+                            List<Response> finalAnswers,
                             String state,
                             List<MultiPlayer> players, Reaction reaction) {
         super(id, nextPhase, roundNumber, questionList, submittedAnswers, state);
         this.players = players;
         this.reaction = reaction;
+        this.finalAnswers = finalAnswers;
+        this.players = players;
     }
 
     /**
@@ -78,6 +83,30 @@ public class MultiPlayerState extends GameState {
      */
     public void setPlayers(List<MultiPlayer> players) {
         this.players = players;
+    }
+
+    /**
+     * Getter for the list of answers submitted as final.
+     *
+     * @return a list of Responses representing the answers given by the players.
+     */
+    public List<Response> getFinalAnswers() {
+        return finalAnswers;
+    }
+
+    /**
+     * Comparing answer function making use of the abstract functionality declared
+     * in the parent abstract class of the different question types.
+     *
+     * @return Boolean value corresponding to the correctness of the answer.
+     */
+    public boolean compareAnswer() {
+        if (finalAnswers.get(getRoundNumber()) == null) {
+            return false;
+        }
+        String chosenAnswer = finalAnswers.get(getRoundNumber()).getAnswerChoice();
+        String rightAnswer = getQuestionList().get(getRoundNumber()).getCorrectAnswer();
+        return chosenAnswer.equals(rightAnswer);
     }
 
     /**

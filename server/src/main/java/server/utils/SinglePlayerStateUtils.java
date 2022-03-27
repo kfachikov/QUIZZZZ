@@ -145,9 +145,10 @@ public class SinglePlayerStateUtils {
      */
     private int computeScore(Response response) {
         int points = 0;
-        if (generateQuestionUtils.generate20Questions().get(response.getRoundNumber()) instanceof GuessQuestion) {
-            String correctAnswer = generateQuestionUtils.generate20Questions()
-                    .get(response.getRoundNumber()).getCorrectAnswer();
+        if (games.get(response.getGameId()).getQuestionList().get(games.get(response.getGameId()).getRoundNumber())
+                instanceof GuessQuestion) {
+            String correctAnswer = games.get(response.getGameId()).getQuestionList()
+                    .get(games.get(response.getGameId()).getRoundNumber()).getCorrectAnswer();
             String submittedAnswer = response.getAnswerChoice();
             if (submittedAnswer.equals(correctAnswer)) {
                 points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
