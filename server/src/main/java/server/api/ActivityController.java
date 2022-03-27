@@ -1,11 +1,17 @@
 package server.api;
 
 import commons.misc.Activity;
+import commons.misc.ActivityImage;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import server.database.ActivityImageRepository;
 import server.database.ActivityRepository;
+
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Server-side controller for the activities stored in the database.
@@ -15,6 +21,11 @@ import java.util.List;
 public class ActivityController {
 
     private final ActivityRepository repo;
+    /**
+     * Temporarily @Autowired field, to avoid changing tests.
+     */
+    @Autowired
+    private ActivityImageRepository imageRepo;
 
     /**
      * Constructor for the activity controller.
@@ -23,6 +34,30 @@ public class ActivityController {
      */
     public ActivityController(ActivityRepository repo) {
         this.repo = repo;
+    }
+
+    /**
+     * POST mapping for adding an image to an activity.
+     *
+     * @param key         Key of the activity in the repository
+     * @param imageBase64 Base64 encoding of the image
+     * @return ActivityImage that was added to the database
+     */
+    @PostMapping("/images/{key}")
+    public ResponseEntity<ActivityImage> addActivityImage(
+            @PathVariable("key") long key,
+            @RequestBody String imageBase64) {
+        Optional<Activity> optionalActivity = repo.findById(key);
+        if (optionalActivity.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            Activity activity = optionalActivity.get();
+            byte[] decodedImage = Base64.decodeBase64(imageBase64);
+            String id = activity.getId();
+            ActivityImage activityImage = new ActivityImage(id, decodedImage);
+            imageRepo.save(activityImage);
+            return ResponseEntity.ok(activityImage);
+        }
     }
 
     /**
