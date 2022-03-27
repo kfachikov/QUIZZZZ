@@ -4,7 +4,6 @@ import commons.misc.Activity;
 import commons.misc.ActivityImage;
 import commons.misc.ActivityImageMessage;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,19 +21,20 @@ import java.util.Optional;
 public class ActivityController {
 
     private final ActivityRepository repo;
-    /**
-     * Temporarily @Autowired field, to avoid changing tests.
-     */
-    @Autowired
-    private ActivityImageRepository imageRepo;
+    private final ActivityImageRepository imageRepo;
 
     /**
      * Constructor for the activity controller.
      *
-     * @param repo ActivityRepository instance.
+     * @param repo      ActivityRepository instance.
+     * @param imageRepo ActivityImageRepository instance.
      */
-    public ActivityController(ActivityRepository repo) {
+    public ActivityController(
+            ActivityRepository repo,
+            ActivityImageRepository imageRepo
+    ) {
         this.repo = repo;
+        this.imageRepo = imageRepo;
     }
 
     /**
@@ -58,6 +58,7 @@ public class ActivityController {
             String id = activity.getId();
             ActivityImage activityImage = new ActivityImage(id, decodedImage);
             imageRepo.save(activityImage);
+            System.out.println("Added image for " + activity.getId() + " activity");
             return ResponseEntity.ok(message);
         }
     }
