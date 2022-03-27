@@ -61,6 +61,31 @@ public class ActivityController {
     }
 
     /**
+     * GET mapping for retrieving the image of an activity.
+     *
+     * @param key Key of the activity in the repository.
+     * @return Base64 encoding of the image
+     */
+    @GetMapping("/images/{key}")
+    public ResponseEntity<String> getActivityImage(@PathVariable("key") long key) {
+        Optional<Activity> optionalActivity = repo.findById(key);
+        if (optionalActivity.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            Activity activity = optionalActivity.get();
+            String id = activity.getId();
+            Optional<ActivityImage> optionalActivityImage = imageRepo.findById(id);
+            if (optionalActivityImage.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            } else {
+                ActivityImage activityImage = optionalActivityImage.get();
+                String imageBase64 = Base64.encodeBase64String(activityImage.getImage());
+                return ResponseEntity.ok(imageBase64);
+            }
+        }
+    }
+
+    /**
      * Lists all entries currently present in the repository.
      *
      * @return ResponseEntity consisting of a list of all activities.
