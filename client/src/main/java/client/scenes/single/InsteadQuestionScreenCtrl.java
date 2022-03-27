@@ -174,8 +174,6 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      */
     public void setQuestion(InsteadQuestion question) {
 
-        String url = mainCtrl.getURL();
-        //image.setImage(new Image(server.getAllImages(question.getActivity().getImage())));
         image.setImage(getActivityImage(question.getActivity()));
 
         firstAnswer.setDisable(false);

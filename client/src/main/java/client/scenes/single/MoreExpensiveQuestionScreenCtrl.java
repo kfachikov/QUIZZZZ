@@ -226,14 +226,8 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
      */
     public void setQuestion(MoreExpensiveQuestion question) {
 
-        String url = mainCtrl.getURL();
-        //image1.setImage(new Image(server.getAllImages(question.getAnswerChoices().get(0).getImage())));
         image1.setImage(getActivityImage(question.getAnswerChoices().get(0)));
-
-        //image2.setImage(new Image(server.getAllImages(question.getAnswerChoices().get(1).getImage())));
         image2.setImage(getActivityImage(question.getAnswerChoices().get(1)));
-
-        //image3.setImage(new Image(server.getAllImages(question.getAnswerChoices().get(2).getImage())));
         image3.setImage(getActivityImage(question.getAnswerChoices().get(2)));
 
         firstAnswer.setDisable(false);
@@ -252,6 +246,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         description1.setText(question.getAnswerChoices().get(0).getTitle());
         description2.setText(question.getAnswerChoices().get(1).getTitle());
         description3.setText(question.getAnswerChoices().get(2).getTitle());
+
     }
 
 

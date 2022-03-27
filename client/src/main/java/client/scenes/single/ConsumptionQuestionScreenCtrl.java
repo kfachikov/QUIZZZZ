@@ -81,6 +81,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
     public void initialize() {
+
         firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -110,6 +111,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
                 secondAnswer.setDisable(true);
                 thirdAnswer.setDisable(true);
             }
+
         });
     }
 
@@ -164,9 +166,6 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     public void setQuestion(ConsumptionQuestion question) {
 
-        String url = mainCtrl.getURL();
-
-        //image.setImage(new Image(server.getAllImages(question.getActivity().getImage())));
         image.setImage(getActivityImage(question.getActivity()));
 
         firstAnswer.setDisable(false);

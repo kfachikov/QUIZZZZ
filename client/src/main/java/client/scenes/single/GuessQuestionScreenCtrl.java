@@ -144,9 +144,6 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      */
     public void setQuestion(GuessQuestion question) {
 
-        String url = mainCtrl.getURL();
-
-        //image.setImage(new Image(server.getAllImages(question.getActivity().getImage())));
         var activityImage = getActivityImage(question.getActivity());
         image.setImage(activityImage);
 
