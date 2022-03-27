@@ -3,10 +3,7 @@ package client.utils;
 import commons.misc.Activity;
 import commons.misc.ActivityImageMessage;
 import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
 import javafx.scene.image.Image;
-import org.glassfish.jersey.client.ClientConfig;
 
 import javax.inject.Inject;
 import java.io.*;
@@ -15,14 +12,11 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Stream;
 
-import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
-
 /**
  * Utility class responsible for managing adding and retrieving images of activities.
  */
 public class ActivityImageUtils {
 
-    // This field will be used in the future once ServerUtils doesn't have static members
     private final ServerUtils serverUtils;
     private final HashMap<Long, Image> activityImageCache;
 
@@ -49,15 +43,16 @@ public class ActivityImageUtils {
         if (activityImageCache.containsKey(key)) {
             return activityImageCache.get(key);
         } else {
-            String currentServer = ServerUtils.getCurrentServer();
-
-            String imageBase64 = ClientBuilder.newClient(new ClientConfig())
-                    .target(currentServer)
-                    .path("/api/activities/image/" + key)
-                    .request(APPLICATION_JSON)
-                    .accept(APPLICATION_JSON)
-                    .get(ActivityImageMessage.class)
-                    .getImageBase64();
+            String imageBase64;
+            try {
+                ActivityImageMessage message = serverUtils
+                        .getActivityImage(key);
+                imageBase64 = message.getImageBase64();
+            } catch (NotFoundException e) {
+                System.err.println(e);
+                e.printStackTrace();
+                return null;
+            }
 
             byte[] decodedImage = Base64.getDecoder().decode(imageBase64);
             InputStream imageInputStream = new ByteArrayInputStream(decodedImage);
@@ -118,12 +113,7 @@ public class ActivityImageUtils {
 
         ActivityImageMessage message = new ActivityImageMessage(imageBase64, key);
 
-        ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer)
-                .path("/api/activities/image/" + key)
-                .request(APPLICATION_JSON)
-                .accept(APPLICATION_JSON)
-                .post(Entity.entity(message, APPLICATION_JSON), ActivityImageMessage.class);
+        serverUtils.addActivityImage(message);
     }
 
     /**

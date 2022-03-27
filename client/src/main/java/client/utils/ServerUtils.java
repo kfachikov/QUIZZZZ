@@ -16,6 +16,7 @@
 package client.utils;
 
 import commons.misc.Activity;
+import commons.misc.ActivityImageMessage;
 import commons.misc.GameResponse;
 import commons.misc.GameState;
 import commons.multi.MultiPlayer;
@@ -250,10 +251,29 @@ public class ServerUtils {
                 .path("/image/" + imagePath)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<String>() {});
+                .get(new GenericType<String>() {
+                });
         byte[] asBytes = Base64.getDecoder().decode(response);
         InputStream is = new ByteArrayInputStream(asBytes);
         return is;
+    }
+
+    public ActivityImageMessage getActivityImage(long key) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/images/" + key)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(ActivityImageMessage.class);
+    }
+
+    public ActivityImageMessage addActivityImage(ActivityImageMessage message) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/images/" + message.getKey())
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(message, APPLICATION_JSON), ActivityImageMessage.class);
     }
 
 }
