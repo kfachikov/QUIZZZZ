@@ -58,7 +58,8 @@ public class ActivityImageUtils {
             InputStream imageInputStream = new ByteArrayInputStream(decodedImage);
 
             Image image = new Image(imageInputStream);
-            return activityImageCache.put(key, image);
+            activityImageCache.put(key, image);
+            return image;
         }
     }
 
