@@ -2,6 +2,7 @@ package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
 import client.services.SingleplayerGameStatePollingService;
+import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
@@ -20,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+
 import java.util.Date;
 
 /**
@@ -75,16 +77,18 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param server            is the server variable
-     * @param mainCtrl          is the main controller variable
-     * @param pollingService    is the injected polling service to be used to poll the game state.
-     * @param singlePlayerUtils is the injected singleplayer utils for managing logic
+     * @param server             is the server variable
+     * @param mainCtrl           is the main controller variable
+     * @param pollingService     is the injected polling service to be used to poll the game state.
+     * @param activityImageUtils is the utilities class responsible for fetching an image of an activity.
+     * @param singlePlayerUtils  is the injected singleplayer utils for managing logic
      */
     @Inject
     public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
                                            SingleplayerGameStatePollingService pollingService,
+                                           ActivityImageUtils activityImageUtils,
                                            SinglePlayerUtils singlePlayerUtils) {
-        super(server, mainCtrl, pollingService, singlePlayerUtils);
+        super(server, mainCtrl, pollingService, activityImageUtils, singlePlayerUtils);
     }
 
     /**

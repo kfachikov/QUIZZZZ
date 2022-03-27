@@ -6,6 +6,7 @@ import jakarta.ws.rs.client.Entity;
 import javafx.scene.image.Image;
 import org.glassfish.jersey.client.ClientConfig;
 
+import javax.inject.Inject;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,6 +29,7 @@ public class ActivityImageUtils {
      *
      * @param serverUtils ServerUtils singleton instance.
      */
+    @Inject
     public ActivityImageUtils(ServerUtils serverUtils) {
         this.serverUtils = serverUtils;
         this.activityImageCache = new HashMap<>();
