@@ -297,24 +297,6 @@ public class MultiplayerCtrl {
     }
 
     /**
-     * Pop-up that asks whether a player really wants to leave the game.
-     * Is assigned to the top-left leave button on screens.
-     */
-    public void leave() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setHeaderText("Leave the game");
-        alert.setContentText("Are you sure you want to leave the game?");
-        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
-        alert.getButtonTypes().setAll(yesButton, noButton);
-        Optional<ButtonType> confirmation = alert.showAndWait();
-        if (confirmation.get() == yesButton) {
-            mainCtrl.showHome();
-        }
-    }
-
-    /**
      * Returns to home screen.
      * Is assigned to the Return Home button in Game Over screen.
      */

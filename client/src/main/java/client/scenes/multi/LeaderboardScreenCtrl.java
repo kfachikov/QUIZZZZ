@@ -27,6 +27,7 @@ public class LeaderboardScreenCtrl {
     private Button laughing;
     @FXML
     private Button surprised;
+    @FXML
     private List<Button> emojis;
 
     @FXML
@@ -35,12 +36,9 @@ public class LeaderboardScreenCtrl {
     private Button leave;
     @FXML
     private Button returnHome;
-    @FXML
-    private Line line;
 
     @FXML
     private Label position1;
-
     @FXML
     private Label username1;
     @FXML
@@ -87,6 +85,8 @@ public class LeaderboardScreenCtrl {
     private Label userUsername;
     @FXML
     private Label userScore;
+    @FXML
+    private Line line;
 
     @FXML
     private List<Label> usernameLabels;
@@ -121,27 +121,16 @@ public class LeaderboardScreenCtrl {
         emojis.add(crying);
         emojis.add(laughing);
         emojis.add(surprised);
-        usernameLabels = new ArrayList<Label>();
-        usernameLabels.add(username1);
-        usernameLabels.add(username2);
-        usernameLabels.add(username3);
-        usernameLabels.add(username4);
-        usernameLabels.add(username5);
-        usernameLabels.add(username6);
-        scoreLabels = new ArrayList<Label>();
-        scoreLabels.add(score1);
-        scoreLabels.add(score2);
-        scoreLabels.add(score3);
-        scoreLabels.add(score4);
-        scoreLabels.add(score5);
-        scoreLabels.add(score6);
-        positionLabels = new ArrayList<Label>();
-        positionLabels.add(position1);
-        positionLabels.add(position2);
-        positionLabels.add(position3);
-        positionLabels.add(position4);
-        positionLabels.add(position5);
-        positionLabels.add(position6);
+
+        usernameLabels = new ArrayList<>();
+        fillList(usernameLabels, username1, username2, username3, username4, username5, username6);
+
+        scoreLabels = new ArrayList<>();
+        fillList(scoreLabels, score1, score2, score3, score4, score5, score6);
+
+        positionLabels = new ArrayList<>();
+        fillList(positionLabels, position1, position2, position3, position4, position5, position6);
+
         userLabels = new ArrayList<>();
         userLabels.add(userUsername);
         userLabels.add(userScore);
@@ -302,7 +291,7 @@ public class LeaderboardScreenCtrl {
      * Tied to leave button at intermediate leaderboard screen.
      */
     public void leave() {
-        multiCtrl.leave();
+        multiCtrl.promptLeave();
     }
 
     /**
@@ -312,6 +301,15 @@ public class LeaderboardScreenCtrl {
      */
     public void returnHome() {
         multiCtrl.returnHome();
+    }
+
+    public void fillList(List<Label> objectList, Label a, Label b, Label c, Label d, Label e, Label f) {
+        objectList.add(a);
+        objectList.add(b);
+        objectList.add(c);
+        objectList.add(d);
+        objectList.add(e);
+        objectList.add(f);
     }
 
     /**
@@ -340,5 +338,130 @@ public class LeaderboardScreenCtrl {
      */
     public void surprisedEmoji() {
         multiCtrl.surprisedEmoji();
+    }
+
+    public Button getAngry() {
+        return angry;
+    }
+
+    public Button getCrying() {
+        return crying;
+    }
+
+    public Button getLaughing() {
+        return laughing;
+    }
+
+    public Button getSurprised() {
+        return surprised;
+    }
+
+    public List<Button> getEmojis() {
+        return emojis;
+    }
+
+
+    public Label getPosition1() {
+        return position1;
+    }
+
+    public Label getUsername1() {
+        return username1;
+    }
+
+    public Label getScore1() {
+        return score1;
+    }
+
+    public Label getPosition2() {
+        return position2;
+    }
+
+    public Label getUsername2() {
+        return username2;
+    }
+
+    public Label getScore2() {
+        return score2;
+    }
+
+    public Label getPosition3() {
+        return position3;
+    }
+
+    public Label getUsername3() {
+        return username3;
+    }
+
+    public Label getScore3() {
+        return score3;
+    }
+
+    public Label getPosition4() {
+        return position4;
+    }
+
+    public Label getUsername4() {
+        return username4;
+    }
+
+    public Label getScore4() {
+        return score4;
+    }
+
+    public Label getPosition5() {
+        return position5;
+    }
+
+    public Label getUsername5() {
+        return username5;
+    }
+
+    public Label getScore5() {
+        return score5;
+    }
+
+    public Label getPosition6() {
+        return position6;
+    }
+
+    public Label getUsername6() {
+        return username6;
+    }
+
+    public Label getScore6() {
+        return score6;
+    }
+
+    public Label getUserPosition() {
+        return userPosition;
+    }
+
+    public Label getUserUsername() {
+        return userUsername;
+    }
+
+    public Label getUserScore() {
+        return userScore;
+    }
+
+    public List<Label> getUsernameLabels() {
+        return usernameLabels;
+    }
+
+    public List<Label> getScoreLabels() {
+        return scoreLabels;
+    }
+
+    public List<Label> getPositionLabels() {
+        return positionLabels;
+    }
+
+    public List<Label> getUserLabels() {
+        return userLabels;
+    }
+
+    public Text getTitle() {
+        return title;
     }
 }
