@@ -1,16 +1,16 @@
 package server.api;
 
 import commons.misc.Activity;
+import commons.misc.ActivityImageMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
+import server.database.ActivityImageRepository;
 import server.database.ActivityRepository;
 import server.utils.GenerateQuestionUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -19,6 +19,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 class ActivityControllerTest {
 
+    private ActivityImageRepository activityImageRepository;
     private ActivityRepository repo;
     private ActivityController ctrl;
     private Activity initialActivity;
@@ -27,10 +28,11 @@ class ActivityControllerTest {
     @BeforeEach
     public void setup() {
         repo = new TestActivityRepository();
-        // TODO: create mock class for imageRepo
-        ctrl = new ActivityController(repo, null);
+        activityImageRepository = new TestActivityImageRepository();
+        ctrl = new ActivityController(repo, activityImageRepository);
         random = new Random();
         initialActivity = new Activity("id", "image", "source", "title", 100L);
+
     }
 
     @Test
@@ -186,7 +188,7 @@ class ActivityControllerTest {
     }
 
     @Test
-    public void testGenerateQuestions1() {
+    public void testGenerateQuestions() {
         Activity activity1 = new Activity("newId", "newTitle", "newSource", "newImage", 200L);
         Activity activity2 = new Activity("newId2", "newTitle2", "newSource2", "newImage2", 201L);
         Activity activity3 = new Activity("newId3", "newTitle3", "newSource3", "newImage3", 202L);
@@ -201,6 +203,21 @@ class ActivityControllerTest {
         ctrl.addActivities(activities);
         GenerateQuestionUtils generateQuestionUtils = new GenerateQuestionUtils(repo, random);
         assertNotNull(generateQuestionUtils.generate20Questions());
+    }
+
+    @Test
+    public void testGetAddActivityImage() {
+
+        Activity activity1 = new Activity("newId1", "newTitle1", "newSource1", "newImage1", 200L);
+
+        ctrl.addActivity(activity1);
+        ActivityImageMessage activityImageMessage = new ActivityImageMessage(Base64.getEncoder()
+                .encodeToString(activity1
+                        .getImage()
+                        .getBytes(StandardCharsets.UTF_8)), activity1.getKey());
+
+        ctrl.addActivityImage(activity1.getKey(), activityImageMessage);
+        assertNotNull(repo.findAll());
     }
 
 }
