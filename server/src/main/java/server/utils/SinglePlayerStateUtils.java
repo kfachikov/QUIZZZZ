@@ -6,7 +6,6 @@ import commons.question.AbstractQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import server.database.ActivityRepository;
 
@@ -20,10 +19,14 @@ import java.util.*;
 public class SinglePlayerStateUtils {
 
     private final Map<Long, SinglePlayerState> games;
-    private final GenerateQuestionUtils generateQuestionUtils;
 
-    public SinglePlayerStateUtils(GenerateQuestionUtils generateQuestionUtils) {
+    private final GenerateQuestionUtils generateQuestionUtils;
+    private final CurrentTimeUtils currentTime;
+
+    public SinglePlayerStateUtils(GenerateQuestionUtils generateQuestionUtils, CurrentTimeUtils currentTime) {
         this.generateQuestionUtils = generateQuestionUtils;
+        this.currentTime = currentTime;
+
         games = new HashMap<>();
     }
 
@@ -31,8 +34,8 @@ public class SinglePlayerStateUtils {
      * Get particular game state instance by its key in the games map.
      * Update its state if required.
      *
-     * @param id    Key value to search for.
-     * @return      SinglePlayerState instance in case it exists, null otherwise.
+     * @param id Key value to search for.
+     * @return SinglePlayerState instance in case it exists, null otherwise.
      */
     public SinglePlayerState getGameStateById(long id) {
         if (games.containsKey(id)) {
@@ -48,8 +51,8 @@ public class SinglePlayerStateUtils {
      * Posts an answer in the current game - particular instance found by gameId stored in the
      * Response object sent.
      *
-     * @param response  Response sent from client.
-     * @return          Response instance in case the gameId is valid, or null otherwise.
+     * @param response Response sent from client.
+     * @return Response instance in case the gameId is valid, or null otherwise.
      */
     public Response postAnswer(Response response) {
         long gameId = response.getGameId();
@@ -67,7 +70,7 @@ public class SinglePlayerStateUtils {
      * @param game SinglePlayer game state to update
      */
     public void updateState(SinglePlayerState game) {
-        long time = new Date().getTime();
+        long time = currentTime.getTime();
 
         // Check if we should be changing the state of the game
         if (time >= game.getNextPhase()) {
@@ -181,10 +184,11 @@ public class SinglePlayerStateUtils {
      * Constructs a new single-player game state.
      *
      * @param player Player who is playing in the game
+     * @param repo   ActivityRepository instance.
      * @return The newly constructed SinglePlayer game state
      */
     public SinglePlayerState createSingleGame(SinglePlayer player,
-                                               ActivityRepository repo) {
+                                              ActivityRepository repo) {
         Set<Long> keys = games.keySet();
         long maxKey;
         if (keys.isEmpty()) {
@@ -193,9 +197,9 @@ public class SinglePlayerStateUtils {
             maxKey = Collections.max(keys);
         }
         long id = maxKey + 1;
-        long nextTransition = new Date().getTime() + 8000;
+        long nextTransition = currentTime.getTime() + 8000;
         int roundNumber = 0;
-        List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions(repo);
+        List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions();
         List<Response> submittedAnswers = new ArrayList<>();
         List<Response> finalAnswers = new ArrayList<>();
         List<Activity> activityList = new ArrayList<>();
@@ -208,7 +212,6 @@ public class SinglePlayerStateUtils {
                 questionList,
                 finalAnswers,
                 submittedAnswers,
-                activityList,
                 state,
                 player
         );

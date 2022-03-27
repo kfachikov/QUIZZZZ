@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Consumption question type. Extends the AbstractQuestion parent class.
  * Add specific fields and some functionality.
- *
+ * <p>
  * The "type" value is set to "consumption" so that the instances are created accordingly
  * on the client-side from the JSON response.
  */
@@ -116,6 +116,7 @@ public class ConsumptionQuestion extends AbstractQuestion {
 
     /**
      * Getter for the correct answer.
+     *
      * @return long variable
      */
     public String getCorrectAnswer() {

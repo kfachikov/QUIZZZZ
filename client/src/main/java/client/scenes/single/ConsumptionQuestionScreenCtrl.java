@@ -1,7 +1,7 @@
 package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
-import client.services.GameStatePollingService;
+import client.services.SingleplayerGameStatePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
@@ -11,7 +11,9 @@ import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -56,25 +58,28 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param server   is the server variable
-     * @param mainCtrl is the main controller variable
-     * @param pollingService is the injected polling service to be used to poll the game state.
+     * @param server            is the server variable
+     * @param mainCtrl          is the main controller variable
+     * @param pollingService    is the injected polling service to be used to poll the game state.
+     * @param singlePlayerUtils is the injected singleplayer utils for managing logic
      */
     @Inject
-    public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+    public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
+                                         SingleplayerGameStatePollingService pollingService,
+                                         SinglePlayerUtils singlePlayerUtils) {
         super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 
     /**
      * Initializes the single-player game controller by:
-     *
+     * <p>
      * Binding answer choices to a method submitting that answer.
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
-    @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
         firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent e) {
                 submitAnswer(firstAnswer.getText());
                 firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
@@ -83,7 +88,8 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
             }
         });
         secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent e) {
                 submitAnswer(secondAnswer.getText());
                 secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
@@ -92,7 +98,8 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
             }
         });
         thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent e) {
                 submitAnswer(thirdAnswer.getText());
                 thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
@@ -116,7 +123,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
                 chosenAnswer.substring(0, chosenAnswer.length() - 2)
-                ));
+        ));
     }
 
     /**
@@ -163,6 +170,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * Getter for the window object - used to change the background in MainCtrl.
+     *
      * @return AnchorPane object with reference to the particular window of this scene.
      */
     public AnchorPane getWindow() {
@@ -172,7 +180,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
     /**
      * Overridden getTime() methods. Used to access the private time field.
      *
-     * @return  Reference to the JavaFX node in the scene corresponding to this controller.
+     * @return Reference to the JavaFX node in the scene corresponding to this controller.
      */
     @Override
     public ProgressBar getTime() {

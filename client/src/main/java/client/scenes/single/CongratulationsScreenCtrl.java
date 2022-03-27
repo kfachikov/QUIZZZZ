@@ -135,7 +135,8 @@ public class CongratulationsScreenCtrl {
         The player will begin the new game with the same username, but his points should be set
         to the default value - 0;
          */
-        SinglePlayer newPlayer = new SinglePlayer(singlePlayerUtils.getSinglePlayerState().getPlayer().getUsername(), 0);
+        SinglePlayer newPlayer = new SinglePlayer(
+                singlePlayerUtils.getSinglePlayerState().getPlayer().getUsername(), 0);
         singlePlayerUtils.setSinglePlayerAttributes(server.startSinglePlayerGame(newPlayer));
         mainCtrl.playSoloGame(singlePlayerUtils);
     }

@@ -12,7 +12,6 @@ import java.util.Queue;
 
 public class MockQueueCountdownService extends QueueCountdownService {
 
-
     public Queue<Object> returnValues;
 
     public List<String> calledMethods;

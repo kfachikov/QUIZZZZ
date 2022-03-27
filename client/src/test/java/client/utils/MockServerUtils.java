@@ -2,13 +2,11 @@ package client.utils;
 
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
-import commons.single.SinglePlayer;
 import commons.single.SinglePlayerLeaderboardScore;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unchecked")
 public class MockServerUtils extends ServerUtils {
 
     public List<String> calledMethods;

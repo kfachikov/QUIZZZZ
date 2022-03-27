@@ -18,6 +18,8 @@ package client.utils;
 import commons.misc.Activity;
 import commons.misc.GameState;
 import commons.misc.Response;
+import commons.multi.MultiPlayer;
+import commons.multi.MultiPlayerState;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -79,10 +81,10 @@ public class ServerUtils {
      * @return it returns a client QueueUser
      */
     public QueueUser deleteQueueUser(QueueUser user) {
-        long id = user.getId();
+        String username = user.getUsername();
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/api/queue/" + String.valueOf(id))
+                .path("/api/queue/" + username)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .delete(QueueUser.class);
@@ -106,6 +108,23 @@ public class ServerUtils {
     }
 
     /**
+     * GET request to /api/multi
+     * <p>
+     * Used for constant polling of the multiplayer game state.
+     *
+     * @param id Id of the multiplayer game.
+     * @return Multiplayer game state for that id.
+     */
+    public MultiPlayerState getMultiGameState(long id) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(MultiPlayerState.class);
+    }
+
+    /**
      * POST request to /api/solo/answer, to "submit" the answer chosen by the user.
      *
      * @param response Response object to be posted
@@ -119,12 +138,6 @@ public class ServerUtils {
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(response, APPLICATION_JSON), Response.class);
     }
-
-    /*
-    Currently, the following method does not work as intended.
-    There is a problem with the "object mapper" for the question classes.
-    Should have some default constructors.
-    */
 
     /**
      * POST request to /api/solo/start, to start the single-player game.
@@ -153,6 +166,22 @@ public class ServerUtils {
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(null, QueueState.class);
+    }
+
+    /**
+     * POST request to /api/multi/ to add a multiplayer user.
+     *
+     * @param id          Id of the multiplayer game.
+     * @param multiPlayer Multiplayer user to be added
+     * @return Multiplayer player that was added.
+     */
+    public MultiPlayer addMultiPlayer(long id, MultiPlayer multiPlayer) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/players/" + String.valueOf(id))
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(multiPlayer, APPLICATION_JSON), MultiPlayer.class);
     }
 
     /**
@@ -189,6 +218,7 @@ public class ServerUtils {
                 .path("/api/activities/addToRepo")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<Activity>>() {});
+                .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<Activity>>() {
+                });
     }
 }
