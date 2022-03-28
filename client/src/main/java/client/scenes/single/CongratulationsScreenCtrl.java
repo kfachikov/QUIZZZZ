@@ -11,7 +11,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 /**
- * The congratulations screen controller.
+ *
  */
 public class CongratulationsScreenCtrl {
 
@@ -21,7 +21,7 @@ public class CongratulationsScreenCtrl {
     /*
     The following field contains the game state and the player instance of the game just finished.
      */
-    private final SinglePlayerUtils singlePlayerUtils;
+    private SinglePlayerUtils singlePlayerUtils;
 
     @FXML
     private Text position;
@@ -135,8 +135,8 @@ public class CongratulationsScreenCtrl {
         The player will begin the new game with the same username, but his points should be set
         to the default value - 0;
          */
-        SinglePlayer newPlayer = new SinglePlayer(singlePlayerUtils.getSinglePlayerState()
-                .getPlayer().getUsername(), 0);
+        SinglePlayer newPlayer = new SinglePlayer(
+                singlePlayerUtils.getSinglePlayerState().getPlayer().getUsername(), 0);
         singlePlayerUtils.setSinglePlayerAttributes(server.startSinglePlayerGame(newPlayer));
         mainCtrl.playSoloGame(singlePlayerUtils);
     }

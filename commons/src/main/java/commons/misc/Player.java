@@ -1,5 +1,7 @@
 package commons.misc;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+
 import java.util.Objects;
 
 /**
@@ -10,9 +12,6 @@ public abstract class Player {
     private String username;
     private int score;
 
-    /**
-     * Constructor for the player instance.
-     */
     public Player() {
     }
 
@@ -71,14 +70,7 @@ public abstract class Player {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Player player = (Player) o;
-        return score == player.score && username.equals(player.username);
+        return EqualsBuilder.reflectionEquals(this, o);
     }
 
     /**

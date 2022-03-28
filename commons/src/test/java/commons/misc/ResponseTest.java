@@ -1,16 +1,16 @@
 package commons.misc;
 
-import commons.misc.Response;
+import commons.misc.GameResponse;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ResponseTest {
+class GameResponseTest {
 
     @Test
     void getTimeSubmitted() {
 
-        Response response = new Response(4L, 5, 23, "katya", "answer");
+        GameResponse response = new GameResponse(4L, 5, 23, "katya", "answer");
         assertEquals(5, response.getTimeSubmitted());
 
     }
@@ -18,7 +18,7 @@ class ResponseTest {
     @Test
     void setTimeSubmitted() {
 
-        Response response = new Response(4L, 5, 23, "katya", "answer");
+        GameResponse response = new GameResponse(4L, 5, 23, "katya", "answer");
         response.setTimeSubmitted(5.6);
         assertEquals(5.6, response.getTimeSubmitted());
 
@@ -27,7 +27,7 @@ class ResponseTest {
     @Test
     void getRoundNumber() {
 
-        Response response = new Response(4L, 5, 23, "katya", "answer");
+        GameResponse response = new GameResponse(4L, 5, 23, "katya", "answer");
         assertEquals(23, response.getRoundNumber());
 
     }
@@ -35,7 +35,7 @@ class ResponseTest {
     @Test
     void setRoundNumber() {
 
-        Response response = new Response(4L, 5, 23, "katya", "answer");
+        GameResponse response = new GameResponse(4L, 5, 23, "katya", "answer");
         response.setRoundNumber(7);
         assertEquals(7, response.getRoundNumber());
 
@@ -44,7 +44,7 @@ class ResponseTest {
     @Test
     void getAnswerChoice() {
 
-        Response response = new Response(4L, 5, 23, "katya", "answer");
+        GameResponse response = new GameResponse(4L, 5, 23, "katya", "answer");
         assertEquals("answer", response.getAnswerChoice());
 
     }
@@ -52,7 +52,7 @@ class ResponseTest {
     @Test
     void setAnswerChoice() {
 
-        Response response = new Response(4L, 5, 23, "katya", "answer");
+        GameResponse response = new GameResponse(4L, 5, 23, "katya", "answer");
         response.setAnswerChoice("another");
         assertEquals("another", response.getAnswerChoice());
 
@@ -61,14 +61,14 @@ class ResponseTest {
     @Test
     void getGameId() {
 
-        Response response = new Response(4L, 5, 23, "katya", "answer");
+        GameResponse response = new GameResponse(4L, 5, 23, "katya", "answer");
         assertEquals(4L, response.getGameId());
     }
 
     @Test
     void setGameId() {
 
-        Response response = new Response(4L, 5, 23, "katya", "answer");
+        GameResponse response = new GameResponse(4L, 5, 23, "katya", "answer");
         response.setGameId(5L);
         assertEquals(5L, response.getGameId());
 
@@ -77,7 +77,7 @@ class ResponseTest {
     @Test
     void getPlayerUsername() {
 
-        Response response = new Response(4L, 5, 23, "katya", "answer");
+        GameResponse response = new GameResponse(4L, 5, 23, "katya", "answer");
         assertEquals("katya", response.getPlayerUsername());
 
     }
@@ -85,8 +85,8 @@ class ResponseTest {
     @Test
     void testEquals() {
 
-        Response response1 = new Response(4L, 5, 23, "katya", "answer");
-        Response response2 = new Response(4L, 5, 23, "katya", "answer");
+        GameResponse response1 = new GameResponse(4L, 5, 23, "katya", "answer");
+        GameResponse response2 = new GameResponse(4L, 5, 23, "katya", "answer");
         assertTrue(response1.equals(response2));
 
     }
@@ -95,16 +95,16 @@ class ResponseTest {
     @Test
     void testHashCode() {
 
-        Response response1 = new Response(4L, 5, 23, "katya", "answer");
-        Response response2 = new Response(4L, 5, 23, "katya", "answer");
+        GameResponse response1 = new GameResponse(4L, 5, 23, "katya", "answer");
+        GameResponse response2 = new GameResponse(4L, 5, 23, "katya", "answer");
         assertEquals(response1.hashCode(), response2.hashCode());
 
     }
 
     @Test
     void testToString() {
-        Response response1 = new Response(4L, 5, 23, "katya", "answer");
-        assertEquals("Response{" +
+        GameResponse response1 = new GameResponse(4L, 5, 23, "katya", "answer");
+        assertEquals("GameResponse{" +
                 "gameId=" + response1.getGameId() +
                 ", timeSubmitted=" + response1.getTimeSubmitted() +
                 ", roundNumber=" + response1.getRoundNumber() +

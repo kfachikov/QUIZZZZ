@@ -13,9 +13,6 @@ import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
  */
 public class SinglePlayer extends Player {
 
-    /**
-     * Constructor for the single player.
-     */
     public SinglePlayer() {
         super();
     }

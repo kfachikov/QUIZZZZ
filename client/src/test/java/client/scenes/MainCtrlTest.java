@@ -19,19 +19,10 @@ import client.scenes.misc.MainCtrl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * The main controller test.
- */
 public class MainCtrlTest {
 
-    /**
-     * The main controller instance
-     */
     private MainCtrl sut;
 
-    /**
-     * Sets up the main controller instance before each method.
-     */
     @BeforeEach
     public void setup() {
         sut = new MainCtrl();
