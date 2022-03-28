@@ -23,8 +23,6 @@ class MultiPlayerStateTest {
 
     private List<GameResponse> answers;
     private List<GameResponse> answers2;
-    private List<GameResponse> answers3;
-    private List<GameResponse> answers4;
 
     private List<Activity> activities;
 
@@ -57,8 +55,6 @@ class MultiPlayerStateTest {
 
         answers = Arrays.asList(response1, response2);
         answers2 = Arrays.asList(response3, response4);
-        answers3 = Arrays.asList(response1, response4);
-        answers4 = Arrays.asList(response3, response2);
 
         activities = Arrays.asList(
                 new Activity("1", "title1", "source1", "image1", 250L),
@@ -73,9 +69,9 @@ class MultiPlayerStateTest {
 
         reaction = new Reaction(Arrays.asList("sad", "tired"));
 
-        game = new MultiPlayerState(37, 5500, 2, questions, answers, answers3, "question", players, reaction);
-        game2 = new MultiPlayerState(37, 5500, 2, questions, answers, answers3, "question", players, reaction);
-        game3 = new MultiPlayerState(37, 5500, 2, questions, answers2, answers4, "question", players, reaction);
+        game = new MultiPlayerState(37, 5500, 2, questions, answers, "question", players, reaction);
+        game2 = new MultiPlayerState(37, 5500, 2, questions, answers, "question", players, reaction);
+        game3 = new MultiPlayerState(37, 5500, 2, questions, answers2, "question", players, reaction);
     }
 
     @Test
@@ -116,11 +112,6 @@ class MultiPlayerStateTest {
     @Test
     public void testGetReaction() {
         assertEquals(reaction, game.getReaction());
-    }
-
-    @Test
-    public void testGetFinalAnswers() {
-        assertEquals(answers3, game.getFinalAnswers());
     }
 
     @Test

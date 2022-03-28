@@ -261,28 +261,36 @@ public class MultiPlayerStateUtils {
      */
     private void updateScore(MultiPlayerState game) {
         if (game.getState().equals(MultiPlayerState.TRANSITION_STATE)) {
-            List<GameResponse> playersResponse = computeFinalAnswer(game);
-            for (int i = 0; i < playersResponse.size(); i++) {
-                /*
-                Saves the latest response of the player in the list of answers submitted as final.
-                 */
-                game.getFinalAnswers().add(playersResponse.get(i));
+            for (int i = 0; i < game.getPlayers().size(); i++) {
+                List<GameResponse> playerAnswers = new ArrayList<>();
+                for (int j = 0; j < game.getSubmittedAnswers().size(); i++) {
+                    if (game.getSubmittedAnswers().get(i).getPlayerUsername()
+                            .equals(game.getPlayers().get(i).getUsername())) {
+                        playerAnswers.add(game.getSubmittedAnswers().get(i));
+                    }
 
-                /*
-                Clear the game from any previous answers.
-                 */
-                game.getSubmittedAnswers().clear();
-
+                }
+                GameResponse finalAnswer = computeFinalAnswer(playerAnswers);
+                if (finalAnswer == null) {
+                    finalAnswer = new GameResponse(
+                            game.getId(),
+                            Long.MAX_VALUE,
+                            game.getRoundNumber(),
+                            game.getPlayers().get(i).getUsername(),
+                            "wrong answer"
+                    );
+                }
                 /*
                 Use shared comparing functionality implemented in the class
-                MultiPlayerState.
+               MultiPlayerState.
                  */
-                if (game.compareAnswer()) {
+                if (game.compareAnswer(finalAnswer)) {
                     /*
                     If the answer submitted is the same, then the score is updated accordingly.
-                     */
+                    */
                     MultiPlayer player = game.getPlayers().get(i);
-                    player.setScore(player.getScore() + computeScore(playersResponse.get(i)));
+                    player.setScore(player.getScore() + computeScore(finalAnswer));
+
                 }
             }
         }
@@ -310,7 +318,7 @@ public class MultiPlayerStateUtils {
             }
             if (Integer.parseInt(correctAnswer) < Integer.parseInt(submittedAnswer)
                     && Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer) <= 500) {
-                points = (int) (100 +  (1.0 - response.getTimeSubmitted()) * 50.0 - 0.1 *
+                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0 - 0.1 *
                         (Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer)));
             } else {
                 points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0
@@ -330,35 +338,18 @@ public class MultiPlayerStateUtils {
      * returned. If the last answer choice is selected multiple times, the first
      * instance in the suffix of the answer choices is returned.
      *
-     * @param game Singleplayer game for which the answer is computed.
+     * @param responses The list of responses submitted by a player.
      * @return The true response of the player.
      */
-    public List<GameResponse> computeFinalAnswer(MultiPlayerState game) {
-        List<GameResponse> playersResponse = new ArrayList<>();
-        // Dummy response, if the player did not choose anything
-        for (int i = 0; i < game.getPlayers().size(); i++) {
-            GameResponse playerResponse = new GameResponse(
-                    game.getId(),
-                    Long.MAX_VALUE,
-                    game.getRoundNumber(),
-                    game.getPlayers().get(i).getUsername(),
-                    "wrong answer"
-            );
-            // Responses are sorted by the submission time.
-            Comparator<GameResponse> comp =
-                    (a, b) -> (int) (a.getTimeSubmitted() - b.getTimeSubmitted());
-            game.getSubmittedAnswers().sort(comp);
-            for (GameResponse response : game.getSubmittedAnswers()) {
-                // Only update the response if it differs
-                // This is done to avoid punishing the player from clicking
-                // the same response multiple times
-                if (!playerResponse.getAnswerChoice().equals(response.getAnswerChoice())) {
-                    playersResponse.add(response);
-
-                }
-            }
+    public GameResponse computeFinalAnswer(List<GameResponse> responses) {
+        if (responses.size() == 0) {
+            return null;
         }
-        return playersResponse;
+        int i = responses.size() - 1;
+        while (i > 0 && responses.get(i).equals(responses.get(i - 1))) {
+            i--;
+        }
+        return responses.get(i);
     }
 
     /**
@@ -407,7 +398,7 @@ public class MultiPlayerStateUtils {
         // Whoever is planning to work on reactions will almost definitely refactor this
         Reaction reaction = null;
         return new MultiPlayerState(id, nextPhase, roundNumber, questionList,
-                submittedAnswers, finalAnswers, state, players, reaction);
+                submittedAnswers, state, players, reaction);
     }
 
     /**

@@ -34,7 +34,6 @@ class MultiplayerStateControllerTest {
                 -1,
                 new ArrayList<>(),
                 new ArrayList<>(),
-                new ArrayList<>(),
                 MultiPlayerState.STARTING_STATE,
                 new ArrayList<>(),
                 null
