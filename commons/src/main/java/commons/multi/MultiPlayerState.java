@@ -49,8 +49,8 @@ public class MultiPlayerState extends GameState {
                             String state,
                             List<MultiPlayer> players, Reaction reaction) {
         super(id, nextPhase, roundNumber, questionList, submittedAnswers, state);
-        this.players = players;
         this.reaction = reaction;
+        this.players = players;
     }
 
     /**
@@ -78,6 +78,22 @@ public class MultiPlayerState extends GameState {
      */
     public void setPlayers(List<MultiPlayer> players) {
         this.players = players;
+    }
+
+    /**
+     * Comparing answer function making use of the abstract functionality declared
+     * in the parent abstract class of the different question types.
+     *
+     * @param response the response of the player.
+     * @return Boolean value corresponding to the correctness of the answer.
+     */
+    public boolean compareAnswer(GameResponse response) {
+        if (response == null) {
+            return false;
+        }
+        String chosenAnswer = response.getAnswerChoice();
+        String rightAnswer = getQuestionList().get(getRoundNumber()).getCorrectAnswer();
+        return chosenAnswer.equals(rightAnswer);
     }
 
     /**

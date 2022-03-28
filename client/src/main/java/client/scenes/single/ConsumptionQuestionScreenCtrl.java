@@ -20,8 +20,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-import java.util.Date;
-
 /**
  * Controller for the consumption question scene.
  */
@@ -125,7 +123,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
         server.postAnswer(new GameResponse(singlePlayerState.getId(),
-                new Date().getTime(),
+                time.getProgress(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
                 chosenAnswer.substring(0, chosenAnswer.length() - 2)

@@ -5,11 +5,9 @@ import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.multi.Reaction;
 import commons.question.AbstractQuestion;
+import commons.question.GuessQuestion;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Utility class providing functionality for the multiplayer game mode.
@@ -241,7 +239,7 @@ public class MultiPlayerStateUtils {
     public void switchToTransition(MultiPlayerState game) {
         long nextPhase = game.getNextPhase();
 
-        updateScores(game);
+        updateScore(game);
 
         game.setState(MultiPlayerState.TRANSITION_STATE);
         // 3 seconds for transition phase
@@ -249,12 +247,114 @@ public class MultiPlayerStateUtils {
     }
 
     /**
-     * Update scores of all the players.
+     * Update the score of the player and clear responses.
+     * <p>
+     * This method runs only in the transition state.
+     * <p>
+     * All responses from the player are aggregated (to determine the true response)
+     * and then cleared.
+     * <p>
+     * Finally, the player's score is updated based on their response (the timing,
+     * whether it is correct etc)
      *
-     * @param game Game whose players' scores is updated.
+     * @param game Game whose players' scores is updated (in the transition state).
      */
-    public void updateScores(MultiPlayerState game) {
+    private void updateScore(MultiPlayerState game) {
+        if (game.getState().equals(MultiPlayerState.TRANSITION_STATE)) {
+            for (int i = 0; i < game.getPlayers().size(); i++) {
+                List<GameResponse> playerAnswers = new ArrayList<>();
+                for (int j = 0; j < game.getSubmittedAnswers().size(); i++) {
+                    if (game.getSubmittedAnswers().get(i).getPlayerUsername()
+                            .equals(game.getPlayers().get(i).getUsername())) {
+                        playerAnswers.add(game.getSubmittedAnswers().get(i));
+                    }
 
+                }
+                GameResponse finalAnswer = computeFinalAnswer(playerAnswers);
+                if (finalAnswer == null) {
+                    finalAnswer = new GameResponse(
+                            game.getId(),
+                            Long.MAX_VALUE,
+                            game.getRoundNumber(),
+                            game.getPlayers().get(i).getUsername(),
+                            "wrong answer"
+                    );
+                }
+                /*
+                Use shared comparing functionality implemented in the class
+               MultiPlayerState.
+                 */
+                if (game.compareAnswer(finalAnswer)) {
+                    /*
+                    If the answer submitted is the same, then the score is updated accordingly.
+                    */
+                    MultiPlayer player = game.getPlayers().get(i);
+                    player.setScore(player.getScore() + computeScore(finalAnswer));
+
+                }
+            }
+        }
+    }
+
+    /**
+     * Compute the score of a response.
+     * If question's type is GuessQuestion then the score is computed based on how fast the answer was submitted and how close the player was to the actual answer.
+     * If question's type is not GuessQuestion then the score is computed based only on how fast the answer was submitted
+     * <p>
+     *
+     * @param response GameResponse of the player with a correct answer.
+     * @return Number of points to add to the player's score
+     */
+    private int computeScore(GameResponse response) {
+        int points = 0;
+        AbstractQuestion currentQuestion = games.get(response.getGameId()).getQuestionList()
+                .get(games.get(response.getGameId()).getRoundNumber());
+        if (currentQuestion instanceof GuessQuestion) {
+            String correctAnswer = currentQuestion.getCorrectAnswer();
+            String submittedAnswer = response.getAnswerChoice();
+            if (submittedAnswer.equals(correctAnswer)) {
+                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
+            }
+            if (Integer.parseInt(correctAnswer) < Integer.parseInt(submittedAnswer)
+                    && Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer) <= 500) {
+                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0 - 0.1 *
+                        (Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer)));
+            } else {
+                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0
+                        - 0.1 * (Integer.parseInt(correctAnswer)
+                        - Integer.parseInt(submittedAnswer)));
+            }
+        } else {
+            points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
+        }
+        return points;
+    }
+
+    /**
+     * Compute the final answer that the player chose.
+     * <p>
+     * The set of responses is iterated over, with the last answer choice being
+     * returned. If the last answer choice is selected multiple times, the first
+     * instance in the suffix of the answer choices is returned.
+     *
+     * @param responses The list of responses submitted by a player.
+     * @return The true response of the player.
+     */
+    public GameResponse computeFinalAnswer(List<GameResponse> responses) {
+        if (responses.size() == 0) {
+            return null;
+        }
+        Collections.sort(responses, ((o1, o2) -> (int) (o1.getTimeSubmitted() - o2.getTimeSubmitted())));
+        GameResponse playerGameResponse = responses.get(0);
+        for (GameResponse GameResponse : responses) {
+            // Only update the GameResponse if it differs
+            // This is done to avoid punishing the player from clicking
+            // the same GameResponse multiple times
+            if (!playerGameResponse.getAnswerChoice().equals(GameResponse.getAnswerChoice())) {
+                playerGameResponse = GameResponse;
+            }
+        }
+        return playerGameResponse;
     }
 
     /**
@@ -289,6 +389,7 @@ public class MultiPlayerStateUtils {
         int roundNumber = -1;
         List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions();
         List<GameResponse> submittedAnswers = new ArrayList<>();
+        List<GameResponse> finalAnswers = new ArrayList<>();
         String state = MultiPlayerState.NOT_STARTED_STATE;
         List<MultiPlayer> players = new ArrayList<>();
         // Comment: what does Reaction mean here?

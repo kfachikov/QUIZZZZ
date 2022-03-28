@@ -22,11 +22,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
-import java.util.Date;
-
-/**
- *  Controller for the GuessQuestionScreen.
- */
 public class GuessQuestionScreenCtrl extends QuestionScreen {
 
     private GuessQuestion question;
@@ -100,10 +95,9 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
-
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
         server.postAnswer(new GameResponse(singlePlayerState.getId(),
-                new Date().getTime(),
+                time.getProgress(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
                 chosenAnswer
