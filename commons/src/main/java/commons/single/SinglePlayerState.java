@@ -15,7 +15,6 @@ public class SinglePlayerState extends GameState {
     public static final String QUESTION_STATE = "QUESTION";
     public static final String GAME_OVER_STATE = "GAME_OVER";
     public static final String TRANSITION_STATE = "TRANSITION";
-    private static List<SinglePlayerLeaderboardScore> leaderboardScores;
     private SinglePlayer player;
     private List<Response> finalAnswers;
 
@@ -70,13 +69,6 @@ public class SinglePlayerState extends GameState {
      */
     public List<Response> getFinalAnswers() {
         return finalAnswers;
-    }
-
-    /**
-     * @return list of leaderboardscores
-     */
-    public static List<SinglePlayerLeaderboardScore> getLeaderboardScores() {
-        return leaderboardScores;
     }
 
     /**
