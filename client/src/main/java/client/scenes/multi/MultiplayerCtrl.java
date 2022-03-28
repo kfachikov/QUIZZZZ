@@ -249,6 +249,7 @@ public class MultiplayerCtrl {
      */
     private void showConsumptionQuestion(ConsumptionQuestion question) {
         consumptionQuestionScreenCtrl.setGameStateLabelText(question.debugString());
+        consumptionQuestionScreenCtrl.setQuestion(question);
         mainCtrl.getPrimaryStage().setScene(consumptionQuestionScreen);
     }
 
@@ -259,6 +260,7 @@ public class MultiplayerCtrl {
      */
     private void showGuessQuestion(GuessQuestion question) {
         guessQuestionScreenCtrl.setGameStateLabelText(question.debugString());
+        guessQuestionScreenCtrl.setQuestion(question);
         mainCtrl.getPrimaryStage().setScene(guessQuestionScreen);
     }
 
@@ -269,6 +271,7 @@ public class MultiplayerCtrl {
      */
     private void showInsteadQuestion(InsteadQuestion question) {
         insteadQuestionScreenCtrl.setGameStateLabelText(question.debugString());
+        insteadQuestionScreenCtrl.setQuestion(question);
         mainCtrl.getPrimaryStage().setScene(insteadQuestionScreen);
 
     }
@@ -280,6 +283,7 @@ public class MultiplayerCtrl {
      */
     private void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
         moreExpensiveQuestionScreenCtrl.setGameStateLabelText(question.debugString());
+        moreExpensiveQuestionScreenCtrl.setQuestion(question);
         mainCtrl.getPrimaryStage().setScene(moreExpensiveQuestionScreen);
     }
 
