@@ -193,7 +193,7 @@ public class ServerUtils {
     }
 
     /**
-     * @return it returns a client SinglePlayerLeaderboardScore.
+     * @return it returns a list SinglePlayerLeaderboardScore.
      */
     public List<SinglePlayerLeaderboardScore> getLeaderboardEntry() {
         return ClientBuilder.newClient(new ClientConfig())
