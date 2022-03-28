@@ -95,7 +95,7 @@ public class PrepScreenCtrl {
      * loads up the leaderboard on the prep screen.
      */
     public void initialize() {
-        List<SinglePlayerLeaderboardScore> leaderboardScores = SinglePlayerState.getLeaderboardScores();
+        List<SinglePlayerLeaderboardScore> leaderboardScores = null;
 
         int currentNodeIndex = 0;
         List<Node> presentPlayers = bubbles.getChildren();
