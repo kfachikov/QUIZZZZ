@@ -2,7 +2,6 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
-import commons.multi.MultiPlayerState;
 import commons.question.ConsumptionQuestion;
 import commons.misc.GameResponse;
 import javafx.event.ActionEvent;

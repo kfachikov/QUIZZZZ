@@ -4,7 +4,6 @@ import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
 import commons.misc.GameResponse;
 import commons.question.MoreExpensiveQuestion;
-import jakarta.ws.rs.core.Response;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

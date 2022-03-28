@@ -339,6 +339,7 @@ public class MultiplayerCtrl {
      * Getter for the game id.
      *
      * @return the id of the game.
+     * @param game is a MultiPlayerState
      */
     public long getNumber(MultiPlayerState game) {
         return game.getRoundNumber();
