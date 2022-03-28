@@ -1,12 +1,13 @@
-package client.scenes.single;
+package client.scenes.single.question;
 
 import client.scenes.misc.MainCtrl;
+import client.scenes.single.QuestionScreen;
 import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.misc.Response;
-import commons.question.InsteadQuestion;
+import commons.question.ConsumptionQuestion;
 import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,13 +17,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Text;
 
 import java.util.Date;
 
-public class InsteadQuestionScreenCtrl extends QuestionScreen {
+/**
+ * Controller for the consumption question scene.
+ */
+public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
-    private InsteadQuestion question;
+    private ConsumptionQuestion question;
 
     @FXML
     private AnchorPane window;
@@ -43,24 +46,23 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     private ImageView image;
 
     @FXML
+    private Label questionTitle;
+
+    @FXML
     private ProgressBar time;
 
     @FXML
     private Button leaveButton;
 
-    @FXML
-    private Label questionTitle;
-
-    @FXML
-    private Text description;
-
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
-     * @param server is the server variable
+     *
+     * @param server   is the server variable
      * @param mainCtrl is the main controller variable
+     * @param pollingService is the injected polling service to be used to poll the game state.
      */
     @Inject
-    public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+    public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
         super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 
@@ -103,6 +105,8 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * Sends a string to the server sa a chosen answer from the player.
+     * The last two symbols from the string should be removed, as they
+     * denote the "Wh" in the button text field.
      *
      * @param chosenAnswer String value of button clicked - answer chosen
      */
@@ -112,8 +116,8 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
                 new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
-                chosenAnswer
-        ));
+                chosenAnswer.substring(0, chosenAnswer.length() - 2)
+                ));
     }
 
     /**
@@ -127,30 +131,17 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
 
     /**
-     * Sets the current score.
-     *
-     * @param score is the current score of the player
-     */
-    public void setScore(int score) {
-        currentScore.setText(String.valueOf(score));
-    }
-
-    /**
      * Sets the question to the chosen questionText.
      */
     public void setQuestionPrompt() {
         questionTitle.setText(question.toString());
     }
 
-    public InsteadQuestion getQuestion() {
+    public ConsumptionQuestion getQuestion() {
         return question;
     }
 
-    /**
-     * Sets the question and the corresponding fields with proper information.
-     * @param question Question to be visualized on the particular scene.
-     */
-    public void setQuestion(InsteadQuestion question) {
+    public void setQuestion(ConsumptionQuestion question) {
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);
@@ -166,9 +157,9 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
         The following setup was made purely for testing purposes.
         Should be optimized - extracted as functionality (eventually).
          */
-        firstAnswer.setText(question.getAnswerChoices().get(0).getTitle());
-        secondAnswer.setText(question.getAnswerChoices().get(1).getTitle());
-        thirdAnswer.setText(question.getAnswerChoices().get(2).getTitle());
+        firstAnswer.setText(question.getAnswerChoices().get(0) + "Wh");
+        secondAnswer.setText(question.getAnswerChoices().get(1) + "Wh");
+        thirdAnswer.setText(question.getAnswerChoices().get(2) + "Wh");
     }
 
     /**

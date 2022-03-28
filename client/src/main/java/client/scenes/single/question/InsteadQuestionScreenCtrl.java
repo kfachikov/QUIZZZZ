@@ -1,11 +1,13 @@
-package client.scenes.single;
+package client.scenes.single.question;
+
 import client.scenes.misc.MainCtrl;
+import client.scenes.single.QuestionScreen;
 import client.services.GameStatePollingService;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.misc.Response;
-import commons.question.MoreExpensiveQuestion;
+import commons.question.InsteadQuestion;
 import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,9 +21,9 @@ import javafx.scene.text.Text;
 
 import java.util.Date;
 
-public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
+public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
-    private MoreExpensiveQuestion question;
+    private InsteadQuestion question;
 
     @FXML
     private AnchorPane window;
@@ -39,6 +41,9 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     private Button thirdAnswer;
 
     @FXML
+    private ImageView image;
+
+    @FXML
     private ProgressBar time;
 
     @FXML
@@ -48,32 +53,15 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     private Label questionTitle;
 
     @FXML
-    private ImageView image1;
-
-    @FXML
-    private ImageView image2;
-
-    @FXML
-    private ImageView image3;
-
-    @FXML
-    private Text description1;
-
-    @FXML
-    private Text description2;
-
-    @FXML
-    private Text description3;
-
+    private Text description;
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
-     *
-     * @param server   is the server variable
+     * @param server is the server variable
      * @param mainCtrl is the main controller variable
      */
     @Inject
-    public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+    public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
         super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 
@@ -85,89 +73,33 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
      */
     @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
-
         firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                /*
-                The change in the following line was made so that the button can lack text.
-                Otherwise, it could overlap with the image, which would disrupt the client.
-                 */
-                submitAnswer(description1.getText());
+                submitAnswer(firstAnswer.getText());
                 firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
                 thirdAnswer.setDisable(true);
             }
         });
-
-        image1.setOnMouseClicked(e -> {
-            submitAnswer(description1.getText());
-            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
-        });
-
-        description1.setOnMouseClicked(e -> {
-            submitAnswer(description1.getText());
-            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
-        });
-
         secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                submitAnswer(description2.getText());
+                submitAnswer(secondAnswer.getText());
                 secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
                 thirdAnswer.setDisable(true);
             }
         });
-
-        image2.setOnMouseClicked(e -> {
-            submitAnswer(description2.getText());
-            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
-        });
-
-        description2.setOnMouseClicked(e -> {
-            submitAnswer(description2.getText());
-            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
-        });
-
         thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                submitAnswer(description3.getText());
+                submitAnswer(thirdAnswer.getText());
                 thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
                 thirdAnswer.setDisable(true);
             }
         });
-
-        image3.setOnMouseClicked(e -> {
-            submitAnswer(description3.getText());
-            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
-        });
-
-        description3.setOnMouseClicked(e -> {
-            submitAnswer(description3.getText());
-            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
-        });
-
     }
 
     /**
@@ -185,13 +117,22 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         ));
     }
 
-
     /**
      * Sets the current score.
      *
      * @param score is the current score of the player
      */
     public void setScore(long score) {
+        currentScore.setText(String.valueOf(score));
+    }
+
+
+    /**
+     * Sets the current score.
+     *
+     * @param score is the current score of the player
+     */
+    public void setScore(int score) {
         currentScore.setText(String.valueOf(score));
     }
 
@@ -202,12 +143,15 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         questionTitle.setText(question.toString());
     }
 
+    public InsteadQuestion getQuestion() {
+        return question;
+    }
 
     /**
      * Sets the question and the corresponding fields with proper information.
      * @param question Question to be visualized on the particular scene.
      */
-    public void setQuestion(MoreExpensiveQuestion question) {
+    public void setQuestion(InsteadQuestion question) {
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);
@@ -217,18 +161,15 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
         thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
 
-
         this.question = question;
         setQuestionPrompt();
-
-        description1.setText(question.getAnswerChoices().get(0).getTitle());
-        description2.setText(question.getAnswerChoices().get(1).getTitle());
-        description3.setText(question.getAnswerChoices().get(2).getTitle());
-    }
-
-
-    public MoreExpensiveQuestion getQuestion() {
-        return question;
+        /*
+        The following setup was made purely for testing purposes.
+        Should be optimized - extracted as functionality (eventually).
+         */
+        firstAnswer.setText(question.getAnswerChoices().get(0).getTitle());
+        secondAnswer.setText(question.getAnswerChoices().get(1).getTitle());
+        thirdAnswer.setText(question.getAnswerChoices().get(2).getTitle());
     }
 
     /**
