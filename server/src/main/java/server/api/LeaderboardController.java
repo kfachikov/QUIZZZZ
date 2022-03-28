@@ -51,5 +51,4 @@ public class LeaderboardController {
     private static boolean isNullOrEmpty(String s) {
         return s == null || s.isEmpty();
     }
-    
 }
