@@ -96,9 +96,6 @@ public abstract class QuestionScreen {
         if (confirmation.get() == yesButton) {
             singlePlayerUtils.stopPollingService();
             mainCtrl.showHome();
-            firstAnswer.setDisable(false);
-            secondAnswer.setDisable(false);
-            thirdAnswer.setDisable(false);
         }
 
     }
