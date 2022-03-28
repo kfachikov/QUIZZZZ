@@ -21,7 +21,7 @@ import java.util.Date;
 /**
  * Controller responsible for the multiplayer game more expensive question screen.
  */
-public class MultiGameQuestionDScreenCtrl {
+public class MultiGameMoreExpensiveQuestionScreenCtrl {
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
@@ -92,18 +92,15 @@ public class MultiGameQuestionDScreenCtrl {
     private Button emojiButton4;
 
     /**
-     * Constructor for the multiplayer game question screen.
+     * Constructor for the multiplayer game more expensive question screen.
      *
      * @param multiCtrl Injected instance of MultiplayerCtrl
      * @param server is the server variable
      */
     @Inject
-    public MultiGameQuestionDScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server, MultiPlayer multiPlayer,
-                                        MultiPlayerState multiPlayerState) {
+    public MultiGameMoreExpensiveQuestionScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server) {
         this.multiCtrl = multiCtrl;
         this.server = server;
-        this.multiPlayer = multiPlayer;
-        this.multiPlayerState = multiPlayerState;
     }
 
     /**

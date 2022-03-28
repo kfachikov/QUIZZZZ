@@ -22,7 +22,7 @@ import java.util.Date;
 /**
  * Controller responsible for the multiplayer game guess question screen.
  */
-public class MultiGameQuestionBScreenCtrl {
+public class MultiGameGuessQuestionScreenCtrl {
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
@@ -81,7 +81,7 @@ public class MultiGameQuestionBScreenCtrl {
      * @param server is the server variable
      */
     @Inject
-    public MultiGameQuestionBScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server) {
+    public MultiGameGuessQuestionScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server) {
         this.multiCtrl = multiCtrl;
         this.server = server;
     }

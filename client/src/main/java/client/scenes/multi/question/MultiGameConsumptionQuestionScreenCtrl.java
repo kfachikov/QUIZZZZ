@@ -2,8 +2,7 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
-import commons.question.InsteadQuestion;
-import jakarta.ws.rs.core.Response;
+import commons.question.ConsumptionQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,14 +18,14 @@ import javax.inject.Inject;
 import java.util.Date;
 
 /**
- * Controller responsible for the multiplayer game instead question screen.
+ * Controller responsible for the multiplayer game consumption question screen.
  */
-public class MultiGameQuestionCScreenCtrl {
+public class MultiGameConsumptionQuestionScreenCtrl {
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
 
-    private InsteadQuestion question;
+    private ConsumptionQuestion question;
 
     @FXML
     private Label gameStateLabel;
@@ -86,7 +85,7 @@ public class MultiGameQuestionCScreenCtrl {
      * @param server is the server variable
      */
     @Inject
-    public MultiGameQuestionCScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server) {
+    public MultiGameConsumptionQuestionScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server) {
         this.multiCtrl = multiCtrl;
         this.server = server;
     }
@@ -180,11 +179,11 @@ public class MultiGameQuestionCScreenCtrl {
         questionTitle.setText(question.toString());
     }
 
-    public InsteadQuestion getQuestion() {
+    public ConsumptionQuestion getQuestion() {
         return question;
     }
 
-    public void setQuestion(InsteadQuestion question) {
+    public void setQuestion(ConsumptionQuestion question) {
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);

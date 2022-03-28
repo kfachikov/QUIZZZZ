@@ -23,10 +23,10 @@ import client.scenes.multi.LeaderboardScreenCtrl;
 import client.scenes.multi.MultiGameMockScreenCtrl;
 import client.scenes.multi.MultiplayerCtrl;
 import client.scenes.multi.QueueScreenCtrl;
-import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
-import client.scenes.multi.question.MultiGameQuestionBScreenCtrl;
-import client.scenes.multi.question.MultiGameQuestionCScreenCtrl;
-import client.scenes.multi.question.MultiGameQuestionDScreenCtrl;
+import client.scenes.multi.question.MultiGameConsumptionQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameGuessQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameInsteadQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl;
 import client.scenes.single.*;
 import client.scenes.single.question.ConsumptionQuestionScreenCtrl;
 import client.scenes.single.question.GuessQuestionScreenCtrl;
@@ -91,17 +91,17 @@ public class Main extends Application {
 
 
         var consumptionMulti = FXML.load(
-                MultiGameQuestionAScreenCtrl.class, "client", "scenes", "multi", "question",
-                "MultiGameQuestionAScreen.fxml");
+                MultiGameConsumptionQuestionScreenCtrl.class, "client", "scenes", "multi", "question",
+                "MultiGameConsumptionQuestionScreen.fxml");
         var guessMulti = FXML.load(
-                MultiGameQuestionBScreenCtrl.class, "client", "scenes", "multi", "question",
-                "MultiGameQuestionBScreen.fxml");
+                MultiGameGuessQuestionScreenCtrl.class, "client", "scenes", "multi", "question",
+                "MultiGameGuessQuestionScreen.fxml");
         var insteadMulti = FXML.load(
-                MultiGameQuestionCScreenCtrl.class, "client", "scenes", "multi", "question",
-                "MultiGameQuestionCScreen.fxml");
+                MultiGameInsteadQuestionScreenCtrl.class, "client", "scenes", "multi", "question",
+                "MultiGameInsteadQuestionScreen.fxml");
         var moreExpensiveMulti = FXML.load(
-                MultiGameQuestionDScreenCtrl.class, "client", "scenes", "multi", "question",
-                "MultiGameQuestionDScreen.fxml");
+                MultiGameMoreExpensiveQuestionScreenCtrl.class, "client", "scenes", "multi", "question",
+                "MultiGameMoreExpensiveQuestionScreen.fxml");
         var mockMulti = FXML.load(
                 MultiGameMockScreenCtrl.class, "client", "scenes", "multi",
                 "MultiGameMockScreen.fxml");
