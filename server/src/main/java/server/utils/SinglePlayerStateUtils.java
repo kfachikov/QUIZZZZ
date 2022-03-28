@@ -6,7 +6,6 @@ import commons.question.AbstractQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import server.database.ActivityRepository;
 
@@ -135,7 +134,8 @@ public class SinglePlayerStateUtils {
      * <p>
      * TODO: this method is just a mock method, and returns 100.
      *
-     * @param response Response of the player with a correct answer. TODO: The time submitted to be used for computations.
+     * @param response Response of the player with a correct answer.
+     *                 TODO: The time submitted to be used for computations.
      * @return Number of points to add to the player's score
      */
     private int computeScore(Response response) {
@@ -182,6 +182,7 @@ public class SinglePlayerStateUtils {
      *
      * @param player Player who is playing in the game
      * @return The newly constructed SinglePlayer game state
+     * @param repo is an activity repository
      */
     public SinglePlayerState createSingleGame(SinglePlayer player,
                                                ActivityRepository repo) {
