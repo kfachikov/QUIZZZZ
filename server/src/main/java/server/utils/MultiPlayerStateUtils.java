@@ -307,11 +307,9 @@ public class MultiPlayerStateUtils {
      */
     private int computeScore(GameResponse response) {
         int points = 0;
-        if (games.get(response.getGameId()).getQuestionList().get(games.get(response.getGameId()).getRoundNumber())
-                instanceof GuessQuestion) {
-            String correctAnswer = games.get(response.getGameId()).getQuestionList()
-                    .get(games.get(response.getGameId()).getRoundNumber())
-                    .getCorrectAnswer();
+        AbstractQuestion currentQuestion = games.get(response.getGameId()).getQuestionList().get(games.get(response.getGameId()).getRoundNumber());
+        if (currentQuestion instanceof GuessQuestion) {
+            String correctAnswer = currentQuestion.getCorrectAnswer();
             String submittedAnswer = response.getAnswerChoice();
             if (submittedAnswer.equals(correctAnswer)) {
                 points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
