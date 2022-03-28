@@ -2,6 +2,7 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
+import commons.misc.GameResponse;
 import commons.question.MoreExpensiveQuestion;
 import jakarta.ws.rs.core.Response;
 import javafx.event.ActionEvent;
@@ -167,9 +168,9 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
-        server.postAnswer(new Response(multiCtrl.getId(),
+        server.postAnswer(new GameResponse(multiCtrl.getId(),
                 new Date().getTime(),
-                multiCtrl.getRoundNumber(),
+                multiCtrl.getNumber(),
                 multiCtrl.getUsername(),
                 chosenAnswer.substring(0, chosenAnswer.length() - 2)
         ));

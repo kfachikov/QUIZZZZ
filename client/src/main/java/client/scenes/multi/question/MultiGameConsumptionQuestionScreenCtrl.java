@@ -2,7 +2,9 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
+import commons.multi.MultiPlayerState;
 import commons.question.ConsumptionQuestion;
+import commons.misc.GameResponse;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -154,9 +156,9 @@ public class MultiGameConsumptionQuestionScreenCtrl {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
-        server.postAnswer(new Response(multiCtrl.getId(),
+        server.postAnswer(new GameResponse(multiCtrl.getId(),
                 new Date().getTime(),
-                multiCtrl.getRoundNumber(),
+                multiCtrl.getNumber(),
                 multiCtrl.getUsername(),
                 chosenAnswer.substring(0, chosenAnswer.length() - 2)
         ));

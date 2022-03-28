@@ -55,6 +55,7 @@ public class MultiplayerCtrl {
 
     private long gameId;
     private String username;
+    private int roundNumber;
 
     private final ChangeListener<MultiPlayerState> onPoll = (observable, oldValue, newValue) -> {
         // If state has changed, we probably have to switch scenes
@@ -132,10 +133,12 @@ public class MultiplayerCtrl {
      *
      * @param gameId   Id of the multiplayer game
      * @param username Name of the player in the game
+     * @param roundNumber number of the round in the game
      */
-    public void start(long gameId, String username) {
+    public void start(long gameId, String username, int roundNumber) {
         this.gameId = gameId;
         this.username = username;
+        this.roundNumber = roundNumber;
 
         pollingService.start(gameId);
         serverUtils.addMultiPlayer(gameId, new MultiPlayer(username, 0, true, true, true));
@@ -324,6 +327,19 @@ public class MultiplayerCtrl {
      */
     public String getUsername() {
         return username;
+    }
+
+    /**
+     * Getter for the game id.
+     *
+     * @return the id of the game.
+     */
+    public long getId() {
+        return gameId;
+    }
+
+    public int getNumber() {
+        return roundNumber;
     }
 
     /**
