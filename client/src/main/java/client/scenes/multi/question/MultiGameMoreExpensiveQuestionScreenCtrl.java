@@ -170,7 +170,7 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl {
     public void submitAnswer(String chosenAnswer) {
         server.postAnswer(new GameResponse(multiCtrl.getId(),
                 new Date().getTime(),
-                multiCtrl.getNumber(),
+                (int) multiCtrl.getNumber(server.getMultiGameState(multiCtrl.getId())),
                 multiCtrl.getUsername(),
                 chosenAnswer.substring(0, chosenAnswer.length() - 2)
         ));

@@ -57,9 +57,6 @@
             <Font size="20.0" />
          </font></Text>
       <ImageView fx:id="image" fitHeight="180.0" fitWidth="180.0" layoutX="19.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../images/image.png" />
-         </image>
       </ImageView>
       <Button fx:id="twicePoints" layoutX="500.0" layoutY="70.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="76.0">
          <graphic>

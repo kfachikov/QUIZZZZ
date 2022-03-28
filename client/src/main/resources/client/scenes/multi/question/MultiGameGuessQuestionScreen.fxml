@@ -49,9 +49,6 @@
          </font>
       </TextField>
       <ImageView fx:id="image" fitHeight="140.0" fitWidth="440.0" layoutX="24.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../images/image.png" />
-         </image>
       </ImageView>
       <Button fx:id="twicePoints" layoutX="500.0" layoutY="70.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="76.0">
          <graphic>

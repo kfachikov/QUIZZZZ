@@ -4,6 +4,7 @@ import client.scenes.misc.MainCtrl;
 import client.services.QueueCountdownService;
 import client.services.QueuePollingService;
 import client.utils.ServerUtils;
+import commons.multi.MultiPlayerState;
 import commons.queue.QueueUser;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;

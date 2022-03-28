@@ -43,9 +43,6 @@
          </font>
          <graphic>
             <ImageView fx:id="image1" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../images/image.png" />
-               </image>
             </ImageView>
          </graphic>
       </Button>
@@ -55,9 +52,6 @@
          </font>
          <graphic>
             <ImageView fx:id="image2" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../images/image.png" />
-               </image>
             </ImageView>
          </graphic>
       </Button>
@@ -67,9 +61,6 @@
          </font>
          <graphic>
             <ImageView fx:id="image3" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../images/image.png" />
-               </image>
             </ImageView>
          </graphic>
       </Button>
