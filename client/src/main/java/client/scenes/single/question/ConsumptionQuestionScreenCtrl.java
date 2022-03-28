@@ -60,9 +60,11 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      * @param server   is the server variable
      * @param mainCtrl is the main controller variable
      * @param pollingService is the injected polling service to be used to poll the game state.
+     * @param singlePlayerUtils is a SinglePlayerUtils
      */
     @Inject
-    public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
+    public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl, GameStatePollingService pollingService,
+                                         SinglePlayerUtils singlePlayerUtils) {
         super(server, mainCtrl, pollingService, singlePlayerUtils);
     }
 
@@ -164,6 +166,7 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * Getter for the window object - used to change the background in MainCtrl.
+     *
      * @return AnchorPane object with reference to the particular window of this scene.
      */
     public AnchorPane getWindow() {
