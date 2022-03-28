@@ -10,32 +10,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-/**
- * Class for the Mock queue countdown service in multiplayer.
- */
 public class MockQueueCountdownService extends QueueCountdownService {
-
 
     public Queue<Object> returnValues;
 
     public List<String> calledMethods;
 
-    /**
-     * Constructor for the mock queue countdown service.
-     *
-     * @param server the server instance
-     */
     public MockQueueCountdownService(ServerUtils server) {
         super(server);
         this.calledMethods = new ArrayList<>();
         this.returnValues = new LinkedList<>();
     }
 
-    /**
-     * Adds the method to the called methods list.
-     *
-     * @param method method name.
-     */
     private void call(String method) {
         calledMethods.add(method);
     }

@@ -7,9 +7,6 @@ import server.database.LeaderboardRepository;
 
 import java.util.List;
 
-/**
- * Class for the leaderboard controller.
- */
 @RestController
 @RequestMapping("/api/leaderboard/players")
 public class LeaderboardController {
@@ -19,7 +16,7 @@ public class LeaderboardController {
     /**
      * Constructor for the user controller.
      *
-     * @param repo User repository final instance.
+     * @param repo User repository final instance
      */
     public LeaderboardController(LeaderboardRepository repo) {
         this.repo = repo;
@@ -36,16 +33,15 @@ public class LeaderboardController {
     }
 
     /**
-     * @param leaderboardEntry the user to be added to the SingleUser repository
+     * @param entry the user to be added to the SingleUser repository
      * @return response
      */
     @PostMapping("")
-    public ResponseEntity<SinglePlayerLeaderboardScore> add(@RequestBody SinglePlayerLeaderboardScore
-                                                                        leaderboardEntry) {
-        if (leaderboardEntry == null || isNullOrEmpty(leaderboardEntry.getUsername())) {
+    public ResponseEntity<SinglePlayerLeaderboardScore> add(@RequestBody SinglePlayerLeaderboardScore entry) {
+        if (entry == null || isNullOrEmpty(entry.getUsername())) {
             return ResponseEntity.badRequest().build();
         }
-        SinglePlayerLeaderboardScore saved = repo.save(leaderboardEntry);
+        SinglePlayerLeaderboardScore saved = repo.save(entry);
         return ResponseEntity.ok(saved);
     }
 
@@ -58,5 +54,5 @@ public class LeaderboardController {
     private static boolean isNullOrEmpty(String s) {
         return s == null || s.isEmpty();
     }
-    
+
 }

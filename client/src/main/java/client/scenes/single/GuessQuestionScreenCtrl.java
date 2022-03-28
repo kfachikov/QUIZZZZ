@@ -1,15 +1,21 @@
 package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
-import client.services.GameStatePollingService;
+import client.services.SingleplayerGameStatePollingService;
+import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
-import commons.misc.Response;
+import commons.misc.GameResponse;
 import commons.question.GuessQuestion;
 import commons.single.SinglePlayerState;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -19,7 +25,7 @@ import javafx.scene.text.Text;
 import java.util.Date;
 
 /**
- * The screen controller for the guess question type.
+ *  Controller for the GuessQuestionScreen.
  */
 public class GuessQuestionScreenCtrl extends QuestionScreen {
 
@@ -52,24 +58,24 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param pollingService is the polling service variable.
-     *
-     * @param singlePlayerUtils is the singleplayer utilities variable.
-     *
-     * @param server   is the server variable.
-     *
-     * @param mainCtrl is the main controller variable
+     * @param server             is the server variable
+     * @param mainCtrl           is the main controller variable
+     * @param pollingService     is the injected polling service to be used to poll the game state.
+     * @param activityImageUtils is the utilities class responsible for fetching an image of an activity.
+     * @param singlePlayerUtils  is the injected singleplayer utils for managing logic
      */
     @Inject
     public GuessQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
-                                   GameStatePollingService pollingService, SinglePlayerUtils singlePlayerUtils) {
-        super(server, mainCtrl, pollingService, singlePlayerUtils);
+                                   SingleplayerGameStatePollingService pollingService,
+                                   ActivityImageUtils activityImageUtils,
+                                   SinglePlayerUtils singlePlayerUtils) {
+        super(server, mainCtrl, pollingService, activityImageUtils, singlePlayerUtils);
     }
 
 
     /**
      * Initializes the single-player game controller by:
-     *
+     * <p>
      * Binding answer choices to a method submitting that answer.
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
@@ -78,10 +84,13 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
         input.setDisable(false);
         input.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
 
-        input.setOnAction(e -> {
-            submitAnswer(input.getText());
-            input.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            input.setDisable(true);
+        input.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                submitAnswer(input.getText());
+                input.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+                input.setDisable(true);
+            }
         });
     }
 
@@ -93,7 +102,7 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
     public void submitAnswer(String chosenAnswer) {
 
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new Response(singlePlayerState.getId(),
+        server.postAnswer(new GameResponse(singlePlayerState.getId(),
                 new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
@@ -121,7 +130,7 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
     }
 
     /**
-     * Setter for the question prompt.
+     * Setter for the question title.
      */
     public void setQuestionPrompt() {
         questionTitle.setText(question.toString());
@@ -129,10 +138,15 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * Sets the current question.
+     * Initialises the image, description and input field.
      *
-     * @param question  GuessQuestion instance to be used.
+     * @param question GuessQuestion instance to be used.
      */
     public void setQuestion(GuessQuestion question) {
+
+        var activityImage = getActivityImage(question.getActivity());
+        image.setImage(activityImage);
+
         this.question = question;
         inputFieldDefault();
         description.setText(question.getActivity().getTitle());
@@ -169,10 +183,11 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
     /**
      * Overridden getTime() methods. Used to access the private time field.
      *
-     * @return  Reference to the JavaFX node in the scene corresponding to this controller.
+     * @return Reference to the JavaFX node in the scene corresponding to this controller.
      */
     @Override
     public ProgressBar getTime() {
         return time;
     }
+
 }

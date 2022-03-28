@@ -1,7 +1,7 @@
 package commons.single;
 
 import commons.misc.Activity;
-import commons.misc.Response;
+import commons.misc.GameResponse;
 import commons.question.AbstractQuestion;
 import commons.question.GuessQuestion;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,16 +16,16 @@ class SinglePlayerStateTest {
 
     private List<AbstractQuestion> questions;
 
-    private Response response1;
-    private Response response2;
-    private Response response3;
-    private Response response4;
+    private GameResponse gameResponse1;
+    private GameResponse gameResponse2;
+    private GameResponse gameResponse3;
+    private GameResponse gameResponse4;
 
-    private List<Response> finalAnswers;
-    private List<Response> finalAnswers2;
+    private List<GameResponse> finalAnswers;
+    private List<GameResponse> finalAnswers2;
 
-    private List<Response> answers;
-    private List<Response> answers2;
+    private List<GameResponse> answers;
+    private List<GameResponse> answers2;
 
     private List<Activity> activities;
 
@@ -48,16 +48,16 @@ class SinglePlayerStateTest {
                 )
         );
 
-        response1 = new Response(37, 5287, 2, "Kate", "200Wh");
-        response2 = new Response(37, 5300, 2, "Lu", "500Wh");
-        response3 = new Response(37, 5386, 2, "Kate", "500Wh");
-        response4 = new Response(37, 5360, 2, "Lu", "200Wh");
+        gameResponse1 = new GameResponse(37, 5287, 2, "Kate", "200Wh");
+        gameResponse2 = new GameResponse(37, 5300, 2, "Lu", "500Wh");
+        gameResponse3 = new GameResponse(37, 5386, 2, "Kate", "500Wh");
+        gameResponse4 = new GameResponse(37, 5360, 2, "Lu", "200Wh");
 
-        answers = Arrays.asList(response1, response3);
-        answers2 = Arrays.asList(response2, response4);
+        answers = Arrays.asList(gameResponse1, gameResponse3);
+        answers2 = Arrays.asList(gameResponse2, gameResponse4);
 
-        finalAnswers = Arrays.asList(response3);
-        finalAnswers2 = Arrays.asList(response4);
+        finalAnswers = Arrays.asList(gameResponse3);
+        finalAnswers2 = Arrays.asList(gameResponse4);
 
         activities = Arrays.asList(
                 new Activity("1", "title1", "source1", "image1", 250L),
@@ -68,9 +68,9 @@ class SinglePlayerStateTest {
 
         player2 = new SinglePlayer("Lu", 10);
 
-        game = new SinglePlayerState(37, 5500, 2, questions, finalAnswers, answers, activities, "question", player1);
-        game2 = new SinglePlayerState(37, 5500, 2, questions, finalAnswers, answers, activities, "question", player1);
-        game3 = new SinglePlayerState(37, 5500, 2, questions, finalAnswers2, answers2, activities, "question", player2);
+        game = new SinglePlayerState(37, 5500, 2, questions, finalAnswers, answers, "question", player1);
+        game2 = new SinglePlayerState(37, 5500, 2, questions, finalAnswers, answers, "question", player1);
+        game3 = new SinglePlayerState(37, 5500, 2, questions, finalAnswers2, answers2, "question", player2);
     }
 
     @Test
@@ -96,11 +96,6 @@ class SinglePlayerStateTest {
     @Test
     public void testGetSubmittedAnswers() {
         assertEquals(answers, game.getSubmittedAnswers());
-    }
-
-    @Test
-    public void testGetActivityList() {
-        assertEquals(activities, game.getActivityList());
     }
 
     @Test
@@ -141,7 +136,7 @@ class SinglePlayerStateTest {
 
     @Test
     public void testSetSubmittedAnswers() {
-        List<Response> newAnswers = Arrays.asList(response3);
+        List<GameResponse> newAnswers = Arrays.asList(gameResponse3);
         game.setSubmittedAnswers(newAnswers);
 
         assertEquals(newAnswers, game.getSubmittedAnswers());
