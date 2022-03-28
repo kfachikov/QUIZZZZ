@@ -95,7 +95,7 @@ public class PrepScreenCtrl {
      * loads up the leaderboard on the prep screen.
      */
     public void initialize() {
-        List<SinglePlayerLeaderboardScore> leaderboardScores = null;
+        List<SinglePlayerLeaderboardScore> leaderboardScores = server.getLeaderboardEntry();
 
         int currentNodeIndex = 0;
         List<Node> presentPlayers = bubbles.getChildren();
@@ -109,10 +109,9 @@ public class PrepScreenCtrl {
                 break;
             }
         }
-        for (int i = currentNodeIndex; i <= PLAYERSCOUNT; i++) {
+        for (int i = currentNodeIndex; i < PLAYERSCOUNT; i++) {
             Node currentNode = presentPlayers.get(currentNodeIndex);
             currentNode.setVisible(false);
         }
-
     }
 }

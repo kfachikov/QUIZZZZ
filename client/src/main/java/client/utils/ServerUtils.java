@@ -191,4 +191,17 @@ public class ServerUtils {
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<Activity>>() {});
     }
+
+    /**
+     * @return it returns a client SinglePlayerLeaderboardScore.
+     */
+    public List<SinglePlayerLeaderboardScore> getLeaderboardEntry() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/leaderboard/players")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<SinglePlayerLeaderboardScore>>() {
+                });
+    }
 }
