@@ -345,11 +345,17 @@ public class MultiPlayerStateUtils {
         if (responses.size() == 0) {
             return null;
         }
-        int i = responses.size() - 1;
-        while (i > 0 && responses.get(i).equals(responses.get(i - 1))) {
-            i--;
+        Collections.sort(responses, ((o1, o2) -> (int) (o1.getTimeSubmitted() - o2.getTimeSubmitted())));
+        GameResponse playerGameResponse = responses.get(0);
+        for (GameResponse GameResponse : responses) {
+            // Only update the GameResponse if it differs
+            // This is done to avoid punishing the player from clicking
+            // the same GameResponse multiple times
+            if (!playerGameResponse.getAnswerChoice().equals(GameResponse.getAnswerChoice())) {
+                playerGameResponse = GameResponse;
+            }
         }
-        return responses.get(i);
+        return playerGameResponse;
     }
 
     /**
