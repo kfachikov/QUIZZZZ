@@ -145,7 +145,8 @@ public class SinglePlayerStateUtils {
      */
     private int computeScore(GameResponse response) {
         int points = 0;
-        AbstractQuestion currentQuestion = games.get(response.getGameId()).getQuestionList().get(games.get(response.getGameId()).getRoundNumber());
+        AbstractQuestion currentQuestion = games.get(response.getGameId()).getQuestionList()
+                .get(games.get(response.getGameId()).getRoundNumber());
         if (currentQuestion instanceof GuessQuestion) {
             String correctAnswer = currentQuestion.getCorrectAnswer();
             String submittedAnswer = response.getAnswerChoice();
