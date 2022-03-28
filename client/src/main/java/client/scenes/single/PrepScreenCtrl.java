@@ -105,13 +105,9 @@ public class PrepScreenCtrl {
             ((Label) currentNode).setText(singleplayer.getUsername() + " " + singleplayer.getScore());
             currentNode.setVisible(true);
             currentNodeIndex++;
-            if (currentNodeIndex > PLAYERSCOUNT) {
+            if (currentNodeIndex >= PLAYERSCOUNT) {
                 break;
             }
-        }
-        for (int i = currentNodeIndex; i < PLAYERSCOUNT; i++) {
-            Node currentNode = presentPlayers.get(currentNodeIndex);
-            currentNode.setVisible(false);
         }
     }
 }
