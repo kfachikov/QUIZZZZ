@@ -1,13 +1,14 @@
-package client.scenes.single;
+package client.scenes.single.question;
 
 import client.scenes.misc.MainCtrl;
+import client.scenes.single.QuestionScreen;
 import client.services.SingleplayerGameStatePollingService;
 import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.misc.GameResponse;
-import commons.question.GuessQuestion;
+import commons.question.InsteadQuestion;
 import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -24,12 +24,13 @@ import javafx.scene.text.Text;
 
 import java.util.Date;
 
-/**
- *  Controller for the GuessQuestionScreen.
- */
-public class GuessQuestionScreenCtrl extends QuestionScreen {
 
-    private GuessQuestion question;
+/**
+ *  Controller for the InsteadQuestionScreen.
+ */
+public class InsteadQuestionScreenCtrl extends QuestionScreen {
+
+    private InsteadQuestion question;
 
     @FXML
     private AnchorPane window;
@@ -38,10 +39,16 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
     private Label currentScore;
 
     @FXML
-    private ImageView image;
+    private Button firstAnswer;
 
     @FXML
-    private Label questionTitle;
+    private Button secondAnswer;
+
+    @FXML
+    private Button thirdAnswer;
+
+    @FXML
+    private ImageView image;
 
     @FXML
     private ProgressBar time;
@@ -50,10 +57,10 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
     private Button leaveButton;
 
     @FXML
-    private Text description;
+    private Label questionTitle;
 
     @FXML
-    private TextField input;
+    private Text description;
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -65,13 +72,12 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      * @param singlePlayerUtils  is the injected singleplayer utils for managing logic
      */
     @Inject
-    public GuessQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
-                                   SingleplayerGameStatePollingService pollingService,
-                                   ActivityImageUtils activityImageUtils,
-                                   SinglePlayerUtils singlePlayerUtils) {
+    public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
+                                     SingleplayerGameStatePollingService pollingService,
+                                     ActivityImageUtils activityImageUtils,
+                                     SinglePlayerUtils singlePlayerUtils) {
         super(server, mainCtrl, pollingService, activityImageUtils, singlePlayerUtils);
     }
-
 
     /**
      * Initializes the single-player game controller by:
@@ -79,17 +85,35 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      * Binding answer choices to a method submitting that answer.
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
-    @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
-        input.setDisable(false);
-        input.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
-
-        input.setOnAction(new EventHandler<ActionEvent>() {
+        firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                submitAnswer(input.getText());
-                input.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                input.setDisable(true);
+                submitAnswer(firstAnswer.getText());
+                firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+                firstAnswer.setDisable(true);
+                secondAnswer.setDisable(true);
+                thirdAnswer.setDisable(true);
+            }
+        });
+        secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                submitAnswer(secondAnswer.getText());
+                secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+                firstAnswer.setDisable(true);
+                secondAnswer.setDisable(true);
+                thirdAnswer.setDisable(true);
+            }
+        });
+        thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                submitAnswer(thirdAnswer.getText());
+                thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+                firstAnswer.setDisable(true);
+                secondAnswer.setDisable(true);
+                thirdAnswer.setDisable(true);
             }
         });
     }
@@ -100,7 +124,6 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
-
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
         server.postAnswer(new GameResponse(singlePlayerState.getId(),
                 new Date().getTime(),
@@ -130,45 +153,48 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
     }
 
     /**
-     * Setter for the question title.
+     * Sets the question to the chosen questionText.
      */
     public void setQuestionPrompt() {
         questionTitle.setText(question.toString());
     }
 
     /**
-     * Sets the current question.
-     * Initialises the image, description and input field.
+     * Getter for the question instance.
      *
-     * @param question GuessQuestion instance to be used.
+     * @return this question.
      */
-    public void setQuestion(GuessQuestion question) {
+    public InsteadQuestion getQuestion() {
+        return question;
+    }
 
-        var activityImage = getActivityImage(question.getActivity());
-        image.setImage(activityImage);
+    /**
+     * Sets the question and the corresponding fields with proper information.
+     *
+     * @param question Question to be visualized on the particular scene.
+     */
+    public void setQuestion(InsteadQuestion question) {
+
+        image.setImage(getActivityImage(question.getActivity()));
+
+        firstAnswer.setDisable(false);
+        secondAnswer.setDisable(false);
+        thirdAnswer.setDisable(false);
+
+        //setting the button colors back to default(unselected)
+        firstAnswer.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
+        secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
+        thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
 
         this.question = question;
-        inputFieldDefault();
-        description.setText(question.getActivity().getTitle());
-    }
-
-    /**
-     * Sets the "attributes" of the input field to the default ones.
-     */
-    public void inputFieldDefault() {
-        input.setDisable(false);
-        input.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
-        input.clear();
-    }
-
-    /**
-     * The method saves the input of the user.
-     *
-     * @return Input of the user
-     */
-    public String userInput() {
-        String userAnswer = input.getText();
-        return userAnswer;
+        setQuestionPrompt();
+        /*
+        The following setup was made purely for testing purposes.
+        Should be optimized - extracted as functionality (eventually).
+         */
+        firstAnswer.setText(question.getAnswerChoices().get(0).getTitle());
+        secondAnswer.setText(question.getAnswerChoices().get(1).getTitle());
+        thirdAnswer.setText(question.getAnswerChoices().get(2).getTitle());
     }
 
     /**

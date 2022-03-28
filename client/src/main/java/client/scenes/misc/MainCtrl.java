@@ -17,6 +17,10 @@ package client.scenes.misc;
 
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
+import client.scenes.single.question.ConsumptionQuestionScreenCtrl;
+import client.scenes.single.question.GuessQuestionScreenCtrl;
+import client.scenes.single.question.InsteadQuestionScreenCtrl;
+import client.scenes.single.question.MoreExpensiveQuestionScreenCtrl;
 import client.utils.SinglePlayerUtils;
 import commons.question.ConsumptionQuestion;
 import commons.question.GuessQuestion;

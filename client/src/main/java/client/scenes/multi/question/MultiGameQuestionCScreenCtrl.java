@@ -2,10 +2,8 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
-import commons.misc.Response;
-import commons.multi.MultiPlayerState;
-import commons.multi.MultiPlayer;
 import commons.question.InsteadQuestion;
+import jakarta.ws.rs.core.Response;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,15 +20,10 @@ import java.util.Date;
 
 /**
  * Controller responsible for the multiplayer game instead question screen.
- * <p>
- * Currently, this is just a mock scene, containing a leave button and a label
- * showing the current game ID.
  */
 public class MultiGameQuestionCScreenCtrl {
 
     private final MultiplayerCtrl multiCtrl;
-    private final MultiPlayer multiPlayer;
-    private final MultiPlayerState multiPlayerState;
     private final ServerUtils server;
 
     private InsteadQuestion question;
@@ -91,16 +84,11 @@ public class MultiGameQuestionCScreenCtrl {
      *
      * @param multiCtrl Injected instance of MultiplayerCtrl
      * @param server is the server variable
-     * @param multiPlayer is the multiPlayer variable
-     * @param multiPlayerState is the multiPlayerState variable
      */
     @Inject
-    public MultiGameQuestionCScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server, MultiPlayer multiPlayer,
-                                        MultiPlayerState multiPlayerState) {
+    public MultiGameQuestionCScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server) {
         this.multiCtrl = multiCtrl;
         this.server = server;
-        this.multiPlayer = multiPlayer;
-        this.multiPlayerState = multiPlayerState;
     }
 
     /**
@@ -167,11 +155,10 @@ public class MultiGameQuestionCScreenCtrl {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
-        MultiPlayerState multiPlayerState = ServerUtils.getMultiGameState(MultiPlayerState.getId());
-        server.postAnswer(new Response(multiPlayerState.getId(),
+        server.postAnswer(new Response(multiCtrl.getId(),
                 new Date().getTime(),
-                multiPlayerState.getRoundNumber(),
-                multiPlayer.getUsername(),
+                multiCtrl.getRoundNumber(),
+                multiCtrl.getUsername(),
                 chosenAnswer.substring(0, chosenAnswer.length() - 2)
         ));
     }

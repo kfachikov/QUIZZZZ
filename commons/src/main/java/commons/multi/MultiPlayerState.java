@@ -20,7 +20,6 @@ public class MultiPlayerState extends GameState {
     public static final String GAME_OVER_STATE = "GAME_OVER";
     public static final String TRANSITION_STATE = "TRANSITION";
     public static final String LEADERBOARD_STATE = "LEADERBOARD";
-    private static long id;
 
     private List<MultiPlayer> players;
     private Reaction reaction;
@@ -70,15 +69,6 @@ public class MultiPlayerState extends GameState {
      */
     public Reaction getReaction() {
         return reaction;
-    }
-
-    /**
-     * Getter for the id of the game.
-     *
-     * @return id of the game.
-     */
-    public static long getId() {
-        return id;
     }
 
     /**
