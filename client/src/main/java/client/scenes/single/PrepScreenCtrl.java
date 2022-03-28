@@ -7,12 +7,10 @@ import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerLeaderboardScore;
-import commons.single.SinglePlayerState;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import java.util.Collections;
 import java.util.List;
 
 /**
