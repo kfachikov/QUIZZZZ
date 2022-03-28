@@ -1,15 +1,20 @@
 package client.scenes.single;
 
 import client.scenes.misc.MainCtrl;
-import client.services.GameStatePollingService;
+import client.services.SingleplayerGameStatePollingService;
+import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
-import commons.misc.Response;
+import commons.misc.GameResponse;
 import commons.question.ConsumptionQuestion;
 import commons.single.SinglePlayerState;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -54,45 +59,59 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param singlePlayerUtils the singleplayer utilities variable.
-     * @param server   is the server variable
-     * @param mainCtrl is the main controller variable
-     * @param pollingService is the injected polling service to be used to poll the game state.
+     * @param server             is the server variable
+     * @param mainCtrl           is the main controller variable
+     * @param pollingService     is the injected polling service to be used to poll the game state.
+     * @param activityImageUtils is the utilities class responsible for fetching an image of an activity.
+     * @param singlePlayerUtils  is the injected singleplayer utils for managing logic
      */
     @Inject
     public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
-                                         GameStatePollingService pollingService,
-                                         SinglePlayerUtils singlePlayerUtils) {
-        super(server, mainCtrl, pollingService, singlePlayerUtils);
+                                         SingleplayerGameStatePollingService pollingService,
+                                         ActivityImageUtils activityImageUtils,
+                                         SinglePlayerUtils singlePlayerUtils
+    ) {
+        super(server, mainCtrl, pollingService, activityImageUtils, singlePlayerUtils);
     }
 
     /**
      * Initializes the single-player game controller by:
-     *
+     * <p>
      * Binding answer choices to a method submitting that answer.
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
     public void initialize() {
-        firstAnswer.setOnAction(e -> {
-            submitAnswer(firstAnswer.getText());
-            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+
+        firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                submitAnswer(firstAnswer.getText());
+                firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+                firstAnswer.setDisable(true);
+                secondAnswer.setDisable(true);
+                thirdAnswer.setDisable(true);
+            }
         });
-        secondAnswer.setOnAction(e -> {
-            submitAnswer(secondAnswer.getText());
-            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+        secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                submitAnswer(secondAnswer.getText());
+                secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+                firstAnswer.setDisable(true);
+                secondAnswer.setDisable(true);
+                thirdAnswer.setDisable(true);
+            }
         });
-        thirdAnswer.setOnAction(e -> {
-            submitAnswer(thirdAnswer.getText());
-            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+        thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                submitAnswer(thirdAnswer.getText());
+                thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+                firstAnswer.setDisable(true);
+                secondAnswer.setDisable(true);
+                thirdAnswer.setDisable(true);
+            }
+
         });
     }
 
@@ -102,23 +121,21 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      * denote the "Wh" in the button text field.
      *
      * @param chosenAnswer String value of button clicked - answer chosen
-     *
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new Response(singlePlayerState.getId(),
+        server.postAnswer(new GameResponse(singlePlayerState.getId(),
                 new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
                 chosenAnswer.substring(0, chosenAnswer.length() - 2)
-                ));
+        ));
     }
 
     /**
      * Sets the current score.
      *
      * @param score is the current score of the player
-     *
      */
     public void setScore(long score) {
         currentScore.setText(String.valueOf(score));
@@ -127,30 +144,30 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     /**
      * Sets the question to the chosen questionText.
-     *
      */
     public void setQuestionPrompt() {
         questionTitle.setText(question.toString());
     }
 
     /**
-     * Getter for the consumption question.
+     * getter for the question instance.
      *
-     * @return this question.
-     *
+     * @return this question instance.
      */
     public ConsumptionQuestion getQuestion() {
         return question;
     }
 
     /**
-     * Setter for the question.
-     * The method sets the answers, prompt,question title and images.
+     * The method sets all fields of the question: image, answers, title.
      *
-     * @param question the consumption question.
-     *
+     * @param question the question instance of ConsumptionQuestion.
      */
+
     public void setQuestion(ConsumptionQuestion question) {
+
+        image.setImage(getActivityImage(question.getActivity()));
+
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);
@@ -183,10 +200,11 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
     /**
      * Overridden getTime() methods. Used to access the private time field.
      *
-     * @return  Reference to the JavaFX node in the scene corresponding to this controller.
+     * @return Reference to the JavaFX node in the scene corresponding to this controller.
      */
     @Override
     public ProgressBar getTime() {
         return time;
     }
+
 }

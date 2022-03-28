@@ -8,7 +8,7 @@ import com.google.inject.Inject;
 import commons.single.SinglePlayer;
 
 /**
- * The prepare screen controller.
+ *
  */
 public class PrepScreenCtrl {
 

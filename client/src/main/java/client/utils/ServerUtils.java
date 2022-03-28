@@ -16,8 +16,11 @@
 package client.utils;
 
 import commons.misc.Activity;
+import commons.misc.ActivityImageMessage;
+import commons.misc.GameResponse;
 import commons.misc.GameState;
-import commons.misc.Response;
+import commons.multi.MultiPlayer;
+import commons.multi.MultiPlayerState;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -26,8 +29,8 @@ import commons.single.SinglePlayerState;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
-
 import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -45,7 +48,8 @@ public class ServerUtils {
      */
     public SinglePlayerLeaderboardScore addSinglePlayer(SinglePlayerLeaderboardScore leaderboardEntry) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(currentServer).path("/api/leaderboard/players") //
+                .target(currentServer)
+                .path("/api/leaderboard/players") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(leaderboardEntry, APPLICATION_JSON), SinglePlayerLeaderboardScore.class);
@@ -56,7 +60,8 @@ public class ServerUtils {
      */
     public QueueState getQueueState() {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer).path("/api/queue")
+                .target(currentServer)
+                .path("/api/queue")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(QueueState.class);
@@ -68,7 +73,8 @@ public class ServerUtils {
      */
     public QueueUser addQueueUser(QueueUser user) {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer).path("/api/queue")
+                .target(currentServer)
+                .path("/api/queue")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(user, APPLICATION_JSON), QueueUser.class);
@@ -79,10 +85,10 @@ public class ServerUtils {
      * @return it returns a client QueueUser
      */
     public QueueUser deleteQueueUser(QueueUser user) {
-        long id = user.getId();
+        String username = user.getUsername();
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/api/queue/" + String.valueOf(id))
+                .path("/api/queue/" + username)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .delete(QueueUser.class);
@@ -106,12 +112,29 @@ public class ServerUtils {
     }
 
     /**
+     * GET request to /api/multi
+     * <p>
+     * Used for constant polling of the multiplayer game state.
+     *
+     * @param id Id of the multiplayer game.
+     * @return Multiplayer game state for that id.
+     */
+    public MultiPlayerState getMultiGameState(long id) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(MultiPlayerState.class);
+    }
+
+    /**
      * POST request to /api/solo/answer, to "submit" the answer chosen by the user.
      *
      * @param response Response object to be posted
      * @return The response object "posted"
      */
-    public Response postAnswer(Response response) {
+    public Response postAnswer(GameResponse response) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("api/solo/answer")
@@ -119,12 +142,6 @@ public class ServerUtils {
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(response, APPLICATION_JSON), Response.class);
     }
-
-    /*
-    Currently, the following method does not work as intended.
-    There is a problem with the "object mapper" for the question classes.
-    Should have some default constructors.
-    */
 
     /**
      * POST request to /api/solo/start, to start the single-player game.
@@ -156,6 +173,22 @@ public class ServerUtils {
     }
 
     /**
+     * POST request to /api/multi/ to add a multiplayer user.
+     *
+     * @param id          Id of the multiplayer game.
+     * @param multiPlayer Multiplayer user to be added
+     * @return Multiplayer player that was added.
+     */
+    public MultiPlayer addMultiPlayer(long id, MultiPlayer multiPlayer) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/players/" + String.valueOf(id))
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(multiPlayer, APPLICATION_JSON), MultiPlayer.class);
+    }
+
+    /**
      * @return it returns a currentServer.
      */
     public static String getCurrentServer() {
@@ -176,7 +209,8 @@ public class ServerUtils {
      */
     public List<Activity> getActivities() {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer).path("/api/activities")
+                .target(currentServer)
+                .path("/api/activities")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(new GenericType<List<Activity>>() {
@@ -184,11 +218,11 @@ public class ServerUtils {
     }
 
     /**
-     * Method that imports the activities from the admin panel.
+     * The method imports activities locally using the admin panel.
      *
-     * @param fileAsString the file in a String version.
+     * @param fileAsString string representing the String version of a file.
      *
-     * @return new list of activities.
+     * @return list of activities.
      */
     public List<Activity> importActivities(String fileAsString) {
         return ClientBuilder.newClient(new ClientConfig())
@@ -196,6 +230,38 @@ public class ServerUtils {
                 .path("/api/activities/addToRepo")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<Activity>>() {});
+                .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<Activity>>() {
+                });
     }
+
+    /**
+     * Getter for the activity image.
+     *
+     * @param key the key of the image.
+     * @return ActivityImageMessage
+     */
+    public ActivityImageMessage getActivityImage(long key) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/images/" + key)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(ActivityImageMessage.class);
+    }
+
+    /**
+     * Adds a new ActivityImage to the image repository.
+     *
+     * @param message the activity image message.
+     * @return ActivityImageMessage
+     */
+    public ActivityImageMessage addActivityImage(ActivityImageMessage message) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/images/" + message.getKey())
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(message, APPLICATION_JSON), ActivityImageMessage.class);
+    }
+
 }

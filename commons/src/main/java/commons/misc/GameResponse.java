@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * The Response class will be used in the response controller to send or receive the answers of the player.
  */
-public class Response {
+public class GameResponse {
 
     private long gameId;
     private double timeSubmitted;
@@ -13,7 +13,7 @@ public class Response {
     private String playerUsername;
     private String answerChoice;
 
-    private Response() {
+    private GameResponse() {
 
     }
 
@@ -26,7 +26,8 @@ public class Response {
      * @param playerUsername the name of the player
      * @param answerChoice   the final answer choice of the player
      */
-    public Response(long gameId, double timeSubmitted, int roundNumber, String playerUsername, String answerChoice) {
+    public GameResponse(long gameId, double timeSubmitted, int roundNumber,
+                        String playerUsername, String answerChoice) {
         this.gameId = gameId;
         this.timeSubmitted = timeSubmitted;
         this.roundNumber = roundNumber;
@@ -129,7 +130,7 @@ public class Response {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Response response = (Response) o;
+        GameResponse response = (GameResponse) o;
         return gameId == response.gameId && Double.compare(response.timeSubmitted, timeSubmitted) == 0 &&
                 roundNumber == response.roundNumber && playerUsername.equals(response.playerUsername) &&
                 answerChoice.equals(response.answerChoice);
@@ -152,7 +153,7 @@ public class Response {
      */
     @Override
     public String toString() {
-        return "Response{" +
+        return "GameResponse{" +
                 "gameId=" + gameId +
                 ", timeSubmitted=" + timeSubmitted +
                 ", roundNumber=" + roundNumber +
