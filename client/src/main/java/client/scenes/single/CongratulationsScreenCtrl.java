@@ -5,6 +5,7 @@ import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.single.SinglePlayer;
+import commons.single.SinglePlayerLeaderboardScore;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -181,6 +182,10 @@ public class CongratulationsScreenCtrl {
      */
     public void setPoints() {
         points.setText(String.valueOf(singlePlayerUtils.getSinglePlayerState().getPlayer().getScore()));
+        String name = singlePlayerUtils.getSinglePlayerState().getPlayer().getUsername();
+        int score = singlePlayerUtils.getSinglePlayerState().getPlayer().getScore();
+        SinglePlayerLeaderboardScore player = new SinglePlayerLeaderboardScore(name, score);
+        server.postLeaderboardEntry(player);
     }
 
     /**

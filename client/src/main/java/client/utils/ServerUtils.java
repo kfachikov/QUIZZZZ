@@ -204,4 +204,16 @@ public class ServerUtils {
                 .get(new GenericType<List<SinglePlayerLeaderboardScore>>() {
                 });
     }
+
+    /**
+     * @return it returns a client SinglePlayerLeaderboardScore.
+     */
+    public SinglePlayerLeaderboardScore postLeaderboardEntry(SinglePlayerLeaderboardScore leaderboardEntry) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(currentServer)
+                .path("/api/leaderboard/players")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(leaderboardEntry, APPLICATION_JSON), SinglePlayerLeaderboardScore.class);
+    }
 }

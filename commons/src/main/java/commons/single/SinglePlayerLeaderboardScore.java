@@ -53,12 +53,19 @@ public class SinglePlayerLeaderboardScore {
     /**
      * getter for the score of the entry.
      *
-     * @return he score
+     * @return the score
      */
     public int getScore() {
         return score;
     }
 
+    public void setUsername() {
+        this.username = username;
+    }
+
+    public void setScore() {
+        this.score = score;
+    }
 
     /**
      * Checks whether two instances are equal.
