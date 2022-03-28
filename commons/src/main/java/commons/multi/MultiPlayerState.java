@@ -1,8 +1,8 @@
 package commons.multi;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import commons.misc.GameResponse;
 import commons.misc.GameState;
-import commons.misc.Response;
 import commons.question.AbstractQuestion;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -46,7 +46,7 @@ public class MultiPlayerState extends GameState {
      */
     public MultiPlayerState(long id, long nextPhase, int roundNumber,
                             List<AbstractQuestion> questionList,
-                            List<Response> submittedAnswers,
+                            List<GameResponse> submittedAnswers,
                             String state,
                             List<MultiPlayer> players, Reaction reaction) {
         super(id, nextPhase, roundNumber, questionList, submittedAnswers, state);

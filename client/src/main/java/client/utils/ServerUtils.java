@@ -16,8 +16,9 @@
 package client.utils;
 
 import commons.misc.Activity;
+import commons.misc.ActivityImageMessage;
+import commons.misc.GameResponse;
 import commons.misc.GameState;
-import commons.misc.Response;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.queue.QueueState;
@@ -28,8 +29,8 @@ import commons.single.SinglePlayerState;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
-
 import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -47,7 +48,8 @@ public class ServerUtils {
      */
     public SinglePlayerLeaderboardScore addSinglePlayer(SinglePlayerLeaderboardScore leaderboardEntry) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(currentServer).path("/api/leaderboard/players") //
+                .target(currentServer)
+                .path("/api/leaderboard/players") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(leaderboardEntry, APPLICATION_JSON), SinglePlayerLeaderboardScore.class);
@@ -58,7 +60,8 @@ public class ServerUtils {
      */
     public QueueState getQueueState() {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer).path("/api/queue")
+                .target(currentServer)
+                .path("/api/queue")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(QueueState.class);
@@ -70,7 +73,8 @@ public class ServerUtils {
      */
     public QueueUser addQueueUser(QueueUser user) {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer).path("/api/queue")
+                .target(currentServer)
+                .path("/api/queue")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(user, APPLICATION_JSON), QueueUser.class);
@@ -130,7 +134,7 @@ public class ServerUtils {
      * @param response Response object to be posted
      * @return The response object "posted"
      */
-    public Response postAnswer(Response response) {
+    public Response postAnswer(GameResponse response) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("api/solo/answer")
@@ -205,13 +209,21 @@ public class ServerUtils {
      */
     public List<Activity> getActivities() {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer).path("/api/activities")
+                .target(currentServer)
+                .path("/api/activities")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(new GenericType<List<Activity>>() {
                 });
     }
 
+    /**
+     * The method imports activities locally using the admin panel.
+     *
+     * @param fileAsString string representing the String version of a file.
+     *
+     * @return list of activities.
+     */
     public List<Activity> importActivities(String fileAsString) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
@@ -221,4 +233,35 @@ public class ServerUtils {
                 .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<Activity>>() {
                 });
     }
+
+    /**
+     * Getter for the activity image.
+     *
+     * @param key the key of the image.
+     * @return ActivityImageMessage
+     */
+    public ActivityImageMessage getActivityImage(long key) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/images/" + key)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(ActivityImageMessage.class);
+    }
+
+    /**
+     * Adds a new ActivityImage to the image repository.
+     *
+     * @param message the activity image message.
+     * @return ActivityImageMessage
+     */
+    public ActivityImageMessage addActivityImage(ActivityImageMessage message) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/images/" + message.getKey())
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(message, APPLICATION_JSON), ActivityImageMessage.class);
+    }
+
 }

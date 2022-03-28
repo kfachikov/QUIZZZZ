@@ -1,8 +1,8 @@
 package commons.single;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import commons.misc.GameResponse;
 import commons.misc.GameState;
-import commons.misc.Response;
 import commons.question.AbstractQuestion;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class SinglePlayerState extends GameState {
     public static final String GAME_OVER_STATE = "GAME_OVER";
     public static final String TRANSITION_STATE = "TRANSITION";
     private SinglePlayer player;
-    private List<Response> finalAnswers;
+    private List<GameResponse> finalAnswers;
 
     public SinglePlayerState() {
 
@@ -34,8 +34,8 @@ public class SinglePlayerState extends GameState {
      * @param player           the player that is currently in the game.
      */
     public SinglePlayerState(long id, long nextPhase, int roundNumber, List<AbstractQuestion> questionList,
-                             List<Response> finalAnswers,
-                             List<Response> submittedAnswers,
+                             List<GameResponse> finalAnswers,
+                             List<GameResponse> submittedAnswers,
                              String state, SinglePlayer player) {
         super(id, nextPhase, roundNumber, questionList, submittedAnswers, state);
         this.player = player;
@@ -65,7 +65,7 @@ public class SinglePlayerState extends GameState {
      *
      * @return a list of Responses representing the answers given by the players.
      */
-    public List<Response> getFinalAnswers() {
+    public List<GameResponse> getFinalAnswers() {
         return finalAnswers;
     }
 

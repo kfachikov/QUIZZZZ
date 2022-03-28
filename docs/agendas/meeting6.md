@@ -73,38 +73,61 @@ Attendees: Florena Buse, Julius Gvozdiovas, Kaloyan Fachikov, Monica Păun
 # Notes Sixth Meeting
 # Agenda items
 ## Check-in
-Approx. 
+Approx.
 
 
 ## Summary of last week
-Approx. 
+Approx.
 - How are things going? What did everyone do in the previous week? Did they manage to complete their tasks?
-    - Notes and agenda of the last week
-        - Monica and Marijn merged the notes into the agenda meeting5
-- Kaloyan: 
-- Julius: 
-- Marijn:
-- Monica: 
-- Alexandra: 
-- Kayra: 
-
-- What is left in progress?
-    - 
+  - Notes and agenda of the last week
+    - Monica and Marijn merged the notes into the agenda meeting5
+  - Everybody shared what they have implemented and failed to implement.
+  - Help amongst member was quite strong.
+  - We presented our merge requests and our contribution in all the parts.
+  - Carried a discussion about what is left to implement
 
 ## Feedback from the TA
-Approx. 
-- Coding feedback:
-    - 
-- Merge Request and Gitinspector feedback:
-    - 
+Approx.
+- Coding feedback, Merge Requests and Gitinspector feedback:
+
+  - **Must** issues will be done this week.
+  - Take days to finish it—nicely, with no bugs.
+  - Make sure to stop assigning issues to multiple members
+  - Change/ensure that
+  - Tasks are not appropriately assigned
+    - Since Monica and Alexandra only had group issues, whereas others had both
+  - Keep track of the time spent under merge requests
+  - Make sure Marijn is closer to rest of the team
+    - Give Marijn another issue *(additional)*
+  - We are past the GitInspector discussion
+  - Give nice titles in commits
+
+- Code style is good
+  - Merge Requests and feature branches are also good
+    - Monica and Kayra didn't have
+  - Code reviews are good
+  
+- Currently testing is not great
+  - The members' work rate was not constant during the last sprint
+  - Issue creation was not intended for a single person (not desired)
+        - *(multiple issues have multiple people)*
+  - Task distribution was a little underwhelming
+
+---
+
+Add to code of conduct, the punishment for missing internal deadline
+- Add soft and hard deadline
 
 ## Questions to and from the TA
 
+- How should we proceed with the current dependencies between the issues in the sprint?
+  - Add to code of conduct, the punishment for missing internal deadline
+  - Add soft and hard deadline
 
 
 ## Action points for next week
-Approx. 
-- 
+Approx.
+- Marijn presented the fifth sprint and what is left from the previous sprints.
 
 ###THE FIFTH SPRINT
 
@@ -129,32 +152,37 @@ Approx.
 ## Tip & Top
 
 Kaloyan
-- top: 
+- top: [EVERYONE] Let others help / edit your commit (consensual)
+- tip: [EVERYONE] Use time spent
 
 Kayra
 
-- tip: 
+- tip: For Marijn -> talk more in the MRs, comment more and update us on your latest MRs
 
 Alexandra
 
-- top: 
+- top: I think that we are working as a real team now and I like that the conflicts about gitinspector are done. I don't know exactly what generated this huge difference, but the atmosphere is for sure a desirable one.
+- tip: Since at the end of this week we should all be almost equal in the code contribution, we should probably invest less time in the issue splitting process ( not in the sprint creation ).
 
 Monica
 
-- top: 
+- top: The new rules regarding the merge requests are taken into consideration and this fact improved our work.
+- tip: We should all be more careful when implementing something having in mind that our code have to be integrated in the final version, but Florena already said that.
 
 Julius
-
-- tip: 
+- top for Alexandra: a week ago you worked hard on the issue distribution; before the meeting you compiled a list of issues. I appreciate the stepping up of that
+- tip for Kaloyan: focus on the project but also focus on the fact that half of the project is teamwork
+- tip to Marijn : sell your merge requests. I mean at the moment you see the description you should want to click approve.
 
 Marijn
 
-- top: 
+- top: [EVERYONE] Liked the meeting on Sunday:
+  - created issues before and assigned really quickly
 
 ## Closing
 - Choose the next chairperson and notetakers.
-    - Chairperson — 
-    - Notetakers — 
+  - Chairperson — Julius
+  - Notetakers —  Kaloyan and Kayra
 
 
 

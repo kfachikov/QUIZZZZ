@@ -11,6 +11,9 @@ import javafx.scene.paint.Paint;
 
 import javax.inject.Inject;
 
+/**
+ * Class for home utilities.
+ */
 public class HomeUtils {
 
     private static final int FORBIDDEN = 403;
@@ -107,14 +110,18 @@ public class HomeUtils {
      */
     public void enterAdministrationPanel() {
         ServerUtils.setCurrentServer(getServer());
-        /*
-        A GET/POST request should be sent over to the server, so that a
-        "validation" process occur.
-         */
-        mainCtrl.showAdministrator();
-        /*
-        Exception thrown should be specified in regard to exception returned from the server.
-         */
+        try {
+            /*
+            A GET/POST request should be sent over to the server, so that a
+            "validation" process occur.
+             */
+            mainCtrl.showAdministrator();
+        } catch (ProcessingException e) {
+            /*
+            Exception thrown should be specified in regard to exception returned from the server.
+             */
+            serverInvalid();
+        }
     }
 
     /**
