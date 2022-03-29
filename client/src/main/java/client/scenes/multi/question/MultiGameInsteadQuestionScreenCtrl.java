@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -37,9 +38,6 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
 
     @FXML
     private Label currentScore;
-
-    @FXML
-    private Label questionTitle;
 
     @FXML
     private ImageView image;
@@ -98,15 +96,6 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
     }
 
     /**
-     * Setter for a mock label.
-     *
-     * @param labelText New value of the label
-     */
-    public void setGameStateLabelText(String labelText) {
-        gameStateLabel.setText(labelText);
-    }
-
-    /**
      * Initializes the multi-player game controller by:
      * <p>
      * Binding answer choices to a method submitting that answer.
@@ -118,9 +107,7 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
             public void handle(ActionEvent e) {
                 multiCtrl.submitAnswer(firstAnswer.getText());
                 firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
+                disableAnswerSubmission();
             }
         });
         secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
@@ -128,9 +115,7 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
             public void handle(ActionEvent e) {
                 multiCtrl.submitAnswer(secondAnswer.getText());
                 secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
+                disableAnswerSubmission();
             }
         });
         thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
@@ -138,9 +123,7 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
             public void handle(ActionEvent e) {
                 multiCtrl.submitAnswer(thirdAnswer.getText());
                 thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
+                disableAnswerSubmission();
             }
         });
     }
@@ -152,14 +135,6 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
      */
     public void setScore(long score) {
         currentScore.setText(String.valueOf(score));
-    }
-
-
-    /**
-     * Sets the question to the chosen questionText.
-     */
-    public void setQuestionPrompt() {
-        questionTitle.setText(question.toString());
     }
 
     /**
@@ -177,24 +152,63 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
      * @param question  Question to be asked is passed as argument.
      */
     public void setQuestion(InsteadQuestion question) {
+        this.question = question;
+    }
+
+    /**
+     * Prepare the answer field by making them clickable and setting their color to the default one.
+     */
+    public void prepareAnswerButton() {
+        /*
+        Enable buttons to be clicked.
+         */
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);
 
-        //setting the button colors back to default(unselected)
+        /*
+        Set the buttons colors back to default(unselected).
+         */
         firstAnswer.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
         secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
         thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
+    }
 
-        this.question = question;
-        setQuestionPrompt();
-        /*
-        The following setup was made purely for testing purposes.
-        Should be optimized - extracted as functionality (eventually).
-         */
-        firstAnswer.setText(question.getAnswerChoices().get(0) + "Wh");
-        secondAnswer.setText(question.getAnswerChoices().get(1) + "Wh");
-        thirdAnswer.setText(question.getAnswerChoices().get(2) + "Wh");
+
+    /**
+     * Set the text for all possible answer choices. These would be the one submitted after
+     * an answer is clicked.
+     */
+    public void setAnswers() {
+        firstAnswer.setText(question.getAnswerChoices().get(0).getTitle());
+        secondAnswer.setText(question.getAnswerChoices().get(1).getTitle());
+        thirdAnswer.setText(question.getAnswerChoices().get(2).getTitle());
+    }
+
+    /**
+     * Setter fot the image of the activity which consumptions should be guessed.
+     *
+     * @param image Image instance to be set.
+     */
+    public void setImage(Image image) {
+        this.image.setImage(image);
+    }
+
+
+    /**
+     * Setter fot the description of the activity which consumption should be guessed.
+     */
+    public void setDescription() {
+        description.setText(question.getActivity().getTitle());
+    }
+
+    /**
+     * Makes all answers non-clickable. To be used once an answer is clicked.
+     */
+    private void disableAnswerSubmission() {
+        firstAnswer.setDisable(true);
+        secondAnswer.setDisable(true);
+        thirdAnswer.setDisable(true);
     }
 
     /**
@@ -204,6 +218,15 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
      */
     public AnchorPane getWindow() {
         return window;
+    }
+
+    /**
+     * Getter for the ImageField field.
+     *
+     * @return  Reference to the ImageView instance of this controller.
+     */
+    public ImageView getImage() {
+        return image;
     }
 
 }

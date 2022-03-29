@@ -285,14 +285,12 @@ public class MultiplayerCtrl {
         AbstractQuestion question = game.getQuestionList().get(roundNumber);
 
         if (question instanceof ConsumptionQuestion) {
-            currentScreenCtrl = consumptionQuestionScreenCtrl;
             ConsumptionQuestion consumptionQuestion = (ConsumptionQuestion) question;
             showConsumptionQuestion(consumptionQuestion);
         } else if (question instanceof GuessQuestion) {
             GuessQuestion guessQuestion = (GuessQuestion) question;
             showGuessQuestion(guessQuestion);
         } else if (question instanceof InsteadQuestion) {
-            currentScreenCtrl = insteadQuestionScreenCtrl;
             InsteadQuestion insteadQuestion = (InsteadQuestion) question;
             showInsteadQuestion(insteadQuestion);
         } else if (question instanceof MoreExpensiveQuestion) {
@@ -340,8 +338,14 @@ public class MultiplayerCtrl {
      * @param question "Instead of" question.
      */
     private void showInsteadQuestion(InsteadQuestion question) {
+        currentScreenCtrl = insteadQuestionScreenCtrl;
         setDefault();
         insteadQuestionScreenCtrl.setQuestion(question);
+        insteadQuestionScreenCtrl.prepareAnswerButton();
+        insteadQuestionScreenCtrl.setDescription();
+        insteadQuestionScreenCtrl.setAnswers();
+        insteadQuestionScreenCtrl.setImage(getActivityImage(question.getActivity()));
+        centerImage(insteadQuestionScreenCtrl.getImage());
         mainCtrl.getPrimaryStage().setScene(insteadQuestionScreen);
 
     }
