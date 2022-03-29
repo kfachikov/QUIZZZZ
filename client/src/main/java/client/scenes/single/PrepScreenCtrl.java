@@ -7,12 +7,10 @@ import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerLeaderboardScore;
-import commons.single.SinglePlayerState;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -105,13 +103,9 @@ public class PrepScreenCtrl {
             ((Label) currentNode).setText(singleplayer.getUsername() + " " + singleplayer.getScore());
             currentNode.setVisible(true);
             currentNodeIndex++;
-            if (currentNodeIndex > PLAYERSCOUNT) {
+            if (currentNodeIndex >= PLAYERSCOUNT) {
                 break;
             }
-        }
-        for (int i = currentNodeIndex; i < PLAYERSCOUNT; i++) {
-            Node currentNode = presentPlayers.get(currentNodeIndex);
-            currentNode.setVisible(false);
         }
     }
 }
