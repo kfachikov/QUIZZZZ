@@ -19,36 +19,32 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
-@Entity
+/**
+ * Representation of user inside of the queue.
+ * <p>
+ * Since only 1 queue exists at any given point in time, and users in the queue must have unique usernames,
+ * QueueUser instances only have a username field.
+ */
 public class QueueUser {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
     private String username;
 
+    /**
+     * Default (empty) constructor for object mapper.
+     */
     @SuppressWarnings("unused")
     public QueueUser() {
         // for object mapper
     }
 
+    /**
+     * Constructor for QueueUser.
+     *
+     * @param username Username of the user.
+     */
     public QueueUser(String username) {
         this.username = username;
-    }
-
-    /**
-     * @return id of the QueueUser
-     */
-    public long getId() {
-        return id;
     }
 
     /**
@@ -56,15 +52,6 @@ public class QueueUser {
      */
     public String getUsername() {
         return username;
-    }
-
-    /**
-     * sets the id of the QueueUser as the passed long.
-     *
-     * @param id long value to be set as the new id
-     */
-    public void setId(long id) {
-        this.id = id;
     }
 
     /**
@@ -95,6 +82,9 @@ public class QueueUser {
         return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
     }
 
+    /**
+     * @return Hashcode of the QueueUser.
+     */
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);

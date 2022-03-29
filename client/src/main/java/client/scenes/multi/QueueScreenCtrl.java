@@ -30,6 +30,7 @@ public class QueueScreenCtrl {
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+    private final MultiplayerCtrl multiCtrl;
     private final QueuePollingService pollingService;
     private final QueueCountdownService countdownService;
 
@@ -57,6 +58,7 @@ public class QueueScreenCtrl {
      *
      * @param server           Server utilities
      * @param mainCtrl         Main controller
+     * @param multiCtrl        Multiplayer controller
      * @param pollingService   Queue polling service
      * @param countdownService Queue countdown service
      */
@@ -64,11 +66,13 @@ public class QueueScreenCtrl {
     public QueueScreenCtrl(
             ServerUtils server,
             MainCtrl mainCtrl,
+            MultiplayerCtrl multiCtrl,
             QueuePollingService pollingService,
             QueueCountdownService countdownService
     ) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.multiCtrl = multiCtrl;
         this.pollingService = pollingService;
         this.countdownService = countdownService;
     }
@@ -195,8 +199,8 @@ public class QueueScreenCtrl {
          * Switch scene once countdown reaches 0
          */
         countdownService.getTimeline().setOnFinished(event -> {
-            Long result = countdownService.getValue();
-            mainCtrl.showMultiGameQuestion(result, leaveQueue());
+            Long upcomingGameId = countdownService.getValue();
+            multiCtrl.start(upcomingGameId, leaveQueue().getUsername());
         });
     }
 
@@ -228,6 +232,7 @@ public class QueueScreenCtrl {
     public QueueUser leaveQueue() {
         pollingService.stop();
         countdownService.stop();
+        multiCtrl.stop();
         return server.deleteQueueUser(user);
     }
 

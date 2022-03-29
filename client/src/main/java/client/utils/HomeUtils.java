@@ -1,6 +1,5 @@
 package client.utils;
 
-import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -12,6 +11,9 @@ import javafx.scene.paint.Paint;
 
 import javax.inject.Inject;
 
+/**
+ * Class for home utilities.
+ */
 public class HomeUtils {
 
     private static final int FORBIDDEN = 403;
@@ -27,8 +29,8 @@ public class HomeUtils {
     /**
      * Constructor for instantiating a HomeUtils instance using Spring injection.
      *
-     * @param mainCtrl          Main controller tackles all scene and controller changes.
-     * @param server            A Server instance to be set to the serverUtils field.
+     * @param mainCtrl Main controller tackles all scene and controller changes.
+     * @param server   A Server instance to be set to the serverUtils field.
      */
     @Inject
     public HomeUtils(MainCtrl mainCtrl, ServerUtils server) {
@@ -39,7 +41,7 @@ public class HomeUtils {
     /**
      * Sets the current server to the entered one.
      * Creates a SinglePlayer instance from the username entered and a default score - 0.
-     *
+     * <p>
      * TODO: A simple GET method should be create so the server is validated somehow.
      */
     public void enterSinglePlayerMode() {
@@ -107,18 +109,18 @@ public class HomeUtils {
      * with redirecting the user to the page they want to visit.
      */
     public void enterAdministrationPanel() {
-        try{
-            ServerUtils.setCurrentServer(getServer());
+        ServerUtils.setCurrentServer(getServer());
+        try {
             /*
             A GET/POST request should be sent over to the server, so that a
             "validation" process occur.
              */
             mainCtrl.showAdministrator();
-        /*
-        Exception thrown should be specified in regard to exception returned from the server.
-         */
-        } catch (Exception e){
-            // ...
+        } catch (ProcessingException e) {
+            /*
+            Exception thrown should be specified in regard to exception returned from the server.
+             */
+            serverInvalid();
         }
     }
 
@@ -136,9 +138,9 @@ public class HomeUtils {
     }
 
     /**
-     * @return a new SingleUser object that contains its username and score.
-     *
      * TODO: Should check whether the username is empty and behave accordingly.
+     *
+     * @return a new SingleUser object that contains its username and score.
      */
     public SinglePlayer getSinglePlayer() {
         String user = usernameField.getText();

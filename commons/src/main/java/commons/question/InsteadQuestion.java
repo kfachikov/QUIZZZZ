@@ -37,21 +37,21 @@ public class InsteadQuestion extends AbstractQuestion {
     public void setAnswerChoices(List<Activity> activities) {
         this.answerChoices = new ArrayList<>();
         List<Activity> correct = activities.stream()
-                .filter(x -> x.getConsumption() < activity.getConsumption())
+                .filter(x -> x.getConsumption() <= activity.getConsumption())
                 .collect(Collectors.toList());
         Collections.shuffle(correct);
         List<Activity> incorrect = activities.stream()
                 .filter(x -> x.getConsumption() > activity.getConsumption())
                 .collect(Collectors.toList());
         Collections.shuffle(incorrect);
-        if(correct.isEmpty()) {
+        if (correct.isEmpty()) {
             answerChoices.add(incorrect.get(0));
             answerChoices.add(incorrect.get(1));
             answerChoices.add(incorrect.get(2));
         } else {
             answerChoices.add(correct.get(0));
-            correctAnswer = activities.get(0).getTitle();
-            if(incorrect.isEmpty()) {
+            correctAnswer = answerChoices.get(0).getTitle();
+            if (incorrect.isEmpty()) {
                 answerChoices.add(correct.get(1));
                 answerChoices.add(correct.get(2));
             } else if (incorrect.size() == 1) {
@@ -62,7 +62,6 @@ public class InsteadQuestion extends AbstractQuestion {
                 answerChoices.add(incorrect.get(1));
             }
         }
-
         Collections.shuffle(answerChoices);
     }
 
@@ -93,7 +92,9 @@ public class InsteadQuestion extends AbstractQuestion {
      * Returns the title of the activity to be checked.
      * Should be compared to the submitted answer's consumption.
      *
-     * @return  String of the consumption of the "right" activity.
+     * @return String of the consumption of the "right" activity.
      */
-    public String getCorrectAnswer() { return correctAnswer; }
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
 }

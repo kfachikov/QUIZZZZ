@@ -19,8 +19,14 @@ import client.scenes.misc.AdministratorScreenCtrl;
 import client.scenes.misc.HelpScreenCtrl;
 import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
-import client.scenes.multi.MultiGameQuestionScreenCtrl;
+import client.scenes.multi.LeaderboardScreenCtrl;
+import client.scenes.multi.MultiGameMockScreenCtrl;
+import client.scenes.multi.MultiplayerCtrl;
 import client.scenes.multi.QueueScreenCtrl;
+import client.scenes.multi.question.MultiGameConsumptionQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameGuessQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameInsteadQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl;
 import client.scenes.single.*;
 import client.scenes.single.question.ConsumptionQuestionScreenCtrl;
 import client.scenes.single.question.GuessQuestionScreenCtrl;
@@ -46,7 +52,7 @@ public class Main extends Application {
     /**
      * @param args is a String[] args
      * @throws URISyntaxException is an exception
-     * @throws IOException is an exception
+     * @throws IOException        is an exception
      */
     public static void main(String[] args) throws URISyntaxException, IOException {
         launch();
@@ -66,8 +72,6 @@ public class Main extends Application {
                 QueueScreenCtrl.class, "client", "scenes", "multi", "QueueScreen.fxml");
         var administrator = FXML.load(
                 AdministratorScreenCtrl.class, "client", "scenes", "misc", "AdministratorScreen.fxml");
-        var multiGame = FXML.load(
-                MultiGameQuestionScreenCtrl.class, "client", "scenes", "multi", "MultiGameQuestionScreen.fxml");
         var moreExpensive = FXML.load(
                 MoreExpensiveQuestionScreenCtrl.class, "client", "scenes", "single",
                 "question", "MoreExpensiveQuestionScreen.fxml");
@@ -83,6 +87,29 @@ public class Main extends Application {
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, home, help, prep, queue, administrator,
-                multiGame, moreExpensive, consumption, instead, guess, congratulations);
+                moreExpensive, consumption, instead, guess, congratulations);
+
+
+        var consumptionMulti = FXML.load(
+                MultiGameConsumptionQuestionScreenCtrl.class, "client", "scenes", "multi", "question",
+                "MultiGameConsumptionQuestionScreen.fxml");
+        var guessMulti = FXML.load(
+                MultiGameGuessQuestionScreenCtrl.class, "client", "scenes", "multi", "question",
+                "MultiGameGuessQuestionScreen.fxml");
+        var insteadMulti = FXML.load(
+                MultiGameInsteadQuestionScreenCtrl.class, "client", "scenes", "multi", "question",
+                "MultiGameInsteadQuestionScreen.fxml");
+        var moreExpensiveMulti = FXML.load(
+                MultiGameMoreExpensiveQuestionScreenCtrl.class, "client", "scenes", "multi", "question",
+                "MultiGameMoreExpensiveQuestionScreen.fxml");
+        var mockMulti = FXML.load(
+                MultiGameMockScreenCtrl.class, "client", "scenes", "multi",
+                "MultiGameMockScreen.fxml");
+        var leaderboard = FXML.load(
+                LeaderboardScreenCtrl.class, "client", "scenes", "multi",
+                "LeaderboardScreen.fxml");
+
+        var multiCtrl = INJECTOR.getInstance(MultiplayerCtrl.class);
+        multiCtrl.initialize(consumptionMulti, guessMulti, insteadMulti, moreExpensiveMulti, mockMulti, leaderboard);
     }
 }

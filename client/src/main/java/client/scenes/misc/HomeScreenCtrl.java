@@ -46,6 +46,7 @@ public class HomeScreenCtrl {
      * so functionality can be extracted there.
      */
     public void initialize() {
+        serverURL.setText("http://localhost:8080");
         homeUtils.setHomeUtilsAttributes(usernameField, serverURL, errorMessage);
     }
 
@@ -82,5 +83,8 @@ public class HomeScreenCtrl {
         homeUtils.enterAdministrationPanel();
     }
 
+    public String getUrl() {
+        return serverURL.getText();
+    }
 
 }
