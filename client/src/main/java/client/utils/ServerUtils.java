@@ -118,7 +118,7 @@ public class ServerUtils {
      * @param id Id of the multiplayer game.
      * @return Multiplayer game state for that id.
      */
-    public MultiPlayerState getMultiGameState(long id) {
+    public static MultiPlayerState getMultiGameState(long id) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/multi/" + id)
