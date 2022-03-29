@@ -262,7 +262,7 @@ public class MultiPlayerStateUtils {
             for (int i = 0; i < game.getPlayers().size(); i++) {
                 MultiPlayer currentPlayer = game.getPlayers().get(i);
                 List<GameResponse> playerAnswers = new ArrayList<>();
-                for (int j = 0; j < game.getSubmittedAnswers().size(); i++) {
+                for (int j = 0; j < game.getSubmittedAnswers().size(); j++) {
                     GameResponse currentResponse = game.getSubmittedAnswers().get(j);
                     if (currentResponse.getPlayerUsername()
                             .equals(currentPlayer.getUsername())) {
