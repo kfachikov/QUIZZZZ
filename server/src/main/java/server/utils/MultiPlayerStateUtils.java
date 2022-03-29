@@ -333,18 +333,17 @@ public class MultiPlayerStateUtils {
                     points = (int) (100 + timeRemaining * 50.0
                             - 0.1 * (submittedAnswerNumber - correctAnswerNumber));
                 } else if (correctAnswerNumber > submittedAnswerNumber
-                        && correctAnswerNumber - submittedAnswerNumber <= 500){
+                        && correctAnswerNumber - submittedAnswerNumber <= 500) {
                     points = (int) (100 + timeRemaining * 50.0
                             - 0.1 * (correctAnswerNumber - submittedAnswerNumber));
                 }
             }
-        }
-        /*
-        Check in `else if` statement is made, as the method would be called even when answer is
-        not the same as the correct one. Only this way, points from guess questions can be allocated
-        reasonably.
-         */
-        else if (correctAnswer.equals(submittedAnswer)){
+        } else if (correctAnswer.equals(submittedAnswer)) {
+            /*
+            Check in `else if` statement is made, as the method would be called even when answer is
+            not the same as the correct one. Only this way, points from guess questions can be allocated
+            reasonably.
+            */
             points = (int) (100 + timeRemaining * 50.0);
         }
         return points;
