@@ -422,4 +422,20 @@ public class MultiPlayerStateUtils {
         }
         return max + 1;
     }
+
+    /**
+     * Posts an answer in the game a client is "bounded" with - particular instance found by gameId stored in the
+     * GameResponse object sent.
+     *
+     * @param gameResponse GameResponse sent from client.
+     * @return GameResponse instance in case the gameId is valid, or null otherwise.
+     */
+    public GameResponse postAnswer(GameResponse gameResponse) {
+        long gameId = gameResponse.getGameId();
+        if (!games.containsKey(gameId)) {
+            return null;
+        }
+        games.get(gameId).getSubmittedAnswers().add(gameResponse);
+        return gameResponse;
+    }
 }
