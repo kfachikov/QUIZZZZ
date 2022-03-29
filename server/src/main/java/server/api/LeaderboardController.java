@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.database.LeaderboardRepository;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -22,12 +24,20 @@ public class LeaderboardController {
     }
 
     /**
-     * Get endpoint that retrieves all users from the user repository.
+     * Get endpoint that retrieves all users from the user repository with score descending.
      * @return the users existing in the repository
      */
     @GetMapping("")
     public List<SinglePlayerLeaderboardScore> getAllUsers() {
-        return repo.findAll();
+        List<SinglePlayerLeaderboardScore> players = repo.findAll();
+
+        //sorting players in ascending score order
+        Collections.sort(players, Comparator.comparing(player1 -> player1.getScore()));
+
+        //reversing the order to make it descending
+        Collections.reverse(players);
+
+        return players;
     }
 
     /**
