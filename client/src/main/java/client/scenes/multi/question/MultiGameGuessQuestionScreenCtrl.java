@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -38,9 +39,6 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
 
     @FXML
     private Label currentScore;
-
-    @FXML
-    private Label questionTitle;
 
     @FXML
     private Text description;
@@ -131,23 +129,6 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
         currentScore.setText(String.valueOf(score));
     }
 
-
-    /**
-     * Sets the current score.
-     *
-     * @param score is the current score of the player
-     */
-    public void setScore(int score) {
-        currentScore.setText(String.valueOf(score));
-    }
-
-    /**
-     * Setter for the question field - uses the current question to be asked.
-     */
-    public void setQuestionPrompt() {
-        questionTitle.setText(question.toString());
-    }
-
     /**
      * Sets the current question.
      *
@@ -155,8 +136,6 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
      */
     public void setQuestion(GuessQuestion question) {
         this.question = question;
-        inputFieldDefault();
-        description.setText(question.getActivity().getTitle());
     }
 
     /**
@@ -169,13 +148,19 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     }
 
     /**
-     * The method saves the input of the user.
-     *
-     * @return Input of the user
+     * Setter fot the description of the activity which consumption should be guessed.
      */
-    public String userInput() {
-        String userAnswer = input.getText();
-        return userAnswer;
+    public void setDescription() {
+        description.setText(question.getActivity().getTitle());
+    }
+
+    /**
+     * Setter fot the image of the activity which consumptions should be guessed.
+     *
+     * @param image Image instance to be set.
+     */
+    public void setImage(Image image) {
+        this.image.setImage(image);
     }
 
     /**
@@ -187,4 +172,7 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
         return window;
     }
 
+    public ImageView getImage() {
+        return image;
+    }
 }

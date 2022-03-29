@@ -17,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
 import javafx.util.Pair;
 
@@ -288,7 +289,6 @@ public class MultiplayerCtrl {
             ConsumptionQuestion consumptionQuestion = (ConsumptionQuestion) question;
             showConsumptionQuestion(consumptionQuestion);
         } else if (question instanceof GuessQuestion) {
-            currentScreenCtrl = guessQuestionScreenCtrl;
             GuessQuestion guessQuestion = (GuessQuestion) question;
             showGuessQuestion(guessQuestion);
         } else if (question instanceof InsteadQuestion) {
@@ -318,8 +318,13 @@ public class MultiplayerCtrl {
      * @param question "Guess" question.
      */
     private void showGuessQuestion(GuessQuestion question) {
+        currentScreenCtrl = guessQuestionScreenCtrl;
         setDefault();
         guessQuestionScreenCtrl.setQuestion(question);
+        guessQuestionScreenCtrl.inputFieldDefault();
+        guessQuestionScreenCtrl.setDescription();
+        guessQuestionScreenCtrl.setImage(getActivityImage(question.getActivity()));
+        centerImage(guessQuestionScreenCtrl.getImage());
         mainCtrl.getPrimaryStage().setScene(guessQuestionScreen);
     }
 
@@ -466,5 +471,26 @@ public class MultiplayerCtrl {
     public Image getActivityImage(Activity activity) {
         long key = activity.getKey();
         return activityImageUtils.getActivityImage(key);
+    }
+
+    /**
+     * Centers an image inside any imageView passed as argument.
+     *
+     * @param imageView ImageView instance, which image should be centered.
+     */
+    public void centerImage(ImageView imageView) {
+        Image img = imageView.getImage();
+        if (img != null) {
+            double ratioX = imageView.getFitWidth() / img.getWidth();
+            double ratioY = imageView.getFitHeight() / img.getHeight();
+
+            double reductionCoef = Math.min(ratioX, ratioY);
+
+            double w = img.getWidth() * reductionCoef;
+            double h = img.getHeight() * reductionCoef;
+
+            imageView.setX((imageView.getFitWidth() - w) / 2);
+            imageView.setY((imageView.getFitHeight() - h) / 2);
+        }
     }
 }
