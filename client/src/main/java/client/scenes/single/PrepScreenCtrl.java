@@ -92,7 +92,7 @@ public class PrepScreenCtrl {
     /**
      * loads up the leaderboard on the prep screen.
      */
-    public void initialize() {
+    public void setUp() {
         List<SinglePlayerLeaderboardScore> leaderboardScores = server.getLeaderboardEntry();
 
         int currentNodeIndex = 0;

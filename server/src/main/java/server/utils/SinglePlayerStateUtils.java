@@ -209,7 +209,6 @@ public class SinglePlayerStateUtils {
      * @param player Player who is playing in the game
      * @param repo   ActivityRepository instance.
      * @return The newly constructed SinglePlayer game state
-     * @param repo is an activity repository
      */
     public SinglePlayerState createSingleGame(SinglePlayer player,
                                               ActivityRepository repo) {
