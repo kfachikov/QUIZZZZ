@@ -2,7 +2,6 @@ package client.scenes.multi;
 
 import client.scenes.misc.MainCtrl;
 import client.scenes.multi.question.*;
-import client.scenes.single.QuestionScreen;
 import client.services.MultiplayerGameStatePollingService;
 import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
@@ -228,6 +227,9 @@ public class MultiplayerCtrl {
 
     /**
      * Updates the background of the current scene according to the correctness of the answer given.
+     *
+     * @param game  Multiplayer game state - to be used for answer comparison clieny-side.
+     *              Used for changing the background during the transition phase.
      */
     public void revealAnswerCorrectness(MultiPlayerState game) {
         currentScreenCtrl.setScore(game.getPlayerByUsername(username).getScore());
@@ -243,6 +245,8 @@ public class MultiplayerCtrl {
     /**
      * Used to change the color of the background of the current question scene to the initial blue color.
      * Also, updates the score the player have accumulated so far.
+     *
+     * @param game  Multiplayer game state to fetch the client's score from.
      */
     private void setDefault(MultiPlayerState game) {
         currentScreenCtrl.getWindow()
@@ -303,6 +307,7 @@ public class MultiplayerCtrl {
     /**
      * Show "Consumption" question screen.
      *
+     * @param game      Multiplayer game to call setDefault with.
      * @param question "Consumption" question.
      */
     private void showConsumptionQuestion(MultiPlayerState game, ConsumptionQuestion question) {
@@ -321,6 +326,7 @@ public class MultiplayerCtrl {
     /**
      * Show "Guess" question screen.
      *
+     * @param game      Multiplayer game to call setDefault with.
      * @param question "Guess" question.
      */
     private void showGuessQuestion(MultiPlayerState game, GuessQuestion question) {
@@ -338,6 +344,7 @@ public class MultiplayerCtrl {
     /**
      * Show "Instead of" question screen.
      *
+     * @param game      Multiplayer game to call setDefault with.
      * @param question "Instead of" question.
      */
     private void showInsteadQuestion(MultiPlayerState game, InsteadQuestion question) {
@@ -357,6 +364,7 @@ public class MultiplayerCtrl {
     /**
      * Show "More Expensive" question screen.
      *
+     * @param game      Multiplayer game to call setDefault with.
      * @param question "More Expensive" question.
      */
     private void showMoreExpensiveQuestion(MultiPlayerState game, MoreExpensiveQuestion question) {
