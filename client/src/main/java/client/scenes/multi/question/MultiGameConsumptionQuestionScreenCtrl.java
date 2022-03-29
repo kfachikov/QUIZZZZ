@@ -21,7 +21,7 @@ import java.util.Date;
 /**
  * Controller responsible for the multiplayer game consumption question screen.
  */
-public class MultiGameConsumptionQuestionScreenCtrl {
+public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen{
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;

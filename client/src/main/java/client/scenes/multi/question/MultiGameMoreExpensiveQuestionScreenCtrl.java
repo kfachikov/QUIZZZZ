@@ -21,7 +21,7 @@ import java.util.Date;
 /**
  * Controller responsible for the multiplayer game more expensive question screen.
  */
-public class MultiGameMoreExpensiveQuestionScreenCtrl {
+public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScreen {
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;

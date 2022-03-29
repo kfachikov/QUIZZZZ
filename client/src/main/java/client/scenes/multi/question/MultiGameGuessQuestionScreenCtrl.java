@@ -22,7 +22,7 @@ import java.util.Date;
 /**
  * Controller responsible for the multiplayer game guess question screen.
  */
-public class MultiGameGuessQuestionScreenCtrl {
+public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;

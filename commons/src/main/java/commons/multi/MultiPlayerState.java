@@ -81,6 +81,22 @@ public class MultiPlayerState extends GameState {
     }
 
     /**
+     * Getter for a particular multiplayer using his unique identifier in that particular
+     * multiplayer game instance - his username.
+     *
+     * @param username  Player's username to search for.
+     * @return          MultiPlayer instance of the player with a particular username.
+     */
+    public MultiPlayer getPlayerByUsername(String username) {
+        for(MultiPlayer player: players) {
+            if(player.getUsername().equals(username)) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Comparing answer function making use of the abstract functionality declared
      * in the parent abstract class of the different question types.
      *
@@ -94,6 +110,26 @@ public class MultiPlayerState extends GameState {
         String chosenAnswer = response.getAnswerChoice();
         String rightAnswer = getQuestionList().get(getRoundNumber()).getCorrectAnswer();
         return chosenAnswer.equals(rightAnswer);
+    }
+
+    /**
+     * Comparing answer function making use of the abstract functionality declared
+     * in the parent abstract class of the different question types.
+     *
+     * Used to compare the last answer a player clicked (marked as "final"), and the
+     * actual answer, so that the client-side can react accordingly to the correctness of
+     * the answer.
+     *
+     * @param lastSubmittedAnswer   The last answer a player had submitted before the moment
+     *                              of a transition screen being shown.
+     * @return Boolean value corresponding to the correctness of the answer.
+     */
+    public boolean compareAnswerClient(String lastSubmittedAnswer) {
+        if (lastSubmittedAnswer == null) {
+            return false;
+        }
+        String rightAnswer = getQuestionList().get(getRoundNumber()).getCorrectAnswer();
+        return lastSubmittedAnswer.equals(rightAnswer);
     }
 
     /**

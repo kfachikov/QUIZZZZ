@@ -1,10 +1,7 @@
 package client.scenes.multi;
 
 import client.scenes.misc.MainCtrl;
-import client.scenes.multi.question.MultiGameConsumptionQuestionScreenCtrl;
-import client.scenes.multi.question.MultiGameGuessQuestionScreenCtrl;
-import client.scenes.multi.question.MultiGameInsteadQuestionScreenCtrl;
-import client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl;
+import client.scenes.multi.question.*;
 import client.services.MultiplayerGameStatePollingService;
 import client.utils.ServerUtils;
 import commons.misc.GameResponse;
@@ -17,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.paint.Paint;
 import javafx.util.Pair;
 
 import javax.inject.Inject;
@@ -47,6 +45,23 @@ public class MultiplayerCtrl {
     private LeaderboardScreenCtrl leaderboardCtrl;
     private Scene leaderboard;
 
+    /*
+    Abstract class instance. To be used for the answer-revealing process.
+     */
+    private MultiQuestionScreen currentScreenCtrl;
+
+    /*
+    MultiPlayerState instance. To be used to "fetch" players and their score, so the
+    scene can be updated accordingly.
+     */
+    private MultiPlayerState currentState;
+
+    /*
+    Field to be used for the answer-correctness check. Even if a player clicks on one and
+    the same answer, the field variable wouldn't change.
+     */
+    private String lastSubmittedAnswer;
+
     private final MainCtrl mainCtrl;
     private final ServerUtils serverUtils;
     private final MultiplayerGameStatePollingService pollingService;
@@ -57,6 +72,7 @@ public class MultiplayerCtrl {
     private final ChangeListener<MultiPlayerState> onPoll = (observable, oldValue, newValue) -> {
         // If state has changed, we probably have to switch scenes
         if (newValue != null && (oldValue == null || !newValue.getState().equals(oldValue.getState()))) {
+            currentState = newValue;
             switchState(newValue);
         }
     };
@@ -135,10 +151,11 @@ public class MultiplayerCtrl {
         this.gameId = gameId;
         this.username = username;
 
-        pollingService.start(gameId);
         serverUtils.addMultiPlayer(gameId, new MultiPlayer(username, 0, true, true, true));
+        pollingService.start(gameId);
+        currentState = pollingService.poll();
 
-        switchState(pollingService.poll());
+        switchState(currentState);
     }
 
     /**
@@ -185,6 +202,9 @@ public class MultiplayerCtrl {
             case MultiPlayerState.QUESTION_STATE:
                 switchToQuestion(game);
                 break;
+            case MultiPlayerState.TRANSITION_STATE:
+                revealAnswerCorrectness();
+                break;
             case MultiPlayerState.LEADERBOARD_STATE:
                 showIntermediateGameOver(sortList(game), game.getState());
                 break;
@@ -195,6 +215,30 @@ public class MultiplayerCtrl {
                 switchToMock(game);
                 break;
         }
+    }
+
+    /**
+     * Updates the background of the current scene according to the correctness of the answer given.
+     */
+    public void revealAnswerCorrectness() {
+        currentScreenCtrl.setScore(currentState.getPlayerByUsername(username).getScore());
+        if (currentState.compareAnswerClient(lastSubmittedAnswer)) {
+            currentScreenCtrl.getWindow()
+                    .setStyle("-fx-background-color: #" + (Paint.valueOf("aedd94")).toString().substring(2));
+        } else {
+            currentScreenCtrl.getWindow()
+                    .setStyle("-fx-background-color: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
+        }
+    }
+
+    /**
+     * Used to change the color of the background of the current question scene to the initial blue color.
+     * Also, updates the score the player have accumulated so far.
+     */
+    private void setDefault() {
+        currentScreenCtrl.getWindow()
+                .setStyle("-fx-background-color: #" + (Paint.valueOf("a8c6fa")).toString().substring(2));
+        currentScreenCtrl.setScore(currentState.getPlayerByUsername(username).getScore());
     }
 
     /**
@@ -223,18 +267,29 @@ public class MultiplayerCtrl {
             return;
         }
 
+        /*
+        Setting the lastSubmittedAnswer field to something "default", so no errors occur if
+        it is compared with the actual one, but the client hadn't submitted anything
+        (and thus, not called `submitAnswer` method),
+         */
+        lastSubmittedAnswer = "";
+
         AbstractQuestion question = game.getQuestionList().get(roundNumber);
 
         if (question instanceof ConsumptionQuestion) {
+            currentScreenCtrl = consumptionQuestionScreenCtrl;
             ConsumptionQuestion consumptionQuestion = (ConsumptionQuestion) question;
             showConsumptionQuestion(consumptionQuestion);
         } else if (question instanceof GuessQuestion) {
+            currentScreenCtrl = guessQuestionScreenCtrl;
             GuessQuestion guessQuestion = (GuessQuestion) question;
             showGuessQuestion(guessQuestion);
         } else if (question instanceof InsteadQuestion) {
+            currentScreenCtrl = insteadQuestionScreenCtrl;
             InsteadQuestion insteadQuestion = (InsteadQuestion) question;
             showInsteadQuestion(insteadQuestion);
         } else if (question instanceof MoreExpensiveQuestion) {
+            currentScreenCtrl = moreExpensiveQuestionScreenCtrl;
             MoreExpensiveQuestion moreExpensiveQuestion = (MoreExpensiveQuestion) question;
             showMoreExpensiveQuestion(moreExpensiveQuestion);
         }
@@ -246,6 +301,7 @@ public class MultiplayerCtrl {
      * @param question "Consumption" question.
      */
     private void showConsumptionQuestion(ConsumptionQuestion question) {
+        setDefault();
         consumptionQuestionScreenCtrl.setGameStateLabelText(question.debugString());
         consumptionQuestionScreenCtrl.setQuestion(question);
         mainCtrl.getPrimaryStage().setScene(consumptionQuestionScreen);
@@ -257,6 +313,7 @@ public class MultiplayerCtrl {
      * @param question "Guess" question.
      */
     private void showGuessQuestion(GuessQuestion question) {
+        setDefault();
         guessQuestionScreenCtrl.setGameStateLabelText(question.debugString());
         guessQuestionScreenCtrl.setQuestion(question);
         mainCtrl.getPrimaryStage().setScene(guessQuestionScreen);
@@ -268,6 +325,7 @@ public class MultiplayerCtrl {
      * @param question "Instead of" question.
      */
     private void showInsteadQuestion(InsteadQuestion question) {
+        setDefault();
         insteadQuestionScreenCtrl.setGameStateLabelText(question.debugString());
         insteadQuestionScreenCtrl.setQuestion(question);
         mainCtrl.getPrimaryStage().setScene(insteadQuestionScreen);
@@ -280,6 +338,7 @@ public class MultiplayerCtrl {
      * @param question "More Expensive" question.
      */
     private void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
+        setDefault();
         moreExpensiveQuestionScreenCtrl.setGameStateLabelText(question.debugString());
         moreExpensiveQuestionScreenCtrl.setQuestion(question);
         mainCtrl.getPrimaryStage().setScene(moreExpensiveQuestionScreen);
@@ -306,12 +365,13 @@ public class MultiplayerCtrl {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
+        lastSubmittedAnswer = chosenAnswer.substring(0, chosenAnswer.length() - 2);
         serverUtils.postAnswerMultiplayer(new GameResponse(
                 gameId,
                 new Date().getTime(),
                 (int) getRoundNumber(serverUtils.getMultiGameState(gameId)),
                 username,
-                chosenAnswer.substring(0, chosenAnswer.length() - 2)
+                lastSubmittedAnswer
         ));
     }
 

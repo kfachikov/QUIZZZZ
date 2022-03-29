@@ -7,6 +7,7 @@ import commons.multi.Reaction;
 import commons.question.AbstractQuestion;
 import commons.question.GuessQuestion;
 
+import javax.swing.plaf.IconUIResource;
 import java.util.*;
 
 /**
@@ -239,9 +240,8 @@ public class MultiPlayerStateUtils {
     public void switchToTransition(MultiPlayerState game) {
         long nextPhase = game.getNextPhase();
 
-        updateScore(game);
-
         game.setState(MultiPlayerState.TRANSITION_STATE);
+        updateScore(game);
         // 3 seconds for transition phase
         game.setNextPhase(nextPhase + 3000);
     }
@@ -262,15 +262,18 @@ public class MultiPlayerStateUtils {
     private void updateScore(MultiPlayerState game) {
         if (game.getState().equals(MultiPlayerState.TRANSITION_STATE)) {
             for (int i = 0; i < game.getPlayers().size(); i++) {
+                MultiPlayer currentPlayer = game.getPlayers().get(i);
                 List<GameResponse> playerAnswers = new ArrayList<>();
                 for (int j = 0; j < game.getSubmittedAnswers().size(); i++) {
-                    if (game.getSubmittedAnswers().get(i).getPlayerUsername()
-                            .equals(game.getPlayers().get(i).getUsername())) {
-                        playerAnswers.add(game.getSubmittedAnswers().get(i));
+                    GameResponse currentResponse = game.getSubmittedAnswers().get(j);
+                    if (currentResponse.getPlayerUsername()
+                            .equals(currentPlayer.getUsername())) {
+                        playerAnswers.add(currentResponse);
                     }
 
                 }
                 GameResponse finalAnswer = computeFinalAnswer(playerAnswers);
+                System.out.println(finalAnswer.toString());
                 if (finalAnswer == null) {
                     finalAnswer = new GameResponse(
                             game.getId(),
