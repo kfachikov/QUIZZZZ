@@ -271,7 +271,6 @@ public class MultiPlayerStateUtils {
 
                 }
                 GameResponse finalAnswer = computeFinalAnswer(playerAnswers);
-                System.out.println(finalAnswer.toString());
                 if (finalAnswer == null) {
                     finalAnswer = new GameResponse(
                             game.getId(),
@@ -282,17 +281,10 @@ public class MultiPlayerStateUtils {
                     );
                 }
                 /*
-                Use shared comparing functionality implemented in the class
-               MultiPlayerState.
+                Method computeScore is always called, so guess question approximation can be taken
+                into account.
                  */
-                if (game.compareAnswer(finalAnswer)) {
-                    /*
-                    If the answer submitted is the same, then the score is updated accordingly.
-                    */
-                    MultiPlayer player = game.getPlayers().get(i);
-                    player.setScore(player.getScore() + computeScore(finalAnswer));
-
-                }
+                currentPlayer.setScore(currentPlayer.getScore() + computeScore(finalAnswer));
             }
         }
     }
@@ -308,25 +300,52 @@ public class MultiPlayerStateUtils {
      */
     private int computeScore(GameResponse response) {
         int points = 0;
-        AbstractQuestion currentQuestion = games.get(response.getGameId()).getQuestionList()
-                .get(games.get(response.getGameId()).getRoundNumber());
+        long gameId = response.getGameId();
+        MultiPlayerState currentGame = games.get(gameId);
+        AbstractQuestion currentQuestion = currentGame.getQuestionList()
+                .get(currentGame.getRoundNumber());
+        /*
+        Next variable would calculate the number of seconds remaining when the player
+        submitted his response.
+         */
+        double timeRemaining = (currentGame.getNextPhase() - response.getTimeSubmitted()) / 1000;
+
+        /*
+        The two answers to be compared.
+         */
+        String correctAnswer = currentQuestion.getCorrectAnswer();
+        String submittedAnswer = response.getAnswerChoice();
+
         if (currentQuestion instanceof GuessQuestion) {
-            String correctAnswer = currentQuestion.getCorrectAnswer();
-            String submittedAnswer = response.getAnswerChoice();
-            if (submittedAnswer.equals(correctAnswer)) {
-                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
+            boolean validResponse = true;
+            double correctAnswerNumber = Double.parseDouble(correctAnswer);
+            double submittedAnswerNumber = -1;
+            try {
+                submittedAnswerNumber = Double.parseDouble(submittedAnswer);
+            } catch (NumberFormatException e) {
+                validResponse = false;
             }
-            if (Integer.parseInt(correctAnswer) < Integer.parseInt(submittedAnswer)
-                    && Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer) <= 500) {
-                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0 - 0.1 *
-                        (Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer)));
-            } else {
-                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0
-                        - 0.1 * (Integer.parseInt(correctAnswer)
-                        - Integer.parseInt(submittedAnswer)));
+            if (validResponse) {
+                if (correctAnswerNumber == submittedAnswerNumber) {
+                    points = (int) (100 + timeRemaining * 50.0);
+                } else if (correctAnswerNumber < submittedAnswerNumber
+                        && submittedAnswerNumber - correctAnswerNumber <= 500) {
+                    points = (int) (100 + timeRemaining * 50.0
+                            - 0.1 * (submittedAnswerNumber - correctAnswerNumber));
+                } else if (correctAnswerNumber > submittedAnswerNumber
+                        && correctAnswerNumber - submittedAnswerNumber <= 500){
+                    points = (int) (100 + timeRemaining * 50.0
+                            - 0.1 * (correctAnswerNumber - submittedAnswerNumber));
+                }
             }
-        } else {
-            points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
+        }
+        /*
+        Check in `else if` statement is made, as the method would be called even when answer is
+        not the same as the correct one. Only this way, points from guess questions can be allocated
+        reasonably.
+         */
+        else if (correctAnswer.equals(submittedAnswer)){
+            points = (int) (100 + timeRemaining * 50.0);
         }
         return points;
     }
