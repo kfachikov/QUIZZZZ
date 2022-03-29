@@ -172,6 +172,11 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
         return window;
     }
 
+    /**
+     * Getter for the ImageField field.
+     *
+     * @return  Reference to the ImageView instance of this controller.
+     */
     public ImageView getImage() {
         return image;
     }
