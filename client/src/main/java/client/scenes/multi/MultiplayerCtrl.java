@@ -307,8 +307,14 @@ public class MultiplayerCtrl {
      * @param question "Consumption" question.
      */
     private void showConsumptionQuestion(ConsumptionQuestion question) {
+        currentScreenCtrl = consumptionQuestionScreenCtrl;
         setDefault();
         consumptionQuestionScreenCtrl.setQuestion(question);
+        consumptionQuestionScreenCtrl.prepareAnswerButton();
+        consumptionQuestionScreenCtrl.setAnswers();
+        consumptionQuestionScreenCtrl.setDescription();
+        consumptionQuestionScreenCtrl.setImage(getActivityImage(question.getActivity()));
+        centerImage(consumptionQuestionScreenCtrl.getImage());
         mainCtrl.getPrimaryStage().setScene(consumptionQuestionScreen);
     }
 
