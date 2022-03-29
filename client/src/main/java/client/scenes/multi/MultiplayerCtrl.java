@@ -244,10 +244,10 @@ public class MultiplayerCtrl {
      * Used to change the color of the background of the current question scene to the initial blue color.
      * Also, updates the score the player have accumulated so far.
      */
-    private void setDefault() {
+    private void setDefault(MultiPlayerState game) {
         currentScreenCtrl.getWindow()
                 .setStyle("-fx-background-color: #" + (Paint.valueOf("a8c6fa")).toString().substring(2));
-        currentScreenCtrl.setScore(currentState.getPlayerByUsername(username).getScore());
+        currentScreenCtrl.setScore(game.getPlayerByUsername(username).getScore());
     }
 
     /**
@@ -307,7 +307,7 @@ public class MultiplayerCtrl {
      */
     private void showConsumptionQuestion(MultiPlayerState game, ConsumptionQuestion question) {
         currentScreenCtrl = consumptionQuestionScreenCtrl;
-        setDefault();
+        setDefault(game);
         consumptionQuestionScreenCtrl.setQuestion(question);
         consumptionQuestionScreenCtrl.prepareAnswerButton();
         consumptionQuestionScreenCtrl.setAnswers();
@@ -325,7 +325,7 @@ public class MultiplayerCtrl {
      */
     private void showGuessQuestion(MultiPlayerState game, GuessQuestion question) {
         currentScreenCtrl = guessQuestionScreenCtrl;
-        setDefault();
+        setDefault(game);
         guessQuestionScreenCtrl.setQuestion(question);
         guessQuestionScreenCtrl.inputFieldDefault();
         guessQuestionScreenCtrl.setDescription();
@@ -342,7 +342,7 @@ public class MultiplayerCtrl {
      */
     private void showInsteadQuestion(MultiPlayerState game, InsteadQuestion question) {
         currentScreenCtrl = insteadQuestionScreenCtrl;
-        setDefault();
+        setDefault(game);
         insteadQuestionScreenCtrl.setQuestion(question);
         insteadQuestionScreenCtrl.prepareAnswerButton();
         insteadQuestionScreenCtrl.setDescription();
@@ -361,7 +361,7 @@ public class MultiplayerCtrl {
      */
     private void showMoreExpensiveQuestion(MultiPlayerState game, MoreExpensiveQuestion question) {
         currentScreenCtrl = moreExpensiveQuestionScreenCtrl;
-        setDefault();
+        setDefault(game);
         moreExpensiveQuestionScreenCtrl.prepareAnswerButton();
         moreExpensiveQuestionScreenCtrl.setQuestion(question);
         moreExpensiveQuestionScreenCtrl.setQuestionPrompt();
@@ -398,7 +398,7 @@ public class MultiplayerCtrl {
         serverUtils.postAnswerMultiplayer(new GameResponse(
                 gameId,
                 new Date().getTime(),
-                (int) getRoundNumber(currentState),
+                (int) getRoundNumber(serverUtils.getMultiGameState(gameId)),
                 username,
                 lastSubmittedAnswer
         ));
