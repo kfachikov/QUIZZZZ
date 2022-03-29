@@ -117,7 +117,7 @@ public class MultiGameGuessQuestionScreenCtrl {
         input.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                multiCtrl.submitAnswer(input.getText());
+                multiCtrl.submitAnswer(input.getText() + "Wh");
                 input.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 input.setDisable(true);
             }
