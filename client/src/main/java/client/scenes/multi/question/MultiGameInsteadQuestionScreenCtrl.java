@@ -180,9 +180,14 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
      * an answer is clicked.
      */
     public void setAnswers() {
-        firstAnswer.setText(question.getAnswerChoices().get(0).getTitle());
-        secondAnswer.setText(question.getAnswerChoices().get(1).getTitle());
-        thirdAnswer.setText(question.getAnswerChoices().get(2).getTitle());
+        /*
+        As the `submitAsnwer` method is extracted in multiplayerCtrl, and it concatenates the last two
+        characters of our String answer submitted, we would add two space characters at the end,
+        so the comparing method works as intended.
+         */
+        firstAnswer.setText(question.getAnswerChoices().get(0).getTitle() + "  ");
+        secondAnswer.setText(question.getAnswerChoices().get(1).getTitle() + "  ");
+        thirdAnswer.setText(question.getAnswerChoices().get(2).getTitle() + "  ");
     }
 
     /**
