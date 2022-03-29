@@ -278,6 +278,8 @@ public class ServerUtils {
 
     /**
      * @return it returns a client SinglePlayerLeaderboardScore.
+     *
+     * @param leaderboardEntry is a SinglePlayerLeaderboardScore entry.
      */
     public SinglePlayerLeaderboardScore postLeaderboardEntry(SinglePlayerLeaderboardScore leaderboardEntry) {
         return ClientBuilder.newClient(new ClientConfig()) //
