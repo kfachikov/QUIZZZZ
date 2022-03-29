@@ -21,7 +21,7 @@ public class SinglePlayerLeaderboardScore {
     /**
      * this is a default constructor needed for JSON parsing.
      */
-    public SinglePlayerLeaderboardScore() {}
+    public SinglePlayerLeaderboardScore() { }
 
     /**
      * constructor for the leaderboard entry.
