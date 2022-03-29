@@ -29,7 +29,7 @@ of correct answer, because of the getter declared.
 This would result in impossible parsing, as the question classes do not have
 "correctAnswer" field.
  */
-@JsonIgnoreProperties(value = { "correctAnswer" })
+@JsonIgnoreProperties(value = {"correctAnswer"})
 public abstract class AbstractQuestion {
 
     /**
@@ -52,6 +52,15 @@ public abstract class AbstractQuestion {
 
     @Override
     public String toString() {
+        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
+    }
+
+    /**
+     * Debug string representation of the question.
+     *
+     * @return Automatically constructed representation of the question.
+     */
+    public String debugString() {
         return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
     }
 }

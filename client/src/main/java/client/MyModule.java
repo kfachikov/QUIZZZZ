@@ -19,12 +19,20 @@ import client.scenes.misc.AdministratorScreenCtrl;
 import client.scenes.misc.HelpScreenCtrl;
 import client.scenes.misc.HomeScreenCtrl;
 import client.scenes.misc.MainCtrl;
+import client.scenes.multi.LeaderboardScreenCtrl;
+import client.scenes.multi.MultiGameMockScreenCtrl;
+import client.scenes.multi.MultiplayerCtrl;
+import client.scenes.multi.question.MultiGameConsumptionQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameGuessQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameInsteadQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl;
 import client.scenes.single.*;
 import client.scenes.single.question.ConsumptionQuestionScreenCtrl;
 import client.scenes.single.question.GuessQuestionScreenCtrl;
 import client.scenes.single.question.InsteadQuestionScreenCtrl;
 import client.scenes.single.question.MoreExpensiveQuestionScreenCtrl;
-import client.services.GameStatePollingService;
+import client.services.SingleplayerGameStatePollingService;
+import client.utils.ActivityImageUtils;
 import client.utils.HomeUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Binder;
@@ -53,8 +61,19 @@ public class MyModule implements Module {
         binder.bind(InsteadQuestionScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(GuessQuestionScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(CongratulationsScreenCtrl.class).in(Scopes.SINGLETON);
-        binder.bind(GameStatePollingService.class).in(Scopes.SINGLETON);
+        binder.bind(LeaderboardScreenCtrl.class).in(Scopes.SINGLETON);
+
+        binder.bind(SingleplayerGameStatePollingService.class).in(Scopes.SINGLETON);
         binder.bind(SinglePlayerUtils.class).in(Scopes.SINGLETON);
         binder.bind(HomeUtils.class).in(Scopes.SINGLETON);
+        binder.bind(MultiplayerCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(MultiGameConsumptionQuestionScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(MultiGameGuessQuestionScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(MultiGameInsteadQuestionScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(MultiGameMoreExpensiveQuestionScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(MultiGameMockScreenCtrl.class).in(Scopes.SINGLETON);
+
+        binder.bind(ActivityImageUtils.class).in(Scopes.SINGLETON);
+
     }
 }
