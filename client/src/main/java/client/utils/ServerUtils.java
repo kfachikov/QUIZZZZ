@@ -143,6 +143,21 @@ public class ServerUtils {
     }
 
     /**
+     * POST request to /api/multi/answer, to "submit" the answer chosen by the user.
+     *
+     * @param response GameResponse object to be posted
+     * @return The response object "posted"
+     */
+    public GameResponse postAnswerMultiplayer(GameResponse response) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("api/solo/answer")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(response, APPLICATION_JSON), GameResponse.class);
+    }
+
+    /**
      * POST request to /api/solo/start, to start the single-player game.
      *
      * @param singlePlayer SinglePlayer instance for the player that is about to begin a game.

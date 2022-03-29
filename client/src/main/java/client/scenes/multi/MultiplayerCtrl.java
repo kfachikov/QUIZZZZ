@@ -7,6 +7,7 @@ import client.scenes.multi.question.MultiGameInsteadQuestionScreenCtrl;
 import client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl;
 import client.services.MultiplayerGameStatePollingService;
 import client.utils.ServerUtils;
+import commons.misc.GameResponse;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.question.*;
@@ -19,10 +20,7 @@ import javafx.scene.control.ButtonType;
 import javafx.util.Pair;
 
 import javax.inject.Inject;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Class responsible for managing the multiplayer game for the client.
@@ -301,6 +299,23 @@ public class MultiplayerCtrl {
     }
 
     /**
+     * Sends a string to the server sa a chosen answer from the player.
+     * The last two symbols from the string should be removed, as they
+     * denote the "Wh" in the button text field.
+     *
+     * @param chosenAnswer String value of button clicked - answer chosen
+     */
+    public void submitAnswer(String chosenAnswer) {
+        serverUtils.postAnswerMultiplayer(new GameResponse(
+                gameId,
+                new Date().getTime(),
+                (int) getRoundNumber(serverUtils.getMultiGameState(gameId)),
+                username,
+                chosenAnswer.substring(0, chosenAnswer.length() - 2)
+        ));
+    }
+
+    /**
      * Returns to home screen.
      * Is assigned to the Return Home button in Game Over screen.
      */
@@ -345,7 +360,7 @@ public class MultiplayerCtrl {
      * @return the id of the game.
      * @param game is a MultiPlayerState
      */
-    public long getNumber(MultiPlayerState game) {
+    public long getRoundNumber(MultiPlayerState game) {
         return game.getRoundNumber();
     }
 

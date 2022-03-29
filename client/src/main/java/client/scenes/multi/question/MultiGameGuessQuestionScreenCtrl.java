@@ -117,25 +117,11 @@ public class MultiGameGuessQuestionScreenCtrl {
         input.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                submitAnswer(input.getText());
+                multiCtrl.submitAnswer(input.getText());
                 input.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 input.setDisable(true);
             }
         });
-    }
-
-    /**
-     * Sends a string to the server sa a chosen answer from the player.
-     *
-     * @param chosenAnswer String value of button clicked - answer chosen
-     */
-    public void submitAnswer(String chosenAnswer) {
-        server.postAnswer(new GameResponse(multiCtrl.getId(),
-                new Date().getTime(),
-                (int) multiCtrl.getNumber(server.getMultiGameState(multiCtrl.getId())),
-                multiCtrl.getUsername(),
-                chosenAnswer.substring(0, chosenAnswer.length() - 2)
-        ));
     }
 
     /**

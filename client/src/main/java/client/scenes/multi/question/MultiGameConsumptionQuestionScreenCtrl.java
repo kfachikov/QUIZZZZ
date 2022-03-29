@@ -118,7 +118,7 @@ public class MultiGameConsumptionQuestionScreenCtrl {
         firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                submitAnswer(firstAnswer.getText());
+                multiCtrl.submitAnswer(firstAnswer.getText());
                 firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
@@ -128,7 +128,7 @@ public class MultiGameConsumptionQuestionScreenCtrl {
         secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                submitAnswer(secondAnswer.getText());
+                multiCtrl.submitAnswer(secondAnswer.getText());
                 secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
@@ -138,29 +138,13 @@ public class MultiGameConsumptionQuestionScreenCtrl {
         thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                submitAnswer(thirdAnswer.getText());
+                multiCtrl.submitAnswer(thirdAnswer.getText());
                 thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
                 thirdAnswer.setDisable(true);
             }
         });
-    }
-
-    /**
-     * Sends a string to the server sa a chosen answer from the player.
-     * The last two symbols from the string should be removed, as they
-     * denote the "Wh" in the button text field.
-     *
-     * @param chosenAnswer String value of button clicked - answer chosen
-     */
-    public void submitAnswer(String chosenAnswer) {
-        server.postAnswer(new GameResponse(multiCtrl.getId(),
-                new Date().getTime(),
-                (int) multiCtrl.getNumber(server.getMultiGameState(multiCtrl.getId())),
-                multiCtrl.getUsername(),
-                chosenAnswer.substring(0, chosenAnswer.length() - 2)
-        ));
     }
 
     /**
