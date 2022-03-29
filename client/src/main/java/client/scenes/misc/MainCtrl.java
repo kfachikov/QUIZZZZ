@@ -172,6 +172,7 @@ public class MainCtrl {
      * @param singlePlayer Player who is joining the game.
      */
     public void showPrep(SinglePlayer singlePlayer) {
+        prepCtrl.setUp();
         primaryStage.setTitle("Quizzz: Prepare");
         primaryStage.setScene(prep);
         prepCtrl.setSinglePlayer(singlePlayer);
