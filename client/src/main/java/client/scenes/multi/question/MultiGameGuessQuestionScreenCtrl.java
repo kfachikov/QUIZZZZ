@@ -2,7 +2,6 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
-import commons.misc.GameResponse;
 import commons.question.GuessQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,7 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
-import java.util.Date;
 
 /**
  * Controller responsible for the multiplayer game guess question screen.
@@ -143,6 +141,9 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
         currentScore.setText(String.valueOf(score));
     }
 
+    /**
+     * Setter for the question field - uses the current question to be asked.
+     */
     public void setQuestionPrompt() {
         questionTitle.setText(question.toString());
     }

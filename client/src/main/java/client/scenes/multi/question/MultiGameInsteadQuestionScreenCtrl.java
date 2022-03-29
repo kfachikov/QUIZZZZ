@@ -2,7 +2,6 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
-import commons.misc.GameResponse;
 import commons.question.InsteadQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,7 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
-import java.util.Date;
 
 /**
  * Controller responsible for the multiplayer game instead question screen.
@@ -164,10 +162,20 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
         questionTitle.setText(question.toString());
     }
 
+    /**
+     * Getter for the current question to be asked.
+     *
+     * @return  InsteadQuestion instance.
+     */
     public InsteadQuestion getQuestion() {
         return question;
     }
 
+    /**
+     * Sets the current question. Sets the answer choices.
+     *
+     * @param question  Question to be asked is passed as argument.
+     */
     public void setQuestion(InsteadQuestion question) {
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);

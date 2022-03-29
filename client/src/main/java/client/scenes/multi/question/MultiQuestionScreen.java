@@ -2,6 +2,11 @@ package client.scenes.multi.question;
 
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Abstract class - parent of all question controllers for the multiplayer game mode.
+ * Used for declaring current controller instance, that would be used to alter the background once
+ * the transition state comes.
+ */
 public abstract class MultiQuestionScreen {
 
     /**

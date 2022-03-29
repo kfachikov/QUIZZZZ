@@ -3,7 +3,6 @@ package client.scenes.multi.question;
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
 import commons.question.ConsumptionQuestion;
-import commons.misc.GameResponse;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,12 +15,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
-import java.util.Date;
 
 /**
  * Controller responsible for the multiplayer game consumption question screen.
  */
-public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen{
+public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen {
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
@@ -164,10 +162,21 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen{
         questionTitle.setText(question.toString());
     }
 
+    /**
+     * Getter for the current question.
+     *
+     * @return  ConsumptionQuestion instance.
+     */
     public ConsumptionQuestion getQuestion() {
         return question;
     }
 
+    /**
+     * Sets the current question. Styles the buttons and enables their clicking.
+     * Sets answer choices.
+     *
+     * @param question  Question to be used - the one that should be asked on this round.
+     */
     public void setQuestion(ConsumptionQuestion question) {
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);

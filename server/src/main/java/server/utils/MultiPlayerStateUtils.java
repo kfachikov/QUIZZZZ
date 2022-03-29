@@ -6,8 +6,6 @@ import commons.multi.MultiPlayerState;
 import commons.multi.Reaction;
 import commons.question.AbstractQuestion;
 import commons.question.GuessQuestion;
-
-import javax.swing.plaf.IconUIResource;
 import java.util.*;
 
 /**

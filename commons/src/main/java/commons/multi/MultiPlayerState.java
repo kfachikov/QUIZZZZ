@@ -11,6 +11,9 @@ import java.util.Objects;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
+/**
+ * Child class extending GameState. Handles the state of every single multiplayer game started.
+ */
 @JsonTypeName(value = "multi")
 public class MultiPlayerState extends GameState {
 
@@ -88,8 +91,8 @@ public class MultiPlayerState extends GameState {
      * @return          MultiPlayer instance of the player with a particular username.
      */
     public MultiPlayer getPlayerByUsername(String username) {
-        for(MultiPlayer player: players) {
-            if(player.getUsername().equals(username)) {
+        for (MultiPlayer player: players) {
+            if (player.getUsername().equals(username)) {
                 return player;
             }
         }

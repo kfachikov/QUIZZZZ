@@ -2,7 +2,6 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
-import commons.misc.GameResponse;
 import commons.question.MoreExpensiveQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,7 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
-import java.util.Date;
 
 /**
  * Controller responsible for the multiplayer game more expensive question screen.
@@ -176,10 +174,20 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
         questionTitle.setText(question.toString());
     }
 
+    /**
+     * Getter for the current question to be asked.
+     *
+     * @return  MoreExpensiveQuestion instance.
+     */
     public MoreExpensiveQuestion getQuestion() {
         return question;
     }
 
+    /**
+     * Sets the current question. Sets the answer choices.
+     *
+     * @param question  Question to be asked is passed as argument.
+     */
     public void setQuestion(MoreExpensiveQuestion question) {
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
