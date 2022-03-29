@@ -240,6 +240,12 @@ public class MultiPlayerStateUtils {
 
         game.setState(MultiPlayerState.TRANSITION_STATE);
         updateScore(game);
+
+        /*
+        Clear the game from any previous answers.
+        */
+        game.getSubmittedAnswers().clear();
+
         // 3 seconds for transition phase
         game.setNextPhase(nextPhase + 3000);
     }
