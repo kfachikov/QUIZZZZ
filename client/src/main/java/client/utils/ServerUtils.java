@@ -151,7 +151,7 @@ public class ServerUtils {
     public GameResponse postAnswerMultiplayer(GameResponse response) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("api/solo/answer")
+                .path("api/multi/answer")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(response, APPLICATION_JSON), GameResponse.class);
