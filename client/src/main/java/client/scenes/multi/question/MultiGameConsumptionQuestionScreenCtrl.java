@@ -227,4 +227,14 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
     public ImageView getImage() {
         return image;
     }
+
+    /**
+     * Getter for the progress bar field of this articular controller.
+     *
+     * @return  ProgressBar reference.
+     */
+    @Override
+    public ProgressBar getTime() {
+        return time;
+    }
 }

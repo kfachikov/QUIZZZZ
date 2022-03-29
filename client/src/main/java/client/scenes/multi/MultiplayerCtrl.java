@@ -2,9 +2,11 @@ package client.scenes.multi;
 
 import client.scenes.misc.MainCtrl;
 import client.scenes.multi.question.*;
+import client.scenes.single.QuestionScreen;
 import client.services.MultiplayerGameStatePollingService;
 import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
+import client.utils.TimerThread;
 import commons.misc.Activity;
 import commons.misc.GameResponse;
 import commons.multi.MultiPlayer;
@@ -16,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
@@ -54,17 +57,17 @@ public class MultiplayerCtrl {
      */
     private MultiQuestionScreen currentScreenCtrl;
 
-    /*
-    MultiPlayerState instance. To be used to "fetch" players and their score, so the
-    scene can be updated accordingly.
-     */
-    private MultiPlayerState currentState;
 
     /*
     Field to be used for the answer-correctness check. Even if a player clicks on one and
     the same answer, the field variable wouldn't change.
      */
     private String lastSubmittedAnswer;
+
+    /*
+    Thread that would make the progress bar on clients' screen represent actual time remaining.
+     */
+    private TimerThread timerThread;
 
     private final MainCtrl mainCtrl;
     private final ServerUtils serverUtils;
@@ -77,7 +80,6 @@ public class MultiplayerCtrl {
     private final ChangeListener<MultiPlayerState> onPoll = (observable, oldValue, newValue) -> {
         // If state has changed, we probably have to switch scenes
         if (newValue != null && (oldValue == null || !newValue.getState().equals(oldValue.getState()))) {
-            currentState = newValue;
             switchState(newValue);
         }
     };
@@ -161,9 +163,8 @@ public class MultiplayerCtrl {
 
         serverUtils.addMultiPlayer(gameId, new MultiPlayer(username, 0, true, true, true));
         pollingService.start(gameId);
-        currentState = pollingService.poll();
 
-        switchState(currentState);
+        switchState(pollingService.poll());
     }
 
     /**
@@ -211,7 +212,7 @@ public class MultiplayerCtrl {
                 switchToQuestion(game);
                 break;
             case MultiPlayerState.TRANSITION_STATE:
-                revealAnswerCorrectness();
+                revealAnswerCorrectness(game);
                 break;
             case MultiPlayerState.LEADERBOARD_STATE:
                 showIntermediateGameOver(sortList(game), game.getState());
@@ -228,9 +229,9 @@ public class MultiplayerCtrl {
     /**
      * Updates the background of the current scene according to the correctness of the answer given.
      */
-    public void revealAnswerCorrectness() {
-        currentScreenCtrl.setScore(currentState.getPlayerByUsername(username).getScore());
-        if (currentState.compareAnswerClient(lastSubmittedAnswer)) {
+    public void revealAnswerCorrectness(MultiPlayerState game) {
+        currentScreenCtrl.setScore(game.getPlayerByUsername(username).getScore());
+        if (game.compareAnswerClient(lastSubmittedAnswer)) {
             currentScreenCtrl.getWindow()
                     .setStyle("-fx-background-color: #" + (Paint.valueOf("aedd94")).toString().substring(2));
         } else {
@@ -286,16 +287,16 @@ public class MultiplayerCtrl {
 
         if (question instanceof ConsumptionQuestion) {
             ConsumptionQuestion consumptionQuestion = (ConsumptionQuestion) question;
-            showConsumptionQuestion(consumptionQuestion);
+            showConsumptionQuestion(game, consumptionQuestion);
         } else if (question instanceof GuessQuestion) {
             GuessQuestion guessQuestion = (GuessQuestion) question;
-            showGuessQuestion(guessQuestion);
+            showGuessQuestion(game, guessQuestion);
         } else if (question instanceof InsteadQuestion) {
             InsteadQuestion insteadQuestion = (InsteadQuestion) question;
-            showInsteadQuestion(insteadQuestion);
+            showInsteadQuestion(game, insteadQuestion);
         } else if (question instanceof MoreExpensiveQuestion) {
             MoreExpensiveQuestion moreExpensiveQuestion = (MoreExpensiveQuestion) question;
-            showMoreExpensiveQuestion(moreExpensiveQuestion);
+            showMoreExpensiveQuestion(game, moreExpensiveQuestion);
         }
     }
 
@@ -304,7 +305,7 @@ public class MultiplayerCtrl {
      *
      * @param question "Consumption" question.
      */
-    private void showConsumptionQuestion(ConsumptionQuestion question) {
+    private void showConsumptionQuestion(MultiPlayerState game, ConsumptionQuestion question) {
         currentScreenCtrl = consumptionQuestionScreenCtrl;
         setDefault();
         consumptionQuestionScreenCtrl.setQuestion(question);
@@ -314,6 +315,7 @@ public class MultiplayerCtrl {
         consumptionQuestionScreenCtrl.setImage(getActivityImage(question.getActivity()));
         centerImage(consumptionQuestionScreenCtrl.getImage());
         mainCtrl.getPrimaryStage().setScene(consumptionQuestionScreen);
+        startTimer(game, consumptionQuestionScreenCtrl);
     }
 
     /**
@@ -321,7 +323,7 @@ public class MultiplayerCtrl {
      *
      * @param question "Guess" question.
      */
-    private void showGuessQuestion(GuessQuestion question) {
+    private void showGuessQuestion(MultiPlayerState game, GuessQuestion question) {
         currentScreenCtrl = guessQuestionScreenCtrl;
         setDefault();
         guessQuestionScreenCtrl.setQuestion(question);
@@ -330,6 +332,7 @@ public class MultiplayerCtrl {
         guessQuestionScreenCtrl.setImage(getActivityImage(question.getActivity()));
         centerImage(guessQuestionScreenCtrl.getImage());
         mainCtrl.getPrimaryStage().setScene(guessQuestionScreen);
+        startTimer(game, guessQuestionScreenCtrl);
     }
 
     /**
@@ -337,7 +340,7 @@ public class MultiplayerCtrl {
      *
      * @param question "Instead of" question.
      */
-    private void showInsteadQuestion(InsteadQuestion question) {
+    private void showInsteadQuestion(MultiPlayerState game, InsteadQuestion question) {
         currentScreenCtrl = insteadQuestionScreenCtrl;
         setDefault();
         insteadQuestionScreenCtrl.setQuestion(question);
@@ -347,6 +350,7 @@ public class MultiplayerCtrl {
         insteadQuestionScreenCtrl.setImage(getActivityImage(question.getActivity()));
         centerImage(insteadQuestionScreenCtrl.getImage());
         mainCtrl.getPrimaryStage().setScene(insteadQuestionScreen);
+        startTimer(game, insteadQuestionScreenCtrl);
 
     }
 
@@ -355,7 +359,7 @@ public class MultiplayerCtrl {
      *
      * @param question "More Expensive" question.
      */
-    private void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
+    private void showMoreExpensiveQuestion(MultiPlayerState game, MoreExpensiveQuestion question) {
         currentScreenCtrl = moreExpensiveQuestionScreenCtrl;
         setDefault();
         moreExpensiveQuestionScreenCtrl.prepareAnswerButton();
@@ -366,6 +370,7 @@ public class MultiplayerCtrl {
                 getActivityImage(question.getAnswerChoices().get(1)),
                 getActivityImage(question.getAnswerChoices().get(2)));
         mainCtrl.getPrimaryStage().setScene(moreExpensiveQuestionScreen);
+        startTimer(game, moreExpensiveQuestionScreenCtrl);
     }
 
     /**
@@ -393,7 +398,7 @@ public class MultiplayerCtrl {
         serverUtils.postAnswerMultiplayer(new GameResponse(
                 gameId,
                 new Date().getTime(),
-                (int) getRoundNumber(serverUtils.getMultiGameState(gameId)),
+                (int) getRoundNumber(currentState),
                 username,
                 lastSubmittedAnswer
         ));
@@ -502,5 +507,28 @@ public class MultiplayerCtrl {
             imageView.setX((imageView.getFitWidth() - w) / 2);
             imageView.setY((imageView.getFitHeight() - h) / 2);
         }
+    }
+
+    /**
+     * Initializes a new instance of TimerThread and starts it.
+     * Used at the beginning of each "scene-showing" process.
+     *
+     * @param game                  Multiplayer game state instance to work with - needed for
+     *                              next phase "fetching". The timer would go from now till
+     *                              the next phase (Date).
+     * @param multiQuestionScreen   Controller for the corresponding scene to be visualized.
+     */
+    private void startTimer(MultiPlayerState game, MultiQuestionScreen multiQuestionScreen) {
+        ProgressBar time = multiQuestionScreen.getTime();
+        long nextPhase = game.getNextPhase();
+        /*
+        The following line is used so no concurrent threads occur.
+        Any existing ones are interrupted and thus, the task they execute are canceled.
+         */
+        if (timerThread != null && timerThread.isAlive()) {
+            timerThread.interrupt();
+        }
+        timerThread = new TimerThread(time, nextPhase);
+        timerThread.start();
     }
 }

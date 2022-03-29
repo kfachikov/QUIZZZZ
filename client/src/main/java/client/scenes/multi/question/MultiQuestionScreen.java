@@ -1,5 +1,6 @@
 package client.scenes.multi.question;
 
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -23,4 +24,6 @@ public abstract class MultiQuestionScreen {
      * @return A reference to the particular AnchorPane object.
      */
     public abstract AnchorPane getWindow();
+
+    public abstract ProgressBar getTime();
 }
