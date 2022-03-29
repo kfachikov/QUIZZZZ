@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -110,49 +111,34 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
     }
 
     /**
-     * Setter for a mock label.
-     *
-     * @param labelText New value of the label
-     */
-    public void setGameStateLabelText(String labelText) {
-        gameStateLabel.setText(labelText);
-    }
-
-    /**
      * Initializes the multi-player game controller by:
      * <p>
      * Binding answer choices to a method submitting that answer.
-     * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
+     * In addition, proper method is bound to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
     public void initialize() {
         firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                multiCtrl.submitAnswer(firstAnswer.getText());
+                multiCtrl.submitAnswer(description1.getText());
                 firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
+                disableAnswerSubmission();
             }
         });
         secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                multiCtrl.submitAnswer(secondAnswer.getText());
+                multiCtrl.submitAnswer(description2.getText());
                 secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
+                disableAnswerSubmission();
             }
         });
         thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                multiCtrl.submitAnswer(thirdAnswer.getText());
+                multiCtrl.submitAnswer(description3.getText());
                 thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
+                disableAnswerSubmission();
             }
         });
     }
@@ -164,14 +150,6 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
      */
     public void setScore(long score) {
         currentScore.setText(String.valueOf(score));
-    }
-
-
-    /**
-     * Sets the question to the chosen questionText.
-     */
-    public void setQuestionPrompt() {
-        questionTitle.setText(question.toString());
     }
 
     /**
@@ -189,24 +167,70 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
      * @param question  Question to be asked is passed as argument.
      */
     public void setQuestion(MoreExpensiveQuestion question) {
+        this.question = question;
+    }
+
+    /**
+     * Prepare the answer field by making them clickable and setting their color to the default one.
+     */
+    public void prepareAnswerButton() {
+        /*
+        Enable buttons to be clicked.
+         */
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);
 
-        //setting the button colors back to default(unselected)
+        /*
+        Set the buttons colors back to default(unselected).
+         */
         firstAnswer.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
         secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
         thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
+    }
 
-        this.question = question;
-        setQuestionPrompt();
+    /**
+     * Set the description for all possible answer choices. These would be the one submitted after
+     * an answer is clicked.
+     */
+    public void setDescription() {
         /*
-        The following setup was made purely for testing purposes.
-        Should be optimized - extracted as functionality (eventually).
+        As the `submitAsnwer` method is extracted in multiplayerCtrl, and it concatenates the last two
+        characters of our String answer submitted, we would add two space characters at the end,
+        so the comparing method works as intended.
          */
-        firstAnswer.setText(question.getAnswerChoices().get(0) + "Wh");
-        secondAnswer.setText(question.getAnswerChoices().get(1) + "Wh");
-        thirdAnswer.setText(question.getAnswerChoices().get(2) + "Wh");
+        description1.setText(question.getAnswerChoices().get(0).getTitle() + "  ");
+        description2.setText(question.getAnswerChoices().get(1).getTitle() + "  ");
+        description3.setText(question.getAnswerChoices().get(2).getTitle() + "  ");
+    }
+
+    /**
+     * Sets all images corresponding to the answer choices.
+     *
+     * @param image1    First image to be shown.
+     * @param image2    Second image to be shown.
+     * @param image3    Third image to be shown.
+     */
+    public void setImage(Image image1, Image image2, Image image3) {
+        this.image1.setImage(image1);
+        this.image2.setImage(image2);
+        this.image3.setImage(image3);
+    }
+
+    /**
+     * Sets the question to the chosen questionText.
+     */
+    public void setQuestionPrompt() {
+        questionTitle.setText(question.toString());
+    }
+
+    /**
+     * Makes all answers non-clickable. To be used once an answer is clicked.
+     */
+    public void disableAnswerSubmission() {
+        firstAnswer.setDisable(true);
+        secondAnswer.setDisable(true);
+        thirdAnswer.setDisable(true);
     }
 
     /**

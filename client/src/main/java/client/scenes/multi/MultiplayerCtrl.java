@@ -3,7 +3,9 @@ package client.scenes.multi;
 import client.scenes.misc.MainCtrl;
 import client.scenes.multi.question.*;
 import client.services.MultiplayerGameStatePollingService;
+import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
+import commons.misc.Activity;
 import commons.misc.GameResponse;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
@@ -14,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
 import javafx.util.Pair;
 
@@ -65,6 +68,7 @@ public class MultiplayerCtrl {
     private final MainCtrl mainCtrl;
     private final ServerUtils serverUtils;
     private final MultiplayerGameStatePollingService pollingService;
+    private final ActivityImageUtils activityImageUtils;
 
     private long gameId;
     private String username;
@@ -83,15 +87,18 @@ public class MultiplayerCtrl {
      * @param mainCtrl       Main controller
      * @param serverUtils    Server utilities
      * @param pollingService Multiplayer game state polling service
+     * @param activityImageUtils    Activity Image utility
      */
     @Inject
     public MultiplayerCtrl(MainCtrl mainCtrl,
                            ServerUtils serverUtils,
-                           MultiplayerGameStatePollingService pollingService
+                           MultiplayerGameStatePollingService pollingService,
+                           ActivityImageUtils activityImageUtils
     ) {
         this.mainCtrl = mainCtrl;
         this.serverUtils = serverUtils;
         this.pollingService = pollingService;
+        this.activityImageUtils = activityImageUtils;
     }
 
     /**
@@ -289,7 +296,6 @@ public class MultiplayerCtrl {
             InsteadQuestion insteadQuestion = (InsteadQuestion) question;
             showInsteadQuestion(insteadQuestion);
         } else if (question instanceof MoreExpensiveQuestion) {
-            currentScreenCtrl = moreExpensiveQuestionScreenCtrl;
             MoreExpensiveQuestion moreExpensiveQuestion = (MoreExpensiveQuestion) question;
             showMoreExpensiveQuestion(moreExpensiveQuestion);
         }
@@ -302,7 +308,6 @@ public class MultiplayerCtrl {
      */
     private void showConsumptionQuestion(ConsumptionQuestion question) {
         setDefault();
-        consumptionQuestionScreenCtrl.setGameStateLabelText(question.debugString());
         consumptionQuestionScreenCtrl.setQuestion(question);
         mainCtrl.getPrimaryStage().setScene(consumptionQuestionScreen);
     }
@@ -314,7 +319,6 @@ public class MultiplayerCtrl {
      */
     private void showGuessQuestion(GuessQuestion question) {
         setDefault();
-        guessQuestionScreenCtrl.setGameStateLabelText(question.debugString());
         guessQuestionScreenCtrl.setQuestion(question);
         mainCtrl.getPrimaryStage().setScene(guessQuestionScreen);
     }
@@ -326,7 +330,6 @@ public class MultiplayerCtrl {
      */
     private void showInsteadQuestion(InsteadQuestion question) {
         setDefault();
-        insteadQuestionScreenCtrl.setGameStateLabelText(question.debugString());
         insteadQuestionScreenCtrl.setQuestion(question);
         mainCtrl.getPrimaryStage().setScene(insteadQuestionScreen);
 
@@ -338,9 +341,15 @@ public class MultiplayerCtrl {
      * @param question "More Expensive" question.
      */
     private void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
+        currentScreenCtrl = moreExpensiveQuestionScreenCtrl;
         setDefault();
-        moreExpensiveQuestionScreenCtrl.setGameStateLabelText(question.debugString());
+        moreExpensiveQuestionScreenCtrl.prepareAnswerButton();
         moreExpensiveQuestionScreenCtrl.setQuestion(question);
+        moreExpensiveQuestionScreenCtrl.setQuestionPrompt();
+        moreExpensiveQuestionScreenCtrl.setDescription();
+        moreExpensiveQuestionScreenCtrl.setImage(getActivityImage(question.getAnswerChoices().get(0)),
+                getActivityImage(question.getAnswerChoices().get(1)),
+                getActivityImage(question.getAnswerChoices().get(2)));
         mainCtrl.getPrimaryStage().setScene(moreExpensiveQuestionScreen);
     }
 
@@ -446,5 +455,16 @@ public class MultiplayerCtrl {
      * activates when a player presses surprised emoji.
      */
     public void surprisedEmoji() {
+    }
+
+    /**
+     * Getter method for getting the image of an activity.
+     *
+     * @param activity Activity to get an image from.
+     * @return JavaFX image of the activity.
+     */
+    public Image getActivityImage(Activity activity) {
+        long key = activity.getKey();
+        return activityImageUtils.getActivityImage(key);
     }
 }
