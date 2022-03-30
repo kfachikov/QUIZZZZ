@@ -35,7 +35,7 @@ public class LeaderboardScreenCtrl {
     @FXML
     private Button leave;
     @FXML
-    private Button returnHome;
+    private Button playAgain;
 
     @FXML
     private Label position1;
@@ -159,8 +159,8 @@ public class LeaderboardScreenCtrl {
             emojiIntermediateLayout();
 
             //make top-left leave button visible + returnHome invisible
-            returnHome.setVisible(false);
-            returnHome.setDisable(true);
+            playAgain.setVisible(false);
+            playAgain.setDisable(true);
             leave.setDisable(false);
             leave.setVisible(true);
         }
@@ -169,8 +169,8 @@ public class LeaderboardScreenCtrl {
             emojiGameOverLayout();
 
             //returnHome visible + make top-left leave button invisible
-            returnHome.setVisible(true);
-            returnHome.setDisable(false);
+            playAgain.setVisible(true);
+            playAgain.setDisable(false);
             leave.setDisable(true);
             leave.setVisible(false);
         }
@@ -307,12 +307,14 @@ public class LeaderboardScreenCtrl {
     }
 
     /**
-     * Returns to the home screen.
+     * Establishes a new queue connection for our client.
+     * If his username already exist if the present queue state, they
+     * are redirected to the home screen and prompted to change their username.
      * <p>
-     * Is tied to returnHome button displayed at game-over screen.
+     * Is tied to playAgain button displayed at game-over screen.
      */
-    public void returnHome() {
-        multiCtrl.returnHome();
+    public void playAgain() {
+        multiCtrl.enterNewQueue();
     }
 
     /**

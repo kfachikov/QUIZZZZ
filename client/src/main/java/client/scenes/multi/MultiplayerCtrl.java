@@ -11,6 +11,8 @@ import commons.misc.GameResponse;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.question.*;
+import commons.queue.QueueUser;
+import jakarta.ws.rs.WebApplicationException;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,6 +34,8 @@ import java.util.*;
  * It keeps track of any logical changes on the server side, and updates the scenes and their controllers accordingly.
  */
 public class MultiplayerCtrl {
+
+    private static final int FORBIDDEN = 403;
 
     private MultiGameConsumptionQuestionScreenCtrl consumptionQuestionScreenCtrl;
     private Scene consumptionQuestionScreen;
@@ -539,4 +543,28 @@ public class MultiplayerCtrl {
         timerThread = new TimerThread(time, nextPhase);
         timerThread.start();
     }
+
+    /**
+     * Method for re-entering a queue. Bound with "Play Again" button on final
+     * leaderboard.
+     *
+     * In case a player with such username already exists, the player is redirected to
+     * the home screen.
+     *
+     * TODO Alert of non-unique username.
+     */
+    public void enterNewQueue() {
+        try {
+            QueueUser user = serverUtils.addQueueUser(new QueueUser(username));
+            mainCtrl.showQueue(user, serverUtils.getCurrentServer());
+        } catch (WebApplicationException e) {
+            switch (e.getResponse().getStatus()) {
+                case FORBIDDEN:
+                    mainCtrl.showHome();
+                    mainCtrl.getHomeCtrl().playMulti();
+                    break;
+            }
+        }
+    }
+
 }

@@ -292,4 +292,14 @@ public class MainCtrl {
         primaryStage.setScene(congratulations);
     }
 
+    /**
+     * Getter for the home screen controller instance.
+     *
+     * @return  HomeScreenController reference to the only one
+     *          instance controlling the home screen.
+     */
+    public HomeScreenCtrl getHomeCtrl() {
+        return homeCtrl;
+    }
+
 }

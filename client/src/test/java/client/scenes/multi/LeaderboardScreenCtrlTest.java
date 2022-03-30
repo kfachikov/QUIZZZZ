@@ -33,7 +33,7 @@ class LeaderboardScreenCtrlTest {
 
     @Test
     void returnHome() {
-        leaderboardScreenCtrl.returnHome();
-        assertEquals(List.of("showHome"), mainCtrl.calledMethods);
+        leaderboardScreenCtrl.playAgain();
+        assertEquals(List.of("showQueue"), mainCtrl.calledMethods);
     }
 }
