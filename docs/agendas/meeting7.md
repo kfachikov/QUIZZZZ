@@ -194,6 +194,16 @@ Choose the next chairperson and notetakers.
 
 **Alexandra:**
 
+
+`TIP` **to everybody** - Let's be more active in the approving part of the MRs. I don't mean to approve MRs that you don't think have a place in the main branch, but if the threads you opened are resolved, maybe it's time you approve it. I would really like if the "approving part" would stop taking place minutes before we merge development to main and I think it would help us steer clear of problems like the one we encountered this week.
+
+
+`TOP` **Julius** - You helped me see how my issue could be implemented using the admin panel and also by telling me it is indeed allowed to add another repository, which altough my MR was functional, I think made it truly complete and, by doing that, you also helped the person who will take the other admin related issues.
+
+`TOP` **Kayra** - You also looked over my code to search with me what could be wrong and helped me realise that I did not save the activity_bank in the required place. Although that is not part of the issue anymore, I appreciate the time you took to try and help me out.
+
+
+
 **Marijn:**
 
 `TOP` **to Kaloyan, Kayra and Julius** - Thanks for the help you have provided.
