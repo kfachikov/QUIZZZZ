@@ -25,7 +25,7 @@ import java.util.Objects;
 })
 public abstract class GameState {
 
-    private static long id;
+    private long id;
     private long nextPhase;
     private int roundNumber;
     private List<AbstractQuestion> questionList;
