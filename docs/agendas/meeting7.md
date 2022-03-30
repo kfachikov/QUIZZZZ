@@ -235,7 +235,6 @@ Choose the next chairperson and notetakers.
     - This would prevent others from waiting for you, and allow meetings to be a lot more punctual.
     - Do not be late to any meetings this week.
   
-## Tops
 `TOP` **to Kaloyan** - worked all night to complete his issue
   - It allowed me to start working on Thursday right after waking up
 
