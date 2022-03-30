@@ -96,7 +96,7 @@ public class PrepScreenCtrl {
         for (SinglePlayerLeaderboardScore singleplayer : leaderboardScores) {
             int j = currentNodeIndex + 1;
             Node currentNode = presentPlayers.get(currentNodeIndex);
-            ((Label) currentNode).setText("" + j + " " + singleplayer.getUsername() + " " + singleplayer.getScore());
+            ((Label) currentNode).setText("(" + j + ") " + singleplayer.getUsername() + " " + singleplayer.getScore());
             currentNode.setVisible(true);
             currentNodeIndex++;
             if (currentNodeIndex > 19) {
