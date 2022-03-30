@@ -1,6 +1,7 @@
 package server.utils;
 
 import commons.misc.GameResponse;
+import commons.misc.GameState;
 import commons.multi.MultiPlayerState;
 import commons.question.AbstractQuestion;
 import commons.question.GuessQuestion;
@@ -27,7 +28,7 @@ public class ScoreCountingUtils {
      * @param response  GameResponse of the player with a correct answer.
      * @return Number of points to add to the player's score
      */
-    public int computeScore(MultiPlayerState game, GameResponse response) {
+    public int computeScore(GameState game, GameResponse response) {
         int points = 0;
         AbstractQuestion currentQuestion = game.getQuestionList()
                 .get(game.getRoundNumber());
