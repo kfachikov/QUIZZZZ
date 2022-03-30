@@ -2,7 +2,6 @@ package server.utils;
 
 import commons.misc.GameResponse;
 import commons.misc.GameState;
-import commons.multi.MultiPlayerState;
 import commons.question.AbstractQuestion;
 import commons.question.GuessQuestion;
 

@@ -313,9 +313,14 @@ public class MultiPlayerStateUtils {
         if (responses.size() == 0) {
             return null;
         }
-        Collections.sort(responses, ((o1, o2) -> (int) (o1.getTimeSubmitted() - o2.getTimeSubmitted())));
-        GameResponse playerGameResponse = responses.get(0);
-        for (GameResponse GameResponse : responses) {
+        /*
+        The following copy of the `responses` list is required, as the list passed as
+        argument is immutable - cannot be changed, and thus, cannot be sorted.
+         */
+        List<GameResponse> sortedList = new ArrayList<>(responses);
+        Collections.sort(sortedList, ((o1, o2) -> (int) (o1.getTimeSubmitted() - o2.getTimeSubmitted())));
+        GameResponse playerGameResponse = sortedList.get(0);
+        for (GameResponse GameResponse : sortedList) {
             // Only update the GameResponse if it differs
             // This is done to avoid punishing the player from clicking
             // the same GameResponse multiple times
