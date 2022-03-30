@@ -190,4 +190,13 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     public ProgressBar getTime() {
         return time;
     }
+
+    /**
+     * Getter for the game state field. Would represent the id of the current game.
+     *
+     * @return  The id of the current game.
+     */
+    public Label getGameStateLabel() {
+        return gameStateLabel;
+    }
 }

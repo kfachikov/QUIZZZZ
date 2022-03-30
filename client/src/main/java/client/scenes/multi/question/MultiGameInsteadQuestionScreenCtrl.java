@@ -244,4 +244,13 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
         return time;
     }
 
+    /**
+     * Getter for the game state field. Would represent the id of the current game.
+     *
+     * @return  The id of the current game.
+     */
+    public Label getGameStateLabel() {
+        return gameStateLabel;
+    }
+
 }
