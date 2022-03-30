@@ -287,7 +287,6 @@ public class MainCtrl {
     public void showCongratulations() {
         primaryStage.setTitle("Quizzz: Congratulations");
         congratulationsCtrl.setPoints();
-        congratulationsCtrl.setPosition();
         primaryStage.setScene(congratulations);
     }
 

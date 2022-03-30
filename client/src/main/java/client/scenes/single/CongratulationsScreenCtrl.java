@@ -11,6 +11,8 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
+import java.util.List;
+
 /**
  *
  */
@@ -179,21 +181,24 @@ public class CongratulationsScreenCtrl {
     }
 
     /**
-     * Sets the score of the player at the corresponding position.
+     * Sets the score and position of the player and post the player to the leaderboard database.
      */
     public void setPoints() {
-        points.setText(String.valueOf(singlePlayerUtils.getSinglePlayerState().getPlayer().getScore()));
         String name = singlePlayerUtils.getSinglePlayerState().getPlayer().getUsername();
         int score = singlePlayerUtils.getSinglePlayerState().getPlayer().getScore();
         SinglePlayerLeaderboardScore player = new SinglePlayerLeaderboardScore(name, score);
-        server.postLeaderboardEntry(player);
-    }
 
-    /**
-     * shows the position acquired by the user.
-     */
-    public void setPosition() {
-        var place = "1";
-        position.setText(place);
+        points.setText(String.valueOf(score));
+        server.postLeaderboardEntry(player);
+
+        var place = 1;
+
+        List<SinglePlayerLeaderboardScore> leaderboardScores = server.getLeaderboardEntry();
+        for (int i = 0; i < leaderboardScores.size(); i++) {
+            if (leaderboardScores.get(i).equals(player)) {
+                place += i;
+            }
+        }
+        position.setText("" + place + "");
     }
 }
