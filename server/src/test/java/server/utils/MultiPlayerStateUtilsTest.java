@@ -24,6 +24,7 @@ class MultiPlayerStateUtilsTest {
 
     private MockCurrentTimeUtils currentTime;
     private MockQueueUtils queueUtils;
+    private MockScoreCountingUtils scoreCounting;
 
     private MultiPlayerStateUtils multiUtils;
 
@@ -57,6 +58,7 @@ class MultiPlayerStateUtilsTest {
 
         currentTime = new MockCurrentTimeUtils();
         queueUtils = new MockQueueUtils(currentTime);
+        scoreCounting = new MockScoreCountingUtils();
 
         activity1 = new Activity("i1", "t1", "s1", "m1", 1L);
         activity2 = new Activity("i2", "t2", "s2", "m2", 2L);
@@ -152,7 +154,7 @@ class MultiPlayerStateUtilsTest {
                 new ArrayList<>(),
                 null
         );
-        multiUtils = new MultiPlayerStateUtils(generateQuestionUtils, queueUtils, currentTime);
+        multiUtils = new MultiPlayerStateUtils(generateQuestionUtils, queueUtils, currentTime, scoreCounting);
     }
 
     @BeforeEach

@@ -19,6 +19,7 @@ public class MultiPlayerStateUtils {
     private final GenerateQuestionUtils generateQuestionUtils;
     private final QueueUtils queueUtils;
     private final CurrentTimeUtils currentTime;
+    private final ScoreCountingUtils scoreCountingUtils;
 
     /**
      * Constructor for multiplayer server-side utility class.
@@ -29,11 +30,13 @@ public class MultiPlayerStateUtils {
      */
     public MultiPlayerStateUtils(GenerateQuestionUtils generateQuestionUtils,
                                  QueueUtils queueUtils,
-                                 CurrentTimeUtils currentTime
+                                 CurrentTimeUtils currentTime,
+                                 ScoreCountingUtils scoreCountingUtils
     ) {
         this.generateQuestionUtils = generateQuestionUtils;
         this.queueUtils = queueUtils;
         this.currentTime = currentTime;
+        this.scoreCountingUtils = scoreCountingUtils;
 
         this.games = new HashMap<>();
 
@@ -290,69 +293,9 @@ public class MultiPlayerStateUtils {
                 Method computeScore is always called, so guess question approximation can be taken
                 into account.
                  */
-                currentPlayer.setScore(currentPlayer.getScore() + computeScore(finalAnswer));
+                currentPlayer.setScore(currentPlayer.getScore() + scoreCountingUtils.computeScore(game, finalAnswer));
             }
         }
-    }
-
-    /**
-     * Compute the score of a response.
-     * If question's type is GuessQuestion then the score is computed based on how fast the answer was submitted and how close the player was to the actual answer.
-     * If question's type is not GuessQuestion then the score is computed based only on how fast the answer was submitted
-     * <p>
-     *
-     * @param response GameResponse of the player with a correct answer.
-     * @return Number of points to add to the player's score
-     */
-    private int computeScore(GameResponse response) {
-        int points = 0;
-        long gameId = response.getGameId();
-        MultiPlayerState currentGame = games.get(gameId);
-        AbstractQuestion currentQuestion = currentGame.getQuestionList()
-                .get(currentGame.getRoundNumber());
-        /*
-        Next variable would calculate the number of seconds remaining when the player
-        submitted his response.
-         */
-        double timeRemaining = (currentGame.getNextPhase() - response.getTimeSubmitted()) / 1000;
-
-        /*
-        The two answers to be compared.
-         */
-        String correctAnswer = currentQuestion.getCorrectAnswer();
-        String submittedAnswer = response.getAnswerChoice();
-
-        if (currentQuestion instanceof GuessQuestion) {
-            boolean validResponse = true;
-            double correctAnswerNumber = Double.parseDouble(correctAnswer);
-            double submittedAnswerNumber = -1;
-            try {
-                submittedAnswerNumber = Double.parseDouble(submittedAnswer);
-            } catch (NumberFormatException e) {
-                validResponse = false;
-            }
-            if (validResponse) {
-                if (correctAnswerNumber == submittedAnswerNumber) {
-                    points = (int) (100 + timeRemaining * 50.0);
-                } else if (correctAnswerNumber < submittedAnswerNumber
-                        && submittedAnswerNumber - correctAnswerNumber <= 500) {
-                    points = (int) (100 + timeRemaining * 50.0
-                            - 0.1 * (submittedAnswerNumber - correctAnswerNumber));
-                } else if (correctAnswerNumber > submittedAnswerNumber
-                        && correctAnswerNumber - submittedAnswerNumber <= 500) {
-                    points = (int) (100 + timeRemaining * 50.0
-                            - 0.1 * (correctAnswerNumber - submittedAnswerNumber));
-                }
-            }
-        } else if (correctAnswer.equals(submittedAnswer)) {
-            /*
-            Check in `else if` statement is made, as the method would be called even when answer is
-            not the same as the correct one. Only this way, points from guess questions can be allocated
-            reasonably.
-            */
-            points = (int) (100 + timeRemaining * 50.0);
-        }
-        return points;
     }
 
     /**
