@@ -5,7 +5,6 @@ import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.multi.Reaction;
 import commons.question.AbstractQuestion;
-import commons.question.GuessQuestion;
 import java.util.*;
 
 /**
@@ -27,6 +26,8 @@ public class MultiPlayerStateUtils {
      * @param generateQuestionUtils is the "generate questions" utility bean injected by Spring.
      * @param queueUtils            is the class responsible for managing the queue.
      * @param currentTime           CurrentTimeUtils instance for getting the current time.
+     * @param scoreCountingUtils    ScoreCountingUtility instance for distributing the correct amount
+     *                              of points to each player.
      */
     public MultiPlayerStateUtils(GenerateQuestionUtils generateQuestionUtils,
                                  QueueUtils queueUtils,

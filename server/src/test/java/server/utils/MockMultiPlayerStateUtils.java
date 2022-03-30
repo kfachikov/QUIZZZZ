@@ -29,7 +29,8 @@ public class MockMultiPlayerStateUtils extends MultiPlayerStateUtils {
      */
     public MockMultiPlayerStateUtils() {
         super(new MockGenerateQuestionUtils(new MockActivityRepository(), new Random()),
-                new QueueUtils(new MockCurrentTimeUtils()), new MockCurrentTimeUtils());
+                new QueueUtils(new MockCurrentTimeUtils()), new MockCurrentTimeUtils(),
+                new ScoreCountingUtils());
     }
 
     @Override
