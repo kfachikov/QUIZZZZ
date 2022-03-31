@@ -1,14 +1,9 @@
-package client.scenes.single;
+package client.scenes.multi.question;
 
-import client.scenes.misc.MainCtrl;
-import client.services.SingleplayerGameStatePollingService;
-import client.utils.ActivityImageUtils;
+import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
-import client.utils.SinglePlayerUtils;
-import com.google.inject.Inject;
 import commons.misc.GameResponse;
-import commons.question.ConsumptionQuestion;
-import commons.single.SinglePlayerState;
+import commons.question.MoreExpensiveQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,19 +14,52 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
+import javax.inject.Inject;
+import java.util.Date;
 
 /**
- * Controller for the consumption question scene.
+ * Controller responsible for the multiplayer game more expensive question screen.
  */
-public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
+public class MultiGameMoreExpensiveQuestionScreenCtrl {
 
-    private ConsumptionQuestion question;
+    private final MultiplayerCtrl multiCtrl;
+    private final ServerUtils server;
+
+    private MoreExpensiveQuestion question;
+
+    @FXML
+    private Label gameStateLabel;
 
     @FXML
     private AnchorPane window;
 
     @FXML
+    private ProgressBar time;
+
+    @FXML
     private Label currentScore;
+
+    @FXML
+    private Label questionTitle;
+
+    @FXML
+    private ImageView image1;
+
+    @FXML
+    private ImageView image2;
+
+    @FXML
+    private ImageView image3;
+
+    @FXML
+    private Text description1;
+
+    @FXML
+    private Text description2;
+
+    @FXML
+    private Text description3;
 
     @FXML
     private Button firstAnswer;
@@ -43,43 +71,62 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
     private Button thirdAnswer;
 
     @FXML
-    private ImageView image;
+    private Button twicePoints;
 
     @FXML
-    private Label questionTitle;
+    private Button revealWrong;
 
     @FXML
-    private ProgressBar time;
+    private Button shortenTime;
 
     @FXML
-    private Button leaveButton;
+    private Button emojiButton1;
+
+    @FXML
+    private Button emojiButton2;
+
+    @FXML
+    private Button emojiButton3;
+
+    @FXML
+    private Button emojiButton4;
 
     /**
-     * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
+     * Constructor for the multiplayer game more expensive question screen.
      *
-     * @param server             is the server variable
-     * @param mainCtrl           is the main controller variable
-     * @param pollingService     is the injected polling service to be used to poll the game state.
-     * @param activityImageUtils is the utilities class responsible for fetching an image of an activity.
-     * @param singlePlayerUtils  is the injected singleplayer utils for managing logic
+     * @param multiCtrl Injected instance of MultiplayerCtrl
+     * @param server is the server variable
      */
     @Inject
-    public ConsumptionQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
-                                         SingleplayerGameStatePollingService pollingService,
-                                         ActivityImageUtils activityImageUtils,
-                                         SinglePlayerUtils singlePlayerUtils
-    ) {
-        super(server, mainCtrl, pollingService, activityImageUtils, singlePlayerUtils);
+    public MultiGameMoreExpensiveQuestionScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server) {
+        this.multiCtrl = multiCtrl;
+        this.server = server;
     }
 
     /**
-     * Initializes the single-player game controller by:
+     * Confirms if the user really wants to leave the game and allows them to
+     * return to the home screen.
+     */
+    public void returnHome() {
+        multiCtrl.promptLeave();
+    }
+
+    /**
+     * Setter for a mock label.
+     *
+     * @param labelText New value of the label
+     */
+    public void setGameStateLabelText(String labelText) {
+        gameStateLabel.setText(labelText);
+    }
+
+    /**
+     * Initializes the multi-player game controller by:
      * <p>
      * Binding answer choices to a method submitting that answer.
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
     public void initialize() {
-
         firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -109,7 +156,6 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
                 secondAnswer.setDisable(true);
                 thirdAnswer.setDisable(true);
             }
-
         });
     }
 
@@ -121,11 +167,10 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
-        SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new GameResponse(singlePlayerState.getId(),
-                time.getProgress(),
-                singlePlayerState.getRoundNumber(),
-                singlePlayerState.getPlayer().getUsername(),
+        server.postAnswer(new GameResponse(multiCtrl.getId(),
+                new Date().getTime(),
+                (int) multiCtrl.getNumber(server.getMultiGameState(multiCtrl.getId())),
+                multiCtrl.getUsername(),
                 chosenAnswer.substring(0, chosenAnswer.length() - 2)
         ));
     }
@@ -147,25 +192,11 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
         questionTitle.setText(question.toString());
     }
 
-    /**
-     * getter for the question instance.
-     *
-     * @return this question instance.
-     */
-    public ConsumptionQuestion getQuestion() {
+    public MoreExpensiveQuestion getQuestion() {
         return question;
     }
 
-    /**
-     * The method sets all fields of the question: image, answers, title.
-     *
-     * @param question the question instance of ConsumptionQuestion.
-     */
-
-    public void setQuestion(ConsumptionQuestion question) {
-
-        image.setImage(getActivityImage(question.getActivity()));
-
+    public void setQuestion(MoreExpensiveQuestion question) {
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);
@@ -193,16 +224,6 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      */
     public AnchorPane getWindow() {
         return window;
-    }
-
-    /**
-     * Overridden getTime() methods. Used to access the private time field.
-     *
-     * @return Reference to the JavaFX node in the scene corresponding to this controller.
-     */
-    @Override
-    public ProgressBar getTime() {
-        return time;
     }
 
 }

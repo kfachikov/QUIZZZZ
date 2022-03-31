@@ -1,14 +1,9 @@
-package client.scenes.single;
+package client.scenes.multi.question;
 
-import client.scenes.misc.MainCtrl;
-import client.services.SingleplayerGameStatePollingService;
-import client.utils.ActivityImageUtils;
+import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
-import client.utils.SinglePlayerUtils;
-import com.google.inject.Inject;
 import commons.misc.GameResponse;
 import commons.question.GuessQuestion;
-import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,52 +16,92 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javax.inject.Inject;
+import java.util.Date;
 
-public class GuessQuestionScreenCtrl extends QuestionScreen {
+/**
+ * Controller responsible for the multiplayer game guess question screen.
+ */
+public class MultiGameGuessQuestionScreenCtrl {
+
+    private final MultiplayerCtrl multiCtrl;
+    private final ServerUtils server;
 
     private GuessQuestion question;
+
+    @FXML
+    private Label gameStateLabel;
 
     @FXML
     private AnchorPane window;
 
     @FXML
-    private Label currentScore;
+    private ProgressBar time;
 
     @FXML
-    private ImageView image;
+    private Label currentScore;
 
     @FXML
     private Label questionTitle;
 
     @FXML
-    private ProgressBar time;
-
-    @FXML
-    private Button leaveButton;
-
-    @FXML
     private Text description;
+
+    @FXML
+    private ImageView image;
 
     @FXML
     private TextField input;
 
+    @FXML
+    private Button twicePoints;
+
+    @FXML
+    private Button revealWrong;
+
+    @FXML
+    private Button shortenTime;
+
+    @FXML
+    private Button emojiButton1;
+
+    @FXML
+    private Button emojiButton2;
+
+    @FXML
+    private Button emojiButton3;
+
+    @FXML
+    private Button emojiButton4;
+
     /**
-     * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
+     * Constructor for the multiplayer game question screen.
      *
-     * @param server             is the server variable
-     * @param mainCtrl           is the main controller variable
-     * @param pollingService     is the injected polling service to be used to poll the game state.
-     * @param activityImageUtils is the utilities class responsible for fetching an image of an activity.
-     * @param singlePlayerUtils  is the injected singleplayer utils for managing logic
+     * @param multiCtrl Injected instance of MultiplayerCtrl
+     * @param server is the server variable
      */
     @Inject
-    public GuessQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
-                                   SingleplayerGameStatePollingService pollingService,
-                                   ActivityImageUtils activityImageUtils,
-                                   SinglePlayerUtils singlePlayerUtils) {
-        super(server, mainCtrl, pollingService, activityImageUtils, singlePlayerUtils);
+    public MultiGameGuessQuestionScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server) {
+        this.multiCtrl = multiCtrl;
+        this.server = server;
     }
 
+    /**
+     * Confirms if the user really wants to leave the game and allows them to
+     * return to the home screen.
+     */
+    public void returnHome() {
+        multiCtrl.promptLeave();
+    }
+
+    /**
+     * Setter for a mock label.
+     *
+     * @param labelText New value of the label
+     */
+    public void setGameStateLabelText(String labelText) {
+        gameStateLabel.setText(labelText);
+    }
 
     /**
      * Initializes the single-player game controller by:
@@ -95,12 +130,11 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
-        SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new GameResponse(singlePlayerState.getId(),
-                time.getProgress(),
-                singlePlayerState.getRoundNumber(),
-                singlePlayerState.getPlayer().getUsername(),
-                chosenAnswer
+        server.postAnswer(new GameResponse(multiCtrl.getId(),
+                new Date().getTime(),
+                (int) multiCtrl.getNumber(server.getMultiGameState(multiCtrl.getId())),
+                multiCtrl.getUsername(),
+                chosenAnswer.substring(0, chosenAnswer.length() - 2)
         ));
     }
 
@@ -123,24 +157,16 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
         currentScore.setText(String.valueOf(score));
     }
 
-    /**
-     * Setter for the question title.
-     */
     public void setQuestionPrompt() {
         questionTitle.setText(question.toString());
     }
 
     /**
      * Sets the current question.
-     * Initialises the image, description and input field.
      *
      * @param question GuessQuestion instance to be used.
      */
     public void setQuestion(GuessQuestion question) {
-
-        var activityImage = getActivityImage(question.getActivity());
-        image.setImage(activityImage);
-
         this.question = question;
         inputFieldDefault();
         description.setText(question.getActivity().getTitle());
@@ -172,16 +198,6 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      */
     public AnchorPane getWindow() {
         return window;
-    }
-
-    /**
-     * Overridden getTime() methods. Used to access the private time field.
-     *
-     * @return Reference to the JavaFX node in the scene corresponding to this controller.
-     */
-    @Override
-    public ProgressBar getTime() {
-        return time;
     }
 
 }

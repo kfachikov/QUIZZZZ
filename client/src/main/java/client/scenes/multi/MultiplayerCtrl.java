@@ -1,10 +1,10 @@
 package client.scenes.multi;
 
 import client.scenes.misc.MainCtrl;
-import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
-import client.scenes.multi.question.MultiGameQuestionBScreenCtrl;
-import client.scenes.multi.question.MultiGameQuestionCScreenCtrl;
-import client.scenes.multi.question.MultiGameQuestionDScreenCtrl;
+import client.scenes.multi.question.MultiGameConsumptionQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameGuessQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameInsteadQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl;
 import client.services.MultiplayerGameStatePollingService;
 import client.utils.ServerUtils;
 import commons.multi.MultiPlayer;
@@ -31,17 +31,17 @@ import java.util.Optional;
  */
 public class MultiplayerCtrl {
 
-    private MultiGameQuestionAScreenCtrl questionAScreenCtrl;
-    private Scene questionAScreen;
+    private MultiGameConsumptionQuestionScreenCtrl consumptionQuestionScreenCtrl;
+    private Scene consumptionQuestionScreen;
 
-    private MultiGameQuestionBScreenCtrl questionBScreenCtrl;
-    private Scene questionBScreen;
+    private MultiGameGuessQuestionScreenCtrl guessQuestionScreenCtrl;
+    private Scene guessQuestionScreen;
 
-    private MultiGameQuestionCScreenCtrl questionCScreenCtrl;
-    private Scene questionCScreen;
+    private MultiGameInsteadQuestionScreenCtrl insteadQuestionScreenCtrl;
+    private Scene insteadQuestionScreen;
 
-    private MultiGameQuestionDScreenCtrl questionDScreenCtrl;
-    private Scene questionDScreen;
+    private MultiGameMoreExpensiveQuestionScreenCtrl moreExpensiveQuestionScreenCtrl;
+    private Scene moreExpensiveQuestionScreen;
 
     private MultiGameMockScreenCtrl mockScreenCtrl;
     private Scene mockScreen;
@@ -88,31 +88,31 @@ public class MultiplayerCtrl {
      * <p>
      * This method is called when application is starting up, similarly to MainCtrl:initialize.
      *
-     * @param questionAScreen Mock question A screen pair
-     * @param questionBScreen Mock question B screen pair
-     * @param questionCScreen Mock question C screen pair
-     * @param questionDScreen Mock question D screen pair
-     * @param mockMulti       Mock miscellaneous screen pair
-     * @param leaderboard     Final/intermediate leaderboard screen pair
+     * @param consumptionQuestionScreen     Mock question A screen pair
+     * @param guessQuestionScreen           Mock question B screen pair
+     * @param insteadQuestionScreen         Mock question C screen pair
+     * @param moreExpensiveQuestionScreen   Mock question D screen pair
+     * @param mockMulti                     Mock miscellaneous screen pair
+     * @param leaderboard                   Final/intermediate leaderboard screen pair
      */
     public void initialize(
-            Pair<MultiGameQuestionAScreenCtrl, Parent> questionAScreen,
-            Pair<MultiGameQuestionBScreenCtrl, Parent> questionBScreen,
-            Pair<MultiGameQuestionCScreenCtrl, Parent> questionCScreen,
-            Pair<MultiGameQuestionDScreenCtrl, Parent> questionDScreen,
+            Pair<MultiGameConsumptionQuestionScreenCtrl, Parent> consumptionQuestionScreen,
+            Pair<MultiGameGuessQuestionScreenCtrl, Parent> guessQuestionScreen,
+            Pair<MultiGameInsteadQuestionScreenCtrl, Parent> insteadQuestionScreen,
+            Pair<MultiGameMoreExpensiveQuestionScreenCtrl, Parent> moreExpensiveQuestionScreen,
             Pair<MultiGameMockScreenCtrl, Parent> mockMulti,
             Pair<LeaderboardScreenCtrl, Parent> leaderboard) {
-        this.questionAScreenCtrl = questionAScreen.getKey();
-        this.questionAScreen = new Scene(questionAScreen.getValue());
+        this.consumptionQuestionScreenCtrl = consumptionQuestionScreen.getKey();
+        this.consumptionQuestionScreen = new Scene(consumptionQuestionScreen.getValue());
 
-        this.questionBScreenCtrl = questionBScreen.getKey();
-        this.questionBScreen = new Scene(questionBScreen.getValue());
+        this.guessQuestionScreenCtrl = guessQuestionScreen.getKey();
+        this.guessQuestionScreen = new Scene(guessQuestionScreen.getValue());
 
-        this.questionCScreenCtrl = questionCScreen.getKey();
-        this.questionCScreen = new Scene(questionCScreen.getValue());
+        this.insteadQuestionScreenCtrl = insteadQuestionScreen.getKey();
+        this.insteadQuestionScreen = new Scene(insteadQuestionScreen.getValue());
 
-        this.questionDScreenCtrl = questionDScreen.getKey();
-        this.questionDScreen = new Scene(questionDScreen.getValue());
+        this.moreExpensiveQuestionScreenCtrl = moreExpensiveQuestionScreen.getKey();
+        this.moreExpensiveQuestionScreen = new Scene(moreExpensiveQuestionScreen.getValue());
 
         this.mockScreenCtrl = mockMulti.getKey();
         this.mockScreen = new Scene(mockMulti.getValue());
@@ -248,8 +248,9 @@ public class MultiplayerCtrl {
      * @param question "Consumption" question.
      */
     private void showConsumptionQuestion(ConsumptionQuestion question) {
-        questionAScreenCtrl.setGameStateLabelText(question.debugString());
-        mainCtrl.getPrimaryStage().setScene(questionAScreen);
+        consumptionQuestionScreenCtrl.setGameStateLabelText(question.debugString());
+        consumptionQuestionScreenCtrl.setQuestion(question);
+        mainCtrl.getPrimaryStage().setScene(consumptionQuestionScreen);
     }
 
     /**
@@ -258,8 +259,9 @@ public class MultiplayerCtrl {
      * @param question "Guess" question.
      */
     private void showGuessQuestion(GuessQuestion question) {
-        questionBScreenCtrl.setGameStateLabelText(question.debugString());
-        mainCtrl.getPrimaryStage().setScene(questionBScreen);
+        guessQuestionScreenCtrl.setGameStateLabelText(question.debugString());
+        guessQuestionScreenCtrl.setQuestion(question);
+        mainCtrl.getPrimaryStage().setScene(guessQuestionScreen);
     }
 
     /**
@@ -268,8 +270,9 @@ public class MultiplayerCtrl {
      * @param question "Instead of" question.
      */
     private void showInsteadQuestion(InsteadQuestion question) {
-        questionCScreenCtrl.setGameStateLabelText(question.debugString());
-        mainCtrl.getPrimaryStage().setScene(questionCScreen);
+        insteadQuestionScreenCtrl.setGameStateLabelText(question.debugString());
+        insteadQuestionScreenCtrl.setQuestion(question);
+        mainCtrl.getPrimaryStage().setScene(insteadQuestionScreen);
 
     }
 
@@ -279,8 +282,9 @@ public class MultiplayerCtrl {
      * @param question "More Expensive" question.
      */
     private void showMoreExpensiveQuestion(MoreExpensiveQuestion question) {
-        questionDScreenCtrl.setGameStateLabelText(question.debugString());
-        mainCtrl.getPrimaryStage().setScene(questionDScreen);
+        moreExpensiveQuestionScreenCtrl.setGameStateLabelText(question.debugString());
+        moreExpensiveQuestionScreenCtrl.setQuestion(question);
+        mainCtrl.getPrimaryStage().setScene(moreExpensiveQuestionScreen);
     }
 
     /**
@@ -324,6 +328,25 @@ public class MultiplayerCtrl {
      */
     public String getUsername() {
         return username;
+    }
+
+    /**
+     * Getter for the game id.
+     *
+     * @return the id of the game.
+     */
+    public long getId() {
+        return gameId;
+    }
+
+    /**
+     * Getter for the game id.
+     *
+     * @return the id of the game.
+     * @param game is a MultiPlayerState
+     */
+    public long getNumber(MultiPlayerState game) {
+        return game.getRoundNumber();
     }
 
     /**
