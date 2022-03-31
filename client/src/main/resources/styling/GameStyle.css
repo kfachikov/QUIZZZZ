@@ -7,6 +7,10 @@
 .button:pressed {
     -fx-background-color: #e30000;
 }
+.text {
+    -fx-font-style: Avenir Next;
+    -fx-text-fill: white;
+}
 .text-field {
     -fx-border-color: #00236f;
     -fx-border-width: 5;
