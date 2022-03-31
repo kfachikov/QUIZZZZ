@@ -9,6 +9,7 @@ import commons.misc.Activity;
 import commons.misc.GameResponse;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
+import commons.multi.Reaction;
 import commons.question.*;
 import commons.queue.QueueUser;
 import jakarta.ws.rs.WebApplicationException;
@@ -18,10 +19,7 @@ import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
@@ -572,6 +570,40 @@ public class MultiplayerCtrl {
                     break;
             }
         }
+    }
+
+    /**
+     * Initialized the actions happening once an emoji button is clicked.
+     *
+     * @param button1    Button to be bound with particular action.
+     * @param button2    Button to be bound with particular action.
+     * @param button3    Button to be bound with particular action.
+     * @param button4    Button to be bound with particular action.
+     */
+    public void initializeEmojiButtons(Button button1, Button button2, Button button3, Button button4) {
+        button1.setOnAction(e -> {
+            postReaction("explode");
+        });
+        button2.setOnAction(e -> {
+            postReaction("laughing");
+        });
+        button3.setOnAction(e -> {
+            postReaction("angry");
+        });
+        button4.setOnAction(e -> {
+            postReaction("crying");
+        });
+    }
+
+    /**
+     * Posts a reaction object to the server.
+     *
+     * @param emoji     Emoji String to be used for "defining" the particular
+     *                  emoji submitted.
+     */
+    private void postReaction(String emoji) {
+        serverUtils.addReaction(gameId,
+                new Reaction(username, emoji));
     }
 
 }

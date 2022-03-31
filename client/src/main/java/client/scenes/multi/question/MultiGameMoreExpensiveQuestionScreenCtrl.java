@@ -76,18 +76,6 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
     @FXML
     private Button shortenTime;
 
-    @FXML
-    private Button emojiButton1;
-
-    @FXML
-    private Button emojiButton2;
-
-    @FXML
-    private Button emojiButton3;
-
-    @FXML
-    private Button emojiButton4;
-
     /**
      * Constructor for the multiplayer game more expensive question screen.
      *
@@ -139,6 +127,7 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
                 disableAnswerSubmission();
             }
         });
+        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
     }
 
     /**

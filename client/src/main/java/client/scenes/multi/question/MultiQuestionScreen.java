@@ -1,5 +1,7 @@
 package client.scenes.multi.question;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 
@@ -9,6 +11,20 @@ import javafx.scene.layout.AnchorPane;
  * the transition state comes.
  */
 public abstract class MultiQuestionScreen {
+
+
+
+    @FXML
+    protected Button emojiButton1;
+
+    @FXML
+    protected Button emojiButton2;
+
+    @FXML
+    protected Button emojiButton3;
+
+    @FXML
+    protected Button emojiButton4;
 
     /**
      * Sets the score of the current scene to the actual player's score.
@@ -32,5 +48,8 @@ public abstract class MultiQuestionScreen {
      */
     public abstract ProgressBar getTime();
 
+    /**
+     * Abstract method "contract" to disable the answer submission process.
+     */
     public abstract void disableAnswerSubmission();
 }
