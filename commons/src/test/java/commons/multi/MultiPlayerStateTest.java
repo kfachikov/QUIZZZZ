@@ -67,7 +67,7 @@ class MultiPlayerStateTest {
 
         players = Arrays.asList(player1, player2);
 
-        reaction = new Reaction(Arrays.asList("sad", "tired"));
+        reaction = new Reaction("Kate", "laughing");
 
         game = new MultiPlayerState(37, 5500, 2, questions, answers, "question", players, reaction);
         game2 = new MultiPlayerState(37, 5500, 2, questions, answers, "question", players, reaction);
