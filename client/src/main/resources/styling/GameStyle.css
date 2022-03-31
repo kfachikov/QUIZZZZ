@@ -4,11 +4,13 @@
     -fx-border-width: 0;
     -fx-text-fill: white;
 }
+.button:hover {
+    -fx-background-color: #a40000;
+}
 .button:pressed {
-    -fx-background-color: #e30000;
+    -fx-background-color: #a40000;
 }
 .text {
-    -fx-font-style: Avenir Next;
     -fx-text-fill: white;
 }
 .text-field {
