@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.RowConstraints?>
-<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl">
+<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl">
    <effect>
       <ColorAdjust />
    </effect>
@@ -160,7 +151,7 @@
             <Font name="Avenir Next Condensed Bold" size="35.0" />
          </font>
       </Text>
-      <GridPane layoutX="128.0" layoutY="486.0" prefHeight="105.0" prefWidth="222.0">
+      <GridPane fx:id="reactions" layoutX="128.0" layoutY="484.0" prefHeight="105.0" prefWidth="222.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.7999755859375" minWidth="10.0" prefWidth="176.6000244140625" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.20001220703125" minWidth="10.0" prefWidth="45.39997558593751" />
@@ -171,24 +162,24 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" text="Username reacts with">
+            <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" text="Username reacts with">
                <font>
                   <Font name="Avenir Next Condensed Bold" size="18.0" />
                </font>
             </Label>
-            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" text="Username reacts with" GridPane.rowIndex="1">
+            <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+            <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" text="Username reacts with" GridPane.rowIndex="1">
                <font>
                   <Font name="Avenir Next Condensed Bold" size="18.0" />
                </font>
             </Label>
-            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" text="Username reacts with" GridPane.rowIndex="2">
+            <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" text="Username reacts with" GridPane.rowIndex="2">
                <font>
                   <Font name="Avenir Next Condensed Bold" size="18.0" />
                </font>
             </Label>
-            <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-            <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>
