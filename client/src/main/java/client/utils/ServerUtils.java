@@ -278,4 +278,16 @@ public class ServerUtils {
                 .post(Entity.entity(message, APPLICATION_JSON), ActivityImageMessage.class);
     }
 
+    /**
+     * @return it returns a list SinglePlayerLeaderboardScore.
+     */
+    public List<SinglePlayerLeaderboardScore> getLeaderboardEntry() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/leaderboard/players")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<SinglePlayerLeaderboardScore>>() {
+                });
+    }
 }
