@@ -59,6 +59,21 @@
          </font></Text>
       <Region layoutX="83.0" layoutY="458.0" prefHeight="162.0" prefWidth="315.0" style="-fx-background-color: #0038a8; -fx-background-radius: 30;" AnchorPane.bottomAnchor="-20.0" />
       <Region layoutX="94.0" layoutY="470.0" prefHeight="149.0" prefWidth="295.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="94.0" />
+      <Label fx:id="reaction1" layoutX="126.0" layoutY="487.0" prefHeight="28.0" prefWidth="232.0" text="Label">
+         <font>
+            <Font name="Avenir Next Condensed Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="reaction2" layoutX="125.0" layoutY="521.0" prefHeight="28.0" prefWidth="232.0" text="Label">
+         <font>
+            <Font name="Avenir Next Condensed Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="reaction3" layoutX="123.0" layoutY="556.0" prefHeight="28.0" prefWidth="232.0" text="Label">
+         <font>
+            <Font name="Avenir Next Condensed Bold" size="18.0" />
+         </font>
+      </Label>
       <Region layoutX="741.0" layoutY="119.0" prefHeight="300.0" prefWidth="174.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.rightAnchor="-15.0" />
       <ImageView fx:id="image" fitHeight="239.0" fitWidth="290.0" layoutX="97.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
