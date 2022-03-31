@@ -31,4 +31,6 @@ public abstract class MultiQuestionScreen {
      * @return  ProgressBar reference to the particular instance.
      */
     public abstract ProgressBar getTime();
+
+    public abstract void disableAnswerSubmission();
 }

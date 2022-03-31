@@ -104,7 +104,6 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
             public void handle(ActionEvent e) {
                 multiCtrl.submitAnswer(input.getText() + "Wh");
                 input.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                input.setDisable(true);
             }
         });
     }
@@ -171,6 +170,14 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     @Override
     public ProgressBar getTime() {
         return time;
+    }
+
+    /**
+     * Makes user input field non-clickable. Thus, answers cannot be submitted anymore.
+     */
+    @Override
+    public void disableAnswerSubmission() {
+        input.setDisable(true);
     }
 
     /**

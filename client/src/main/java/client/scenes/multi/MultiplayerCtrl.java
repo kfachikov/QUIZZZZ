@@ -5,7 +5,6 @@ import client.scenes.multi.question.*;
 import client.services.MultiplayerGameStatePollingService;
 import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
-import client.utils.TimerThread;
 import commons.misc.Activity;
 import commons.misc.GameResponse;
 import commons.multi.MultiPlayer;
@@ -13,6 +12,9 @@ import commons.multi.MultiPlayerState;
 import commons.question.*;
 import commons.queue.QueueUser;
 import jakarta.ws.rs.WebApplicationException;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,6 +25,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
+import javafx.util.Duration;
 import javafx.util.Pair;
 
 import javax.inject.Inject;
@@ -68,9 +71,9 @@ public class MultiplayerCtrl {
     private String lastSubmittedAnswer;
 
     /*
-    Thread that would make the progress bar on clients' screen represent actual time remaining.
+    TimeLine instance to handle the visual effects of the progress bar used to "time" the rounds.
      */
-    private TimerThread timerThread;
+    private Timeline timeline;
 
     private final MainCtrl mainCtrl;
     private final ServerUtils serverUtils;
@@ -521,7 +524,7 @@ public class MultiplayerCtrl {
     }
 
     /**
-     * Initializes a new instance of TimerThread and starts it.
+     * Initializes a new instance of TimeLine and starts it.
      * Used at the beginning of each "scene-showing" process.
      *
      * @param game                  Multiplayer game state instance to work with - needed for
@@ -531,16 +534,21 @@ public class MultiplayerCtrl {
      */
     private void startTimer(MultiPlayerState game, MultiQuestionScreen multiQuestionScreen) {
         ProgressBar time = multiQuestionScreen.getTime();
+        time.setStyle("-fx-accent: #006e8c");
+
         long nextPhase = game.getNextPhase();
-        /*
-        The following line is used so no concurrent threads occur.
-        Any existing ones are interrupted and thus, the task they execute are canceled.
-         */
-        if (timerThread != null && timerThread.isAlive()) {
-            timerThread.interrupt();
-        }
-        timerThread = new TimerThread(time, nextPhase);
-        timerThread.start();
+        long roundTime = nextPhase - new Date().getTime();
+
+        timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(time.progressProperty(), 0)),
+                new KeyFrame(Duration.millis(roundTime * 7 / 10), e -> {
+                    time.setStyle("-fx-accent: red");
+                }),
+                new KeyFrame(Duration.millis(nextPhase - new Date().getTime()), e -> {
+                    multiQuestionScreen.disableAnswerSubmission();
+                }, new KeyValue(time.progressProperty(), 1))
+        );
+        timeline.play();
     }
 
     /**

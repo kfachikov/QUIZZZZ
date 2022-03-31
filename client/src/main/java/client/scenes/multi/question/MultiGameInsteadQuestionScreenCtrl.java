@@ -195,7 +195,8 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
     /**
      * Makes all answers non-clickable. To be used once an answer is clicked.
      */
-    private void disableAnswerSubmission() {
+    @Override
+    public void disableAnswerSubmission() {
         firstAnswer.setDisable(true);
         secondAnswer.setDisable(true);
         thirdAnswer.setDisable(true);
