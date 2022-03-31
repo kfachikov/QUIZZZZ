@@ -1,6 +1,5 @@
 package client.scenes.multi;
 
-import client.Main;
 import client.scenes.misc.MainCtrl;
 import client.scenes.multi.question.*;
 import client.services.MultiplayerGameStatePollingService;
@@ -29,7 +28,6 @@ import javafx.util.Duration;
 import javafx.util.Pair;
 
 import javax.inject.Inject;
-import java.io.FileInputStream;
 import java.util.*;
 
 /**
@@ -39,13 +37,17 @@ import java.util.*;
  */
 public class MultiplayerCtrl {
 
-    private final int FORBIDDEN = 403;
-    private final int REACTIONS = 3;
+    private final int forbidden = 403;
+    private final int reactions = 3;
 
-    private final Image surprised = new Image(String.valueOf(this.getClass().getClassLoader().getResource("emoji/Surprised.png")));
-    private final Image laughing = new Image(String.valueOf(this.getClass().getClassLoader().getResource("emoji/Laughing.png")));
-    private final Image angry = new Image(String.valueOf(this.getClass().getClassLoader().getResource("emoji/Angry.png")));
-    private final Image crying = new Image(String.valueOf(this.getClass().getClassLoader().getResource("emoji/Crying.png")));
+    private final Image surprised = new Image(
+            String.valueOf(this.getClass().getClassLoader().getResource("emoji/Surprised.png")));
+    private final Image laughing = new Image(
+            String.valueOf(this.getClass().getClassLoader().getResource("emoji/Laughing.png")));
+    private final Image angry = new Image(
+            String.valueOf(this.getClass().getClassLoader().getResource("emoji/Angry.png")));
+    private final Image crying = new Image(
+            String.valueOf(this.getClass().getClassLoader().getResource("emoji/Crying.png")));
 
     private MultiGameConsumptionQuestionScreenCtrl consumptionQuestionScreenCtrl;
     private Scene consumptionQuestionScreen;
@@ -577,7 +579,7 @@ public class MultiplayerCtrl {
             mainCtrl.showQueue(user, serverUtils.getCurrentServer());
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
-                case FORBIDDEN:
+                case forbidden:
                     mainCtrl.showHome();
                     mainCtrl.getHomeCtrl().playMulti();
                     break;
@@ -619,15 +621,26 @@ public class MultiplayerCtrl {
                 new Reaction(username, emoji));
     }
 
+    /**
+     * In case a change occur in the game state, which is constantly being pulled,
+     * the reaction section is being updated.
+     *
+     * @param reactionList  List of Reaction instances to be checked for "updates".
+     */
     private void updateReactionSection(List<Reaction> reactionList) {
         ArrayList<Reaction> reactions = new ArrayList<>(reactionList);
         Collections.reverse(reactions);
 
         List<Node> reactionLabels = currentScreenCtrl.getReactions().getChildren();
 
+        /*
+        In the GridPane `reaction`, Labels and ImageViews are taking turns.
+        Thus, the Labels would have even indices within the children of the pane.
+        The ImageViews would have odd indices.
+         */
         int currentReactionLabelIndex = 0;
         int currentReactionImageIndex = 1;
-        for(Reaction reaction: reactions) {
+        for (Reaction reaction: reactions) {
             Label currentReactionLabel = (Label) reactionLabels.get(currentReactionLabelIndex);
             ImageView currentReactionImage = (ImageView) reactionLabels.get(currentReactionImageIndex);
             currentReactionLabel.setText(reaction.getUsername() + " reacts with ");
@@ -643,12 +656,16 @@ public class MultiplayerCtrl {
 
             currentReactionLabelIndex = currentReactionLabelIndex + 2;
             currentReactionImageIndex = currentReactionImageIndex + 2;
-            if(currentReactionLabelIndex > 2 * REACTIONS) {
+            if (currentReactionLabelIndex > 2 * this.reactions) {
                 break;
             }
         }
 
-        for (int i = currentReactionLabelIndex; i <= 2 * REACTIONS; i++) {
+        /*
+        In case the total number of reactions is less than 3 - the size of our "chat",
+        the later "lines", consisting of username and emoji submitted are made not visible.
+         */
+        for (int i = currentReactionLabelIndex; i <= 2 * this.reactions; i++) {
             Node currentNode = reactionLabels.get(i);
             currentNode.setVisible(false);
         }
