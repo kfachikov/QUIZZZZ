@@ -59,11 +59,12 @@ public class MultiplayerStateController {
      * POST mapping for emoji reactions.
      * <p>
      * The POST endpoint is used to send the reaction when a player sends a reaction.
-     * The reaction is added to the list of reactions.
-     * </>
-     * @param id
-     * @param reaction
-     * @return
+     * The reaction is added to the list of reactions, if it is valid.
+     * </p>
+     *
+     * @param id       id of the game the reaction was sent in.
+     * @param reaction the reaction sent by the player.
+     * @return         the reaction that was sent.
      */
     @PostMapping("/reaction/{id}")
     public ResponseEntity<Reaction> postReaction(@PathVariable("id") long id, @RequestBody Reaction reaction) {
@@ -83,6 +84,7 @@ public class MultiplayerStateController {
      * POST mapping for a player in a multiplayer game.
      * <p>
      * Adds the player to the game with the given id.
+     * </p>
      *
      * @param id     Id of the multiplayer game.
      * @param player MultiPlayer that is added.
