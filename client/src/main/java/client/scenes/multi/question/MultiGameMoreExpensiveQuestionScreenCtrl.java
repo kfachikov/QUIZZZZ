@@ -211,7 +211,7 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
      * @param image2    Second image to be shown.
      * @param image3    Third image to be shown.
      */
-    public void setImage(Image image1, Image image2, Image image3) {
+    public void setAnswerImages(Image image1, Image image2, Image image3) {
         this.image1.setImage(image1);
         this.image2.setImage(image2);
         this.image3.setImage(image3);

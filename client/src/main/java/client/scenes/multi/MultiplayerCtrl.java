@@ -382,7 +382,7 @@ public class MultiplayerCtrl {
         moreExpensiveQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
         moreExpensiveQuestionScreenCtrl.setQuestionPrompt();
         moreExpensiveQuestionScreenCtrl.setDescription();
-        moreExpensiveQuestionScreenCtrl.setImage(getActivityImage(question.getAnswerChoices().get(0)),
+        moreExpensiveQuestionScreenCtrl.setAnswerImages(getActivityImage(question.getAnswerChoices().get(0)),
                 getActivityImage(question.getAnswerChoices().get(1)),
                 getActivityImage(question.getAnswerChoices().get(2)));
         mainCtrl.getPrimaryStage().setScene(moreExpensiveQuestionScreen);
