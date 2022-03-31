@@ -50,7 +50,7 @@ public class HelpScreenCtrl {
         goBack.setOnAction(event -> mainCtrl.showHome());
         next.setOnAction(event -> helpTwo());
         //circle colors
-        circle2.setStyle();
+        //circle2.setStyle();
         //title+text
     }
 
