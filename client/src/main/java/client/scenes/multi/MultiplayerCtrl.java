@@ -317,11 +317,10 @@ public class MultiplayerCtrl {
     private void showConsumptionQuestion(MultiPlayerState game, ConsumptionQuestion question) {
         currentScreenCtrl = consumptionQuestionScreenCtrl;
         setDefault(game);
-        consumptionQuestionScreenCtrl.setQuestion(question);
         consumptionQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
         consumptionQuestionScreenCtrl.prepareAnswerButton();
-        consumptionQuestionScreenCtrl.setAnswers();
-        consumptionQuestionScreenCtrl.setDescription();
+        consumptionQuestionScreenCtrl.setAnswers(question);
+        consumptionQuestionScreenCtrl.setDescription(question);
         consumptionQuestionScreenCtrl.setImage(getActivityImage(question.getActivity()));
         centerImage(consumptionQuestionScreenCtrl.getImage());
         mainCtrl.getPrimaryStage().setScene(consumptionQuestionScreen);
@@ -337,10 +336,9 @@ public class MultiplayerCtrl {
     private void showGuessQuestion(MultiPlayerState game, GuessQuestion question) {
         currentScreenCtrl = guessQuestionScreenCtrl;
         setDefault(game);
-        guessQuestionScreenCtrl.setQuestion(question);
         guessQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
         guessQuestionScreenCtrl.inputFieldDefault();
-        guessQuestionScreenCtrl.setDescription();
+        guessQuestionScreenCtrl.setDescription(question);
         guessQuestionScreenCtrl.setImage(getActivityImage(question.getActivity()));
         centerImage(guessQuestionScreenCtrl.getImage());
         mainCtrl.getPrimaryStage().setScene(guessQuestionScreen);
@@ -356,11 +354,10 @@ public class MultiplayerCtrl {
     private void showInsteadQuestion(MultiPlayerState game, InsteadQuestion question) {
         currentScreenCtrl = insteadQuestionScreenCtrl;
         setDefault(game);
-        insteadQuestionScreenCtrl.setQuestion(question);
         insteadQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
         insteadQuestionScreenCtrl.prepareAnswerButton();
-        insteadQuestionScreenCtrl.setDescription();
-        insteadQuestionScreenCtrl.setAnswers();
+        insteadQuestionScreenCtrl.setDescription(question);
+        insteadQuestionScreenCtrl.setAnswers(question);
         insteadQuestionScreenCtrl.setImage(getActivityImage(question.getActivity()));
         centerImage(insteadQuestionScreenCtrl.getImage());
         mainCtrl.getPrimaryStage().setScene(insteadQuestionScreen);
@@ -378,10 +375,8 @@ public class MultiplayerCtrl {
         currentScreenCtrl = moreExpensiveQuestionScreenCtrl;
         setDefault(game);
         moreExpensiveQuestionScreenCtrl.prepareAnswerButton();
-        moreExpensiveQuestionScreenCtrl.setQuestion(question);
         moreExpensiveQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
-        moreExpensiveQuestionScreenCtrl.setQuestionPrompt();
-        moreExpensiveQuestionScreenCtrl.setDescription();
+        moreExpensiveQuestionScreenCtrl.setAnswerDescriptions(question);
         moreExpensiveQuestionScreenCtrl.setAnswerImages(getActivityImage(question.getAnswerChoices().get(0)),
                 getActivityImage(question.getAnswerChoices().get(1)),
                 getActivityImage(question.getAnswerChoices().get(2)));

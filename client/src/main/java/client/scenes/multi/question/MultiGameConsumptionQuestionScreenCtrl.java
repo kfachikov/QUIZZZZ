@@ -25,8 +25,6 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
 
-    private ConsumptionQuestion question;
-
     @FXML
     private Label gameStateLabel;
 
@@ -138,25 +136,6 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
     }
 
     /**
-     * Getter for the current question.
-     *
-     * @return  ConsumptionQuestion instance.
-     */
-    public ConsumptionQuestion getQuestion() {
-        return question;
-    }
-
-    /**
-     * Sets the current question. Styles the buttons and enables their clicking.
-     * Sets answer choices.
-     *
-     * @param question  Question to be used - the one that should be asked on this round.
-     */
-    public void setQuestion(ConsumptionQuestion question) {
-        this.question = question;
-    }
-
-    /**
      * Prepare the answer field by making them clickable and setting their color to the default one.
      */
     public void prepareAnswerButton() {
@@ -178,8 +157,10 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
     /**
      * Set the text for all possible answer choices. These would be the one submitted after
      * an answer is clicked.
+     *
+     * @param question  Question to be used for the answer choices to be set.
      */
-    public void setAnswers() {
+    public void setAnswers(ConsumptionQuestion question) {
         firstAnswer.setText(question.getAnswerChoices().get(0) + "Wh");
         secondAnswer.setText(question.getAnswerChoices().get(1) + "Wh");
         thirdAnswer.setText(question.getAnswerChoices().get(2) + "Wh");
@@ -196,8 +177,10 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
 
     /**
      * Setter fot the description of the activity which consumption should be guessed.
+     *
+     * @param question  Question to be used for the description to be set.
      */
-    public void setDescription() {
+    public void setDescription(ConsumptionQuestion question) {
         description.setText(question.getActivity().getTitle());
     }
 

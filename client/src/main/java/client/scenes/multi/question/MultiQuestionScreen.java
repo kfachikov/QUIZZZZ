@@ -25,5 +25,10 @@ public abstract class MultiQuestionScreen {
      */
     public abstract AnchorPane getWindow();
 
+    /**
+     * Getter for th progress barr instance in each separate controller.
+     *
+     * @return  ProgressBar reference to the particular instance.
+     */
     public abstract ProgressBar getTime();
 }

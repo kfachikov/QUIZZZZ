@@ -25,8 +25,6 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
 
-    private MoreExpensiveQuestion question;
-
     @FXML
     private Label gameStateLabel;
 
@@ -153,24 +151,6 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
     }
 
     /**
-     * Getter for the current question to be asked.
-     *
-     * @return  MoreExpensiveQuestion instance.
-     */
-    public MoreExpensiveQuestion getQuestion() {
-        return question;
-    }
-
-    /**
-     * Sets the current question. Sets the answer choices.
-     *
-     * @param question  Question to be asked is passed as argument.
-     */
-    public void setQuestion(MoreExpensiveQuestion question) {
-        this.question = question;
-    }
-
-    /**
      * Prepare the answer field by making them clickable and setting their color to the default one.
      */
     public void prepareAnswerButton() {
@@ -192,8 +172,10 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
     /**
      * Set the description for all possible answer choices. These would be the one submitted after
      * an answer is clicked.
+     *
+     * @param question  Question to be used for the answer choices' descriptions to be set.
      */
-    public void setDescription() {
+    public void setAnswerDescriptions(MoreExpensiveQuestion question) {
         /*
         As the `submitAsnwer` method is extracted in multiplayerCtrl, and it concatenates the last two
         characters of our String answer submitted, we would add two space characters at the end,
@@ -215,13 +197,6 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
         this.image1.setImage(image1);
         this.image2.setImage(image2);
         this.image3.setImage(image3);
-    }
-
-    /**
-     * Sets the question to the chosen questionText.
-     */
-    public void setQuestionPrompt() {
-        questionTitle.setText(question.toString());
     }
 
     /**
