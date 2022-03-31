@@ -21,6 +21,7 @@ import commons.misc.GameResponse;
 import commons.misc.GameState;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
+import commons.multi.Reaction;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -29,6 +30,7 @@ import commons.single.SinglePlayerState;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
+import org.checkerframework.checker.units.qual.A;
 import org.glassfish.jersey.client.ClientConfig;
 import java.util.List;
 
@@ -184,6 +186,22 @@ public class ServerUtils {
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(null, QueueState.class);
+    }
+
+    /**
+     * POST request to api/multi/reaction to submit an emoji a client clicked.
+     *
+     * @param id        id of current multiplayer game
+     * @param reaction  Reaction instance to be submitted
+     * @return          Reaction that was added to the particular game.
+     */
+    public Reaction addReaction(long id, Reaction reaction) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/reaction/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(reaction, APPLICATION_JSON), Reaction.class);
     }
 
     /**
