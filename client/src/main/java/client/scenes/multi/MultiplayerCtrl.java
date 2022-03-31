@@ -40,15 +40,6 @@ public class MultiplayerCtrl {
     private final int forbidden = 403;
     private final int reactions = 3;
 
-    private final Image surprised = new Image(
-            String.valueOf(this.getClass().getClassLoader().getResource("emoji/Surprised.png")));
-    private final Image laughing = new Image(
-            String.valueOf(this.getClass().getClassLoader().getResource("emoji/Laughing.png")));
-    private final Image angry = new Image(
-            String.valueOf(this.getClass().getClassLoader().getResource("emoji/Angry.png")));
-    private final Image crying = new Image(
-            String.valueOf(this.getClass().getClassLoader().getResource("emoji/Crying.png")));
-
     private MultiGameConsumptionQuestionScreenCtrl consumptionQuestionScreenCtrl;
     private Scene consumptionQuestionScreen;
 
@@ -91,6 +82,11 @@ public class MultiplayerCtrl {
 
     private long gameId;
     private String username;
+
+    private Image surprised;
+    private Image laughing;
+    private Image angry;
+    private Image crying;
 
     private final ChangeListener<MultiPlayerState> onPoll = (observable, oldValue, newValue) -> {
         // If state has changed, we probably have to switch scenes
@@ -164,6 +160,8 @@ public class MultiplayerCtrl {
         this.leaderboard = new Scene(leaderboard.getValue());
 
         pollingService.valueProperty().addListener(onPoll);
+
+        initializeImages();
     }
 
     /**
@@ -669,5 +667,19 @@ public class MultiplayerCtrl {
             Node currentNode = reactionLabels.get(i);
             currentNode.setVisible(false);
         }
+    }
+
+    /**
+     * Initializes all image fields in the MultiplayerCtrl class.
+     */
+    private void initializeImages() {
+        surprised = new Image(
+                String.valueOf(this.getClass().getClassLoader().getResource("emoji/Surprised.png")));
+        laughing = new Image(
+                String.valueOf(this.getClass().getClassLoader().getResource("emoji/Laughing.png")));
+        angry = new Image(
+                String.valueOf(this.getClass().getClassLoader().getResource("emoji/Angry.png")));
+        crying = new Image(
+                String.valueOf(this.getClass().getClassLoader().getResource("emoji/Crying.png")));
     }
 }
