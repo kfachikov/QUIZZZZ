@@ -1,8 +1,6 @@
 package server.api;
 
-import commons.misc.GameResponse;
 import commons.misc.ServerAddress;
-import org.apache.catalina.Server;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;

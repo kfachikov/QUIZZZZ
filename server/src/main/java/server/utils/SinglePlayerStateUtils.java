@@ -232,7 +232,7 @@ public class SinglePlayerStateUtils {
     }
 
     /**
-     * Setter for ServerAddress
+     * Posts a server address.
      *
      * @param serverAddress is a ServerAddress
      * @return it returns serverAddress
