@@ -1,5 +1,6 @@
 package client.scenes.multi;
 
+import client.Main;
 import client.scenes.misc.MainCtrl;
 import client.scenes.multi.question.*;
 import client.services.MultiplayerGameStatePollingService;
@@ -17,6 +18,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -27,6 +29,7 @@ import javafx.util.Duration;
 import javafx.util.Pair;
 
 import javax.inject.Inject;
+import java.io.FileInputStream;
 import java.util.*;
 
 /**
@@ -36,7 +39,13 @@ import java.util.*;
  */
 public class MultiplayerCtrl {
 
-    private static final int FORBIDDEN = 403;
+    private final int FORBIDDEN = 403;
+    private final int REACTIONS = 3;
+
+    private final Image surprised = new Image(String.valueOf(this.getClass().getClassLoader().getResource("emoji/Surprised.png")));
+    private final Image laughing = new Image(String.valueOf(this.getClass().getClassLoader().getResource("emoji/Laughing.png")));
+    private final Image angry = new Image(String.valueOf(this.getClass().getClassLoader().getResource("emoji/Angry.png")));
+    private final Image crying = new Image(String.valueOf(this.getClass().getClassLoader().getResource("emoji/Crying.png")));
 
     private MultiGameConsumptionQuestionScreenCtrl consumptionQuestionScreenCtrl;
     private Scene consumptionQuestionScreen;
@@ -85,6 +94,10 @@ public class MultiplayerCtrl {
         // If state has changed, we probably have to switch scenes
         if (newValue != null && (oldValue == null || !newValue.getState().equals(oldValue.getState()))) {
             switchState(newValue);
+        }
+        // If state has changed, perhaps some new Reactions have been "registered".
+        if (newValue != null || (oldValue == null || !newValue.getReactionList().equals(oldValue.getReactionList()))) {
+            updateReactionSection(newValue.getReactionList());
         }
     };
 
@@ -582,7 +595,7 @@ public class MultiplayerCtrl {
      */
     public void initializeEmojiButtons(Button button1, Button button2, Button button3, Button button4) {
         button1.setOnAction(e -> {
-            postReaction("explode");
+            postReaction("surprised");
         });
         button2.setOnAction(e -> {
             postReaction("laughing");
@@ -606,4 +619,38 @@ public class MultiplayerCtrl {
                 new Reaction(username, emoji));
     }
 
+    private void updateReactionSection(List<Reaction> reactionList) {
+        ArrayList<Reaction> reactions = new ArrayList<>(reactionList);
+        Collections.reverse(reactions);
+
+        List<Node> reactionLabels = currentScreenCtrl.getReactions().getChildren();
+
+        int currentReactionLabelIndex = 0;
+        int currentReactionImageIndex = 1;
+        for(Reaction reaction: reactions) {
+            Label currentReactionLabel = (Label) reactionLabels.get(currentReactionLabelIndex);
+            ImageView currentReactionImage = (ImageView) reactionLabels.get(currentReactionImageIndex);
+            currentReactionLabel.setText(reaction.getUsername() + " reacts with ");
+            switch (reaction.getEmoji()) {
+                case "angry" -> currentReactionImage.setImage(angry);
+                case "crying" -> currentReactionImage.setImage(crying);
+                case "laughing" -> currentReactionImage.setImage(laughing);
+                case "surprised" -> currentReactionImage.setImage(surprised);
+            }
+
+            currentReactionLabel.setVisible(true);
+            currentReactionImage.setVisible(true);
+
+            currentReactionLabelIndex = currentReactionLabelIndex + 2;
+            currentReactionImageIndex = currentReactionImageIndex + 2;
+            if(currentReactionLabelIndex > 2 * REACTIONS) {
+                break;
+            }
+        }
+
+        for (int i = currentReactionLabelIndex; i <= 2 * REACTIONS; i++) {
+            Node currentNode = reactionLabels.get(i);
+            currentNode.setVisible(false);
+        }
+    }
 }

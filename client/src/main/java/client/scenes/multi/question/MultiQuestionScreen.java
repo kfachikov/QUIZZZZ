@@ -2,8 +2,11 @@ package client.scenes.multi.question;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 
 /**
  * Abstract class - parent of all question controllers for the multiplayer game mode.
@@ -12,8 +15,9 @@ import javafx.scene.layout.AnchorPane;
  */
 public abstract class MultiQuestionScreen {
 
-
-
+    /*
+    Shared references to the emoji buttons.
+     */
     @FXML
     protected Button emojiButton1;
 
@@ -25,6 +29,12 @@ public abstract class MultiQuestionScreen {
 
     @FXML
     protected Button emojiButton4;
+
+    /*
+    Shared references to the reaction section lines.
+     */
+    @FXML
+    protected GridPane reactions;
 
     /**
      * Sets the score of the current scene to the actual player's score.
@@ -52,4 +62,14 @@ public abstract class MultiQuestionScreen {
      * Abstract method "contract" to disable the answer submission process.
      */
     public abstract void disableAnswerSubmission();
+
+    /**
+     * Getter for the whole "chat".
+     *
+     * @return  FlowPane reference to the reactions sections.
+     */
+    public GridPane getReactions() {
+        return reactions;
+    }
+
 }
