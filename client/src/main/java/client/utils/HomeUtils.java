@@ -60,6 +60,7 @@ public class HomeUtils {
             // SinglePlayer singlePlayer = server.addSinglePlayer(getSinglePlayer());
             mainCtrl.showPrep(getSinglePlayer());
             if (!ServerUtils.getCurrentServer().toString().equals("http://localhost:8080")) {
+                mainCtrl.showHome();
                 serverInvalid();
             }
         } catch (WebApplicationException e) {
