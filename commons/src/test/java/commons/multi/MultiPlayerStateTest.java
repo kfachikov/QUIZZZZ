@@ -30,7 +30,9 @@ class MultiPlayerStateTest {
     private MultiPlayer player2;
     private List<MultiPlayer> players;
 
-    private Reaction reaction;
+    private Reaction reaction1;
+    private Reaction reaction2;
+    private List<Reaction> reactionList;
 
     private MultiPlayerState game;
     private MultiPlayerState game2;

@@ -2,6 +2,7 @@ package server.api;
 
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
+import commons.multi.Reaction;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +52,15 @@ public class MultiplayerStateController {
                 return ResponseEntity.ok(game);
             }
         }
+    }
+
+    @PostMapping("/reaction/{id}")
+    public ResponseEntity<Reaction> postReaction(@PathVariable("id") long id, @RequestBody Reaction reaction) {
+        MultiPlayerState game = multiUtils.getGameState(id);
+        if (game == null) {
+            return ResponseEntity.notFound().build();
+        }
+        game.getReaction();
     }
 
     /**
