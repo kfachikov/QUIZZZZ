@@ -11,6 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.layout.FlowPane?>
 <AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl">
    <effect>
       <ColorAdjust />
@@ -80,21 +81,6 @@
       </Text>
       <Region layoutX="83.0" layoutY="458.0" prefHeight="162.0" prefWidth="315.0" style="-fx-background-color: #0038a8; -fx-background-radius: 30;" AnchorPane.bottomAnchor="-20.0" />
       <Region layoutX="94.0" layoutY="470.0" prefHeight="149.0" prefWidth="295.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="94.0" />
-      <Label fx:id="reaction1" layoutX="126.0" layoutY="487.0" prefHeight="28.0" prefWidth="232.0" text="Label">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="reaction2" layoutX="125.0" layoutY="521.0" prefHeight="28.0" prefWidth="232.0" text="Label">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="reaction3" layoutX="123.0" layoutY="556.0" prefHeight="28.0" prefWidth="232.0" text="Label">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="18.0" />
-         </font>
-      </Label>
       <Region layoutX="741.0" layoutY="119.0" prefHeight="300.0" prefWidth="174.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.rightAnchor="-15.0" />
       <Region layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="403.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0" />
       <Button fx:id="twicePoints" layoutX="760.0" layoutY="62.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="127.0">
@@ -171,5 +157,33 @@
             <Font name="Avenir Next Condensed Bold" size="35.0" />
          </font>
       </Text>
+      <FlowPane fx:id="reactions" layoutX="125.0" layoutY="490.0" prefHeight="97.0" prefWidth="232.0">
+         <children>
+            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" text="Label">
+               <font>
+                  <Font name="Avenir Next Condensed Bold" size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Label>
+            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" text="Label">
+               <font>
+                  <Font name="Avenir Next Condensed Bold" size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Label>
+            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" text="Label">
+               <font>
+                  <Font name="Avenir Next Condensed Bold" size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Label>
+         </children>
+      </FlowPane>
    </children>
 </AnchorPane>
