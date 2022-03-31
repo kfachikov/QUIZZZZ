@@ -55,13 +55,28 @@ public class MultiplayerStateController {
         }
     }
 
+    /**
+     * POST mapping for emoji reactions.
+     * <p>
+     * The POST endpoint is used to send the reaction when a player sends a reaction.
+     * The reaction is added to the list of reactions.
+     * </>
+     * @param id
+     * @param reaction
+     * @return
+     */
     @PostMapping("/reaction/{id}")
     public ResponseEntity<Reaction> postReaction(@PathVariable("id") long id, @RequestBody Reaction reaction) {
-        MultiPlayerState game = multiUtils.getGameState(id);
-        if (game == null) {
-            return ResponseEntity.notFound().build();
+        if (id < 0) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            MultiPlayerState game = multiUtils.getGameState(id);
+            if (game == null) {
+                return ResponseEntity.notFound().build();
+            }
+            game.getReactionList().add(reaction);
+            return ResponseEntity.ok(reaction);
         }
-        game.getReaction();
     }
 
     /**
