@@ -20,44 +20,44 @@
             <Font name="Avenir Next Condensed Bold" size="53.0" />
          </font>
       </Text>
-      <Circle fx:id="circleTwo" fill="#cde7ff" layoutX="451.0" layoutY="111.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="421.0" AnchorPane.rightAnchor="421.0" AnchorPane.topAnchor="83.0" />
+      <Circle fx:id="circle2" fill="#cde7ff" layoutX="451.0" layoutY="111.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="421.0" AnchorPane.rightAnchor="421.0" AnchorPane.topAnchor="83.0" />
       <Text layoutX="422.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" textAlignment="CENTER" wrappingWidth="56.14265823364258">
          <font>
             <Font name="Avenir Next Condensed Bold" size="53.0" />
          </font>
       </Text>
-      <Circle fx:id="circleThree" fill="#cde7ff" layoutX="555.0" layoutY="113.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="83.0" />
+      <Circle fx:id="circle3" fill="#cde7ff" layoutX="555.0" layoutY="113.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="83.0" />
       <Text layoutX="523.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" textAlignment="CENTER" wrappingWidth="56.14265823364258">
          <font>
             <Font name="Avenir Next Condensed Bold" size="53.0" />
          </font>
       </Text>
-      <Text fx:id="title" fill="WHITE" layoutX="320.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SOLO" textAlignment="CENTER" wrappingWidth="259.4461212158203">
+      <Text fx:id="title" fill="WHITE" layoutX="21.0" layoutY="213.79611206054688" strokeType="OUTSIDE" strokeWidth="0.0" text="SOLO" textAlignment="CENTER" wrappingWidth="858.4461212158203" AnchorPane.bottomAnchor="365.7078857421875" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0">
          <font>
             <Font name="Avenir Next Condensed Bold" size="56.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="28.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do you want to test your knowledge on daily energy consumptions?" wrappingWidth="843.4879150390625" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.5120849609375">
+      <Text fx:id="text1" fill="WHITE" layoutX="28.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do you want to test your knowledge on daily energy consumptions?" wrappingWidth="843.4879150390625" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.5120849609375">
          <font>
             <Font name="Avenir Next Condensed Bold" size="30.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="28.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Play a SOLO game and beat the best score to display your username on the top of the all time leaderboard!" wrappingWidth="843.4879150390625" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.5120849609375">
+      <Text fx:id="text2" fill="WHITE" layoutX="28.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Play a SOLO game and beat the best score to display your username on the top of the all time leaderboard!" wrappingWidth="843.4879150390625" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.5120849609375">
          <font>
             <Font name="Avenir Next Condensed Bold" size="30.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="28.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answer with speed and accuracy to get the most points! Each question has only 8 seconds!" wrappingWidth="843.4879150390625" AnchorPane.leftAnchor="28.0">
+      <Text fx:id="text3" fill="WHITE" layoutX="28.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answer with speed and accuracy to get the most points! Each question has only 8 seconds!" wrappingWidth="843.4879150390625" AnchorPane.leftAnchor="28.0">
          <font>
             <Font name="Avenir Next Condensed Bold" size="30.0" />
          </font>
       </Text>
-      <Button fx:id="next" onAction="#helpTwo" layoutX="755.0" layoutY="74.0" mnemonicParsing="false" text="NEXT" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="74.0">
+      <Button fx:id="next" layoutX="755.0" layoutY="74.0" mnemonicParsing="false" onAction="#setScene2" text="NEXT" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="74.0">
          <font>
             <Font name="Avenir Next Condensed Bold" size="34.0" />
          </font>
       </Button>
-      <Button fx:id="goBack" onAction="#returnHome" layoutX="26.0" layoutY="77.0" mnemonicParsing="false" text="GO BACK" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="74.0">
+      <Button fx:id="goBack" layoutX="26.0" layoutY="77.0" mnemonicParsing="false" onAction="#returnHome" text="GO BACK" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="74.0">
          <font>
             <Font name="Avenir Next Condensed Bold" size="34.0" />
          </font>

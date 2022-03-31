@@ -4,11 +4,16 @@
     -fx-border-width: 0;
     -fx-text-fill: white;
 }
+#window {
+    -fx-background-color: #00236f;
+}
+.button:hover {
+    -fx-background-color: #a40000;
+}
 .button:pressed {
-    -fx-background-color: #e30000;
+    -fx-background-color: #a40000;
 }
 .text {
-    -fx-font-style: Avenir Next;
     -fx-text-fill: white;
 }
 .text-field {
@@ -42,12 +47,13 @@
     -fx-border-radius: 10;
 }
 #bubbles>.label {
-    -fx-background-color: #c9f1fd;
-    -fx-border-color: #006e8c;
+    -fx-background-color: #001950;
+    -fx-border-color: #0038a8;
+    -fx-text-fill: white;
     -fx-border-radius: 15;
     -fx-background-radius: 20;
     -fx-border-width: 3;
-    visibility: false;
+    visibility: true;
 }
 #start-label {
     -fx-background-color: #ffffffaa;
@@ -66,8 +72,8 @@
     -fx-border-color: #00000000;
 }
 #bubbles {
-    -fx-vgap: 10;
-    -fx-hgap: 5;
+    -fx-vgap: 20;
+    -fx-hgap: 10;
 }
 #leaderboard {
     -fx-vgap: 5;
