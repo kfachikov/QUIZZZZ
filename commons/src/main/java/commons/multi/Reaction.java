@@ -1,8 +1,11 @@
 package commons.multi;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Objects;
+
+import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
 /**
  * Reaction class - to be used for emoji submission and reaction revealing.
@@ -75,5 +78,12 @@ public class Reaction {
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
+
+    /**
+     * Converts the current object into user-friendly format.
+     *
+     * @return  String representation of our Response object.
+     */
+    public String toString() { return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE); }
 
 }
