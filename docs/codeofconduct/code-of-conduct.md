@@ -182,7 +182,7 @@ Notetakers:
 
 - Once a decision is made, it is considered binding. All members should comply with it, unless the decision is reversed/amended by the decision-making process above.
 
-- Everyone from the team needs to express their opinion regarding the proposal made by one of the members even though this is presented on Discord or during the meetings. 
+- Everyone from the team needs to express their opinion regarding the proposal made by one of the members even though this is presented on Discord or during the meetings. If the proposal is announced on Discord team members should present their point if view within 24h of the Discord post being made.
 
 ## Dealing with conflicts: 
 ### How do you handle conflicts within the group?
