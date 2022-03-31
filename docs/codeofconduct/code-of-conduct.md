@@ -81,7 +81,7 @@ Java Doc
   - "Soft" deadline means the finishing time that a team member is trying to achieve.
   - "Hard" deadline represents the time until a team member fix the issues encountered and works harder.
 
-- If one of the members find themselves struggling with their issue or with understanding the suggestions made by others on the merge request, they should ask hor help.
+- If one of the members find themselves struggling with their issue or with understanding the suggestions made by others on the merge request, they should ask for help.
   - Asking for help will allow others to be kept updated with the progress of that merge request and will make them understand the lack of commits.
 
 ### Did you clarify who will have a final say in the final deliverable and submit it to Brightspace on behalf of the project group?
