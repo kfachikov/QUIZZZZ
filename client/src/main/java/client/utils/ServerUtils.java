@@ -15,10 +15,7 @@
  */
 package client.utils;
 
-import commons.misc.Activity;
-import commons.misc.ActivityImageMessage;
-import commons.misc.GameResponse;
-import commons.misc.GameState;
+import commons.misc.*;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.queue.QueueState;
@@ -262,6 +259,37 @@ public class ServerUtils {
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(message, APPLICATION_JSON), ActivityImageMessage.class);
+    }
+
+    /**
+     * Gets server addresses.
+     *
+     * @return it returns a client GenericType List Activity.
+     */
+    public List<ServerAddress> getServerAddress() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<ServerAddress>>() {
+                });
+    }
+
+    /**
+     * Adds server addresses.
+     *
+     * @param fileAsString string representing the String version of a file.
+     * @return it returns a list of server addresses
+     */
+    public List<ServerAddress> addServerAddress(String fileAsString) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<ServerAddress>>() {
+                });
     }
 
 }

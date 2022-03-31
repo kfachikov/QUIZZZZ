@@ -2,6 +2,7 @@ package server.utils;
 
 import commons.misc.Activity;
 import commons.misc.GameResponse;
+import commons.misc.ServerAddress;
 import commons.question.AbstractQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
@@ -22,6 +23,8 @@ public class SinglePlayerStateUtils {
 
     private final GenerateQuestionUtils generateQuestionUtils;
     private final CurrentTimeUtils currentTime;
+
+    private ServerAddress serverAddress;
 
     public SinglePlayerStateUtils(GenerateQuestionUtils generateQuestionUtils, CurrentTimeUtils currentTime) {
         this.generateQuestionUtils = generateQuestionUtils;
@@ -217,5 +220,28 @@ public class SinglePlayerStateUtils {
         );
         games.put(newGame.getId(), newGame);
         return newGame;
+    }
+
+    /**
+     * Getter for ServerAddress.
+     *
+     * @return is a ServerAddress instance
+     */
+    public ServerAddress getServer() {
+        return this.serverAddress;
+    }
+
+    /**
+     * Setter for ServerAddress
+     *
+     * @param serverAddress is a ServerAddress
+     * @return it returns serverAddress
+     */
+    public ServerAddress postURl(ServerAddress serverAddress) {
+        String URL = serverAddress.getAddress();
+        if (!URL.equals(null)) {
+            return null;
+        }
+        return serverAddress;
     }
 }

@@ -1,6 +1,7 @@
 package client.utils;
 
 import client.scenes.misc.MainCtrl;
+import commons.misc.ServerAddress;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
 import jakarta.ws.rs.ProcessingException;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Class for home utilities.
@@ -59,7 +61,7 @@ public class HomeUtils {
             */
             // SinglePlayer singlePlayer = server.addSinglePlayer(getSinglePlayer());
             mainCtrl.showPrep(getSinglePlayer());
-            if (!ServerUtils.getCurrentServer().toString().equals("http://localhost:8080")) {
+            if (!checkServerAddresses()) {
                 mainCtrl.showHome();
                 serverInvalid();
             }
@@ -72,6 +74,7 @@ public class HomeUtils {
                     unknownError();
             }
         } catch (ProcessingException e) {
+            mainCtrl.showHome();
             serverInvalid();
         }
     }
@@ -217,5 +220,20 @@ public class HomeUtils {
         errorMessage.setVisible(true);
     }
 
+    /**
+     * Method to check whether the server contains the server address entered.
+     *
+     * @return it returns a boolean true or false
+     */
+    public boolean checkServerAddresses() {
+        List<ServerAddress> addresses = server.getServerAddress();
+        for (int i = 0; i < addresses.size(); i++) {
+            var serverAddress =  serverURL.getText();
+            if (addresses.contains(serverAddress)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
