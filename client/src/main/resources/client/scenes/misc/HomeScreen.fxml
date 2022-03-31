@@ -39,12 +39,12 @@
             </DropShadow>
          </effect>
       </Region>
-        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="516.0" layoutY="282.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playSolo" style="-fx-background-color: RED;" stylesheets="@../../../styling/GameStyle.css" text="SOLO" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS" AnchorPane.topAnchor="261.0">
+        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="516.0" layoutY="282.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playSolo" stylesheets="@../../../styling/GameStyle.css" text="SOLO" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS" AnchorPane.topAnchor="261.0">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="47.0" />
             </font>
         </Button>
-        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="516.0" layoutY="396.0" mnemonicParsing="false" onAction="#playMulti" prefHeight="73.0" prefWidth="341.0" style="-fx-background-color: RED;" stylesheets="@../../../styling/GameStyle.css" text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS" AnchorPane.bottomAnchor="111.0">
+        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="516.0" layoutY="396.0" mnemonicParsing="false" onAction="#playMulti" prefHeight="73.0" prefWidth="341.0"  stylesheets="@../../../styling/GameStyle.css" text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS" AnchorPane.bottomAnchor="111.0">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="47.0" />
             </font>
@@ -57,7 +57,7 @@
          <font>
             <Font size="18.0" />
          </font></TextField>
-      <Button contentDisplay="CENTER" graphicTextGap="1.0" layoutX="97.0" layoutY="406.0" mnemonicParsing="false" onAction="#showAdministratorPanel" prefHeight="50.0" prefWidth="240.0" style="-fx-background-color: red;" stylesheets="@../../../styling/GameStyle.css" text="ADMIN PANEL" textAlignment="CENTER" textFill="#0055ff">
+      <Button contentDisplay="CENTER" graphicTextGap="1.0" layoutX="97.0" layoutY="406.0" mnemonicParsing="false" onAction="#showAdministratorPanel" prefHeight="50.0" prefWidth="240.0" stylesheets="@../../../styling/GameStyle.css" text="ADMIN PANEL" textAlignment="CENTER" textFill="#0055ff">
          <font>
             <Font name="Avenir Next Condensed Bold" size="24.0" />
          </font>
