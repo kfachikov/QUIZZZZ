@@ -5,8 +5,6 @@ import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.multi.Reaction;
 import commons.question.AbstractQuestion;
-import commons.question.GuessQuestion;
-
 import java.util.*;
 
 /**
@@ -20,6 +18,7 @@ public class MultiPlayerStateUtils {
     private final GenerateQuestionUtils generateQuestionUtils;
     private final QueueUtils queueUtils;
     private final CurrentTimeUtils currentTime;
+    private final ScoreCountingUtils scoreCountingUtils;
 
     /**
      * Constructor for multiplayer server-side utility class.
@@ -27,14 +26,18 @@ public class MultiPlayerStateUtils {
      * @param generateQuestionUtils is the "generate questions" utility bean injected by Spring.
      * @param queueUtils            is the class responsible for managing the queue.
      * @param currentTime           CurrentTimeUtils instance for getting the current time.
+     * @param scoreCountingUtils    ScoreCountingUtility instance for distributing the correct amount
+     *                              of points to each player.
      */
     public MultiPlayerStateUtils(GenerateQuestionUtils generateQuestionUtils,
                                  QueueUtils queueUtils,
-                                 CurrentTimeUtils currentTime
+                                 CurrentTimeUtils currentTime,
+                                 ScoreCountingUtils scoreCountingUtils
     ) {
         this.generateQuestionUtils = generateQuestionUtils;
         this.queueUtils = queueUtils;
         this.currentTime = currentTime;
+        this.scoreCountingUtils = scoreCountingUtils;
 
         this.games = new HashMap<>();
 
@@ -239,9 +242,14 @@ public class MultiPlayerStateUtils {
     public void switchToTransition(MultiPlayerState game) {
         long nextPhase = game.getNextPhase();
 
+        game.setState(MultiPlayerState.TRANSITION_STATE);
         updateScore(game);
 
-        game.setState(MultiPlayerState.TRANSITION_STATE);
+        /*
+        Clear the game from any previous answers.
+        */
+        game.getSubmittedAnswers().clear();
+
         // 3 seconds for transition phase
         game.setNextPhase(nextPhase + 3000);
     }
@@ -262,11 +270,13 @@ public class MultiPlayerStateUtils {
     private void updateScore(MultiPlayerState game) {
         if (game.getState().equals(MultiPlayerState.TRANSITION_STATE)) {
             for (int i = 0; i < game.getPlayers().size(); i++) {
+                MultiPlayer currentPlayer = game.getPlayers().get(i);
                 List<GameResponse> playerAnswers = new ArrayList<>();
-                for (int j = 0; j < game.getSubmittedAnswers().size(); i++) {
-                    if (game.getSubmittedAnswers().get(i).getPlayerUsername()
-                            .equals(game.getPlayers().get(i).getUsername())) {
-                        playerAnswers.add(game.getSubmittedAnswers().get(i));
+                for (int j = 0; j < game.getSubmittedAnswers().size(); j++) {
+                    GameResponse currentResponse = game.getSubmittedAnswers().get(j);
+                    if (currentResponse.getPlayerUsername()
+                            .equals(currentPlayer.getUsername())) {
+                        playerAnswers.add(currentResponse);
                     }
 
                 }
@@ -281,53 +291,12 @@ public class MultiPlayerStateUtils {
                     );
                 }
                 /*
-                Use shared comparing functionality implemented in the class
-               MultiPlayerState.
+                Method computeScore is always called, so guess question approximation can be taken
+                into account.
                  */
-                if (game.compareAnswer(finalAnswer)) {
-                    /*
-                    If the answer submitted is the same, then the score is updated accordingly.
-                    */
-                    MultiPlayer player = game.getPlayers().get(i);
-                    player.setScore(player.getScore() + computeScore(finalAnswer));
-
-                }
+                currentPlayer.setScore(currentPlayer.getScore() + scoreCountingUtils.computeScore(game, finalAnswer));
             }
         }
-    }
-
-    /**
-     * Compute the score of a response.
-     * If question's type is GuessQuestion then the score is computed based on how fast the answer was submitted and how close the player was to the actual answer.
-     * If question's type is not GuessQuestion then the score is computed based only on how fast the answer was submitted
-     * <p>
-     *
-     * @param response GameResponse of the player with a correct answer.
-     * @return Number of points to add to the player's score
-     */
-    private int computeScore(GameResponse response) {
-        int points = 0;
-        AbstractQuestion currentQuestion = games.get(response.getGameId()).getQuestionList()
-                .get(games.get(response.getGameId()).getRoundNumber());
-        if (currentQuestion instanceof GuessQuestion) {
-            String correctAnswer = currentQuestion.getCorrectAnswer();
-            String submittedAnswer = response.getAnswerChoice();
-            if (submittedAnswer.equals(correctAnswer)) {
-                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
-            }
-            if (Integer.parseInt(correctAnswer) < Integer.parseInt(submittedAnswer)
-                    && Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer) <= 500) {
-                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0 - 0.1 *
-                        (Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer)));
-            } else {
-                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0
-                        - 0.1 * (Integer.parseInt(correctAnswer)
-                        - Integer.parseInt(submittedAnswer)));
-            }
-        } else {
-            points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
-        }
-        return points;
     }
 
     /**
@@ -344,9 +313,14 @@ public class MultiPlayerStateUtils {
         if (responses.size() == 0) {
             return null;
         }
-        Collections.sort(responses, ((o1, o2) -> (int) (o1.getTimeSubmitted() - o2.getTimeSubmitted())));
-        GameResponse playerGameResponse = responses.get(0);
-        for (GameResponse GameResponse : responses) {
+        /*
+        The following copy of the `responses` list is required, as the list passed as
+        argument is immutable - cannot be changed, and thus, cannot be sorted.
+         */
+        List<GameResponse> sortedList = new ArrayList<>(responses);
+        Collections.sort(sortedList, ((o1, o2) -> (int) (o1.getTimeSubmitted() - o2.getTimeSubmitted())));
+        GameResponse playerGameResponse = sortedList.get(0);
+        for (GameResponse GameResponse : sortedList) {
             // Only update the GameResponse if it differs
             // This is done to avoid punishing the player from clicking
             // the same GameResponse multiple times
@@ -421,5 +395,21 @@ public class MultiPlayerStateUtils {
             }
         }
         return max + 1;
+    }
+
+    /**
+     * Posts an answer in the game a client is "bounded" with - particular instance found by gameId stored in the
+     * GameResponse object sent.
+     *
+     * @param gameResponse GameResponse sent from client.
+     * @return GameResponse instance in case the gameId is valid, or null otherwise.
+     */
+    public GameResponse postAnswer(GameResponse gameResponse) {
+        long gameId = gameResponse.getGameId();
+        if (!games.containsKey(gameId)) {
+            return null;
+        }
+        games.get(gameId).getSubmittedAnswers().add(gameResponse);
+        return gameResponse;
     }
 }

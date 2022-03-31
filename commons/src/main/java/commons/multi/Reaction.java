@@ -1,39 +1,51 @@
 package commons.multi;
 
-import java.util.List;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.util.Objects;
 
+/**
+ * Reaction class - to be used for emoji submission and reaction revealing.
+ */
 public class Reaction {
-    /**
-     * The list of reactions that a player is using.
-     */
-    private List<String> emojis;
+
+    private String username;
+    private String emoji;
 
     /**
-     * Constructor for the emojis.
-     *
-     * @param emojis names of the reactions.
+     * Default constructor to be used for JSON parsing.
      */
-    public Reaction(List<String> emojis) {
-        this.emojis = emojis;
+    public Reaction() {
+
     }
 
     /**
-     * Getter for the list of emojis.
+     * Proper constructor for creating an instance of Reaction to be communicated with.
      *
-     * @return the list of emojis.
+     * @param username  The username of the player.
+     * @param emoji     Reaction - either laughing, crying, etc.
      */
-    public List<String> getEmojis() {
-        return emojis;
+    public Reaction(String username, String emoji) {
+        this.username = username;
+        this.emoji = emoji;
     }
 
     /**
-     * Setter for the list of emojis.
+     * Getter for the username of the player who submitted a particular reaction.
      *
-     * @param emojis a list of emojis.
+     * @return  String representing the username of that player.
      */
-    public void setEmojis(List<String> emojis) {
-        this.emojis = emojis;
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Getter for the emoji submitted by any player.
+     *
+     * @return  String representing the emoji field.
+     */
+    public String getEmoji() {
+        return emoji;
     }
 
     /**
@@ -51,7 +63,7 @@ public class Reaction {
             return false;
         }
         Reaction reaction = (Reaction) o;
-        return Objects.equals(emojis, reaction.emojis);
+        return Objects.equals(username, reaction.username) && Objects.equals(emoji, reaction.emoji);
     }
 
     /**
@@ -61,7 +73,7 @@ public class Reaction {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(emojis);
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
 }

@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.misc.GameResponse;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.multi.Reaction;
@@ -84,5 +85,22 @@ public class MultiplayerStateController {
                 return ResponseEntity.ok(multiPlayer);
             }
         }
+    }
+
+    /**
+     * POST mapping for a response from a player.
+     * <p>
+     * Inserts the new response in the appropriate game for that player.
+     *
+     * @param response GameResponse that the player selected.
+     * @return GameResponse that the player just chose.
+     */
+    @PostMapping("/answer")
+    public ResponseEntity<GameResponse> postResponse(@RequestBody GameResponse response) {
+        GameResponse responsePosted = multiUtils.postAnswer(response);
+        if (responsePosted != null) {
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

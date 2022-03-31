@@ -9,6 +9,12 @@ import commons.single.SinglePlayerState;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Abstract class - parent of two different classes corresponding to single-player game state
+ * and multiplayer game state respectively.
+ *
+ * To be used for shared functionality and an establishment of hierarchical structure.
+ */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -19,7 +25,7 @@ import java.util.Objects;
 })
 public abstract class GameState {
 
-    private static long id;
+    private long id;
     private long nextPhase;
     private int roundNumber;
     private List<AbstractQuestion> questionList;
@@ -195,9 +201,5 @@ public abstract class GameState {
     @Override
     public int hashCode() {
         return Objects.hash(nextPhase, roundNumber, questionList, submittedAnswers, state);
-    }
-
-    public void addSubmittedAnswer(GameResponse response) {
-        this.submittedAnswers.add(response);
     }
 }
