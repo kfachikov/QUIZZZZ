@@ -6,6 +6,7 @@ import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -16,6 +17,9 @@ public class HomeScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private final HomeUtils homeUtils;
+
+    @FXML
+    private Text count;
 
     @FXML
     private TextField usernameField;
