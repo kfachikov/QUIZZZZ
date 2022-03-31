@@ -84,6 +84,8 @@ public class Reaction {
      *
      * @return  String representation of our Response object.
      */
-    public String toString() { return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE); }
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
+    }
 
 }
