@@ -48,7 +48,7 @@ Contribution to GitLab:
 - Team members make use of the *Time tracking* feature of the **issues** created.
 - Each Merge Request should have at least 3 people who have commented on them before being approved.
 - Each team member must clearly list **all** the changes that they have made in their merge request.
-- The treads for a merge request should be closed only by the person who opened them. The reviewer should check constantly if the author of the request responded to their comments.
+- The threads for a merge request should be closed only by the person who opened them. The reviewer should check constantly if the author of the request responded to their comments.
 - We can only approve a merge request with open threads:
   - If we add a comment explaining why we approve the merge request despite having open threads.
   - If we look over all the threads that are not resolve at that time.
