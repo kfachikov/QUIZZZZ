@@ -375,9 +375,9 @@ public class MultiPlayerStateUtils {
         // Right now, it just makes very little sense.
         //
         // Whoever is planning to work on reactions will almost definitely refactor this
-        Reaction reaction = null;
+        List<Reaction> reactionList = new ArrayList<>();
         return new MultiPlayerState(id, nextPhase, roundNumber, questionList,
-                submittedAnswers, state, players, reaction);
+                submittedAnswers, state, players, reactionList);
     }
 
     /**

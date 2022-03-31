@@ -3,6 +3,7 @@ package server.api;
 import commons.misc.GameResponse;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
+import commons.multi.Reaction;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,9 +56,35 @@ public class MultiplayerStateController {
     }
 
     /**
+     * POST mapping for emoji reactions.
+     * <p>
+     * The POST endpoint is used to send the reaction when a player sends a reaction.
+     * The reaction is added to the list of reactions, if it is valid.
+     * </p>
+     *
+     * @param id       id of the game the reaction was sent in.
+     * @param reaction the reaction sent by the player.
+     * @return         the reaction that was sent.
+     */
+    @PostMapping("/reaction/{id}")
+    public ResponseEntity<Reaction> postReaction(@PathVariable("id") long id, @RequestBody Reaction reaction) {
+        if (id < 0) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            MultiPlayerState game = multiUtils.getGameState(id);
+            if (game == null) {
+                return ResponseEntity.notFound().build();
+            }
+            game.getReactionList().add(reaction);
+            return ResponseEntity.ok(reaction);
+        }
+    }
+
+    /**
      * POST mapping for a player in a multiplayer game.
      * <p>
      * Adds the player to the game with the given id.
+     * </p>
      *
      * @param id     Id of the multiplayer game.
      * @param player MultiPlayer that is added.
