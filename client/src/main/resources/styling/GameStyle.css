@@ -4,6 +4,9 @@
     -fx-border-width: 0;
     -fx-text-fill: white;
 }
+#window {
+    -fx-background-color: #00236f;
+}
 .button:hover {
     -fx-background-color: #a40000;
 }
