@@ -22,6 +22,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
+/**
+ * Controller for the instead question scene.
+ */
 public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
     private InsteadQuestion question;

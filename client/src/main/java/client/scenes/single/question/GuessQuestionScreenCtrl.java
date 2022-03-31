@@ -23,6 +23,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
+/**
+ * Controller for the guess question scene.
+ */
 public class GuessQuestionScreenCtrl extends QuestionScreen {
 
     private GuessQuestion question;

@@ -1,6 +1,7 @@
 package server.utils;
 
 import commons.misc.Activity;
+import commons.misc.GameResponse;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.question.AbstractQuestion;
@@ -24,9 +25,9 @@ class MultiPlayerStateUtilsTest {
 
     private MockCurrentTimeUtils currentTime;
     private MockQueueUtils queueUtils;
+    private MockScoreCountingUtils scoreCounting;
 
     private MultiPlayerStateUtils multiUtils;
-
 
     private MultiPlayerState multiPlayerStateNew;
     private MultiPlayerState multiPlayerStateStarted;
@@ -40,6 +41,10 @@ class MultiPlayerStateUtilsTest {
     private Activity activity1;
     private Activity activity2;
     private Activity activity3;
+
+    private GameResponse gameResponse1;
+    private GameResponse gameResponse2;
+    private GameResponse gameResponse3;
 
     private MultiPlayer playerA1;
     private MultiPlayer playerA2;
@@ -57,11 +62,11 @@ class MultiPlayerStateUtilsTest {
 
         currentTime = new MockCurrentTimeUtils();
         queueUtils = new MockQueueUtils(currentTime);
+        scoreCounting = new MockScoreCountingUtils();
 
         activity1 = new Activity("i1", "t1", "s1", "m1", 1L);
         activity2 = new Activity("i2", "t2", "s2", "m2", 2L);
         activity3 = new Activity("i3", "t3", "s3", "m3", 3L);
-
 
         questions = new ArrayList<>();
         var activities = List.of(activity1, activity2, activity3);
@@ -94,6 +99,10 @@ class MultiPlayerStateUtilsTest {
         );
         multiPlayerStateQuestion0 = new MultiPlayerState(
                 0,
+                /*
+                Sets nextPhase of this multiplayer state object to be the end of the
+                current QUESTION_STATE
+                 */
                 currentTime.currentTime + 11000,
                 0,
                 questions,
@@ -152,7 +161,55 @@ class MultiPlayerStateUtilsTest {
                 new ArrayList<>(),
                 null
         );
-        multiUtils = new MultiPlayerStateUtils(generateQuestionUtils, queueUtils, currentTime);
+        multiUtils = new MultiPlayerStateUtils(generateQuestionUtils, queueUtils, currentTime, scoreCounting);
+
+        setResponses();
+    }
+
+    void setResponses() {
+        /*
+        Gets the current question being asked - in the particular case, it would be the first question.
+         */
+        AbstractQuestion questionAsked = multiPlayerStateQuestion0
+                .getQuestionList().get(multiPlayerStateQuestion0.getRoundNumber());
+        gameResponse1 = new GameResponse(
+                0,
+                /*
+                The response would be submitted just 1 second before the end of the first round.
+                The multiPlayerStateQuestion0 instance would be used.
+                 */
+                currentTime.currentTime + 10000,
+                0,
+                "Client A",
+                questionAsked.getCorrectAnswer()
+        );
+
+        gameResponse2 = new GameResponse(
+                0,
+                /*
+                The response would be submitted 3 seconds before the end of the first round.
+                The multiPlayerStateQuestion0 instance would be used.
+                 */
+                currentTime.currentTime + 8000,
+                0,
+                "Client A",
+                questionAsked.getCorrectAnswer()
+        );
+
+        gameResponse3 = new GameResponse(
+                0,
+                /*
+                The response would be submitted just 1 second before the end of the first round.
+                The multiPlayerStateQuestion0 instance would be used.
+                 */
+                currentTime.currentTime + 10000,
+                0,
+                "Client A",
+                /*
+                The answer though, would be slightly different from the actual one.
+                 */
+                String.valueOf(Long.parseLong(questionAsked.getCorrectAnswer()) - 400)
+        );
     }
 
     @BeforeEach
@@ -546,5 +603,88 @@ class MultiPlayerStateUtilsTest {
         assertTrue(multiUtils.containsPlayer(playerA3, multiUtils.getGameState(0)));
         assertTrue(multiUtils.containsPlayer(playerB1, multiUtils.getGameState(0)));
         assertTrue(multiUtils.containsPlayer(playerB2, multiUtils.getGameState(0)));
+    }
+
+    @Test
+    void correctAnswerPointDistribution1secondRemaining() {
+        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, gameResponse1);
+        assertEquals(100 + 1 * 50, scoreCount);
+    }
+
+    @Test
+    void correctAnswerPointDistribution3secondsRemaining() {
+        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, gameResponse2);
+        assertEquals(100 + 3 * 50, scoreCount);
+    }
+
+    @Test
+    void approximateAnswerPointDistribution() {
+        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, gameResponse3);
+        assertEquals(100 + 1 * 50 - .1 * 400, scoreCount);
+    }
+
+    /**
+     * Answer posted even if the player is not in the current game.
+     * Happens as posting an answer does not include "player-check" anywhere.
+     */
+    @Test
+    void postAnswerValidGame() {
+        // Start a game.
+        Long gameId = multiUtils.startNewGame();
+
+        GameResponse response = new GameResponse(
+                gameId,
+                /*
+                The answer is posted during the 5th second of the QUESTION_STATE,
+                Note that during the first 3 seconds, the players are in "preparation"
+                in the queue - countdown happens.
+                 */
+                currentTime.currentTime + 8000,
+                0,
+                "Client A",
+                "MockAnswer"
+        );
+        multiUtils.postAnswer(response);
+
+        assertEquals(multiUtils.getGameState(gameId).getSubmittedAnswers(), List.of(response));
+    }
+
+    @Test
+    void postAnswerInvalidGame() {
+        // Start a game.
+        Long gameId = multiUtils.startNewGame();
+
+        GameResponse response = new GameResponse(
+                Integer.MIN_VALUE,
+                currentTime.currentTime + 8000,
+                0,
+                "Client A",
+                "MockAnswer"
+        );
+        assertNull(multiUtils.postAnswer(response));
+    }
+
+    @Test
+    void computeFinalAnswerEmptyList() {
+        assertNull(multiUtils.computeFinalAnswer(new ArrayList<>()));
+    }
+
+    @Test
+    void computeFinalAnswerLastResponse() {
+        /*
+        In theory, gameResponse2 should be submitted first, at its time is "lowest".
+         */
+        assertEquals(gameResponse3,
+                multiUtils.computeFinalAnswer(List.of(gameResponse2, gameResponse1, gameResponse3)));
+    }
+
+    @Test
+    void computeFinalAnswerSameSubmission() {
+        /*
+        Both gameResponse1 and gameResponse2 choose the same answer -the correct one. So, the algorithm
+        should return the firstly submitted one.
+         */
+        assertEquals(gameResponse2,
+                multiUtils.computeFinalAnswer(List.of(gameResponse2, gameResponse1)));
     }
 }

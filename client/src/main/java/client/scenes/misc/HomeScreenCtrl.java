@@ -83,6 +83,11 @@ public class HomeScreenCtrl {
         homeUtils.enterAdministrationPanel();
     }
 
+    /**
+     * Getter for the URL field on the home screen.
+     *
+     * @return  String value of the URL present in the `serverURL` TextField.
+     */
     public String getUrl() {
         return serverURL.getText();
     }

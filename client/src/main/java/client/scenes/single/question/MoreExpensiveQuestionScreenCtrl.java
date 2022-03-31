@@ -22,6 +22,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
+/**
+ * Controller for the comparison ("What is more expensive?") question scene.
+ */
 public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
     private MoreExpensiveQuestion question;
