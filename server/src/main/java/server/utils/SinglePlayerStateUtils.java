@@ -186,7 +186,8 @@ public class SinglePlayerStateUtils {
                 Long.MAX_VALUE,
                 game.getRoundNumber(),
                 game.getPlayer().getUsername(),
-                "wrong answer"
+                "wrong answer",
+                false
         );
         // GameResponses are sorted by the submission time.
         Comparator<GameResponse> comp =

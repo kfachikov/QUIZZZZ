@@ -181,7 +181,8 @@ class MultiPlayerStateUtilsTest {
                 currentTime.currentTime + 10000,
                 0,
                 "Client A",
-                questionAsked.getCorrectAnswer()
+                questionAsked.getCorrectAnswer(),
+                false
         );
 
         gameResponse2 = new GameResponse(
@@ -193,7 +194,8 @@ class MultiPlayerStateUtilsTest {
                 currentTime.currentTime + 8000,
                 0,
                 "Client A",
-                questionAsked.getCorrectAnswer()
+                questionAsked.getCorrectAnswer(),
+                false
         );
 
         gameResponse3 = new GameResponse(
@@ -208,7 +210,8 @@ class MultiPlayerStateUtilsTest {
                 /*
                 The answer though, would be slightly different from the actual one.
                  */
-                String.valueOf(Long.parseLong(questionAsked.getCorrectAnswer()) - 400)
+                String.valueOf(Long.parseLong(questionAsked.getCorrectAnswer()) - 400),
+                false
         );
     }
 
@@ -290,7 +293,7 @@ class MultiPlayerStateUtilsTest {
                 0,
                 true,
                 true,
-                true
+                false
         );
 
         var result = multiUtils.addPlayer(0, player);
@@ -307,7 +310,7 @@ class MultiPlayerStateUtilsTest {
                 0,
                 true,
                 true,
-                true
+                false
         );
 
         var result = multiUtils.addPlayer(0, player);
@@ -324,7 +327,7 @@ class MultiPlayerStateUtilsTest {
                 0,
                 true,
                 true,
-                true
+                false
         );
 
         multiUtils.addPlayer(0, player);
@@ -343,7 +346,7 @@ class MultiPlayerStateUtilsTest {
                 0,
                 true,
                 true,
-                true
+                false
         );
 
         var result = multiUtils.addPlayer(0, player);
@@ -642,7 +645,8 @@ class MultiPlayerStateUtilsTest {
                 currentTime.currentTime + 8000,
                 0,
                 "Client A",
-                "MockAnswer"
+                "MockAnswer",
+                true
         );
         multiUtils.postAnswer(response);
 
@@ -659,7 +663,8 @@ class MultiPlayerStateUtilsTest {
                 currentTime.currentTime + 8000,
                 0,
                 "Client A",
-                "MockAnswer"
+                "MockAnswer",
+                true
         );
         assertNull(multiUtils.postAnswer(response));
     }

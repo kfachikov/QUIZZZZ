@@ -79,6 +79,7 @@ public class MultiplayerCtrl {
 
     private long gameId;
     private String username;
+    private boolean doublePoints;
 
     private final ChangeListener<MultiPlayerState> onPoll = (observable, oldValue, newValue) -> {
         // If state has changed, we probably have to switch scenes
@@ -412,7 +413,8 @@ public class MultiplayerCtrl {
                 new Date().getTime(),
                 (int) getRoundNumber(serverUtils.getMultiGameState(gameId)),
                 username,
-                lastSubmittedAnswer
+                lastSubmittedAnswer,
+                doublePoints
         ));
     }
 

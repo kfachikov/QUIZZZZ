@@ -126,7 +126,8 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
                 time.getProgress(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
-                chosenAnswer
+                chosenAnswer,
+                false
         ));
     }
 

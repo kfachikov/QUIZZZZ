@@ -25,6 +25,7 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
+    private boolean doublePoints;
 
     private GuessQuestion question;
 
@@ -189,5 +190,14 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     @Override
     public ProgressBar getTime() {
         return time;
+    }
+
+    /**
+     * Setter for the doublePoints joker.
+     *
+     * @param doublePoints the boolean value for the joker regarding the points.
+     */
+    public void setDoublePoints(boolean doublePoints) {
+        this.doublePoints = doublePoints;
     }
 }

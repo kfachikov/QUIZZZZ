@@ -48,10 +48,10 @@ class MultiPlayerStateTest {
                 )
         );
 
-        response1 = new GameResponse(37, 5287, 2, "Kate", "200Wh");
-        response2 = new GameResponse(37, 5300, 2, "Lu", "500Wh");
-        response3 = new GameResponse(37, 5386, 2, "Kate", "500Wh");
-        response4 = new GameResponse(37, 5360, 2, "Lu", "200Wh");
+        response1 = new GameResponse(37, 5287, 2, "Kate", "200Wh", true);
+        response2 = new GameResponse(37, 5300, 2, "Lu", "500Wh", true);
+        response3 = new GameResponse(37, 5386, 2, "Kate", "500Wh", true);
+        response4 = new GameResponse(37, 5360, 2, "Lu", "200Wh", true);
 
         answers = Arrays.asList(response1, response2);
         answers2 = Arrays.asList(response3, response4);

@@ -287,7 +287,8 @@ public class MultiPlayerStateUtils {
                             Long.MAX_VALUE,
                             game.getRoundNumber(),
                             game.getPlayers().get(i).getUsername(),
-                            "wrong answer"
+                            "wrong answer",
+                            game.getSubmittedAnswers().get(i).getIsDoublePoints()
                     );
                 }
                 /*

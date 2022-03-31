@@ -104,7 +104,8 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
                 time.getProgress(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
-                chosenAnswer
+                chosenAnswer,
+                false
         ));
     }
 
