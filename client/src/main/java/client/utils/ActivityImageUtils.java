@@ -65,32 +65,6 @@ public class ActivityImageUtils {
     }
 
     /**
-     * Adds all activities' images.
-     *
-     * @param activitiesPath  Path of the activities.json inside the activity bank.
-     * @param addedActivities List of all activities that were just added.
-     */
-    public void addActivitiesImages(
-            String activitiesPath,
-            List<Activity> addedActivities) {
-        List<String> imagePaths = getAllImagePaths(activitiesPath);
-        Map<String, Long> idKeyMap = listToMap(addedActivities);
-        for (String imagePath : imagePaths) {
-            String id = getActivityId(imagePath);
-            String imageBase64 = getImageBase64(imagePath);
-            // Skip activities that were filtered out
-            if (idKeyMap.containsKey(id)) {
-                long key = idKeyMap.get(id);
-                try {
-                    addActivityImage(key, imageBase64);
-                } catch (NotFoundException ignored) {
-                    // Skip if something goes wrong
-                }
-            }
-        }
-    }
-
-    /**
      * Convert list of activities to a map from activity IDs to activity keys.
      *
      * @param activityList List of activities.
