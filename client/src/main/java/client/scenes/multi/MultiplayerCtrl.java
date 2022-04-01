@@ -100,7 +100,7 @@ public class MultiplayerCtrl {
             if (newValue.getState().equals(MultiPlayerState.QUESTION_STATE)) {
                 updateReactionQuestion(reactions);
             } else if (newValue.getState().equals(MultiPlayerState.LEADERBOARD_STATE) ||
-            newValue.getState().equals(MultiPlayerState.GAME_OVER_STATE)) {
+                newValue.getState().equals(MultiPlayerState.GAME_OVER_STATE)) {
                 updateReactionLeaderboard(reactions);
             }
         }
