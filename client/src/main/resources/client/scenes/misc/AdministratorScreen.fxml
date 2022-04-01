@@ -7,7 +7,7 @@
 
 <AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.misc.AdministratorScreenCtrl">
    <children>
-       <Button fx:id="backButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="51.0" prefWidth="80.0" stylesheets="@../../../styling/GameStyle.css" text="Back" textFill="#006e8c">
+       <Button layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="51.0" prefWidth="80.0" stylesheets="@../../../styling/GameStyle.css" text="Back" textFill="#006e8c">
            <font>
                <Font name="Avenir Next Condensed Bold" size="25.0" />
            </font>

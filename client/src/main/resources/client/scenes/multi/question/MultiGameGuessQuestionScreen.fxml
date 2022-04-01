@@ -45,7 +45,7 @@
          <font>
             <Font name="Avenir Next Condensed Bold" size="20.0" />
          </font></Text>
-      <TextField fx:id="input" alignment="CENTER" layoutX="312.0" layoutY="386.0" prefHeight="64.0" prefWidth="404.0" text="Type your guess here">
+      <TextField fx:id="input" alignment="CENTER" layoutX="312.0" layoutY="386.0" prefHeight="64.0" prefWidth="404.0" style="-fx-background-color: white; -fx-text-fill: black;" text="Type your guess here">
          <font>
             <Font name="Avenir Next Condensed Bold" size="19.0" />
          </font>
