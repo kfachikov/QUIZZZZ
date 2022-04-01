@@ -66,7 +66,7 @@
             </DropShadow>
          </effect></Region>
       <Region layoutX="94.0" layoutY="470.0" prefHeight="149.0" prefWidth="295.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="94.0" />
-      <Region layoutX="741.0" layoutY="119.0" prefHeight="300.0" prefWidth="174.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="119.0">
+      <Region id="region" layoutX="741.0" layoutY="119.0" prefHeight="300.0" prefWidth="174.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="119.0">
          <effect>
             <DropShadow>
                <color>
@@ -76,7 +76,7 @@
          </effect></Region>
       <ImageView fx:id="image" fitHeight="190.0" fitWidth="315.0" layoutX="202.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <Region layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="403.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0">
+      <Region id="region" layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="403.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0">
          <effect>
             <DropShadow>
                <color>

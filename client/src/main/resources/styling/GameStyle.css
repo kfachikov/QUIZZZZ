@@ -134,3 +134,7 @@
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
 }
+#region {
+    -fx-background-color: #0038a8;
+    -fx-background-radius: 20;
+}

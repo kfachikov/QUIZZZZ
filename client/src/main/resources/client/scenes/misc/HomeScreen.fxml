@@ -14,7 +14,7 @@
 
 <AnchorPane id="anchor" maxHeight="600.0" maxWidth="900.0" prefHeight="600.0" prefWidth="900.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.misc.HomeScreenCtrl">
     <children>
-      <Region layoutX="81.0" layoutY="238.0" prefHeight="436.0" prefWidth="272.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="81.0">
+      <Region id="region" layoutX="81.0" layoutY="238.0" prefHeight="436.0" prefWidth="272.0" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="81.0">
          <effect>
             <DropShadow>
                <color>
@@ -22,7 +22,7 @@
                </color>
             </DropShadow>
          </effect></Region>
-      <Region layoutX="81.0" layoutY="-320.0" prefHeight="436.0" prefWidth="272.0" style="-fx-background-color: #0038a8#0038a8; -fx-background-radius: 20;" AnchorPane.leftAnchor="81.0">
+      <Region id="region" layoutX="81.0" layoutY="-320.0" prefHeight="436.0" prefWidth="272.0" AnchorPane.leftAnchor="81.0">
          <effect>
             <DropShadow>
                <color>
@@ -30,7 +30,7 @@
                </color>
             </DropShadow>
          </effect></Region>
-      <Region layoutX="430.0" layoutY="243.0" prefHeight="288.0" prefWidth="493.0" style="-fx-background-color: #0038a8#0038a8; -fx-background-radius: 20;" AnchorPane.bottomAnchor="81.0" AnchorPane.rightAnchor="-38.0" AnchorPane.topAnchor="231.0">
+      <Region id="region" layoutX="430.0" layoutY="243.0" prefHeight="288.0" prefWidth="493.0" AnchorPane.bottomAnchor="81.0" AnchorPane.rightAnchor="-38.0" AnchorPane.topAnchor="231.0">
          <effect>
             <DropShadow>
                <color>

@@ -123,7 +123,7 @@
          <Font name="Avenir Next Condensed Bold" size="45.0" />
       </font>
    </Button>
-   <Region layoutX="473.0" layoutY="162.0" prefHeight="301.0" prefWidth="375.0" style="-fx-background-color: #0038a8 #0038a8; -fx-background-radius: 20;" AnchorPane.topAnchor="162.0" />
+   <Region id="region" layoutX="473.0" layoutY="162.0" prefHeight="301.0" prefWidth="375.0" AnchorPane.topAnchor="162.0" />
    <Region layoutX="488.0" layoutY="182.0" prefHeight="263.0" prefWidth="342.0" style="-fx-background-color: white; -fx-background-radius: 20;" />
     <Text fill="#ffec00" layoutX="491.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions">
         <font>
