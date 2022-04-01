@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.utils.MultiPlayerStateUtils;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 /**
  * Controller responsible for handling the client requests regarding any multiplayer game.
@@ -18,6 +21,7 @@ import server.utils.MultiPlayerStateUtils;
 public class MultiplayerStateController {
 
     private final MultiPlayerStateUtils multiUtils;
+    private MultiPlayer player = null;
 
     /**
      * Constructor for multiplayer state controller.
@@ -92,5 +96,26 @@ public class MultiplayerStateController {
             return ResponseEntity.ok(response);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/timeJoker")
+    public void postTimeJoker(@RequestBody MultiPlayer player) {
+        this.player = player;
+        resetJoker(500);
+    }
+
+    @GetMapping("/timeJoker")
+    public ResponseEntity<MultiPlayer> getTimeJoker() {
+        return ResponseEntity.ok(player);
+    }
+
+    private void resetJoker(long delay) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                player = null;
+            }
+        }, delay);
     }
 }
