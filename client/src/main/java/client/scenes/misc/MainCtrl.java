@@ -153,7 +153,6 @@ public class MainCtrl {
      * Reset the behaviour of onCloseRequest to expected behavior.
      */
     public void resetDefaultOnCloseRequest() {
-        System.out.println("Reset onCloseRequest");
         primaryStage.setOnCloseRequest((event -> {
             if (primaryStage.getScene().equals(this.queue)) {
                 queueCtrl.leaveQueue();
@@ -173,14 +172,10 @@ public class MainCtrl {
      * @param onCloseRequest Boolean supplier which return true if the application should close.
      */
     public void setOnCloseRequest(Supplier<Boolean> onCloseRequest) {
-        System.out.println("Set onCloseRequest to " + onCloseRequest);
         primaryStage.setOnCloseRequest(event -> {
-            System.out.println("Custom set CloseRequest initiated.");
             if (onCloseRequest.get()) {
-                System.out.println("User answered Yes");
                 Platform.exit();
             } else {
-                System.out.println("User ansswered No.");
                 event.consume();
             }
         });
