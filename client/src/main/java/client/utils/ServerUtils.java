@@ -278,19 +278,33 @@ public class ServerUtils {
                 .post(Entity.entity(message, APPLICATION_JSON), ActivityImageMessage.class);
     }
 
-    public void postTimeJokerPlayer(MultiPlayer player) {
+    /**
+     * POST request to /api/multi/timeJoker/{id}, to update the multiplayer.
+     *
+     * @param player the player who used the joker.
+     * @param id     id of the multiplayer game.
+     */
+    public void postTimeJokerPlayer(MultiPlayer player, long id) {
         ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/api/multi/timeJoker")
+                .path("/api/multi/timeJoker/" + id)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(player, APPLICATION_JSON));
     }
 
-    public MultiPlayer getTimeJokerPlayer() {
+    /**
+     * GET request to /api/multi/timeJoker/{id}
+     * <p>
+     *  Used to receive the player who clicked the time joker button.
+     *
+     * @param id id of the multiplayer game.
+     * @return   the player who used the joker.
+     */
+    public MultiPlayer getTimeJokerPlayer(long id) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/api/multi/timeJoker")
+                .path("/api/multi/timeJoker/" + id)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(MultiPlayer.class);
