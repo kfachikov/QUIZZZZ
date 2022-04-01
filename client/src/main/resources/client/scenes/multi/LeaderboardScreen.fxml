@@ -14,7 +14,7 @@
       </font>
    </Text>
    <Region layoutX="82.0" layoutY="96.0" prefHeight="525.0" prefWidth="349.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-14.0" AnchorPane.topAnchor="89.0" />
-    <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#leave" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
+    <Button fx:id="leave" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#leave" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
         <font>
             <Font name="Avenir Next Condensed Bold" size="18.0" />
         </font>
@@ -168,7 +168,7 @@
                 </font>
             </Label>
             <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" text="Username reacts with" GridPane.rowIndex="5">
+            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" GridPane.rowIndex="5">
                 <font>
                     <Font name="Avenir Next Condensed Bold" size="18.0" />
                 </font>
