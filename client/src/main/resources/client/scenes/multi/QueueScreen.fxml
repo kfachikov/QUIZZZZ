@@ -25,7 +25,7 @@
       </Label>
       <FlowPane id="bubbles" fx:id="bubbles" alignment="CENTER" layoutX="65.0" layoutY="103.0" prefHeight="335.0" prefWidth="770.0" stylesheets="@../../../styling/GameStyle.css" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="103.0">
          <children>
-            <Label alignment="CENTER" layoutX="78.0" layoutY="10.0" prefHeight="50.0" prefWidth="170.0" textFill="#006e8c" />
+            <Label alignment="CENTER" layoutX="78.0" layoutY="10.0" prefHeight="50.0" prefWidth="170.0" textAlignment="CENTER" />
             <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="170.0" textAlignment="CENTER" />
             <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="170.0" textAlignment="CENTER" />
             <Label alignment="CENTER" layoutX="130.0" layoutY="10.0" prefHeight="50.0" prefWidth="170.0" textAlignment="CENTER" />
@@ -41,10 +41,11 @@
             <Label alignment="CENTER" layoutX="370.0" layoutY="44.0" prefHeight="50.0" prefWidth="170.0" textAlignment="CENTER" />
             <Label alignment="CENTER" layoutX="250.0" layoutY="44.0" prefHeight="50.0" prefWidth="170.0" textAlignment="CENTER" />
             <Label alignment="CENTER" layoutX="250.0" layoutY="44.0" prefHeight="50.0" prefWidth="170.0" textAlignment="CENTER" />
-         </children></FlowPane>
-      <Label id="start-label" fx:id="startLabel" alignment="CENTER" layoutY="260.0" prefHeight="88.0" prefWidth="600.0" stylesheets="@../../../styling/GameStyle.css" text="Game is starting..." visible="false">
+         </children>
+      </FlowPane>
+      <Label id="start-label" fx:id="startLabel" alignment="CENTER" layoutX="26.0" layoutY="393.0" opacity="0.88" prefHeight="195.0" prefWidth="900.0" stylesheets="@../../../styling/GameStyle.css" text="Game is starting..." textFill="RED" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
-            <Font size="37.0" />
+            <Font name="Avenir Next Condensed Bold" size="69.0" />
          </font>
       </Label>
     </children>

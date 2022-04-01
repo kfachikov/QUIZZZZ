@@ -3,6 +3,7 @@
     -fx-background-radius: 10;
     -fx-border-width: 0;
     -fx-text-fill: white;
+    -fx-font: Avenir Next Condensed Bold;
 }
 #window {
     -fx-background-color: #00236f;
@@ -53,10 +54,10 @@
     -fx-border-radius: 15;
     -fx-background-radius: 20;
     -fx-border-width: 3;
-    visibility: true;
+    visibility: false;
 }
 #start-label {
-    -fx-background-color: #ffffffaa;
+    -fx-background-color: #0038a8;
 }
 #error {
     -fx-background-color: #f2dede;

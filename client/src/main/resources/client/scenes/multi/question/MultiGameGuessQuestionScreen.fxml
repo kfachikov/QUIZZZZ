@@ -41,7 +41,7 @@
             <Font name="Avenir Next Condensed Bold" size="32.0" />
          </font>
       </Label>
-      <Text fx:id="description" fill="WHITE" layoutX="89.0" layoutY="342.0" text="Taking a hot shower. (50l water)             " textAlignment="CENTER" wrappingWidth="198.6856063842772">
+      <Text fx:id="description" fill="WHITE" layoutX="83.0" layoutY="153.0" text="Taking a hot shower. (50l water)             " textAlignment="CENTER" wrappingWidth="592.0">
          <font>
             <Font name="Avenir Next Condensed Bold" size="20.0" />
          </font></Text>
@@ -74,7 +74,7 @@
                </color>
             </DropShadow>
          </effect></Region>
-      <ImageView fx:id="image" fitHeight="238.0" fitWidth="382.0" layoutX="286.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="image" fitHeight="190.0" fitWidth="315.0" layoutX="202.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
       <Region layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="403.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0">
          <effect>
@@ -148,11 +148,6 @@
          <font>
             <Font name="Avenir Next Condensed Bold" size="13.0" />
          </font></Label>
-      <Text fill="#ffec00" layoutX="170.0" layoutY="462.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="35.0" />
-         </font>
-      </Text>
       <Text fill="#ffec00" layoutX="775.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jokers">
          <font>
             <Font name="Avenir Next Condensed Bold" size="35.0" />

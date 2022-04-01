@@ -50,7 +50,7 @@
             <Font name="Avenir Next Condensed Bold" size="37.0" />
          </font>
       </Button>
-      <Text fx:id="description" fill="WHITE" layoutX="33.0" layoutY="414.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="407.6205596923828">
+      <Text fx:id="description" fill="WHITE" layoutX="16.0" layoutY="406.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="452.6205596923828">
          <font>
             <Font name="Avenir Next Condensed Bold" size="21.0" />
          </font></Text>
@@ -122,12 +122,8 @@
       <Label fx:id="gameStateLabel" alignment="CENTER" layoutX="795.0" layoutY="16.0" prefHeight="0.0" prefWidth="88.0" text="Game Id unset" textFill="#ffec00">
          <font>
             <Font name="Avenir Next Condensed Bold" size="13.0" />
-         </font></Label>
-      <Text fill="#ffec00" layoutX="170.0" layoutY="462.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="35.0" />
          </font>
-      </Text>
+      </Label>
       <Text fill="#ffec00" layoutX="775.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jokers">
          <font>
             <Font name="Avenir Next Condensed Bold" size="35.0" />

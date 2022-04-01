@@ -254,7 +254,7 @@ public class MultiplayerCtrl {
      */
     private void setDefault(MultiPlayerState game) {
         currentScreenCtrl.getWindow()
-                .setStyle("-fx-background-color: #" + (Paint.valueOf("a8c6fa")).toString().substring(2));
+                .setStyle("-fx-background-color: #" + (Paint.valueOf("00236f")).toString().substring(2));
         currentScreenCtrl.setScore(game.getPlayerByUsername(username).getScore());
     }
 

@@ -64,16 +64,16 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fx:id="description1" fill="WHITE" layoutX="20.0" layoutY="384.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="203.0">
+      <Text fx:id="description1" fill="WHITE" layoutX="25.0" layoutY="384.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
-            <Font size="12.0" />
+            <Font name="Avenir Next Condensed Bold" size="12.0" />
          </font></Text>
-      <Text fx:id="description2" fill="WHITE" layoutX="261.0" layoutY="385.0" text="Cooking a meal on your hot plate (30 min)" textAlignment="CENTER" wrappingWidth="203.0">
+      <Text fx:id="description2" fill="WHITE" layoutX="261.0" layoutY="384.0" text="Cooking a meal on your hot plate (30 min)" textAlignment="CENTER" wrappingWidth="203.0">
          <font>
             <Font name="Avenir Next Condensed Bold" size="12.0" />
          </font>
       </Text>
-      <Text fx:id="description3" fill="WHITE" layoutX="500.0" layoutY="386.0" text="Playing a game on your Playstation (3h)" textAlignment="CENTER" wrappingWidth="203.0">
+      <Text fx:id="description3" fill="WHITE" layoutX="502.0" layoutY="386.0" text="Playing a game on your Playstation (3h)" textAlignment="CENTER" wrappingWidth="203.0">
          <font>
             <Font name="Avenir Next Condensed Bold" size="12.0" />
          </font>
@@ -146,11 +146,6 @@
          <font>
             <Font name="Avenir Next Condensed Bold" size="13.0" />
          </font></Label>
-      <Text fill="#ffec00" layoutX="170.0" layoutY="462.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="35.0" />
-         </font>
-      </Text>
       <Text fill="#ffec00" layoutX="775.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jokers">
          <font>
             <Font name="Avenir Next Condensed Bold" size="35.0" />
