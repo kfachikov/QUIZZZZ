@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameInsteadQuestionScreenCtrl">
+<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameInsteadQuestionScreenCtrl">
    <effect>
       <ColorAdjust />
    </effect>
@@ -139,19 +139,19 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" text="Username reacts with">
+            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0">
                <font>
                   <Font name="Avenir Next Condensed Bold" size="18.0" />
                </font>
             </Label>
             <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" text="Username reacts with" GridPane.rowIndex="1">
+            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" GridPane.rowIndex="1">
                <font>
                   <Font name="Avenir Next Condensed Bold" size="18.0" />
                </font>
             </Label>
             <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" text="Username reacts with" GridPane.rowIndex="2">
+            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" GridPane.rowIndex="2">
                <font>
                   <Font name="Avenir Next Condensed Bold" size="18.0" />
                </font>
