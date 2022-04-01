@@ -80,8 +80,10 @@ public abstract class QuestionScreen {
 
     /**
      * sets the scene and title to home if the yes button is clicked.
+     *
+     * @return whether the user selected "yes".
      */
-    public void returnHome() {
+    public boolean returnHome() {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
@@ -96,8 +98,9 @@ public abstract class QuestionScreen {
         if (confirmation.get() == yesButton) {
             singlePlayerUtils.stopPollingService();
             mainCtrl.showHome();
+            return true;
         }
-
+        return false;
     }
 
     /**

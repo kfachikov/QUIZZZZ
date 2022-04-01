@@ -171,6 +171,7 @@ public class MultiplayerCtrl {
         pollingService.start(gameId);
 
         switchState(pollingService.poll());
+        mainCtrl.setOnCloseRequest(this::promptLeave);
     }
 
     /**
@@ -185,8 +186,10 @@ public class MultiplayerCtrl {
     /**
      * Confirms if the user really wants to leave the game and allows them to
      * return to the home screen.
+     *
+     * @return whether the user selected "yes".
      */
-    public void promptLeave() {
+    public boolean promptLeave() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText("Leave the game");
@@ -200,7 +203,9 @@ public class MultiplayerCtrl {
         if (confirmation.isPresent() && confirmation.get() == yesButton) {
             stop();
             mainCtrl.showHome();
+            return true;
         }
+        return false;
     }
 
     /**

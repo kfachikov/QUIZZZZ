@@ -38,6 +38,7 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.File;
+import java.util.function.Supplier;
 
 /**
  * Main controller which would take care of all scene and controller changes.
@@ -108,7 +109,7 @@ public class MainCtrl {
                            Pair<InsteadQuestionScreenCtrl, Parent> instead,
                            Pair<GuessQuestionScreenCtrl, Parent> guess,
                            Pair<CongratulationsScreenCtrl, Parent> congratulations
-                           ) {
+    ) {
 
         this.primaryStage = primaryStage;
 
@@ -142,7 +143,7 @@ public class MainCtrl {
         this.congratulationsCtrl = congratulations.getKey();
         this.congratulations = new Scene(congratulations.getValue());
 
-        resetDefaultOnClose();
+        resetDefaultOnCloseRequest();
 
         showHome();
         primaryStage.show();
@@ -151,13 +152,38 @@ public class MainCtrl {
     /**
      * Reset the behaviour of onCloseRequest to expected behavior.
      */
-    public void resetDefaultOnClose() {
+    public void resetDefaultOnCloseRequest() {
+        System.out.println("Reset onCloseRequest");
         primaryStage.setOnCloseRequest((event -> {
             if (primaryStage.getScene().equals(this.queue)) {
                 queueCtrl.leaveQueue();
             }
             Platform.exit();
         }));
+    }
+
+    /**
+     * Set the action to do when attempting to close the application.
+     * <p>
+     * Takes a boolean supplier (which could, possibly, show a prompt to the user),
+     * which returns whether user selected "Yes" to leave the game.
+     * <p>
+     * If the boolean supplier returns true, the application exits.
+     *
+     * @param onCloseRequest Boolean supplier which return true if the application should close.
+     */
+    public void setOnCloseRequest(Supplier<Boolean> onCloseRequest) {
+        System.out.println("Set onCloseRequest to " + onCloseRequest);
+        primaryStage.setOnCloseRequest(event -> {
+            System.out.println("Custom set CloseRequest initiated.");
+            if (onCloseRequest.get()) {
+                System.out.println("User answered Yes");
+                Platform.exit();
+            } else {
+                System.out.println("User ansswered No.");
+                event.consume();
+            }
+        });
     }
 
     /**
@@ -175,6 +201,7 @@ public class MainCtrl {
     public void showHome() {
         primaryStage.setTitle("Quizzz: Home");
         primaryStage.setScene(home);
+        resetDefaultOnCloseRequest();
     }
 
     /**
@@ -187,6 +214,7 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz: Prepare");
         primaryStage.setScene(prep);
         prepCtrl.setSinglePlayer(singlePlayer);
+        resetDefaultOnCloseRequest();
     }
 
     /**
@@ -195,6 +223,7 @@ public class MainCtrl {
     public void showHelp() {
         primaryStage.setTitle("Quizzz: Help");
         primaryStage.setScene(help);
+        resetDefaultOnCloseRequest();
     }
 
     /**
@@ -227,6 +256,7 @@ public class MainCtrl {
         queueCtrl.setUser(user);
         queueCtrl.setServerAddress(serverAddress);
         queueCtrl.resetScene();
+        resetDefaultOnCloseRequest();
     }
 
     /**
@@ -235,6 +265,7 @@ public class MainCtrl {
     public void showAdministrator() {
         primaryStage.setTitle("Quizzz: Administrator Panel");
         primaryStage.setScene(administrator);
+        resetDefaultOnCloseRequest();
     }
 
     /**
@@ -257,6 +288,7 @@ public class MainCtrl {
         singlePlayerUtils.setCurrentController(moreExpensiveCtrl);
         moreExpensiveCtrl.setQuestion(question);
         primaryStage.setScene(moreExpensive);
+        setOnCloseRequest(moreExpensiveCtrl::returnHome);
     }
 
     /**
@@ -268,6 +300,7 @@ public class MainCtrl {
         singlePlayerUtils.setCurrentController(consumptionCtrl);
         consumptionCtrl.setQuestion(question);
         primaryStage.setScene(consumption);
+        setOnCloseRequest(consumptionCtrl::returnHome);
     }
 
     /**
@@ -279,6 +312,7 @@ public class MainCtrl {
         singlePlayerUtils.setCurrentController(insteadCtrl);
         insteadCtrl.setQuestion(question);
         primaryStage.setScene(instead);
+        setOnCloseRequest(insteadCtrl::returnHome);
     }
 
     /**
@@ -290,6 +324,7 @@ public class MainCtrl {
         singlePlayerUtils.setCurrentController(guessCtrl);
         guessCtrl.setQuestion(question);
         primaryStage.setScene(guess);
+        setOnCloseRequest(insteadCtrl::returnHome);
     }
 
     /**
@@ -299,6 +334,7 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz: Congratulations");
         congratulationsCtrl.setPoints();
         primaryStage.setScene(congratulations);
+        resetDefaultOnCloseRequest();
     }
 
     /**
