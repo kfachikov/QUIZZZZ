@@ -16,13 +16,17 @@
 package client.scenes.misc;
 
 import client.scenes.multi.QueueScreenCtrl;
-import client.scenes.single.*;
+import client.scenes.single.CongratulationsScreenCtrl;
+import client.scenes.single.PrepScreenCtrl;
 import client.scenes.single.question.ConsumptionQuestionScreenCtrl;
 import client.scenes.single.question.GuessQuestionScreenCtrl;
 import client.scenes.single.question.InsteadQuestionScreenCtrl;
 import client.scenes.single.question.MoreExpensiveQuestionScreenCtrl;
 import client.utils.SinglePlayerUtils;
-import commons.question.*;
+import commons.question.ConsumptionQuestion;
+import commons.question.GuessQuestion;
+import commons.question.InsteadQuestion;
+import commons.question.MoreExpensiveQuestion;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
 import javafx.application.Platform;
@@ -222,6 +226,8 @@ public class MainCtrl {
      * sets the title and the scene as Administrator Panel screen.
      */
     public void showAdministrator() {
+        administratorCtrl.setup();
+        
         primaryStage.setTitle("Quizzz: Administrator Panel");
         primaryStage.setScene(administrator);
     }

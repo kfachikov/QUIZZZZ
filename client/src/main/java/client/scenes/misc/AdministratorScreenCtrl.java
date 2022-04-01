@@ -58,6 +58,19 @@ public class AdministratorScreenCtrl {
     }
 
     /**
+     * Set up the administrator screen to default values, if it is not running.
+     */
+    public void setup() {
+        if (!activityLoaderService.isRunning()) {
+            description.setText("Select a .json file to import activities and generate questions.");
+            helpText.setVisible(false);
+            importProgressBar.setVisible(false);
+            selectFileButton.setDisable(false);
+            activityLoaderService.reset();
+        }
+    }
+
+    /**
      * Called when clicked on "?" text in bottom left.
      * <p>
      * Toggles visibility of the help text.
@@ -81,16 +94,21 @@ public class AdministratorScreenCtrl {
      */
     public void chooseFile() {
         File selectedFile = fileSelection();
+
         selectFileButton.setDisable(true);
         importProgressBar.setVisible(true);
+        description.setText("Activities are being imported...");
+
         importProgressBar.progressProperty().bind(activityLoaderService.progressProperty());
-        activityLoaderService.start(selectedFile);
         activityLoaderService.setOnSucceeded(event -> {
             List<Activity> loadedActivities = activityLoaderService.getValue();
             setDescription(
                     "You have imported " + loadedActivities.size() + " activities from " + selectedFile.getName()
             );
         });
+
+        activityLoaderService.start(selectedFile);
+
     }
 
     /**

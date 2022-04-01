@@ -6,9 +6,7 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
+<?import javafx.scene.text.*?>
 <AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.misc.AdministratorScreenCtrl">
    <children>
        <Button fx:id="backButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="31.0" prefWidth="58.0" stylesheets="@../../../styling/GameStyle.css" text="Back" textFill="#006e8c">
@@ -24,9 +22,11 @@
          <font>
             <Font size="30.0" />
          </font></Button>
-      <Text fx:id="description" fill="#006e8c" layoutX="71.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select  a .json file to import activities and generate questions. " textAlignment="CENTER" wrappingWidth="459.4990234375">
+      <Text fx:id="description" fill="#006e8c" layoutX="71.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0"
+            text="Select a .json file to import activities and generate questions." textAlignment="CENTER"
+            wrappingWidth="459.4990234375">
          <font>
-            <Font size="20.0" />
+            <Font size="20.0"/>
          </font>
       </Text>
        <ProgressBar fx:id="importProgressBar" layoutX="115.0" layoutY="338.0" prefHeight="20.0" prefWidth="399.0" progress="0.0" stylesheets="@../../../styling/GameStyle.css" visible="false" />
