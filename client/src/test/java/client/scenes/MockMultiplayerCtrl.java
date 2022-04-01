@@ -85,10 +85,11 @@ public class MockMultiplayerCtrl extends MultiplayerCtrl {
     }
 
     /**
-     * Stop the multiplayer game locally and return to home.
+     * Confirms if the user really wants to leave the game and allows them to
+     * return to the home screen.
      */
     @Override
-    public void onLeave() {
-        call("onLeave");
+    public void promptLeave() {
+        call("promptLeave");
     }
 }

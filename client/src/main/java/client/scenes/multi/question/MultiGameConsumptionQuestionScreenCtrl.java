@@ -1,6 +1,7 @@
 package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
+import client.utils.ServerUtils;
 import commons.question.ConsumptionQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,13 +15,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-
 import javax.inject.Inject;
 
 /**
  * Controller responsible for the multiplayer game consumption question screen.
  */
 public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen {
+
+    private final MultiplayerCtrl multiCtrl;
+    private final ServerUtils server;
 
     @FXML
     private Label gameStateLabel;
@@ -71,13 +74,15 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
     private Button emojiButton4;
 
     /**
-     * Constructor for the multiplayer game more expensive question screen.
+     * Constructor for the multiplayer game question screen.
      *
      * @param multiCtrl Injected instance of MultiplayerCtrl
+     * @param server is the server variable
      */
     @Inject
-    public MultiGameConsumptionQuestionScreenCtrl(MultiplayerCtrl multiCtrl) {
-        super(multiCtrl);
+    public MultiGameConsumptionQuestionScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server) {
+        this.multiCtrl = multiCtrl;
+        this.server = server;
     }
 
     /**
@@ -85,7 +90,7 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
      * return to the home screen.
      */
     public void returnHome() {
-        promptLeave();
+        multiCtrl.promptLeave();
     }
 
     /**

@@ -18,6 +18,9 @@ import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,10 +29,7 @@ import javafx.util.Duration;
 import javafx.util.Pair;
 
 import javax.inject.Inject;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class responsible for managing the multiplayer game for the client.
@@ -93,10 +93,10 @@ public class MultiplayerCtrl {
     /**
      * Constructor for Multiplayer controller.
      *
-     * @param mainCtrl           Main controller
-     * @param serverUtils        Server utilities
-     * @param pollingService     Multiplayer game state polling service
-     * @param activityImageUtils Activity Image utility
+     * @param mainCtrl       Main controller
+     * @param serverUtils    Server utilities
+     * @param pollingService Multiplayer game state polling service
+     * @param activityImageUtils    Activity Image utility
      */
     @Inject
     public MultiplayerCtrl(MainCtrl mainCtrl,
@@ -183,12 +183,24 @@ public class MultiplayerCtrl {
     }
 
     /**
-     * Stop the multiplayer game locally and return to home.
+     * Confirms if the user really wants to leave the game and allows them to
+     * return to the home screen.
      */
-    public void onLeave() {
-        stop();
-        mainCtrl.showHome();
-        System.out.println("On leave multiplayer ctrl");
+    public void promptLeave() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Leave the game");
+        alert.setContentText("Are you sure you want to leave the game?");
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        Optional<ButtonType> confirmation = alert.showAndWait();
+        if (confirmation.isPresent() && confirmation.get() == yesButton) {
+            stop();
+            mainCtrl.showHome();
+        }
     }
 
     /**
