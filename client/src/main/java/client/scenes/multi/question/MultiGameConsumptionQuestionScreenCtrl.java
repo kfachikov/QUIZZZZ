@@ -2,6 +2,7 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
+import commons.multi.MultiPlayer;
 import commons.question.ConsumptionQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +17,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Controller responsible for the multiplayer game consumption question screen.
@@ -246,5 +249,32 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
      */
     public void setDoublePoints(boolean doublePoints) {
         this.doublePoints = doublePoints;
+    }
+
+    public void startJokerPolling() {
+        Timer pollingService = new Timer();
+        pollingService.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                MultiPlayer player = server.getTimeJokerPlayer();
+                if (player != null) {
+                    reduceTime();
+                    disableTimeJoker();
+                    pollingService.cancel();
+                }
+            }
+        }, 0, 250);
+    }
+
+    public void sendJoker() {
+
+    }
+
+    public void reduceTime() {
+        //method that will be implemented in the front-end
+    }
+
+    public void disableTimeJoker() {
+        //method that will be implemented in the front-end
     }
 }
