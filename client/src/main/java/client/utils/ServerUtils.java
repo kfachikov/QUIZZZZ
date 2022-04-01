@@ -278,4 +278,22 @@ public class ServerUtils {
                 .post(Entity.entity(message, APPLICATION_JSON), ActivityImageMessage.class);
     }
 
+    public void postTimeJokerPlayer(MultiPlayer player) {
+        ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/timeJoker")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(player, APPLICATION_JSON));
+    }
+
+    public MultiPlayer getTimeJokerPlayer() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/timeJoker")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(MultiPlayer.class);
+    }
+
 }
