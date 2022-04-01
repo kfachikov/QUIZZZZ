@@ -416,6 +416,17 @@ public class MultiplayerCtrl {
                 lastSubmittedAnswer,
                 doublePoints
         ));
+
+        setDoublePoints(false);
+    }
+
+    /**
+     * Setter for the doublePoints joker.
+     *
+     * @param doublePoints the boolean value for the joker regarding the points.
+     */
+    public void setDoublePoints(boolean doublePoints) {
+        this.doublePoints = doublePoints;
     }
 
     /**

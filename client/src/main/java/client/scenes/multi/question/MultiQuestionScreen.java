@@ -26,6 +26,4 @@ public abstract class MultiQuestionScreen {
     public abstract AnchorPane getWindow();
 
     public abstract ProgressBar getTime();
-
-    public abstract void setDoublePoints(boolean doublePoints);
 }
