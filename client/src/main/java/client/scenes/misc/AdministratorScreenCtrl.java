@@ -7,6 +7,7 @@ import com.google.inject.Inject;
 import commons.misc.Activity;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
@@ -27,6 +28,9 @@ public class AdministratorScreenCtrl {
 
     @FXML
     private Button selectFileButton;
+
+    @FXML
+    private ProgressBar importProgressBar;
 
     /**
      * initializes AdministratorScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -64,6 +68,9 @@ public class AdministratorScreenCtrl {
      */
     public void chooseFile() {
         File selectedFile = fileSelection();
+        selectFileButton.setDisable(true);
+        importProgressBar.setVisible(true);
+        importProgressBar.progressProperty().bind(activityLoaderService.progressProperty());
         activityLoaderService.start(selectedFile);
         activityLoaderService.setOnSucceeded(event -> {
             List<Activity> loadedActivities = activityLoaderService.getValue();
