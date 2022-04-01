@@ -26,6 +26,7 @@ public class MultiPlayerState extends GameState {
 
     private List<MultiPlayer> players;
     private Reaction reaction;
+    private MultiPlayer playerUsingTimeJoker;
 
     /**
      * Default constructor to be used for the JSON parsing.
@@ -33,6 +34,7 @@ public class MultiPlayerState extends GameState {
     public MultiPlayerState() {
 
     }
+
 
     /**
      * Constructor for the state of the multiplayer game.
@@ -54,6 +56,7 @@ public class MultiPlayerState extends GameState {
         super(id, nextPhase, roundNumber, questionList, submittedAnswers, state);
         this.reaction = reaction;
         this.players = players;
+        this.playerUsingTimeJoker = null;
     }
 
     /**
@@ -142,6 +145,24 @@ public class MultiPlayerState extends GameState {
      */
     public void setReaction(Reaction reaction) {
         this.reaction = reaction;
+    }
+
+    /**
+     * Getter for the player who used the time joker.
+     *
+     * @return the player who used the joker.
+     */
+    public MultiPlayer getPlayerUsingTimeJoker() {
+        return playerUsingTimeJoker;
+    }
+
+    /**
+     * Setter for the player who used the time joker.
+     *
+     * @param playerUsingTimeJoker the player who used the joker.
+     */
+    public void setPlayerUsingTimeJoker(MultiPlayer playerUsingTimeJoker) {
+        this.playerUsingTimeJoker = playerUsingTimeJoker;
     }
 
     /**
