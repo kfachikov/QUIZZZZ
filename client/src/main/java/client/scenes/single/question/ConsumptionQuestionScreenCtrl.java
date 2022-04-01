@@ -80,7 +80,6 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
     public void initialize() {
-
         firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -172,9 +171,9 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
         thirdAnswer.setDisable(false);
 
         //setting the button colors back to default(unselected)
-        firstAnswer.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
-        secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
-        thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
+        firstAnswer.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("b80000")).toString().substring(2));
+        thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("b80000")).toString().substring(2));
 
         this.question = question;
         setQuestionPrompt();

@@ -108,7 +108,7 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
         input.setDisable(false);
-        input.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        input.setStyle("-fx-background-color: #" + (Color.valueOf("ffffff")).toString().substring(2));
 
         input.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -143,7 +143,7 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
      */
     public void inputFieldDefault() {
         input.setDisable(false);
-        input.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        input.setStyle("-fx-background-color: #" + (Color.valueOf("ffffff")).toString().substring(2));
         input.clear();
     }
 
