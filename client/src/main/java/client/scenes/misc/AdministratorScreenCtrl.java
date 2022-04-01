@@ -8,6 +8,7 @@ import commons.misc.Activity;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
@@ -32,6 +33,9 @@ public class AdministratorScreenCtrl {
     @FXML
     private ProgressBar importProgressBar;
 
+    @FXML
+    private TextArea helpText;
+
     /**
      * initializes AdministratorScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
@@ -51,6 +55,15 @@ public class AdministratorScreenCtrl {
         this.server = server;
         this.activityImageUtils = activityImageUtils;
         this.activityLoaderService = activityLoaderService;
+    }
+
+    /**
+     * Called when clicked on "?" text in bottom left.
+     * <p>
+     * Toggles visibility of the help text.
+     */
+    public void helpMe() {
+        helpText.setVisible(!helpText.isVisible());
     }
 
     /**
