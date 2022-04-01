@@ -93,10 +93,10 @@ public class MultiplayerCtrl {
     /**
      * Constructor for Multiplayer controller.
      *
-     * @param mainCtrl       Main controller
-     * @param serverUtils    Server utilities
-     * @param pollingService Multiplayer game state polling service
-     * @param activityImageUtils    Activity Image utility
+     * @param mainCtrl           Main controller
+     * @param serverUtils        Server utilities
+     * @param pollingService     Multiplayer game state polling service
+     * @param activityImageUtils Activity Image utility
      */
     @Inject
     public MultiplayerCtrl(MainCtrl mainCtrl,

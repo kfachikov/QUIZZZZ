@@ -28,8 +28,10 @@ public interface PromptLeaveScreen {
      * If the user selects no, nothing happens.
      * <p>
      * If the user selects yes, onLeave is called.
+     *
+     * @return whether the user chooses "yes".
      */
-    default void promptLeave() {
+    default boolean promptLeave() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText("Leave the game");
@@ -42,6 +44,8 @@ public interface PromptLeaveScreen {
         Optional<ButtonType> confirmation = alert.showAndWait();
         if (confirmation.isPresent() && confirmation.get() == yesButton) {
             onLeave();
+            return true;
         }
+        return false;
     }
 }
