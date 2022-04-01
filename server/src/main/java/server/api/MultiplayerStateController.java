@@ -21,7 +21,6 @@ import java.util.TimerTask;
 public class MultiplayerStateController {
 
     private final MultiPlayerStateUtils multiUtils;
-    private MultiPlayer player = null;
 
     /**
      * Constructor for multiplayer state controller.
@@ -98,23 +97,44 @@ public class MultiplayerStateController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/timeJoker")
-    public void postTimeJoker(@RequestBody MultiPlayer player) {
-        this.player = player;
-        resetJoker(500);
+    /**
+     * POST mapping for time joker.
+     *
+     * @param id     Id of the multiplayer game.
+     * @param player Multiplayer that is using the joker.
+     */
+    @PostMapping("/timeJoker/{id}")
+    public void postTimeJoker(@PathVariable("id") long id, @RequestBody MultiPlayer player) {
+        MultiPlayerState game = multiUtils.getGameState(id);
+        MultiPlayer playerNew = game.getPlayerByUsername(player.getUsername());
+        playerNew.setTimeJoker(false);
+        game.setPlayerUsingTimeJoker(playerNew);
+        resetJoker(500, id);
     }
 
-    @GetMapping("/timeJoker")
-    public ResponseEntity<MultiPlayer> getTimeJoker() {
-        return ResponseEntity.ok(player);
+    /**
+     * GET mapping for time joker.
+     *
+     * @param id Id of the multiplayer game.
+     * @return multiplayer who used the joker.
+     */
+    @GetMapping("/timeJoker/{id}")
+    public ResponseEntity<MultiPlayer> getTimeJoker(@PathVariable("id") long id) {
+        return ResponseEntity.ok(multiUtils.getGameState(id).getPlayerUsingTimeJoker());
     }
 
-    private void resetJoker(long delay) {
+    /**
+     * Method that resets the player who sent the joker.
+     *
+     * @param delay the interval for resetting the joker.
+     * @param id id of the multiplayer game.
+     */
+    private void resetJoker(long delay, long id) {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                player = null;
+                multiUtils.getGameState(id).setPlayerUsingTimeJoker(null);
             }
         }, delay);
     }
