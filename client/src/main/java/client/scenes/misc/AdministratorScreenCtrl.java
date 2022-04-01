@@ -5,6 +5,7 @@ import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.misc.Activity;
+import jakarta.ws.rs.BadRequestException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
@@ -99,6 +100,15 @@ public class AdministratorScreenCtrl {
         importProgressBar.setVisible(true);
         description.setText("Activities are being imported...");
 
+        importActivities(selectedFile);
+    }
+
+    /**
+     * Helper method for importing activities from the selected file.
+     *
+     * @param selectedFile File that the user selected.
+     */
+    public void importActivities(File selectedFile) {
         importProgressBar.progressProperty().bind(activityLoaderService.progressProperty());
         activityLoaderService.setOnSucceeded(event -> {
             List<Activity> loadedActivities = activityLoaderService.getValue();
@@ -106,9 +116,17 @@ public class AdministratorScreenCtrl {
                     "You have imported " + loadedActivities.size() + " activities from " + selectedFile.getName()
             );
         });
+        activityLoaderService.exceptionProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue instanceof BadRequestException) {
+                description.setText("Failed to import: activities.json is malformed.");
+            }
+            activityLoaderService.cancel();
+            importProgressBar.setVisible(false);
+            selectFileButton.setDisable(false);
+            activityLoaderService.reset();
+        });
 
         activityLoaderService.start(selectedFile);
-
     }
 
     /**
