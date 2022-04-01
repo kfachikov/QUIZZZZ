@@ -1,5 +1,6 @@
 package client.scenes.multi;
 
+import client.utils.PromptLeaveScreen;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.multi.MultiPlayer;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * The scene right now in default is intermediate leaderboard design.
  */
-public class LeaderboardScreenCtrl {
+public class LeaderboardScreenCtrl implements PromptLeaveScreen {
     private ServerUtils server;
     private MultiplayerCtrl multiCtrl;
 
@@ -303,7 +304,17 @@ public class LeaderboardScreenCtrl {
      * Tied to leave button at intermediate leaderboard screen.
      */
     public void leave() {
-        multiCtrl.promptLeave();
+        promptLeave();
+    }
+
+    /**
+     * Clean up when leaving a screen.
+     * <p>
+     * Should handle the switching of the screen too.
+     */
+    @Override
+    public void onLeave() {
+        multiCtrl.onLeave();
     }
 
     /**

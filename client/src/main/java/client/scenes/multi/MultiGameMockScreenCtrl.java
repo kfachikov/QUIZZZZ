@@ -1,5 +1,6 @@
 package client.scenes.multi;
 
+import client.utils.PromptLeaveScreen;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -11,7 +12,7 @@ import javax.inject.Inject;
  * Currently, this is just a mock scene, containing a leave button and a label
  * showing the current game ID.
  */
-public class MultiGameMockScreenCtrl {
+public class MultiGameMockScreenCtrl implements PromptLeaveScreen {
 
     private final MultiplayerCtrl multiCtrl;
 
@@ -33,7 +34,17 @@ public class MultiGameMockScreenCtrl {
      * return to the home screen.
      */
     public void returnHome() {
-        multiCtrl.promptLeave();
+        promptLeave();
+    }
+
+    /**
+     * Clean up when leaving a screen.
+     * <p>
+     * Should handle the switching of the screen too.
+     */
+    @Override
+    public void onLeave() {
+        multiCtrl.onLeave();
     }
 
     /**

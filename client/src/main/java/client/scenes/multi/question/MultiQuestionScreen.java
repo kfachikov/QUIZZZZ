@@ -51,6 +51,6 @@ public abstract class MultiQuestionScreen implements PromptLeaveScreen {
     public abstract void disableAnswerSubmission();
 
     public void onLeave() {
-        
+        multiCtrl.onLeave();
     }
 }

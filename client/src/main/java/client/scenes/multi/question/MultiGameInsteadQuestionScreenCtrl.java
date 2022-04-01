@@ -85,7 +85,7 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
      * return to the home screen.
      */
     public void returnHome() {
-        multiCtrl.promptLeave();
+        promptLeave();
     }
 
     /**

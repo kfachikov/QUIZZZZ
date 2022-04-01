@@ -100,7 +100,7 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
      * return to the home screen.
      */
     public void returnHome() {
-        multiCtrl.promptLeave();
+        promptLeave();
     }
 
     /**
