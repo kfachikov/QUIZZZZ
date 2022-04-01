@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameConsumptionQuestionScreenCtrl">
-   <effect>
-      <ColorAdjust />
-   </effect>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameConsumptionQuestionScreenCtrl">
    <children>
       <Button layoutX="48.0" layoutY="137.0" mnemonicParsing="false" prefHeight="239.0" prefWidth="384.0" />
       <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
@@ -49,7 +53,7 @@
             <Font name="Avenir Next Condensed Bold" size="37.0" />
          </font>
       </Button>
-      <Text fx:id="description" fill="WHITE" layoutX="33.0" layoutY="414.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="407.6205596923828">
+      <Text fx:id="description" fill="WHITE" layoutX="16.0" layoutY="406.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="452.6205596923828">
          <font>
             <Font name="Avenir Next Condensed Bold" size="21.0" />
          </font></Text>
@@ -121,12 +125,8 @@
       <Label fx:id="gameStateLabel" alignment="CENTER" layoutX="795.0" layoutY="16.0" prefHeight="0.0" prefWidth="88.0" text="Game Id unset" textFill="#ffec00">
          <font>
             <Font name="Avenir Next Condensed Bold" size="13.0" />
-         </font></Label>
-      <Text fill="#ffec00" layoutX="170.0" layoutY="462.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="35.0" />
          </font>
-      </Text>
+      </Label>
       <Text fill="#ffec00" layoutX="775.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jokers">
          <font>
             <Font name="Avenir Next Condensed Bold" size="35.0" />

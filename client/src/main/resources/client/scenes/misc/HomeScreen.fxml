@@ -44,7 +44,7 @@
                 <Font name="Avenir Next Condensed Bold" size="47.0" />
             </font>
         </Button>
-        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="516.0" layoutY="396.0" mnemonicParsing="false" onAction="#playMulti" prefHeight="73.0" prefWidth="341.0"  stylesheets="@../../../styling/GameStyle.css" text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS" AnchorPane.bottomAnchor="111.0">
+        <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="516.0" layoutY="396.0" mnemonicParsing="false" onAction="#playMulti" prefHeight="73.0" prefWidth="341.0" stylesheets="@../../../styling/GameStyle.css" text="MULTIPLAYER" textAlignment="CENTER" textFill="#006e8c" textOverrun="CENTER_ELLIPSIS" AnchorPane.bottomAnchor="111.0">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="47.0" />
             </font>
@@ -64,7 +64,7 @@
          <opaqueInsets>
             <Insets bottom="-5.0" left="-5.0" right="-5.0" top="-5.0" />
          </opaqueInsets></Button>
-      <Label id="error" fx:id="errorMessage" alignment="CENTER" layoutX="73.0" layoutY="50.0" prefHeight="27.0" prefWidth="454.0" textFill="#c62828">
+      <Label id="error" fx:id="errorMessage" alignment="CENTER" layoutX="23.0" layoutY="136.0" prefHeight="27.0" prefWidth="454.0" textFill="#c62828">
          <font>
             <Font size="16.0" />
          </font>
