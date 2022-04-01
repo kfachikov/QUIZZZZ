@@ -3,22 +3,22 @@ package client.scenes.single;
 import client.scenes.misc.MainCtrl;
 import client.services.SingleplayerGameStatePollingService;
 import client.utils.ActivityImageUtils;
+import client.utils.PromptLeaveScreen;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.misc.Activity;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-
-import java.util.Optional;
 
 /**
  * Parent class used for the shared functionality of the different question screen
  * controllers.
  */
-public abstract class QuestionScreen {
+public abstract class QuestionScreen implements PromptLeaveScreen {
 
     /*
     Utils class instance, which would contain the whole single-player game logic.
@@ -79,25 +79,21 @@ public abstract class QuestionScreen {
 
 
     /**
-     * sets the scene and title to home if the yes button is clicked.
+     * Sets the scene and title to home if the yes button is clicked.
      */
     public void returnHome() {
+        promptLeave();
+    }
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setHeaderText("Leave the game");
-        alert.setContentText("Are you sure you want to leave the game?");
-        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
-
-        alert.getButtonTypes().setAll(yesButton, noButton);
-
-        Optional<ButtonType> confirmation = alert.showAndWait();
-        if (confirmation.get() == yesButton) {
-            singlePlayerUtils.stopPollingService();
-            mainCtrl.showHome();
-        }
-
+    /**
+     * Clean up when leaving a screen.
+     * <p>
+     * Should handle the switching of the screen too.
+     */
+    @Override
+    public void onLeave() {
+        singlePlayerUtils.stopPollingService();
+        mainCtrl.showHome();
     }
 
     /**
