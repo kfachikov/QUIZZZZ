@@ -2,6 +2,8 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
+import commons.multi.MultiPlayer;
+import commons.multi.MultiPlayerState;
 import commons.question.GuessQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,6 +19,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Controller responsible for the multiplayer game guess question screen.
@@ -199,5 +203,42 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
      */
     public void setDoublePoints(boolean doublePoints) {
         this.doublePoints = doublePoints;
+    }
+
+    public void startJokerPolling() {
+        Timer pollingService = new Timer();
+        pollingService.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                MultiPlayer player = server.getTimeJokerPlayer(multiCtrl.getId());
+                if (player != null) {
+                    if (!getPlayer().equals(player)) {
+                        reduceTime();
+                    }
+                    disableTimeJoker();
+                    pollingService.cancel();
+                }
+            }
+        }, 0, 250);
+    }
+
+    public MultiPlayer getPlayer() {
+        MultiPlayerState multiPlayerState = ServerUtils.getMultiGameState(multiCtrl.getId());
+        return multiPlayerState.getPlayerByUsername(multiCtrl.getUsername());
+    }
+
+    public void sendJoker() {
+        if (getPlayer().getTimeJoker()) {
+            server.postTimeJokerPlayer(getPlayer(), multiCtrl.getId());
+            disableTimeJoker();
+        }
+    }
+
+    public void reduceTime() {
+        //method that will be implemented in the front-end
+    }
+
+    public void disableTimeJoker() {
+        //method that will be implemented in the front-end
     }
 }
