@@ -19,7 +19,8 @@
                   <Color red="0.5803921818733215" />
                </color>
             </DropShadow>
-         </effect></Button>
+         </effect>
+      </Button>
         <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="13.0" />
@@ -80,7 +81,8 @@
         <Text fx:id="description" fill="WHITE" layoutX="43.0" layoutY="497.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="450.9692671941985" AnchorPane.bottomAnchor="73.8499984741211">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="25.0" />
-            </font></Text>
+            </font>
+        </Text>
         <ImageView fx:id="image" fitHeight="301.0" fitWidth="429.0" layoutX="54.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>
