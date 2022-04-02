@@ -38,7 +38,7 @@ public class MockMultiplayerCtrl extends MultiplayerCtrl {
     public MockMultiplayerCtrl(MainCtrl mainCtrl,
                                ServerUtils serverUtils,
                                MultiplayerGameStatePollingService pollingService) {
-        super(mainCtrl, serverUtils, pollingService);
+        super(mainCtrl, serverUtils, pollingService, null);
         this.calledMethods = new ArrayList<>();
     }
 
