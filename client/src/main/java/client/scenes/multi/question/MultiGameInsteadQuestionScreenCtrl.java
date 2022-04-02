@@ -286,6 +286,11 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
         return gameStateLabel;
     }
 
+    /**
+     * question setter.
+     *
+     * @param question the question
+     */
     public void setQuestion(InsteadQuestion question) {
         this.question = question;
     }

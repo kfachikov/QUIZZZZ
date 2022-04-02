@@ -284,6 +284,11 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
         return gameStateLabel;
     }
 
+    /**
+     * question setter.
+     *
+     * @param question the question
+     */
     public void setQuestion(MoreExpensiveQuestion question) {
         this.question = question;
     }

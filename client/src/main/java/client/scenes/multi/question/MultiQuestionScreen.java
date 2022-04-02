@@ -63,6 +63,9 @@ public abstract class MultiQuestionScreen {
      */
     public abstract ProgressBar getTime();
 
+    /**
+     * disables the ability to answer.
+     */
     public abstract void disableAnswerSubmission();
 
     /**
@@ -111,6 +114,11 @@ public abstract class MultiQuestionScreen {
     }
 
 
+    /**
+     * getter for the doublePoints.
+     *
+     * @return true/false
+     */
     public boolean getDoublePoints() {
         return doublePoints;
     }
