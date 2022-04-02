@@ -2,6 +2,10 @@
     -fx-font-family: 'Avenir Next Condensed Bold';
     src: url("/styling/AvenirNextCondensedBold.ttf");
 }
+#text {
+    -fx-font-family: "Avenir Next Condensed Bold";
+    -fx-wrap-text: true;
+}
 .button {
     -fx-background-color: #b80000;
     -fx-background-radius: 10;
@@ -10,9 +14,11 @@
     -fx-font-size: 47;
     -fx-font-family: "Avenir Next Condensed Bold";
     -fx-effect: dropshadow(gaussian, rgb(0, 7, 104), 10, 0, 0, 0);
+    -fx-wrap-text: true;
 }
 #choice {
     -fx-font-size: 18;
+    -fx-wrap-text: true;
 }
 #mediumButton {
     -fx-font-size: 34;
@@ -30,6 +36,7 @@
     -fx-font-size: 30;
     -fx-font-family: "Avenir Next Condensed";
     -fx-text-fill: #ffffff;
+    -fx-wrap-text: true;
 }
 #usernameField {
     -fx-font-size: 24;

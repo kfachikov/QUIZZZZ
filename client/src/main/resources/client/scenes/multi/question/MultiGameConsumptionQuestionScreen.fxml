@@ -13,43 +13,15 @@
 <AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameConsumptionQuestionScreenCtrl">
    <children>
       <Button layoutX="48.0" layoutY="137.0" mnemonicParsing="false" prefHeight="239.0" prefWidth="384.0" />
-      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="18.0" />
-         </font>
-      </Button>
-      <Label layoutX="362.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="25.0" />
-         </font>
-      </Label>
+      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c" />
+      <Label id="yourScore" layoutX="362.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0" />
       <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" stylesheets="@../../../../styling/GameStyle.css" />
-      <Label fx:id="currentScore" layoutX="478.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="27.0" />
-         </font>
-      </Label>
-      <Label fx:id="questionTitle" layoutX="78.0" layoutY="78.0" prefHeight="39.0" prefWidth="628.0" stylesheets="@../../../../styling/GameStyle.css" text="HOW MUCH ENERGY DOES THIS ACTIVITY SPEND?" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="32.0" />
-         </font>
-      </Label>
-      <Button fx:id="firstAnswer" layoutX="493.0" layoutY="111.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="230.0" stylesheets="@../../../../styling/GameStyle.css" text="500 Wh" textFill="#006e8c" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="310.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="37.0" />
-         </font>
-      </Button>
-      <Button fx:id="secondAnswer" layoutX="486.0" layoutY="207.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="230.0" stylesheets="@../../../../styling/GameStyle.css" text="75 Wh" textFill="#006e8c" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="220.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="37.0" />
-         </font>
-      </Button>
+      <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
+      <Label id="title" fx:id="questionTitle" layoutX="78.0" layoutY="78.0" prefHeight="39.0" prefWidth="628.0" stylesheets="@../../../../styling/GameStyle.css" text="HOW MUCH ENERGY DOES THIS ACTIVITY SPEND?" textAlignment="CENTER" textFill="WHITE" />
+      <Button id="choice" fx:id="firstAnswer" layoutX="493.0" layoutY="111.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="230.0" stylesheets="@../../../../styling/GameStyle.css" text="500 Wh" textFill="#006e8c" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="310.0" />
+      <Button id="choice" fx:id="secondAnswer" layoutX="486.0" layoutY="207.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="230.0" stylesheets="@../../../../styling/GameStyle.css" text="75 Wh" textFill="#006e8c" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="220.0" />
       <Region layoutX="83.0" layoutY="458.0" prefHeight="162.0" prefWidth="315.0" style="-fx-background-color: #0038a8; -fx-background-radius: 30;" AnchorPane.bottomAnchor="-20.0" />
-      <Button fx:id="thirdAnswer" layoutX="477.0" layoutY="318.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="230.0" stylesheets="@../../../../styling/GameStyle.css" text="150 Wh" textFill="#006e8c" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="130.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="37.0" />
-         </font>
-      </Button>
+      <Button id="choice" fx:id="thirdAnswer" layoutX="477.0" layoutY="318.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="230.0" stylesheets="@../../../../styling/GameStyle.css" text="150 Wh" textFill="#006e8c" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="130.0" />
       <Text fx:id="description" fill="WHITE" layoutX="16.0" layoutY="406.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="452.6205596923828">
          <font>
             <Font name="Avenir Next Condensed Bold" size="21.0" />
@@ -82,8 +54,9 @@
                   <Image url="@../../../../joker/shortentime.png" />
                </image>
             </ImageView>
-         </graphic></Button>
-      <Button fx:id="emojiButton1" layoutX="499.0" layoutY="465.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="330.0">
+         </graphic>
+      </Button>
+      <Button id="emojiButton1" fx:id="emojiButton1" layoutX="499.0" layoutY="465.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="330.0">
          <graphic>
             <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -92,7 +65,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="emojiButton2" layoutX="590.0" layoutY="465.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="230.0">
+      <Button id="emojiButton2" fx:id="emojiButton2" layoutX="590.0" layoutY="465.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="230.0">
          <graphic>
             <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -101,7 +74,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="emojiButton3" layoutX="680.0" layoutY="465.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="130.0">
+      <Button id="emojiButton3" fx:id="emojiButton3" layoutX="680.0" layoutY="465.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="130.0">
          <graphic>
             <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -22,47 +22,24 @@
             <Font name="Avenir Next Condensed Bold" size="18.0" />
          </font>
       </Button>
-      <Label layoutX="362.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="25.0" />
-         </font>
-      </Label>
+      <Label id="yourScore" layoutX="362.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0" />
       <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" stylesheets="@../../../../styling/GameStyle.css" />
-      <Label fx:id="currentScore" layoutX="478.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="27.0" />
-         </font>
-      </Label>
-      <Label fx:id="questionTitle" layoutX="279.0" layoutY="83.0" prefHeight="47.0" prefWidth="346.0" stylesheets="@../../../../styling/GameStyle.css" text="Instead of ..., you could be ..." textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="32.0" />
-         </font>
-      </Label>
-      <Button fx:id="firstAnswer" layoutX="430.0" layoutY="172.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="270.0" stylesheets="@../../../../styling/GameStyle.css" text="Cook a meal ten times" textFill="#006e8c">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="13.0" />
-         </font>
-      </Button>
-      <Button fx:id="secondAnswer" layoutX="430.0" layoutY="242.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="270.0" stylesheets="@../../../../styling/GameStyle.css" text="Light my entire house for a week" textFill="#006e8c">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="13.0" />
-         </font>
-      </Button>
-      <Button fx:id="thirdAnswer" layoutX="430.0" layoutY="312.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="270.0" stylesheets="@../../../../styling/GameStyle.css" text="Keep the fridge on for 3.5 days" textFill="#006e8c">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="13.0" />
-         </font>
-      </Button>
+      <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
+      <Label id="title" fx:id="questionTitle" layoutX="279.0" layoutY="83.0" prefHeight="47.0" prefWidth="346.0" stylesheets="@../../../../styling/GameStyle.css" text="Instead of ..., you could be ..." textAlignment="CENTER" textFill="WHITE" />
+      <Button id="choice" fx:id="firstAnswer" layoutX="430.0" layoutY="172.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="270.0" stylesheets="@../../../../styling/GameStyle.css" text="Cook a meal ten times" textFill="#006e8c" />
+      <Button id="choice" fx:id="secondAnswer" layoutX="430.0" layoutY="242.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="270.0" stylesheets="@../../../../styling/GameStyle.css" text="Light my entire house for a week" textFill="#006e8c" />
+      <Button id="choice" fx:id="thirdAnswer" layoutX="430.0" layoutY="312.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="270.0" stylesheets="@../../../../styling/GameStyle.css" text="Keep the fridge on for 3.5 days" textFill="#006e8c" />
       <Text fx:id="description" fill="WHITE" layoutX="29.0" layoutY="431.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="438.03906631469727">
          <font>
             <Font name="Avenir Next Condensed Bold" size="18.0" />
-         </font></Text>
+         </font>
+      </Text>
       <Region layoutX="83.0" layoutY="458.0" prefHeight="162.0" prefWidth="315.0" style="-fx-background-color: #0038a8; -fx-background-radius: 30;" AnchorPane.bottomAnchor="-20.0" />
       <Region layoutX="94.0" layoutY="470.0" prefHeight="149.0" prefWidth="295.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="94.0" />
-      <Region layoutX="741.0" layoutY="119.0" prefHeight="300.0" prefWidth="174.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.rightAnchor="-15.0" />
+      <Region id="region" layoutX="741.0" layoutY="119.0" prefHeight="300.0" prefWidth="174.0" AnchorPane.rightAnchor="-15.0" />
       <ImageView fx:id="image" fitHeight="214.0" fitWidth="249.0" layoutX="119.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <Region layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="403.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0" />
+      <Region id="region" layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="403.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0" />
       <Button fx:id="twicePoints" layoutX="760.0" layoutY="62.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="127.0">
          <graphic>
             <ImageView fitHeight="63.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
