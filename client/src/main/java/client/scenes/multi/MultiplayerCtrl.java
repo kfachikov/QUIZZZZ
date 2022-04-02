@@ -183,6 +183,11 @@ public class MultiplayerCtrl {
         serverUtils.addMultiPlayer(gameId, new MultiPlayer(username, 0, true, true, true));
         pollingService.start(gameId);
 
+        insteadQuestionScreenCtrl.setJokers();
+        guessQuestionScreenCtrl.setJokers();
+        moreExpensiveQuestionScreenCtrl.setJokers();
+        consumptionQuestionScreenCtrl.setJokers();
+
         switchState(pollingService.poll());
     }
 
@@ -307,11 +312,9 @@ public class MultiplayerCtrl {
          */
         lastSubmittedAnswer = "";
 
-        insteadQuestionScreenCtrl.setJokers();
-        guessQuestionScreenCtrl.setJokers();
-        moreExpensiveQuestionScreenCtrl.setJokers();
-        consumptionQuestionScreenCtrl.setJokers();
-
+        disableUsedRevealJoker();
+        disableUsedDoubleJokers();
+        disableUsedTimeJoker();
 
         AbstractQuestion question = game.getQuestionList().get(roundNumber);
 
