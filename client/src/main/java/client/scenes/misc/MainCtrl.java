@@ -17,11 +17,12 @@ package client.scenes.misc;
 
 import client.scenes.multi.QueueScreenCtrl;
 import client.scenes.single.*;
+import client.scenes.single.question.ConsumptionQuestionScreenCtrl;
+import client.scenes.single.question.GuessQuestionScreenCtrl;
+import client.scenes.single.question.InsteadQuestionScreenCtrl;
+import client.scenes.single.question.MoreExpensiveQuestionScreenCtrl;
 import client.utils.SinglePlayerUtils;
-import commons.question.ConsumptionQuestion;
-import commons.question.GuessQuestion;
-import commons.question.InsteadQuestion;
-import commons.question.MoreExpensiveQuestion;
+import commons.question.*;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
 import javafx.application.Platform;
@@ -171,6 +172,7 @@ public class MainCtrl {
      * @param singlePlayer Player who is joining the game.
      */
     public void showPrep(SinglePlayer singlePlayer) {
+        prepCtrl.setUp();
         primaryStage.setTitle("Quizzz: Prepare");
         primaryStage.setScene(prep);
         prepCtrl.setSinglePlayer(singlePlayer);
@@ -286,6 +288,16 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz: Congratulations");
         congratulationsCtrl.setPoints();
         primaryStage.setScene(congratulations);
+    }
+
+    /**
+     * Getter for the home screen controller instance.
+     *
+     * @return  HomeScreenController reference to the only one
+     *          instance controlling the home screen.
+     */
+    public HomeScreenCtrl getHomeCtrl() {
+        return homeCtrl;
     }
 
 }

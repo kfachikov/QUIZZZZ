@@ -1,6 +1,7 @@
-package client.scenes.single;
+package client.scenes.single.question;
 
 import client.scenes.misc.MainCtrl;
+import client.scenes.single.QuestionScreen;
 import client.services.SingleplayerGameStatePollingService;
 import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
@@ -22,10 +23,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
-import java.util.Date;
-
 /**
- *  Controller for the GuessQuestionScreen.
+ * Controller for the guess question scene.
  */
 public class GuessQuestionScreenCtrl extends QuestionScreen {
 
@@ -100,10 +99,9 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      * @param chosenAnswer String value of button clicked - answer chosen
      */
     public void submitAnswer(String chosenAnswer) {
-
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
         server.postAnswer(new GameResponse(singlePlayerState.getId(),
-                new Date().getTime(),
+                time.getProgress(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
                 chosenAnswer

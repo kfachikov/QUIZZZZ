@@ -4,10 +4,10 @@ import client.scenes.misc.MainCtrl;
 import client.scenes.multi.LeaderboardScreenCtrl;
 import client.scenes.multi.MultiGameMockScreenCtrl;
 import client.scenes.multi.MultiplayerCtrl;
-import client.scenes.multi.question.MultiGameQuestionAScreenCtrl;
-import client.scenes.multi.question.MultiGameQuestionBScreenCtrl;
-import client.scenes.multi.question.MultiGameQuestionCScreenCtrl;
-import client.scenes.multi.question.MultiGameQuestionDScreenCtrl;
+import client.scenes.multi.question.MultiGameConsumptionQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameGuessQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameInsteadQuestionScreenCtrl;
+import client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl;
 import client.services.MultiplayerGameStatePollingService;
 import client.utils.ServerUtils;
 import javafx.scene.Parent;
@@ -38,7 +38,7 @@ public class MockMultiplayerCtrl extends MultiplayerCtrl {
     public MockMultiplayerCtrl(MainCtrl mainCtrl,
                                ServerUtils serverUtils,
                                MultiplayerGameStatePollingService pollingService) {
-        super(mainCtrl, serverUtils, pollingService);
+        super(mainCtrl, serverUtils, pollingService, null);
         this.calledMethods = new ArrayList<>();
     }
 
@@ -48,10 +48,10 @@ public class MockMultiplayerCtrl extends MultiplayerCtrl {
 
     @Override
     public void initialize(
-            Pair<MultiGameQuestionAScreenCtrl, Parent> questionAScreen,
-            Pair<MultiGameQuestionBScreenCtrl, Parent> questionBScreen,
-            Pair<MultiGameQuestionCScreenCtrl, Parent> questionCScreen,
-            Pair<MultiGameQuestionDScreenCtrl, Parent> questionDScreen,
+            Pair<MultiGameConsumptionQuestionScreenCtrl, Parent> questionAScreen,
+            Pair<MultiGameGuessQuestionScreenCtrl, Parent> questionBScreen,
+            Pair<MultiGameInsteadQuestionScreenCtrl, Parent> questionCScreen,
+            Pair<MultiGameMoreExpensiveQuestionScreenCtrl, Parent> questionDScreen,
             Pair<MultiGameMockScreenCtrl, Parent> mockMulti,
             Pair<LeaderboardScreenCtrl, Parent> leaderboard) {
         call("initialize");

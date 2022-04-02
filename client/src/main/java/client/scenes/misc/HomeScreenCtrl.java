@@ -46,6 +46,7 @@ public class HomeScreenCtrl {
      * so functionality can be extracted there.
      */
     public void initialize() {
+        serverURL.setText("http://localhost:8080");
         homeUtils.setHomeUtilsAttributes(usernameField, serverURL, errorMessage);
     }
 
@@ -82,6 +83,11 @@ public class HomeScreenCtrl {
         homeUtils.enterAdministrationPanel();
     }
 
+    /**
+     * Getter for the URL field on the home screen.
+     *
+     * @return  String value of the URL present in the `serverURL` TextField.
+     */
     public String getUrl() {
         return serverURL.getText();
     }
