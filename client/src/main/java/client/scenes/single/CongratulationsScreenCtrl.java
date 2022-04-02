@@ -194,10 +194,8 @@ public class CongratulationsScreenCtrl {
         var place = 1;
 
         List<SinglePlayerLeaderboardScore> leaderboardScores = server.getLeaderboardEntry();
-        for (int i = 0; i < leaderboardScores.size(); i++) {
-            if (leaderboardScores.get(i).equals(player)) {
-                place += i;
-            }
+        while (leaderboardScores.get(place - 1).getScore() > score) {
+            place ++;
         }
         position.setText("" + place + "");
     }
