@@ -62,15 +62,13 @@ public class HomeUtils {
             mainCtrl.showPrep(getSinglePlayer());
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
-                case BAD_REQUEST:
-                    usernameMissing();
-                    break;
                 default:
                     unknownError();
             }
         } catch (ProcessingException e) {
-            mainCtrl.showHome();
             serverInvalid();
+        } catch (NullPointerException e) {
+            usernameMissing();
         }
     }
 
@@ -140,13 +138,18 @@ public class HomeUtils {
     }
 
     /**
-     * TODO: Should check whether the username is empty and behave accordingly.
+     * Getter for a singleplayer player
      *
      * @return a new SingleUser object that contains its username and score.
      */
-    public SinglePlayer getSinglePlayer() {
+    public SinglePlayer getSinglePlayer() throws NullPointerException {
         String user = usernameField.getText();
-        return new SinglePlayer(user, 0);
+        if(user.equals("")) {
+            throw new NullPointerException();
+        }
+        else {
+            return new SinglePlayer(user, 0);
+        }
     }
 
     /**
@@ -199,10 +202,10 @@ public class HomeUtils {
      * Removes the background of the server field, as the current problem is somewhere else.
      */
     private void usernameMissing() {
-        usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
-        serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
-        errorMessage.setText("Username missing!");
-        errorMessage.setVisible(true);
+            usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
+            serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+            errorMessage.setText("Username missing!");
+            errorMessage.setVisible(true);
     }
 
     /**
