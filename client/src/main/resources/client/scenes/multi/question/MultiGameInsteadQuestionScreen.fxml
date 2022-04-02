@@ -36,10 +36,10 @@
       </Text>
       <Region layoutX="83.0" layoutY="458.0" prefHeight="162.0" prefWidth="315.0" style="-fx-background-color: #0038a8; -fx-background-radius: 30;" AnchorPane.bottomAnchor="-20.0" />
       <Region layoutX="94.0" layoutY="470.0" prefHeight="149.0" prefWidth="295.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="94.0" />
-      <Region id="region" layoutX="741.0" layoutY="119.0" prefHeight="300.0" prefWidth="174.0" AnchorPane.rightAnchor="-15.0" />
+      <Region id="region" layoutX="741.0" layoutY="119.0" prefHeight="316.0" prefWidth="200.0" AnchorPane.rightAnchor="-15.0" />
       <ImageView fx:id="image" fitHeight="214.0" fitWidth="249.0" layoutX="119.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <Region id="region" layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="403.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0" />
+      <Region id="region" layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="433.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0" />
       <Button fx:id="twicePoints" layoutX="760.0" layoutY="62.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="127.0">
          <graphic>
             <ImageView fitHeight="63.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
@@ -100,15 +100,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="gameStateLabel" alignment="CENTER" layoutX="795.0" layoutY="16.0" prefHeight="0.0" prefWidth="88.0" text="Game Id unset" textFill="#ffec00">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="13.0" />
-         </font>
-      </Label>
-      <Text fill="#ffec00" layoutX="775.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jokers">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="35.0" />
-         </font>
-      </Text>
+      <Label id="gameStateLabel" fx:id="gameStateLabel" alignment="CENTER" layoutX="795.0" layoutY="16.0" prefHeight="0.0" prefWidth="88.0" text="Game Id unset" textFill="#ffec00" />
+      <Text id="jokerTitle" fill="#ffec00" layoutX="775.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jokers" />
    </children>
 </AnchorPane>

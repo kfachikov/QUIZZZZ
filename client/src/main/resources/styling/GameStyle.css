@@ -161,7 +161,6 @@
     -fx-border-width: 3;
     -fx-font-size: 19px;
 }
-
 #emojiButton1 {
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
@@ -171,12 +170,10 @@
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
 }
-
 #emojiButton3 {
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
 }
-
 #emojiButton4 {
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
@@ -206,4 +203,12 @@
 #queueLabel {
     -fx-font-family: "Avenir Next Condensed";
     -fx-font-size: 62;
+}
+#jokerTitle {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 35;
+}
+#gameStateLabel {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 13;
 }
