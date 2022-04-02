@@ -31,5 +31,6 @@
          </children>
       </FlowPane>
       <Label id="start-label" fx:id="startLabel" alignment="CENTER" layoutX="26.0" layoutY="393.0" opacity="0.88" prefHeight="195.0" prefWidth="900.0" stylesheets="@../../../styling/GameStyle.css" text="Game is starting..." textFill="RED" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+    <Label fx:id="serverAddress" alignment="CENTER" layoutX="26.0" layoutY="28.0" opacity="0.88" prefHeight="195.0" prefWidth="900.0" stylesheets="@../../../styling/GameStyle.css" text="" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
     </children>
 </AnchorPane>
