@@ -18,6 +18,10 @@ public class SinglePlayerLeaderboardScore {
     private String username;
     private int score;
 
+    /**
+     * this is a default constructor needed for JSON parsing.
+     */
+    public SinglePlayerLeaderboardScore() { }
 
     /**
      * constructor for the leaderboard entry.
