@@ -254,3 +254,7 @@
     -fx-font-family: "Avenir Next Condensed";
     -fx-font-size: 12;
 }
+#leaderboardTitle {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 55;
+}

@@ -18,9 +18,9 @@
       <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" stylesheets="@../../../../styling/GameStyle.css" />
       <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
       <Label id="title" fx:id="questionTitle" layoutX="279.0" layoutY="83.0" prefHeight="47.0" prefWidth="346.0" stylesheets="@../../../../styling/GameStyle.css" text="Instead of ..., you could be ..." textAlignment="CENTER" textFill="WHITE" />
-      <Button id="choice" fx:id="firstAnswer" layoutX="430.0" layoutY="172.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="270.0" stylesheets="@../../../../styling/GameStyle.css" text="Cook a meal ten times" textFill="#006e8c" />
-      <Button id="choice" fx:id="secondAnswer" layoutX="430.0" layoutY="242.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="270.0" stylesheets="@../../../../styling/GameStyle.css" text="Light my entire house for a week" textFill="#006e8c" />
-      <Button id="choice" fx:id="thirdAnswer" layoutX="430.0" layoutY="312.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="270.0" stylesheets="@../../../../styling/GameStyle.css" text="Keep the fridge on for 3.5 days" textFill="#006e8c" />
+      <Button id="choice" fx:id="firstAnswer" textAlignment="CENTER" layoutX="430.0" layoutY="172.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="270.0" stylesheets="@../../../../styling/GameStyle.css" text="Cook a meal ten times" textFill="#006e8c" />
+      <Button id="choice" fx:id="secondAnswer" textAlignment="CENTER" layoutX="430.0" layoutY="242.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="270.0" stylesheets="@../../../../styling/GameStyle.css" text="Light my entire house for a week" textFill="#006e8c" />
+      <Button id="choice" fx:id="thirdAnswer" textAlignment="CENTER" layoutX="430.0" layoutY="312.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="270.0" stylesheets="@../../../../styling/GameStyle.css" text="Keep the fridge on for 3.5 days" textFill="#006e8c" />
       <Text fx:id="description" fill="WHITE" layoutX="29.0" layoutY="431.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="438.03906631469727">
          <font>
             <Font name="Avenir Next Condensed Bold" size="18.0" />
