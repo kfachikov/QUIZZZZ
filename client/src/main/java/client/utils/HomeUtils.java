@@ -1,7 +1,6 @@
 package client.utils;
 
 import client.scenes.misc.MainCtrl;
-import commons.misc.ServerAddress;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
 import jakarta.ws.rs.ProcessingException;
@@ -11,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 
 import javax.inject.Inject;
-import java.util.List;
 
 /**
  * Class for home utilities.
@@ -60,11 +58,8 @@ public class HomeUtils {
                getSinglePlayer().
             */
             // SinglePlayer singlePlayer = server.addSinglePlayer(getSinglePlayer());
+            server.checkServer();
             mainCtrl.showPrep(getSinglePlayer());
-            if (!checkServerAddresses()) {
-                mainCtrl.showHome();
-                serverInvalid();
-            }
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
                 case BAD_REQUEST:
@@ -218,22 +213,6 @@ public class HomeUtils {
         serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
         errorMessage.setText("Make sure you have entered a unique username and a valid URL address!");
         errorMessage.setVisible(true);
-    }
-
-    /**
-     * Method to check whether the server contains the server address entered.
-     *
-     * @return it returns a boolean true or false
-     */
-    public boolean checkServerAddresses() {
-        List<ServerAddress> addresses = server.getServerAddress();
-        for (int i = 0; i < addresses.size(); i++) {
-            var serverAddress =  serverURL.getText();
-            if (addresses.contains(serverAddress)) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }

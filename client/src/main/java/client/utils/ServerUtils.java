@@ -262,33 +262,17 @@ public class ServerUtils {
     }
 
     /**
-     * Gets server addresses.
+     * Checks if the server exists by sending a get request.
      *
-     * @return it returns a client GenericType List Activity.
+     * @return it returns a boolean value
      */
-    public List<ServerAddress> getServerAddress() {
+    public Boolean checkServer() {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
-                .path("/api")
+                .path("/api/solo")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<List<ServerAddress>>() {
-                });
-    }
-
-    /**
-     * Adds server addresses.
-     *
-     * @param fileAsString string representing the String version of a file.
-     * @return it returns a list of server addresses
-     */
-    public List<ServerAddress> addServerAddress(String fileAsString) {
-        return ClientBuilder.newClient(new ClientConfig())
-                .target(currentServer)
-                .path("/api")
-                .request(APPLICATION_JSON)
-                .accept(APPLICATION_JSON)
-                .post(Entity.entity(fileAsString, APPLICATION_JSON), new GenericType<List<ServerAddress>>() {
+                .get(new GenericType<>() {
                 });
     }
 
