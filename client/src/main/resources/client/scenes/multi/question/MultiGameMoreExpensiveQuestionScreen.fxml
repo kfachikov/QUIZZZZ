@@ -12,11 +12,7 @@
 
 <AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl">
    <children>
-      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="18.0" />
-         </font>
-      </Button>
+      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c" />
       <Label id="yourScore" layoutX="362.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0" />
       <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" stylesheets="@../../../../styling/GameStyle.css" />
       <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
