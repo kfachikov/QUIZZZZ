@@ -279,4 +279,8 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
     public Label getGameStateLabel() {
         return gameStateLabel;
     }
+
+    public void setQuestion(ConsumptionQuestion question) {
+        this.question = question;
+    }
 }
