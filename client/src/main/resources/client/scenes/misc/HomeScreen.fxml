@@ -12,7 +12,6 @@
 <AnchorPane id="anchor" maxHeight="600.0" maxWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.misc.HomeScreenCtrl">
     <children>
       <Region id="region" layoutX="81.0" layoutY="238.0" prefHeight="436.0" prefWidth="272.0" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="81.0" />
-      <Region id="region" layoutX="81.0" layoutY="-320.0" prefHeight="436.0" prefWidth="272.0" AnchorPane.leftAnchor="81.0" />
       <Region id="region" layoutX="430.0" layoutY="243.0" prefHeight="288.0" prefWidth="493.0" AnchorPane.bottomAnchor="81.0" AnchorPane.rightAnchor="-38.0" AnchorPane.topAnchor="231.0" />
 
       <Button alignment="TOP_CENTER" contentDisplay="RIGHT" graphicTextGap="7.0" layoutX="516.0" layoutY="282.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playSolo"  text="SOLO" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" AnchorPane.topAnchor="261.0" />
@@ -46,21 +45,6 @@
       <Text id="text" fill="WHITE" layoutX="461.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="an energetic energy quiz" wrappingWidth="205.1885528564453">
          <font>
             <Font size="18.0" />
-         </font>
-      </Text>
-      <Text id="text" fill="WHITE" layoutX="31.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLAYED OVER" textAlignment="CENTER" wrappingWidth="271.2078323364258">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Text>
-      <Text id="text" fx:id="count" fill="RED" layoutX="94.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="51" textAlignment="CENTER" wrappingWidth="145.88675741881866">
-         <font>
-            <Font size="65.0" />
-         </font>
-      </Text>
-      <Text id="text" fill="WHITE" layoutX="152.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TIMES!" textAlignment="CENTER" wrappingWidth="271.2078323364258">
-         <font>
-            <Font size="28.0" />
          </font>
       </Text>
     </children>
