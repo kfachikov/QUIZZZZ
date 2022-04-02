@@ -22,8 +22,11 @@ import javax.inject.Inject;
  */
 public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
 
-    private final MultiplayerCtrl multiCtrl;
+    private MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
+    private boolean reveal;
+    private boolean halfTime;
+    private boolean doublePoints;
 
     @FXML
     private Label gameStateLabel;
@@ -73,6 +76,17 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
     @FXML
     private Button emojiButton4;
 
+    @FXML
+    private ImageView doubleImage;
+
+    @FXML
+    private ImageView timeImage;
+
+    @FXML
+    private ImageView wrongImage;
+
+    private InsteadQuestion question;
+
     /**
      * Constructor for the multiplayer game question screen.
      *
@@ -82,6 +96,7 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
     @Inject
     public MultiGameInsteadQuestionScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server) {
         this.multiCtrl = multiCtrl;
+
         this.server = server;
     }
 
@@ -124,6 +139,38 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
                 disableAnswerSubmission();
             }
         });
+        twicePoints.setOnAction(e -> {
+
+            twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+
+            setDoublePoints(true);
+            //twicePoints.setDisable(true);
+        });
+
+        revealWrong.setOnAction(e -> {
+
+            revealWrong.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            setReveal(true);
+            if (!question.getAnswerChoices().get(0).getTitle().equals(question.getCorrectAnswer())) {
+                firstAnswer.setDisable(true);
+            } else if (!question.getAnswerChoices().get(1).getTitle().equals(question.getCorrectAnswer())) {
+                secondAnswer.setDisable(true);
+            } else if (!question.getAnswerChoices().get(2).getTitle().equals(question.getCorrectAnswer())) {
+                thirdAnswer.setDisable(true);
+            }
+
+            //revealWrong.setDisable(true);
+
+        });
+
+        shortenTime.setOnAction(e -> {
+
+            shortenTime.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            //sendJoker();
+            setHalfTime(true);
+            //shortenTime.setDisable(true);
+        });
+
     }
 
     /**

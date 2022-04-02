@@ -83,6 +83,7 @@ public class MultiplayerCtrl {
     private long gameId;
     private String username;
 
+
     private final ChangeListener<MultiPlayerState> onPoll = (observable, oldValue, newValue) -> {
         // If state has changed, we probably have to switch scenes
         if (newValue != null && (oldValue == null || !newValue.getState().equals(oldValue.getState()))) {
@@ -305,6 +306,12 @@ public class MultiplayerCtrl {
         (and thus, not called `submitAnswer` method),
          */
         lastSubmittedAnswer = "";
+
+        insteadQuestionScreenCtrl.setJokers();
+        guessQuestionScreenCtrl.setJokers();
+        moreExpensiveQuestionScreenCtrl.setJokers();
+        consumptionQuestionScreenCtrl.setJokers();
+
 
         AbstractQuestion question = game.getQuestionList().get(roundNumber);
 
@@ -585,5 +592,53 @@ public class MultiplayerCtrl {
             }
         }
     }
+
+
+
+    /**
+     * Disables the used jokers for all controllers.
+     */
+    public void disableUsedDoubleJokers() {
+        if (consumptionQuestionScreenCtrl.getDoublePoints() ||
+                moreExpensiveQuestionScreenCtrl.getDoublePoints() ||
+                guessQuestionScreenCtrl.getDoublePoints() ||
+                insteadQuestionScreenCtrl.getDoublePoints()) {
+            consumptionQuestionScreenCtrl.disableDoublePoint();
+            guessQuestionScreenCtrl.disableDoublePoint();
+            moreExpensiveQuestionScreenCtrl.disableDoublePoint();
+            insteadQuestionScreenCtrl.disableDoublePoint();
+        }
+    }
+
+    /**
+     * Disables the used jokers for all controllers.
+     */
+    public void disableUsedRevealJoker() {
+        if (consumptionQuestionScreenCtrl.getReveal() ||
+                moreExpensiveQuestionScreenCtrl.getReveal() ||
+                guessQuestionScreenCtrl.getReveal() ||
+                insteadQuestionScreenCtrl.getReveal()) {
+            consumptionQuestionScreenCtrl.disableReveal();
+            guessQuestionScreenCtrl.disableReveal();
+            moreExpensiveQuestionScreenCtrl.disableReveal();
+            insteadQuestionScreenCtrl.disableReveal();
+        }
+    }
+
+    /**
+     * Disables the used jokers for all controllers.
+     */
+    public void disableUsedTimeJoker() {
+        if (consumptionQuestionScreenCtrl.getHalfTime() ||
+                insteadQuestionScreenCtrl.getHalfTime() ||
+                guessQuestionScreenCtrl.getHalfTime() ||
+                moreExpensiveQuestionScreenCtrl.getHalfTime()) {
+            consumptionQuestionScreenCtrl.disableShortenTime();
+            guessQuestionScreenCtrl.disableShortenTime();
+            moreExpensiveQuestionScreenCtrl.disableShortenTime();
+            insteadQuestionScreenCtrl.disableShortenTime();
+        }
+    }
+
 
 }
