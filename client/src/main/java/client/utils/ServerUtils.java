@@ -15,10 +15,7 @@
  */
 package client.utils;
 
-import commons.misc.Activity;
-import commons.misc.ActivityImageMessage;
-import commons.misc.GameResponse;
-import commons.misc.GameState;
+import commons.misc.*;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.queue.QueueState;
@@ -262,6 +259,21 @@ public class ServerUtils {
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(message, APPLICATION_JSON), ActivityImageMessage.class);
+    }
+
+    /**
+     * Checks if the server exists by sending a get request.
+     *
+     * @return it returns a boolean value
+     */
+    public Boolean checkServer() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/solo")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {
+                });
     }
 
 }
