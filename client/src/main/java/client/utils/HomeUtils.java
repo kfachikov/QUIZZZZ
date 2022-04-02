@@ -138,16 +138,15 @@ public class HomeUtils {
     }
 
     /**
-     * Getter for a singleplayer player
+     * Getter for a singleplayer player.
      *
      * @return a new SingleUser object that contains its username and score.
      */
     public SinglePlayer getSinglePlayer() throws NullPointerException {
         String user = usernameField.getText();
-        if(user.equals("")) {
+        if ("".equals(user)) {
             throw new NullPointerException();
-        }
-        else {
+        } else {
             return new SinglePlayer(user, 0);
         }
     }
@@ -202,10 +201,10 @@ public class HomeUtils {
      * Removes the background of the server field, as the current problem is somewhere else.
      */
     private void usernameMissing() {
-            usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
-            serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
-            errorMessage.setText("Username missing!");
-            errorMessage.setVisible(true);
+        usernameField.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("f2dede")).toString().substring(2));
+        serverURL.setStyle("-fx-control-inner-background: #" + (Paint.valueOf("FFFFFF")).toString().substring(2));
+        errorMessage.setText("Username missing!");
+        errorMessage.setVisible(true);
     }
 
     /**
