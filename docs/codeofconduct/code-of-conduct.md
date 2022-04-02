@@ -122,7 +122,7 @@ Notetakers:
 
 - If someone is late consistently, then that would be discussed among the team members and at the end, eventually, will be mentioned to the TA.
 
-- If a person is absent from a meeting and did not give any notice in advance, the meeting should proceed as intended, so that the workflow is not stalled. The one being absent has the responsibility to get informed about the decision taken.
+- If a person is absent from a meeting and did not give any notice in advance, the meeting should proceed as intended, so that the workflow and the decision making process are not stalled. The one being absent has the responsibility to get informed about the decision taken.
 
 ## Communication: 
 ### In what ways do you communicate with each other as a group and among yourselves? (in the studio/MS Teams/Miro/Discourse)
@@ -209,8 +209,8 @@ Notetakers:
   - If the reason is reasonable and one-off, no action will be taken. The reason should be presented with at least 6 hours before the "soft" deadline. 
   - If the reason is reasonable, but could be repeated, we will take team effort to avoid missing future deadlines due to this reason, or to reduce future negative consequences whenever this occurs.
   - If a good reason is not given, they will be warned that such behavior is unacceptable and is not to be repeated. Simple explicit warning will encourage the singleUser to uphold their future agreements (due to social dynamics). If this happens multiple times, the issue will eventually be addressed to the TA (to deal at a higher level than what we are capable of).
-  - If the "soft" deadline is breached the others members have the rights to shift their own deadlines. 
-  - If the "hard" deadline is breached an informal meeting will be organized for explicitly addressing the missed deadline. In this meeting Others will fairly evaluate if the explanation for missing the deadline is reasonable or not.
+  - If the "soft" deadline is breached the others members have the rights to shift their own deadlines. The team member who breached the "soft" deadline should be more prompted for receiving help from others.
+  - If the "hard" deadline is breached an informal meeting will be organized for explicitly addressing the missed deadline. In this meeting others will fairly evaluate if the explanation for missing the deadline is reasonable or not. In the case the person who breached the deadline feels he/she cannot finish the issue even after he/she asked for help from the others, another member team will take over the merge request.
 
 ## Success factors: 
 ### What makes your team a dream team?
