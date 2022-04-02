@@ -143,6 +143,7 @@ public class MainCtrl {
 
         showHome();
         primaryStage.show();
+        primaryStage.setResizable(false);
 
         primaryStage.setOnCloseRequest((event -> {
             if (primaryStage.getScene().equals(this.queue)) {
