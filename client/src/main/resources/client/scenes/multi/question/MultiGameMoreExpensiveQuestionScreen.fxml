@@ -9,26 +9,26 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl">
+<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl">
    <children>
-      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c" />
-      <Label id="yourScore" layoutX="362.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0" />
-      <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" stylesheets="@../../../../styling/GameStyle.css" />
-      <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
-      <Label id="title" fx:id="questionTitle" layoutX="78.0" layoutY="78.0" prefHeight="39.0" prefWidth="628.0" stylesheets="@../../../../styling/GameStyle.css" text="WHICH ACTIVITY USES MOST ENERGY?" textAlignment="CENTER" textFill="WHITE" />
-      <Button id="choice" fx:id="firstAnswer" layoutX="28.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" stylesheets="@../../../../styling/GameStyle.css" textFill="#006e8c">
+      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" text="Leave" textFill="#006e8c" />
+      <Label id="yourScore" layoutX="362.0" layoutY="2.0" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0" />
+      <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" />
+      <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
+      <Label id="title" fx:id="questionTitle" layoutX="78.0" layoutY="78.0" prefHeight="39.0" prefWidth="628.0" text="WHICH ACTIVITY USES MOST ENERGY?" textAlignment="CENTER" textFill="WHITE" />
+      <Button id="choice" fx:id="firstAnswer" layoutX="28.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" textFill="#006e8c">
          <graphic>
             <ImageView fx:id="image1" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
          </graphic>
       </Button>
-      <Button id="choice" fx:id="secondAnswer" layoutX="268.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" stylesheets="@../../../../styling/GameStyle.css" textFill="#006e8c">
+      <Button id="choice" fx:id="secondAnswer" layoutX="268.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" textFill="#006e8c">
          <graphic>
             <ImageView fx:id="image2" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
          </graphic>
       </Button>
-      <Button id="choice" fx:id="thirdAnswer" layoutX="508.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" stylesheets="@../../../../styling/GameStyle.css" textFill="#006e8c">
+      <Button id="choice" fx:id="thirdAnswer" layoutX="508.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" textFill="#006e8c">
          <graphic>
             <ImageView fx:id="image3" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>

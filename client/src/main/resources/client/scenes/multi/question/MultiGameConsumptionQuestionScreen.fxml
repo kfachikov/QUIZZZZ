@@ -9,18 +9,18 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameConsumptionQuestionScreenCtrl">
+<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameConsumptionQuestionScreenCtrl">
    <children>
       <Button layoutX="48.0" layoutY="137.0" mnemonicParsing="false" prefHeight="239.0" prefWidth="384.0" disable="true"/>
-      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c" />
-      <Label id="yourScore" layoutX="362.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0" />
-      <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" stylesheets="@../../../../styling/GameStyle.css" />
-      <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
-      <Label id="title" fx:id="questionTitle" layoutX="78.0" layoutY="78.0" prefHeight="39.0" prefWidth="628.0" stylesheets="@../../../../styling/GameStyle.css" text="HOW MUCH ENERGY DOES THIS ACTIVITY SPEND?" textAlignment="CENTER" textFill="WHITE" />
-      <Button id="choice" fx:id="firstAnswer" textAlignment="CENTER" layoutX="493.0" layoutY="111.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="230.0" stylesheets="@../../../../styling/GameStyle.css" text="500 Wh" textFill="#006e8c" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="310.0" />
-      <Button id="choice" fx:id="secondAnswer" textAlignment="CENTER" layoutX="486.0" layoutY="207.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="230.0" stylesheets="@../../../../styling/GameStyle.css" text="75 Wh" textFill="#006e8c" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="220.0" />
+      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" text="Leave" textFill="#006e8c" />
+      <Label id="yourScore" layoutX="362.0" layoutY="2.0" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0" />
+      <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" />
+      <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
+      <Label id="title" fx:id="questionTitle" layoutX="78.0" layoutY="78.0" prefHeight="39.0" prefWidth="628.0" text="HOW MUCH ENERGY DOES THIS ACTIVITY SPEND?" textAlignment="CENTER" textFill="WHITE" />
+      <Button id="choice" fx:id="firstAnswer" textAlignment="CENTER" layoutX="493.0" layoutY="111.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="230.0" text="500 Wh" textFill="#006e8c" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="310.0" />
+      <Button id="choice" fx:id="secondAnswer" textAlignment="CENTER" layoutX="486.0" layoutY="207.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="230.0" text="75 Wh" textFill="#006e8c" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="220.0" />
       <Region id="region" layoutX="83.0" layoutY="458.0" prefHeight="162.0" prefWidth="315.0" AnchorPane.bottomAnchor="-20.0" />
-      <Button id="choice" fx:id="thirdAnswer" textAlignment="CENTER" layoutX="477.0" layoutY="318.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="230.0" stylesheets="@../../../../styling/GameStyle.css" text="150 Wh" textFill="#006e8c" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="130.0" />
+      <Button id="choice" fx:id="thirdAnswer" textAlignment="CENTER" layoutX="477.0" layoutY="318.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="230.0" text="150 Wh" textFill="#006e8c" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="130.0" />
       <Text fx:id="description" fill="WHITE" layoutX="16.0" layoutY="406.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="452.6205596923828" />
       <Region layoutX="94.0" layoutY="470.0" prefHeight="149.0" prefWidth="295.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="94.0" />
       <Region id="region" layoutX="741.0" layoutY="119.0" prefHeight="316.0" prefWidth="200.0" AnchorPane.rightAnchor="-15.0" />

@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.misc.HelpScreenCtrl">
+<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.misc.HelpScreenCtrl">
    <children>
       <Region fx:id="region" layoutY="69.0" prefHeight="82.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="69.0" />
       <Circle fill="#b50000" layoutX="349.0" layoutY="112.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="83.0" />

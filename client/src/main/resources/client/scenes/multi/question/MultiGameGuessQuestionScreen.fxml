@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameGuessQuestionScreenCtrl">
+<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameGuessQuestionScreenCtrl">
    <children>
       <Button layoutX="77.0" layoutY="137.0" mnemonicParsing="false" prefHeight="305.0" prefWidth="592.0" AnchorPane.leftAnchor="83.0" AnchorPane.topAnchor="119.0" disable="true"/>
-      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c" />
-      <Label id="yourScore" layoutX="362.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0" />
-      <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" stylesheets="@../../../../styling/GameStyle.css" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0" />
-      <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
-      <Label id="title" fx:id="questionTitle" layoutX="78.0" layoutY="71.0" prefHeight="39.0" prefWidth="628.0" stylesheets="@../../../../styling/GameStyle.css" text="HOW MUCH ENERGY DOES THIS ACTIVITY SPEND?" textAlignment="CENTER" textFill="WHITE" />
+      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" text="Leave" textFill="#006e8c" />
+      <Label id="yourScore" layoutX="362.0" layoutY="2.0" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0" />
+      <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0" />
+      <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
+      <Label id="title" fx:id="questionTitle" layoutX="78.0" layoutY="71.0" prefHeight="39.0" prefWidth="628.0" text="HOW MUCH ENERGY DOES THIS ACTIVITY SPEND?" textAlignment="CENTER" textFill="WHITE" />
       <Text id="description" fx:id="description" fill="WHITE" layoutX="83.0" layoutY="153.0" text="Taking a hot shower. (50l water)             " textAlignment="CENTER" wrappingWidth="592.0" />
       <TextField id="multiGuessInput" fx:id="input" alignment="CENTER" layoutX="312.0" layoutY="386.0" prefHeight="64.0" prefWidth="404.0" style="-fx-background-color: white; -fx-text-fill: black;" text="Type your guess here" />
       <Region id="region" layoutX="83.0" layoutY="458.0" prefHeight="162.0" prefWidth="315.0" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="83.0" />
