@@ -32,7 +32,6 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
 import java.io.File;
 
 /**
@@ -105,7 +104,6 @@ public class MainCtrl {
                            Pair<GuessQuestionScreenCtrl, Parent> guess,
                            Pair<CongratulationsScreenCtrl, Parent> congratulations
                            ) {
-
         this.primaryStage = primaryStage;
 
         this.homeCtrl = home.getKey();
@@ -138,8 +136,11 @@ public class MainCtrl {
         this.congratulationsCtrl = congratulations.getKey();
         this.congratulations = new Scene(congratulations.getValue());
 
+        setStylesheets();
+
         showHome();
         primaryStage.show();
+        primaryStage.setResizable(false);
 
         primaryStage.setOnCloseRequest((event -> {
             if (primaryStage.getScene().equals(this.queue)) {
@@ -147,6 +148,21 @@ public class MainCtrl {
             }
             Platform.exit();
         }));
+    }
+
+    public void setStylesheets() {
+        String CSSPath = "styling/GameStyle.css";
+
+        home.getStylesheets().add(CSSPath);
+        prep.getStylesheets().add(CSSPath);
+        help.getStylesheets().add(CSSPath);
+        queue.getStylesheets().add(CSSPath);
+        administrator.getStylesheets().add(CSSPath);
+        moreExpensive.getStylesheets().add(CSSPath);
+        guess.getStylesheets().add(CSSPath);
+        consumption.getStylesheets().add(CSSPath);
+        instead.getStylesheets().add(CSSPath);
+        congratulations.getStylesheets().add(CSSPath);
     }
 
     /**

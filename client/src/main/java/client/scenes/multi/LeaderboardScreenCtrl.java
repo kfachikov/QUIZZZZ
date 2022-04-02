@@ -156,7 +156,7 @@ public class LeaderboardScreenCtrl {
     public void setScene(List<MultiPlayer> players, String gameState) {
         if (("LEADERBOARD").equals(gameState)) {
             title.setText("INTERMEDIATE LEADERBOARD");
-            emojiIntermediateLayout();
+            //emojiIntermediateLayout();
 
             //make top-left leave button visible + returnHome invisible
             playAgain.setVisible(false);
@@ -166,7 +166,7 @@ public class LeaderboardScreenCtrl {
         }
         if (("GAME_OVER").equals(gameState)) {
             title.setText("GAME OVER!");
-            emojiGameOverLayout();
+            //emojiGameOverLayout();
 
             //returnHome visible + make top-left leave button invisible
             playAgain.setVisible(true);

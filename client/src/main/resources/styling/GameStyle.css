@@ -1,108 +1,167 @@
+@font-face {
+    -fx-font-family: 'Avenir Next Condensed Bold';
+    src: url("/styling/AvenirNextCondensedBold.ttf");
+}
+#text {
+    -fx-font-family: "Avenir Next Condensed Bold";
+    -fx-wrap-text: true;
+}
 .button {
-    -fx-background-color: #c9f1fd;
-    -fx-border-color: #006e8c;
-    -fx-border-radius: 15;
-    -fx-background-radius: 20;
-    -fx-border-width: 5;
+    -fx-background-color: #b80000;
+    -fx-background-radius: 10;
+    -fx-border-width: 0;
+    -fx-text-fill: white;
+    -fx-font-size: 47;
+    -fx-font-family: "Avenir Next Condensed Bold";
+    -fx-effect: dropshadow(gaussian, rgb(0, 7, 104), 10, 0, 0, 0);
+    -fx-wrap-text: true;
+}
+#choice {
+    -fx-font-size: 15;
+    -fx-wrap-text: true;
+}
+#mediumButton {
+    -fx-font-size: 34;
+}
+#smallButton {
+    -fx-font-size: 17;
+}
+#homeButton {
+    -fx-font-size: 24;
+}
+#window {
+    -fx-background-color: #00236f;
+}
+#title {
+    -fx-font-size: 25;
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-text-fill: #ffffff;
+    -fx-wrap-text: true;
+}
+#usernameField {
+    -fx-font-size: 24;
+}
+#serverURL {
+    -fx-font-size: 18;
+}
+.button:hover {
+    -fx-background-color: #a40000;
 }
 .button:pressed {
-    -fx-border-radius: 14;
-    -fx-background-radius: 19;
-    -fx-border-width: 4;
+    -fx-background-color: #a40000;
+}
+.text {
+    -fx-text-fill: white;
+    -fx-font-family: "Avenir Next Condensed";
 }
 .text-field {
-    -fx-border-color: #006e8c;
-    -fx-border-width: 1;
+    -fx-border-color: #00236f;
+    -fx-border-width: 5;
     -fx-border-radius: 50;
     -fx-background-radius: 50;
+    -fx-font-family: "Avenir Next Condensed";
 }
 #anchor {
-    -fx-background-color: #a8c6fa;
+    -fx-background-color: #00236f;
+    -fx-pref-height: 600;
+    -fx-pref-width: 900;
 }
 .table-view {
-    -fx-border-color: #006e8c;
     -fx-border-width: 5;
     -fx-border-radius: 7;
     -fx-background-radius: 20;
-    -fx-background-color: #c9f1fd;
+    -fx-background-color: white;
+    -fx-border-color: #0038a8;
+    -fx-font-family: "Avenir Next Condensed";
+
 }
 .table-view .column-header {
-    -fx-background-color: #c9f1fd;
-    -fx-border-color: #006e8c;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #0038a8;
+    -fx-text-fill: red;
     -fx-border-radius: 7;
     -fx-border-width: 3;
 }
 .text-area {
-    -fx-background-color: #006e8c;
+    -fx-background-color: #001950;
+    -fx-border-color: #0038a8;
+    -fx-text-fill: white;
     -fx-background-size: 5;
-    -fx-border-color: #006e8c;
     -fx-border-radius: 10;
+    -fx-font-family: "Avenir Next Condensed";
 }
 #bubbles>.label {
-    -fx-background-color: #c9f1fd;
-    -fx-border-color: #006e8c;
+    -fx-background-color: #001950;
+    -fx-border-color: #0038a8;
+    -fx-text-fill: white;
     -fx-border-radius: 15;
     -fx-background-radius: 20;
     -fx-border-width: 3;
     visibility: false;
+    -fx-font-family: "Avenir Next Condensed";
 }
 #start-label {
-    -fx-background-color: #ffffffaa;
+    -fx-background-color: #0038a8;
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 69;
 }
 #error {
     -fx-background-color: #f2dede;
     -fx-background-radius: 15;
     visibility: false;
-
     -fx-border-width: 2;
     -fx-border-color: #c62828;
     -fx-border-radius: 15;
+    -fx-font-size: 16;
+    -fx-font-family: "Avenir Next Condensed";
 }
 #emojiButton {
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
 }
 #bubbles {
-    -fx-vgap: 10;
-    -fx-hgap: 5;
+    -fx-vgap: 20;
+    -fx-hgap: 10;
 }
 #leaderboard {
     -fx-vgap: 5;
     -fx-hgap: 7;
 }
 #leaderboard>.label {
-    -fx-background-color: #c9f1fd;
-    -fx-border-color: #006e8c;
+    -fx-background-color: #001950;
+    -fx-border-color: #0038a8;
     -fx-border-radius: 15;
     -fx-background-radius: 20;
     -fx-border-width: 3;
     -fx-font-size: 19px;
+    -fx-font-family: "Avenir Next Condensed";
 }
 #leaderboard>#userScore {
-    -fx-background-color: #ffd513;
-    -fx-border-color: #006e8c;
+    -fx-background-color: #001950;
+    -fx-border-color: #0038a8;
     -fx-border-radius: 15;
     -fx-background-radius: 20;
     -fx-border-width: 3;
     -fx-font-size: 19px;
+    -fx-font-family: "Avenir Next Condensed";
 }
 #leaderboard>#userUsername {
-    -fx-background-color: #ffd513;
-    -fx-border-color: #006e8c;
+    -fx-background-color: #001950;
+    -fx-border-color: #0038a8;
     -fx-border-radius: 15;
     -fx-background-radius: 20;
     -fx-border-width: 3;
     -fx-font-size: 19px;
+    -fx-font-family: "Avenir Next Condensed";
 }
 #leaderboard>#UserPosition {
-    -fx-background-color: #ffd513;
-    -fx-border-color: #006e8c;
+    -fx-background-color: #001950;
+    -fx-border-color: #0038a8;
     -fx-border-radius: 15;
     -fx-background-radius: 20;
     -fx-border-width: 3;
     -fx-font-size: 19px;
 }
-
 #emojiButton1 {
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
@@ -112,13 +171,90 @@
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
 }
-
 #emojiButton3 {
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
 }
-
 #emojiButton4 {
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
+}
+#region {
+    -fx-background-color: #0038a8;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgb(0, 7, 104), 10, 0, 0, 0);
+}
+#yourScore {
+    -fx-font-size: 24;
+    -fx-font-family: "Avenir Next Condensed";
+}
+#score {
+    -fx-font-size: 26;
+    -fx-font-family: "Avenir Next Condensed";
+}
+#description {
+    -fx-font-size: 20;
+    -fx-font-family: "Avenir Next Condensed";
+}
+#guessTextField {
+    -fx-effect: dropshadow(gaussian, rgb(0, 7, 104), 10, 0, 0, 0);
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 42;
+}
+#queueLabel {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 62;
+}
+#jokerTitle {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 35;
+}
+#gameStateLabel {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 13;
+}
+#reactionsTitle {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 35;
+}
+#helpTitle {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 56;
+}
+#helpTab {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 56;
+}
+#helpText {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 30;
+}
+#adminTitle {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 72;
+}
+#adminDescription {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 30;
+}
+#congratsTitle {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 61;
+}
+#congratsText {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 32;
+}
+#multiGuessInput {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 25;
+    -fx-effect: dropshadow(gaussian, rgb(0, 7, 104), 10, 0, 0, 0);
+}
+#multiMoreDescription {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 12;
+}
+#leaderboardTitle {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 55;
 }
