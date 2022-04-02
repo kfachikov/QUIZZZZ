@@ -103,6 +103,7 @@
 #start-label {
     -fx-background-color: #0038a8;
     -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 69;
 }
 #error {
     -fx-background-color: #f2dede;
@@ -211,4 +212,45 @@
 #gameStateLabel {
     -fx-font-family: "Avenir Next Condensed";
     -fx-font-size: 13;
+}
+#reactionsTitle {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 35;
+}
+#helpTitle {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 56;
+}
+#helpTab {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 56;
+}
+#helpText {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 30;
+}
+#adminTitle {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 72;
+}
+#adminDescription {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 30;
+}
+#congratsTitle {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 61;
+}
+#congratsText {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 32;
+}
+#multiGuessInput {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 25;
+    -fx-effect: dropshadow(gaussian, rgb(0, 7, 104), 10, 0, 0, 0);
+}
+#multiMoreDescription {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 12;
 }

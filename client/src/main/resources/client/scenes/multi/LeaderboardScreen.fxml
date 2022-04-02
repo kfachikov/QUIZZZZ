@@ -14,17 +14,13 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.LeaderboardScreenCtrl">
-   <Text fx:id="title" fill="WHITE" layoutX="141.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-area" text="INTERMEDIATE LEADERBOARD" textAlignment="CENTER">
+   <Text id="title" fx:id="title" fill="WHITE" layoutX="141.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-area" text="INTERMEDIATE LEADERBOARD" textAlignment="CENTER">
       <font>
-         <Font name="Avenir Next Condensed Bold" size="55.0" />
+         <Font size="55.0" />
       </font>
    </Text>
    <Region layoutX="82.0" layoutY="96.0" prefHeight="525.0" prefWidth="349.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-14.0" AnchorPane.topAnchor="89.0" />
-    <Button id="smallButton" fx:id="leave" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#leave" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
-        <font>
-            <Font name="Avenir Next Condensed Bold" size="18.0" />
-        </font>
-    </Button>
+    <Button id="smallButton" fx:id="leave" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#leave" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c" />
 
     <Button id="emojiButton" fx:id="surprised" layoutX="499.0" layoutY="465.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="330.0">
         <graphic>
@@ -120,14 +116,10 @@
 
    <Button fx:id="playAgain" layoutX="120.0" layoutY="456.0" mnemonicParsing="false" onAction="#playAgain" stylesheets="@../../../styling/GameStyle.css" text="PLAY AGAIN" textFill="#006e8c">
       <font>
-         <Font name="Avenir Next Condensed Bold" size="45.0" />
+         <Font size="45.0" />
       </font>
    </Button>
    <Region id="region" layoutX="473.0" layoutY="162.0" prefHeight="301.0" prefWidth="375.0" AnchorPane.topAnchor="162.0" />
    <Region layoutX="488.0" layoutY="182.0" prefHeight="263.0" prefWidth="342.0" style="-fx-background-color: white; -fx-background-radius: 20;" />
-    <Text fill="#ffec00" layoutX="491.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions">
-        <font>
-            <Font name="Avenir Next Condensed Bold" size="35.0" />
-        </font>
-    </Text>
+    <Text id="reactionsTitle" fill="#ffec00" layoutX="491.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions" />
 </AnchorPane>

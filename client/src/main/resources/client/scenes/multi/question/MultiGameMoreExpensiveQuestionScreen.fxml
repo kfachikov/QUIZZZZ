@@ -35,20 +35,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fx:id="description1" fill="WHITE" layoutX="25.0" layoutY="384.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="200.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="12.0" />
-         </font></Text>
-      <Text fx:id="description2" fill="WHITE" layoutX="261.0" layoutY="384.0" text="Cooking a meal on your hot plate (30 min)" textAlignment="CENTER" wrappingWidth="203.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="12.0" />
-         </font>
-      </Text>
-      <Text fx:id="description3" fill="WHITE" layoutX="502.0" layoutY="386.0" text="Playing a game on your Playstation (3h)" textAlignment="CENTER" wrappingWidth="203.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="12.0" />
-         </font>
-      </Text>
+      <Text id="multiMoreDescription" fx:id="description1" fill="WHITE" layoutX="25.0" layoutY="384.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="200.0" />
+      <Text id="multiMoreDescription" fx:id="description2" fill="WHITE" layoutX="261.0" layoutY="384.0" text="Cooking a meal on your hot plate (30 min)" textAlignment="CENTER" wrappingWidth="203.0" />
+      <Text id="multiMoreDescription" fx:id="description3" fill="WHITE" layoutX="502.0" layoutY="386.0" text="Playing a game on your Playstation (3h)" textAlignment="CENTER" wrappingWidth="203.0" />
       <Region layoutX="83.0" layoutY="458.0" prefHeight="162.0" prefWidth="315.0" style="-fx-background-color: #0038a8; -fx-background-radius: 30;" AnchorPane.bottomAnchor="-20.0" />
       <Region layoutX="94.0" layoutY="470.0" prefHeight="149.0" prefWidth="295.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="94.0" />
       <Region id="region" layoutX="741.0" layoutY="119.0" prefHeight="316.0" prefWidth="200.0" AnchorPane.rightAnchor="-15.0" />

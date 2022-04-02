@@ -4,25 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane id="anchor" fx:id="anchor" prefHeight="453.0" prefWidth="904.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.QueueScreenCtrl">
     <children>
-        <Button id="smallButton" fx:id="backButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
-            <font>
-                <Font name="Avenir Next Condensed Bold" size="18.0" />
-            </font>
-        </Button>
-        <Button fx:id="startButton" layoutX="371.0" layoutY="457.0" mnemonicParsing="false" onAction="#startGame" prefHeight="81.0" prefWidth="152.0" stylesheets="@../../../styling/GameStyle.css" text="Go!" textFill="#006e8c" AnchorPane.leftAnchor="374.0" AnchorPane.rightAnchor="374.0">
-            <font>
-                <Font name="Avenir Next Condensed Bold" size="54.0" />
-            </font>
-        </Button>
-      <Label id="queueLabel" fx:id="queueLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="90.0" layoutY="28.0" prefHeight="95.0" prefWidth="720.0" text="Queue: 5 players" textFill="WHITE" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="62.0" />
-         </font>
-      </Label>
+        <Button id="smallButton" fx:id="backButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c" />
+        <Button fx:id="startButton" layoutX="371.0" layoutY="457.0" mnemonicParsing="false" onAction="#startGame" prefHeight="81.0" prefWidth="152.0" stylesheets="@../../../styling/GameStyle.css" text="Go!" textFill="#006e8c" AnchorPane.leftAnchor="374.0" AnchorPane.rightAnchor="374.0" />
+      <Label id="queueLabel" fx:id="queueLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="90.0" layoutY="28.0" prefHeight="95.0" prefWidth="720.0" text="Queue: 5 players" textFill="WHITE" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" />
       <FlowPane id="bubbles" fx:id="bubbles" alignment="CENTER" layoutX="65.0" layoutY="103.0" prefHeight="335.0" prefWidth="770.0" stylesheets="@../../../styling/GameStyle.css" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="103.0">
          <children>
             <Label alignment="CENTER" layoutX="78.0" layoutY="10.0" prefHeight="50.0" prefWidth="170.0" textAlignment="CENTER" />
@@ -43,10 +30,6 @@
             <Label alignment="CENTER" layoutX="250.0" layoutY="44.0" prefHeight="50.0" prefWidth="170.0" textAlignment="CENTER" />
          </children>
       </FlowPane>
-      <Label id="start-label" fx:id="startLabel" alignment="CENTER" layoutX="26.0" layoutY="393.0" opacity="0.88" prefHeight="195.0" prefWidth="900.0" stylesheets="@../../../styling/GameStyle.css" text="Game is starting..." textFill="RED" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="69.0" />
-         </font>
-      </Label>
+      <Label id="start-label" fx:id="startLabel" alignment="CENTER" layoutX="26.0" layoutY="393.0" opacity="0.88" prefHeight="195.0" prefWidth="900.0" stylesheets="@../../../styling/GameStyle.css" text="Game is starting..." textFill="RED" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
     </children>
 </AnchorPane>
