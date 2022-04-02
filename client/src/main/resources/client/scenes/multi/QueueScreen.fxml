@@ -18,7 +18,7 @@
                 <Font name="Avenir Next Condensed Bold" size="54.0" />
             </font>
         </Button>
-      <Label fx:id="queueLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="90.0" layoutY="28.0" prefHeight="95.0" prefWidth="720.0" text="Queue: 5 players" textFill="WHITE" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
+      <Label id="queueLabel" fx:id="queueLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="90.0" layoutY="28.0" prefHeight="95.0" prefWidth="720.0" text="Queue: 5 players" textFill="WHITE" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
          <font>
             <Font name="Avenir Next Condensed Bold" size="62.0" />
          </font>

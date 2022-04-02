@@ -17,7 +17,7 @@
     -fx-wrap-text: true;
 }
 #choice {
-    -fx-font-size: 18;
+    -fx-font-size: 15;
     -fx-wrap-text: true;
 }
 #mediumButton {
@@ -33,7 +33,7 @@
     -fx-background-color: #00236f;
 }
 #title {
-    -fx-font-size: 30;
+    -fx-font-size: 25;
     -fx-font-family: "Avenir Next Condensed";
     -fx-text-fill: #ffffff;
     -fx-wrap-text: true;
@@ -193,4 +193,17 @@
 #score {
     -fx-font-size: 26;
     -fx-font-family: "Avenir Next Condensed";
+}
+#description {
+    -fx-font-size: 20;
+    -fx-font-family: "Avenir Next Condensed";
+}
+#guessTextField {
+    -fx-effect: dropshadow(gaussian, rgb(0, 7, 104), 10, 0, 0, 0);
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 42;
+}
+#queueLabel {
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-font-size: 62;
 }

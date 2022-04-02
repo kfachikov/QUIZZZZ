@@ -25,13 +25,10 @@
       <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" stylesheets="@../../../../styling/GameStyle.css" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0" />
       <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
       <Label id="title" fx:id="questionTitle" layoutX="78.0" layoutY="71.0" prefHeight="39.0" prefWidth="628.0" stylesheets="@../../../../styling/GameStyle.css" text="HOW MUCH ENERGY DOES THIS ACTIVITY SPEND?" textAlignment="CENTER" textFill="WHITE" />
-      <Text fx:id="description" fill="WHITE" layoutX="83.0" layoutY="153.0" text="Taking a hot shower. (50l water)             " textAlignment="CENTER" wrappingWidth="592.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="20.0" />
-         </font></Text>
+      <Text id="description" fx:id="description" fill="WHITE" layoutX="83.0" layoutY="153.0" text="Taking a hot shower. (50l water)             " textAlignment="CENTER" wrappingWidth="592.0" />
       <TextField fx:id="input" alignment="CENTER" layoutX="312.0" layoutY="386.0" prefHeight="64.0" prefWidth="404.0" style="-fx-background-color: white; -fx-text-fill: black;" text="Type your guess here">
          <font>
-            <Font name="Avenir Next Condensed Bold" size="19.0" />
+            <Font name="Avenir Next Condensed Bold" size="19.0"/>
          </font>
          <effect>
             <DropShadow>
@@ -41,33 +38,11 @@
             </DropShadow>
          </effect>
       </TextField>
-      <Region layoutX="83.0" layoutY="458.0" prefHeight="162.0" prefWidth="315.0" style="-fx-background-color: #0038a8; -fx-background-radius: 30;" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="83.0">
-         <effect>
-            <DropShadow>
-               <color>
-                  <Color red="0.179824560880661" blue="0.5394737124443054" />
-               </color>
-            </DropShadow>
-         </effect></Region>
+      <Region id="region" layoutX="83.0" layoutY="458.0" prefHeight="162.0" prefWidth="315.0" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="83.0" />
       <Region layoutX="94.0" layoutY="470.0" prefHeight="149.0" prefWidth="295.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="94.0" />
-      <Region id="region" layoutX="741.0" layoutY="119.0" prefHeight="300.0" prefWidth="174.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="119.0">
-         <effect>
-            <DropShadow>
-               <color>
-                  <Color red="0.08025706559419632" green="0.004568713251501322" blue="0.32894736528396606" />
-               </color>
-            </DropShadow>
-         </effect></Region>
-      <ImageView fx:id="image" fitHeight="190.0" fitWidth="315.0" layoutX="202.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
-      </ImageView>
-      <Region id="region" layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="403.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0">
-         <effect>
-            <DropShadow>
-               <color>
-                  <Color red="0.020614035427570343" blue="0.6184210777282715" />
-               </color>
-            </DropShadow>
-         </effect></Region>
+      <Region id="region" layoutX="741.0" layoutY="119.0" prefHeight="300.0" prefWidth="174.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="119.0" />
+      <ImageView fx:id="image" fitHeight="190.0" fitWidth="315.0" layoutX="202.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" />
+      <Region id="region" layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="403.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0" />
       <Button fx:id="twicePoints" layoutX="760.0" layoutY="62.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="127.0">
          <graphic>
             <ImageView fitHeight="63.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">

@@ -5,16 +5,11 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.single.question.MoreExpensiveQuestionScreenCtrl">
 <children>
-    <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
-        <font>
-            <Font name="Avenir Next Condensed Bold" size="13.0" />
-        </font>
-    </Button>
+    <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c" />
     <Label id="yourScore" layoutX="374.0" layoutY="6.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE" />
     <ProgressBar fx:id="time" layoutX="36.0" layoutY="52.0" prefHeight="20.0" prefWidth="832.0" progress="0.36" stylesheets="@../../../../styling/GameStyle.css" AnchorPane.leftAnchor="36.0" AnchorPane.rightAnchor="36.0" />
     <Label id="score" fx:id="currentScore" layoutX="488.0" layoutY="5.0" stylesheets="@../../../../styling/GameStyle.css" text="0" textFill="YELLOW" />
@@ -22,22 +17,11 @@
     <Button id="choice" fx:id="firstAnswer" layoutX="15.0" layoutY="120.0" mnemonicParsing="false" prefHeight="389.0" prefWidth="230.0" stylesheets="@../../../../styling/GameStyle.css" textFill="#006e8c" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="151.0" />
     <Button id="choice" fx:id="secondAnswer" layoutX="330.0" layoutY="120.0" mnemonicParsing="false" prefHeight="389.0" prefWidth="230.0" stylesheets="@../../../../styling/GameStyle.css" textFill="#006e8c" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="338.0" AnchorPane.rightAnchor="338.0" AnchorPane.topAnchor="151.0" />
     <Button id="choice" fx:id="thirdAnswer" layoutX="405.0" layoutY="119.0" mnemonicParsing="false" prefHeight="389.0" prefWidth="230.0" stylesheets="@../../../../styling/GameStyle.css" textFill="#006e8c" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="60.0" />
-      <ImageView fx:id="image1" fitHeight="206.0" fitWidth="206.0" layoutX="71.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true" />
-    <Text fx:id="description1" fill="WHITE" layoutX="58.0" layoutY="452.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="229.3522491455078" AnchorPane.bottomAnchor="100.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="17.0" />
-         </font></Text>
-      <ImageView fx:id="image2" fitHeight="206.0" fitWidth="206.0" layoutX="346.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="image3" fitHeight="206.0" fitWidth="206.0" layoutX="623.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="71.0" />
-      <Text fx:id="description2" fill="WHITE" layoutX="338.0" layoutY="465.0" text="Cooking a meal on your hot plate (30 min)" textAlignment="CENTER" wrappingWidth="222.95660400390625" AnchorPane.bottomAnchor="105.55599975585938">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="17.0" />
-         </font>
-      </Text>
-      <Text fx:id="description3" fill="WHITE" layoutX="610.0" layoutY="476.0" text="Playing a game on your Playstation (3h)" textAlignment="CENTER" wrappingWidth="229.35223388671875" AnchorPane.bottomAnchor="105.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="17.0" />
-         </font>
-      </Text>
+    <ImageView fx:id="image1" fitHeight="206.0" fitWidth="206.0" layoutX="71.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true" />
+    <Text id="description" fx:id="description1" fill="WHITE" layoutX="58.0" layoutY="452.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="229.3522491455078" AnchorPane.bottomAnchor="100.0" />
+    <ImageView fx:id="image2" fitHeight="206.0" fitWidth="206.0" layoutX="346.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true" />
+    <Text id="description" fx:id="description2" fill="WHITE" layoutX="338.0" layoutY="465.0" text="Cooking a meal on your hot plate (30 min)" textAlignment="CENTER" wrappingWidth="222.95660400390625" AnchorPane.bottomAnchor="105.55599975585938" />
+    <ImageView fx:id="image3" fitHeight="206.0" fitWidth="206.0" layoutX="623.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="71.0" />
+    <Text id="description" fx:id="description3" fill="WHITE" layoutX="610.0" layoutY="476.0" text="Playing a game on your Playstation (3h)" textAlignment="CENTER" wrappingWidth="229.35223388671875" AnchorPane.bottomAnchor="105.0" />
 </children>
 </AnchorPane>
