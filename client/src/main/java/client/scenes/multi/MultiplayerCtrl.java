@@ -148,6 +148,18 @@ public class MultiplayerCtrl {
         this.leaderboard = new Scene(leaderboard.getValue());
 
         pollingService.valueProperty().addListener(onPoll);
+        setStylesheets();
+    }
+
+    public void setStylesheets() {
+        String CSSPath = "styling/GameStyle.css";
+
+        consumptionQuestionScreen.getStylesheets().add(CSSPath);
+        guessQuestionScreen.getStylesheets().add(CSSPath);
+        insteadQuestionScreen.getStylesheets().add(CSSPath);
+        moreExpensiveQuestionScreen.getStylesheets().add(CSSPath);
+        mockScreen.getStylesheets().add(CSSPath);
+        leaderboard.getStylesheets().add(CSSPath);
     }
 
     /**
