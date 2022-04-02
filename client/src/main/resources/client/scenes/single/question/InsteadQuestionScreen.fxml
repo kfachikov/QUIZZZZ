@@ -21,31 +21,24 @@
                 </DropShadow>
             </effect>
         </Button>
-        <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
+        <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="13.0" />
             </font>
         </Button>
-        <Label layoutX="374.0" layoutY="6.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE">
+        <Label id="yourScore" layoutX="374.0" layoutY="6.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="24.0" />
             </font>
         </Label>
         <ProgressBar fx:id="time" layoutX="36.0" layoutY="52.0" prefHeight="20.0" prefWidth="832.0" progress="0.36" stylesheets="@../../../../styling/GameStyle.css" />
-        <Label fx:id="currentScore" layoutX="488.0" layoutY="5.0" stylesheets="@../../../../styling/GameStyle.css" text="0" textFill="YELLOW">
+        <Label id="score" fx:id="currentScore" layoutX="488.0" layoutY="5.0" stylesheets="@../../../../styling/GameStyle.css" text="0" textFill="YELLOW">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="26.0" />
             </font>
         </Label>
-        <Label fx:id="questionTitle" alignment="CENTER" layoutX="33.0" layoutY="76.0" prefHeight="39.0" prefWidth="816.0" stylesheets="@../../../../styling/GameStyle.css" text="Instead of ..., you could instead ..." textAlignment="CENTER" textFill="WHITE">
-            <font>
-                <Font name="Avenir Next Condensed Bold" size="37.0" />
-            </font>
-        </Label>
-        <Button fx:id="firstAnswer" layoutX="552.0" layoutY="142.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="316.0" stylesheets="@../../../../styling/GameStyle.css" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="156.0" text="Cook a meal ten times" >
-            <font>
-                <Font name="Avenir Next Condensed Bold" size="18.0" />
-            </font>
+        <Label id="title" fx:id="questionTitle" alignment="CENTER" layoutX="33.0" layoutY="76.0" prefHeight="39.0" prefWidth="816.0" stylesheets="@../../../../styling/GameStyle.css" text="Instead of ..., you could instead ..." textAlignment="CENTER" textFill="WHITE" />
+        <Button id="choice" fx:id="firstAnswer" layoutX="552.0" layoutY="142.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="316.0" stylesheets="@../../../../styling/GameStyle.css" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="156.0" text="Cook a meal ten times" >
             <effect>
                 <DropShadow>
                     <color>
@@ -54,10 +47,7 @@
                 </DropShadow>
             </effect>
         </Button>
-        <Button fx:id="secondAnswer" layoutX="552.0" layoutY="302.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="316.0" stylesheets="@../../../../styling/GameStyle.css" AnchorPane.bottomAnchor="204.0" AnchorPane.rightAnchor="32.0" text="Light my entire house for a week" >
-            <font>
-                <Font name="Avenir Next Condensed Bold" size="18.0" />
-            </font>
+        <Button id="choice" fx:id="secondAnswer" layoutX="552.0" layoutY="302.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="316.0" stylesheets="@../../../../styling/GameStyle.css" AnchorPane.bottomAnchor="204.0" AnchorPane.rightAnchor="32.0" text="Light my entire house for a week" >
             <effect>
                 <DropShadow>
                     <color>
@@ -66,10 +56,7 @@
                 </DropShadow>
             </effect>
         </Button>
-        <Button fx:id="thirdAnswer" layoutX="532.0" layoutY="348.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="316.0" stylesheets="@../../../../styling/GameStyle.css" AnchorPane.bottomAnchor="57.0" AnchorPane.rightAnchor="32.0" text="Keep the fridge on for 3.5 days" >
-            <font>
-                <Font name="Avenir Next Condensed Bold" size="18.0" />
-            </font>
+        <Button id="choice" fx:id="thirdAnswer" layoutX="532.0" layoutY="348.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="316.0" stylesheets="@../../../../styling/GameStyle.css" AnchorPane.bottomAnchor="57.0" AnchorPane.rightAnchor="32.0" text="Keep the fridge on for 3.5 days" >
             <effect>
                 <DropShadow>
                     <color>

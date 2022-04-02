@@ -8,7 +8,7 @@
 
 <AnchorPane id="anchor" fx:id="anchor" prefHeight="453.0" prefWidth="904.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.QueueScreenCtrl">
     <children>
-        <Button fx:id="backButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
+        <Button id="smallButton" fx:id="backButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="18.0" />
             </font>

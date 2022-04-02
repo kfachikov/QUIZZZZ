@@ -20,7 +20,7 @@
    </effect>
    <children>
       <Button layoutX="77.0" layoutY="137.0" mnemonicParsing="false" prefHeight="305.0" prefWidth="592.0" AnchorPane.leftAnchor="83.0" AnchorPane.topAnchor="119.0" />
-      <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
+      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
          <font>
             <Font name="Avenir Next Condensed Bold" size="18.0" />
          </font>

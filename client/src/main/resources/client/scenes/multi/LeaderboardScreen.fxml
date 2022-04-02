@@ -20,7 +20,7 @@
       </font>
    </Text>
    <Region layoutX="82.0" layoutY="96.0" prefHeight="525.0" prefWidth="349.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-14.0" AnchorPane.topAnchor="89.0" />
-    <Button fx:id="leave" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#leave" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
+    <Button id="smallButton" fx:id="leave" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#leave" stylesheets="@../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
         <font>
             <Font name="Avenir Next Condensed Bold" size="18.0" />
         </font>

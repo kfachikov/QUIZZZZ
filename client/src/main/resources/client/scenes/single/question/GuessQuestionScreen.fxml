@@ -21,18 +21,18 @@
                </color>
             </DropShadow>
          </effect></Button>
-        <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
+        <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="13.0" />
             </font>
         </Button>
-        <Label layoutX="374.0" layoutY="6.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE">
+        <Label id="yourScore" layoutX="374.0" layoutY="6.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="24.0" />
             </font>
         </Label>
         <ProgressBar fx:id="time" layoutX="91.0" layoutY="45.0" prefHeight="20.0" prefWidth="701.0" progress="0.36" stylesheets="@../../../../styling/GameStyle.css" />
-        <Label fx:id="currentScore" layoutX="488.0" layoutY="5.0" stylesheets="@../../../../styling/GameStyle.css" text="0" textFill="YELLOW">
+        <Label id="score" fx:id="currentScore" layoutX="488.0" layoutY="5.0" stylesheets="@../../../../styling/GameStyle.css" text="0" textFill="YELLOW">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="26.0" />
             </font>
@@ -45,7 +45,8 @@
         <Text fx:id="description" fill="WHITE" layoutX="95.0" layoutY="390.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="689.537109375">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="26.0" />
-            </font></Text>
+            </font>
+        </Text>
       <TextField fx:id="input" alignment="CENTER" layoutX="90.0" layoutY="399.0" prefHeight="99.0" prefWidth="704.0" promptText="Type your guess here" AnchorPane.bottomAnchor="57.0">
          <font>
             <Font name="Avenir Next Condensed Bold" size="42.0" />

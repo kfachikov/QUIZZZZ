@@ -16,7 +16,7 @@
       <ColorAdjust />
    </effect>
    <children>
-      <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
+      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
          <font>
             <Font name="Avenir Next Condensed Bold" size="18.0" />
          </font>

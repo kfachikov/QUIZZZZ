@@ -10,7 +10,7 @@
 
 <AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.single.CongratulationsScreenCtrl">
     <children>
-        <Button fx:id="backButton" layoutX="422.0" layoutY="420.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="78.0" prefWidth="218.0" stylesheets="@../../../styling/GameStyle.css" text="MAIN PAGE" textFill="#006e8c" AnchorPane.bottomAnchor="102.0" AnchorPane.rightAnchor="200.0">
+        <Button id="smallButton" fx:id="backButton" layoutX="422.0" layoutY="420.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="78.0" prefWidth="218.0" stylesheets="@../../../styling/GameStyle.css" text="MAIN PAGE" textFill="#006e8c" AnchorPane.bottomAnchor="102.0" AnchorPane.rightAnchor="200.0">
             <font>
                 <Font name="Avenir Next Condensed Bold" size="33.0" />
             </font>
