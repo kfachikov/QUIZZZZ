@@ -22,7 +22,7 @@ import javax.inject.Inject;
  */
 public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScreen {
 
-    private MultiplayerCtrl multiCtrl;
+    private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
     private boolean reveal;
     private boolean halfTime;
