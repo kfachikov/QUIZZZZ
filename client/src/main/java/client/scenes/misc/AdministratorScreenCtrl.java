@@ -95,6 +95,9 @@ public class AdministratorScreenCtrl {
      */
     public void chooseFile() {
         File selectedFile = fileSelection();
+        if (selectedFile == null) {
+            return;
+        }
 
         selectFileButton.setDisable(true);
         importProgressBar.setVisible(true);
