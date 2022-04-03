@@ -734,7 +734,7 @@ public class MultiplayerCtrl {
 
             currentReactionLabelIndex = currentReactionLabelIndex + 2;
             currentReactionImageIndex = currentReactionImageIndex + 2;
-            if (currentReactionLabelIndex > 2 * reactionsNumber) {
+            if (currentReactionLabelIndex >= 2 * reactionsNumber) {
                 break;
             }
         }
@@ -743,7 +743,7 @@ public class MultiplayerCtrl {
         In case the total number of reactions is less than 3 - the size of our "chat",
         the later "lines", consisting of username and emoji submitted are made not visible.
          */
-        for (int i = currentReactionLabelIndex; i <= 2 * reactionsNumber; i++) {
+        for (int i = currentReactionLabelIndex; i < 2 * reactionsNumber; i++) {
             Node currentNode = reactionParts.get(i);
             currentNode.setVisible(false);
         }
