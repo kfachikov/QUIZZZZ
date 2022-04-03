@@ -162,7 +162,7 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
 
             twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
 
-            setDoublePoints(true);
+            multiCtrl.setDoublePoints(true);
         });
 
         revealWrong.setOnAction(e -> {

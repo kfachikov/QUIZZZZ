@@ -148,7 +148,7 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
 
             twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
 
-            setDoublePoints(true);
+            multiCtrl.setDoublePoints(true);
         });
 
         revealWrong.setOnAction(e -> {
