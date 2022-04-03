@@ -2,6 +2,7 @@ package server.api;
 
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
+import commons.multi.Reaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,7 @@ class MultiplayerStateControllerTest {
                 new ArrayList<>(),
                 MultiPlayerState.STARTING_STATE,
                 new ArrayList<>(),
-                null
+                new ArrayList<>()
         );
         player = new MultiPlayer(
                 "Test username",
@@ -108,6 +109,22 @@ class MultiplayerStateControllerTest {
         assertEquals(dummy, result.getBody());
         assertEqualLists(List.of("addPlayer"), multiUtils.calledMethods);
         assertEqualLists(List.of(120L, player), multiUtils.params);
+    }
+
+    @Test
+    void postReaction() {
+        var dummy = new Reaction("Kayra", "laughing");
+        multiUtils.returnValues.add(game);
+        var result = multiCtrl.postReaction(0, dummy).getBody();
+        assertEquals(result, dummy);
+    }
+
+    @Test
+    void postReactionFalse() {
+        var dummy = new Reaction("Kayra", "laughing");
+        multiUtils.returnValues.add(game);
+        var result = multiCtrl.postReaction(-1, dummy).getStatusCode();
+        assertEquals(HttpStatus.BAD_REQUEST, result);
     }
 
     private <T> void assertEqualLists(List<? extends T> expected, List<? extends T> result) {

@@ -15,12 +15,10 @@
  */
 package client.utils;
 
-import commons.misc.Activity;
-import commons.misc.ActivityImageMessage;
-import commons.misc.GameResponse;
-import commons.misc.GameState;
+import commons.misc.*;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
+import commons.multi.Reaction;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -187,6 +185,22 @@ public class ServerUtils {
     }
 
     /**
+     * POST request to api/multi/reaction to submit an emoji a client clicked.
+     *
+     * @param id        id of current multiplayer game
+     * @param reaction  Reaction instance to be submitted
+     * @return          Reaction that was added to the particular game.
+     */
+    public Reaction addReaction(long id, Reaction reaction) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/reaction/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(reaction, APPLICATION_JSON), Reaction.class);
+    }
+
+    /**
      * POST request to /api/multi/ to add a multiplayer user.
      *
      * @param id          Id of the multiplayer game.
@@ -276,6 +290,48 @@ public class ServerUtils {
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(message, APPLICATION_JSON), ActivityImageMessage.class);
+    }
+
+    /**
+     * @return it returns a list SinglePlayerLeaderboardScore.
+     */
+    public List<SinglePlayerLeaderboardScore> getLeaderboardEntry() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/leaderboard/players")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<SinglePlayerLeaderboardScore>>() {
+                });
+    }
+
+    /**
+     * @return it returns a client SinglePlayerLeaderboardScore.
+     *
+     * @param leaderboardEntry is a SinglePlayerLeaderboardScore entry.
+     */
+    public SinglePlayerLeaderboardScore postLeaderboardEntry(SinglePlayerLeaderboardScore leaderboardEntry) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(currentServer)
+                .path("/api/leaderboard/players")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(leaderboardEntry, APPLICATION_JSON), SinglePlayerLeaderboardScore.class);
+    }
+    
+    /**
+     * Checks if the server exists by sending a get request.
+     *
+     * @return it returns a boolean value
+     */
+    public Boolean checkServer() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/solo")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {
+                });
     }
 
     /**

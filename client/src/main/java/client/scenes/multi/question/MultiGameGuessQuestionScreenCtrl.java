@@ -29,8 +29,9 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
-
-    private GuessQuestion question;
+    private boolean reveal;
+    private boolean halfTime;
+    private boolean doublePoints;
 
     @FXML
     private Label gameStateLabel;
@@ -74,6 +75,15 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     @FXML
     private Button emojiButton4;
 
+    @FXML
+    private ImageView doubleImage;
+
+    @FXML
+    private ImageView timeImage;
+
+    @FXML
+    private ImageView wrongImage;
+
     /**
      * Constructor for the multiplayer game question screen.
      *
@@ -83,6 +93,7 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     @Inject
     public MultiGameGuessQuestionScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server) {
         this.multiCtrl = multiCtrl;
+
         this.server = server;
     }
 
@@ -95,15 +106,6 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     }
 
     /**
-     * Setter for a mock label.
-     *
-     * @param labelText New value of the label
-     */
-    public void setGameStateLabelText(String labelText) {
-        gameStateLabel.setText(labelText);
-    }
-
-    /**
      * Initializes the single-player game controller by:
      * <p>
      * Binding answer choices to a method submitting that answer.
@@ -112,16 +114,30 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
         input.setDisable(false);
-        input.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
+        input.setStyle("-fx-background-color: #" + (Color.valueOf("ffffff")).toString().substring(2));
 
         input.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 multiCtrl.submitAnswer(input.getText() + "Wh");
                 input.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                input.setDisable(true);
             }
         });
+
+        twicePoints.setOnAction(e -> {
+            twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+
+            setDoublePoints(true);
+        });
+
+        shortenTime.setOnAction(e -> {
+
+            shortenTime.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            setHalfTime(true);
+        });
+
+
+        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
     }
 
     /**
@@ -134,27 +150,20 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     }
 
     /**
-     * Sets the current question.
-     *
-     * @param question GuessQuestion instance to be used.
-     */
-    public void setQuestion(GuessQuestion question) {
-        this.question = question;
-    }
-
-    /**
      * Sets the "attributes" of the input field to the default ones.
      */
     public void inputFieldDefault() {
         input.setDisable(false);
-        input.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
+        input.setStyle("-fx-background-color: #" + (Color.valueOf("ffffff")).toString().substring(2));
         input.clear();
     }
 
     /**
      * Setter fot the description of the activity which consumption should be guessed.
+     *
+     * @param question  Question to be used for the description to be set.
      */
-    public void setDescription() {
+    public void setDescription(GuessQuestion question) {
         description.setText(question.getActivity().getTitle());
     }
 
@@ -193,6 +202,23 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     @Override
     public ProgressBar getTime() {
         return time;
+    }
+
+    /**
+     * Makes user input field non-clickable. Thus, answers cannot be submitted anymore.
+     */
+    @Override
+    public void disableAnswerSubmission() {
+        input.setDisable(true);
+    }
+
+    /**
+     * Getter for the game state field. Would represent the id of the current game.
+     *
+     * @return  The id of the current game.
+     */
+    public Label getGameStateLabel() {
+        return gameStateLabel;
     }
 
     public void startJokerPolling() {

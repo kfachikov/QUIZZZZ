@@ -85,7 +85,7 @@ class MultiPlayerStateUtilsTest {
                 new ArrayList<>(),
                 MultiPlayerState.NOT_STARTED_STATE,
                 new ArrayList<>(),
-                null
+                new ArrayList<>()
         );
         multiPlayerStateStarted = new MultiPlayerState(
                 0,
@@ -95,7 +95,7 @@ class MultiPlayerStateUtilsTest {
                 new ArrayList<>(),
                 MultiPlayerState.STARTING_STATE,
                 new ArrayList<>(),
-                null
+                new ArrayList<>()
         );
         multiPlayerStateQuestion0 = new MultiPlayerState(
                 0,
@@ -109,7 +109,7 @@ class MultiPlayerStateUtilsTest {
                 new ArrayList<>(),
                 MultiPlayerState.QUESTION_STATE,
                 new ArrayList<>(),
-                null
+                new ArrayList<>()
         );
         multiPlayerStateQuestion19 = new MultiPlayerState(
                 0,
@@ -119,7 +119,7 @@ class MultiPlayerStateUtilsTest {
                 new ArrayList<>(),
                 MultiPlayerState.QUESTION_STATE,
                 new ArrayList<>(),
-                null
+                new ArrayList<>()
         );
         multiPlayerStateTransition0 = new MultiPlayerState(
                 0,
@@ -129,7 +129,7 @@ class MultiPlayerStateUtilsTest {
                 new ArrayList<>(),
                 MultiPlayerState.TRANSITION_STATE,
                 new ArrayList<>(),
-                null
+                new ArrayList<>()
         );
         multiPlayerStateTransition4 = new MultiPlayerState(
                 0,
@@ -139,7 +139,7 @@ class MultiPlayerStateUtilsTest {
                 new ArrayList<>(),
                 MultiPlayerState.TRANSITION_STATE,
                 new ArrayList<>(),
-                null
+                new ArrayList<>()
         );
         multiPlayerStateLeaderboard = new MultiPlayerState(
                 0,
@@ -149,7 +149,7 @@ class MultiPlayerStateUtilsTest {
                 new ArrayList<>(),
                 MultiPlayerState.LEADERBOARD_STATE,
                 new ArrayList<>(),
-                null
+                new ArrayList<>()
         );
         multiPlayerStateGameOver = new MultiPlayerState(
                 0,
@@ -159,7 +159,7 @@ class MultiPlayerStateUtilsTest {
                 new ArrayList<>(),
                 MultiPlayerState.GAME_OVER_STATE,
                 new ArrayList<>(),
-                null
+                new ArrayList<>()
         );
         multiUtils = new MultiPlayerStateUtils(generateQuestionUtils, queueUtils, currentTime, scoreCounting);
 
@@ -368,7 +368,7 @@ class MultiPlayerStateUtilsTest {
                 new ArrayList<>(),
                 MultiPlayerState.QUESTION_STATE,
                 new ArrayList<>(),
-                null
+                new ArrayList<>()
         ), multiPlayerStateQuestion0);
     }
 
@@ -386,7 +386,7 @@ class MultiPlayerStateUtilsTest {
                 new ArrayList<>(),
                 MultiPlayerState.TRANSITION_STATE,
                 new ArrayList<>(),
-                null
+                new ArrayList<>()
         ), multiPlayerStateQuestion0);
     }
 

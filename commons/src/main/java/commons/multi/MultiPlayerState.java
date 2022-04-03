@@ -25,7 +25,7 @@ public class MultiPlayerState extends GameState {
     public static final String LEADERBOARD_STATE = "LEADERBOARD";
 
     private List<MultiPlayer> players;
-    private Reaction reaction;
+    private List<Reaction> reactionList;
     private MultiPlayer playerUsingTimeJoker;
 
     /**
@@ -46,15 +46,16 @@ public class MultiPlayerState extends GameState {
      * @param submittedAnswers the answers submitted by players during game in a single round.
      * @param state            the status of the game.
      * @param players          the list of players currently in the game.
-     * @param reaction         the reactions used in a game.
+     * @param reactionList     the list of reactions used in a game.
      */
     public MultiPlayerState(long id, long nextPhase, int roundNumber,
                             List<AbstractQuestion> questionList,
                             List<GameResponse> submittedAnswers,
                             String state,
-                            List<MultiPlayer> players, Reaction reaction) {
+                            List<MultiPlayer> players,
+                            List<Reaction> reactionList) {
         super(id, nextPhase, roundNumber, questionList, submittedAnswers, state);
-        this.reaction = reaction;
+        this.reactionList = reactionList;
         this.players = players;
         this.playerUsingTimeJoker = null;
     }
@@ -73,8 +74,8 @@ public class MultiPlayerState extends GameState {
      *
      * @return a Reaction representing the reactions used in a game.
      */
-    public Reaction getReaction() {
-        return reaction;
+    public List<Reaction> getReactionList() {
+        return reactionList;
     }
 
     /**
@@ -141,10 +142,10 @@ public class MultiPlayerState extends GameState {
     /**
      * Setter for the reactions.
      *
-     * @param reaction the reactions used in a game.
+     * @param newReactionList the reactions used in a game.
      */
-    public void setReaction(Reaction reaction) {
-        this.reaction = reaction;
+    public void setReaction(List<Reaction> newReactionList) {
+        this.reactionList = newReactionList;
     }
 
     /**
@@ -183,7 +184,7 @@ public class MultiPlayerState extends GameState {
             return false;
         }
         MultiPlayerState that = (MultiPlayerState) o;
-        return Objects.equals(players, that.players) && Objects.equals(reaction, that.reaction);
+        return Objects.equals(players, that.players) && Objects.equals(reactionList, that.reactionList);
     }
 
     /**
@@ -193,7 +194,7 @@ public class MultiPlayerState extends GameState {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), players, reaction);
+        return Objects.hash(super.hashCode(), players, reactionList);
     }
 
     /**

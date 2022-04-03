@@ -29,8 +29,9 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
-
-    private ConsumptionQuestion question;
+    private boolean reveal;
+    private boolean halfTime;
+    private boolean doublePoints;
 
     @FXML
     private Label gameStateLabel;
@@ -79,6 +80,17 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
 
     @FXML
     private Button emojiButton4;
+
+    @FXML
+    private ImageView doubleImage;
+
+    @FXML
+    private ImageView timeImage;
+
+    @FXML
+    private ImageView wrongImage;
+
+    private ConsumptionQuestion question;
 
     /**
      * Constructor for the multiplayer game question screen.
@@ -131,6 +143,38 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
                 disableAnswerSubmission();
             }
         });
+        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
+
+
+        twicePoints.setOnAction(e -> {
+
+            twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+
+            setDoublePoints(true);
+
+
+        });
+
+        revealWrong.setOnAction(e -> {
+
+            revealWrong.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            setReveal(true);
+            if (!question.getAnswerChoices().get(0).toString().equals(question.getCorrectAnswer())) {
+                firstAnswer.setDisable(true);
+            } else if (!question.getAnswerChoices().get(1).toString().equals(question.getCorrectAnswer())) {
+                secondAnswer.setDisable(true);
+            } else if (!question.getAnswerChoices().get(2).toString().equals(question.getCorrectAnswer())) {
+                thirdAnswer.setDisable(true);
+            }
+        });
+
+        shortenTime.setOnAction(e -> {
+
+            shortenTime.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            setHalfTime(true);
+        });
+
+
     }
 
     /**
@@ -140,25 +184,6 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
      */
     public void setScore(long score) {
         currentScore.setText(String.valueOf(score));
-    }
-
-    /**
-     * Getter for the current question.
-     *
-     * @return  ConsumptionQuestion instance.
-     */
-    public ConsumptionQuestion getQuestion() {
-        return question;
-    }
-
-    /**
-     * Sets the current question. Styles the buttons and enables their clicking.
-     * Sets answer choices.
-     *
-     * @param question  Question to be used - the one that should be asked on this round.
-     */
-    public void setQuestion(ConsumptionQuestion question) {
-        this.question = question;
     }
 
     /**
@@ -175,16 +200,18 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
         /*
         Set the buttons colors back to default(unselected).
          */
-        firstAnswer.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
-        secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
-        thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
+        firstAnswer.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("b80000")).toString().substring(2));
+        thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("b80000")).toString().substring(2));
     }
 
     /**
      * Set the text for all possible answer choices. These would be the one submitted after
      * an answer is clicked.
+     *
+     * @param question  Question to be used for the answer choices to be set.
      */
-    public void setAnswers() {
+    public void setAnswers(ConsumptionQuestion question) {
         firstAnswer.setText(question.getAnswerChoices().get(0) + "Wh");
         secondAnswer.setText(question.getAnswerChoices().get(1) + "Wh");
         thirdAnswer.setText(question.getAnswerChoices().get(2) + "Wh");
@@ -201,15 +228,18 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
 
     /**
      * Setter fot the description of the activity which consumption should be guessed.
+     *
+     * @param question  Question to be used for the description to be set.
      */
-    public void setDescription() {
+    public void setDescription(ConsumptionQuestion question) {
         description.setText(question.getActivity().getTitle());
     }
 
     /**
      * Makes all answers non-clickable. To be used once an answer is clicked.
      */
-    private void disableAnswerSubmission() {
+    @Override
+    public void disableAnswerSubmission() {
         firstAnswer.setDisable(true);
         secondAnswer.setDisable(true);
         thirdAnswer.setDisable(true);
@@ -241,6 +271,24 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
     @Override
     public ProgressBar getTime() {
         return time;
+    }
+
+    /**
+     * Getter for the game state field. Would represent the id of the current game.
+     *
+     * @return  The id of the current game.
+     */
+    public Label getGameStateLabel() {
+        return gameStateLabel;
+    }
+
+    /**
+     * question setter.
+     *
+     * @param question the question
+     */
+    public void setQuestion(ConsumptionQuestion question) {
+        this.question = question;
     }
 
     public void startJokerPolling() {

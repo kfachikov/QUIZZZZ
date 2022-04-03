@@ -81,7 +81,7 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
     @SuppressWarnings("checkstyle:Indentation")
     public void initialize() {
         input.setDisable(false);
-        input.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
+        input.setStyle("-fx-background-color: #" + (Color.valueOf("ffffff")).toString().substring(2));
 
         input.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -156,7 +156,7 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      */
     public void inputFieldDefault() {
         input.setDisable(false);
-        input.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
+        input.setStyle("-fx-background-color: #" + (Color.valueOf("ffffff")).toString().substring(2));
         input.clear();
     }
 
