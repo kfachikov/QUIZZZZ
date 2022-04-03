@@ -3,31 +3,18 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
-<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.misc.AdministratorScreenCtrl">
+
+<AnchorPane id="anchor" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.misc.AdministratorScreenCtrl">
    <children>
-      <Button id="smallButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome"
-              prefHeight="51.0" prefWidth="80.0" text="Back" textFill="#006e8c"/>
-      <Text id="adminTitle" fill="WHITE" layoutX="99.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0"
-            text="ADMINISTRATOR PANEL" textAlignment="CENTER" wrappingWidth="686.4990234375"/>
-      <Button fx:id="selectFileButton" layoutX="200.0" layoutY="240.0" mnemonicParsing="false" onAction="#chooseFile"
-              text="Import Activities" textAlignment="CENTER" textFill="#006e8c" AnchorPane.bottomAnchor="240.0"
-              AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="240.0"/>
-      <Text id="adminDescription" fx:id="description" fill="WHITE" layoutX="119.0" layoutY="496.0" strokeType="OUTSIDE"
-            strokeWidth="0.0" text="Select  a .json file to import activities and generate questions. "
-            textAlignment="CENTER" wrappingWidth="668.0070190429688"/>
-      <ProgressBar fx:id="importProgressBar" layoutX="115.0" layoutY="338.0" prefHeight="20.0" prefWidth="399.0"
-                   progress="0.0" stylesheets="@../../../styling/GameStyle.css" visible="false"/>
-      <TextArea fx:id="helpText" editable="false" layoutX="63.0" layoutY="49.0" prefHeight="299.0" prefWidth="473.0"
-                stylesheets="@../../../styling/GameStyle.css"
-                text="Guide to importing activities:&#10;1. Make sure you have downloaded the activity bank.&#10;2. Make sure that you have extracted the activity bank to a separate folder.&#10;  2.1. Note that the folder should only have &quot;activities.json&quot; and folders &quot;XX&quot; (where XX is some number) containing the images.&#10;  2.2. Ensure that no other files exist in that folder - otherwise, it might break. &#10;3. Click on &quot;Import Activities&quot;&#10;4. Select the &quot;activities.json&quot; file inside of the location where you extracted the zip file.&#10;5. Wait until progress bar reaches 100%&#10;6. You have now successfully imported the activities :)&#10;"
-                visible="false" wrapText="true">
+      <Button id="smallButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="51.0" prefWidth="80.0" text="Back" textFill="#006e8c" />
+      <Text id="adminTitle" fill="WHITE" layoutX="99.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMINISTRATOR PANEL" textAlignment="CENTER" wrappingWidth="686.4990234375" />
+      <Button fx:id="selectFileButton" layoutX="200.0" layoutY="240.0" mnemonicParsing="false" onAction="#chooseFile" text="Import Activities" textAlignment="CENTER" textFill="#006e8c" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="240.0" />
+      <Text id="adminDescription" fx:id="description" fill="WHITE" layoutX="113.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select  a .json file to import activities and generate questions. " textAlignment="CENTER" wrappingWidth="668.0070190429688" />
+      <ProgressBar fx:id="importProgressBar" layoutX="79.0" layoutY="502.0" prefHeight="20.0" prefWidth="743.0" progress="0.0" stylesheets="@../../../styling/GameStyle.css" visible="false" />
+      <TextArea id="adminHelp" fx:id="helpText" editable="false" layoutX="94.0" layoutY="61.0" prefHeight="461.0" prefWidth="712.0" stylesheets="@../../../styling/GameStyle.css" text="Guide to importing activities:&#10;1. Make sure you have downloaded the activity bank.&#10;2. Make sure that you have extracted the activity bank to a separate folder.&#10;  2.1. Note that the folder should only have &quot;activities.json&quot; and folders &quot;XX&quot; (where XX is some number) containing the images.&#10;  2.2. Ensure that no other files exist in that folder - otherwise, it might break. &#10;3. Click on &quot;Import Activities&quot;&#10;4. Select the &quot;activities.json&quot; file inside of the location where you extracted the zip file.&#10;5. Wait until progress bar reaches 100%&#10;6. You have now successfully imported the activities :)&#10;" visible="false" wrapText="true">
       </TextArea>
-      <Text fill="#006e8a" layoutX="26.0" layoutY="384.0" onMouseClicked="#helpMe" stroke="#3cacc3"
-            strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="?"
-            wrappingWidth="28.487804412841797">
-      </Text>
+      <Button id="smallButton" layoutX="8.0" layoutY="535.0" mnemonicParsing="false" onAction="#helpMe" prefHeight="51.0" prefWidth="80.0" text="?" textFill="#006e8c" />
    </children>
 </AnchorPane>
