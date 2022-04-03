@@ -61,18 +61,6 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
     @FXML
     private Button shortenTime;
 
-    @FXML
-    private Button emojiButton1;
-
-    @FXML
-    private Button emojiButton2;
-
-    @FXML
-    private Button emojiButton3;
-
-    @FXML
-    private Button emojiButton4;
-
     /**
      * Constructor for the multiplayer game question screen.
      *
@@ -124,6 +112,7 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
                 disableAnswerSubmission();
             }
         });
+        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
     }
 
     /**

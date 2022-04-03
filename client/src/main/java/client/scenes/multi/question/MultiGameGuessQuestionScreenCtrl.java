@@ -56,18 +56,6 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     @FXML
     private Button shortenTime;
 
-    @FXML
-    private Button emojiButton1;
-
-    @FXML
-    private Button emojiButton2;
-
-    @FXML
-    private Button emojiButton3;
-
-    @FXML
-    private Button emojiButton4;
-
     /**
      * Constructor for the multiplayer game question screen.
      *
@@ -106,6 +94,7 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
                 input.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
             }
         });
+        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
     }
 
     /**
