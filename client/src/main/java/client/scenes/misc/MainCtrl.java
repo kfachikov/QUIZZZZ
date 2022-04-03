@@ -150,6 +150,9 @@ public class MainCtrl {
         }));
     }
 
+    /**
+     * sets the stylesheets.
+     */
     public void setStylesheets() {
         String CSSPath = "styling/GameStyle.css";
 

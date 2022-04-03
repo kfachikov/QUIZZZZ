@@ -25,6 +25,9 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
+    private boolean reveal;
+    private boolean halfTime;
+    private boolean doublePoints;
 
     @FXML
     private Label gameStateLabel;
@@ -56,6 +59,27 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     @FXML
     private Button shortenTime;
 
+    @FXML
+    private Button emojiButton1;
+
+    @FXML
+    private Button emojiButton2;
+
+    @FXML
+    private Button emojiButton3;
+
+    @FXML
+    private Button emojiButton4;
+
+    @FXML
+    private ImageView doubleImage;
+
+    @FXML
+    private ImageView timeImage;
+
+    @FXML
+    private ImageView wrongImage;
+
     /**
      * Constructor for the multiplayer game question screen.
      *
@@ -65,6 +89,7 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     @Inject
     public MultiGameGuessQuestionScreenCtrl(MultiplayerCtrl multiCtrl, ServerUtils server) {
         this.multiCtrl = multiCtrl;
+
         this.server = server;
     }
 
@@ -94,6 +119,20 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
                 input.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
             }
         });
+
+        twicePoints.setOnAction(e -> {
+            twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+
+            setDoublePoints(true);
+        });
+
+        shortenTime.setOnAction(e -> {
+
+            shortenTime.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            setHalfTime(true);
+        });
+
+
         multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
     }
 

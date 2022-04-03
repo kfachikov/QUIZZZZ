@@ -24,6 +24,9 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
+    private boolean reveal;
+    private boolean halfTime;
+    private boolean doublePoints;
 
     @FXML
     private Label gameStateLabel;
@@ -60,6 +63,29 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
 
     @FXML
     private Button shortenTime;
+
+    @FXML
+    private Button emojiButton1;
+
+    @FXML
+    private Button emojiButton2;
+
+    @FXML
+    private Button emojiButton3;
+
+    @FXML
+    private Button emojiButton4;
+
+    @FXML
+    private ImageView doubleImage;
+
+    @FXML
+    private ImageView timeImage;
+
+    @FXML
+    private ImageView wrongImage;
+
+    private ConsumptionQuestion question;
 
     /**
      * Constructor for the multiplayer game question screen.
@@ -113,6 +139,37 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
             }
         });
         multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
+
+
+        twicePoints.setOnAction(e -> {
+
+            twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+
+            setDoublePoints(true);
+
+
+        });
+
+        revealWrong.setOnAction(e -> {
+
+            revealWrong.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            setReveal(true);
+            if (!question.getAnswerChoices().get(0).toString().equals(question.getCorrectAnswer())) {
+                firstAnswer.setDisable(true);
+            } else if (!question.getAnswerChoices().get(1).toString().equals(question.getCorrectAnswer())) {
+                secondAnswer.setDisable(true);
+            } else if (!question.getAnswerChoices().get(2).toString().equals(question.getCorrectAnswer())) {
+                thirdAnswer.setDisable(true);
+            }
+        });
+
+        shortenTime.setOnAction(e -> {
+
+            shortenTime.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            setHalfTime(true);
+        });
+
+
     }
 
     /**
@@ -218,5 +275,14 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
      */
     public Label getGameStateLabel() {
         return gameStateLabel;
+    }
+
+    /**
+     * question setter.
+     *
+     * @param question the question
+     */
+    public void setQuestion(ConsumptionQuestion question) {
+        this.question = question;
     }
 }

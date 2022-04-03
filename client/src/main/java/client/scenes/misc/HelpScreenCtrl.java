@@ -59,6 +59,9 @@ public class HelpScreenCtrl {
         mainCtrl.showHome();
     }
 
+    /**
+     * sets the first scene.
+     */
     public void setScene1() {
         //set texts
         title.setText("SOLO");
@@ -76,6 +79,9 @@ public class HelpScreenCtrl {
         next.setOnAction(event -> setScene2());
     }
 
+    /**
+     * sets the second scene.
+     */
     public void setScene2() {
         //set texts
         title.setText("MULTIPLAYER");
@@ -92,6 +98,9 @@ public class HelpScreenCtrl {
         next.setOnAction(event -> setScene3());
     }
 
+    /**
+     * sets the third scene.
+     */
     public void setScene3() {
         //set texts
         title.setText("JOKER CARDS");

@@ -144,7 +144,7 @@ public class LeaderboardScreenCtrl {
      * <p>
      * Sets the leave / returnHome button depending on the usage of the scene
      * <p>
-     * Makes all username & score labels invisible, so that they can be set visible when filled
+     * Makes all username and score labels invisible, so that they can be set visible when filled
      * <p>
      * Calls fillLeaderboard(), which populates leaderboard + makes used labels visible.
      *

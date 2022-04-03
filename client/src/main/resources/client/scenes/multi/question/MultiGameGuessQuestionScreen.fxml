@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -16,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameGuessQuestionScreenCtrl">
    <children>
-      <Button layoutX="77.0" layoutY="137.0" mnemonicParsing="false" prefHeight="305.0" prefWidth="592.0" AnchorPane.leftAnchor="83.0" AnchorPane.topAnchor="119.0" disable="true"/>
+      <Button disable="true" layoutX="77.0" layoutY="137.0" mnemonicParsing="false" prefHeight="305.0" prefWidth="592.0" AnchorPane.leftAnchor="83.0" AnchorPane.topAnchor="119.0" />
       <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" text="Leave" textFill="#006e8c" />
       <Label id="yourScore" layoutX="362.0" layoutY="2.0" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0" />
       <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0" />
@@ -31,7 +26,7 @@
       <Region id="region" layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="433.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0" />
       <Button fx:id="twicePoints" layoutX="760.0" layoutY="62.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="127.0">
          <graphic>
-            <ImageView fitHeight="63.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="doubleImage" fitHeight="63.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../joker/twicepoints.png" />
                </image>
@@ -39,7 +34,7 @@
          </graphic></Button>
       <Button fx:id="revealWrong" disable="true" layoutX="761.0" layoutY="175.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="227.0">
          <graphic>
-            <ImageView fitHeight="61.0" fitWidth="96.0" preserveRatio="true">
+            <ImageView fx:id="wrongImage" fitHeight="61.0" fitWidth="96.0" preserveRatio="true">
                <image>
                   <Image url="@../../../../joker/revealwronganswer.png" />
                </image>
@@ -47,7 +42,7 @@
          </graphic></Button>
       <Button fx:id="shortenTime" layoutX="762.0" layoutY="321.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="327.0">
          <graphic>
-            <ImageView fitHeight="62.0" fitWidth="72.0" preserveRatio="true">
+            <ImageView fx:id="timeImage" fitHeight="62.0" fitWidth="72.0" preserveRatio="true">
                <image>
                   <Image url="@../../../../joker/shortentime.png" />
                </image>

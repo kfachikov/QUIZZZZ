@@ -172,6 +172,9 @@ public class MultiplayerCtrl {
         initializeImages();
     }
 
+    /**
+     * sets the stylesheets.
+     */
     public void setStylesheets() {
         String CSSPath = "styling/GameStyle.css";
 
@@ -199,6 +202,11 @@ public class MultiplayerCtrl {
 
         serverUtils.addMultiPlayer(gameId, new MultiPlayer(username, 0, true, true, true));
         pollingService.start(gameId);
+
+        insteadQuestionScreenCtrl.setJokers();
+        guessQuestionScreenCtrl.setJokers();
+        moreExpensiveQuestionScreenCtrl.setJokers();
+        consumptionQuestionScreenCtrl.setJokers();
 
         switchState(pollingService.poll());
     }
@@ -324,6 +332,10 @@ public class MultiplayerCtrl {
          */
         lastSubmittedAnswer = "";
 
+        disableUsedRevealJoker();
+        disableUsedDoubleJokers();
+        disableUsedTimeJoker();
+
         AbstractQuestion question = game.getQuestionList().get(roundNumber);
 
         if (question instanceof ConsumptionQuestion) {
@@ -350,6 +362,8 @@ public class MultiplayerCtrl {
     private void showConsumptionQuestion(MultiPlayerState game, ConsumptionQuestion question) {
         currentScreenCtrl = consumptionQuestionScreenCtrl;
         setDefault(game);
+        consumptionQuestionScreenCtrl.setJokersStyle();
+        consumptionQuestionScreenCtrl.setQuestion(question);
         consumptionQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
         consumptionQuestionScreenCtrl.prepareAnswerButton();
         consumptionQuestionScreenCtrl.setAnswers(question);
@@ -369,6 +383,7 @@ public class MultiplayerCtrl {
     private void showGuessQuestion(MultiPlayerState game, GuessQuestion question) {
         currentScreenCtrl = guessQuestionScreenCtrl;
         setDefault(game);
+        guessQuestionScreenCtrl.setJokersStyle();
         guessQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
         guessQuestionScreenCtrl.inputFieldDefault();
         guessQuestionScreenCtrl.setDescription(question);
@@ -387,6 +402,8 @@ public class MultiplayerCtrl {
     private void showInsteadQuestion(MultiPlayerState game, InsteadQuestion question) {
         currentScreenCtrl = insteadQuestionScreenCtrl;
         setDefault(game);
+        insteadQuestionScreenCtrl.setJokersStyle();
+        insteadQuestionScreenCtrl.setQuestion(question);
         insteadQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
         insteadQuestionScreenCtrl.prepareAnswerButton();
         insteadQuestionScreenCtrl.setDescription(question);
@@ -407,6 +424,8 @@ public class MultiplayerCtrl {
     private void showMoreExpensiveQuestion(MultiPlayerState game, MoreExpensiveQuestion question) {
         currentScreenCtrl = moreExpensiveQuestionScreenCtrl;
         setDefault(game);
+        moreExpensiveQuestionScreenCtrl.setJokersStyle();
+        moreExpensiveQuestionScreenCtrl.setQuestion(question);
         moreExpensiveQuestionScreenCtrl.prepareAnswerButton();
         moreExpensiveQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
         moreExpensiveQuestionScreenCtrl.setAnswerDescriptions(question);
@@ -580,6 +599,54 @@ public class MultiplayerCtrl {
         }
     }
 
+
+
+    /**
+     * Disables the used jokers for all controllers.
+     */
+    public void disableUsedDoubleJokers() {
+        if (consumptionQuestionScreenCtrl.getDoublePoints() ||
+                moreExpensiveQuestionScreenCtrl.getDoublePoints() ||
+                guessQuestionScreenCtrl.getDoublePoints() ||
+                insteadQuestionScreenCtrl.getDoublePoints()) {
+            consumptionQuestionScreenCtrl.disableDoublePoint();
+            guessQuestionScreenCtrl.disableDoublePoint();
+            moreExpensiveQuestionScreenCtrl.disableDoublePoint();
+            insteadQuestionScreenCtrl.disableDoublePoint();
+        }
+    }
+
+    /**
+     * Disables the used jokers for all controllers.
+     */
+    public void disableUsedRevealJoker() {
+        if (consumptionQuestionScreenCtrl.getReveal() ||
+                moreExpensiveQuestionScreenCtrl.getReveal() ||
+                guessQuestionScreenCtrl.getReveal() ||
+                insteadQuestionScreenCtrl.getReveal()) {
+            consumptionQuestionScreenCtrl.disableReveal();
+            guessQuestionScreenCtrl.disableReveal();
+            moreExpensiveQuestionScreenCtrl.disableReveal();
+            insteadQuestionScreenCtrl.disableReveal();
+        }
+    }
+
+    /**
+     * Disables the used jokers for all controllers.
+     */
+    public void disableUsedTimeJoker() {
+        if (consumptionQuestionScreenCtrl.getHalfTime() ||
+                insteadQuestionScreenCtrl.getHalfTime() ||
+                guessQuestionScreenCtrl.getHalfTime() ||
+                moreExpensiveQuestionScreenCtrl.getHalfTime()) {
+            consumptionQuestionScreenCtrl.disableShortenTime();
+            guessQuestionScreenCtrl.disableShortenTime();
+            moreExpensiveQuestionScreenCtrl.disableShortenTime();
+            insteadQuestionScreenCtrl.disableShortenTime();
+        }
+    }
+
+
     /**
      * Initialized the actions happening once an emoji button is clicked.
      *
@@ -671,7 +738,7 @@ public class MultiplayerCtrl {
 
             currentReactionLabelIndex = currentReactionLabelIndex + 2;
             currentReactionImageIndex = currentReactionImageIndex + 2;
-            if (currentReactionLabelIndex > 2 * reactionsNumber) {
+            if (currentReactionLabelIndex >= 2 * reactionsNumber) {
                 break;
             }
         }
@@ -680,7 +747,7 @@ public class MultiplayerCtrl {
         In case the total number of reactions is less than 3 - the size of our "chat",
         the later "lines", consisting of username and emoji submitted are made not visible.
          */
-        for (int i = currentReactionLabelIndex; i <= 2 * reactionsNumber; i++) {
+        for (int i = currentReactionLabelIndex; i < 2 * reactionsNumber; i++) {
             Node currentNode = reactionParts.get(i);
             currentNode.setVisible(false);
         }
