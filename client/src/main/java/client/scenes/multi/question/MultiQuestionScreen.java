@@ -209,4 +209,14 @@ public abstract class MultiQuestionScreen {
         shortenTime.setDisable(true);
     }
 
+    /**
+     * Sets the jokers style.
+     */
+    public void setJokersStyle() {
+
+        twicePoints.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        revealWrong.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        shortenTime.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+
+    }
 }

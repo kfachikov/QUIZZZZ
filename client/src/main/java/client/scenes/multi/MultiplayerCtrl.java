@@ -362,6 +362,7 @@ public class MultiplayerCtrl {
     private void showConsumptionQuestion(MultiPlayerState game, ConsumptionQuestion question) {
         currentScreenCtrl = consumptionQuestionScreenCtrl;
         setDefault(game);
+        consumptionQuestionScreenCtrl.setJokersStyle();
         consumptionQuestionScreenCtrl.setQuestion(question);
         consumptionQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
         consumptionQuestionScreenCtrl.prepareAnswerButton();
@@ -382,6 +383,7 @@ public class MultiplayerCtrl {
     private void showGuessQuestion(MultiPlayerState game, GuessQuestion question) {
         currentScreenCtrl = guessQuestionScreenCtrl;
         setDefault(game);
+        guessQuestionScreenCtrl.setJokersStyle();
         guessQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
         guessQuestionScreenCtrl.inputFieldDefault();
         guessQuestionScreenCtrl.setDescription(question);
@@ -400,6 +402,7 @@ public class MultiplayerCtrl {
     private void showInsteadQuestion(MultiPlayerState game, InsteadQuestion question) {
         currentScreenCtrl = insteadQuestionScreenCtrl;
         setDefault(game);
+        insteadQuestionScreenCtrl.setJokersStyle();
         insteadQuestionScreenCtrl.setQuestion(question);
         insteadQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
         insteadQuestionScreenCtrl.prepareAnswerButton();
@@ -421,6 +424,7 @@ public class MultiplayerCtrl {
     private void showMoreExpensiveQuestion(MultiPlayerState game, MoreExpensiveQuestion question) {
         currentScreenCtrl = moreExpensiveQuestionScreenCtrl;
         setDefault(game);
+        moreExpensiveQuestionScreenCtrl.setJokersStyle();
         moreExpensiveQuestionScreenCtrl.setQuestion(question);
         moreExpensiveQuestionScreenCtrl.prepareAnswerButton();
         moreExpensiveQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
