@@ -143,10 +143,12 @@ public class MainCtrl {
         this.congratulationsCtrl = congratulations.getKey();
         this.congratulations = new Scene(congratulations.getValue());
 
+        setStylesheets();
         resetDefaultOnCloseRequest();
 
         showHome();
         primaryStage.show();
+        primaryStage.setResizable(false);
     }
 
     /**
@@ -179,6 +181,24 @@ public class MainCtrl {
                 event.consume();
             }
         });
+    }
+
+    /**
+     * sets the stylesheets.
+     */
+    public void setStylesheets() {
+        String CSSPath = "styling/GameStyle.css";
+
+        home.getStylesheets().add(CSSPath);
+        prep.getStylesheets().add(CSSPath);
+        help.getStylesheets().add(CSSPath);
+        queue.getStylesheets().add(CSSPath);
+        administrator.getStylesheets().add(CSSPath);
+        moreExpensive.getStylesheets().add(CSSPath);
+        guess.getStylesheets().add(CSSPath);
+        consumption.getStylesheets().add(CSSPath);
+        instead.getStylesheets().add(CSSPath);
+        congratulations.getStylesheets().add(CSSPath);
     }
 
     /**

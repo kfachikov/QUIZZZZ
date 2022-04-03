@@ -6,6 +6,7 @@ import commons.multi.MultiPlayer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 
@@ -20,15 +21,13 @@ public class LeaderboardScreenCtrl {
     private MultiplayerCtrl multiCtrl;
 
     @FXML
-    private Button angry;
+    private Button emojiButton1;
     @FXML
-    private Button crying;
+    private Button emojiButton2;
     @FXML
-    private Button laughing;
+    private Button emojiButton3;
     @FXML
-    private Button surprised;
-    @FXML
-    private List<Button> emojis;
+    private Button emojiButton4;
 
     @FXML
     private Text title;
@@ -97,6 +96,9 @@ public class LeaderboardScreenCtrl {
     @FXML
     private List<Label> userLabels;
 
+    @FXML
+    private GridPane reactions;
+
     /**
      * initializes IntermediateLeaderboardScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
@@ -116,12 +118,6 @@ public class LeaderboardScreenCtrl {
      */
     @FXML
     protected void initialize() {
-        emojis = new ArrayList<Button>();
-        emojis.add(angry);
-        emojis.add(crying);
-        emojis.add(laughing);
-        emojis.add(surprised);
-
         usernameLabels = new ArrayList<>();
         fillList(usernameLabels, username1, username2, username3, username4, username5, username6);
 
@@ -135,6 +131,8 @@ public class LeaderboardScreenCtrl {
         userLabels.add(userUsername);
         userLabels.add(userScore);
         userLabels.add(userPosition);
+
+        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
     }
 
     /**
@@ -146,7 +144,7 @@ public class LeaderboardScreenCtrl {
      * <p>
      * Sets the leave / returnHome button depending on the usage of the scene
      * <p>
-     * Makes all username & score labels invisible, so that they can be set visible when filled
+     * Makes all username and score labels invisible, so that they can be set visible when filled
      * <p>
      * Calls fillLeaderboard(), which populates leaderboard + makes used labels visible.
      *
@@ -156,7 +154,7 @@ public class LeaderboardScreenCtrl {
     public void setScene(List<MultiPlayer> players, String gameState) {
         if (("LEADERBOARD").equals(gameState)) {
             title.setText("INTERMEDIATE LEADERBOARD");
-            emojiIntermediateLayout();
+            //emojiIntermediateLayout();
 
             //make top-left leave button visible + returnHome invisible
             playAgain.setVisible(false);
@@ -166,7 +164,7 @@ public class LeaderboardScreenCtrl {
         }
         if (("GAME_OVER").equals(gameState)) {
             title.setText("GAME OVER!");
-            emojiGameOverLayout();
+            //emojiGameOverLayout();
 
             //returnHome visible + make top-left leave button invisible
             playAgain.setVisible(true);
@@ -273,28 +271,28 @@ public class LeaderboardScreenCtrl {
      * Sets the emoji layout to be displayed in intermediate leaderboard screen.
      */
     public void emojiIntermediateLayout() {
-        laughing.setLayoutX(359);
-        laughing.setLayoutY(80);
-        crying.setLayoutX(474);
-        crying.setLayoutY(80);
-        surprised.setLayoutX(359);
-        surprised.setLayoutY(250);
-        angry.setLayoutX(474);
-        angry.setLayoutY(250);
+        emojiButton3.setLayoutX(359);
+        emojiButton3.setLayoutY(80);
+        emojiButton2.setLayoutX(474);
+        emojiButton2.setLayoutY(80);
+        emojiButton4.setLayoutX(359);
+        emojiButton4.setLayoutY(250);
+        emojiButton1.setLayoutX(474);
+        emojiButton1.setLayoutY(250);
     }
 
     /**
      * Sets the emoji layout to be displayed in game over screen.
      */
     public void emojiGameOverLayout() {
-        laughing.setLayoutX(359);
-        laughing.setLayoutY(61);
-        crying.setLayoutX(474);
-        crying.setLayoutY(61);
-        surprised.setLayoutX(359);
-        surprised.setLayoutY(175);
-        angry.setLayoutX(474);
-        angry.setLayoutY(175);
+        emojiButton3.setLayoutX(359);
+        emojiButton3.setLayoutY(61);
+        emojiButton2.setLayoutX(474);
+        emojiButton2.setLayoutY(61);
+        emojiButton4.setLayoutX(359);
+        emojiButton4.setLayoutY(175);
+        emojiButton1.setLayoutX(474);
+        emojiButton1.setLayoutY(175);
     }
 
     /**
@@ -338,41 +336,6 @@ public class LeaderboardScreenCtrl {
     }
 
     /**
-     * activates when a player presses angry emoji.
-     */
-    public void angryEmoji() {
-        multiCtrl.angryEmoji();
-    }
-
-    /**
-     * activates when a player presses crying emoji.
-     */
-    public void cryingEmoji() {
-        multiCtrl.cryingEmoji();
-    }
-
-    /**
-     * activates when a player presses laughing emoji.
-     */
-    public void laughingEmoji() {
-        multiCtrl.laughingEmoji();
-    }
-
-    /**
-     * activates when a player presses surprised emoji.
-     */
-    public void surprisedEmoji() {
-        multiCtrl.surprisedEmoji();
-    }
-
-    /**
-     * @return List of emoji buttons.
-     */
-    public List<Button> getEmojis() {
-        return emojis;
-    }
-
-    /**
      * @return List of username labels.
      */
     public List<Label> getUsernameLabels() {
@@ -400,4 +363,12 @@ public class LeaderboardScreenCtrl {
         return userLabels;
     }
 
+    /**
+     * Getter for the reaction section on the leaderboard screen.
+     *
+     * @return  GridPane reference to the particular instance on the leaderboard scene.
+     */
+    public GridPane getReactions() {
+        return reactions;
+    }
 }

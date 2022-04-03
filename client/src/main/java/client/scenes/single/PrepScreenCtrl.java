@@ -18,11 +18,6 @@ import java.util.List;
  */
 public class PrepScreenCtrl {
 
-    /**
-     * Initialize class constant for the number of player's usernames visible on screen.
-     */
-    private static final int PLAYERSCOUNT = 20;
-
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
@@ -99,11 +94,12 @@ public class PrepScreenCtrl {
         List<Node> presentPlayers = bubbles.getChildren();
 
         for (SinglePlayerLeaderboardScore singleplayer : leaderboardScores) {
+            int j = currentNodeIndex + 1;
             Node currentNode = presentPlayers.get(currentNodeIndex);
-            ((Label) currentNode).setText(singleplayer.getUsername() + " " + singleplayer.getScore());
+            ((Label) currentNode).setText("(" + j + ") " + singleplayer.getUsername() + " " + singleplayer.getScore());
             currentNode.setVisible(true);
             currentNodeIndex++;
-            if (currentNodeIndex >= PLAYERSCOUNT) {
+            if (currentNodeIndex > 19) {
                 break;
             }
         }
