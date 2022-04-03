@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.utils.MultiPlayerStateUtils;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 /**
  * Controller responsible for handling the client requests regarding any multiplayer game.
@@ -119,5 +122,47 @@ public class MultiplayerStateController {
             return ResponseEntity.ok(response);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    /**
+     * POST mapping for time joker.
+     *
+     * @param id     Id of the multiplayer game.
+     * @param player Multiplayer that is using the joker.
+     */
+    @PostMapping("/timeJoker/{id}")
+    public void postTimeJoker(@PathVariable("id") long id, @RequestBody MultiPlayer player) {
+        MultiPlayerState game = multiUtils.getGameState(id);
+        MultiPlayer playerNew = game.getPlayerByUsername(player.getUsername());
+        playerNew.setTimeJoker(false);
+        game.setPlayerUsingTimeJoker(playerNew);
+        resetJoker(500, id);
+    }
+
+    /**
+     * GET mapping for time joker.
+     *
+     * @param id Id of the multiplayer game.
+     * @return multiplayer who used the joker.
+     */
+    @GetMapping("/timeJoker/{id}")
+    public ResponseEntity<MultiPlayer> getTimeJoker(@PathVariable("id") long id) {
+        return ResponseEntity.ok(multiUtils.getGameState(id).getPlayerUsingTimeJoker());
+    }
+
+    /**
+     * Method that resets the player who sent the joker.
+     *
+     * @param delay the interval for resetting the joker.
+     * @param id id of the multiplayer game.
+     */
+    private void resetJoker(long delay, long id) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                multiUtils.getGameState(id).setPlayerUsingTimeJoker(null);
+            }
+        }, delay);
     }
 }

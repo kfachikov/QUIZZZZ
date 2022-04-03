@@ -83,6 +83,7 @@ public class MultiplayerCtrl {
 
     private long gameId;
     private String username;
+    private boolean doublePoints;
 
     private Image surprised;
     private Image laughing;
@@ -468,8 +469,20 @@ public class MultiplayerCtrl {
                 new Date().getTime(),
                 (int) getRoundNumber(serverUtils.getMultiGameState(gameId)),
                 username,
-                lastSubmittedAnswer
+                lastSubmittedAnswer,
+                doublePoints
         ));
+
+        setDoublePoints(false);
+    }
+
+    /**
+     * Setter for the doublePoints joker.
+     *
+     * @param doublePoints the boolean value for the joker regarding the points.
+     */
+    public void setDoublePoints(boolean doublePoints) {
+        this.doublePoints = doublePoints;
     }
 
     /**

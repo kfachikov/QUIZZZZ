@@ -287,7 +287,8 @@ public class MultiPlayerStateUtils {
                             Long.MAX_VALUE,
                             game.getRoundNumber(),
                             game.getPlayers().get(i).getUsername(),
-                            "wrong answer"
+                            "wrong answer",
+                            false
                     );
                 }
                 /*
@@ -316,7 +317,7 @@ public class MultiPlayerStateUtils {
         /*
         The following copy of the `responses` list is required, as the list passed as
         argument is immutable - cannot be changed, and thus, cannot be sorted.
-         */
+        */
         List<GameResponse> sortedList = new ArrayList<>(responses);
         Collections.sort(sortedList, ((o1, o2) -> (int) (o1.getTimeSubmitted() - o2.getTimeSubmitted())));
         GameResponse playerGameResponse = sortedList.get(0);
