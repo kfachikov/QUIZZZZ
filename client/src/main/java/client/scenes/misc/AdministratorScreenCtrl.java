@@ -121,7 +121,7 @@ public class AdministratorScreenCtrl {
         });
         activityLoaderService.exceptionProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue instanceof BadRequestException) {
-                description.setText("Failed to import: activities.json is malformed.");
+                description.setText("Failed to import: " + selectedFile.getName() + " is malformed.");
             }
             activityLoaderService.cancel();
             importProgressBar.setVisible(false);
