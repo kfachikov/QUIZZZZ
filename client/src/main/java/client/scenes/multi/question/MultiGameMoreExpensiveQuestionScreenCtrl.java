@@ -159,7 +159,6 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
             twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
 
             setDoublePoints(true);
-            //twicePoints.setDisable(true);
         });
 
         revealWrong.setOnAction(e -> {
@@ -174,16 +173,12 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
                 thirdAnswer.setDisable(true);
             }
 
-            //revealWrong.setDisable(true);
-
         });
 
         shortenTime.setOnAction(e -> {
 
             shortenTime.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            //sendJoker();
             setHalfTime(true);
-            //shortenTime.setDisable(true);
         });
 
         multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
