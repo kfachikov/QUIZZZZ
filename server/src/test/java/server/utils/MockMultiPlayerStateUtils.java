@@ -29,7 +29,8 @@ public class MockMultiPlayerStateUtils extends MultiPlayerStateUtils {
      */
     public MockMultiPlayerStateUtils() {
         super(new MockGenerateQuestionUtils(new MockActivityRepository(), new Random()),
-                new QueueUtils(new MockCurrentTimeUtils()), new MockCurrentTimeUtils());
+                new QueueUtils(new MockCurrentTimeUtils()), new MockCurrentTimeUtils(),
+                new ScoreCountingUtils());
     }
 
     @Override
@@ -189,7 +190,6 @@ public class MockMultiPlayerStateUtils extends MultiPlayerStateUtils {
      *
      * @param game Game whose players' scores is updated.
      */
-    @Override
     public void updateScores(MultiPlayerState game) {
         calledMethods.add("updateScores");
         params.add(game);

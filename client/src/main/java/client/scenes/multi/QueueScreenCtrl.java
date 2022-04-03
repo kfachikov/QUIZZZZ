@@ -107,6 +107,8 @@ public class QueueScreenCtrl {
         startButton.setDisable(true);
         startLabel.setVisible(true);
         gameStarting.set(true);
+        mainCtrl.getPrimaryStage().setTitle("Quizzz: Multiplayer Game");
+
     }
 
     /**

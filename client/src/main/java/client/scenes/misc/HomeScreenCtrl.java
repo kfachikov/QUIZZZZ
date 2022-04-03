@@ -6,6 +6,7 @@ import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -16,6 +17,9 @@ public class HomeScreenCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private final HomeUtils homeUtils;
+
+    @FXML
+    private Text count;
 
     @FXML
     private TextField usernameField;
@@ -46,6 +50,7 @@ public class HomeScreenCtrl {
      * so functionality can be extracted there.
      */
     public void initialize() {
+        serverURL.setText("http://localhost:8080");
         homeUtils.setHomeUtilsAttributes(usernameField, serverURL, errorMessage);
     }
 
@@ -82,6 +87,11 @@ public class HomeScreenCtrl {
         homeUtils.enterAdministrationPanel();
     }
 
+    /**
+     * Getter for the URL field on the home screen.
+     *
+     * @return  String value of the URL present in the `serverURL` TextField.
+     */
     public String getUrl() {
         return serverURL.getText();
     }

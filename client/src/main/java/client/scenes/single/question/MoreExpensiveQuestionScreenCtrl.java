@@ -1,13 +1,14 @@
-package client.scenes.single;
+package client.scenes.single.question;
 
 import client.scenes.misc.MainCtrl;
+import client.scenes.single.QuestionScreen;
 import client.services.SingleplayerGameStatePollingService;
 import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.misc.GameResponse;
-import commons.question.InsteadQuestion;
+import commons.question.MoreExpensiveQuestion;
 import commons.single.SinglePlayerState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,15 +22,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
-import java.util.Date;
-
-
 /**
- *  Controller for the InsteadQuestionScreen.
+ * Controller for the comparison ("What is more expensive?") question scene.
  */
-public class InsteadQuestionScreenCtrl extends QuestionScreen {
+public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
 
-    private InsteadQuestion question;
+    private MoreExpensiveQuestion question;
 
     @FXML
     private AnchorPane window;
@@ -47,9 +45,6 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     private Button thirdAnswer;
 
     @FXML
-    private ImageView image;
-
-    @FXML
     private ProgressBar time;
 
     @FXML
@@ -59,7 +54,23 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     private Label questionTitle;
 
     @FXML
-    private Text description;
+    private ImageView image1;
+
+    @FXML
+    private ImageView image2;
+
+    @FXML
+    private ImageView image3;
+
+    @FXML
+    private Text description1;
+
+    @FXML
+    private Text description2;
+
+    @FXML
+    private Text description3;
+
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -71,10 +82,10 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      * @param singlePlayerUtils  is the injected singleplayer utils for managing logic
      */
     @Inject
-    public InsteadQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
-                                     SingleplayerGameStatePollingService pollingService,
-                                     ActivityImageUtils activityImageUtils,
-                                     SinglePlayerUtils singlePlayerUtils) {
+    public MoreExpensiveQuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl,
+                                           SingleplayerGameStatePollingService pollingService,
+                                           ActivityImageUtils activityImageUtils,
+                                           SinglePlayerUtils singlePlayerUtils) {
         super(server, mainCtrl, pollingService, activityImageUtils, singlePlayerUtils);
     }
 
@@ -85,36 +96,92 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      * In addition, proper method is binded to the buttons, so that when clicked, they submit the answer chosen to the server.
      */
     public void initialize() {
+
         firstAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                submitAnswer(firstAnswer.getText());
+                /*
+                The change in the following line was made so that the button can lack text.
+                Otherwise, it could overlap with the image, which would disrupt the client.
+                 */
+                submitAnswer(description1.getText());
                 firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
                 thirdAnswer.setDisable(true);
             }
         });
+
+        image1.setOnMouseClicked(e -> {
+            submitAnswer(description1.getText());
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
+        description1.setOnMouseClicked(e -> {
+            submitAnswer(description1.getText());
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
         secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                submitAnswer(secondAnswer.getText());
+                submitAnswer(description2.getText());
                 secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
                 thirdAnswer.setDisable(true);
             }
         });
+
+        image2.setOnMouseClicked(e -> {
+            submitAnswer(description2.getText());
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
+        description2.setOnMouseClicked(e -> {
+            submitAnswer(description2.getText());
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
         thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                submitAnswer(thirdAnswer.getText());
+                submitAnswer(description3.getText());
                 thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
                 firstAnswer.setDisable(true);
                 secondAnswer.setDisable(true);
                 thirdAnswer.setDisable(true);
             }
         });
+
+        image3.setOnMouseClicked(e -> {
+            submitAnswer(description3.getText());
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
+        description3.setOnMouseClicked(e -> {
+            submitAnswer(description3.getText());
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            firstAnswer.setDisable(true);
+            secondAnswer.setDisable(true);
+            thirdAnswer.setDisable(true);
+        });
+
     }
 
     /**
@@ -125,12 +192,14 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
         server.postAnswer(new GameResponse(singlePlayerState.getId(),
-                new Date().getTime(),
+                time.getProgress(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
-                chosenAnswer
+                chosenAnswer,
+                false
         ));
     }
+
 
     /**
      * Sets the current score.
@@ -141,16 +210,6 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
         currentScore.setText(String.valueOf(score));
     }
 
-
-    /**
-     * Sets the current score.
-     *
-     * @param score is the current score of the player
-     */
-    public void setScore(int score) {
-        currentScore.setText(String.valueOf(score));
-    }
-
     /**
      * Sets the question to the chosen questionText.
      */
@@ -158,42 +217,46 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
         questionTitle.setText(question.toString());
     }
 
-    /**
-     * Getter for the question instance.
-     *
-     * @return this question.
-     */
-    public InsteadQuestion getQuestion() {
-        return question;
-    }
 
     /**
      * Sets the question and the corresponding fields with proper information.
+     * Sets the images, answers and question title.
      *
      * @param question Question to be visualized on the particular scene.
      */
-    public void setQuestion(InsteadQuestion question) {
+    public void setQuestion(MoreExpensiveQuestion question) {
 
-        image.setImage(getActivityImage(question.getActivity()));
+        image1.setImage(getActivityImage(question.getAnswerChoices().get(0)));
+        image2.setImage(getActivityImage(question.getAnswerChoices().get(1)));
+        image3.setImage(getActivityImage(question.getAnswerChoices().get(2)));
 
         firstAnswer.setDisable(false);
         secondAnswer.setDisable(false);
         thirdAnswer.setDisable(false);
 
         //setting the button colors back to default(unselected)
-        firstAnswer.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
-        secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
-        thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
+        firstAnswer.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("b80000")).toString().substring(2));
+        thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("b80000")).toString().substring(2));
+
 
         this.question = question;
         setQuestionPrompt();
-        /*
-        The following setup was made purely for testing purposes.
-        Should be optimized - extracted as functionality (eventually).
-         */
-        firstAnswer.setText(question.getAnswerChoices().get(0).getTitle());
-        secondAnswer.setText(question.getAnswerChoices().get(1).getTitle());
-        thirdAnswer.setText(question.getAnswerChoices().get(2).getTitle());
+
+        description1.setText(question.getAnswerChoices().get(0).getTitle());
+        description2.setText(question.getAnswerChoices().get(1).getTitle());
+        description3.setText(question.getAnswerChoices().get(2).getTitle());
+
+    }
+
+
+    /**
+     * Getter for the question instance.
+     *
+     * @return  this question.
+     */
+    public MoreExpensiveQuestion getQuestion() {
+        return question;
     }
 
     /**

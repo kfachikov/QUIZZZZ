@@ -21,6 +21,7 @@ import commons.misc.GameResponse;
 import commons.misc.GameState;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
+import commons.multi.Reaction;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -29,7 +30,6 @@ import commons.single.SinglePlayerState;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 import java.util.List;
 
@@ -119,7 +119,7 @@ public class ServerUtils {
      * @param id Id of the multiplayer game.
      * @return Multiplayer game state for that id.
      */
-    public MultiPlayerState getMultiGameState(long id) {
+    public static MultiPlayerState getMultiGameState(long id) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/multi/" + id)
@@ -131,16 +131,31 @@ public class ServerUtils {
     /**
      * POST request to /api/solo/answer, to "submit" the answer chosen by the user.
      *
-     * @param response Response object to be posted
+     * @param response GameResponse object to be posted
      * @return The response object "posted"
      */
-    public Response postAnswer(GameResponse response) {
+    public GameResponse postAnswer(GameResponse response) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("api/solo/answer")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .post(Entity.entity(response, APPLICATION_JSON), Response.class);
+                .post(Entity.entity(response, APPLICATION_JSON), GameResponse.class);
+    }
+
+    /**
+     * POST request to /api/multi/answer, to "submit" the answer chosen by the user.
+     *
+     * @param response GameResponse object to be posted
+     * @return The response object "posted"
+     */
+    public GameResponse postAnswerMultiplayer(GameResponse response) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("api/multi/answer")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(response, APPLICATION_JSON), GameResponse.class);
     }
 
     /**
@@ -170,6 +185,22 @@ public class ServerUtils {
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(null, QueueState.class);
+    }
+
+    /**
+     * POST request to api/multi/reaction to submit an emoji a client clicked.
+     *
+     * @param id        id of current multiplayer game
+     * @param reaction  Reaction instance to be submitted
+     * @return          Reaction that was added to the particular game.
+     */
+    public Reaction addReaction(long id, Reaction reaction) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/reaction/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(reaction, APPLICATION_JSON), Reaction.class);
     }
 
     /**
@@ -262,6 +293,80 @@ public class ServerUtils {
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(message, APPLICATION_JSON), ActivityImageMessage.class);
+    }
+
+    /**
+     * @return it returns a list SinglePlayerLeaderboardScore.
+     */
+    public List<SinglePlayerLeaderboardScore> getLeaderboardEntry() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/leaderboard/players")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<SinglePlayerLeaderboardScore>>() {
+                });
+    }
+
+    /**
+     * @return it returns a client SinglePlayerLeaderboardScore.
+     *
+     * @param leaderboardEntry is a SinglePlayerLeaderboardScore entry.
+     */
+    public SinglePlayerLeaderboardScore postLeaderboardEntry(SinglePlayerLeaderboardScore leaderboardEntry) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(currentServer)
+                .path("/api/leaderboard/players")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(leaderboardEntry, APPLICATION_JSON), SinglePlayerLeaderboardScore.class);
+    }
+    
+    /**
+     * Checks if the server exists by sending a get request.
+     *
+     * @return it returns a boolean value
+     */
+    public Boolean checkServer() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/solo")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {
+                });
+    }
+
+    /**
+     * POST request to /api/multi/timeJoker/{id}, to update the multiplayer.
+     *
+     * @param player the player who used the joker.
+     * @param id     id of the multiplayer game.
+     */
+    public void postTimeJokerPlayer(MultiPlayer player, long id) {
+        ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/timeJoker/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(player, APPLICATION_JSON));
+    }
+
+    /**
+     * GET request to /api/multi/timeJoker/{id}
+     * <p>
+     *  Used to receive the player who clicked the time joker button.
+     *
+     * @param id id of the multiplayer game.
+     * @return   the player who used the joker.
+     */
+    public MultiPlayer getTimeJokerPlayer(long id) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/timeJoker/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(MultiPlayer.class);
     }
 
 }

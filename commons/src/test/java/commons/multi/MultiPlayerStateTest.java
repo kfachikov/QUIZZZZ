@@ -16,10 +16,10 @@ class MultiPlayerStateTest {
 
     private List<AbstractQuestion> questions;
 
-    private GameResponse gameResponse1;
-    private GameResponse gameResponse2;
-    private GameResponse gameResponse3;
-    private GameResponse gameResponse4;
+    private GameResponse response1;
+    private GameResponse response2;
+    private GameResponse response3;
+    private GameResponse response4;
 
     private List<GameResponse> answers;
     private List<GameResponse> answers2;
@@ -30,7 +30,7 @@ class MultiPlayerStateTest {
     private MultiPlayer player2;
     private List<MultiPlayer> players;
 
-    private Reaction reaction;
+    private List<Reaction> reactionList;
 
     private MultiPlayerState game;
     private MultiPlayerState game2;
@@ -48,13 +48,13 @@ class MultiPlayerStateTest {
                 )
         );
 
-        gameResponse1 = new GameResponse(37, 5287, 2, "Kate", "200Wh");
-        gameResponse2 = new GameResponse(37, 5300, 2, "Lu", "500Wh");
-        gameResponse3 = new GameResponse(37, 5386, 2, "Kate", "500Wh");
-        gameResponse4 = new GameResponse(37, 5360, 2, "Lu", "200Wh");
+        response1 = new GameResponse(37, 5287, 2, "Kate", "200Wh", true);
+        response2 = new GameResponse(37, 5300, 2, "Lu", "500Wh", true);
+        response3 = new GameResponse(37, 5386, 2, "Kate", "500Wh", true);
+        response4 = new GameResponse(37, 5360, 2, "Lu", "200Wh", true);
 
-        answers = Arrays.asList(gameResponse1, gameResponse2);
-        answers2 = Arrays.asList(gameResponse3, gameResponse4);
+        answers = Arrays.asList(response1, response2);
+        answers2 = Arrays.asList(response3, response4);
 
         activities = Arrays.asList(
                 new Activity("1", "title1", "source1", "image1", 250L),
@@ -67,11 +67,14 @@ class MultiPlayerStateTest {
 
         players = Arrays.asList(player1, player2);
 
-        reaction = new Reaction(Arrays.asList("sad", "tired"));
+        reactionList = Arrays.asList(
+                new Reaction("Kaloyan", "laughing"),
+                new Reaction("Kayra", "angry")
+        );
 
-        game = new MultiPlayerState(37, 5500, 2, questions, answers, "question", players, reaction);
-        game2 = new MultiPlayerState(37, 5500, 2, questions, answers, "question", players, reaction);
-        game3 = new MultiPlayerState(37, 5500, 2, questions, answers2, "question", players, reaction);
+        game = new MultiPlayerState(37, 5500, 2, questions, answers, "question", players, reactionList);
+        game2 = new MultiPlayerState(37, 5500, 2, questions, answers, "question", players, reactionList);
+        game3 = new MultiPlayerState(37, 5500, 2, questions, answers2, "question", players, reactionList);
     }
 
     @Test
@@ -111,7 +114,7 @@ class MultiPlayerStateTest {
 
     @Test
     public void testGetReaction() {
-        assertEquals(reaction, game.getReaction());
+        assertEquals(reactionList, game.getReactionList());
     }
 
     @Test
@@ -141,7 +144,7 @@ class MultiPlayerStateTest {
 
     @Test
     public void testSetSubmittedAnswers() {
-        List<GameResponse> newAnswers = Arrays.asList(gameResponse3, gameResponse4);
+        List<GameResponse> newAnswers = Arrays.asList(response3, response4);
         game.setSubmittedAnswers(newAnswers);
 
         assertEquals(newAnswers, game.getSubmittedAnswers());

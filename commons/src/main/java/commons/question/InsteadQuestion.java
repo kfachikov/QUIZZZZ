@@ -37,7 +37,7 @@ public class InsteadQuestion extends AbstractQuestion {
     public void setAnswerChoices(List<Activity> activities) {
         this.answerChoices = new ArrayList<>();
         List<Activity> correct = activities.stream()
-                .filter(x -> x.getConsumption() < activity.getConsumption())
+                .filter(x -> x.getConsumption() <= activity.getConsumption())
                 .collect(Collectors.toList());
         Collections.shuffle(correct);
         List<Activity> incorrect = activities.stream()
@@ -50,7 +50,7 @@ public class InsteadQuestion extends AbstractQuestion {
             answerChoices.add(incorrect.get(2));
         } else {
             answerChoices.add(correct.get(0));
-            correctAnswer = activities.get(0).getTitle();
+            correctAnswer = answerChoices.get(0).getTitle();
             if (incorrect.isEmpty()) {
                 answerChoices.add(correct.get(1));
                 answerChoices.add(correct.get(2));
@@ -62,7 +62,6 @@ public class InsteadQuestion extends AbstractQuestion {
                 answerChoices.add(incorrect.get(1));
             }
         }
-
         Collections.shuffle(answerChoices);
     }
 
