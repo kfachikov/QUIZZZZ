@@ -292,6 +292,7 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
     public void setQuestion(MoreExpensiveQuestion question) {
         this.question = question;
     }
+
     public void startJokerPolling() {
         Timer pollingService = new Timer();
         pollingService.scheduleAtFixedRate(new TimerTask() {

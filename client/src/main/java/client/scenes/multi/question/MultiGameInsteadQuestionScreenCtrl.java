@@ -294,6 +294,7 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
     public void setQuestion(InsteadQuestion question) {
         this.question = question;
     }
+
     public void startJokerPolling() {
         Timer pollingService = new Timer();
         pollingService.scheduleAtFixedRate(new TimerTask() {
