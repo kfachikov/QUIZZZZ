@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import server.database.ActivityImageRepository;
 import server.database.ActivityRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -180,22 +181,23 @@ public class ActivityController {
      */
     @PostMapping("/addToRepo")
     public ResponseEntity<List<Activity>> addActivities(@RequestBody List<Activity> activities) {
-        int savedActivityCount = 0;
-        for (int i = 0; i < activities.size(); i++) {
-            if (!isNullOrEmpty(activities.get(i).getId()) &&
-                    !isNullOrEmpty(activities.get(i).getTitle()) &&
-                    !isNullOrEmpty(activities.get(i).getSource()) &&
-                    !isNullOrEmpty(activities.get(i).getImage()) &&
-                    activities.get(i).getConsumption() > 0 &&
-                    activities.get(i).getSource().length() < 240) {
-                repo.save(activities.get(i));
-                savedActivityCount++;
+        ArrayList<Activity> savedActivities = new ArrayList<>();
+        for (Activity activity : activities) {
+            if (!isNullOrEmpty(activity.getId()) &&
+                    !isNullOrEmpty(activity.getTitle()) &&
+                    !isNullOrEmpty(activity.getSource()) &&
+                    !isNullOrEmpty(activity.getImage()) &&
+                    activity.getConsumption() > 0 &&
+                    activity.getSource().length() < 240 &&
+                    activity.getConsumption() < (long) Integer.MAX_VALUE
+            ) {
+                savedActivities.add(repo.save(activity));
             }
         }
-        if (savedActivityCount == 0) {
+        if (savedActivities.size() == 0) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(repo.findAll());
+        return ResponseEntity.ok(savedActivities);
     }
 
     /**

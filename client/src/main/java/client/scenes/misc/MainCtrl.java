@@ -278,6 +278,8 @@ public class MainCtrl {
      * sets the title and the scene as Administrator Panel screen.
      */
     public void showAdministrator() {
+        administratorCtrl.setup();
+        
         primaryStage.setTitle("Quizzz: Administrator Panel");
         primaryStage.setScene(administrator);
         resetDefaultOnCloseRequest();
