@@ -6,6 +6,12 @@ import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Inject;
 import commons.single.SinglePlayer;
+import commons.single.SinglePlayerLeaderboardScore;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
+import java.util.List;
 
 /**
  *
@@ -22,6 +28,9 @@ public class PrepScreenCtrl {
     private SinglePlayer singlePlayer;
 
     private SinglePlayerUtils singlePlayerUtils;
+
+    @FXML
+    private FlowPane bubbles;
 
     /**
      * initializes PrepScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -73,5 +82,26 @@ public class PrepScreenCtrl {
      */
     public void setSinglePlayer(SinglePlayer singlePlayer) {
         this.singlePlayer = singlePlayer;
+    }
+
+    /**
+     * loads up the leaderboard on the prep screen.
+     */
+    public void setUp() {
+        List<SinglePlayerLeaderboardScore> leaderboardScores = server.getLeaderboardEntry();
+
+        int currentNodeIndex = 0;
+        List<Node> presentPlayers = bubbles.getChildren();
+
+        for (SinglePlayerLeaderboardScore singleplayer : leaderboardScores) {
+            int j = currentNodeIndex + 1;
+            Node currentNode = presentPlayers.get(currentNodeIndex);
+            ((Label) currentNode).setText("(" + j + ") " + singleplayer.getUsername() + " " + singleplayer.getScore());
+            currentNode.setVisible(true);
+            currentNodeIndex++;
+            if (currentNodeIndex > 19) {
+                break;
+            }
+        }
     }
 }

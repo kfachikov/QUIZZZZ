@@ -20,7 +20,7 @@ class AdministratorScreenCtrlTest {
         mainCtrl = new MockMainCtrl();
 
         // TODO: create mock class for ActivityImageUtils
-        administratorScreenCtrl = new AdministratorScreenCtrl(server, mainCtrl, null);
+        administratorScreenCtrl = new AdministratorScreenCtrl(server, mainCtrl, null, null);
     }
 
     @Test

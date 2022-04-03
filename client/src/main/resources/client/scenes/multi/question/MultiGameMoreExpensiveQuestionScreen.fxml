@@ -1,142 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl">
-   <effect>
-      <ColorAdjust />
-   </effect>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl">
    <children>
-      <Label fx:id="gameStateLabel" alignment="CENTER" layoutX="500.0" layoutY="13.0" prefHeight="15.0" prefWidth="86.0" text="Game Id unset" />
-      <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
-         <font>
-            <Font name="SansSerif Regular" size="12.0" />
-         </font>
-      </Button>
-      <Label layoutX="223.0" layoutY="14.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="#006e8c">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="399.0" progress="0.36" stylesheets="@../../../../styling/GameStyle.css" />
-      <Label fx:id="currentScore" layoutX="318.0" layoutY="14.0" stylesheets="@../../../../styling/GameStyle.css" text="100" textFill="#006e8c">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="questionTitle" alignment="CENTER" layoutX="16.0" layoutY="71.0" prefHeight="39.0" prefWidth="568.0" stylesheets="@../../../../styling/GameStyle.css" text="Which activity requires more energy?" textAlignment="CENTER" textFill="#006e8c">
-         <font>
-            <Font name="SansSerif Bold" size="24.0" />
-         </font>
-      </Label>
-      <Button fx:id="firstAnswer" layoutX="20.0" layoutY="120.0" mnemonicParsing="false" prefHeight="140.0" prefWidth="140.0" stylesheets="@../../../../styling/GameStyle.css" textFill="#006e8c">
-         <font>
-            <Font name="SansSerif Bold" size="18.0" />
-         </font>
+      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" text="Leave" textFill="#006e8c" />
+      <Label id="yourScore" layoutX="362.0" layoutY="2.0" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0" />
+      <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" />
+      <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
+      <Label id="title" fx:id="questionTitle" layoutX="78.0" layoutY="78.0" prefHeight="39.0" prefWidth="628.0" text="WHICH ACTIVITY USES MOST ENERGY?" textAlignment="CENTER" textFill="WHITE" />
+      <Button id="choice" fx:id="firstAnswer" layoutX="28.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" textFill="#006e8c">
          <graphic>
             <ImageView fx:id="image1" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="secondAnswer" layoutX="180.0" layoutY="120.0" mnemonicParsing="false" prefHeight="140.0" prefWidth="140.0" stylesheets="@../../../../styling/GameStyle.css" textFill="#006e8c">
-         <font>
-            <Font name="SansSerif Bold" size="18.0" />
-         </font>
+      <Button id="choice" fx:id="secondAnswer" layoutX="268.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" textFill="#006e8c">
          <graphic>
             <ImageView fx:id="image2" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="thirdAnswer" layoutX="340.0" layoutY="120.0" mnemonicParsing="false" prefHeight="140.0" prefWidth="140.0" stylesheets="@../../../../styling/GameStyle.css" textFill="#006e8c">
-         <font>
-            <Font name="SansSerif Bold" size="18.0" />
-         </font>
+      <Button id="choice" fx:id="thirdAnswer" layoutX="508.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" textFill="#006e8c">
          <graphic>
             <ImageView fx:id="image3" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
          </graphic>
       </Button>
-      <Text fx:id="description1" layoutX="11.0" layoutY="276.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="159.0">
-         <font>
-            <Font size="11.0" />
-         </font></Text>
-      <Text fx:id="description2" layoutX="171.0" layoutY="276.0" text="Cooking a meal on your hot plate (30 min)" textAlignment="CENTER" wrappingWidth="159.0">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Text>
-      <Text fx:id="description3" layoutX="331.0" layoutY="277.0" text="Playing a game on your Playstation (3h)" textAlignment="CENTER" wrappingWidth="159.0">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Text>
-      <Button fx:id="twicePoints" layoutX="500.0" layoutY="110.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="76.0">
+      <Text id="multiMoreDescription" fx:id="description1" fill="WHITE" layoutX="25.0" layoutY="384.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="200.0" />
+      <Text id="multiMoreDescription" fx:id="description2" fill="WHITE" layoutX="261.0" layoutY="384.0" text="Cooking a meal on your hot plate (30 min)" textAlignment="CENTER" wrappingWidth="203.0" />
+      <Text id="multiMoreDescription" fx:id="description3" fill="WHITE" layoutX="502.0" layoutY="386.0" text="Playing a game on your Playstation (3h)" textAlignment="CENTER" wrappingWidth="203.0" />
+      <Region layoutX="83.0" layoutY="458.0" prefHeight="162.0" prefWidth="315.0" style="-fx-background-color: #0038a8; -fx-background-radius: 30;" AnchorPane.bottomAnchor="-20.0" />
+      <Region layoutX="94.0" layoutY="470.0" prefHeight="149.0" prefWidth="295.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="94.0" />
+      <Region id="region" layoutX="741.0" layoutY="119.0" prefHeight="316.0" prefWidth="200.0" AnchorPane.rightAnchor="-15.0" />
+      <Region id="region" layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="433.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0" />
+      <Button fx:id="twicePoints" layoutX="760.0" layoutY="62.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="127.0">
          <graphic>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="doubleImage" fitHeight="63.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../joker/twicepoints.png" />
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="revealWrong" layoutX="500.0" layoutY="190.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="76.0">
+      <Button fx:id="revealWrong" layoutX="761.0" layoutY="175.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="227.0">
          <graphic>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="wrongImage" fitHeight="61.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../joker/revealwronganswer.png" />
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="shortenTime" layoutX="500.0" layoutY="270.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="76.0">
+      <Button fx:id="shortenTime" layoutX="762.0" layoutY="321.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="327.0">
          <graphic>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="timeImage" fitHeight="62.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../joker/shortentime.png" />
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="emojiButton1" layoutX="20.0" layoutY="300.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0">
+      <Button fx:id="emojiButton1" layoutX="499.0" layoutY="465.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="330.0">
          <graphic>
-            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../emoji/Surprised.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="emojiButton2" layoutX="140.0" layoutY="300.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0">
+      <Button fx:id="emojiButton2" layoutX="590.0" layoutY="465.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="230.0">
          <graphic>
-            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../emoji/Laughing.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="emojiButton3" layoutX="260.0" layoutY="300.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0">
+      <Button fx:id="emojiButton3" layoutX="680.0" layoutY="465.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="130.0">
          <graphic>
-            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../emoji/Angry.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="emojiButton4" layoutX="380.0" layoutY="292.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0">
+      <Button fx:id="emojiButton4" layoutX="782.0" layoutY="459.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="30.0">
          <graphic>
-            <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../emoji/Crying.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
+      <Label id="gameStateLabel" fx:id="gameStateLabel" alignment="CENTER" layoutX="795.0" layoutY="16.0" prefHeight="0.0" prefWidth="88.0" text="Game Id unset" textFill="#ffec00" />
+      <Text id="jokerTitle" fill="#ffec00" layoutX="775.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jokers" />
+      <GridPane fx:id="reactions" layoutX="128.0" layoutY="484.0" prefHeight="105.0" prefWidth="222.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.7999755859375" minWidth="10.0" prefWidth="176.6000244140625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.20001220703125" minWidth="10.0" prefWidth="45.39997558593751" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0">
+               <font>
+                  <Font name="Avenir Next Condensed Bold" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Avenir Next Condensed Bold" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Avenir Next Condensed Bold" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

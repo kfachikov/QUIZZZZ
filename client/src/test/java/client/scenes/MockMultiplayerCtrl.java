@@ -38,7 +38,7 @@ public class MockMultiplayerCtrl extends MultiplayerCtrl {
     public MockMultiplayerCtrl(MainCtrl mainCtrl,
                                ServerUtils serverUtils,
                                MultiplayerGameStatePollingService pollingService) {
-        super(mainCtrl, serverUtils, pollingService);
+        super(mainCtrl, serverUtils, pollingService, null);
         this.calledMethods = new ArrayList<>();
     }
 
@@ -87,9 +87,12 @@ public class MockMultiplayerCtrl extends MultiplayerCtrl {
     /**
      * Confirms if the user really wants to leave the game and allows them to
      * return to the home screen.
+     *
+     * @return whether the user selected "Yes".
      */
     @Override
-    public void promptLeave() {
+    public boolean promptLeave() {
         call("promptLeave");
+        return (boolean) returnValue;
     }
 }

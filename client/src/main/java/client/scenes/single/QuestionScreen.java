@@ -25,8 +25,13 @@ public abstract class QuestionScreen {
     In addition, it would hold the single-player and the game state instances of the current game.
      */
     public final SinglePlayerUtils singlePlayerUtils;
-
+    /*
+    The main controller.
+    */
     public final MainCtrl mainCtrl;
+    /*
+    The server.
+     */
     public final ServerUtils server;
     final ActivityImageUtils activityImageUtils;
 
@@ -80,8 +85,10 @@ public abstract class QuestionScreen {
 
     /**
      * sets the scene and title to home if the yes button is clicked.
+     *
+     * @return whether the user selected "yes".
      */
-    public void returnHome() {
+    public boolean returnHome() {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
@@ -96,8 +103,9 @@ public abstract class QuestionScreen {
         if (confirmation.get() == yesButton) {
             singlePlayerUtils.stopPollingService();
             mainCtrl.showHome();
+            return true;
         }
-
+        return false;
     }
 
     /**

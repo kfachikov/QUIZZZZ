@@ -16,13 +16,13 @@ subprojects {
 	
 	group = 'oopp'
 	version = '0.0.1-SNAPSHOT'
-	sourceCompatibility = '11'
+	sourceCompatibility = "14"
 	checkstyle {
 		toolVersion "9.2.1"
 
 		ignoreFailures = false
 		maxErrors = 0
-		maxWarnings = 27
+		maxWarnings = 23
 		configFile = '../checkstyle.xml' as File
 	}
 
