@@ -734,7 +734,7 @@ public class MultiplayerCtrl {
 
             currentReactionLabelIndex = currentReactionLabelIndex + 2;
             currentReactionImageIndex = currentReactionImageIndex + 2;
-            if (currentReactionLabelIndex > 2 * reactionsNumber) {
+            if (currentReactionLabelIndex >= 2 * reactionsNumber) {
                 break;
             }
         }
