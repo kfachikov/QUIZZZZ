@@ -15,7 +15,10 @@
  */
 package client.utils;
 
-import commons.misc.*;
+import commons.misc.Activity;
+import commons.misc.ActivityImageMessage;
+import commons.misc.GameResponse;
+import commons.misc.GameState;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.multi.Reaction;

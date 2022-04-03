@@ -28,6 +28,10 @@ Include pictures showing the process, covering the desired behavior to be achiev
 State explicitly once more the expected behavior of particular occasions and guide the reviewers on how to reach them.
 -->
 
+# Deadlines
+- 'Soft' deadline:
+- 'Hard' deadline:
+
 [//]: <> (
 Information should be inserted instead of the comments of the format "<!--- -->". 
 If not removed, the comments would still preserve the information containing - for example, commented tasks are still counted by GitLAb, so make sure you delete them.

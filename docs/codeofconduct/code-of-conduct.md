@@ -45,7 +45,15 @@ Contribution to GitLab:
 - Team members not only contribute, but also do code review
   - Code reviews are done regularly, as commits and *push*-es
   - Code reviews should be objective. People could regularly end up having different opinions and ideas, but it could be the case when both approaches work and accomplish a functional piece of code that could be used in the long term. Thus, reviews and threads should be marked as either "suggestion" or "problems". The former should suggest an approach that can only improve the efficiency of the cod. The latter should regard possible problems that could occur. In their description, the situation, that could cause this problem should be explicitly stated - could be either a client desire, a server bug, or simply a plan for future integration of that particular feature.
-- Team members make use of the *Time tracking* feature of the **issues** created
+- Team members make use of the *Time tracking* feature of the **issues** created.
+- Each Merge Request should have at least 3 people who have commented on them before being approved.
+- Each team member must clearly list **all** the changes that they have made in their merge request.
+- The threads for a merge request should be closed only by the person who opened them. The reviewer should check constantly if the author of the request responded to their comments.
+- We can only approve a merge request with open threads:
+  - If we add a comment explaining why we approve the merge request despite having open threads.
+  - If we look over all the threads that are not resolve at that time.
+  
+- A team member is allowed to merge other's requests, if that would prevent work being stalled.
 
 Code Style:
 - 4 spaces
@@ -54,6 +62,7 @@ Code Style:
 Java Doc
 - <resolved issue number>-<name1>-[name2]-... (e.g. 4-draft-backlog). Strive for at most 3 words.
 - Try to commit small parts of code - regular commits.
+- Do not create create static methods or fields that are not final.
 
 
 ## Planning:
@@ -67,6 +76,13 @@ Java Doc
 - Each meeting, any action points that can be divided into smaller tasks for individual people, or for smaller groups of people, will be assigned (either by voluntary basis, or, if that fails, randomly) that task.
 
 - For such smaller tasks, a “soft” deadline will be negotiated, taking into account that time should be left for others to review the completed task before the “hard” deadline approaches.
+
+- Each Merge Request should have both a clear "soft" and "hard" deadline. Every team member should specify the exact time of the day for this deadlines.
+  - "Soft" deadline means the finishing time that a team member is trying to achieve.
+  - "Hard" deadline represents the time until a team member fix the issues encountered and works harder.
+
+- If one of the members find themselves struggling with their issue or with understanding the suggestions made by others on the merge request, they should ask for help.
+  - Asking for help will allow others to be kept updated with the progress of that merge request and will make them understand the lack of commits.
 
 ### Did you clarify who will have a final say in the final deliverable and submit it to Brightspace on behalf of the project group?
 
@@ -84,6 +100,8 @@ Notetakers:
 
 - Every member of the team should treat the others with respect.
 
+- When a problem occur the members of the team have the responsibility to dive into what really happened that caused the problem and let the others present their side of the story. Blaming each other is not a solution.
+
 ### How do you handle disagreements within your group?
 
 - The disagreements should be handled with communication, everyone has the right to express their opinion.
@@ -98,11 +116,13 @@ Notetakers:
 
 - Should a complete divide appear in the group, which does not allow us to progress, our TA will be consulted as the final tie-breaker (even if they end up flipping a coin).
 
-### What do you do if someone is late during a group meeting?
+### What do you do if someone is late or is absent during a group meeting?
 
 - If someone is late to a meeting, they will have to bring sweet snacks to the next meeting.
 
 - If someone is late consistently, then that would be discussed among the team members and at the end, eventually, will be mentioned to the TA.
+
+- If a person is absent from a meeting and did not give any notice in advance, the meeting should proceed as intended, so that the workflow and the decision making process are not stalled. The one being absent has the responsibility to get informed about the decision taken.
 
 ## Communication: 
 ### In what ways do you communicate with each other as a group and among yourselves? (in the studio/MS Teams/Miro/Discourse)
@@ -162,6 +182,8 @@ Notetakers:
 
 - Once a decision is made, it is considered binding. All members should comply with it, unless the decision is reversed/amended by the decision-making process above.
 
+- Everyone from the team needs to express their opinion regarding the proposal made by one of the members even though this is presented on Discord or during the meetings. If the proposal is announced on Discord team members should present their point if view within 24h of the Discord post being made.
+
 ## Dealing with conflicts: 
 ### How do you handle conflicts within the group?
 
@@ -184,9 +206,11 @@ Notetakers:
 ### What are the consequences if a participant in the group does not keep the agreements?
 
 - If someone is late to a deadline, we will listen to their reason for missing the deadline.
-  - If the reason is reasonable and one-off, no action will be taken.
+  - If the reason is reasonable and one-off, no action will be taken. The reason should be presented with at least 6 hours before the "soft" deadline. 
   - If the reason is reasonable, but could be repeated, we will take team effort to avoid missing future deadlines due to this reason, or to reduce future negative consequences whenever this occurs.
   - If a good reason is not given, they will be warned that such behavior is unacceptable and is not to be repeated. Simple explicit warning will encourage the singleUser to uphold their future agreements (due to social dynamics). If this happens multiple times, the issue will eventually be addressed to the TA (to deal at a higher level than what we are capable of).
+  - If the "soft" deadline is breached the others members have the rights to shift their own deadlines. The team member who breached the "soft" deadline should be more prompted for receiving help from others.
+  - If the "hard" deadline is breached an informal meeting will be organized for explicitly addressing the missed deadline. In this meeting others will fairly evaluate if the explanation for missing the deadline is reasonable or not. In the case the person who breached the deadline feels he/she cannot finish the issue even after he/she asked for help from the others, another member team will take over the merge request.
 
 ## Success factors: 
 ### What makes your team a dream team?
