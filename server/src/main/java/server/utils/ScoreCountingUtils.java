@@ -55,14 +55,9 @@ public class ScoreCountingUtils {
             if (validResponse) {
                 if (correctAnswerNumber == submittedAnswerNumber) {
                     points = (int) (100 + timeRemaining * 50.0);
-                } else if (correctAnswerNumber < submittedAnswerNumber
-                        && submittedAnswerNumber - correctAnswerNumber <= 500) {
+                } else if (Math.abs(submittedAnswerNumber - correctAnswerNumber) <= 500) {
                     points = (int) (100 + timeRemaining * 50.0
-                            - 0.1 * (submittedAnswerNumber - correctAnswerNumber));
-                } else if (correctAnswerNumber > submittedAnswerNumber
-                        && correctAnswerNumber - submittedAnswerNumber <= 500) {
-                    points = (int) (100 + timeRemaining * 50.0
-                            - 0.1 * (correctAnswerNumber - submittedAnswerNumber));
+                            - 0.1 * Math.abs(correctAnswerNumber - submittedAnswerNumber));
                 }
             }
         } else if (correctAnswer.equals(submittedAnswer)) {
@@ -72,6 +67,10 @@ public class ScoreCountingUtils {
             reasonably.
             */
             points = (int) (100 + timeRemaining * 50.0);
+        }
+
+        if (response.getIsDoublePoints()) {
+            points *= 2;
         }
         return points;
     }

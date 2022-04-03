@@ -126,7 +126,8 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
                 time.getProgress(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
-                chosenAnswer.substring(0, chosenAnswer.length() - 2)
+                chosenAnswer.substring(0, chosenAnswer.length() - 2),
+                false
         ));
     }
 
