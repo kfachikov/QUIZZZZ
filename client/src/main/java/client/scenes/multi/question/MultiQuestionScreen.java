@@ -6,6 +6,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 import java.util.Objects;
@@ -16,6 +17,27 @@ import java.util.Objects;
  * the transition state comes.
  */
 public abstract class MultiQuestionScreen {
+
+    /*
+    Shared references to the emoji buttons.
+     */
+    @FXML
+    protected Button emojiButton1;
+
+    @FXML
+    protected Button emojiButton2;
+
+    @FXML
+    protected Button emojiButton3;
+
+    @FXML
+    protected Button emojiButton4;
+
+    /*
+    Shared references to the reaction section lines.
+     */
+    @FXML
+    protected GridPane reactions;
 
     private boolean reveal;
     private boolean halfTime;
@@ -64,9 +86,19 @@ public abstract class MultiQuestionScreen {
     public abstract ProgressBar getTime();
 
     /**
-     * disables the ability to answer.
+     * Abstract method "contract" to disable the answer submission process.
      */
     public abstract void disableAnswerSubmission();
+
+    /**
+     * Getter for the whole "chat".
+     *
+     * @return  FlowPane reference to the reactions sections.
+     */
+    public GridPane getReactions() {
+        return reactions;
+    }
+
 
     /**
      * Getter for the reveal joker checker.

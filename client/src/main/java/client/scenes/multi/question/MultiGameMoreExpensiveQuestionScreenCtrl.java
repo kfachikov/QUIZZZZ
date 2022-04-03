@@ -186,6 +186,7 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
             //shortenTime.setDisable(true);
         });
 
+        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
     }
 
     /**

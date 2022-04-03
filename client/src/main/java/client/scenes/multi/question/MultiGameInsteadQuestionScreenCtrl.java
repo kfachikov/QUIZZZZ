@@ -139,6 +139,7 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
                 disableAnswerSubmission();
             }
         });
+        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
         twicePoints.setOnAction(e -> {
 
             twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));

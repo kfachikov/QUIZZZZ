@@ -9,6 +9,7 @@ import commons.misc.Activity;
 import commons.misc.GameResponse;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
+import commons.multi.Reaction;
 import commons.question.*;
 import commons.queue.QueueUser;
 import jakarta.ws.rs.WebApplicationException;
@@ -16,12 +17,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
@@ -38,7 +37,9 @@ import java.util.*;
  */
 public class MultiplayerCtrl {
 
-    private static final int FORBIDDEN = 403;
+    private final int forbidden = 403;
+    private final int reactionsQuestion = 3;
+    private final int reactionsLeaderboard = 6;
 
     private MultiGameConsumptionQuestionScreenCtrl consumptionQuestionScreenCtrl;
     private Scene consumptionQuestionScreen;
@@ -83,11 +84,25 @@ public class MultiplayerCtrl {
     private long gameId;
     private String username;
 
+    private Image surprised;
+    private Image laughing;
+    private Image angry;
+    private Image crying;
 
     private final ChangeListener<MultiPlayerState> onPoll = (observable, oldValue, newValue) -> {
         // If state has changed, we probably have to switch scenes
         if (newValue != null && (oldValue == null || !newValue.getState().equals(oldValue.getState()))) {
             switchState(newValue);
+        }
+        // If state has changed, perhaps some new Reactions have been "registered".
+        if (newValue != null) {
+            List<Reaction> reactions = newValue.getReactionList();
+            if (newValue.getState().equals(MultiPlayerState.QUESTION_STATE)) {
+                updateReactionQuestion(reactions);
+            } else if (newValue.getState().equals(MultiPlayerState.LEADERBOARD_STATE) ||
+                newValue.getState().equals(MultiPlayerState.GAME_OVER_STATE)) {
+                updateReactionLeaderboard(reactions);
+            }
         }
     };
 
@@ -152,7 +167,9 @@ public class MultiplayerCtrl {
         this.leaderboard = new Scene(leaderboard.getValue());
 
         pollingService.valueProperty().addListener(onPoll);
+
         setStylesheets();
+        initializeImages();
     }
 
     /**
@@ -496,30 +513,6 @@ public class MultiplayerCtrl {
     }
 
     /**
-     * activates when a player presses angry emoji.
-     */
-    public void angryEmoji() {
-    }
-
-    /**
-     * activates when a player presses crying emoji.
-     */
-    public void cryingEmoji() {
-    }
-
-    /**
-     * activates when a player presses laughing emoji.
-     */
-    public void laughingEmoji() {
-    }
-
-    /**
-     * activates when a player presses surprised emoji.
-     */
-    public void surprisedEmoji() {
-    }
-
-    /**
      * Getter method for getting the image of an activity.
      *
      * @param activity Activity to get an image from.
@@ -594,7 +587,7 @@ public class MultiplayerCtrl {
             mainCtrl.showQueue(user, serverUtils.getCurrentServer());
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
-                case FORBIDDEN:
+                case forbidden:
                     mainCtrl.showHome();
                     mainCtrl.getHomeCtrl().playMulti();
                     break;
@@ -650,4 +643,123 @@ public class MultiplayerCtrl {
     }
 
 
+    /**
+     * Initialized the actions happening once an emoji button is clicked.
+     *
+     * @param button1    Button to be bound with particular action.
+     * @param button2    Button to be bound with particular action.
+     * @param button3    Button to be bound with particular action.
+     * @param button4    Button to be bound with particular action.
+     */
+    public void initializeEmojiButtons(Button button1, Button button2, Button button3, Button button4) {
+        button1.setOnAction(e -> {
+            postReaction("surprised");
+        });
+        button2.setOnAction(e -> {
+            postReaction("laughing");
+        });
+        button3.setOnAction(e -> {
+            postReaction("angry");
+        });
+        button4.setOnAction(e -> {
+            postReaction("crying");
+        });
+    }
+
+    /**
+     * Posts a reaction object to the server.
+     *
+     * @param emoji     Emoji String to be used for "defining" the particular
+     *                  emoji submitted.
+     */
+    private void postReaction(String emoji) {
+        serverUtils.addReaction(gameId,
+                new Reaction(username, emoji));
+    }
+
+    /**
+     * Method to be called when a change in the reactions is registered during QUESTION_STATE.
+     *
+     * @param reactionList  List of Reaction instances to be used for the "chat".
+     */
+    private void updateReactionQuestion(List<Reaction> reactionList) {
+        List<Node> reactionParts = currentScreenCtrl.getReactions().getChildren();
+        updateReaction(reactionList, reactionParts, reactionsQuestion);
+    }
+
+    /**
+     * Method to be called when a change in the reactions is registered during QUESTION_STATE.
+     *
+     * @param reactionList  List of Reaction instances to be used for the "chat".
+     */
+    private void updateReactionLeaderboard(List<Reaction> reactionList) {
+        List<Node> reactionParts = leaderboardCtrl.getReactions().getChildren();
+        updateReaction(reactionList, reactionParts, reactionsLeaderboard);
+    }
+
+    /**
+     * In case a change occur in the game state, which is constantly being pulled,
+     * the reaction section is being updated.
+     *
+     * @param reactionList      List of Reaction instances to be used for the "chat".
+     * @param reactionParts     List of Node instances. Correspond to the particular list
+     *                          of nodes of the desired screen.
+     * @param reactionsNumber   The number of reactions to be shown. To be different between
+     *                          question and leaderboard screen.
+     */
+    private void updateReaction(List<Reaction> reactionList, List<Node> reactionParts, int reactionsNumber) {
+        ArrayList<Reaction> reactions = new ArrayList<>(reactionList);
+        Collections.reverse(reactions);
+
+        /*
+        In the GridPane `reaction`, Labels and ImageViews are taking turns.
+        Thus, the Labels would have even indices within the children of the pane.
+        The ImageViews would have odd indices.
+         */
+        int currentReactionLabelIndex = 0;
+        int currentReactionImageIndex = 1;
+        for (Reaction reaction: reactions) {
+            Label currentReactionLabel = (Label) reactionParts.get(currentReactionLabelIndex);
+            ImageView currentReactionImage = (ImageView) reactionParts.get(currentReactionImageIndex);
+            currentReactionLabel.setText(reaction.getUsername() + " reacts with ");
+            switch (reaction.getEmoji()) {
+                case "angry" -> currentReactionImage.setImage(angry);
+                case "crying" -> currentReactionImage.setImage(crying);
+                case "laughing" -> currentReactionImage.setImage(laughing);
+                case "surprised" -> currentReactionImage.setImage(surprised);
+            }
+
+            currentReactionLabel.setVisible(true);
+            currentReactionImage.setVisible(true);
+
+            currentReactionLabelIndex = currentReactionLabelIndex + 2;
+            currentReactionImageIndex = currentReactionImageIndex + 2;
+            if (currentReactionLabelIndex > 2 * reactionsNumber) {
+                break;
+            }
+        }
+
+        /*
+        In case the total number of reactions is less than 3 - the size of our "chat",
+        the later "lines", consisting of username and emoji submitted are made not visible.
+         */
+        for (int i = currentReactionLabelIndex; i <= 2 * reactionsNumber; i++) {
+            Node currentNode = reactionParts.get(i);
+            currentNode.setVisible(false);
+        }
+    }
+
+    /**
+     * Initializes all image fields in the MultiplayerCtrl class.
+     */
+    private void initializeImages() {
+        surprised = new Image(
+                String.valueOf(this.getClass().getClassLoader().getResource("emoji/Surprised.png")));
+        laughing = new Image(
+                String.valueOf(this.getClass().getClassLoader().getResource("emoji/Laughing.png")));
+        angry = new Image(
+                String.valueOf(this.getClass().getClassLoader().getResource("emoji/Angry.png")));
+        crying = new Image(
+                String.valueOf(this.getClass().getClassLoader().getResource("emoji/Crying.png")));
+    }
 }

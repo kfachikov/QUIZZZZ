@@ -136,6 +136,7 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
         });
 
 
+        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
     }
 
     /**

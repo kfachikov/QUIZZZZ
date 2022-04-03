@@ -7,7 +7,7 @@
 
 <AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.single.CongratulationsScreenCtrl">
     <children>
-      <Button id="smallButton" fx:id="backButton" layoutX="422.0" layoutY="420.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="78.0" prefWidth="218.0" text="MAIN PAGE" textFill="#006e8c" AnchorPane.bottomAnchor="102.0" AnchorPane.rightAnchor="200.0" />
+      <Button id="mediumButton" fx:id="backButton" layoutX="422.0" layoutY="420.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="78.0" prefWidth="218.0" text="MAIN PAGE" textFill="#006e8c" AnchorPane.bottomAnchor="102.0" AnchorPane.rightAnchor="200.0" />
       <Button id="mediumButton" fx:id="startGame" layoutX="159.0" layoutY="420.0" mnemonicParsing="false" onAction="#playSoloGame" prefHeight="78.0" prefWidth="218.0" text="PLAY AGAIN" textFill="#006e8c" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="200.0" />
       <Text id="congratsTitle" fill="WHITE" layoutX="204.0" layoutY="87.0" stroke="WHITE" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONGRATULATIONS!" textAlignment="CENTER" wrappingWidth="501.11082458496094" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="210.0" />
       <Text id="congratsText" fill="WHITE" layoutX="453.0" layoutY="141.0" stroke="WHITE" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="POINTS" wrappingWidth="179.51336669921875" />

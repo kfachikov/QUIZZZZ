@@ -138,6 +138,7 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
                 disableAnswerSubmission();
             }
         });
+        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
 
 
         twicePoints.setOnAction(e -> {
