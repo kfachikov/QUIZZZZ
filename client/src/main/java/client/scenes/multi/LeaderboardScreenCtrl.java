@@ -132,7 +132,7 @@ public class LeaderboardScreenCtrl {
         userLabels.add(userScore);
         userLabels.add(userPosition);
 
-        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton2, emojiButton4);
+        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
     }
 
     /**
