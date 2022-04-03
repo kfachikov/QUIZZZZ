@@ -77,8 +77,8 @@ public class SingleplayerStateController {
      * <p>
      * Inserts the new response in the appropriate game for that player.
      *
-     * @param response Response that the player selected.
-     * @return Response that the player just chose.
+     * @param response GameResponse that the player selected.
+     * @return GameResponse that the player just chose.
      */
     @PostMapping("/answer")
     public ResponseEntity<GameResponse> postResponse(@RequestBody GameResponse response) {
@@ -87,5 +87,11 @@ public class SingleplayerStateController {
             return ResponseEntity.ok(response);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("")
+    public ResponseEntity<Boolean> getServerResponse() {
+        Boolean serverCheck = true;
+        return ResponseEntity.ok(serverCheck);
     }
 }

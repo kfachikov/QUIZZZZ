@@ -1,80 +1,56 @@
 package commons.multi;
 
-import commons.multi.Reaction;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ReactionTest {
+
+    private Reaction reaction1;
+    private Reaction reaction2;
+    private Reaction reaction3;
+
+    @BeforeEach
+    void setUp() {
+        reaction1 = new Reaction("Kate", "laughing");
+        reaction2 = new Reaction("Kate", "laughing");
+        reaction3 = new Reaction("John", "laughing");
+    }
+
     @Test
     public void testConstructor() {
-        List<String> emojis = Arrays.asList("sad", "happy", "confused");
-        Reaction reaction = new Reaction(emojis);
-
-        assertNotNull(reaction);
+        assertNotNull(reaction1);
     }
 
     @Test
-    public void testGetEmojis() {
-        List<String> emojis = Arrays.asList("sad", "happy", "confused");
-        Reaction reaction = new Reaction(emojis);
-        List<String> expected = Arrays.asList("sad", "happy", "confused");
-
-        assertEquals(expected, reaction.getEmojis());
+    public void testGetUsername() {
+        assertEquals("Kate", reaction1.getUsername());
     }
 
     @Test
-    public void testSetEmojis() {
-        List<String> emojis = Arrays.asList("sad", "happy", "confused");
-        Reaction reaction = new Reaction(emojis);
-        List<String> newEmojis = Arrays.asList("tired", "nervous");
-        reaction.setEmojis(newEmojis);
-        List<String> expected = Arrays.asList("tired", "nervous");
-
-        assertEquals(expected, reaction.getEmojis());
+    public void testGetEmoji() {
+        assertEquals("laughing", reaction1.getEmoji());
     }
 
     @Test
     public void testEquals() {
-        List<String> emojis1 = Arrays.asList("sad", "happy", "confused");
-        Reaction reaction1 = new Reaction(emojis1);
-        List<String> emojis2 = Arrays.asList("sad", "happy", "confused");
-        Reaction reaction2 = new Reaction(emojis2);
-
         assertEquals(reaction1, reaction2);
     }
 
     @Test
     public void testNotEquals() {
-        List<String> emojis1 = Arrays.asList("tired", "happy", "confused");
-        Reaction reaction1 = new Reaction(emojis1);
-        List<String> emojis2 = Arrays.asList("sad", "happy", "confused");
-        Reaction reaction2 = new Reaction(emojis2);
-
-        assertNotEquals(reaction1, reaction2);
+        assertNotEquals(reaction1, reaction3);
     }
 
     @Test
     public void testHashCode1() {
-        List<String> emojis1 = Arrays.asList("sad", "happy", "confused");
-        Reaction reaction1 = new Reaction(emojis1);
-        List<String> emojis2 = Arrays.asList("sad", "happy", "confused");
-        Reaction reaction2 = new Reaction(emojis2);
-
         assertEquals(reaction1.hashCode(), reaction2.hashCode());
     }
 
     @Test
     public void testHashCode2() {
-        List<String> emojis1 = Arrays.asList("tired", "happy", "confused");
-        Reaction reaction1 = new Reaction(emojis1);
-        List<String> emojis2 = Arrays.asList("sad", "happy", "confused");
-        Reaction reaction2 = new Reaction(emojis2);
-
-        assertNotEquals(reaction1.hashCode(), reaction2.hashCode());
+        assertNotEquals(reaction1.hashCode(), reaction3.hashCode());
     }
 
 

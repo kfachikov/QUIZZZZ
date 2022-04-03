@@ -5,11 +5,7 @@ import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.multi.Reaction;
 import commons.question.AbstractQuestion;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Utility class providing functionality for the multiplayer game mode.
@@ -22,6 +18,7 @@ public class MultiPlayerStateUtils {
     private final GenerateQuestionUtils generateQuestionUtils;
     private final QueueUtils queueUtils;
     private final CurrentTimeUtils currentTime;
+    private final ScoreCountingUtils scoreCountingUtils;
 
     /**
      * Constructor for multiplayer server-side utility class.
@@ -29,14 +26,18 @@ public class MultiPlayerStateUtils {
      * @param generateQuestionUtils is the "generate questions" utility bean injected by Spring.
      * @param queueUtils            is the class responsible for managing the queue.
      * @param currentTime           CurrentTimeUtils instance for getting the current time.
+     * @param scoreCountingUtils    ScoreCountingUtility instance for distributing the correct amount
+     *                              of points to each player.
      */
     public MultiPlayerStateUtils(GenerateQuestionUtils generateQuestionUtils,
                                  QueueUtils queueUtils,
-                                 CurrentTimeUtils currentTime
+                                 CurrentTimeUtils currentTime,
+                                 ScoreCountingUtils scoreCountingUtils
     ) {
         this.generateQuestionUtils = generateQuestionUtils;
         this.queueUtils = queueUtils;
         this.currentTime = currentTime;
+        this.scoreCountingUtils = scoreCountingUtils;
 
         this.games = new HashMap<>();
 
@@ -241,20 +242,93 @@ public class MultiPlayerStateUtils {
     public void switchToTransition(MultiPlayerState game) {
         long nextPhase = game.getNextPhase();
 
-        updateScores(game);
-
         game.setState(MultiPlayerState.TRANSITION_STATE);
+        updateScore(game);
+
+        /*
+        Clear the game from any previous answers.
+        */
+        game.getSubmittedAnswers().clear();
+
         // 3 seconds for transition phase
         game.setNextPhase(nextPhase + 3000);
     }
 
     /**
-     * Update scores of all the players.
+     * Update the score of the player and clear responses.
+     * <p>
+     * This method runs only in the transition state.
+     * <p>
+     * All responses from the player are aggregated (to determine the true response)
+     * and then cleared.
+     * <p>
+     * Finally, the player's score is updated based on their response (the timing,
+     * whether it is correct etc)
      *
-     * @param game Game whose players' scores is updated.
+     * @param game Game whose players' scores is updated (in the transition state).
      */
-    public void updateScores(MultiPlayerState game) {
+    private void updateScore(MultiPlayerState game) {
+        if (game.getState().equals(MultiPlayerState.TRANSITION_STATE)) {
+            for (int i = 0; i < game.getPlayers().size(); i++) {
+                MultiPlayer currentPlayer = game.getPlayers().get(i);
+                List<GameResponse> playerAnswers = new ArrayList<>();
+                for (int j = 0; j < game.getSubmittedAnswers().size(); j++) {
+                    GameResponse currentResponse = game.getSubmittedAnswers().get(j);
+                    if (currentResponse.getPlayerUsername()
+                            .equals(currentPlayer.getUsername())) {
+                        playerAnswers.add(currentResponse);
+                    }
 
+                }
+                GameResponse finalAnswer = computeFinalAnswer(playerAnswers);
+                if (finalAnswer == null) {
+                    finalAnswer = new GameResponse(
+                            game.getId(),
+                            Long.MAX_VALUE,
+                            game.getRoundNumber(),
+                            game.getPlayers().get(i).getUsername(),
+                            "wrong answer"
+                    );
+                }
+                /*
+                Method computeScore is always called, so guess question approximation can be taken
+                into account.
+                 */
+                currentPlayer.setScore(currentPlayer.getScore() + scoreCountingUtils.computeScore(game, finalAnswer));
+            }
+        }
+    }
+
+    /**
+     * Compute the final answer that the player chose.
+     * <p>
+     * The set of responses is iterated over, with the last answer choice being
+     * returned. If the last answer choice is selected multiple times, the first
+     * instance in the suffix of the answer choices is returned.
+     *
+     * @param responses The list of responses submitted by a player.
+     * @return The true response of the player.
+     */
+    public GameResponse computeFinalAnswer(List<GameResponse> responses) {
+        if (responses.size() == 0) {
+            return null;
+        }
+        /*
+        The following copy of the `responses` list is required, as the list passed as
+        argument is immutable - cannot be changed, and thus, cannot be sorted.
+         */
+        List<GameResponse> sortedList = new ArrayList<>(responses);
+        Collections.sort(sortedList, ((o1, o2) -> (int) (o1.getTimeSubmitted() - o2.getTimeSubmitted())));
+        GameResponse playerGameResponse = sortedList.get(0);
+        for (GameResponse GameResponse : sortedList) {
+            // Only update the GameResponse if it differs
+            // This is done to avoid punishing the player from clicking
+            // the same GameResponse multiple times
+            if (!playerGameResponse.getAnswerChoice().equals(GameResponse.getAnswerChoice())) {
+                playerGameResponse = GameResponse;
+            }
+        }
+        return playerGameResponse;
     }
 
     /**
@@ -289,6 +363,7 @@ public class MultiPlayerStateUtils {
         int roundNumber = -1;
         List<AbstractQuestion> questionList = generateQuestionUtils.generate20Questions();
         List<GameResponse> submittedAnswers = new ArrayList<>();
+        List<GameResponse> finalAnswers = new ArrayList<>();
         String state = MultiPlayerState.NOT_STARTED_STATE;
         List<MultiPlayer> players = new ArrayList<>();
         // Comment: what does Reaction mean here?
@@ -300,9 +375,9 @@ public class MultiPlayerStateUtils {
         // Right now, it just makes very little sense.
         //
         // Whoever is planning to work on reactions will almost definitely refactor this
-        Reaction reaction = null;
+        List<Reaction> reactionList = new ArrayList<>();
         return new MultiPlayerState(id, nextPhase, roundNumber, questionList,
-                submittedAnswers, state, players, reaction);
+                submittedAnswers, state, players, reactionList);
     }
 
     /**
@@ -320,5 +395,21 @@ public class MultiPlayerStateUtils {
             }
         }
         return max + 1;
+    }
+
+    /**
+     * Posts an answer in the game a client is "bounded" with - particular instance found by gameId stored in the
+     * GameResponse object sent.
+     *
+     * @param gameResponse GameResponse sent from client.
+     * @return GameResponse instance in case the gameId is valid, or null otherwise.
+     */
+    public GameResponse postAnswer(GameResponse gameResponse) {
+        long gameId = gameResponse.getGameId();
+        if (!games.containsKey(gameId)) {
+            return null;
+        }
+        games.get(gameId).getSubmittedAnswers().add(gameResponse);
+        return gameResponse;
     }
 }

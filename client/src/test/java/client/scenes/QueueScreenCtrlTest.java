@@ -26,6 +26,7 @@ class QueueScreenCtrlTest {
     void setUp() {
         server = new MockServerUtils();
         mainCtrl = new MockMainCtrl();
+
         multiCtrl = new MockMultiplayerCtrl(mainCtrl, server, null);
         pollingService = new MockQueuePollingService(server);
         countdownService = new MockQueueCountdownService(server);

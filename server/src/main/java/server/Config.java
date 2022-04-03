@@ -97,6 +97,18 @@ public class Config {
         return new MultiPlayerStateUtils(
                 getGenerateQuestionUtils(),
                 getQueueUtils(),
-                getCurrentTimeUtils());
+                getCurrentTimeUtils(),
+                getScoreCountingUtils());
+    }
+
+    /**
+     * Getter for a new instance of ScoreCountingUtils.
+     * Notated as bean, it would be only single one used by all controllers.
+     *
+     * @return  A new ScoreCountingUtils instance.
+     */
+    @Bean
+    public ScoreCountingUtils getScoreCountingUtils() {
+        return new ScoreCountingUtils();
     }
 }

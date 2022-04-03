@@ -1,116 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.single.CongratulationsScreenCtrl">
+<AnchorPane id="anchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.single.CongratulationsScreenCtrl">
     <children>
-        <Button fx:id="backButton" layoutX="37.0" layoutY="298.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="78.0" prefWidth="218.0" stylesheets="@../../../styling/GameStyle.css" text="Main Page" textFill="#006e8c">
-            <font>
-                <Font name="SansSerif Regular" size="33.0" />
-            </font>
-        </Button>
-        <Button fx:id="startGame" layoutX="329.0" layoutY="298.0" mnemonicParsing="false" onAction="#playSoloGame" prefHeight="78.0" prefWidth="218.0" stylesheets="@../../../styling/GameStyle.css" text="Play again" textFill="#006e8c">
-            <font>
-                <Font name="SansSerif Regular" size="33.0" />
-            </font>
-        </Button>
-        <Text fill="#006e8c" layoutX="52.0" layoutY="59.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="CONGRATULATIONS!" wrappingWidth="495.51336669921875">
-            <font>
-                <Font name="SansSerif Regular" size="48.0" />
-            </font>
-            <effect>
-                <DropShadow height="23.97" offsetX="4.0" offsetY="4.0" radius="15.19" width="38.79">
-                    <color>
-                        <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0" />
-                    </color>
-                </DropShadow>
-            </effect>
-        </Text>
-      <Text fill="#006e8c" layoutX="278.0" layoutY="124.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="POINTS" wrappingWidth="179.51336669921875">
-         <font>
-            <Font name="SansSerif Regular" size="48.0" />
-         </font>
-         <effect>
-            <DropShadow height="23.97" offsetX="4.0" offsetY="4.0" radius="15.19" width="38.79">
-               <color>
-                  <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0" />
-               </color>
-            </DropShadow>
-         </effect>
-      </Text>
-      <Text fill="#006e8c" layoutX="52.0" layoutY="173.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="YOU ARE #" wrappingWidth="136.3133544921875">
-         <font>
-            <Font name="SansSerif Bold" size="24.0" />
-         </font>
-         <effect>
-            <DropShadow height="23.97" offsetX="4.0" offsetY="4.0" radius="15.19" width="38.79">
-               <color>
-                  <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0" />
-               </color>
-            </DropShadow>
-         </effect>
-      </Text>
-      <Text fill="#006e8c" layoutX="220.0" layoutY="173.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text="ON GLOBAL LEADERBOARD" wrappingWidth="338.7135009765625">
-         <font>
-            <Font name="SansSerif Bold" size="24.0" />
-         </font>
-         <effect>
-            <DropShadow height="23.97" offsetX="4.0" offsetY="4.0" radius="15.19" width="38.79">
-               <color>
-                  <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0" />
-               </color>
-            </DropShadow>
-         </effect>
-      </Text>
-      <Circle fx:id="question1" fill="#6e7e8e" layoutX="146.0" layoutY="210.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question2" fill="#6e7e8e" layoutX="178.0" layoutY="210.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question3" fill="#6e7e8e" layoutX="212.0" layoutY="210.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question4" fill="#6e7e8e" layoutX="245.0" layoutY="210.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question5" fill="#6e7e8e" layoutX="278.0" layoutY="210.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question6" fill="#6e7e8e" layoutX="339.0" layoutY="210.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question7" fill="#6e7e8e" layoutX="368.0" layoutY="210.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question8" fill="#6e7e8e" layoutX="400.0" layoutY="210.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question9" fill="#6e7e8e" layoutX="428.0" layoutY="210.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question10" fill="#6e7e8e" layoutX="310.0" layoutY="210.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Text fx:id="position" fill="#006e8c" layoutX="184.0" layoutY="173.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text=". ." wrappingWidth="27.99993896484375">
-         <font>
-            <Font name="SansSerif Bold" size="24.0" />
-         </font>
-         <effect>
-            <DropShadow height="23.97" offsetX="4.0" offsetY="4.0" radius="15.19" width="38.79">
-               <color>
-                  <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0" />
-               </color>
-            </DropShadow>
-         </effect>
-      </Text>
-      <Circle fx:id="question11" fill="#6e7e8e" layoutX="146.0" layoutY="238.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question12" fill="#6e7e8e" layoutX="178.0" layoutY="238.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question13" fill="#6e7e8e" layoutX="212.0" layoutY="238.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question14" fill="#6e7e8e" layoutX="245.0" layoutY="238.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question15" fill="#6e7e8e" layoutX="278.0" layoutY="238.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question16" fill="#6e7e8e" layoutX="310.0" layoutY="238.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question17" fill="#6e7e8e" layoutX="339.0" layoutY="238.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question18" fill="#6e7e8e" layoutX="368.0" layoutY="238.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question19" fill="#6e7e8e" layoutX="400.0" layoutY="238.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="question20" fill="#6e7e8e" layoutX="428.0" layoutY="238.0" onMouseClicked="#revealAnswer" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Text fx:id="points" fill="#006e8c" layoutX="155.0" layoutY="124.0" stroke="#d3e8ec" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="2.0" text=". . . ." wrappingWidth="113.913330078125">
-         <font>
-            <Font name="SansSerif Regular" size="48.0" />
-         </font>
-         <effect>
-            <DropShadow height="23.97" offsetX="4.0" offsetY="4.0" radius="15.19" width="38.79">
-               <color>
-                  <Color red="0.6759259104728699" green="0.9675925970077515" blue="1.0" />
-               </color>
-            </DropShadow>
-         </effect>
-      </Text>
+      <Button id="mediumButton" fx:id="backButton" layoutX="422.0" layoutY="420.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="78.0" prefWidth="218.0" text="MAIN PAGE" textFill="#006e8c" AnchorPane.bottomAnchor="102.0" AnchorPane.rightAnchor="200.0" />
+      <Button id="mediumButton" fx:id="startGame" layoutX="159.0" layoutY="420.0" mnemonicParsing="false" onAction="#playSoloGame" prefHeight="78.0" prefWidth="218.0" text="PLAY AGAIN" textFill="#006e8c" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="200.0" />
+      <Text id="congratsTitle" fill="WHITE" layoutX="204.0" layoutY="87.0" stroke="WHITE" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONGRATULATIONS!" textAlignment="CENTER" wrappingWidth="501.11082458496094" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="210.0" />
+      <Text id="congratsText" fill="WHITE" layoutX="453.0" layoutY="141.0" stroke="WHITE" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="POINTS" wrappingWidth="179.51336669921875" />
+      <Text id="congratsText" fill="WHITE" layoutX="196.0" layoutY="194.0" stroke="WHITE" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU ARE #" wrappingWidth="136.3133544921875" />
+      <Text id="congratsText" fill="WHITE" layoutX="364.0" layoutY="194.0" stroke="WHITE" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ON ALL-TIME LEADERBOARD" wrappingWidth="404.0419921875" />
+      <Text id="congratsText" fx:id="position" fill="#fff800" layoutX="328.0" layoutY="194.0" stroke="WHITE" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text=". ." wrappingWidth="27.99993896484375" />
+      <Text id="congratsText" fx:id="points" fill="#fff800" layoutX="330.0" layoutY="145.0" stroke="WHITE" strokeLineJoin="ROUND" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text=". . . ." textAlignment="RIGHT" wrappingWidth="113.913330078125" />
+      <FlowPane alignment="CENTER" hgap="10.0" layoutX="140.0" layoutY="213.0" prefHeight="190.0" prefWidth="636.0" vgap="20.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0">
+         <children>
+            <Circle fx:id="question1" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question2" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question3" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question4" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question5" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question6" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question7" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question8" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question9" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question10" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question11" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question12" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question13" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question14" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question15" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question16" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question17" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question18" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question19" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="question20" fill="#0080ff" onMouseClicked="#revealAnswer" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+         </children>
+      </FlowPane>
     </children>
 </AnchorPane>
