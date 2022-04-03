@@ -16,13 +16,17 @@
 package client.scenes.misc;
 
 import client.scenes.multi.QueueScreenCtrl;
-import client.scenes.single.*;
+import client.scenes.single.CongratulationsScreenCtrl;
+import client.scenes.single.PrepScreenCtrl;
 import client.scenes.single.question.ConsumptionQuestionScreenCtrl;
 import client.scenes.single.question.GuessQuestionScreenCtrl;
 import client.scenes.single.question.InsteadQuestionScreenCtrl;
 import client.scenes.single.question.MoreExpensiveQuestionScreenCtrl;
 import client.utils.SinglePlayerUtils;
-import commons.question.*;
+import commons.question.ConsumptionQuestion;
+import commons.question.GuessQuestion;
+import commons.question.InsteadQuestion;
+import commons.question.MoreExpensiveQuestion;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
 import javafx.application.Platform;
@@ -32,7 +36,9 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+
 import java.io.File;
+import java.util.function.Supplier;
 
 /**
  * Main controller which would take care of all scene and controller changes.
@@ -103,7 +109,8 @@ public class MainCtrl {
                            Pair<InsteadQuestionScreenCtrl, Parent> instead,
                            Pair<GuessQuestionScreenCtrl, Parent> guess,
                            Pair<CongratulationsScreenCtrl, Parent> congratulations
-                           ) {
+    ) {
+
         this.primaryStage = primaryStage;
 
         this.homeCtrl = home.getKey();
@@ -137,17 +144,43 @@ public class MainCtrl {
         this.congratulations = new Scene(congratulations.getValue());
 
         setStylesheets();
+        resetDefaultOnCloseRequest();
 
         showHome();
         primaryStage.show();
         primaryStage.setResizable(false);
+    }
 
+    /**
+     * Reset the behaviour of onCloseRequest to expected behavior.
+     */
+    public void resetDefaultOnCloseRequest() {
         primaryStage.setOnCloseRequest((event -> {
             if (primaryStage.getScene().equals(this.queue)) {
                 queueCtrl.leaveQueue();
             }
             Platform.exit();
         }));
+    }
+
+    /**
+     * Set the action to do when attempting to close the application.
+     * <p>
+     * Takes a boolean supplier (which could, possibly, show a prompt to the user),
+     * which returns whether user selected "Yes" to leave the game.
+     * <p>
+     * If the boolean supplier returns true, the application exits.
+     *
+     * @param onCloseRequest Boolean supplier which return true if the application should close.
+     */
+    public void setOnCloseRequest(Supplier<Boolean> onCloseRequest) {
+        primaryStage.setOnCloseRequest(event -> {
+            if (onCloseRequest.get()) {
+                Platform.exit();
+            } else {
+                event.consume();
+            }
+        });
     }
 
     /**
@@ -183,6 +216,7 @@ public class MainCtrl {
     public void showHome() {
         primaryStage.setTitle("Quizzz: Home");
         primaryStage.setScene(home);
+        resetDefaultOnCloseRequest();
     }
 
     /**
@@ -195,6 +229,7 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz: Prepare");
         primaryStage.setScene(prep);
         prepCtrl.setSinglePlayer(singlePlayer);
+        resetDefaultOnCloseRequest();
     }
 
     /**
@@ -203,6 +238,7 @@ public class MainCtrl {
     public void showHelp() {
         primaryStage.setTitle("Quizzz: Help");
         primaryStage.setScene(help);
+        resetDefaultOnCloseRequest();
     }
 
     /**
@@ -235,6 +271,7 @@ public class MainCtrl {
         queueCtrl.setUser(user);
         queueCtrl.setServerAddress(serverAddress);
         queueCtrl.resetScene();
+        resetDefaultOnCloseRequest();
     }
 
     /**
@@ -243,6 +280,7 @@ public class MainCtrl {
     public void showAdministrator() {
         primaryStage.setTitle("Quizzz: Administrator Panel");
         primaryStage.setScene(administrator);
+        resetDefaultOnCloseRequest();
     }
 
     /**
@@ -265,6 +303,7 @@ public class MainCtrl {
         singlePlayerUtils.setCurrentController(moreExpensiveCtrl);
         moreExpensiveCtrl.setQuestion(question);
         primaryStage.setScene(moreExpensive);
+        setOnCloseRequest(moreExpensiveCtrl::returnHome);
     }
 
     /**
@@ -276,6 +315,7 @@ public class MainCtrl {
         singlePlayerUtils.setCurrentController(consumptionCtrl);
         consumptionCtrl.setQuestion(question);
         primaryStage.setScene(consumption);
+        setOnCloseRequest(consumptionCtrl::returnHome);
     }
 
     /**
@@ -287,6 +327,7 @@ public class MainCtrl {
         singlePlayerUtils.setCurrentController(insteadCtrl);
         insteadCtrl.setQuestion(question);
         primaryStage.setScene(instead);
+        setOnCloseRequest(insteadCtrl::returnHome);
     }
 
     /**
@@ -298,6 +339,7 @@ public class MainCtrl {
         singlePlayerUtils.setCurrentController(guessCtrl);
         guessCtrl.setQuestion(question);
         primaryStage.setScene(guess);
+        setOnCloseRequest(insteadCtrl::returnHome);
     }
 
     /**
@@ -307,6 +349,7 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz: Congratulations");
         congratulationsCtrl.setPoints();
         primaryStage.setScene(congratulations);
+        resetDefaultOnCloseRequest();
     }
 
     /**

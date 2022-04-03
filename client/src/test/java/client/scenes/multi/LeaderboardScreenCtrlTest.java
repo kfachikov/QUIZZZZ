@@ -8,7 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LeaderboardScreenCtrlTest {
     private LeaderboardScreenCtrl leaderboardScreenCtrl;
@@ -27,6 +28,7 @@ class LeaderboardScreenCtrlTest {
 
     @Test
     void leave() {
+        multiCtrl.returnValue = true;
         leaderboardScreenCtrl.leave();
         assertEquals(List.of("promptLeave"), multiCtrl.calledMethods);
     }
