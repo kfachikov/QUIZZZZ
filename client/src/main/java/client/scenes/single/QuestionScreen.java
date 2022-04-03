@@ -25,8 +25,13 @@ public abstract class QuestionScreen {
     In addition, it would hold the single-player and the game state instances of the current game.
      */
     public final SinglePlayerUtils singlePlayerUtils;
-
+    /*
+    The main controller.
+    */
     public final MainCtrl mainCtrl;
+    /*
+    The server.
+     */
     public final ServerUtils server;
     final ActivityImageUtils activityImageUtils;
 

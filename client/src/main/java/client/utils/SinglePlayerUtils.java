@@ -170,12 +170,12 @@ public class SinglePlayerUtils {
     }
 
     /**
-     * Used to change the color of the background of the current question scene to the initial blue color.
+     * Used to change the color of the background of the current question scene to the initial navys color.
      * Also, updates the score the player have accumulated so far.
      */
     private void setDefault() {
-        currentController.getWindow()
-                .setStyle("-fx-background-color: #" + (Paint.valueOf("a8c6fa")).toString().substring(2));
+        currentController.getWindow().setStyle(
+                "-fx-background-color: #" + (Paint.valueOf("00236f")).toString().substring(2));
         currentController.setScore(singlePlayerState.getPlayer().getScore());
     }
 
@@ -223,4 +223,5 @@ public class SinglePlayerUtils {
     public void setCurrentController(QuestionScreen currentController) {
         this.currentController = currentController;
     }
+
 }

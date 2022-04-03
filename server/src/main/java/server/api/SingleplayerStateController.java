@@ -88,4 +88,10 @@ public class SingleplayerStateController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("")
+    public ResponseEntity<Boolean> getServerResponse() {
+        Boolean serverCheck = true;
+        return ResponseEntity.ok(serverCheck);
+    }
 }
