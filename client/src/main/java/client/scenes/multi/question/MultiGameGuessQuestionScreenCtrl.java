@@ -231,7 +231,7 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
                     if (!getPlayer().equals(player)) {
                         reduceTime();
                     }
-                    disableTimeJoker();
+                    disableShortenTime();
                     pollingService.cancel();
                 }
             }
@@ -246,7 +246,7 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     public void sendJoker() {
         if (getPlayer().getTimeJoker()) {
             server.postTimeJokerPlayer(getPlayer(), multiCtrl.getId());
-            disableTimeJoker();
+            disableShortenTime();
         }
     }
 
@@ -254,7 +254,4 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
         //method that will be implemented in the front-end
     }
 
-    public void disableTimeJoker() {
-        //method that will be implemented in the front-end
-    }
 }

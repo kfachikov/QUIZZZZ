@@ -302,7 +302,7 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
                     if (!getPlayer().equals(player)) {
                         reduceTime();
                     }
-                    disableTimeJoker();
+                    disableShortenTime();
                     pollingService.cancel();
                 }
             }
@@ -317,7 +317,7 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
     public void sendJoker() {
         if (getPlayer().getTimeJoker()) {
             server.postTimeJokerPlayer(getPlayer(), multiCtrl.getId());
-            disableTimeJoker();
+            disableShortenTime();
         }
     }
 
@@ -325,8 +325,5 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
         //method that will be implemented in the front-end
     }
 
-    public void disableTimeJoker() {
-        //method that will be implemented in the front-end
-    }
 
 }
