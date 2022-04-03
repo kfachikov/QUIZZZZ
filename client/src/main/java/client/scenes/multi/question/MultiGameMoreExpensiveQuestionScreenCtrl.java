@@ -76,18 +76,6 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
     @FXML
     private Button shortenTime;
 
-    @FXML
-    private Button emojiButton1;
-
-    @FXML
-    private Button emojiButton2;
-
-    @FXML
-    private Button emojiButton3;
-
-    @FXML
-    private Button emojiButton4;
-
     /**
      * Constructor for the multiplayer game more expensive question screen.
      *
@@ -139,6 +127,7 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
                 disableAnswerSubmission();
             }
         });
+        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
     }
 
     /**
@@ -164,9 +153,9 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
         /*
         Set the buttons colors back to default(unselected).
          */
-        firstAnswer.setStyle("-fx-background-color: #" + (Color.valueOf("c9f1fd")).toString().substring(2));
-        secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
-        thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("c9f1fd")).toString().substring(2));
+        firstAnswer.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("b80000")).toString().substring(2));
+        thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("b80000")).toString().substring(2));
     }
 
     /**
