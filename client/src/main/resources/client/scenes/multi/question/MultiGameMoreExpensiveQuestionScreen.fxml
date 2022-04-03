@@ -1,82 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../styling/GameStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl">
-   <effect>
-      <ColorAdjust />
-   </effect>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl">
    <children>
-      <Button fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" stylesheets="@../../../../styling/GameStyle.css" text="Leave" textFill="#006e8c">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="18.0" />
-         </font>
-      </Button>
-      <Label layoutX="362.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="25.0" />
-         </font>
-      </Label>
-      <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" stylesheets="@../../../../styling/GameStyle.css" />
-      <Label fx:id="currentScore" layoutX="478.0" layoutY="2.0" stylesheets="@../../../../styling/GameStyle.css" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="27.0" />
-         </font>
-      </Label>
-      <Label fx:id="questionTitle" layoutX="78.0" layoutY="78.0" prefHeight="39.0" prefWidth="628.0" stylesheets="@../../../../styling/GameStyle.css" text="WHICH ACTIVITY USES MOST ENERGY?" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="32.0" />
-         </font>
-      </Label>
-      <Button fx:id="firstAnswer" layoutX="28.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" stylesheets="@../../../../styling/GameStyle.css" textFill="#006e8c">
-         <font>
-            <Font name="SansSerif Bold" size="18.0" />
-         </font>
+      <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" text="Leave" textFill="#006e8c" />
+      <Label id="yourScore" layoutX="362.0" layoutY="2.0" text="Your score:" textFill="WHITE" AnchorPane.topAnchor="2.0" />
+      <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" />
+      <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
+      <Label id="title" fx:id="questionTitle" layoutX="78.0" layoutY="78.0" prefHeight="39.0" prefWidth="628.0" text="WHICH ACTIVITY USES MOST ENERGY?" textAlignment="CENTER" textFill="WHITE" />
+      <Button id="choice" fx:id="firstAnswer" layoutX="28.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" textFill="#006e8c">
          <graphic>
             <ImageView fx:id="image1" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="secondAnswer" layoutX="268.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" stylesheets="@../../../../styling/GameStyle.css" textFill="#006e8c">
-         <font>
-            <Font name="SansSerif Bold" size="18.0" />
-         </font>
+      <Button id="choice" fx:id="secondAnswer" layoutX="268.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" textFill="#006e8c">
          <graphic>
             <ImageView fx:id="image2" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="thirdAnswer" layoutX="508.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" stylesheets="@../../../../styling/GameStyle.css" textFill="#006e8c">
-         <font>
-            <Font name="SansSerif Bold" size="18.0" />
-         </font>
+      <Button id="choice" fx:id="thirdAnswer" layoutX="508.0" layoutY="152.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="188.0" textFill="#006e8c">
          <graphic>
             <ImageView fx:id="image3" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
          </graphic>
       </Button>
-      <Text fx:id="description1" fill="WHITE" layoutX="25.0" layoutY="384.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="200.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="12.0" />
-         </font></Text>
-      <Text fx:id="description2" fill="WHITE" layoutX="261.0" layoutY="384.0" text="Cooking a meal on your hot plate (30 min)" textAlignment="CENTER" wrappingWidth="203.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="12.0" />
-         </font>
-      </Text>
-      <Text fx:id="description3" fill="WHITE" layoutX="502.0" layoutY="386.0" text="Playing a game on your Playstation (3h)" textAlignment="CENTER" wrappingWidth="203.0">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="12.0" />
-         </font>
-      </Text>
+      <Text id="multiMoreDescription" fx:id="description1" fill="WHITE" layoutX="25.0" layoutY="384.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="200.0" />
+      <Text id="multiMoreDescription" fx:id="description2" fill="WHITE" layoutX="261.0" layoutY="384.0" text="Cooking a meal on your hot plate (30 min)" textAlignment="CENTER" wrappingWidth="203.0" />
+      <Text id="multiMoreDescription" fx:id="description3" fill="WHITE" layoutX="502.0" layoutY="386.0" text="Playing a game on your Playstation (3h)" textAlignment="CENTER" wrappingWidth="203.0" />
       <Region layoutX="83.0" layoutY="458.0" prefHeight="162.0" prefWidth="315.0" style="-fx-background-color: #0038a8; -fx-background-radius: 30;" AnchorPane.bottomAnchor="-20.0" />
       <Region layoutX="94.0" layoutY="470.0" prefHeight="149.0" prefWidth="295.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="94.0" />
-      <Region layoutX="741.0" layoutY="119.0" prefHeight="300.0" prefWidth="174.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.rightAnchor="-15.0" />
-      <Region layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="403.0" style="-fx-background-color: #0038a8; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0" />
+      <Region id="region" layoutX="741.0" layoutY="119.0" prefHeight="316.0" prefWidth="200.0" AnchorPane.rightAnchor="-15.0" />
+      <Region id="region" layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="433.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0" />
       <Button fx:id="twicePoints" layoutX="760.0" layoutY="62.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="127.0">
          <graphic>
             <ImageView fitHeight="63.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
@@ -137,15 +105,8 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="gameStateLabel" alignment="CENTER" layoutX="795.0" layoutY="16.0" prefHeight="0.0" prefWidth="88.0" text="Game Id unset" textFill="#ffec00">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="13.0" />
-         </font></Label>
-      <Text fill="#ffec00" layoutX="775.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jokers">
-         <font>
-            <Font name="Avenir Next Condensed Bold" size="35.0" />
-         </font>
-      </Text>
+      <Label id="gameStateLabel" fx:id="gameStateLabel" alignment="CENTER" layoutX="795.0" layoutY="16.0" prefHeight="0.0" prefWidth="88.0" text="Game Id unset" textFill="#ffec00" />
+      <Text id="jokerTitle" fill="#ffec00" layoutX="775.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jokers" />
       <GridPane fx:id="reactions" layoutX="128.0" layoutY="484.0" prefHeight="105.0" prefWidth="222.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.7999755859375" minWidth="10.0" prefWidth="176.6000244140625" />
@@ -157,19 +118,19 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0">
+            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0">
                <font>
                   <Font name="Avenir Next Condensed Bold" size="18.0" />
                </font>
             </Label>
             <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-            <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" GridPane.rowIndex="1">
+            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" GridPane.rowIndex="1">
                <font>
                   <Font name="Avenir Next Condensed Bold" size="18.0" />
                </font>
             </Label>
             <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" GridPane.rowIndex="2">
+            <Label contentDisplay="RIGHT" prefHeight="28.0" prefWidth="232.0" GridPane.rowIndex="2">
                <font>
                   <Font name="Avenir Next Condensed Bold" size="18.0" />
                </font>

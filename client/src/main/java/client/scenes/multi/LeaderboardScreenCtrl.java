@@ -132,7 +132,7 @@ public class LeaderboardScreenCtrl {
         userLabels.add(userScore);
         userLabels.add(userPosition);
 
-        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton2, emojiButton4);
+        multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
     }
 
     /**
@@ -154,7 +154,7 @@ public class LeaderboardScreenCtrl {
     public void setScene(List<MultiPlayer> players, String gameState) {
         if (("LEADERBOARD").equals(gameState)) {
             title.setText("INTERMEDIATE LEADERBOARD");
-            emojiIntermediateLayout();
+            //emojiIntermediateLayout();
 
             //make top-left leave button visible + returnHome invisible
             playAgain.setVisible(false);
@@ -164,7 +164,7 @@ public class LeaderboardScreenCtrl {
         }
         if (("GAME_OVER").equals(gameState)) {
             title.setText("GAME OVER!");
-            emojiGameOverLayout();
+            //emojiGameOverLayout();
 
             //returnHome visible + make top-left leave button invisible
             playAgain.setVisible(true);
