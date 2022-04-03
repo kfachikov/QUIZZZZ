@@ -152,6 +152,8 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
 
             multiCtrl.setDoublePoints(true);
 
+            setDoublePoints(true);
+
 
         });
 

@@ -128,6 +128,8 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
             twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
 
             multiCtrl.setDoublePoints(true);
+
+            setDoublePoints(true);
         });
 
         shortenTime.setOnAction(e -> {
