@@ -52,11 +52,6 @@ public abstract class MultiQuestionScreen {
     @FXML
     protected GridPane chatMessages;
 
-    private boolean reveal;
-    private boolean halfTime;
-
-    private boolean doublePointsPlayer;
-
     @FXML
     private ImageView doubleImage;
 
@@ -103,62 +98,6 @@ public abstract class MultiQuestionScreen {
         return chatMessages;
     }
 
-
-    /**
-     * Getter for the reveal joker checker.
-     *
-     * @return true/false.
-     */
-    public boolean getReveal() {
-        return this.reveal;
-    }
-
-    /**
-     * Setter for the reveal joker checker.
-     *
-     * @param reveal true/false.
-     */
-    public void setReveal(boolean reveal) {
-        this.reveal = reveal;
-    }
-
-    /**
-     * getter for the halfTime.
-     *
-     * @return true/false.
-     */
-    public boolean getHalfTime() {
-        return this.halfTime;
-    }
-
-    /**
-     * sets the halfTime.
-     *
-     * @param halfTime true/false.
-     */
-    public void setHalfTime(boolean halfTime) {
-        this.halfTime = halfTime;
-    }
-
-    /**
-     * Setter for the doublePoints joker.
-     *
-     * @param doublePointsPlayer the boolean value for the joker regarding the points.
-     */
-    public void setDoublePointsPlayer(boolean doublePointsPlayer) {
-        this.doublePointsPlayer = doublePointsPlayer;
-    }
-
-
-    /**
-     * getter for the doublePoints.
-     *
-     * @return true/false
-     */
-    public boolean getDoublePointsPlayer() {
-        return doublePointsPlayer;
-    }
-
     /**
      * Setter for the game jokers.
      */
@@ -185,10 +124,6 @@ public abstract class MultiQuestionScreen {
         doublePoints.setDisable(false);
         removeIncorrect.setDisable(false);
         timeAttack.setDisable(false);
-
-        setHalfTime(false);
-        setReveal(false);
-        setDoublePointsPlayer(false);
 
     }
 

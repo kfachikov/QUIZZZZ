@@ -83,7 +83,6 @@ public class MultiplayerCtrl {
 
     private long gameId;
     private String username;
-    private boolean doublePoints;
 
     private Image surprised;
     private Image laughing;
@@ -467,17 +466,6 @@ public class MultiplayerCtrl {
                 username,
                 lastSubmittedAnswer
         ));
-
-        setDoublePoints(false);
-    }
-
-    /**
-     * Setter for the doublePoints joker.
-     *
-     * @param doublePoints the boolean value for the joker regarding the points.
-     */
-    public void setDoublePoints(boolean doublePoints) {
-        this.doublePoints = doublePoints;
     }
 
     /**
@@ -618,30 +606,30 @@ public class MultiplayerCtrl {
      * Disables the used "Double Points" joker for all controllers.
      */
     public void disableUsedDoublePoints() {
-            consumptionQuestionScreenCtrl.disableDoublePoints();
-            guessQuestionScreenCtrl.disableDoublePoints();
-            moreExpensiveQuestionScreenCtrl.disableDoublePoints();
-            insteadQuestionScreenCtrl.disableDoublePoints();
+        consumptionQuestionScreenCtrl.disableDoublePoints();
+        guessQuestionScreenCtrl.disableDoublePoints();
+        moreExpensiveQuestionScreenCtrl.disableDoublePoints();
+        insteadQuestionScreenCtrl.disableDoublePoints();
     }
 
     /**
      * Disables the used "Remove Incorrect" joker for all controllers.
      */
     public void disableUsedRemoveIncorrect() {
-            consumptionQuestionScreenCtrl.disableRemoveIncorrect();
-            guessQuestionScreenCtrl.disableRemoveIncorrect();
-            moreExpensiveQuestionScreenCtrl.disableRemoveIncorrect();
-            insteadQuestionScreenCtrl.disableRemoveIncorrect();
+        consumptionQuestionScreenCtrl.disableRemoveIncorrect();
+        guessQuestionScreenCtrl.disableRemoveIncorrect();
+        moreExpensiveQuestionScreenCtrl.disableRemoveIncorrect();
+        insteadQuestionScreenCtrl.disableRemoveIncorrect();
     }
 
     /**
      * Disables the used "Time Attack" joker for all controllers.
      */
     public void disableUsedTimeAttack() {
-            consumptionQuestionScreenCtrl.disableTimeAttack();
-            guessQuestionScreenCtrl.disableTimeAttack();
-            moreExpensiveQuestionScreenCtrl.disableTimeAttack();
-            insteadQuestionScreenCtrl.disableTimeAttack();
+        consumptionQuestionScreenCtrl.disableTimeAttack();
+        guessQuestionScreenCtrl.disableTimeAttack();
+        moreExpensiveQuestionScreenCtrl.disableTimeAttack();
+        insteadQuestionScreenCtrl.disableTimeAttack();
     }
 
 
