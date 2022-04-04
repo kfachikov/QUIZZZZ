@@ -7,9 +7,9 @@ import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import commons.misc.Activity;
 import commons.misc.GameResponse;
+import commons.multi.ChatMessage;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
-import commons.multi.Reaction;
 import commons.question.*;
 import commons.queue.QueueUser;
 import jakarta.ws.rs.WebApplicationException;
@@ -38,8 +38,8 @@ import java.util.*;
 public class MultiplayerCtrl {
 
     private final int forbidden = 403;
-    private final int reactionsQuestion = 3;
-    private final int reactionsLeaderboard = 6;
+    private final int messagesQuestion = 3;
+    private final int messagesLeaderboard = 6;
 
     private MultiGameConsumptionQuestionScreenCtrl consumptionQuestionScreenCtrl;
     private Scene consumptionQuestionScreen;
@@ -95,14 +95,14 @@ public class MultiplayerCtrl {
         if (newValue != null && (oldValue == null || !newValue.getState().equals(oldValue.getState()))) {
             switchState(newValue);
         }
-        // If state has changed, perhaps some new Reactions have been "registered".
+        // If state has changed, perhaps some new messages have been "registered".
         if (newValue != null) {
-            List<Reaction> reactions = newValue.getReactionList();
+            List<ChatMessage> chatMessages = newValue.getChatMessageList();
             if (newValue.getState().equals(MultiPlayerState.QUESTION_STATE)) {
-                updateReactionQuestion(reactions);
+                updateMessagesQuestion(chatMessages);
             } else if (newValue.getState().equals(MultiPlayerState.LEADERBOARD_STATE) ||
                 newValue.getState().equals(MultiPlayerState.GAME_OVER_STATE)) {
-                updateReactionLeaderboard(reactions);
+                updateMessagesLeaderboard(chatMessages);
             }
         }
     };
@@ -695,55 +695,55 @@ public class MultiplayerCtrl {
      */
     private void postReaction(String emoji) {
         serverUtils.addReaction(gameId,
-                new Reaction(username, emoji));
+                new ChatMessage(username, emoji));
     }
 
     /**
-     * Method to be called when a change in the reactions is registered during QUESTION_STATE.
+     * Method to be called when a change in the messages is registered during QUESTION_STATE.
      *
-     * @param reactionList  List of Reaction instances to be used for the "chat".
+     * @param chatMessageList  List of ChatMessage instances to be used for the "chat".
      */
-    private void updateReactionQuestion(List<Reaction> reactionList) {
-        List<Node> reactionParts = currentScreenCtrl.getReactions().getChildren();
-        updateReaction(reactionList, reactionParts, reactionsQuestion);
+    private void updateMessagesQuestion(List<ChatMessage> chatMessageList) {
+        List<Node> messagesParts = currentScreenCtrl.getChatMessages().getChildren();
+        updateChat(chatMessageList, messagesParts, messagesQuestion);
     }
 
     /**
-     * Method to be called when a change in the reactions is registered during QUESTION_STATE.
+     * Method to be called when a change in the messages is registered during QUESTION_STATE.
      *
-     * @param reactionList  List of Reaction instances to be used for the "chat".
+     * @param chatMessageList  List of ChatMessage instances to be used for the "chat".
      */
-    private void updateReactionLeaderboard(List<Reaction> reactionList) {
-        List<Node> reactionParts = leaderboardCtrl.getReactions().getChildren();
-        updateReaction(reactionList, reactionParts, reactionsLeaderboard);
+    private void updateMessagesLeaderboard(List<ChatMessage> chatMessageList) {
+        List<Node> messagesParts = leaderboardCtrl.getReactions().getChildren();
+        updateChat(chatMessageList, messagesParts, messagesLeaderboard);
     }
 
     /**
      * In case a change occur in the game state, which is constantly being pulled,
      * the reaction section is being updated.
      *
-     * @param reactionList      List of Reaction instances to be used for the "chat".
-     * @param reactionParts     List of Node instances. Correspond to the particular list
-     *                          of nodes of the desired screen.
-     * @param reactionsNumber   The number of reactions to be shown. To be different between
-     *                          question and leaderboard screen.
+     * @param chatMessageList       List of ChatMessage instances to be used for the "chat".
+     * @param messagesParts         List of Node instances. Correspond to the particular list
+     *                              of nodes of the desired screen.
+     * @param messagesNumber        The number of messages to be shown. To be different between
+     *                              question and leaderboard screen.
      */
-    private void updateReaction(List<Reaction> reactionList, List<Node> reactionParts, int reactionsNumber) {
-        ArrayList<Reaction> reactions = new ArrayList<>(reactionList);
-        Collections.reverse(reactions);
+    private void updateChat(List<ChatMessage> chatMessageList, List<Node> messagesParts, int messagesNumber) {
+        ArrayList<ChatMessage> chatMessages = new ArrayList<>(chatMessageList);
+        Collections.reverse(chatMessages);
 
         /*
         In the GridPane `reaction`, Labels and ImageViews are taking turns.
         Thus, the Labels would have even indices within the children of the pane.
         The ImageViews would have odd indices.
          */
-        int currentReactionLabelIndex = 0;
-        int currentReactionImageIndex = 1;
-        for (Reaction reaction: reactions) {
-            Label currentReactionLabel = (Label) reactionParts.get(currentReactionLabelIndex);
-            ImageView currentReactionImage = (ImageView) reactionParts.get(currentReactionImageIndex);
-            currentReactionLabel.setText(reaction.getUsername() + " reacts with ");
-            switch (reaction.getEmoji()) {
+        int currentMessageLabelIndex = 0;
+        int currentMessageImageIndex = 1;
+        for (ChatMessage chatMessage : chatMessages) {
+            Label currentReactionLabel = (Label) messagesParts.get(currentMessageLabelIndex);
+            ImageView currentReactionImage = (ImageView) messagesParts.get(currentMessageImageIndex);
+            currentReactionLabel.setText(chatMessage.getUsername() + " reacts with ");
+            switch (chatMessage.getMessage()) {
                 case "angry" -> currentReactionImage.setImage(angry);
                 case "crying" -> currentReactionImage.setImage(crying);
                 case "laughing" -> currentReactionImage.setImage(laughing);
@@ -753,19 +753,19 @@ public class MultiplayerCtrl {
             currentReactionLabel.setVisible(true);
             currentReactionImage.setVisible(true);
 
-            currentReactionLabelIndex = currentReactionLabelIndex + 2;
-            currentReactionImageIndex = currentReactionImageIndex + 2;
-            if (currentReactionLabelIndex >= 2 * reactionsNumber) {
+            currentMessageLabelIndex = currentMessageLabelIndex + 2;
+            currentMessageImageIndex = currentMessageImageIndex + 2;
+            if (currentMessageLabelIndex >= 2 * messagesNumber) {
                 break;
             }
         }
 
         /*
-        In case the total number of reactions is less than 3 - the size of our "chat",
+        In case the total number of chatMessages is less than 3 - the size of our "chat",
         the later "lines", consisting of username and emoji submitted are made not visible.
          */
-        for (int i = currentReactionLabelIndex; i < 2 * reactionsNumber; i++) {
-            Node currentNode = reactionParts.get(i);
+        for (int i = currentMessageLabelIndex; i < 2 * messagesNumber; i++) {
+            Node currentNode = messagesParts.get(i);
             currentNode.setVisible(false);
         }
     }

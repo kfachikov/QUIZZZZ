@@ -130,9 +130,9 @@ Monica: we must ask for the name at the beginning of the game\
 Kaloyan: two players cannot share a username\
 Kaloyan: the thing with the picture, is it a must or a should?\
 Alexandra: didn't he say that we need to have pictures? pictures are\
-Kayra: there should be emoji reactions\
+Kayra: there should be emoji chatMessages\
 Monica: it should be a "could"\
-Alexandra: doesn't matter 1, 3, or 9, but have reactions\
+Alexandra: doesn't matter 1, 3, or 9, but have chatMessages\
 Kaloyan: dividing the workload, 60% for must, 20% for could, we shouldn't put everything that we want to have into must\
 Kayra: we should put emoji in could\
 Kayra: where should time-based points go?\

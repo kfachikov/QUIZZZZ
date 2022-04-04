@@ -116,11 +116,11 @@ As a player in a multiplayer game, I should see some indication that a player is
 
 - emoji
 
-As a player in a multiplayer game, during the phase when the question is being answered, or after the correct answer is shown, I could be shown some reaction emoji, which I could click to react to the question, adding emotional enjoyment to the game.
+As a player in a multiplayer game, during the phase when the question is being answered, or after the correct answer is shown, I could be shown some chatMessage emoji, which I could click to react to the question, adding emotional enjoyment to the game.
 
 - see other people's emojis
 
-As a player in a multiplayer game, I could see how other people are reacting to the current questions, and they could see my reactions as well, as that would add some interactivity among the players.
+As a player in a multiplayer game, I could see how other people are reacting to the current questions, and they could see my chatMessages as well, as that would add some interactivity among the players.
 
 - personal position displayed in intermediate leaderboard even if not among the top
 

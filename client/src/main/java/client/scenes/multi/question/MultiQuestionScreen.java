@@ -37,7 +37,7 @@ public abstract class MultiQuestionScreen {
     Shared references to the reaction section lines.
      */
     @FXML
-    protected GridPane reactions;
+    protected GridPane chatMessages;
 
     private boolean reveal;
     private boolean halfTime;
@@ -95,8 +95,8 @@ public abstract class MultiQuestionScreen {
      *
      * @return  FlowPane reference to the reactions sections.
      */
-    public GridPane getReactions() {
-        return reactions;
+    public GridPane getChatMessages() {
+        return chatMessages;
     }
 
 

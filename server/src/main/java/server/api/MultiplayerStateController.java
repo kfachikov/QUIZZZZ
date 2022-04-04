@@ -1,9 +1,9 @@
 package server.api;
 
 import commons.misc.GameResponse;
+import commons.multi.ChatMessage;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
-import commons.multi.Reaction;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,16 +61,16 @@ public class MultiplayerStateController {
     /**
      * POST mapping for emoji reactions.
      * <p>
-     * The POST endpoint is used to send the reaction when a player sends a reaction.
-     * The reaction is added to the list of reactions, if it is valid.
+     * The POST endpoint is used to send the chatMessage when a player sends a chatMessage.
+     * The chatMessage is added to the list of reactions, if it is valid.
      * </p>
      *
-     * @param id       id of the game the reaction was sent in.
-     * @param reaction the reaction sent by the player.
-     * @return         the reaction that was sent.
+     * @param id       id of the game the chatMessage was sent in.
+     * @param chatMessage the chatMessage sent by the player.
+     * @return         the chatMessage that was sent.
      */
     @PostMapping("/reaction/{id}")
-    public ResponseEntity<Reaction> postReaction(@PathVariable("id") long id, @RequestBody Reaction reaction) {
+    public ResponseEntity<ChatMessage> postReaction(@PathVariable("id") long id, @RequestBody ChatMessage chatMessage) {
         if (id < 0) {
             return ResponseEntity.badRequest().build();
         } else {
@@ -78,8 +78,8 @@ public class MultiplayerStateController {
             if (game == null) {
                 return ResponseEntity.notFound().build();
             }
-            game.getReactionList().add(reaction);
-            return ResponseEntity.ok(reaction);
+            game.getChatMessageList().add(chatMessage);
+            return ResponseEntity.ok(chatMessage);
         }
     }
 

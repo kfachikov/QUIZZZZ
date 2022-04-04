@@ -3,7 +3,7 @@ package server.utils;
 import commons.misc.GameResponse;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
-import commons.multi.Reaction;
+import commons.multi.ChatMessage;
 import commons.question.AbstractQuestion;
 import java.util.*;
 
@@ -366,18 +366,18 @@ public class MultiPlayerStateUtils {
         List<GameResponse> finalAnswers = new ArrayList<>();
         String state = MultiPlayerState.NOT_STARTED_STATE;
         List<MultiPlayer> players = new ArrayList<>();
-        // Comment: what does Reaction mean here?
+        // Comment: what does ChatMessage mean here?
         // Somehow, it stores a list of strings, which are emojis?
         // But that makes very little sense.
-        // It would make a lot more sense to store a List<Reaction>, where each
-        // Reaction would mean a single reaction by a single user.
+        // It would make a lot more sense to store a List<ChatMessage>, where each
+        // ChatMessage would mean a single reaction by a single user.
         //
         // Right now, it just makes very little sense.
         //
         // Whoever is planning to work on reactions will almost definitely refactor this
-        List<Reaction> reactionList = new ArrayList<>();
+        List<ChatMessage> chatMessageList = new ArrayList<>();
         return new MultiPlayerState(id, nextPhase, roundNumber, questionList,
-                submittedAnswers, state, players, reactionList);
+                submittedAnswers, state, players, chatMessageList);
     }
 
     /**

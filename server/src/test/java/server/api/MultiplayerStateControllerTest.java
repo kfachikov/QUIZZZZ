@@ -1,8 +1,8 @@
 package server.api;
 
+import commons.multi.ChatMessage;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
-import commons.multi.Reaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -113,7 +113,7 @@ class MultiplayerStateControllerTest {
 
     @Test
     void postReaction() {
-        var dummy = new Reaction("Kayra", "laughing");
+        var dummy = new ChatMessage("Kayra", "laughing");
         multiUtils.returnValues.add(game);
         var result = multiCtrl.postReaction(0, dummy).getBody();
         assertEquals(result, dummy);
@@ -121,7 +121,7 @@ class MultiplayerStateControllerTest {
 
     @Test
     void postReactionFalse() {
-        var dummy = new Reaction("Kayra", "laughing");
+        var dummy = new ChatMessage("Kayra", "laughing");
         multiUtils.returnValues.add(game);
         var result = multiCtrl.postReaction(-1, dummy).getStatusCode();
         assertEquals(HttpStatus.BAD_REQUEST, result);
