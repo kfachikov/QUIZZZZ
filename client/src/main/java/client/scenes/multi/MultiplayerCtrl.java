@@ -566,13 +566,13 @@ public class MultiplayerCtrl {
         long roundTime = nextPhase - new Date().getTime();
 
         timeline = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(time.progressProperty(), 0)),
+                new KeyFrame(Duration.ZERO, new KeyValue(time.progressProperty(), 1)),
                 new KeyFrame(Duration.millis(roundTime * 7 / 10), e -> {
                     time.setStyle("-fx-accent: red");
                 }),
-                new KeyFrame(Duration.millis(nextPhase - new Date().getTime()), e -> {
+                new KeyFrame(Duration.millis(roundTime), e -> {
                     multiQuestionScreen.disableAnswerSubmission();
-                }, new KeyValue(time.progressProperty(), 1))
+                }, new KeyValue(time.progressProperty(), 0))
         );
         timeline.play();
     }
