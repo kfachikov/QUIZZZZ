@@ -98,7 +98,7 @@ public class MultiplayerCtrl {
 
         // If the state have changed, perhaps some people have used "Time Attack" jokers.
         if (newValue != null && (oldValue != null && newValue.getTimeAttacksUsed() != oldValue.getTimeAttacksUsed())) {
-            alterTimer(newValue);
+            alterTimer(oldValue, newValue);
         }
         // If state has changed, perhaps some new messages have been "registered".
         if (newValue != null) {
@@ -834,18 +834,16 @@ public class MultiplayerCtrl {
      *
      * This is achieved by changing the rate at which the timeline is progressing.
      *
-     * @param game  Multiplayer game object to be used.
+     * @param oldState OldState of Game to be used for check whether this particular
+     *                 client should be affected by joker.
+     * @param newState NewState of the Game.
      */
-    private void alterTimer(MultiPlayerState game) {
-        if (game.getTimeAttacksUsed() == 0) {
+    private void alterTimer(MultiPlayerState oldState, MultiPlayerState newState) {
+        if (newState.getTimeAttacksUsed() == 0) {
             timeline.setRate(1);
-        } else {
-            MultiPlayer player = game.getPlayerByUsername(username);
-            if (!player.isCurrentlyUsingTimeAttack()) {
-                timeline.setRate(timeline.getRate() * timeAttackFactor);
-            } else {
-                player.setCurrentlyUsingTimeAttack(false);
-            }
+        } else if (oldState.getPlayerByUsername(username).getTimerRate() !=
+                newState.getPlayerByUsername(username).getTimerRate()) {
+            timeline.setRate(timeline.getRate() * timeAttackFactor);
         }
     }
 

@@ -474,10 +474,22 @@ public class MultiPlayerStateUtils {
         }
     }
 
+    /**
+     * Method handling the "Time Attack" usage. Increments the particular fields
+     * of every player to be affected (everyone except the one who uses the joker).
+     *
+     * @param game      Game object to fetch the players from.
+     * @param player    Player that had submitted the joker.
+     * @return          Boolean value representing whether the Joker used is valid.
+     */
     private boolean useTimeAttackJoker(MultiPlayerState game, MultiPlayer player) {
         if (player.getTimeJoker()) {
+            for (MultiPlayer otherPlayer: game.getPlayers()) {
+                if (!player.equals(otherPlayer)) {
+                    otherPlayer.incrementTimerRate();
+                }
+            }
             player.setTimeJoker(false);
-            player.setCurrentlyUsingTimeAttack(true);
             game.incrementTimeAttacksUsed();
             return true;
         } else {

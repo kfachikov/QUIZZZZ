@@ -14,7 +14,12 @@ public class MultiPlayer extends Player {
     private boolean incorrectAnswerJoker;
     private boolean pointsDoubledJoker;
     private boolean currentlyUsingDoublePoints;
-    private boolean currentlyUsingTimeAttack;
+
+    /*
+    Field to track the number of times a player is affected by "Time Attack" joker.
+    One for the whole game.
+     */
+    private int timerRate;
 
     public MultiPlayer() {
         super();
@@ -112,23 +117,20 @@ public class MultiPlayer extends Player {
     }
 
     /**
-     * Getter for whether the player is currently using the "Time Attack" joker.
+     * Getter for the number of times a player have been (or have to be) affected
+     * by "Time Attack" jokers submitted by any of their opponents.
      *
-     * @return  Boolean value
+     * @return  Integer value.
      */
-    public boolean isCurrentlyUsingTimeAttack() {
-        return currentlyUsingTimeAttack;
+    public int getTimerRate() {
+        return timerRate;
     }
 
     /**
-     * Setter for whether a player is currently using the "Time Attack" joker.
-     *
-     * @param currentlyUsingTimeAttack      Value to be set to the field
-     *                                      corresponding the whether the player is
-     *                                      using the "Time Attack" joker this round.
+     * Increments the `timerRate` instance by 1.
      */
-    public void setCurrentlyUsingTimeAttack(boolean currentlyUsingTimeAttack) {
-        this.currentlyUsingTimeAttack = currentlyUsingTimeAttack;
+    public void incrementTimerRate() {
+        timerRate++;
     }
 
     /**
