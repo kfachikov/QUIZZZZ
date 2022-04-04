@@ -84,6 +84,10 @@ public class MultiplayerCtrl {
 
     private long gameId;
     private String username;
+    /*
+    Field to be used to compute the negative effect of "Time Attack" joker.
+     */
+    private long negativeTimeAccumulated;
 
     private Image surprised;
     private Image laughing;
@@ -343,6 +347,11 @@ public class MultiplayerCtrl {
          */
         lastSubmittedAnswer = "";
 
+        /*
+        Sets the negative accumulated time to be 0, as no "Time Attack" jokers have been yet used.
+         */
+        negativeTimeAccumulated = 0;
+
         AbstractQuestion question = game.getQuestionList().get(roundNumber);
 
         if (question instanceof ConsumptionQuestion) {
@@ -466,7 +475,7 @@ public class MultiplayerCtrl {
         lastSubmittedAnswer = chosenAnswer.substring(0, chosenAnswer.length() - 2);
         serverUtils.postAnswerMultiplayer(new GameResponse(
                 gameId,
-                new Date().getTime(),
+                new Date().getTime() + negativeTimeAccumulated,
                 (int) getRoundNumber(serverUtils.getMultiGameState(gameId)),
                 username,
                 lastSubmittedAnswer
@@ -847,7 +856,16 @@ public class MultiplayerCtrl {
             timeline.setRate(1);
         } else if (oldState.getPlayerByUsername(username).getTimerRate() !=
                 newState.getPlayerByUsername(username).getTimerRate()) {
+            /*
+            Instead of altering the remaining time, we would speed up the client-side timer,
+            and accumulate the "lost" time.
+
+            Note the increase in speed is reversely proportional to the time that should be
+            "deducted" - in our case, added to the "negativeTimeAccumulated" counter.
+             */
             timeline.setRate(timeline.getRate() * timeAttackFactor);
+            negativeTimeAccumulated = negativeTimeAccumulated +
+                    (long) ((newState.getNextPhase() - new Date().getTime()) * (1 - 1 / timeAttackFactor));
         }
     }
 
