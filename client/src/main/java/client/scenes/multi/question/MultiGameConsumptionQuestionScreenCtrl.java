@@ -119,40 +119,9 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
                 disableAnswerSubmission();
             }
         });
+
         multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
-
-
-        twicePoints.setOnAction(e -> {
-
-            twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-
-            multiCtrl.setDoublePoints(true);
-
-            setDoublePoints(true);
-
-
-        });
-
-        revealWrong.setOnAction(e -> {
-
-            revealWrong.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            setReveal(true);
-            if (!question.getAnswerChoices().get(0).toString().equals(question.getCorrectAnswer())) {
-                firstAnswer.setDisable(true);
-            } else if (!question.getAnswerChoices().get(1).toString().equals(question.getCorrectAnswer())) {
-                secondAnswer.setDisable(true);
-            } else if (!question.getAnswerChoices().get(2).toString().equals(question.getCorrectAnswer())) {
-                thirdAnswer.setDisable(true);
-            }
-        });
-
-        shortenTime.setOnAction(e -> {
-
-            shortenTime.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            setHalfTime(true);
-        });
-
-
+        multiCtrl.initializeJokerButtons(doublePoints, removeIncorrect, timeAttack);
     }
 
     /**

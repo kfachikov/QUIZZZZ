@@ -34,6 +34,18 @@ public abstract class MultiQuestionScreen {
     protected Button emojiButton4;
 
     /*
+    Shared references to the joker buttons.
+     */
+    @FXML
+    protected Button doublePoints;
+
+    @FXML
+    protected Button removeIncorrect;
+
+    @FXML
+    protected Button timeAttack;
+
+    /*
     Shared references to the reaction section lines.
      */
     @FXML
@@ -42,21 +54,7 @@ public abstract class MultiQuestionScreen {
     private boolean reveal;
     private boolean halfTime;
 
-    private boolean doublePoints;
-
-    /*
-    Shared references to the joker buttons.
-     */
-    @FXML
-    protected Button twicePoints;
-
-    @FXML
-    protected Button revealWrong;
-
-    @FXML
-    protected Button shortenTime;
-
-
+    private boolean doublePointsPlayer;
 
     @FXML
     private ImageView doubleImage;
@@ -144,10 +142,10 @@ public abstract class MultiQuestionScreen {
     /**
      * Setter for the doublePoints joker.
      *
-     * @param doublePoints the boolean value for the joker regarding the points.
+     * @param doublePointsPlayer the boolean value for the joker regarding the points.
      */
-    public void setDoublePoints(boolean doublePoints) {
-        this.doublePoints = doublePoints;
+    public void setDoublePointsPlayer(boolean doublePointsPlayer) {
+        this.doublePointsPlayer = doublePointsPlayer;
     }
 
 
@@ -156,8 +154,8 @@ public abstract class MultiQuestionScreen {
      *
      * @return true/false
      */
-    public boolean getDoublePoints() {
-        return doublePoints;
+    public boolean getDoublePointsPlayer() {
+        return doublePointsPlayer;
     }
 
     /**
@@ -179,17 +177,17 @@ public abstract class MultiQuestionScreen {
         wrongImage.setImage(revealWrongImage);
         timeImage.setImage(shortenTimeImage);
 
-        twicePoints.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
-        revealWrong.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
-        shortenTime.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        doublePoints.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        removeIncorrect.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        timeAttack.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
 
-        twicePoints.setDisable(false);
-        revealWrong.setDisable(false);
-        shortenTime.setDisable(false);
+        doublePoints.setDisable(false);
+        removeIncorrect.setDisable(false);
+        timeAttack.setDisable(false);
 
         setHalfTime(false);
         setReveal(false);
-        setDoublePoints(false);
+        setDoublePointsPlayer(false);
 
     }
 
@@ -197,21 +195,21 @@ public abstract class MultiQuestionScreen {
      * Disable the double joker.
      */
     public void disableDoublePoint() {
-        twicePoints.setDisable(true);
+        doublePoints.setDisable(true);
     }
 
     /**
      * Disables the reveal joker.
      */
     public void disableReveal() {
-        revealWrong.setDisable(true);
+        removeIncorrect.setDisable(true);
     }
 
     /**
      * Disables the time joker.
      */
     public void disableShortenTime() {
-        shortenTime.setDisable(true);
+        timeAttack.setDisable(true);
     }
 
     /**
@@ -219,9 +217,9 @@ public abstract class MultiQuestionScreen {
      */
     public void setJokersStyle() {
 
-        twicePoints.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
-        revealWrong.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
-        shortenTime.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        doublePoints.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        removeIncorrect.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        timeAttack.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
 
     }
 }

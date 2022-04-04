@@ -24,7 +24,7 @@
       <Region id="region" layoutX="741.0" layoutY="119.0" prefHeight="316.0" prefWidth="200.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="119.0" />
       <ImageView fx:id="image" fitHeight="190.0" fitWidth="315.0" layoutX="202.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" />
       <Region id="region" layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="433.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0" />
-      <Button fx:id="twicePoints" layoutX="760.0" layoutY="62.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="127.0">
+      <Button fx:id="doublePoints" layoutX="760.0" layoutY="62.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="127.0">
          <graphic>
             <ImageView fx:id="doubleImage" fitHeight="63.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -32,7 +32,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="revealWrong" disable="true" layoutX="761.0" layoutY="175.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="227.0">
+      <Button fx:id="removeIncorrect" disable="true" layoutX="761.0" layoutY="175.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="227.0">
          <graphic>
             <ImageView fx:id="wrongImage" fitHeight="61.0" fitWidth="96.0" preserveRatio="true">
                <image>
@@ -40,7 +40,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="shortenTime" layoutX="762.0" layoutY="321.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="327.0">
+      <Button fx:id="timeAttack" layoutX="762.0" layoutY="321.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="327.0">
          <graphic>
             <ImageView fx:id="timeImage" fitHeight="62.0" fitWidth="72.0" preserveRatio="true">
                <image>

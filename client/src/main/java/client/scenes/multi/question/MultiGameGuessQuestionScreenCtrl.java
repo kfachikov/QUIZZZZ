@@ -8,7 +8,6 @@ import commons.question.GuessQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
@@ -100,22 +99,8 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
             }
         });
 
-        twicePoints.setOnAction(e -> {
-            twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-
-            multiCtrl.setDoublePoints(true);
-
-            setDoublePoints(true);
-        });
-
-        shortenTime.setOnAction(e -> {
-
-            shortenTime.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            setHalfTime(true);
-        });
-
-
         multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
+        multiCtrl.initializeJokerButtons(doublePoints, removeIncorrect, timeAttack);
     }
 
     /**

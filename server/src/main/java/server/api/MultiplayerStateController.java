@@ -84,6 +84,32 @@ public class MultiplayerStateController {
     }
 
     /**
+     * POST mapping for joker usage.
+     * <p>
+     * The POST endpoint is used to receive the chatMessage when a player sends a chatMessage.
+     * The chatMessage is added to the list of messages, if it is valid.
+     * The usage of that particular joker is registered.
+     * </p>
+     *
+     * @param id            id of the game the chatMessage was sent in.
+     * @param chatMessage   the chatMessage sent by the player.
+     * @return              the chatMessage that was sent.
+     */
+    @PostMapping("/joker/{id}")
+    public ResponseEntity<ChatMessage> postJoker(@PathVariable("id") long id, @RequestBody ChatMessage chatMessage) {
+        if (id < 0) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            MultiPlayerState game = multiUtils.getGameState(id);
+            if (game == null) {
+                return ResponseEntity.notFound().build();
+            }
+            game.getChatMessageList().add(chatMessage);
+            return ResponseEntity.ok(chatMessage);
+        }
+    }
+
+    /**
      * POST mapping for a player in a multiplayer game.
      * <p>
      * Adds the player to the game with the given id.

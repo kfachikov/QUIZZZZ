@@ -185,7 +185,7 @@ public class ServerUtils {
     }
 
     /**
-     * POST request to api/multi/chatMessage to submit an emoji a client clicked.
+     * POST request to api/multi/reaction to submit an emoji a client clicked.
      *
      * @param id        id of current multiplayer game
      * @param chatMessage  ChatMessage instance to be submitted
@@ -195,6 +195,23 @@ public class ServerUtils {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/multi/reaction/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(chatMessage, APPLICATION_JSON), ChatMessage.class);
+    }
+
+    /**
+     * POST request to api/multi/joker to register a joker usage once a client clicks.
+     *
+     * @param id            id of current multiplayer game
+     * @param chatMessage   ChatMessage instance to be submitted - consist a String "reference"
+     *                      to the corresponding Joker used.
+     * @return              ChatMessage that was added to the particular game.
+     */
+    public ChatMessage addJoker(long id, ChatMessage chatMessage) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/joker/" + id)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(chatMessage, APPLICATION_JSON), ChatMessage.class);

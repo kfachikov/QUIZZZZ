@@ -622,10 +622,10 @@ public class MultiplayerCtrl {
      * Disables the used jokers for all controllers.
      */
     public void disableUsedDoubleJokers() {
-        if (consumptionQuestionScreenCtrl.getDoublePoints() ||
-                moreExpensiveQuestionScreenCtrl.getDoublePoints() ||
-                guessQuestionScreenCtrl.getDoublePoints() ||
-                insteadQuestionScreenCtrl.getDoublePoints()) {
+        if (consumptionQuestionScreenCtrl.getDoublePointsPlayer() ||
+                moreExpensiveQuestionScreenCtrl.getDoublePointsPlayer() ||
+                guessQuestionScreenCtrl.getDoublePointsPlayer() ||
+                insteadQuestionScreenCtrl.getDoublePointsPlayer()) {
             consumptionQuestionScreenCtrl.disableDoublePoint();
             guessQuestionScreenCtrl.disableDoublePoint();
             moreExpensiveQuestionScreenCtrl.disableDoublePoint();
@@ -688,7 +688,7 @@ public class MultiplayerCtrl {
     }
 
     /**
-     * Posts a reaction object to the server.
+     * Posts a chatMessage object to the server.
      *
      * @param emoji     Emoji String to be used for "defining" the particular
      *                  emoji submitted.
@@ -697,6 +697,44 @@ public class MultiplayerCtrl {
         serverUtils.addReaction(gameId,
                 new ChatMessage(username, emoji));
     }
+
+    /**
+     * Initialized the actions happening once joker is being used.
+     *
+     * @param button1    Button to be bound with particular action.
+     * @param button2    Button to be bound with particular action.
+     * @param button3    Button to be bound with particular action.
+     */
+    public void initializeJokerButtons(Button button1, Button button2, Button button3) {
+        button1.setOnAction(e -> {
+            postJoker("doublePoints");
+            button1.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            button1.setDisable(true);
+        });
+        button2.setOnAction(e -> {
+            postJoker("removeIncorrect");
+            button2.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            button2.setDisable(true);
+        });
+        button3.setOnAction(e -> {
+            postJoker("timeAttack");
+            button3.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+            button3.setDisable(true);
+        });
+    }
+
+    /**
+     * Posts a chatMessage object to the server.
+     *
+     * @param joker     Joker String to be used for "defining" the particular
+     *                  joker being used.
+     */
+    private void postJoker(String joker) {
+        serverUtils.addJoker(gameId,
+                new ChatMessage(username, joker));
+    }
+
+
 
     /**
      * Method to be called when a change in the messages is registered during QUESTION_STATE.
