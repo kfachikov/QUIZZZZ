@@ -237,38 +237,4 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
     public void setQuestion(ConsumptionQuestion question) {
         this.question = question;
     }
-
-    public void startJokerPolling() {
-        Timer pollingService = new Timer();
-        pollingService.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                MultiPlayer player = server.getTimeJokerPlayer(multiCtrl.getId());
-                if (player != null) {
-                    if (!getPlayer().equals(player)) {
-                        reduceTime();
-                    }
-                    disableTimeAttack();
-                    pollingService.cancel();
-                }
-            }
-        }, 0, 250);
-    }
-
-    public MultiPlayer getPlayer() {
-        MultiPlayerState multiPlayerState = ServerUtils.getMultiGameState(multiCtrl.getId());
-        return multiPlayerState.getPlayerByUsername(multiCtrl.getUsername());
-    }
-
-    public void sendJoker() {
-        if (getPlayer().getTimeJoker()) {
-            server.postTimeJokerPlayer(getPlayer(), multiCtrl.getId());
-            disableTimeAttack();
-        }
-    }
-
-    public void reduceTime() {
-        //method that will be implemented in the front-end
-    }
-
 }
