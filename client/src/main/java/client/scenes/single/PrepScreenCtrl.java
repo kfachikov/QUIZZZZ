@@ -140,6 +140,18 @@ public class PrepScreenCtrl {
     }
 
     /**
+     * Calls fillLeaderboard(), which populates leaderboard + makes used labels visible.
+     */
+    public void setUp() {
+        List<SinglePlayerLeaderboardScore> players = server.getLeaderboardEntry();
+        fillLeaderboard(players);
+
+        setLabelsVisible(usernameLabels, false);
+        setLabelsVisible(scoreLabels, false);
+        setLabelsVisible(positionLabels, true);
+    }
+
+    /**
      * sets the scene and title to home.
      */
     public void returnHome() {
@@ -227,14 +239,6 @@ public class PrepScreenCtrl {
     }
 
     /**
-     * Calls fillLeaderboard(), which populates leaderboard + makes used labels visible.
-     */
-    public void setUp() {
-        List<SinglePlayerLeaderboardScore> players = server.getLeaderboardEntry();
-        fillLeaderboard(players);
-    }
-
-    /**
      * Populates the leaderboard.
      * <p>
      * Displays (setVisible(true)) the labels that are filled.
@@ -276,5 +280,15 @@ public class PrepScreenCtrl {
     public void displayLabel(Label label, String text) {
         label.setText(text);
         label.setVisible(true);
+    }
+
+    /**
+     * Sets all labels in the labelList invisible.
+     *
+     * @param labelList the list of labels.
+     * @param value the boolean value to pass to setVisible().
+     */
+    public void setLabelsVisible(List<Label> labelList, boolean value) {
+        labelList.forEach(label -> label.setVisible(value));
     }
 }
