@@ -2,6 +2,9 @@ package client.utils;
 
 import client.scenes.misc.MainCtrl;
 import client.scenes.single.QuestionScreen;
+import client.scenes.single.question.ConsumptionQuestionScreenCtrl;
+import client.scenes.single.question.InsteadQuestionScreenCtrl;
+import client.scenes.single.question.MoreExpensiveQuestionScreenCtrl;
 import client.services.SingleplayerGameStatePollingService;
 import commons.question.*;
 import commons.single.SinglePlayerState;
@@ -167,6 +170,15 @@ public class SinglePlayerUtils {
             currentController.getWindow()
                     .setStyle("-fx-background-color: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
         }
+        /*
+        The correct answer is revealed for each type of question.
+         */
+        if (currentController instanceof ConsumptionQuestionScreenCtrl)
+            ((ConsumptionQuestionScreenCtrl) currentController).showCorrectAnswer();
+        if (currentController instanceof InsteadQuestionScreenCtrl)
+            ((InsteadQuestionScreenCtrl) currentController).showCorrectAnswer();
+        if (currentController instanceof MoreExpensiveQuestionScreenCtrl)
+            ((MoreExpensiveQuestionScreenCtrl) currentController).showCorrectAnswer();
     }
 
     /**
