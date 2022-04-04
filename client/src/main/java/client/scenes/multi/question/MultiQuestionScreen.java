@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.util.Objects;
 
@@ -194,22 +195,25 @@ public abstract class MultiQuestionScreen {
     /**
      * Disable the double joker.
      */
-    public void disableDoublePoint() {
+    public void disableDoublePoints() {
         doublePoints.setDisable(true);
+        doublePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
     }
 
     /**
      * Disables the reveal joker.
      */
-    public void disableReveal() {
+    public void disableRemoveIncorrect() {
         removeIncorrect.setDisable(true);
+        removeIncorrect.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
     }
 
     /**
      * Disables the time joker.
      */
-    public void disableShortenTime() {
+    public void disableTimeAttack() {
         timeAttack.setDisable(true);
+        timeAttack.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
     }
 
     /**

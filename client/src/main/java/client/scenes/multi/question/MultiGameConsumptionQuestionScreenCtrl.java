@@ -248,7 +248,7 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
                     if (!getPlayer().equals(player)) {
                         reduceTime();
                     }
-                    disableShortenTime();
+                    disableTimeAttack();
                     pollingService.cancel();
                 }
             }
@@ -263,7 +263,7 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
     public void sendJoker() {
         if (getPlayer().getTimeJoker()) {
             server.postTimeJokerPlayer(getPlayer(), multiCtrl.getId());
-            disableShortenTime();
+            disableTimeAttack();
         }
     }
 

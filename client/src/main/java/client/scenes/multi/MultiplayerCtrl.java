@@ -338,10 +338,6 @@ public class MultiplayerCtrl {
          */
         lastSubmittedAnswer = "";
 
-        disableUsedRevealJoker();
-        disableUsedDoubleJokers();
-        disableUsedTimeJoker();
-
         AbstractQuestion question = game.getQuestionList().get(roundNumber);
 
         if (question instanceof ConsumptionQuestion) {
@@ -619,48 +615,33 @@ public class MultiplayerCtrl {
 
 
     /**
-     * Disables the used jokers for all controllers.
+     * Disables the used "Double Points" joker for all controllers.
      */
-    public void disableUsedDoubleJokers() {
-        if (consumptionQuestionScreenCtrl.getDoublePointsPlayer() ||
-                moreExpensiveQuestionScreenCtrl.getDoublePointsPlayer() ||
-                guessQuestionScreenCtrl.getDoublePointsPlayer() ||
-                insteadQuestionScreenCtrl.getDoublePointsPlayer()) {
-            consumptionQuestionScreenCtrl.disableDoublePoint();
-            guessQuestionScreenCtrl.disableDoublePoint();
-            moreExpensiveQuestionScreenCtrl.disableDoublePoint();
-            insteadQuestionScreenCtrl.disableDoublePoint();
-        }
+    public void disableUsedDoublePoints() {
+            consumptionQuestionScreenCtrl.disableDoublePoints();
+            guessQuestionScreenCtrl.disableDoublePoints();
+            moreExpensiveQuestionScreenCtrl.disableDoublePoints();
+            insteadQuestionScreenCtrl.disableDoublePoints();
     }
 
     /**
-     * Disables the used jokers for all controllers.
+     * Disables the used "Remove Incorrect" joker for all controllers.
      */
-    public void disableUsedRevealJoker() {
-        if (consumptionQuestionScreenCtrl.getReveal() ||
-                moreExpensiveQuestionScreenCtrl.getReveal() ||
-                guessQuestionScreenCtrl.getReveal() ||
-                insteadQuestionScreenCtrl.getReveal()) {
-            consumptionQuestionScreenCtrl.disableReveal();
-            guessQuestionScreenCtrl.disableReveal();
-            moreExpensiveQuestionScreenCtrl.disableReveal();
-            insteadQuestionScreenCtrl.disableReveal();
-        }
+    public void disableUsedRemoveIncorrect() {
+            consumptionQuestionScreenCtrl.disableRemoveIncorrect();
+            guessQuestionScreenCtrl.disableRemoveIncorrect();
+            moreExpensiveQuestionScreenCtrl.disableRemoveIncorrect();
+            insteadQuestionScreenCtrl.disableRemoveIncorrect();
     }
 
     /**
-     * Disables the used jokers for all controllers.
+     * Disables the used "Time Attack" joker for all controllers.
      */
-    public void disableUsedTimeJoker() {
-        if (consumptionQuestionScreenCtrl.getHalfTime() ||
-                insteadQuestionScreenCtrl.getHalfTime() ||
-                guessQuestionScreenCtrl.getHalfTime() ||
-                moreExpensiveQuestionScreenCtrl.getHalfTime()) {
-            consumptionQuestionScreenCtrl.disableShortenTime();
-            guessQuestionScreenCtrl.disableShortenTime();
-            moreExpensiveQuestionScreenCtrl.disableShortenTime();
-            insteadQuestionScreenCtrl.disableShortenTime();
-        }
+    public void disableUsedTimeAttack() {
+            consumptionQuestionScreenCtrl.disableTimeAttack();
+            guessQuestionScreenCtrl.disableTimeAttack();
+            moreExpensiveQuestionScreenCtrl.disableTimeAttack();
+            insteadQuestionScreenCtrl.disableTimeAttack();
     }
 
 
@@ -708,18 +689,15 @@ public class MultiplayerCtrl {
     public void initializeJokerButtons(Button button1, Button button2, Button button3) {
         button1.setOnAction(e -> {
             postJoker("doublePoints");
-            button1.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            button1.setDisable(true);
+            disableUsedDoublePoints();
         });
         button2.setOnAction(e -> {
             postJoker("removeIncorrect");
-            button2.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            button2.setDisable(true);
+            disableUsedRemoveIncorrect();
         });
         button3.setOnAction(e -> {
             postJoker("timeAttack");
-            button3.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            button3.setDisable(true);
+            disableUsedTimeAttack();
         });
     }
 
