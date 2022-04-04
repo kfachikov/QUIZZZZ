@@ -294,7 +294,8 @@ public class MultiPlayerStateUtils {
                 Method computeScore is always called, so guess question approximation can be taken
                 into account.
                  */
-                currentPlayer.setScore(currentPlayer.getScore() + scoreCountingUtils.computeScore(game, finalAnswer));
+                currentPlayer.setScore(
+                        currentPlayer.getScore() + scoreCountingUtils.computeScore(game, currentPlayer, finalAnswer));
             }
         }
     }
@@ -411,5 +412,69 @@ public class MultiPlayerStateUtils {
         }
         games.get(gameId).getSubmittedAnswers().add(gameResponse);
         return gameResponse;
+    }
+
+    /**
+     * Method to handle the joker use of a particular player.
+     *
+     * @param id            Game id - to be used for the correct game to be
+     *                      "fetched".
+     * @param chatMessage   Message sent from the client containing information
+     *                      about the joker being clicked.
+     * @return              ChatMessage - would be null in case the joker is already used.
+     */
+    public ChatMessage jokerUse(long id, ChatMessage chatMessage) {
+        MultiPlayerState game = games.get(id);
+        String username = chatMessage.getUsername();
+        MultiPlayer player = game.getPlayerByUsername(username);
+        boolean isJokerUseValid = switch (chatMessage.getMessage()) {
+            case "doublePoints" -> useDoublePointsJoker(player);
+            case "removeIncorrect" -> useRemoveIncorrectJoker(player);
+            case "timeAttack" -> useTimeAttackJoker(player);
+            default -> false;
+        };
+
+        if (isJokerUseValid) {
+            return chatMessage;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Activates the "Double Points" joker of a particular player.
+     *
+     * @param player    Player to be considered.
+     * @return          Boolean value corresponding to whether the player
+     *                  had already used this joker.
+     */
+    private boolean useDoublePointsJoker(MultiPlayer player) {
+        if (player.getPointsDoubledJoker()) {
+            player.setPointsDoubledJoker(false);
+            player.setCurrentlyUsingDoublePoints(true);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean useRemoveIncorrectJoker(MultiPlayer player) {
+        if (player.getIncorrectAnswerJoker()) {
+            player.setIncorrectAnswerJoker(false);
+            System.out.println("Incorrect");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean useTimeAttackJoker(MultiPlayer player) {
+        if (player.getTimeJoker()) {
+            player.setTimeJoker(false);
+            System.out.println("Time Attack!");
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -607,19 +607,19 @@ class MultiPlayerStateUtilsTest {
 
     @Test
     void correctAnswerPointDistribution1secondRemaining() {
-        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, gameResponse1);
+        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, null, gameResponse1);
         assertEquals(100 + 1 * 50, scoreCount);
     }
 
     @Test
     void correctAnswerPointDistribution3secondsRemaining() {
-        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, gameResponse2);
+        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, null, gameResponse2);
         assertEquals(100 + 3 * 50, scoreCount);
     }
 
     @Test
     void approximateAnswerPointDistribution() {
-        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, gameResponse3);
+        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, null, gameResponse3);
         assertEquals(100 + 1 * 50 - .1 * 400, scoreCount);
     }
 

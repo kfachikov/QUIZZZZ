@@ -13,6 +13,7 @@ public class MultiPlayer extends Player {
     private boolean timeJoker;
     private boolean incorrectAnswerJoker;
     private boolean pointsDoubledJoker;
+    private boolean currentlyUsingDoublePoints;
 
     public MultiPlayer() {
         super();
@@ -87,6 +88,26 @@ public class MultiPlayer extends Player {
      */
     public void setPointsDoubledJoker(boolean pointsDoubledJoker) {
         this.pointsDoubledJoker = pointsDoubledJoker;
+    }
+
+    /**
+     * Getter for whether the player is currently using the "Double Points" joker.
+     *
+     * @return  Boolean value
+     */
+    public boolean isCurrentlyUsingDoublePoints() {
+        return currentlyUsingDoublePoints;
+    }
+
+    /**
+     * Setter for whether a player is currently using the "Double Points" joker.
+     *
+     * @param currentlyUsingDoublePoints    Value to be set to the field
+     *                                      corresponding the whether the player is
+     *                                      using the "Double Points" joker this round.
+     */
+    public void setCurrentlyUsingDoublePoints(boolean currentlyUsingDoublePoints) {
+        this.currentlyUsingDoublePoints = currentlyUsingDoublePoints;
     }
 
     /**

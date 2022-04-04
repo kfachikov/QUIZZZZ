@@ -97,6 +97,7 @@ public class MultiplayerStateController {
      */
     @PostMapping("/joker/{id}")
     public ResponseEntity<ChatMessage> postJoker(@PathVariable("id") long id, @RequestBody ChatMessage chatMessage) {
+        chatMessage = multiUtils.jokerUse(id, chatMessage);
         if (id < 0) {
             return ResponseEntity.badRequest().build();
         } else {
