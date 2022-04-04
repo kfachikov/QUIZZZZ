@@ -181,8 +181,7 @@ class MultiPlayerStateUtilsTest {
                 currentTime.currentTime + 10000,
                 0,
                 "Client A",
-                questionAsked.getCorrectAnswer(),
-                false
+                questionAsked.getCorrectAnswer()
         );
 
         gameResponse2 = new GameResponse(
@@ -194,8 +193,7 @@ class MultiPlayerStateUtilsTest {
                 currentTime.currentTime + 8000,
                 0,
                 "Client A",
-                questionAsked.getCorrectAnswer(),
-                false
+                questionAsked.getCorrectAnswer()
         );
 
         gameResponse3 = new GameResponse(
@@ -210,8 +208,7 @@ class MultiPlayerStateUtilsTest {
                 /*
                 The answer though, would be slightly different from the actual one.
                  */
-                String.valueOf(Long.parseLong(questionAsked.getCorrectAnswer()) - 400),
-                false
+                String.valueOf(Long.parseLong(questionAsked.getCorrectAnswer()) - 400)
         );
     }
 
@@ -645,8 +642,7 @@ class MultiPlayerStateUtilsTest {
                 currentTime.currentTime + 8000,
                 0,
                 "Client A",
-                "MockAnswer",
-                true
+                "MockAnswer"
         );
         multiUtils.postAnswer(response);
 
@@ -663,8 +659,7 @@ class MultiPlayerStateUtilsTest {
                 currentTime.currentTime + 8000,
                 0,
                 "Client A",
-                "MockAnswer",
-                true
+                "MockAnswer"
         );
         assertNull(multiUtils.postAnswer(response));
     }

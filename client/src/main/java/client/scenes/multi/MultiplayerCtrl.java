@@ -469,8 +469,7 @@ public class MultiplayerCtrl {
                 new Date().getTime(),
                 (int) getRoundNumber(serverUtils.getMultiGameState(gameId)),
                 username,
-                lastSubmittedAnswer,
-                doublePoints
+                lastSubmittedAnswer
         ));
 
         setDoublePoints(false);

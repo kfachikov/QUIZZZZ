@@ -68,10 +68,6 @@ public class ScoreCountingUtils {
             */
             points = (int) (100 + timeRemaining * 50.0);
         }
-
-        if (response.getIsDoublePoints()) {
-            points *= 2;
-        }
         return points;
     }
 }
