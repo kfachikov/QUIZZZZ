@@ -746,12 +746,18 @@ public class MultiplayerCtrl {
         for (ChatMessage chatMessage : chatMessages) {
             Label currentReactionLabel = (Label) messagesParts.get(currentMessageLabelIndex);
             ImageView currentReactionImage = (ImageView) messagesParts.get(currentMessageImageIndex);
-            currentReactionLabel.setText(chatMessage.getUsername() + " reacts with ");
+            String username = chatMessage.getUsername();
+
             switch (chatMessage.getMessage()) {
-                case "angry" -> currentReactionImage.setImage(angry);
-                case "crying" -> currentReactionImage.setImage(crying);
-                case "laughing" -> currentReactionImage.setImage(laughing);
-                case "surprised" -> currentReactionImage.setImage(surprised);
+                case "angry" ->
+                        visualizeReactionMessage(currentReactionLabel, currentReactionImage, username, angry);
+                case "crying" ->
+                        visualizeReactionMessage(currentReactionLabel, currentReactionImage, username, crying);
+                case "laughing" ->
+                        visualizeReactionMessage(currentReactionLabel, currentReactionImage, username, laughing);
+                case "surprised" ->
+                        visualizeReactionMessage(currentReactionLabel, currentReactionImage, username, surprised);
+                default -> jokerUsed(currentReactionLabel, currentReactionImage, username, chatMessage.getMessage());
             }
 
             currentReactionLabel.setVisible(true);
@@ -772,6 +778,50 @@ public class MultiplayerCtrl {
             Node currentNode = messagesParts.get(i);
             currentNode.setVisible(false);
         }
+    }
+
+    /**
+     * Method to visualize a particular reaction chat message.
+     * Extracts functionality out and avoid code duplication.
+     *
+     * @param label     Label instance to show text.
+     * @param imageView An ImageView instance to show image.
+     * @param username  Username of player who sent particular message.
+     * @param image     Image to be visualized.
+     */
+    private void visualizeReactionMessage(Label label, ImageView imageView, String username, Image image) {
+        label.setText(username + " reacts with ");
+        imageView.setImage(image);
+    }
+
+    /**
+     * Method to decide which joker have been used.
+     *
+     * @param label     Label to be used for message text.
+     * @param imageView ImageView to be used for image - nothing in case joker usage
+     *                  is recorded.
+     * @param username  Username of player "sending" message.
+     * @param joker     Joker information.
+     */
+    private void jokerUsed(Label label, ImageView imageView, String username, String joker) {
+        switch (joker) {
+            case "doublePoints" -> visualizeJokeUsage(label, username, "Double Points", imageView);
+            case "removeIncorrect" -> visualizeJokeUsage(label, username, "Remove Incorrect", imageView);
+            case "timeAttack" -> visualizeJokeUsage(label, username, "Time Attack", imageView);
+        }
+    }
+
+    /**
+     * Method to visualize joker activity in chat.
+     *
+     * @param label     Label to be used for text.
+     * @param username  Username of player "sending" message.
+     * @param joker     Joker information.
+     * @param imageView ImageView to be set to `null`.
+     */
+    private void visualizeJokeUsage(Label label, String username, String joker, ImageView imageView) {
+        label.setText(username + " used " + joker + "!");
+        imageView.setImage(null);
     }
 
     /**
