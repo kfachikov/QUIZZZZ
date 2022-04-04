@@ -173,12 +173,15 @@ public class SinglePlayerUtils {
         /*
         The correct answer is revealed for each type of question.
          */
-        if (currentController instanceof ConsumptionQuestionScreenCtrl)
+        if (currentController instanceof ConsumptionQuestionScreenCtrl) {
             ((ConsumptionQuestionScreenCtrl) currentController).showCorrectAnswer();
-        if (currentController instanceof InsteadQuestionScreenCtrl)
+        }
+        if (currentController instanceof InsteadQuestionScreenCtrl) {
             ((InsteadQuestionScreenCtrl) currentController).showCorrectAnswer();
-        if (currentController instanceof MoreExpensiveQuestionScreenCtrl)
+        }
+        if (currentController instanceof MoreExpensiveQuestionScreenCtrl) {
             ((MoreExpensiveQuestionScreenCtrl) currentController).showCorrectAnswer();
+        }
     }
 
     /**

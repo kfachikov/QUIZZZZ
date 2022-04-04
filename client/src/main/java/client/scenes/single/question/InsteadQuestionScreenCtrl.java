@@ -219,12 +219,15 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      * The user will be able in this way to gain information during this game.
      */
     public void showCorrectAnswer() {
-        if (firstAnswer.getText().equals(question.getCorrectAnswer()))
+        if (firstAnswer.getText().equals(question.getCorrectAnswer())) {
             firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
-        if (secondAnswer.getText().equals(question.getCorrectAnswer()))
+        }
+        if (secondAnswer.getText().equals(question.getCorrectAnswer())) {
             secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
-        if (thirdAnswer.getText().equals(question.getCorrectAnswer()))
+        }
+        if (thirdAnswer.getText().equals(question.getCorrectAnswer())) {
             thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
 
     }
 
