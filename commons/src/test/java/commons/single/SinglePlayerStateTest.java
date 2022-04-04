@@ -48,10 +48,10 @@ class SinglePlayerStateTest {
                 )
         );
 
-        gameResponse1 = new GameResponse(37, 5287, 2, "Kate", "200Wh");
-        gameResponse2 = new GameResponse(37, 5300, 2, "Lu", "500Wh");
-        gameResponse3 = new GameResponse(37, 5386, 2, "Kate", "500Wh");
-        gameResponse4 = new GameResponse(37, 5360, 2, "Lu", "200Wh");
+        gameResponse1 = new GameResponse(37, 5287, 2, "Kate", "200Wh", true);
+        gameResponse2 = new GameResponse(37, 5300, 2, "Lu", "500Wh", true);
+        gameResponse3 = new GameResponse(37, 5386, 2, "Kate", "500Wh", true);
+        gameResponse4 = new GameResponse(37, 5360, 2, "Lu", "200Wh", true);
 
         answers = Arrays.asList(gameResponse1, gameResponse3);
         answers2 = Arrays.asList(gameResponse2, gameResponse4);
