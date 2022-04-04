@@ -206,4 +206,18 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
         return time;
     }
 
+    /**
+     * Change the color of the button that has the correct answer into green.
+     * The user will be able in this way to gain information during this game.
+     */
+    public void showCorrectAnswer() {
+        if (firstAnswer.getText().equals(question.getCorrectAnswer() + "Wh"))
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        if (secondAnswer.getText().equals(question.getCorrectAnswer() + "Wh"))
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        if (thirdAnswer.getText().equals(question.getCorrectAnswer() + "Wh"))
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+
+    }
+
 }
