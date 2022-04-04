@@ -467,7 +467,6 @@ public class MultiPlayerStateUtils {
     private boolean useRemoveIncorrectJoker(MultiPlayer player) {
         if (player.getIncorrectAnswerJoker()) {
             player.setIncorrectAnswerJoker(false);
-            System.out.println("Incorrect");
             return true;
         } else {
             return false;

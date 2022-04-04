@@ -124,7 +124,6 @@ public abstract class MultiQuestionScreen {
         doublePoints.setDisable(false);
         removeIncorrect.setDisable(false);
         timeAttack.setDisable(false);
-
     }
 
     /**

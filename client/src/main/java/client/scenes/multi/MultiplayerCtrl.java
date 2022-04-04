@@ -685,7 +685,6 @@ public class MultiplayerCtrl {
         });
         button2.setOnAction(e -> {
             postJoker("removeIncorrect");
-            disableUsedRemoveIncorrect();
         });
         button3.setOnAction(e -> {
             postJoker("timeAttack");
@@ -700,8 +699,11 @@ public class MultiplayerCtrl {
      *                  joker being used.
      */
     private void postJoker(String joker) {
-        serverUtils.addJoker(gameId,
-                new ChatMessage(username, joker));
+        if (!joker.equals("removeIncorrect") || !(currentScreenCtrl instanceof MultiGameGuessQuestionScreenCtrl)) {
+            serverUtils.addJoker(gameId,
+                    new ChatMessage(username, joker));
+            disableUsedRemoveIncorrect();
+        }
     }
 
 
@@ -845,6 +847,10 @@ public class MultiplayerCtrl {
                 newState.getPlayerByUsername(username).getTimerRate()) {
             timeline.setRate(timeline.getRate() * timeAttackFactor);
         }
+    }
+
+    private void removeIncorrect() {
+
     }
 
     /**
