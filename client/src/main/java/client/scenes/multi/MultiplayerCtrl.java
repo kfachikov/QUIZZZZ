@@ -291,6 +291,18 @@ public class MultiplayerCtrl {
             currentScreenCtrl.getWindow()
                     .setStyle("-fx-background-color: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
         }
+        /*
+        The correct answer is revealed for each type of question.
+        */
+        if (currentScreenCtrl instanceof MultiGameConsumptionQuestionScreenCtrl) {
+            ((MultiGameConsumptionQuestionScreenCtrl) currentScreenCtrl).showCorrectAnswer();
+        }
+        if (currentScreenCtrl instanceof MultiGameInsteadQuestionScreenCtrl) {
+            ((MultiGameInsteadQuestionScreenCtrl) currentScreenCtrl).showCorrectAnswer();
+        }
+        if (currentScreenCtrl instanceof MultiGameMoreExpensiveQuestionScreenCtrl) {
+            ((MultiGameMoreExpensiveQuestionScreenCtrl) currentScreenCtrl).showCorrectAnswer();
+        }
     }
 
     /**
