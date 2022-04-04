@@ -181,6 +181,12 @@ public class MultiPlayerStateUtils {
         int currentRound = game.getRoundNumber();
         long nextPhase = game.getNextPhase();
 
+        /*
+        Sets the number of time attacks being used in the upcoming round
+        to zero.
+         */
+        game.setTimeAttacksUsed(0);
+
         game.setRoundNumber(currentRound + 1);
         game.setState(MultiPlayerState.QUESTION_STATE);
         // 8 seconds for questions
@@ -430,7 +436,7 @@ public class MultiPlayerStateUtils {
         boolean isJokerUseValid = switch (chatMessage.getMessage()) {
             case "doublePoints" -> useDoublePointsJoker(player);
             case "removeIncorrect" -> useRemoveIncorrectJoker(player);
-            case "timeAttack" -> useTimeAttackJoker(player);
+            case "timeAttack" -> useTimeAttackJoker(game, player);
             default -> false;
         };
 
@@ -468,10 +474,11 @@ public class MultiPlayerStateUtils {
         }
     }
 
-    private boolean useTimeAttackJoker(MultiPlayer player) {
+    private boolean useTimeAttackJoker(MultiPlayerState game, MultiPlayer player) {
         if (player.getTimeJoker()) {
             player.setTimeJoker(false);
-            System.out.println("Time Attack!");
+            player.setCurrentlyUsingTimeAttack(true);
+            game.incrementTimeAttacksUsed();
             return true;
         } else {
             return false;

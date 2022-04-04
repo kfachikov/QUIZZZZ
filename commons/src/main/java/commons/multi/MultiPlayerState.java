@@ -28,6 +28,12 @@ public class MultiPlayerState extends GameState {
     private List<ChatMessage> chatMessageList;
     private MultiPlayer playerUsingTimeJoker;
 
+    /*
+    Field to be used to count how many count attack have been used
+    in each separate round.
+     */
+    private int timeAttacksUsed;
+
     /**
      * Default constructor to be used for the JSON parsing.
      */
@@ -164,6 +170,32 @@ public class MultiPlayerState extends GameState {
      */
     public void setPlayerUsingTimeJoker(MultiPlayer playerUsingTimeJoker) {
         this.playerUsingTimeJoker = playerUsingTimeJoker;
+    }
+
+    /**
+     * Getter for the number of "Time Attack" jokers used in a single round.
+     *
+     * @return  Integer of the number of such jokers being used.
+     */
+    public int getTimeAttacksUsed() {
+        return timeAttacksUsed;
+    }
+
+    /**
+     *  Setter for the number of "Time Attack" jokers being used.
+     *  To be used at the beginning of each round to set the number to 0.
+     *
+     * @param timeAttacksUsed   Value to be set.
+     */
+    public void setTimeAttacksUsed(int timeAttacksUsed) {
+        this.timeAttacksUsed = timeAttacksUsed;
+    }
+
+    /**
+     * Increments the number of "Time Attacks" jokers being used in the current moment.
+     */
+    public void incrementTimeAttacksUsed() {
+        this.timeAttacksUsed ++;
     }
 
     /**

@@ -40,6 +40,7 @@ public class MultiplayerCtrl {
     private final int forbidden = 403;
     private final int messagesQuestion = 3;
     private final int messagesLeaderboard = 6;
+    private final double timeAttackFactor = 2;
 
     private MultiGameConsumptionQuestionScreenCtrl consumptionQuestionScreenCtrl;
     private Scene consumptionQuestionScreen;
@@ -93,6 +94,11 @@ public class MultiplayerCtrl {
         // If state has changed, we probably have to switch scenes
         if (newValue != null && (oldValue == null || !newValue.getState().equals(oldValue.getState()))) {
             switchState(newValue);
+        }
+
+        // If the state have changed, perhaps some people have used "Time Attack" jokers.
+        if (newValue != null && (oldValue != null && newValue.getTimeAttacksUsed() != oldValue.getTimeAttacksUsed())) {
+            alterTimer(newValue);
         }
         // If state has changed, perhaps some new messages have been "registered".
         if (newValue != null) {
@@ -600,8 +606,6 @@ public class MultiplayerCtrl {
         }
     }
 
-
-
     /**
      * Disables the used "Double Points" joker for all controllers.
      */
@@ -822,6 +826,27 @@ public class MultiplayerCtrl {
     private void visualizeJokeUsage(Label label, String username, String joker, ImageView imageView) {
         label.setText(username + " used " + joker + "!");
         imageView.setImage(null);
+    }
+
+    /**
+     * In case a "Time Attack" joker is submitted, the timer for all
+     * players except fot the "attacker" should be altered.
+     *
+     * This is achieved by changing the rate at which the timeline is progressing.
+     *
+     * @param game  Multiplayer game object to be used.
+     */
+    private void alterTimer(MultiPlayerState game) {
+        if (game.getTimeAttacksUsed() == 0) {
+            timeline.setRate(1);
+        } else {
+            MultiPlayer player = game.getPlayerByUsername(username);
+            if (!player.isCurrentlyUsingTimeAttack()) {
+                timeline.setRate(timeline.getRate() * timeAttackFactor);
+            } else {
+                player.setCurrentlyUsingTimeAttack(false);
+            }
+        }
     }
 
     /**
