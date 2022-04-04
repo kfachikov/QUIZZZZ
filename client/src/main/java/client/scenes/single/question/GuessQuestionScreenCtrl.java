@@ -138,9 +138,12 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
         questionTitle.setText(question.toString());
     }
 
+    /**
+     * Reveal the correct answer.
+     * The user will be able in this way to gain information during this game.
+     */
     public void setMessageCorrectAnswer() {
         messageCorrectAnswer.setText("The correct answer is " + question.getCorrectAnswer());
-        //messageCorrectAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("e4d4c8")).toString().substring(2));
         messageCorrectAnswer.setVisible(true);
     }
 

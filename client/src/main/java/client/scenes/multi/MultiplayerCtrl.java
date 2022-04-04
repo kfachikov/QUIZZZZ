@@ -303,6 +303,10 @@ public class MultiplayerCtrl {
         if (currentScreenCtrl instanceof MultiGameMoreExpensiveQuestionScreenCtrl) {
             ((MultiGameMoreExpensiveQuestionScreenCtrl) currentScreenCtrl).showCorrectAnswer();
         }
+        if (currentScreenCtrl instanceof MultiGameGuessQuestionScreenCtrl) {
+            ((MultiGameGuessQuestionScreenCtrl) currentScreenCtrl).setMessageCorrectAnswer((GuessQuestion)
+                    game.getQuestionList().get(game.getRoundNumber()));
+        }
     }
 
     /**
