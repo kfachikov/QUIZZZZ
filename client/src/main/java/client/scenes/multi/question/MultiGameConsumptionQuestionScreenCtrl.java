@@ -63,8 +63,6 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
     @FXML
     private ImageView wrongImage;
 
-    private ConsumptionQuestion question;
-
     /**
      * Constructor for the multiplayer game question screen.
      *
@@ -224,15 +222,6 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
      */
     public Label getGameStateLabel() {
         return gameStateLabel;
-    }
-
-    /**
-     * question setter.
-     *
-     * @param question the question
-     */
-    public void setQuestion(ConsumptionQuestion question) {
-        this.question = question;
     }
 
     /**

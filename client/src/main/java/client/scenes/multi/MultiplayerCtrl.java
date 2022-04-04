@@ -370,7 +370,6 @@ public class MultiplayerCtrl {
         currentScreenCtrl = consumptionQuestionScreenCtrl;
         setDefault(game);
         consumptionQuestionScreenCtrl.setJokersStyle();
-        consumptionQuestionScreenCtrl.setQuestion(question);
         consumptionQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
         consumptionQuestionScreenCtrl.prepareAnswerButton();
         consumptionQuestionScreenCtrl.setAnswers(question);
