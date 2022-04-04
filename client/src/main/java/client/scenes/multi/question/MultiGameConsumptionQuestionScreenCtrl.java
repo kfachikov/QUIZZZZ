@@ -2,8 +2,6 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
-import commons.multi.MultiPlayer;
-import commons.multi.MultiPlayerState;
 import commons.question.ConsumptionQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,8 +17,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
 import javax.inject.Inject;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.List;
 
 /**
  * Controller responsible for the multiplayer game consumption question screen.
@@ -236,5 +233,14 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
      */
     public void setQuestion(ConsumptionQuestion question) {
         this.question = question;
+    }
+
+    /**
+     * Getter for the Button instances of corresponding to the answer choices for this controller.
+     *
+     * @return  List of Button instances.
+     */
+    public List<Button> getAnswerButtons() {
+        return List.of(firstAnswer, secondAnswer, thirdAnswer);
     }
 }

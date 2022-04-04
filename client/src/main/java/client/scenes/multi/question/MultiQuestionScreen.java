@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -154,10 +155,17 @@ public abstract class MultiQuestionScreen {
      * Sets the jokers style.
      */
     public void setJokersStyle() {
-
         doublePoints.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
         removeIncorrect.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
         timeAttack.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
-
     }
+
+    /**
+     * Getter for the Button instances of corresponding to the answer choices for
+     * any of the child classes (controllers) extending this abstract class.
+     * *Defines contract.*
+     *
+     * @return  List of Button instances.
+     */
+    public abstract List<Button> getAnswerButtons();
 }

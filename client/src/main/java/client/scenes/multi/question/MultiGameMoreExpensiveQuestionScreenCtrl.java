@@ -2,8 +2,6 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
-import commons.multi.MultiPlayer;
-import commons.multi.MultiPlayerState;
 import commons.question.MoreExpensiveQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,8 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.List;
 
 /**
  * Controller responsible for the multiplayer game more expensive question screen.
@@ -242,5 +239,23 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
      */
     public void setQuestion(MoreExpensiveQuestion question) {
         this.question = question;
+    }
+
+    /**
+     * Getter for the Button instances of corresponding to the answer choices for this controller.
+     *
+     * @return  List of Button instances.
+     */
+    public List<Button> getAnswerButtons() {
+        return List.of(firstAnswer, secondAnswer, thirdAnswer);
+    }
+
+    /**
+     * Getter for the descriptions defining the answers.
+     *
+     * @return  List of String instances.
+     */
+    public List<String> getDescriptions() {
+        return List.of(description1.getText(), description2.getText(), description3.getText());
     }
 }

@@ -2,12 +2,11 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
-import commons.multi.MultiPlayer;
-import commons.multi.MultiPlayerState;
 import commons.question.GuessQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
@@ -18,8 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.List;
 
 /**
  * Controller responsible for the multiplayer game guess question screen.
@@ -182,5 +180,15 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
      */
     public Label getGameStateLabel() {
         return gameStateLabel;
+    }
+
+    /**
+     * This method exists purely because of the Java inheritance principle.
+     *
+     * @return  null - this method is actually never being called on any instance
+     *          of this class.
+     */
+    public List<Button> getAnswerButtons() {
+        return null;
     }
 }

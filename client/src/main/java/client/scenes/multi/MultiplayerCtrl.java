@@ -699,10 +699,11 @@ public class MultiplayerCtrl {
      *                  joker being used.
      */
     private void postJoker(String joker) {
-        if (!joker.equals("removeIncorrect") || !(currentScreenCtrl instanceof MultiGameGuessQuestionScreenCtrl)) {
+        if (!"removeIncorrect".equals(joker) || !(currentScreenCtrl instanceof MultiGameGuessQuestionScreenCtrl)) {
             serverUtils.addJoker(gameId,
                     new ChatMessage(username, joker));
-            if (joker.equals("removeIncorrect")) {
+            if ("removeIncorrect".equals(joker)) {
+                removeIncorrect();
                 disableUsedRemoveIncorrect();
             }
         }
@@ -851,8 +852,45 @@ public class MultiplayerCtrl {
         }
     }
 
+    /**
+     * Removes a "random" incorrect answer - the first one it finds is different from the actual one.
+     */
     private void removeIncorrect() {
+        MultiPlayerState game = serverUtils.getMultiGameState(gameId);
+        AbstractQuestion currentQuestion = game.getQuestionList().get(game.getRoundNumber());
+        List<Button> answerChoices = currentScreenCtrl.getAnswerButtons();
+        /*
+        The case when a question asked is "Which is the most expensive activity?" should be
+        handled independently, as the actual answers are "stored" in the "description" labels there.
+         */
+        if (currentScreenCtrl instanceof MultiGameMoreExpensiveQuestionScreenCtrl) {
+            List<String> answers = ((MultiGameMoreExpensiveQuestionScreenCtrl) currentScreenCtrl).getDescriptions();
+            int index = 0;
+            for (String answer: answers) {
+                /*
+                As in `submitAnswer`, we should remove the last two characters from the field "containing" the answer.
+                 */
+                if (answer.substring(0, answer.length() - 2).equals(currentQuestion.getCorrectAnswer())) {
+                    answerChoices.get(index).setDisable(true);
+                    break;
+                } else {
+                    index++;
+                }
+            }
+        } else {
+            for (Button answer: answerChoices) {
+                /*
+                As in `submitAnswer`, we should remove the last two characters from the field "containing" the answer.
 
+                These characters are additionally appended when the Button instances have been created.
+                 */
+                if (!answer.getText().substring(0, answer.getText().length() - 2)
+                        .equals(currentQuestion.getCorrectAnswer())) {
+                    answer.setDisable(true);
+                    break;
+                }
+            }
+        }
     }
 
     /**
