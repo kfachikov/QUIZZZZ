@@ -29,9 +29,6 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
-    private boolean reveal;
-    private boolean halfTime;
-    private boolean doublePoints;
 
     @FXML
     private Label gameStateLabel;
@@ -59,27 +56,6 @@ public class MultiGameConsumptionQuestionScreenCtrl extends MultiQuestionScreen 
 
     @FXML
     private Text description;
-
-    @FXML
-    private Button twicePoints;
-
-    @FXML
-    private Button revealWrong;
-
-    @FXML
-    private Button shortenTime;
-
-    @FXML
-    private Button emojiButton1;
-
-    @FXML
-    private Button emojiButton2;
-
-    @FXML
-    private Button emojiButton3;
-
-    @FXML
-    private Button emojiButton4;
 
     @FXML
     private ImageView doubleImage;

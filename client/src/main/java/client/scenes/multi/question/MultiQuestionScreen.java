@@ -44,14 +44,19 @@ public abstract class MultiQuestionScreen {
 
     private boolean doublePoints;
 
+    /*
+    Shared references to the joker buttons.
+     */
     @FXML
-    private Button twicePoints;
+    protected Button twicePoints;
 
     @FXML
-    private Button revealWrong;
+    protected Button revealWrong;
 
     @FXML
-    private Button shortenTime;
+    protected Button shortenTime;
+
+
 
     @FXML
     private ImageView doubleImage;
