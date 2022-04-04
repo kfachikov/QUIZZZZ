@@ -702,7 +702,9 @@ public class MultiplayerCtrl {
         if (!joker.equals("removeIncorrect") || !(currentScreenCtrl instanceof MultiGameGuessQuestionScreenCtrl)) {
             serverUtils.addJoker(gameId,
                     new ChatMessage(username, joker));
-            disableUsedRemoveIncorrect();
+            if (joker.equals("removeIncorrect")) {
+                disableUsedRemoveIncorrect();
+            }
         }
     }
 
