@@ -3,6 +3,7 @@ package client.utils;
 import client.scenes.misc.MainCtrl;
 import client.scenes.single.QuestionScreen;
 import client.scenes.single.question.ConsumptionQuestionScreenCtrl;
+import client.scenes.single.question.GuessQuestionScreenCtrl;
 import client.scenes.single.question.InsteadQuestionScreenCtrl;
 import client.scenes.single.question.MoreExpensiveQuestionScreenCtrl;
 import client.services.SingleplayerGameStatePollingService;
@@ -181,6 +182,10 @@ public class SinglePlayerUtils {
         }
         if (currentController instanceof MoreExpensiveQuestionScreenCtrl) {
             ((MoreExpensiveQuestionScreenCtrl) currentController).showCorrectAnswer();
+        }
+        if (currentController instanceof GuessQuestionScreenCtrl) {
+            ((GuessQuestionScreenCtrl) currentController).setMessageCorrectAnswer();
+
         }
     }
 

@@ -54,6 +54,9 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
     @FXML
     private TextField input;
 
+    @FXML
+    private Label messageCorrectAnswer;
+
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
@@ -135,6 +138,12 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
         questionTitle.setText(question.toString());
     }
 
+    public void setMessageCorrectAnswer() {
+        messageCorrectAnswer.setText("The correct answer is " + question.getCorrectAnswer());
+        //messageCorrectAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("e4d4c8")).toString().substring(2));
+        messageCorrectAnswer.setVisible(true);
+    }
+
     /**
      * Sets the current question.
      * Initialises the image, description and input field.
@@ -142,7 +151,7 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      * @param question GuessQuestion instance to be used.
      */
     public void setQuestion(GuessQuestion question) {
-
+        messageCorrectAnswer.setVisible(false);
         var activityImage = getActivityImage(question.getActivity());
         image.setImage(activityImage);
 
