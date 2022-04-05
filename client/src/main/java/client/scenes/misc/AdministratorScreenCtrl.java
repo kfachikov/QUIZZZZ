@@ -188,7 +188,7 @@ public class AdministratorScreenCtrl {
             String oldTitle = activity.getTitle();
             activity.setTitle(event.getNewValue());
             server.changeActivity(activity.getKey(), activity);
-            description.setText("You named '"+oldTitle+"' as '"+event.getNewValue()+"'.");
+            description.setText("You named '" + oldTitle + "' as '" + event.getNewValue() + "'.");
         });
         //create consumption column, make it editable and send server if changed
         TableColumn<Activity, Long> activityConsumption = new TableColumn<>("consumption (wh)");
@@ -198,7 +198,8 @@ public class AdministratorScreenCtrl {
             Activity activity = event.getRowValue();
             activity.setConsumption(event.getNewValue());
             server.changeActivity(activity.getKey(), activity);
-            description.setText("You set the consumption of '"+activity.getTitle()+"' as " + activity.getConsumption()+"wh.");
+            description.setText(
+                    "You set the consumption of '" + activity.getTitle() + "' as " + activity.getConsumption() + "wh.");
         });
         //add columns to the table
         activityTable.getColumns().add(activityName);
