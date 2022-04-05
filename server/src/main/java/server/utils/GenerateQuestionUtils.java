@@ -232,14 +232,19 @@ public class GenerateQuestionUtils {
         1. Taking all activities
         2. Filtering only those within the range for good answer choices
         3. Remove the true answer from the list
+        4. Repeat process with bigger and bigger range until we have enough candidates
          */
-        List<Long> candidateAnswers =
-                activitiesWithinRange(center, multiplier).stream()
-                        .mapToLong(Activity::getConsumption)
-                        .distinct()
-                        .filter(answer -> answer != center)
-                        .boxed()
-                        .collect(Collectors.toList());
+        List<Long> candidateAnswers = new ArrayList<>();
+
+        while (candidateAnswers.size() < 2) {
+            candidateAnswers = activitiesWithinRange(center, multiplier).stream()
+                    .mapToLong(Activity::getConsumption)
+                    .distinct()
+                    .filter(answer -> answer != center)
+                    .boxed()
+                    .collect(Collectors.toList());
+            multiplier += 1;
+        }
 
         Collections.shuffle(candidateAnswers, random);
 

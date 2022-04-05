@@ -21,7 +21,11 @@ public class MockRandom extends Random {
     public int nextInt(int bound) {
         calledMethods.add("nextInt");
         params.add(bound);
-        return ((int) returnValues.poll()) % bound;
+        int val = ((int) returnValues.poll()) % bound;
+        if (val < 0) {
+            val += bound;
+        }
+        return val;
     }
 
     @Override
