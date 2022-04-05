@@ -18,7 +18,7 @@ import java.io.File;
 import java.util.List;
 
 /**
- *
+ * The controller of the Admin Panel screen.
  */
 public class AdministratorScreenCtrl {
     private final ServerUtils server;
@@ -73,6 +73,9 @@ public class AdministratorScreenCtrl {
             selectFileButton.setDisable(false);
             activityLoaderService.reset();
         }
+        if (activityTable.getColumns().size() == 0) {
+            setTable();
+        }
         fillTable();
     }
 
@@ -113,6 +116,7 @@ public class AdministratorScreenCtrl {
 
     /**
      * Helper method for importing activities from the selected file.
+     * Further calls the fillTable() method if import is successful.
      *
      * @param selectedFile File that the user selected.
      */
@@ -123,6 +127,7 @@ public class AdministratorScreenCtrl {
             setDescription(
                     "You have imported " + loadedActivities.size() + " activities from " + selectedFile.getName()
             );
+            fillTable();
         });
         activityLoaderService.exceptionProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue instanceof BadRequestException) {
@@ -133,9 +138,7 @@ public class AdministratorScreenCtrl {
             selectFileButton.setDisable(false);
             activityLoaderService.reset();
         });
-
         activityLoaderService.start(selectedFile);
-        fillTable();
     }
 
     /**
@@ -160,28 +163,50 @@ public class AdministratorScreenCtrl {
 
     }
 
+    /**
+     * Fills the table with up-to-date list of activities.
+     */
     public void fillTable() {
+        //delete already existing items
+        activityTable.getItems().removeAll();
+        //get the up-to-date list of activities from server
         List<Activity> activities = server.getActivities();
-
-        activityTable.setEditable(true);
-
-        TableColumn<Activity, String> activityName = new TableColumn<>("title");
-        activityName.setCellValueFactory(new PropertyValueFactory<>("title"));
-        activityName.setCellFactory(TextFieldTableCell.forTableColumn());
-
-        TableColumn<Activity, Long> activityConsumption = new TableColumn<>("consumption (wh)");
-        activityConsumption.setCellValueFactory(new PropertyValueFactory<>("consumption"));
-        activityConsumption.setCellFactory(TextFieldTableCell.forTableColumn(new LongStringConverter()));
-
-
-        activityTable.getColumns().add(activityName);
-        activityTable.getColumns().add(activityConsumption);
-        activityTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        activityName.setPrefWidth(442.0);
-        activityConsumption.setPrefWidth(215.0);
-
         for (Activity activity : activities) {
             activityTable.getItems().add(activity);
         }
     }
+
+    /**
+     * Sets the table's columns, sizing and server communication in case of value update.
+     */
+    public void setTable() {
+        TableColumn<Activity, String> activityName = new TableColumn<>("title");
+        activityName.setCellValueFactory(new PropertyValueFactory<>("title"));
+        activityName.setCellFactory(TextFieldTableCell.forTableColumn());
+        activityName.setOnEditCommit(event -> {
+            Activity activity = event.getRowValue();
+            String oldTitle = activity.getTitle();
+            activity.setTitle(event.getNewValue());
+            server.changeActivity(activity.getKey(), activity);
+            description.setText("You named '"+oldTitle+"' as '"+event.getNewValue()+"'.");
+        });
+        //create consumption column, make it editable and send server if changed
+        TableColumn<Activity, Long> activityConsumption = new TableColumn<>("consumption (wh)");
+        activityConsumption.setCellValueFactory(new PropertyValueFactory<>("consumption"));
+        activityConsumption.setCellFactory(TextFieldTableCell.forTableColumn(new LongStringConverter()));
+        activityConsumption.setOnEditCommit(event -> {
+            Activity activity = event.getRowValue();
+            activity.setConsumption(event.getNewValue());
+            server.changeActivity(activity.getKey(), activity);
+            description.setText("You set the consumption of '"+activity.getTitle()+"' as " + activity.getConsumption()+"wh.");
+        });
+        //add columns to the table
+        activityTable.getColumns().add(activityName);
+        activityTable.getColumns().add(activityConsumption);
+        activityTable.setEditable(true);
+        //sizing
+        activityTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+    }
+
 }
