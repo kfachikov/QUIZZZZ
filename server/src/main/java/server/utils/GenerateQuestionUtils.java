@@ -169,41 +169,79 @@ public class GenerateQuestionUtils {
         return new MoreExpensiveQuestion(correctAnswer, answerChoices);
     }
 
+    public GuessQuestion generateGuessQuestion(boolean difficult) {
+        Activity activity = getNextActivity();
+
+        List<Activity> activities = repo.findAll().stream()
+                .sorted(this::compareActivities)
+                .collect(Collectors.toList());
+
+        long median = activities.get(activities.size() / 2).getConsumption();
+
+        // Activities with very high consumptions tend to be very difficult to guess
+        // Thus, we restrict it to be below median
+        while (!difficult && activity.getConsumption() > median) {
+            activity = getNextActivity();
+        }
+
+        return new GuessQuestion(activity);
+    }
+
+    public InsteadQuestion generateInsteadQuestion(boolean difficult) {
+        Activity activity = getNextActivity();
+
+        long center = activity.getConsumption();
+        long multiplier = difficult ? 10 : 100;
+
+        // We look for the closest match
+        List<Activity> correctAnswers = activitiesWithinRange(center, 1);
+        // Much larger range
+        List<Activity> incorrectAnswers = activitiesWithinRange(center, multiplier);
+        // Make sure correct answers are not included in the incorrect answers
+        incorrectAnswers.removeAll(correctAnswers);
+
+        Collections.shuffle(correctAnswers, random);
+        Collections.shuffle(incorrectAnswers, random);
+
+        List<Activity> answerChoices = new ArrayList<>();
+        answerChoices.add(correctAnswers.get(0));
+        answerChoices.add(incorrectAnswers.get(0));
+        answerChoices.add(incorrectAnswers.get(1));
+
+        return new InsteadQuestion(activity, activity.getTitle(), answerChoices);
+    }
+
+    public AbstractQuestion generateQuestion(boolean difficult, int number) {
+        return switch (number % 4) {
+            case 0 -> generateInsteadQuestion(difficult);
+            case 1 -> generateConsumptionQuestion(difficult);
+            case 2 -> generateMoreExpensiveQuestion(difficult);
+            case 3 -> generateGuessQuestion(difficult);
+            default -> null;
+        };
+    }
+
     public List<AbstractQuestion> generate20Questions() {
         initialize();
 
+        List<AbstractQuestion> easy = new ArrayList<>();
+        List<AbstractQuestion> hard = new ArrayList<>();
+
+        for (int i = 0; i < 20; i++) {
+            if (i < 12) {
+                easy.add(generateQuestion(false, i));
+            } else {
+                hard.add(generateQuestion(true, i));
+            }
+        }
+
+        Collections.shuffle(easy, random);
+        Collections.shuffle(hard, random);
+
         List<AbstractQuestion> result = new ArrayList<>();
-        List<Activity> activities = repo.findAll();
-        int questionNumber = 1;
+        result.addAll(easy);
+        result.addAll(hard);
 
-        Collections.shuffle(activities, random);
-
-        while (questionNumber <= 5 && questionNumber <= activities.size()) {
-            Activity activity = activities.get(questionNumber - 1);
-            InsteadQuestion insteadQuestion = new InsteadQuestion(activity);
-            insteadQuestion.setAnswerChoices(activities);
-            result.add(insteadQuestion);
-            questionNumber++;
-        }
-
-        while (questionNumber <= 10 && questionNumber <= activities.size()) {
-            result.add(generateConsumptionQuestion(false));
-            questionNumber++;
-        }
-
-        while (questionNumber <= 15 && questionNumber <= activities.size()) {
-            result.add(generateMoreExpensiveQuestion(false));
-            questionNumber++;
-        }
-
-        while (questionNumber <= 20 && questionNumber <= activities.size()) {
-            Activity activity = activities.get(questionNumber - 1);
-            GuessQuestion guessQuestionType = new GuessQuestion(activity);
-            result.add(guessQuestionType);
-            questionNumber++;
-        }
-
-        Collections.shuffle(result, random);
         return result;
     }
 }
