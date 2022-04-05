@@ -38,6 +38,10 @@ public class GenerateQuestionUtils {
                         .collect(Collectors.toList());
         Collections.shuffle(activityIds, random);
         this.activityIndex = 0;
+
+        if (activityIds.size() < 5) {
+            throw new IllegalStateException("Too few activities to generate any questions");
+        }
     }
 
     /**
@@ -116,6 +120,17 @@ public class GenerateQuestionUtils {
         return a.getConsumption().compareTo(b.getConsumption());
     }
 
+    /**
+     * Generate a consumption question.
+     * <p>
+     * Chooses a random activity, and then 2 activities within a multiplier,
+     * based on difficulty.
+     * <p>
+     * The answer choices are the consumptions of the activities.
+     *
+     * @param difficult Whether this question should be difficult (decreases relative difference between answers).
+     * @return Generated ConsumptionQuestion
+     */
     public ConsumptionQuestion generateConsumptionQuestion(boolean difficult) {
         // Generate a random activity
         Activity activity = getNextActivity();
@@ -152,6 +167,16 @@ public class GenerateQuestionUtils {
         return new ConsumptionQuestion(activity, answerChoices);
     }
 
+    /**
+     * Generate a "which is more expensive" question.
+     * <p>
+     * Chooses a random "middle" point, then picks some activities around that middle.
+     * <p>
+     * The correct answer is set to the activity with the highest consumption.
+     *
+     * @param difficult Whether this question should be difficult (decreases relative difference between choices).
+     * @return Generated MoreExpensiveQuestion.
+     */
     public MoreExpensiveQuestion generateMoreExpensiveQuestion(boolean difficult) {
         // Pick a random center
         long center = getNextActivity().getConsumption();
@@ -169,6 +194,19 @@ public class GenerateQuestionUtils {
         return new MoreExpensiveQuestion(correctAnswer, answerChoices);
     }
 
+    /**
+     * Generate a guess question.
+     * <p>
+     * For difficult questions, simply picks a random activity.
+     * <p>
+     * For non-difficult questions, picks an activity that is equal to, or below the median based on consumption.
+     * The logic for that is: the guess question is rated based on absolute value of the true answer, but activities
+     * are mostly following the power law. Thus, generating an activity with a "lower" consumption will give greater
+     * odds of correctly guessing.
+     *
+     * @param difficult Whether this question should be difficult.
+     * @return Generated GuessQuestion.
+     */
     public GuessQuestion generateGuessQuestion(boolean difficult) {
         Activity activity = getNextActivity();
 
@@ -187,6 +225,20 @@ public class GenerateQuestionUtils {
         return new GuessQuestion(activity);
     }
 
+    /**
+     * Generate a "which activity can you do instead" question.
+     * <p>
+     * Picks a random activity, then tries to pick some activities within close range of this activity to
+     * generate a "correct" answer (which will never include the actual original activity).
+     * <p>
+     * For the incorrect answers, simply a larger range is selected, excluding all potential answers from the pool.
+     * <p>
+     * If incorrect answers cannot be generated, this method does not fail, and instead generates an "un-fun" question
+     * by allowing multiple choices which are all close to each other.
+     *
+     * @param difficult Whether this question should be difficult (decreases range of incorrect answers)
+     * @return Generated InsteadQuestion
+     */
     public InsteadQuestion generateInsteadQuestion(boolean difficult) {
         Activity activity = getNextActivity();
 
@@ -200,17 +252,38 @@ public class GenerateQuestionUtils {
         // Make sure correct answers are not included in the incorrect answers
         incorrectAnswers.removeAll(correctAnswers);
 
+        // Make sure that correct answer does not have the original activity
+        correctAnswers.remove(activity);
+
         Collections.shuffle(correctAnswers, random);
-        Collections.shuffle(incorrectAnswers, random);
+
 
         List<Activity> answerChoices = new ArrayList<>();
         answerChoices.add(correctAnswers.get(0));
+
+        if (incorrectAnswers.size() < 2) {
+            // We couldn't successfully generate incorrect answers.
+            // Just pick whatever is not the true answer
+            incorrectAnswers = activitiesWithinRange(center, multiplier);
+            incorrectAnswers.remove(activity);
+            incorrectAnswers.removeAll(answerChoices);
+        }
+
+        Collections.shuffle(incorrectAnswers, random);
+
         answerChoices.add(incorrectAnswers.get(0));
         answerChoices.add(incorrectAnswers.get(1));
 
         return new InsteadQuestion(activity, activity.getTitle(), answerChoices);
     }
 
+    /**
+     * Generate a random question.
+     *
+     * @param difficult Whether the question should be difficult.
+     * @param number    Number of the question. (Used, modulo 4, to determine question type)
+     * @return Generated question.
+     */
     public AbstractQuestion generateQuestion(boolean difficult, int number) {
         return switch (number % 4) {
             case 0 -> generateInsteadQuestion(difficult);
@@ -221,6 +294,11 @@ public class GenerateQuestionUtils {
         };
     }
 
+    /**
+     * Generate 20 questions for a game.
+     *
+     * @return List of 20 generated questions.
+     */
     public List<AbstractQuestion> generate20Questions() {
         initialize();
 
