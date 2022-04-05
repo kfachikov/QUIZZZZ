@@ -735,7 +735,7 @@ public class MultiplayerCtrl {
      * @param chatMessageList  List of ChatMessage instances to be used for the "chat".
      */
     private void updateMessagesLeaderboard(List<ChatMessage> chatMessageList) {
-        List<Node> messagesParts = leaderboardCtrl.getReactions().getChildren();
+        List<Node> messagesParts = leaderboardCtrl.getChatMessages().getChildren();
         updateChat(chatMessageList, messagesParts, messagesLeaderboard);
     }
 
