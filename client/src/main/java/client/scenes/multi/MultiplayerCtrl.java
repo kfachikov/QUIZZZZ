@@ -299,7 +299,24 @@ public class MultiplayerCtrl {
         } else {
             currentScreenCtrl.getWindow()
                     .setStyle("-fx-background-color: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
+            /*
+            The correct answer is revealed for each type of question.
+            */
+            if (currentScreenCtrl instanceof MultiGameConsumptionQuestionScreenCtrl) {
+                ((MultiGameConsumptionQuestionScreenCtrl) currentScreenCtrl).showCorrectAnswer();
+            }
+            if (currentScreenCtrl instanceof MultiGameInsteadQuestionScreenCtrl) {
+                ((MultiGameInsteadQuestionScreenCtrl) currentScreenCtrl).showCorrectAnswer();
+            }
+            if (currentScreenCtrl instanceof MultiGameMoreExpensiveQuestionScreenCtrl) {
+                ((MultiGameMoreExpensiveQuestionScreenCtrl) currentScreenCtrl).showCorrectAnswer();
+            }
+            if (currentScreenCtrl instanceof MultiGameGuessQuestionScreenCtrl) {
+                ((MultiGameGuessQuestionScreenCtrl) currentScreenCtrl).setMessageCorrectAnswer((GuessQuestion)
+                        game.getQuestionList().get(game.getRoundNumber()));
+            }
         }
+
     }
 
     /**
@@ -379,6 +396,7 @@ public class MultiplayerCtrl {
         currentScreenCtrl = consumptionQuestionScreenCtrl;
         setDefault(game);
         consumptionQuestionScreenCtrl.setJokersStyle();
+        consumptionQuestionScreenCtrl.setQuestion(question);
         consumptionQuestionScreenCtrl.getGameStateLabel().setText("Game ID: " + game.getId());
         consumptionQuestionScreenCtrl.prepareAnswerButton();
         consumptionQuestionScreenCtrl.setAnswers(question);

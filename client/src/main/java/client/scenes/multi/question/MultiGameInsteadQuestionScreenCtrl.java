@@ -252,4 +252,21 @@ public class MultiGameInsteadQuestionScreenCtrl extends MultiQuestionScreen {
     public List<Button> getAnswerButtons() {
         return List.of(firstAnswer, secondAnswer, thirdAnswer);
     }
+
+    /**
+     * Change the color of the button that has the correct answer into green.
+     * The user will be able in this way to gain information during this game.
+     */
+    public void showCorrectAnswer() {
+        if (firstAnswer.getText().equals(question.getCorrectAnswer() + "  ")) {
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+        if (secondAnswer.getText().equals(question.getCorrectAnswer() + "  ")) {
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+        if (thirdAnswer.getText().equals(question.getCorrectAnswer() + "  ")) {
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+
+    }
 }

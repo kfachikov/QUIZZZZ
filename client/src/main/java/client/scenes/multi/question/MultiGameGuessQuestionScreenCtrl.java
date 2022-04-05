@@ -57,6 +57,9 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     @FXML
     private ImageView wrongImage;
 
+    @FXML
+    private Label messageCorrectAnswer;
+
     /**
      * Constructor for the multiplayer game question screen.
      *
@@ -111,6 +114,17 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
     }
 
     /**
+     * Reveal the correct answer.
+     * The user will be able in this way to gain information during this game.
+     *
+     * @param question the current question.
+     */
+    public void setMessageCorrectAnswer(GuessQuestion question) {
+        messageCorrectAnswer.setText("The correct answer is " + question.getCorrectAnswer());
+        messageCorrectAnswer.setVisible(true);
+    }
+
+    /**
      * Sets the "attributes" of the input field to the default ones.
      */
     public void inputFieldDefault() {
@@ -125,6 +139,7 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
      * @param question  Question to be used for the description to be set.
      */
     public void setDescription(GuessQuestion question) {
+        messageCorrectAnswer.setVisible(false);
         description.setText(question.getActivity().getTitle());
     }
 

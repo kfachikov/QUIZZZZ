@@ -258,4 +258,21 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
     public List<String> getDescriptions() {
         return List.of(description1.getText(), description2.getText(), description3.getText());
     }
+
+    /**
+     * Change the color of the button that has the correct answer into green.
+     * The user will be able in this way to gain information during this game.
+     */
+    public void showCorrectAnswer() {
+        if (description1.getText().equals(question.getCorrectAnswer() + "  ")) {
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+        if (description2.getText().equals(question.getCorrectAnswer() + "  ")) {
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+        if (description3.getText().equals(question.getCorrectAnswer() + "  ")) {
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+
+    }
 }
