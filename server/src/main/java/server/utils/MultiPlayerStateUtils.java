@@ -5,6 +5,7 @@ import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.multi.Reaction;
 import commons.question.AbstractQuestion;
+
 import java.util.*;
 
 /**
@@ -48,8 +49,6 @@ public class MultiPlayerStateUtils {
      * Initialization method, called in the constructor.
      */
     protected void initialize() {
-        nextGame = createNextGame();
-
         queueUtils.setOnStart(this::startNewGame);
     }
 
@@ -340,6 +339,7 @@ public class MultiPlayerStateUtils {
      * @return id of the game that is starting.
      */
     public long startNewGame() {
+        nextGame = createNextGame();
         long upcomingGameId = nextGame.getId();
         // We set the time of the next phase to +3s, since this method is called
         // whenever anyone in the queue clicks "Go!"

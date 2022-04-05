@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,13 @@ class GenerateQuestionUtilsTest {
             result.add(list.get(i));
         }
         return result;
+    }
+
+    private void setTrueRandom() {
+        Random rng = new Random(0);
+        for (int i = 0; i < 1000; i++) {
+            random.returnValues.add(rng.nextInt());
+        }
     }
 
     @BeforeEach
@@ -150,6 +158,7 @@ class GenerateQuestionUtilsTest {
 
     @Test
     void generateConsumptionQuestion() {
+        
     }
 
     @Test

@@ -10,6 +10,9 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Class responsible for generating random questions.
+ */
 @Component
 @ComponentScan(basePackageClasses = Random.class)
 public class GenerateQuestionUtils {
@@ -17,12 +20,26 @@ public class GenerateQuestionUtils {
     private final ActivityRepository repo;
     private final Random random;
 
+    // Current index of the id of the activities in activityIds
     private int activityIndex;
+    // Randomized list of activity IDs
     private List<Long> activityIds;
+    // Map from id of activity to its index in activityIds list
+    private Map<Long, Integer> idIndices;
 
+    // Copy of repo.findAll() for streams
     private List<Activity> activitiesCopy;
 
+    // Median consumption in Wh, for guess questions
+    private long median;
 
+
+    /**
+     * Constructor for GenerateQuestionUtils.
+     *
+     * @param repo   ActivityRepository to use when generating the questions.
+     * @param random Source of random numbers.
+     */
     public GenerateQuestionUtils(ActivityRepository repo, Random random) {
         this.repo = repo;
         this.random = random;
@@ -46,6 +63,17 @@ public class GenerateQuestionUtils {
         if (activityIds.size() < 5) {
             throw new IllegalStateException("Too few activities to generate any questions");
         }
+
+        List<Activity> sortedActivities = activitiesCopy.stream()
+                .sorted(this::compareActivities)
+                .collect(Collectors.toList());
+
+        this.median = sortedActivities.get(sortedActivities.size() / 2).getConsumption();
+
+        idIndices = new HashMap<>();
+        for (int i = 0; i < activityIds.size(); i++) {
+            idIndices.put(activityIds.get(i), i);
+        }
     }
 
     /**
@@ -65,6 +93,61 @@ public class GenerateQuestionUtils {
         this.activityIndex = (this.activityIndex + 1) % activityIds.size();
 
         return activity;
+    }
+
+    /**
+     * Gets N random activities from the given list.
+     * <p>
+     * Shifts the next activity accordingly.
+     *
+     * @param source Given list to get the activities from.
+     * @param count  N - number of activities to get
+     * @return List of N activities, randomly picked
+     */
+    public List<Activity> getRandomActivities(List<Activity> source, long count) {
+        List<Activity> sorted = sortedByNext(source);
+
+        int index = 0;
+
+        List<Activity> result = new ArrayList<>();
+        while (result.size() < count) {
+            result.add(sorted.get(index++));
+        }
+        Activity lastActivity = sorted.get(--index);
+        activityIndex = idIndices.get(lastActivity.getKey()) + 1;
+
+        return result;
+    }
+
+    /**
+     * Sorts the given list of activities by the "planned" order of activities.
+     *
+     * @param list List of activities to sort.
+     * @return Sorted activities.
+     */
+    public List<Activity> sortedByNext(List<Activity> list) {
+        List<Activity> sorted = list.stream()
+                .sorted(Comparator.comparingInt(a -> idIndices.get(a.getKey())))
+                .collect(Collectors.toList());
+
+        List<Activity> before =
+                sorted.stream()
+                        .filter(activity ->
+                                idIndices.get(activity.getKey()) < activityIndex
+                        )
+                        .collect(Collectors.toList());
+        List<Activity> after =
+                sorted.stream()
+                        .filter(activity ->
+                                idIndices.get(activity.getKey()) >= activityIndex
+                        )
+                        .collect(Collectors.toList());
+
+        List<Activity> result = new ArrayList<>();
+        result.addAll(after);
+        result.addAll(before);
+
+        return result;
     }
 
     /**
@@ -188,8 +271,7 @@ public class GenerateQuestionUtils {
 
         List<Activity> answerChoices = activitiesWithinRange(center, multiplier);
         // Limit to 3 answers
-        Collections.shuffle(answerChoices, random);
-        answerChoices = answerChoices.stream().limit(3).collect(Collectors.toList());
+        answerChoices = getRandomActivities(answerChoices, 3);
 
         Activity correct = answerChoices.stream().max(this::compareActivities).get();
         String correctAnswer = correct.getTitle();
@@ -212,12 +294,6 @@ public class GenerateQuestionUtils {
      */
     public GuessQuestion generateGuessQuestion(boolean difficult) {
         Activity activity = getNextActivity();
-
-        List<Activity> activities = repo.findAll().stream()
-                .sorted(this::compareActivities)
-                .collect(Collectors.toList());
-
-        long median = activities.get(activities.size() / 2).getConsumption();
 
         // Activities with very high consumptions tend to be very difficult to guess
         // Thus, we restrict it to be below median
@@ -258,11 +334,8 @@ public class GenerateQuestionUtils {
         // Make sure that correct answer does not have the original activity
         correctAnswers.remove(activity);
 
-        Collections.shuffle(correctAnswers, random);
-
-
-        List<Activity> answerChoices = new ArrayList<>();
-        answerChoices.add(correctAnswers.get(0));
+        // Add one of the correct answers
+        List<Activity> answerChoices = new ArrayList<>(getRandomActivities(correctAnswers, 1));
 
         if (incorrectAnswers.size() < 2) {
             // We couldn't successfully generate incorrect answers.
@@ -272,10 +345,8 @@ public class GenerateQuestionUtils {
             incorrectAnswers.removeAll(answerChoices);
         }
 
-        Collections.shuffle(incorrectAnswers, random);
-
-        answerChoices.add(incorrectAnswers.get(0));
-        answerChoices.add(incorrectAnswers.get(1));
+        // Add two incorrect answers
+        answerChoices.addAll(getRandomActivities(incorrectAnswers, 2));
 
         return new InsteadQuestion(activity, activity.getTitle(), answerChoices);
     }
