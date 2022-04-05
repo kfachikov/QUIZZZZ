@@ -143,12 +143,12 @@ public class PrepScreenCtrl {
      * Calls fillLeaderboard(), which populates leaderboard + makes used labels visible.
      */
     public void setUp() {
-        List<SinglePlayerLeaderboardScore> players = server.getLeaderboardEntry();
-        fillLeaderboard(players);
-
         setLabelsVisible(usernameLabels, false);
         setLabelsVisible(scoreLabels, false);
         setLabelsVisible(positionLabels, true);
+
+        List<SinglePlayerLeaderboardScore> players = server.getLeaderboardEntry();
+        fillLeaderboard(players);
     }
 
     /**
@@ -255,6 +255,7 @@ public class PrepScreenCtrl {
                 //set the labels as visible and display the value.
                 displayLabel(usernameLabels.get(i), username);
                 displayLabel(scoreLabels.get(i), score);
+                displayLabel(positionLabels.get(i), String.valueOf(i + 1));
             }
         } else {
             //iterate from sorted players list and set username & score labels.
@@ -265,6 +266,7 @@ public class PrepScreenCtrl {
                 //set the labels as visible and display the value.
                 displayLabel(usernameLabels.get(i), username);
                 displayLabel(scoreLabels.get(i), score);
+                displayLabel(positionLabels.get(i), String.valueOf(i + 1));
             }
         }
     }
