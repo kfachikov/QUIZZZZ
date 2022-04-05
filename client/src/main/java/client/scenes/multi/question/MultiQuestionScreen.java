@@ -144,6 +144,15 @@ public abstract class MultiQuestionScreen {
     }
 
     /**
+     * Enables the "Remove Incorrect" joker. To be used to enable it after it has been
+     * disabled because of player submitting an answer - aim to prevent mistakes.
+     */
+    public void enableRemoveIncorrect() {
+        removeIncorrect.setDisable(false);
+        removeIncorrect.setStyle("-fx-background-color: #" + (Paint.valueOf("b80000")).toString().substring(2));
+    }
+
+    /**
      * Disables the time joker.
      */
     public void disableTimeAttack() {

@@ -369,6 +369,14 @@ public class MultiplayerCtrl {
          */
         negativeTimeAccumulated = 0;
 
+        /*
+        In case a player hadn't used his "Remove Incorrect" joker, but it was disables because of answer
+        submission, the button is enabled again.
+         */
+        if (game.getPlayerByUsername(username).getIncorrectAnswerJoker()) {
+            enableRemoveIncorrect();
+        }
+
         AbstractQuestion question = game.getQuestionList().get(roundNumber);
 
         if (question instanceof ConsumptionQuestion) {
@@ -498,6 +506,10 @@ public class MultiplayerCtrl {
                 username,
                 lastSubmittedAnswer
         ));
+        /*
+        Disables the "Remove Incorrect" joker so that the user cannot click on it unintentionally.
+         */
+        disableUsedRemoveIncorrect();
     }
 
     /**
@@ -650,6 +662,16 @@ public class MultiplayerCtrl {
         guessQuestionScreenCtrl.disableRemoveIncorrect();
         moreExpensiveQuestionScreenCtrl.disableRemoveIncorrect();
         insteadQuestionScreenCtrl.disableRemoveIncorrect();
+    }
+
+    /**
+     * Enables the unused "Remove Incorrect" joker for all controllers.
+     */
+    public void enableRemoveIncorrect() {
+        consumptionQuestionScreenCtrl.enableRemoveIncorrect();
+        guessQuestionScreenCtrl.enableRemoveIncorrect();
+        moreExpensiveQuestionScreenCtrl.enableRemoveIncorrect();
+        insteadQuestionScreenCtrl.enableRemoveIncorrect();
     }
 
     /**
