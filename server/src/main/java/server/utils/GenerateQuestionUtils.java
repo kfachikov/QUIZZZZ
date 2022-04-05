@@ -6,10 +6,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import server.database.ActivityRepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Component
 @ComponentScan(basePackageClasses = Random.class)
@@ -22,6 +21,60 @@ public class GenerateQuestionUtils {
     public GenerateQuestionUtils(ActivityRepository repo, Random random) {
         this.repo = repo;
         this.random = random;
+    }
+
+    public Predicate<Activity> activityPredicate(long lower, long upper) {
+        return activity -> activity.getConsumption() >= lower &&
+                activity.getConsumption() <= upper;
+    }
+
+    public ConsumptionQuestion generateConsumptionQuestion(boolean difficult) {
+        List<Activity> activities = repo.findAll();
+        // Generate a random activity
+        Activity activity = activities.get(random.nextInt(activities.size()));
+
+        // Make range of possible values smaller if question is "difficult"
+        // Thus, players require more "precision" to answer correctly
+        long multiplier = difficult ? 2 : 10;
+
+        long lowerBound = activity.getConsumption() / multiplier;
+        long upperBound = activity.getConsumption() * multiplier;
+
+        /*
+        Get a list of candidate answers by:
+        1. Taking all activities
+        2. Filtering only those within the range for good answer choices
+        3. Remove the true answer from the list
+         */
+        List<Long> candidateAnswers =
+                activities.stream()
+                        .filter(activityPredicate(lowerBound, upperBound))
+                        .mapToLong(Activity::getConsumption)
+                        .distinct()
+                        .filter(answer -> answer == activity.getConsumption())
+                        .boxed()
+                        .collect(Collectors.toList());
+
+        if (candidateAnswers.size() < 2) {
+            // We have no viable answers
+            // Thus, we just generate some
+            long range = upperBound - lowerBound + 1;
+            long answer1 = lowerBound + random.nextLong() % range;
+            long answer2 = lowerBound + random.nextLong() % range;
+
+            candidateAnswers.add(answer1);
+            candidateAnswers.add(answer2);
+        }
+        Collections.shuffle(candidateAnswers, random);
+
+        List<Long> answerChoices = new ArrayList<>();
+        // Add correct answer
+        answerChoices.add(activity.getConsumption());
+        // Add incorrect answers
+        answerChoices.add(candidateAnswers.get(0));
+        answerChoices.add(candidateAnswers.get(1));
+
+        return new ConsumptionQuestion(activity, answerChoices);
     }
 
     public List<AbstractQuestion> generate20Questions() {
