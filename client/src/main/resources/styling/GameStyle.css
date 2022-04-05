@@ -68,17 +68,13 @@
 }
 .table-view {
     -fx-border-width: 5;
-    -fx-border-radius: 7;
-    -fx-background-radius: 20;
     -fx-background-color: white;
-    -fx-border-color: #0038a8;
+    -fx-border-color: #b80000;
     -fx-font-family: "Avenir Next Condensed";
-
 }
 .table-view .column-header {
     -fx-background-color: #ffffff;
-    -fx-border-color: #0038a8;
-    -fx-text-fill: red;
+    -fx-border-color: #b80000;
     -fx-border-radius: 7;
     -fx-border-width: 3;
 }

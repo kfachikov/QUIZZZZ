@@ -7,11 +7,12 @@ import com.google.inject.Inject;
 import commons.misc.Activity;
 import jakarta.ws.rs.BadRequestException;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.util.converter.LongStringConverter;
 
 import java.io.File;
 import java.util.List;
@@ -36,6 +37,9 @@ public class AdministratorScreenCtrl {
 
     @FXML
     private TextArea helpText;
+
+    @FXML
+    private TableView activityTable;
 
     /**
      * initializes AdministratorScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -69,6 +73,7 @@ public class AdministratorScreenCtrl {
             selectFileButton.setDisable(false);
             activityLoaderService.reset();
         }
+        fillTable();
     }
 
     /**
@@ -130,6 +135,7 @@ public class AdministratorScreenCtrl {
         });
 
         activityLoaderService.start(selectedFile);
+        fillTable();
     }
 
     /**
@@ -151,5 +157,31 @@ public class AdministratorScreenCtrl {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
         File selectedFile = fileChooser.showOpenDialog(null);
         return selectedFile;
+
+    }
+
+    public void fillTable() {
+        List<Activity> activities = server.getActivities();
+
+        activityTable.setEditable(true);
+
+        TableColumn<Activity, String> activityName = new TableColumn<>("title");
+        activityName.setCellValueFactory(new PropertyValueFactory<>("title"));
+        activityName.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        TableColumn<Activity, Long> activityConsumption = new TableColumn<>("consumption (wh)");
+        activityConsumption.setCellValueFactory(new PropertyValueFactory<>("consumption"));
+        activityConsumption.setCellFactory(TextFieldTableCell.forTableColumn(new LongStringConverter()));
+
+
+        activityTable.getColumns().add(activityName);
+        activityTable.getColumns().add(activityConsumption);
+        activityTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        activityName.setPrefWidth(442.0);
+        activityConsumption.setPrefWidth(215.0);
+
+        for (Activity activity : activities) {
+            activityTable.getItems().add(activity);
+        }
     }
 }
