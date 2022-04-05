@@ -20,6 +20,8 @@ public class GenerateQuestionUtils {
     private int activityIndex;
     private List<Long> activityIds;
 
+    private List<Activity> activitiesCopy;
+
 
     public GenerateQuestionUtils(ActivityRepository repo, Random random) {
         this.repo = repo;
@@ -31,8 +33,10 @@ public class GenerateQuestionUtils {
      * Initialize GenerateQuestionUtils so it can generate unique activities.
      */
     public void initialize() {
+        this.activitiesCopy = repo.findAll();
+
         this.activityIds =
-                repo.findAll().stream()
+                activitiesCopy.stream()
                         .mapToLong(Activity::getKey)
                         .boxed()
                         .collect(Collectors.toList());
@@ -92,7 +96,6 @@ public class GenerateQuestionUtils {
      * @return All activities within multiple of the center.
      */
     public List<Activity> activitiesWithinRange(long center, long multiplier) {
-        List<Activity> activities = repo.findAll();
         List<Activity> result = new ArrayList<>();
 
 
@@ -100,7 +103,7 @@ public class GenerateQuestionUtils {
         multiplier--;
         while (result.size() < 4) {
             multiplier++;
-            result = activities.stream()
+            result = activitiesCopy.stream()
                     .filter(activityPredicate(center / multiplier,
                             center * multiplier))
                     .collect(Collectors.toList());
