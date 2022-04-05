@@ -170,22 +170,22 @@ public class SinglePlayerUtils {
         } else {
             currentController.getWindow()
                     .setStyle("-fx-background-color: #" + (Paint.valueOf("ff8a84")).toString().substring(2));
-        }
-        /*
-        The correct answer is revealed for each type of question.
-         */
-        if (currentController instanceof ConsumptionQuestionScreenCtrl) {
-            ((ConsumptionQuestionScreenCtrl) currentController).showCorrectAnswer();
-        }
-        if (currentController instanceof InsteadQuestionScreenCtrl) {
-            ((InsteadQuestionScreenCtrl) currentController).showCorrectAnswer();
-        }
-        if (currentController instanceof MoreExpensiveQuestionScreenCtrl) {
-            ((MoreExpensiveQuestionScreenCtrl) currentController).showCorrectAnswer();
-        }
-        if (currentController instanceof GuessQuestionScreenCtrl) {
-            ((GuessQuestionScreenCtrl) currentController).setMessageCorrectAnswer();
+            /*
+            The correct answer is revealed for each type of question.
+            */
+            if (currentController instanceof ConsumptionQuestionScreenCtrl) {
+                ((ConsumptionQuestionScreenCtrl) currentController).showCorrectAnswer();
+            }
+            if (currentController instanceof InsteadQuestionScreenCtrl) {
+                ((InsteadQuestionScreenCtrl) currentController).showCorrectAnswer();
+            }
+            if (currentController instanceof MoreExpensiveQuestionScreenCtrl) {
+                ((MoreExpensiveQuestionScreenCtrl) currentController).showCorrectAnswer();
+            }
+            if (currentController instanceof GuessQuestionScreenCtrl) {
+                ((GuessQuestionScreenCtrl) currentController).setMessageCorrectAnswer();
 
+            }
         }
     }
 
