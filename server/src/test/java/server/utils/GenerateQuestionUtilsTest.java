@@ -2,11 +2,9 @@ package server.utils;
 
 import commons.misc.Activity;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -65,7 +63,7 @@ class GenerateQuestionUtilsTest {
 
     @Test
     void initialize() {
-        assertDoesNotThrow(()-> {
+        assertDoesNotThrow(() -> {
             gqUtils.initialize();
         });
     }
