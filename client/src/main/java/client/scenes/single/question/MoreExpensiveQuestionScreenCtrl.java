@@ -195,8 +195,7 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
                 time.getProgress(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
-                chosenAnswer,
-                false
+                chosenAnswer
         ));
     }
 

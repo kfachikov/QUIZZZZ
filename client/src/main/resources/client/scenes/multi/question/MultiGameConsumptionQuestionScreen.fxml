@@ -26,21 +26,21 @@
       <Region id="region" layoutX="741.0" layoutY="119.0" prefHeight="316.0" prefWidth="200.0" AnchorPane.rightAnchor="-15.0" />
       <ImageView fx:id="image" fitHeight="216.0" fitWidth="355.0" layoutX="62.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true" />
       <Region id="region" layoutX="461.0" layoutY="211.0" prefHeight="149.0" prefWidth="433.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.rightAnchor="20.0" />
-      <Button fx:id="twicePoints" layoutX="760.0" layoutY="62.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="127.0">
+      <Button fx:id="doublePoints" layoutX="760.0" layoutY="62.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="127.0">
          <graphic>
             <ImageView fx:id="doubleImage" fitHeight="63.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
                <image>
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="revealWrong" layoutX="761.0" layoutY="175.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="227.0">
+      <Button fx:id="removeIncorrect" layoutX="761.0" layoutY="175.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="227.0">
          <graphic>
             <ImageView fx:id="wrongImage" fitHeight="61.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="shortenTime" layoutX="762.0" layoutY="321.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="327.0">
+      <Button fx:id="timeAttack" layoutX="762.0" layoutY="321.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="327.0">
          <graphic>
             <ImageView fx:id="timeImage" fitHeight="62.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -86,7 +86,7 @@
       </Button>
       <Label id="gameStateLabel" fx:id="gameStateLabel" alignment="CENTER" layoutX="795.0" layoutY="16.0" prefHeight="0.0" prefWidth="88.0" text="Game Id unset" textFill="#ffec00" />
       <Text id="jokerTitle" fill="#ffec00" layoutX="775.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jokers" />
-      <GridPane fx:id="reactions" layoutX="128.0" layoutY="484.0" prefHeight="105.0" prefWidth="222.0">
+      <GridPane fx:id="chatMessages" layoutX="128.0" layoutY="484.0" prefHeight="105.0" prefWidth="222.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.7999755859375" minWidth="10.0" prefWidth="176.6000244140625" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.20001220703125" minWidth="10.0" prefWidth="45.39997558593751" />

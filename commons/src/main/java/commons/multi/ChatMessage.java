@@ -8,29 +8,29 @@ import java.util.Objects;
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
 /**
- * Reaction class - to be used for emoji submission and reaction revealing.
+ * ChatMessage class - to be used for emoji submission and reaction revealing.
  */
-public class Reaction {
+public class ChatMessage {
 
     private String username;
-    private String emoji;
+    private String message;
 
     /**
      * Default constructor to be used for JSON parsing.
      */
-    public Reaction() {
+    public ChatMessage() {
 
     }
 
     /**
-     * Proper constructor for creating an instance of Reaction to be communicated with.
+     * Proper constructor for creating an instance of ChatMessage to be communicated with.
      *
      * @param username  The username of the player.
-     * @param emoji     Reaction - either laughing, crying, etc.
+     * @param message     ChatMessage - either laughing, crying, etc.
      */
-    public Reaction(String username, String emoji) {
+    public ChatMessage(String username, String message) {
         this.username = username;
-        this.emoji = emoji;
+        this.message = message;
     }
 
     /**
@@ -47,8 +47,8 @@ public class Reaction {
      *
      * @return  String representing the emoji field.
      */
-    public String getEmoji() {
-        return emoji;
+    public String getMessage() {
+        return message;
     }
 
     /**
@@ -65,8 +65,8 @@ public class Reaction {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Reaction reaction = (Reaction) o;
-        return Objects.equals(username, reaction.username) && Objects.equals(emoji, reaction.emoji);
+        ChatMessage chatMessage = (ChatMessage) o;
+        return Objects.equals(username, chatMessage.username) && Objects.equals(message, chatMessage.message);
     }
 
     /**

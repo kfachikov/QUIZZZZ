@@ -18,7 +18,7 @@ package client.utils;
 import commons.misc.*;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
-import commons.multi.Reaction;
+import commons.multi.ChatMessage;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -188,16 +188,33 @@ public class ServerUtils {
      * POST request to api/multi/reaction to submit an emoji a client clicked.
      *
      * @param id        id of current multiplayer game
-     * @param reaction  Reaction instance to be submitted
-     * @return          Reaction that was added to the particular game.
+     * @param chatMessage  ChatMessage instance to be submitted
+     * @return          ChatMessage that was added to the particular game.
      */
-    public Reaction addReaction(long id, Reaction reaction) {
+    public ChatMessage addReaction(long id, ChatMessage chatMessage) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/multi/reaction/" + id)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .post(Entity.entity(reaction, APPLICATION_JSON), Reaction.class);
+                .post(Entity.entity(chatMessage, APPLICATION_JSON), ChatMessage.class);
+    }
+
+    /**
+     * POST request to api/multi/joker to register a joker usage once a client clicks.
+     *
+     * @param id            id of current multiplayer game
+     * @param chatMessage   ChatMessage instance to be submitted - consist a String "reference"
+     *                      to the corresponding Joker used.
+     * @return              ChatMessage that was added to the particular game.
+     */
+    public ChatMessage addJoker(long id, ChatMessage chatMessage) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/joker/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(chatMessage, APPLICATION_JSON), ChatMessage.class);
     }
 
     /**
