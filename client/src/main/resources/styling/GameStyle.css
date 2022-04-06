@@ -90,16 +90,6 @@
     -fx-border-radius: 10;
     -fx-font-family: "Avenir Next Condensed";
 }
-#bubbles>.label {
-    -fx-background-color: #001950;
-    -fx-border-color: #0038a8;
-    -fx-text-fill: white;
-    -fx-border-radius: 15;
-    -fx-background-radius: 20;
-    -fx-border-width: 3;
-    visibility: false;
-    -fx-font-family: "Avenir Next Condensed";
-}
 #start-label {
     -fx-background-color: #0038a8;
     -fx-font-family: "Avenir Next Condensed";
@@ -119,9 +109,22 @@
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
 }
+#scroll {
+    -fx-background-color: #001950;
+}
 #bubbles {
     -fx-vgap: 20;
     -fx-hgap: 10;
+}
+#bubbles>.label {
+    -fx-background-color: #001950;
+    -fx-border-color: #0038a8;
+    -fx-text-fill: #ff0000;
+    -fx-border-radius: 15;
+    -fx-background-radius: 20;
+    -fx-border-width: 3;
+    visibility: false;
+    -fx-font-family: "Avenir Next Condensed";
 }
 #leaderboard {
     -fx-vgap: 5;

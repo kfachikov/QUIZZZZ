@@ -9,13 +9,13 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.text.TextAlignment;
 
 import javax.inject.Inject;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -140,31 +140,42 @@ public class QueueScreenCtrl {
         /*
         Create an event listener for short-polling
          */
-        pollingService.valueProperty().addListener((observable, oldValue, newQueueState) -> {
-            if (newQueueState != null) {
-                List<QueueUser> queueUsers = newQueueState.getUsers();
-                queueLabel.textProperty().set("Queue: " + queueUsers.size() + " players");
+        pollingService.valueProperty().addListener((observable, oldState, newState) -> {
+            if (newState != null) {
+                queueLabel.textProperty().set("Queue: " + newState.getUsers().size() + " players");
 
-                int currentNodeIndex = 0;
-                List<Node> presentPlayers = bubbles.getChildren();
-                Collections.reverse(queueUsers);
+                List<QueueUser> previousPlayers = new ArrayList<>();
+                if (oldState != null) {
+                    previousPlayers.addAll(oldState.getUsers());
+                }
 
-                for (QueueUser multiplayer : queueUsers) {
-                    Node currentNode = presentPlayers.get(currentNodeIndex);
-                    ((Label) currentNode).setText(multiplayer.getUsername());
-                    currentNode.setVisible(true);
-                    currentNodeIndex++;
-                    if (currentNodeIndex > PLAYERSCOUNT) {
-                        break;
+                List<QueueUser> joinedPlayers = new ArrayList<>(newState.getUsers());
+                joinedPlayers.removeAll(previousPlayers);
+
+                /*
+                // Remove players who have left
+                for (Iterator<Node> iterator = bubbles.getChildren().iterator(); iterator.hasNext(); ) {
+                    Node node = iterator.next();
+                    if (node instanceof Label) {
+                        Label label = (Label) node;
+                        QueueUser potentialLeaver = new QueueUser(label.getText());
+                        if (!newState.getUsers().contains(potentialLeaver)) {
+                            iterator.remove();
+                        }
                     }
                 }
-                for (int i = currentNodeIndex; i <= PLAYERSCOUNT; i++) {
-                    Node currentNode = presentPlayers.get(currentNodeIndex);
-                    currentNode.setVisible(false);
+                 */
+
+                // Add players who have joined
+                for (QueueUser joiner : joinedPlayers) {
+                    Label label = new Label(joiner.getUsername());
+                    label.setTextAlignment(TextAlignment.CENTER);
+                    label.setPrefSize(100, 50);
+                    bubbles.getChildren().add(label);
                 }
 
                 // Internal state should be consistent with server state
-                gameStarting.set(newQueueState.isGameStarting());
+                gameStarting.set(newState.isGameStarting());
             }
         });
 
