@@ -20,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 
 /**
  * Controller for the consumption question scene.
@@ -54,6 +55,9 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     @FXML
     private Button leaveButton;
+
+    @FXML
+    private Text imageDescription;
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -178,6 +182,8 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
         this.question = question;
         setQuestionPrompt();
+        setDescription();
+
         /*
         The following setup was made purely for testing purposes.
         Should be optimized - extracted as functionality (eventually).
@@ -185,6 +191,13 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
         firstAnswer.setText(question.getAnswerChoices().get(0) + "Wh");
         secondAnswer.setText(question.getAnswerChoices().get(1) + "Wh");
         thirdAnswer.setText(question.getAnswerChoices().get(2) + "Wh");
+    }
+
+    /**
+     * Sets the description of the image.
+     */
+    public void setDescription() {
+        imageDescription.setText(question.getActivity().getTitle());
     }
 
     /**

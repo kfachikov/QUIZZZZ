@@ -22,7 +22,7 @@
       <ProgressBar fx:id="time" layoutX="109.0" layoutY="45.0" prefHeight="20.0" prefWidth="620.0" progress="0.36" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0" />
       <Label id="score" fx:id="currentScore" layoutX="478.0" layoutY="2.0" text="100" textFill="YELLOW" AnchorPane.topAnchor="2.0" />
       <Label id="title" fx:id="questionTitle" layoutX="78.0" layoutY="71.0" prefHeight="39.0" prefWidth="628.0" text="HOW MUCH ENERGY DOES THIS ACTIVITY SPEND?" textAlignment="CENTER" textFill="WHITE" />
-      <Text id="description" fx:id="description" fill="WHITE" layoutX="83.0" layoutY="153.0" text="Taking a hot shower. (50l water)             " textAlignment="CENTER" wrappingWidth="592.0" />
+      <Text id="description" fx:id="description" fill="WHITE" layoutX="83.0" layoutY="153.0" textAlignment="CENTER" wrappingWidth="592.0" />
       <TextField id="multiGuessInput" fx:id="input" alignment="CENTER" layoutX="312.0" layoutY="386.0" prefHeight="64.0" prefWidth="404.0" style="-fx-background-color: white; -fx-text-fill: black;" text="Type your guess here" />
       <Region id="region" layoutX="83.0" layoutY="458.0" prefHeight="162.0" prefWidth="315.0" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="83.0" />
       <Region layoutX="94.0" layoutY="470.0" prefHeight="149.0" prefWidth="295.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="94.0" />
