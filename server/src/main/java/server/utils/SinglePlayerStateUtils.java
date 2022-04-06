@@ -3,7 +3,6 @@ package server.utils;
 import commons.misc.Activity;
 import commons.misc.GameResponse;
 import commons.question.AbstractQuestion;
-import commons.question.GuessQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import org.springframework.context.annotation.ComponentScan;
