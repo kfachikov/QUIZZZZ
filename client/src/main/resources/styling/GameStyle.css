@@ -123,8 +123,8 @@
     -fx-border-radius: 15;
     -fx-background-radius: 20;
     -fx-border-width: 3;
-    visibility: false;
     -fx-font-family: "Avenir Next Condensed";
+    -fx-padding: 0 15 0 15;
 }
 #leaderboard {
     -fx-vgap: 5;

@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -261,7 +262,9 @@ public class QueueScreenCtrl {
         for (QueueUser joiner : joinedUsers) {
             Label label = new Label(joiner.getUsername());
             label.setTextAlignment(TextAlignment.CENTER);
-            label.setPrefSize(100, 50);
+            label.setAlignment(Pos.CENTER);
+            label.setPrefHeight(50);
+            label.setMinWidth(70);
             bubbles.getChildren().add(label);
         }
     }

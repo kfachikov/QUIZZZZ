@@ -16,8 +16,8 @@
                     maxWidth="-Infinity" pannable="true" prefHeight="243.0" prefWidth="773.0" vbarPolicy="ALWAYS">
             <content>
                 <FlowPane fx:id="bubbles" alignment="CENTER" hgap="5.0" maxHeight="1.7976931348623157E308"
-                          maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="770.0"
-                          prefWrapLength="770.0" vgap="5.0">
+                          maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="750.0"
+                          prefWrapLength="700.0" vgap="5.0">
                     <children>
                         <Label text="Test User"/>
                         <Label text="Test User 2"/>
