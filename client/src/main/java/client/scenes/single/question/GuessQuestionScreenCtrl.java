@@ -23,6 +23,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
+import java.util.Date;
+
 /**
  * Controller for the guess question scene.
  */
@@ -103,8 +105,9 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new GameResponse(singlePlayerState.getId(),
-                time.getProgress(),
+        server.postAnswer(new GameResponse(
+                singlePlayerState.getId(),
+                new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
                 chosenAnswer

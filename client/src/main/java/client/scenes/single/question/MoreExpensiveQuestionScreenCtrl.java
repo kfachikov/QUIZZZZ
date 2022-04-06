@@ -22,6 +22,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
+import java.util.Date;
+
 /**
  * Controller for the comparison ("What is more expensive?") question scene.
  */
@@ -191,8 +193,9 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new GameResponse(singlePlayerState.getId(),
-                time.getProgress(),
+        server.postAnswer(new GameResponse(
+                singlePlayerState.getId(),
+                new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
                 chosenAnswer
