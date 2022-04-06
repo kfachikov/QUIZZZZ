@@ -61,7 +61,7 @@ public class Config {
      */
     @Bean
     public SinglePlayerStateUtils getSinglePlayerStateUtils() {
-        return new SinglePlayerStateUtils(getGenerateQuestionUtils(), getCurrentTimeUtils());
+        return new SinglePlayerStateUtils(getGenerateQuestionUtils(), getCurrentTimeUtils(), getScoreCountingUtils());
     }
 
     /**

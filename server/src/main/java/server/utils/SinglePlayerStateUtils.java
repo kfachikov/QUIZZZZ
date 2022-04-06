@@ -23,10 +23,13 @@ public class SinglePlayerStateUtils {
 
     private final GenerateQuestionUtils generateQuestionUtils;
     private final CurrentTimeUtils currentTime;
+    private final ScoreCountingUtils scoreCountingUtils;
 
-    public SinglePlayerStateUtils(GenerateQuestionUtils generateQuestionUtils, CurrentTimeUtils currentTime) {
+    public SinglePlayerStateUtils(GenerateQuestionUtils generateQuestionUtils, CurrentTimeUtils currentTime,
+                                  ScoreCountingUtils scoreCountingUtils) {
         this.generateQuestionUtils = generateQuestionUtils;
         this.currentTime = currentTime;
+        this.scoreCountingUtils = scoreCountingUtils;
 
         games = new HashMap<>();
     }
@@ -109,28 +112,25 @@ public class SinglePlayerStateUtils {
      */
     private void updateScore(SinglePlayerState game) {
         if (game.getState().equals(SinglePlayerState.TRANSITION_STATE)) {
-            GameResponse playerGameResponse = computeFinalAnswer(game);
+            GameResponse finalAnswer = computeFinalAnswer(game);
             /*
             Saves the latest GameResponse of the player in the list of answers submitted as final.
              */
-            game.getFinalAnswers().add(playerGameResponse);
+            game.getFinalAnswers().add(finalAnswer);
 
             /*
             Clear the game from any previous answers.
              */
             game.getSubmittedAnswers().clear();
 
+
+            SinglePlayer player = game.getPlayer();
             /*
-            Use shared comparing functionality implemented in the class
-            SinglePlayerState.
-             */
-            if (game.compareAnswer()) {
-                /*
-                If the answer submitted is the same, then the score is updated accordingly.
-                 */
-                SinglePlayer player = game.getPlayer();
-                player.setScore(player.getScore() + computeScore(playerGameResponse));
-            }
+            Method computeScore is always called, so guess question approximation can be taken
+            into account.
+            */
+            player.setScore(
+                    player.getScore() + scoreCountingUtils.computeScore(game, player, finalAnswer));
         }
     }
 
