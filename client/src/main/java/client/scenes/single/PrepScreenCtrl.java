@@ -106,6 +106,7 @@ public class PrepScreenCtrl {
     private void fillLeaderboard(List<SinglePlayerLeaderboardScore> entries) {
         List<SinglePlayerLeaderboardScore> sorted = new ArrayList<>(entries);
         Collections.sort(sorted);
+        Collections.reverse(sorted);
 
         leaderboard.getChildren().clear();
 
