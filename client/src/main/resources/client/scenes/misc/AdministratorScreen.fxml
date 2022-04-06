@@ -23,10 +23,11 @@
       </TableView>
       <TextArea id="adminHelp" fx:id="helpText" editable="false" layoutX="94.0" layoutY="61.0" prefHeight="461.0" prefWidth="712.0" stylesheets="@../../../styling/GameStyle.css" text="How to import activities:&#10;1 - Download activity bank file from the repository.&#10;2 - Extract the activity bank to a separate folder. &#10;2.1 - The folder should only have &quot;activities.json&quot; and folders &quot;XX&quot; (where XX is some number) containing the images.&#10;3 - Click on &quot;Import Activities&quot;&#10;4 - Select the &quot;activities.json&quot; file from the folder you have downloaded.&#10;5. Wait until progress bar reaches 100%&#10;6. You have now successfully imported the activities :)&#10;" visible="false" wrapText="true">
       </TextArea>
-      <CheckBox fx:id="showImages" alignment="CENTER" onAction="#addImageColumn" contentDisplay="CENTER" layoutX="54.0" layoutY="139.0" mnemonicParsing="false" text="Show images" textFill="WHITE">
+      <CheckBox fx:id="showImages" alignment="CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="139.0" mnemonicParsing="false" onAction="#addImageColumn" text="Show images" textFill="WHITE">
          <font>
             <Font name="Avenir Next Condensed Bold" size="12.0" />
          </font>
       </CheckBox>
+      <Button fx:id="deleteButton" id="smallButton" layoutX="841.0" layoutY="422.0" mnemonicParsing="false" text="Delete" />
    </children>
 </AnchorPane>

@@ -280,6 +280,21 @@ public class ServerUtils {
     }
 
     /**
+     * Removes the activity the passed key is associated with.
+     *
+     * @param key the key of the activity to be removed.
+     * @return the removed activity.
+     */
+    public Activity removeActivity(Long key) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/delete/" + key)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .delete(Activity.class);
+    }
+
+    /**
      * Getter for the activity image.
      *
      * @param key the key of the image.

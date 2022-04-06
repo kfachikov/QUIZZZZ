@@ -47,6 +47,9 @@ public class AdministratorScreenCtrl {
     @FXML
     private CheckBox showImages;
 
+    @FXML
+    private Button deleteButton;
+
     /**
      * initializes AdministratorScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
@@ -83,6 +86,12 @@ public class AdministratorScreenCtrl {
             setTable();
         }
         fillTable();
+        //sets the delete button
+        deleteButton.setOnAction(event -> {
+            Activity selectedActivity = activityTable.getSelectionModel().getSelectedItem();
+            activityTable.getItems().remove(selectedActivity);
+            server.removeActivity(selectedActivity.getKey());
+        });
     }
 
     /**
