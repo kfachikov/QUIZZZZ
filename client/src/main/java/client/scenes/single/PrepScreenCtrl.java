@@ -10,6 +10,7 @@ import commons.single.SinglePlayerLeaderboardScore;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -106,18 +107,30 @@ public class PrepScreenCtrl {
         List<SinglePlayerLeaderboardScore> sorted = new ArrayList<>(entries);
         Collections.sort(sorted);
 
+        leaderboard.getChildren().clear();
+
         int position = 1;
         for (SinglePlayerLeaderboardScore entry : sorted) {
             GridPane gridPane = new GridPane();
             gridPane.setPrefWidth(leaderboard.getPrefWidth());
 
+            gridPane.getColumnConstraints().addAll(
+                    new ColumnConstraints(50),
+                    new ColumnConstraints(135),
+                    new ColumnConstraints(95)
+            );
+
             Label positionLabel = new Label(String.valueOf(position++));
+            positionLabel.setPrefWidth(40);
             gridPane.add(positionLabel, 0, 0);
 
             Label usernameLabel = new Label(entry.getUsername());
+            usernameLabel.setPrefWidth(125);
+            usernameLabel.setMaxWidth(125);
             gridPane.add(usernameLabel, 1, 0);
 
             Label scoreLabel = new Label(String.valueOf(entry.getScore()));
+            scoreLabel.setPrefWidth(90);
             gridPane.add(scoreLabel, 2, 0);
 
             for (Node node : gridPane.getChildren()) {
