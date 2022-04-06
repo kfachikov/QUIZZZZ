@@ -12,7 +12,7 @@
         <Label id="queueLabel" fx:id="queueLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="90.0"
                layoutY="28.0" prefHeight="95.0" prefWidth="720.0" text="Queue: 5 players" textFill="WHITE"
                AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0"/>
-        <ScrollPane id="scroll" hbarPolicy="NEVER" layoutX="66.0" layoutY="165.0" maxHeight="-Infinity"
+        <ScrollPane id="scroll-queue" hbarPolicy="NEVER" layoutX="66.0" layoutY="165.0" maxHeight="-Infinity"
                     maxWidth="-Infinity" pannable="true" prefHeight="243.0" prefWidth="773.0" vbarPolicy="ALWAYS">
             <content>
                 <FlowPane fx:id="bubbles" alignment="CENTER" hgap="5.0" maxHeight="1.7976931348623157E308"

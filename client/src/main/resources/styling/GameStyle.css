@@ -109,12 +109,12 @@
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
 }
-#scroll > .viewport {
+#scroll-queue > .viewport {
     -fx-background: #00236f;
     -fx-background-color: #00236f;
     -fx-border-color: #00236f;
 }
-#scroll {
+#scroll-queue {
     -fx-background: #00236f;
     -fx-background-insets: 0;
     -fx-border-color: #00236f;
@@ -132,6 +132,19 @@
     -fx-border-width: 3;
     -fx-font-family: "Avenir Next Condensed";
     -fx-padding: 0 15 0 15;
+}
+#scroll-leaderboard > .viewport {
+    -fx-background: #0038a8;
+    -fx-background-color: #0038a8;
+    -fx-border-color: #0038a8;
+}
+#scroll-leaderboard {
+    -fx-background: #0038a8;
+    -fx-background-insets: 0;
+    -fx-border-color: #0038a8;
+}
+#scroll-leaderboard > VBox {
+    -fx-vgap: 5;
 }
 #leaderboard {
     -fx-vgap: 5;
