@@ -9,10 +9,16 @@ import client.scenes.single.question.MoreExpensiveQuestionScreenCtrl;
 import client.services.SingleplayerGameStatePollingService;
 import commons.question.*;
 import commons.single.SinglePlayerState;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.paint.Paint;
+import javafx.util.Duration;
 
 import javax.inject.Inject;
+
+import java.util.Date;
 
 import static commons.single.SinglePlayerState.*;
 
@@ -31,7 +37,7 @@ public class SinglePlayerUtils {
     private final SingleplayerGameStatePollingService pollingService;
     private SinglePlayerState singlePlayerState;
 
-    private TimerThread timerThread;
+    private Timeline timeline;
 
     private QuestionScreen currentController;
 
@@ -139,23 +145,28 @@ public class SinglePlayerUtils {
     }
 
     /**
-     * Initializes a new instance of TimerThread and starts it.
+     * Initializes a new instance of TimeLine and starts it.
      * Used at the beginning of each "scene-showing" process.
      *
-     * @param questionScreen Controller for the corresponding scene to be visualized.
+     * @param questionScreen   Controller for the corresponding scene to be visualized.
      */
     private void startTimer(QuestionScreen questionScreen) {
         ProgressBar time = questionScreen.getTime();
+        time.setStyle("-fx-accent: #006e8c");
+
         long nextPhase = singlePlayerState.getNextPhase();
-        /*
-        The following line is used so no concurrent threads occur.
-        Any existing ones are interrupted and thus, the task they execute are canceled.
-         */
-        if (timerThread != null && timerThread.isAlive()) {
-            timerThread.interrupt();
-        }
-        timerThread = new TimerThread(time, nextPhase);
-        timerThread.start();
+        long roundTime = nextPhase - new Date().getTime();
+
+        timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(time.progressProperty(), 1)),
+                new KeyFrame(Duration.millis(roundTime * 7 / 10), e -> {
+                    time.setStyle("-fx-accent: red");
+                }),
+                new KeyFrame(Duration.millis(nextPhase - new Date().getTime()), e -> {
+                    questionScreen.disableAnswerSubmission();
+                }, new KeyValue(time.progressProperty(), 0))
+        );
+        timeline.play();
     }
 
     /**

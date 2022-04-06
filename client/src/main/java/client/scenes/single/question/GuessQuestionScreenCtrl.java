@@ -201,4 +201,12 @@ public class GuessQuestionScreenCtrl extends QuestionScreen {
         return time;
     }
 
+    /**
+     * Makes user input field non-clickable. Thus, answers cannot be submitted anymore.
+     */
+    @Override
+    public void disableAnswerSubmission() {
+        input.setDisable(true);
+    }
+
 }

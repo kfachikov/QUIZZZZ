@@ -223,4 +223,13 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     }
 
+    /**
+     * Makes all answers non-clickable. To be used once an answer is clicked.
+     */
+    @Override
+    public void disableAnswerSubmission() {
+        firstAnswer.setDisable(true);
+        secondAnswer.setDisable(true);
+        thirdAnswer.setDisable(true);
+    }
 }
