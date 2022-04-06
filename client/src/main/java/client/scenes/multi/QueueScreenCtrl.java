@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -16,6 +17,7 @@ import javafx.scene.text.TextAlignment;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -144,35 +146,7 @@ public class QueueScreenCtrl {
             if (newState != null) {
                 queueLabel.textProperty().set("Queue: " + newState.getUsers().size() + " players");
 
-                List<QueueUser> previousPlayers = new ArrayList<>();
-                if (oldState != null) {
-                    previousPlayers.addAll(oldState.getUsers());
-                }
-
-                List<QueueUser> joinedPlayers = new ArrayList<>(newState.getUsers());
-                joinedPlayers.removeAll(previousPlayers);
-
-                /*
-                // Remove players who have left
-                for (Iterator<Node> iterator = bubbles.getChildren().iterator(); iterator.hasNext(); ) {
-                    Node node = iterator.next();
-                    if (node instanceof Label) {
-                        Label label = (Label) node;
-                        QueueUser potentialLeaver = new QueueUser(label.getText());
-                        if (!newState.getUsers().contains(potentialLeaver)) {
-                            iterator.remove();
-                        }
-                    }
-                }
-                 */
-
-                // Add players who have joined
-                for (QueueUser joiner : joinedPlayers) {
-                    Label label = new Label(joiner.getUsername());
-                    label.setTextAlignment(TextAlignment.CENTER);
-                    label.setPrefSize(100, 50);
-                    bubbles.getChildren().add(label);
-                }
+                updateBubbles(newState.getUsers());
 
                 // Internal state should be consistent with server state
                 gameStarting.set(newState.isGameStarting());
@@ -254,5 +228,41 @@ public class QueueScreenCtrl {
      */
     public void setServerAddress(String serverAddress) {
         this.serverAddress.setText("Server address: " + serverAddress);
+    }
+
+    /**
+     * Update the list of players shown in bubbles with the given users.
+     * <p>
+     * Removes any players which are no longer in the list.
+     * Then adds any players who have joined.
+     *
+     * @param users List of QueueUsers to display in bubbles.
+     */
+    public void updateBubbles(List<QueueUser> users) {
+        List<QueueUser> alreadyUsers = new ArrayList<>();
+        // Remove players who have left
+        for (Iterator<Node> iterator = bubbles.getChildren().iterator(); iterator.hasNext(); ) {
+            Node node = iterator.next();
+            if (node instanceof Label) {
+                Label label = (Label) node;
+                QueueUser potentialLeaver = new QueueUser(label.getText());
+                if (!users.contains(potentialLeaver)) {
+                    iterator.remove();
+                } else {
+                    alreadyUsers.add(potentialLeaver);
+                }
+            }
+        }
+
+        List<QueueUser> joinedUsers = new ArrayList<>(users);
+        joinedUsers.removeAll(alreadyUsers);
+
+        // Add players who have joined
+        for (QueueUser joiner : joinedUsers) {
+            Label label = new Label(joiner.getUsername());
+            label.setTextAlignment(TextAlignment.CENTER);
+            label.setPrefSize(100, 50);
+            bubbles.getChildren().add(label);
+        }
     }
 }
