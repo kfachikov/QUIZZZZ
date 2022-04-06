@@ -6,10 +6,13 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.misc.Activity;
 import jakarta.ws.rs.BadRequestException;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.util.converter.LongStringConverter;
@@ -199,9 +202,21 @@ public class AdministratorScreenCtrl {
             description.setText(
                     "You set the consumption of '" + activity.getTitle() + "' as " + activity.getConsumption() + "wh.");
         });
+        TableColumn<Activity, ImageView> activityImage = new TableColumn<>("image");
+        activityImage.setCellValueFactory(param -> {
+            Activity activity = param.getValue();
+            long key = activity.getKey();
+            Image image = activityImageUtils.getActivityImage(key);
+
+            ImageView imageView = new ImageView(image);
+
+            return new SimpleObjectProperty<>(imageView);
+        });
+
         //add columns to the table
         activityTable.getColumns().add(activityName);
         activityTable.getColumns().add(activityConsumption);
+        activityTable.getColumns().add(activityImage);
         activityTable.setEditable(true);
         //sizing
         activityTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
