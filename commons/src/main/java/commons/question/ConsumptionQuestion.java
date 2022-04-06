@@ -57,7 +57,7 @@ public class ConsumptionQuestion extends AbstractQuestion {
      */
     public String toString() {
         String question;
-        question = "How much does " + activity.getTitle() + " consume?";
+        question = "HOW MUCH ENERGY DOES IT TAKE?";
         return question;
     }
 
