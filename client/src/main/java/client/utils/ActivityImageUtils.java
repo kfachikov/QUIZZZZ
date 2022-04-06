@@ -4,6 +4,7 @@ import commons.misc.Activity;
 import commons.misc.ActivityImageMessage;
 import jakarta.ws.rs.NotFoundException;
 import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 
 import javax.inject.Inject;
 import java.io.*;
@@ -163,5 +164,18 @@ public class ActivityImageUtils {
     private String removeExtension(String filename) {
         int lastIndex = filename.lastIndexOf('.');
         return filename.substring(0, lastIndex);
+    }
+
+    public Image selectImageFile(Long key) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Images", "*.jpg"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+        String imageBase64 = getImageBase64(selectedFile.getPath());
+        ActivityImageMessage message = new ActivityImageMessage(imageBase64, key);
+        serverUtils.addActivityImage(message);
+        byte[] decodedImage = Base64.getDecoder().decode(imageBase64);
+        InputStream imageInputStream = new ByteArrayInputStream(decodedImage);
+        Image image = new Image(imageInputStream);
+        return image;
     }
 }

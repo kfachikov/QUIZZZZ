@@ -4,10 +4,10 @@ import client.services.ActivityLoaderService;
 import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import javafx.fxml.FXML;
 import commons.misc.Activity;
 import jakarta.ws.rs.BadRequestException;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -42,7 +42,7 @@ public class AdministratorScreenCtrl {
     private TextArea helpText;
 
     @FXML
-    private TableView activityTable;
+    private TableView<Activity> activityTable;
 
     /**
      * initializes AdministratorScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -202,24 +202,34 @@ public class AdministratorScreenCtrl {
             description.setText(
                     "You set the consumption of '" + activity.getTitle() + "' as " + activity.getConsumption() + "wh.");
         });
-        TableColumn<Activity, ImageView> activityImage = new TableColumn<>("image");
+        //create image column, make it clickable and open local file selector limited to .jpg
+        TableColumn<Activity, Button> activityImage = new TableColumn<>("image");
         activityImage.setCellValueFactory(param -> {
             Activity activity = param.getValue();
             long key = activity.getKey();
             Image image = activityImageUtils.getActivityImage(key);
-
             ImageView imageView = new ImageView(image);
-
-            return new SimpleObjectProperty<>(imageView);
+            Button button = new Button();
+            button.setGraphic(imageView);
+            button.setPrefHeight(1);
+            button.setPrefWidth(1);
+            imageView.setFitHeight(50);
+            imageView.setFitWidth(50);
+            //button clicked to change image
+            button.setOnAction(event -> {
+                System.out.println("Image clicked.");
+                Image newImage = activityImageUtils.selectImageFile(activity.getKey());
+                imageView.setImage(newImage);
+            });
+            return new SimpleObjectProperty<>(button);
         });
-
         //add columns to the table
-        activityTable.getColumns().add(activityName);
-        activityTable.getColumns().add(activityConsumption);
-        activityTable.getColumns().add(activityImage);
+        var columns = activityTable.getColumns();
+        columns.add(activityName);
+        columns.add(activityConsumption);
+        columns.add(activityImage);
         activityTable.setEditable(true);
         //sizing
         activityTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
-
 }
