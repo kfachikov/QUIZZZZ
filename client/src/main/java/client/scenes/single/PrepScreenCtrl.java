@@ -9,7 +9,6 @@ import commons.single.SinglePlayer;
 import commons.single.SinglePlayerLeaderboardScore;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +28,6 @@ public class PrepScreenCtrl {
     private SinglePlayer singlePlayer;
 
     private SinglePlayerUtils singlePlayerUtils;
-
-    @FXML
-    private FlowPane leaderboard;
 
     @FXML
     private Label position1;
@@ -260,31 +256,6 @@ public class PrepScreenCtrl {
                 displayLabel(usernameLabels.get(i), username);
                 displayLabel(scoreLabels.get(i), score);
                 displayLabel(positionLabels.get(i), String.valueOf(i + 1));
-            }
-        } if (players.size() > 10) {
-            for (int i = 0; i < 10; i++) {
-                SinglePlayerLeaderboardScore player = players.get(i);
-                String username = player.getUsername();
-                String score = Integer.toString(player.getScore());
-                //set the labels as visible and display the value.
-                displayLabel(usernameLabels.get(i), username);
-                displayLabel(scoreLabels.get(i), score);
-                displayLabel(positionLabels.get(i), String.valueOf(i + 1));
-            }
-            for (int i = 10; i < players.size(); i++) {
-                Label position = new Label(Integer.toString(i + 1));
-                position.getStylesheets().add("styling/GameStyle.css");
-
-                Label username = new Label(players.get(i).getUsername());
-                username.getStylesheets().add("styling/GameStyle.css");
-
-                Label score = new Label(Integer.toString(players.get(i).getScore()));
-                score.getStylesheets().add("styling/GameStyle.css");
-
-                leaderboard.getChildren().add(position);
-                leaderboard.getChildren().add(username);
-                leaderboard.getChildren().add(score);
-
             }
         } else {
             //iterate from sorted players list and set username & score labels.
