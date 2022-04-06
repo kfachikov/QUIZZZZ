@@ -7,45 +7,48 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.skin.SplitPaneSkin.Content?>
+<?import javafx.scene.Group?>
 <AnchorPane id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.single.PrepScreenCtrl">
    <children>
       <Button id="smallButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="31.0" prefWidth="58.0" text="Back" />
       <Region id="region" layoutX="136.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="0.0" />
       <Button layoutX="334.0" layoutY="441.0" mnemonicParsing="false" onAction="#playSoloGame" prefHeight="116.0" prefWidth="197.0" text="Go!" AnchorPane.leftAnchor="334.0" AnchorPane.rightAnchor="334.0" />
       <Text id="title" fill="WHITE" layoutX="338.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All-Time Leaderboard" AnchorPane.leftAnchor="338.0" AnchorPane.rightAnchor="147.583984375" />
-      <FlowPane id="leaderboard" fx:id="leaderboard" layoutX="300.0" layoutY="50.0" prefHeight="371.0" prefWidth="305.0">
-         <children>
-            <Label fx:id="position1" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="1" textFill="#006e8c" />
-            <Label fx:id="username1" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
-            <Label fx:id="score1" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
-            <Label fx:id="position2" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="2" textFill="#006e8c" />
-            <Label fx:id="username2" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
-            <Label fx:id="score2" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
-            <Label fx:id="position3" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="3" textFill="#006e8c" />
-            <Label fx:id="username3" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
-            <Label fx:id="score3" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
-            <Label fx:id="position4" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="4" textFill="#006e8c" />
-            <Label fx:id="username4" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
-            <Label fx:id="score4" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
-            <Label fx:id="position5" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="5" textFill="#006e8c" />
-            <Label fx:id="username5" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
-            <Label fx:id="score5" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
-            <Label fx:id="position6" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="6" textFill="#006e8c" />
-            <Label fx:id="username6" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
-            <Label fx:id="score6" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
-            <Label fx:id="position7" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="7" textFill="#006e8c" />
-            <Label fx:id="username7" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
-            <Label fx:id="score7" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
-            <Label fx:id="position8" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="8" textFill="#006e8c" />
-            <Label fx:id="username8" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
-            <Label fx:id="score8" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
-            <Label fx:id="position9" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="9" textFill="#006e8c" />
-            <Label fx:id="username9" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
-            <Label fx:id="score9" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
-            <Label fx:id="position10" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="10" textFill="#006e8c" />
-            <Label fx:id="username10" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
-            <Label fx:id="score10" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
-         </children>
-      </FlowPane>
+         <FlowPane id="leaderboard" fx:id="leaderboard" layoutX="300.0" layoutY="50.0" prefWidth="305.0" >
+            <children>
+               <Label fx:id="position1" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="1" textFill="#006e8c" />
+               <Label fx:id="username1" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+               <Label fx:id="score1" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+               <Label fx:id="position2" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="2" textFill="#006e8c" />
+               <Label fx:id="username2" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+               <Label fx:id="score2" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+               <Label fx:id="position3" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="3" textFill="#006e8c" />
+               <Label fx:id="username3" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+               <Label fx:id="score3" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+               <Label fx:id="position4" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="4" textFill="#006e8c" />
+               <Label fx:id="username4" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+               <Label fx:id="score4" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+               <Label fx:id="position5" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="5" textFill="#006e8c" />
+               <Label fx:id="username5" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+               <Label fx:id="score5" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+               <Label fx:id="position6" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="6" textFill="#006e8c" />
+               <Label fx:id="username6" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+               <Label fx:id="score6" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+               <Label fx:id="position7" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="7" textFill="#006e8c" />
+               <Label fx:id="username7" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+               <Label fx:id="score7" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+               <Label fx:id="position8" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="8" textFill="#006e8c" />
+               <Label fx:id="username8" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+               <Label fx:id="score8" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+               <Label fx:id="position9" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="9" textFill="#006e8c" />
+               <Label fx:id="username9" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+               <Label fx:id="score9" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+               <Label fx:id="position10" alignment="CENTER" prefHeight="34.0" prefWidth="40.0" text="10" textFill="#006e8c" />
+               <Label fx:id="username10" alignment="CENTER" prefHeight="34.0" prefWidth="135.0" text="Username" textFill="#006e8c" />
+               <Label fx:id="score10" alignment="CENTER" prefHeight="34.0" prefWidth="105.0" text="Score" textFill="#006e8c" />
+            </children>
+         </FlowPane>
    </children>
 </AnchorPane>
