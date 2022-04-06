@@ -430,6 +430,10 @@ public class MultiplayerCtrl {
         guessQuestionScreenCtrl.setDescription(question);
         guessQuestionScreenCtrl.setImage(getActivityImage(question.getActivity()));
         centerImage(guessQuestionScreenCtrl.getImage());
+        /*
+        Disables the "Remove Incorrect" joker for the guess question types.
+         */
+        disableUsedRemoveIncorrect();
         mainCtrl.getPrimaryStage().setScene(guessQuestionScreen);
         startTimer(game, guessQuestionScreenCtrl);
     }
