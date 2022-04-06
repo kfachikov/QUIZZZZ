@@ -182,6 +182,7 @@ public class ActivityImageUtils {
         byte[] decodedImage = Base64.getDecoder().decode(imageBase64);
         InputStream imageInputStream = new ByteArrayInputStream(decodedImage);
         Image image = new Image(imageInputStream);
+        activityImageCache.remove(key);
         return image;
     }
 }
