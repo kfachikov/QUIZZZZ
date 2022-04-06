@@ -106,7 +106,6 @@ public class AdministratorScreenCtrl {
         if (selectedFile == null) {
             return;
         }
-
         selectFileButton.setDisable(true);
         importProgressBar.setVisible(true);
         description.setText("Activities are being imported...");
@@ -160,7 +159,6 @@ public class AdministratorScreenCtrl {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
         File selectedFile = fileChooser.showOpenDialog(null);
         return selectedFile;
-
     }
 
     /**
@@ -207,7 +205,6 @@ public class AdministratorScreenCtrl {
         activityTable.setEditable(true);
         //sizing
         activityTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
     }
 
 }
