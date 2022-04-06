@@ -137,7 +137,7 @@
     -fx-vgap: 5;
     -fx-hgap: 7;
 }
-#leaderboard>.label {
+#leaderboard .label {
     -fx-background-color: #001950;
     -fx-border-color: #0038a8;
     -fx-border-radius: 15;
@@ -145,32 +145,7 @@
     -fx-border-width: 3;
     -fx-font-size: 19px;
     -fx-font-family: "Avenir Next Condensed";
-}
-#leaderboard>#userScore {
-    -fx-background-color: #001950;
-    -fx-border-color: #0038a8;
-    -fx-border-radius: 15;
-    -fx-background-radius: 20;
-    -fx-border-width: 3;
-    -fx-font-size: 19px;
-    -fx-font-family: "Avenir Next Condensed";
-}
-#leaderboard>#userUsername {
-    -fx-background-color: #001950;
-    -fx-border-color: #0038a8;
-    -fx-border-radius: 15;
-    -fx-background-radius: 20;
-    -fx-border-width: 3;
-    -fx-font-size: 19px;
-    -fx-font-family: "Avenir Next Condensed";
-}
-#leaderboard>#UserPosition {
-    -fx-background-color: #001950;
-    -fx-border-color: #0038a8;
-    -fx-border-radius: 15;
-    -fx-background-radius: 20;
-    -fx-border-width: 3;
-    -fx-font-size: 19px;
+    -fx-padding: 5 15 5 15;
 }
 #emojiButton1 {
     -fx-background-color: #00000000;
