@@ -166,6 +166,12 @@ public class ActivityImageUtils {
         return filename.substring(0, lastIndex);
     }
 
+    /**
+     * Adds the image in the selected .jpg file in AdminPanel as the new image of the activity.
+     *
+     * @param key the key of the activity to change the image of.
+     * @return the new image that replaced the old one.
+     */
     public Image selectImageFile(Long key) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Images", "*.jpg"));

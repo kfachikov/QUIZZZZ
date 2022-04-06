@@ -44,6 +44,9 @@ public class AdministratorScreenCtrl {
     @FXML
     private TableView<Activity> activityTable;
 
+    @FXML
+    private CheckBox showImages;
+
     /**
      * initializes AdministratorScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
@@ -130,6 +133,7 @@ public class AdministratorScreenCtrl {
                     "You have imported " + loadedActivities.size() + " activities from " + selectedFile.getName()
             );
             fillTable();
+
         });
         activityLoaderService.exceptionProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue instanceof BadRequestException) {
@@ -202,7 +206,19 @@ public class AdministratorScreenCtrl {
             description.setText(
                     "You set the consumption of '" + activity.getTitle() + "' as " + activity.getConsumption() + "wh.");
         });
-        //create image column, make it clickable and open local file selector limited to .jpg
+        //add columns to the table
+        var columns = activityTable.getColumns();
+        columns.add(activityName);
+        columns.add(activityConsumption);
+        activityTable.setEditable(true);
+        //sizing
+        activityTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    }
+
+    /**
+     * Creates the image column and adds/removes to the table.
+     */
+    public void addImageColumn() {
         TableColumn<Activity, Button> activityImage = new TableColumn<>("image");
         activityImage.setCellValueFactory(param -> {
             Activity activity = param.getValue();
@@ -211,8 +227,6 @@ public class AdministratorScreenCtrl {
             ImageView imageView = new ImageView(image);
             Button button = new Button();
             button.setGraphic(imageView);
-            button.setPrefHeight(1);
-            button.setPrefWidth(1);
             imageView.setFitHeight(50);
             imageView.setFitWidth(50);
             //button clicked to change image
@@ -223,13 +237,13 @@ public class AdministratorScreenCtrl {
             });
             return new SimpleObjectProperty<>(button);
         });
-        //add columns to the table
-        var columns = activityTable.getColumns();
-        columns.add(activityName);
-        columns.add(activityConsumption);
-        columns.add(activityImage);
-        activityTable.setEditable(true);
-        //sizing
-        activityTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        if (showImages.isSelected()) {
+            activityTable.getColumns().add(activityImage);
+        } else {
+            activityTable.getColumns().clear();
+            activityTable.refresh();
+            setTable();
+            fillTable();
+        }
     }
 }
