@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 
 @Entity
-public class SinglePlayerLeaderboardScore {
+public class SinglePlayerLeaderboardScore implements Comparable<SinglePlayerLeaderboardScore> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +21,8 @@ public class SinglePlayerLeaderboardScore {
     /**
      * this is a default constructor needed for JSON parsing.
      */
-    public SinglePlayerLeaderboardScore() { }
+    public SinglePlayerLeaderboardScore() {
+    }
 
 
     /**
@@ -115,4 +116,19 @@ public class SinglePlayerLeaderboardScore {
     }
 
 
+    /**
+     * Compares this object with the specified object for order.  Returns a
+     * negative integer, zero, or a positive integer as this object is less
+     * than, equal to, or greater than the specified object.
+     *
+     * @param o the object to be compared.
+     * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
+     * @throws NullPointerException if the specified object is null
+     * @throws ClassCastException   if the specified object's type prevents it
+     *                              from being compared to this object.
+     */
+    @Override
+    public int compareTo(SinglePlayerLeaderboardScore o) {
+        return this.score - o.score;
+    }
 }

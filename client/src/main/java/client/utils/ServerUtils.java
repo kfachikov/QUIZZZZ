@@ -15,7 +15,10 @@
  */
 package client.utils;
 
-import commons.misc.*;
+import commons.misc.Activity;
+import commons.misc.ActivityImageMessage;
+import commons.misc.GameResponse;
+import commons.misc.GameState;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
 import commons.multi.Reaction;
@@ -28,6 +31,7 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import org.glassfish.jersey.client.ClientConfig;
+
 import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -327,7 +331,7 @@ public class ServerUtils {
     /**
      * @return it returns a list SinglePlayerLeaderboardScore.
      */
-    public List<SinglePlayerLeaderboardScore> getLeaderboardEntry() {
+    public List<SinglePlayerLeaderboardScore> getLeaderboardEntries() {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/leaderboard/players")
