@@ -341,6 +341,7 @@ public class GenerateQuestionUtils {
 
         // Add one of the correct answers
         List<Activity> answerChoices = new ArrayList<>(getRandomActivities(correctAnswers, 1));
+        String correctAnswer = answerChoices.get(0).getTitle();
 
         if (incorrectAnswers.size() < 2) {
             // We couldn't successfully generate incorrect answers.
@@ -353,7 +354,7 @@ public class GenerateQuestionUtils {
         // Add two incorrect answers
         answerChoices.addAll(getRandomActivities(incorrectAnswers, 2));
 
-        return new InsteadQuestion(activity, activity.getTitle(), answerChoices);
+        return new InsteadQuestion(activity, correctAnswer, answerChoices);
     }
 
     /**
