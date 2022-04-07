@@ -13,6 +13,7 @@ import commons.multi.MultiPlayerState;
 import commons.question.*;
 import commons.queue.QueueUser;
 import jakarta.ws.rs.WebApplicationException;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -612,6 +613,10 @@ public class MultiplayerCtrl {
 
         long nextPhase = game.getNextPhase();
         long roundTime = nextPhase - new Date().getTime();
+
+        if (timeline != null && timeline.getStatus().equals(Animation.Status.RUNNING)) {
+            timeline.stop();
+        }
 
         timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(time.progressProperty(), 1)),
