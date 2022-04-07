@@ -114,13 +114,13 @@ public class LeaderboardScreenCtrl {
             gridPane.setPrefWidth(leaderboard.getPrefWidth());
 
             gridPane.getColumnConstraints().addAll(
-                    new ColumnConstraints(50),
+                    new ColumnConstraints(60),
                     new ColumnConstraints(135),
                     new ColumnConstraints(95)
             );
 
             Label positionLabel = new Label(String.valueOf(position++));
-            positionLabel.setPrefWidth(50);
+            positionLabel.setPrefWidth(60);
             gridPane.add(positionLabel, 0, 0);
 
             Label usernameLabel = new Label(entry.getUsername());

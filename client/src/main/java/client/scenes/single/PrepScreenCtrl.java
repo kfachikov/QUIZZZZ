@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -116,13 +117,13 @@ public class PrepScreenCtrl {
             gridPane.setPrefWidth(leaderboard.getPrefWidth());
 
             gridPane.getColumnConstraints().addAll(
-                    new ColumnConstraints(50),
+                    new ColumnConstraints(60),
                     new ColumnConstraints(135),
                     new ColumnConstraints(95)
             );
 
             Label positionLabel = new Label(String.valueOf(position++));
-            positionLabel.setPrefWidth(40);
+            positionLabel.setPrefWidth(60);
             gridPane.add(positionLabel, 0, 0);
 
             Label usernameLabel = new Label(entry.getUsername());
