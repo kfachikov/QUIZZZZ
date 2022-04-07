@@ -90,16 +90,6 @@
     -fx-border-radius: 10;
     -fx-font-family: "Avenir Next Condensed";
 }
-#bubbles>.label {
-    -fx-background-color: #001950;
-    -fx-border-color: #0038a8;
-    -fx-text-fill: white;
-    -fx-border-radius: 15;
-    -fx-background-radius: 20;
-    -fx-border-width: 3;
-    visibility: false;
-    -fx-font-family: "Avenir Next Condensed";
-}
 #start-label {
     -fx-background-color: #0038a8;
     -fx-font-family: "Avenir Next Condensed";
@@ -119,15 +109,48 @@
     -fx-background-color: #00000000;
     -fx-border-color: #00000000;
 }
+#scroll-queue > .viewport {
+    -fx-background: #00236f;
+    -fx-background-color: #00236f;
+    -fx-border-color: #00236f;
+}
+#scroll-queue {
+    -fx-background: #00236f;
+    -fx-background-insets: 0;
+    -fx-border-color: #00236f;
+}
 #bubbles {
     -fx-vgap: 20;
     -fx-hgap: 10;
+}
+#bubbles>.label {
+    -fx-background-color: #001950;
+    -fx-border-color: #0038a8;
+    -fx-text-fill: white;
+    -fx-border-radius: 15;
+    -fx-background-radius: 20;
+    -fx-border-width: 3;
+    -fx-font-family: "Avenir Next Condensed";
+    -fx-padding: 0 15 0 15;
+}
+#scroll-leaderboard > .viewport {
+    -fx-background: #0038a8;
+    -fx-background-color: #0038a8;
+    -fx-border-color: #0038a8;
+}
+#scroll-leaderboard {
+    -fx-background: #0038a8;
+    -fx-background-insets: 0;
+    -fx-border-color: #0038a8;
+}
+#scroll-leaderboard > VBox {
+    -fx-vgap: 5;
 }
 #leaderboard {
     -fx-vgap: 5;
     -fx-hgap: 7;
 }
-#leaderboard>.label {
+#leaderboard .label {
     -fx-background-color: #001950;
     -fx-border-color: #0038a8;
     -fx-border-radius: 15;
@@ -135,32 +158,7 @@
     -fx-border-width: 3;
     -fx-font-size: 19px;
     -fx-font-family: "Avenir Next Condensed";
-}
-#leaderboard>#userScore {
-    -fx-background-color: #001950;
-    -fx-border-color: #0038a8;
-    -fx-border-radius: 15;
-    -fx-background-radius: 20;
-    -fx-border-width: 3;
-    -fx-font-size: 19px;
-    -fx-font-family: "Avenir Next Condensed";
-}
-#leaderboard>#userUsername {
-    -fx-background-color: #001950;
-    -fx-border-color: #0038a8;
-    -fx-border-radius: 15;
-    -fx-background-radius: 20;
-    -fx-border-width: 3;
-    -fx-font-size: 19px;
-    -fx-font-family: "Avenir Next Condensed";
-}
-#leaderboard>#UserPosition {
-    -fx-background-color: #001950;
-    -fx-border-color: #0038a8;
-    -fx-border-radius: 15;
-    -fx-background-radius: 20;
-    -fx-border-width: 3;
-    -fx-font-size: 19px;
+    -fx-padding: 5 15 5 15;
 }
 #emojiButton1 {
     -fx-background-color: #00000000;
