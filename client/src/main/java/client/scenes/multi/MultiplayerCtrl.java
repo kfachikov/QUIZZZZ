@@ -7,12 +7,13 @@ import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import commons.misc.Activity;
 import commons.misc.GameResponse;
+import commons.multi.ChatMessage;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
-import commons.multi.Reaction;
 import commons.question.*;
 import commons.queue.QueueUser;
 import jakarta.ws.rs.WebApplicationException;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -38,8 +39,9 @@ import java.util.*;
 public class MultiplayerCtrl {
 
     private final int forbidden = 403;
-    private final int reactionsQuestion = 3;
-    private final int reactionsLeaderboard = 6;
+    private final int messagesQuestion = 3;
+    private final int messagesLeaderboard = 6;
+    private final double timeAttackFactor = 2;
 
     private MultiGameConsumptionQuestionScreenCtrl consumptionQuestionScreenCtrl;
     private Scene consumptionQuestionScreen;
@@ -83,7 +85,10 @@ public class MultiplayerCtrl {
 
     private long gameId;
     private String username;
-    private boolean doublePoints;
+    /*
+    Field to be used to compute the negative effect of "Time Attack" joker.
+     */
+    private long negativeTimeAccumulated;
 
     private Image surprised;
     private Image laughing;
@@ -95,14 +100,19 @@ public class MultiplayerCtrl {
         if (newValue != null && (oldValue == null || !newValue.getState().equals(oldValue.getState()))) {
             switchState(newValue);
         }
-        // If state has changed, perhaps some new Reactions have been "registered".
+
+        // If the state have changed, perhaps some people have used "Time Attack" jokers.
+        if (newValue != null && (oldValue != null && newValue.getTimeAttacksUsed() != oldValue.getTimeAttacksUsed())) {
+            alterTimer(oldValue, newValue);
+        }
+        // If state has changed, perhaps some new messages have been "registered".
         if (newValue != null) {
-            List<Reaction> reactions = newValue.getReactionList();
+            List<ChatMessage> chatMessages = newValue.getChatMessageList();
             if (newValue.getState().equals(MultiPlayerState.QUESTION_STATE)) {
-                updateReactionQuestion(reactions);
+                updateMessagesQuestion(chatMessages);
             } else if (newValue.getState().equals(MultiPlayerState.LEADERBOARD_STATE) ||
                 newValue.getState().equals(MultiPlayerState.GAME_OVER_STATE)) {
-                updateReactionLeaderboard(reactions);
+                updateMessagesLeaderboard(chatMessages);
             }
         }
     };
@@ -355,9 +365,18 @@ public class MultiplayerCtrl {
          */
         lastSubmittedAnswer = "";
 
-        disableUsedRevealJoker();
-        disableUsedDoubleJokers();
-        disableUsedTimeJoker();
+        /*
+        Sets the negative accumulated time to be 0, as no "Time Attack" jokers have been yet used.
+         */
+        negativeTimeAccumulated = 0;
+
+        /*
+        In case a player hadn't used his "Remove Incorrect" joker, but it was disables because of answer
+        submission, the button is enabled again.
+         */
+        if (game.getPlayerByUsername(username).getIncorrectAnswerJoker()) {
+            enableRemoveIncorrect();
+        }
 
         AbstractQuestion question = game.getQuestionList().get(roundNumber);
 
@@ -412,6 +431,10 @@ public class MultiplayerCtrl {
         guessQuestionScreenCtrl.setDescription(question);
         guessQuestionScreenCtrl.setImage(getActivityImage(question.getActivity()));
         centerImage(guessQuestionScreenCtrl.getImage());
+        /*
+        Disables the "Remove Incorrect" joker for the guess question types.
+         */
+        disableUsedRemoveIncorrect();
         mainCtrl.getPrimaryStage().setScene(guessQuestionScreen);
         startTimer(game, guessQuestionScreenCtrl);
     }
@@ -483,23 +506,15 @@ public class MultiplayerCtrl {
         lastSubmittedAnswer = chosenAnswer.substring(0, chosenAnswer.length() - 2);
         serverUtils.postAnswerMultiplayer(new GameResponse(
                 gameId,
-                new Date().getTime(),
+                new Date().getTime() + negativeTimeAccumulated,
                 (int) getRoundNumber(serverUtils.getMultiGameState(gameId)),
                 username,
-                lastSubmittedAnswer,
-                doublePoints
+                lastSubmittedAnswer
         ));
-
-        setDoublePoints(false);
-    }
-
-    /**
-     * Setter for the doublePoints joker.
-     *
-     * @param doublePoints the boolean value for the joker regarding the points.
-     */
-    public void setDoublePoints(boolean doublePoints) {
-        this.doublePoints = doublePoints;
+        /*
+        Disables the "Remove Incorrect" joker so that the user cannot click on it unintentionally.
+         */
+        disableUsedRemoveIncorrect();
     }
 
     /**
@@ -599,14 +614,18 @@ public class MultiplayerCtrl {
         long nextPhase = game.getNextPhase();
         long roundTime = nextPhase - new Date().getTime();
 
+        if (timeline != null && timeline.getStatus().equals(Animation.Status.RUNNING)) {
+            timeline.stop();
+        }
+
         timeline = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(time.progressProperty(), 0)),
+                new KeyFrame(Duration.ZERO, new KeyValue(time.progressProperty(), 1)),
                 new KeyFrame(Duration.millis(roundTime * 7 / 10), e -> {
                     time.setStyle("-fx-accent: red");
                 }),
-                new KeyFrame(Duration.millis(nextPhase - new Date().getTime()), e -> {
+                new KeyFrame(Duration.millis(roundTime), e -> {
                     multiQuestionScreen.disableAnswerSubmission();
-                }, new KeyValue(time.progressProperty(), 1))
+                }, new KeyValue(time.progressProperty(), 0))
         );
         timeline.play();
     }
@@ -634,51 +653,44 @@ public class MultiplayerCtrl {
         }
     }
 
-
-
     /**
-     * Disables the used jokers for all controllers.
+     * Disables the used "Double Points" joker for all controllers.
      */
-    public void disableUsedDoubleJokers() {
-        if (consumptionQuestionScreenCtrl.getDoublePoints() ||
-                moreExpensiveQuestionScreenCtrl.getDoublePoints() ||
-                guessQuestionScreenCtrl.getDoublePoints() ||
-                insteadQuestionScreenCtrl.getDoublePoints()) {
-            consumptionQuestionScreenCtrl.disableDoublePoint();
-            guessQuestionScreenCtrl.disableDoublePoint();
-            moreExpensiveQuestionScreenCtrl.disableDoublePoint();
-            insteadQuestionScreenCtrl.disableDoublePoint();
-        }
+    public void disableUsedDoublePoints() {
+        consumptionQuestionScreenCtrl.disableDoublePoints();
+        guessQuestionScreenCtrl.disableDoublePoints();
+        moreExpensiveQuestionScreenCtrl.disableDoublePoints();
+        insteadQuestionScreenCtrl.disableDoublePoints();
     }
 
     /**
-     * Disables the used jokers for all controllers.
+     * Disables the used "Remove Incorrect" joker for all controllers.
      */
-    public void disableUsedRevealJoker() {
-        if (consumptionQuestionScreenCtrl.getReveal() ||
-                moreExpensiveQuestionScreenCtrl.getReveal() ||
-                guessQuestionScreenCtrl.getReveal() ||
-                insteadQuestionScreenCtrl.getReveal()) {
-            consumptionQuestionScreenCtrl.disableReveal();
-            guessQuestionScreenCtrl.disableReveal();
-            moreExpensiveQuestionScreenCtrl.disableReveal();
-            insteadQuestionScreenCtrl.disableReveal();
-        }
+    public void disableUsedRemoveIncorrect() {
+        consumptionQuestionScreenCtrl.disableRemoveIncorrect();
+        guessQuestionScreenCtrl.disableRemoveIncorrect();
+        moreExpensiveQuestionScreenCtrl.disableRemoveIncorrect();
+        insteadQuestionScreenCtrl.disableRemoveIncorrect();
     }
 
     /**
-     * Disables the used jokers for all controllers.
+     * Enables the unused "Remove Incorrect" joker for all controllers.
      */
-    public void disableUsedTimeJoker() {
-        if (consumptionQuestionScreenCtrl.getHalfTime() ||
-                insteadQuestionScreenCtrl.getHalfTime() ||
-                guessQuestionScreenCtrl.getHalfTime() ||
-                moreExpensiveQuestionScreenCtrl.getHalfTime()) {
-            consumptionQuestionScreenCtrl.disableShortenTime();
-            guessQuestionScreenCtrl.disableShortenTime();
-            moreExpensiveQuestionScreenCtrl.disableShortenTime();
-            insteadQuestionScreenCtrl.disableShortenTime();
-        }
+    public void enableRemoveIncorrect() {
+        consumptionQuestionScreenCtrl.enableRemoveIncorrect();
+        guessQuestionScreenCtrl.enableRemoveIncorrect();
+        moreExpensiveQuestionScreenCtrl.enableRemoveIncorrect();
+        insteadQuestionScreenCtrl.enableRemoveIncorrect();
+    }
+
+    /**
+     * Disables the used "Time Attack" joker for all controllers.
+     */
+    public void disableUsedTimeAttack() {
+        consumptionQuestionScreenCtrl.disableTimeAttack();
+        guessQuestionScreenCtrl.disableTimeAttack();
+        moreExpensiveQuestionScreenCtrl.disableTimeAttack();
+        insteadQuestionScreenCtrl.disableTimeAttack();
     }
 
 
@@ -706,85 +718,244 @@ public class MultiplayerCtrl {
     }
 
     /**
-     * Posts a reaction object to the server.
+     * Posts a chatMessage object to the server.
      *
      * @param emoji     Emoji String to be used for "defining" the particular
      *                  emoji submitted.
      */
     private void postReaction(String emoji) {
         serverUtils.addReaction(gameId,
-                new Reaction(username, emoji));
+                new ChatMessage(username, emoji));
     }
 
     /**
-     * Method to be called when a change in the reactions is registered during QUESTION_STATE.
+     * Initialized the actions happening once joker is being used.
      *
-     * @param reactionList  List of Reaction instances to be used for the "chat".
+     * @param button1    Button to be bound with particular action.
+     * @param button2    Button to be bound with particular action.
+     * @param button3    Button to be bound with particular action.
      */
-    private void updateReactionQuestion(List<Reaction> reactionList) {
-        List<Node> reactionParts = currentScreenCtrl.getReactions().getChildren();
-        updateReaction(reactionList, reactionParts, reactionsQuestion);
+    public void initializeJokerButtons(Button button1, Button button2, Button button3) {
+        button1.setOnAction(e -> {
+            postJoker("doublePoints");
+            disableUsedDoublePoints();
+        });
+        button2.setOnAction(e -> {
+            postJoker("removeIncorrect");
+        });
+        button3.setOnAction(e -> {
+            postJoker("timeAttack");
+            disableUsedTimeAttack();
+        });
     }
 
     /**
-     * Method to be called when a change in the reactions is registered during QUESTION_STATE.
+     * Posts a chatMessage object to the server.
      *
-     * @param reactionList  List of Reaction instances to be used for the "chat".
+     * @param joker     Joker String to be used for "defining" the particular
+     *                  joker being used.
      */
-    private void updateReactionLeaderboard(List<Reaction> reactionList) {
-        List<Node> reactionParts = leaderboardCtrl.getReactions().getChildren();
-        updateReaction(reactionList, reactionParts, reactionsLeaderboard);
+    private void postJoker(String joker) {
+        if (!"removeIncorrect".equals(joker) || !(currentScreenCtrl instanceof MultiGameGuessQuestionScreenCtrl)) {
+            serverUtils.addJoker(gameId,
+                    new ChatMessage(username, joker));
+            if ("removeIncorrect".equals(joker)) {
+                removeIncorrect();
+                disableUsedRemoveIncorrect();
+            }
+        }
+    }
+
+
+
+    /**
+     * Method to be called when a change in the messages is registered during QUESTION_STATE.
+     *
+     * @param chatMessageList  List of ChatMessage instances to be used for the "chat".
+     */
+    private void updateMessagesQuestion(List<ChatMessage> chatMessageList) {
+        List<Node> messagesParts = currentScreenCtrl.getChatMessages().getChildren();
+        updateChat(chatMessageList, messagesParts, messagesQuestion);
+    }
+
+    /**
+     * Method to be called when a change in the messages is registered during QUESTION_STATE.
+     *
+     * @param chatMessageList  List of ChatMessage instances to be used for the "chat".
+     */
+    private void updateMessagesLeaderboard(List<ChatMessage> chatMessageList) {
+        List<Node> messagesParts = leaderboardCtrl.getChatMessages().getChildren();
+        updateChat(chatMessageList, messagesParts, messagesLeaderboard);
     }
 
     /**
      * In case a change occur in the game state, which is constantly being pulled,
      * the reaction section is being updated.
      *
-     * @param reactionList      List of Reaction instances to be used for the "chat".
-     * @param reactionParts     List of Node instances. Correspond to the particular list
-     *                          of nodes of the desired screen.
-     * @param reactionsNumber   The number of reactions to be shown. To be different between
-     *                          question and leaderboard screen.
+     * @param chatMessageList       List of ChatMessage instances to be used for the "chat".
+     * @param messagesParts         List of Node instances. Correspond to the particular list
+     *                              of nodes of the desired screen.
+     * @param messagesNumber        The number of messages to be shown. To be different between
+     *                              question and leaderboard screen.
      */
-    private void updateReaction(List<Reaction> reactionList, List<Node> reactionParts, int reactionsNumber) {
-        ArrayList<Reaction> reactions = new ArrayList<>(reactionList);
-        Collections.reverse(reactions);
+    private void updateChat(List<ChatMessage> chatMessageList, List<Node> messagesParts, int messagesNumber) {
+        ArrayList<ChatMessage> chatMessages = new ArrayList<>(chatMessageList);
+        Collections.reverse(chatMessages);
 
         /*
         In the GridPane `reaction`, Labels and ImageViews are taking turns.
         Thus, the Labels would have even indices within the children of the pane.
         The ImageViews would have odd indices.
          */
-        int currentReactionLabelIndex = 0;
-        int currentReactionImageIndex = 1;
-        for (Reaction reaction: reactions) {
-            Label currentReactionLabel = (Label) reactionParts.get(currentReactionLabelIndex);
-            ImageView currentReactionImage = (ImageView) reactionParts.get(currentReactionImageIndex);
-            currentReactionLabel.setText(reaction.getUsername() + " reacts with ");
-            switch (reaction.getEmoji()) {
-                case "angry" -> currentReactionImage.setImage(angry);
-                case "crying" -> currentReactionImage.setImage(crying);
-                case "laughing" -> currentReactionImage.setImage(laughing);
-                case "surprised" -> currentReactionImage.setImage(surprised);
+        int currentMessageLabelIndex = 0;
+        int currentMessageImageIndex = 1;
+        for (ChatMessage chatMessage : chatMessages) {
+            Label currentReactionLabel = (Label) messagesParts.get(currentMessageLabelIndex);
+            ImageView currentReactionImage = (ImageView) messagesParts.get(currentMessageImageIndex);
+            String username = chatMessage.getUsername();
+
+            switch (chatMessage.getMessage()) {
+                case "angry" ->
+                        visualizeReactionMessage(currentReactionLabel, currentReactionImage, username, angry);
+                case "crying" ->
+                        visualizeReactionMessage(currentReactionLabel, currentReactionImage, username, crying);
+                case "laughing" ->
+                        visualizeReactionMessage(currentReactionLabel, currentReactionImage, username, laughing);
+                case "surprised" ->
+                        visualizeReactionMessage(currentReactionLabel, currentReactionImage, username, surprised);
+                default -> jokerUsed(currentReactionLabel, currentReactionImage, username, chatMessage.getMessage());
             }
 
             currentReactionLabel.setVisible(true);
             currentReactionImage.setVisible(true);
 
-            currentReactionLabelIndex = currentReactionLabelIndex + 2;
-            currentReactionImageIndex = currentReactionImageIndex + 2;
-            if (currentReactionLabelIndex >= 2 * reactionsNumber) {
+            currentMessageLabelIndex = currentMessageLabelIndex + 2;
+            currentMessageImageIndex = currentMessageImageIndex + 2;
+            if (currentMessageLabelIndex >= 2 * messagesNumber) {
                 break;
             }
         }
 
         /*
-        In case the total number of reactions is less than 3 - the size of our "chat",
+        In case the total number of chatMessages is less than 3 - the size of our "chat",
         the later "lines", consisting of username and emoji submitted are made not visible.
          */
-        for (int i = currentReactionLabelIndex; i < 2 * reactionsNumber; i++) {
-            Node currentNode = reactionParts.get(i);
+        for (int i = currentMessageLabelIndex; i < 2 * messagesNumber; i++) {
+            Node currentNode = messagesParts.get(i);
             currentNode.setVisible(false);
+        }
+    }
+
+    /**
+     * Method to visualize a particular reaction chat message.
+     * Extracts functionality out and avoid code duplication.
+     *
+     * @param label     Label instance to show text.
+     * @param imageView An ImageView instance to show image.
+     * @param username  Username of player who sent particular message.
+     * @param image     Image to be visualized.
+     */
+    private void visualizeReactionMessage(Label label, ImageView imageView, String username, Image image) {
+        label.setText(username + " reacts with ");
+        imageView.setImage(image);
+    }
+
+    /**
+     * Method to decide which joker have been used.
+     *
+     * @param label     Label to be used for message text.
+     * @param imageView ImageView to be used for image - nothing in case joker usage
+     *                  is recorded.
+     * @param username  Username of player "sending" message.
+     * @param joker     Joker information.
+     */
+    private void jokerUsed(Label label, ImageView imageView, String username, String joker) {
+        switch (joker) {
+            case "doublePoints" -> visualizeJokeUsage(label, username, "Double Points", imageView);
+            case "removeIncorrect" -> visualizeJokeUsage(label, username, "Remove Incorrect", imageView);
+            case "timeAttack" -> visualizeJokeUsage(label, username, "Time Attack", imageView);
+        }
+    }
+
+    /**
+     * Method to visualize joker activity in chat.
+     *
+     * @param label     Label to be used for text.
+     * @param username  Username of player "sending" message.
+     * @param joker     Joker information.
+     * @param imageView ImageView to be set to `null`.
+     */
+    private void visualizeJokeUsage(Label label, String username, String joker, ImageView imageView) {
+        label.setText(username + " used " + joker + "!");
+        imageView.setImage(null);
+    }
+
+    /**
+     * In case a "Time Attack" joker is submitted, the timer for all
+     * players except fot the "attacker" should be altered.
+     *
+     * This is achieved by changing the rate at which the timeline is progressing.
+     *
+     * @param oldState OldState of Game to be used for check whether this particular
+     *                 client should be affected by joker.
+     * @param newState NewState of the Game.
+     */
+    private void alterTimer(MultiPlayerState oldState, MultiPlayerState newState) {
+        if (newState.getTimeAttacksUsed() == 0) {
+            timeline.setRate(1);
+        } else if (oldState.getPlayerByUsername(username).getTimerRate() !=
+                newState.getPlayerByUsername(username).getTimerRate()) {
+            /*
+            Instead of altering the remaining time, we would speed up the client-side timer,
+            and accumulate the "lost" time.
+
+            Note the increase in speed is reversely proportional to the time that should be
+            "deducted" - in our case, added to the "negativeTimeAccumulated" counter.
+             */
+            timeline.setRate(timeline.getRate() * timeAttackFactor);
+            negativeTimeAccumulated = negativeTimeAccumulated +
+                    (long) ((newState.getNextPhase() - new Date().getTime()) * (1 - 1 / timeAttackFactor));
+        }
+    }
+
+    /**
+     * Removes a "random" incorrect answer - the first one it finds is different from the actual one.
+     */
+    private void removeIncorrect() {
+        MultiPlayerState game = serverUtils.getMultiGameState(gameId);
+        AbstractQuestion currentQuestion = game.getQuestionList().get(game.getRoundNumber());
+        List<Button> answerChoices = currentScreenCtrl.getAnswerButtons();
+        /*
+        The case when a question asked is "Which is the most expensive activity?" should be
+        handled independently, as the actual answers are "stored" in the "description" labels there.
+         */
+        if (currentScreenCtrl instanceof MultiGameMoreExpensiveQuestionScreenCtrl) {
+            List<String> answers = ((MultiGameMoreExpensiveQuestionScreenCtrl) currentScreenCtrl).getDescriptions();
+            int index = 0;
+            for (String answer: answers) {
+                /*
+                As in `submitAnswer`, we should remove the last two characters from the field "containing" the answer.
+                 */
+                if (answer.substring(0, answer.length() - 2).equals(currentQuestion.getCorrectAnswer())) {
+                    answerChoices.get(index).setDisable(true);
+                    break;
+                } else {
+                    index++;
+                }
+            }
+        } else {
+            for (Button answer: answerChoices) {
+                /*
+                As in `submitAnswer`, we should remove the last two characters from the field "containing" the answer.
+
+                These characters are additionally appended when the Button instances have been created.
+                 */
+                if (!answer.getText().substring(0, answer.getText().length() - 2)
+                        .equals(currentQuestion.getCorrectAnswer())) {
+                    answer.setDisable(true);
+                    break;
+                }
+            }
         }
     }
 

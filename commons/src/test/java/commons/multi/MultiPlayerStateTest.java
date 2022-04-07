@@ -30,7 +30,7 @@ class MultiPlayerStateTest {
     private MultiPlayer player2;
     private List<MultiPlayer> players;
 
-    private List<Reaction> reactionList;
+    private List<ChatMessage> chatMessageList;
 
     private MultiPlayerState game;
     private MultiPlayerState game2;
@@ -48,10 +48,10 @@ class MultiPlayerStateTest {
                 )
         );
 
-        response1 = new GameResponse(37, 5287, 2, "Kate", "200Wh", true);
-        response2 = new GameResponse(37, 5300, 2, "Lu", "500Wh", true);
-        response3 = new GameResponse(37, 5386, 2, "Kate", "500Wh", true);
-        response4 = new GameResponse(37, 5360, 2, "Lu", "200Wh", true);
+        response1 = new GameResponse(37, 5287, 2, "Kate", "200Wh");
+        response2 = new GameResponse(37, 5300, 2, "Lu", "500Wh");
+        response3 = new GameResponse(37, 5386, 2, "Kate", "500Wh");
+        response4 = new GameResponse(37, 5360, 2, "Lu", "200Wh");
 
         answers = Arrays.asList(response1, response2);
         answers2 = Arrays.asList(response3, response4);
@@ -67,14 +67,14 @@ class MultiPlayerStateTest {
 
         players = Arrays.asList(player1, player2);
 
-        reactionList = Arrays.asList(
-                new Reaction("Kaloyan", "laughing"),
-                new Reaction("Kayra", "angry")
+        chatMessageList = Arrays.asList(
+                new ChatMessage("Kaloyan", "laughing"),
+                new ChatMessage("Kayra", "angry")
         );
 
-        game = new MultiPlayerState(37, 5500, 2, questions, answers, "question", players, reactionList);
-        game2 = new MultiPlayerState(37, 5500, 2, questions, answers, "question", players, reactionList);
-        game3 = new MultiPlayerState(37, 5500, 2, questions, answers2, "question", players, reactionList);
+        game = new MultiPlayerState(37, 5500, 2, questions, answers, "question", players, chatMessageList);
+        game2 = new MultiPlayerState(37, 5500, 2, questions, answers, "question", players, chatMessageList);
+        game3 = new MultiPlayerState(37, 5500, 2, questions, answers2, "question", players, chatMessageList);
     }
 
     @Test
@@ -114,7 +114,7 @@ class MultiPlayerStateTest {
 
     @Test
     public void testGetReaction() {
-        assertEquals(reactionList, game.getReactionList());
+        assertEquals(chatMessageList, game.getChatMessageList());
     }
 
     @Test

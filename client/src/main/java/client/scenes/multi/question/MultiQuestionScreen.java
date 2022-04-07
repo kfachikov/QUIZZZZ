@@ -8,7 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -34,24 +36,22 @@ public abstract class MultiQuestionScreen {
     protected Button emojiButton4;
 
     /*
+    Shared references to the joker buttons.
+     */
+    @FXML
+    protected Button doublePoints;
+
+    @FXML
+    protected Button removeIncorrect;
+
+    @FXML
+    protected Button timeAttack;
+
+    /*
     Shared references to the reaction section lines.
      */
     @FXML
-    protected GridPane reactions;
-
-    private boolean reveal;
-    private boolean halfTime;
-
-    private boolean doublePoints;
-
-    @FXML
-    private Button twicePoints;
-
-    @FXML
-    private Button revealWrong;
-
-    @FXML
-    private Button shortenTime;
+    protected GridPane chatMessages;
 
     @FXML
     private ImageView doubleImage;
@@ -95,64 +95,8 @@ public abstract class MultiQuestionScreen {
      *
      * @return  FlowPane reference to the reactions sections.
      */
-    public GridPane getReactions() {
-        return reactions;
-    }
-
-
-    /**
-     * Getter for the reveal joker checker.
-     *
-     * @return true/false.
-     */
-    public boolean getReveal() {
-        return this.reveal;
-    }
-
-    /**
-     * Setter for the reveal joker checker.
-     *
-     * @param reveal true/false.
-     */
-    public void setReveal(boolean reveal) {
-        this.reveal = reveal;
-    }
-
-    /**
-     * getter for the halfTime.
-     *
-     * @return true/false.
-     */
-    public boolean getHalfTime() {
-        return this.halfTime;
-    }
-
-    /**
-     * sets the halfTime.
-     *
-     * @param halfTime true/false.
-     */
-    public void setHalfTime(boolean halfTime) {
-        this.halfTime = halfTime;
-    }
-
-    /**
-     * Setter for the doublePoints joker.
-     *
-     * @param doublePoints the boolean value for the joker regarding the points.
-     */
-    public void setDoublePoints(boolean doublePoints) {
-        this.doublePoints = doublePoints;
-    }
-
-
-    /**
-     * getter for the doublePoints.
-     *
-     * @return true/false
-     */
-    public boolean getDoublePoints() {
-        return doublePoints;
+    public GridPane getChatMessages() {
+        return chatMessages;
     }
 
     /**
@@ -174,49 +118,63 @@ public abstract class MultiQuestionScreen {
         wrongImage.setImage(revealWrongImage);
         timeImage.setImage(shortenTimeImage);
 
-        twicePoints.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
-        revealWrong.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
-        shortenTime.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        doublePoints.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        removeIncorrect.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        timeAttack.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
 
-        twicePoints.setDisable(false);
-        revealWrong.setDisable(false);
-        shortenTime.setDisable(false);
-
-        setHalfTime(false);
-        setReveal(false);
-        setDoublePoints(false);
-
+        doublePoints.setDisable(false);
+        removeIncorrect.setDisable(false);
+        timeAttack.setDisable(false);
     }
 
     /**
      * Disable the double joker.
      */
-    public void disableDoublePoint() {
-        twicePoints.setDisable(true);
+    public void disableDoublePoints() {
+        doublePoints.setDisable(true);
+        doublePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
     }
 
     /**
      * Disables the reveal joker.
      */
-    public void disableReveal() {
-        revealWrong.setDisable(true);
+    public void disableRemoveIncorrect() {
+        removeIncorrect.setDisable(true);
+        removeIncorrect.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
+    }
+
+    /**
+     * Enables the "Remove Incorrect" joker. To be used to enable it after it has been
+     * disabled because of player submitting an answer - aim to prevent mistakes.
+     */
+    public void enableRemoveIncorrect() {
+        removeIncorrect.setDisable(false);
+        removeIncorrect.setStyle("-fx-background-color: #" + (Paint.valueOf("b80000")).toString().substring(2));
     }
 
     /**
      * Disables the time joker.
      */
-    public void disableShortenTime() {
-        shortenTime.setDisable(true);
+    public void disableTimeAttack() {
+        timeAttack.setDisable(true);
+        timeAttack.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
     }
 
     /**
      * Sets the jokers style.
      */
     public void setJokersStyle() {
-
-        twicePoints.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
-        revealWrong.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
-        shortenTime.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
-
+        doublePoints.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        removeIncorrect.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
+        timeAttack.setStyle("-fx-background-color: #" + (Color.valueOf("b80000")).toString().substring(2));
     }
+
+    /**
+     * Getter for the Button instances of corresponding to the answer choices for
+     * any of the child classes (controllers) extending this abstract class.
+     * *Defines contract.*
+     *
+     * @return  List of Button instances.
+     */
+    public abstract List<Button> getAnswerButtons();
 }

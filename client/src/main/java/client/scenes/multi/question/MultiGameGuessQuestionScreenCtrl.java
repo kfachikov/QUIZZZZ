@@ -2,8 +2,6 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
-import commons.multi.MultiPlayer;
-import commons.multi.MultiPlayerState;
 import commons.question.GuessQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,8 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.List;
 
 /**
  * Controller responsible for the multiplayer game guess question screen.
@@ -29,9 +26,6 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
-    private boolean reveal;
-    private boolean halfTime;
-    private boolean doublePoints;
 
     @FXML
     private Label gameStateLabel;
@@ -53,27 +47,6 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
 
     @FXML
     private TextField input;
-
-    @FXML
-    private Button twicePoints;
-
-    @FXML
-    private Button revealWrong;
-
-    @FXML
-    private Button shortenTime;
-
-    @FXML
-    private Button emojiButton1;
-
-    @FXML
-    private Button emojiButton2;
-
-    @FXML
-    private Button emojiButton3;
-
-    @FXML
-    private Button emojiButton4;
 
     @FXML
     private ImageView doubleImage;
@@ -127,22 +100,8 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
             }
         });
 
-        twicePoints.setOnAction(e -> {
-            twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-
-            multiCtrl.setDoublePoints(true);
-
-            setDoublePoints(true);
-        });
-
-        shortenTime.setOnAction(e -> {
-
-            shortenTime.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            setHalfTime(true);
-        });
-
-
         multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
+        multiCtrl.initializeJokerButtons(doublePoints, removeIncorrect, timeAttack);
     }
 
     /**
@@ -238,37 +197,13 @@ public class MultiGameGuessQuestionScreenCtrl extends MultiQuestionScreen {
         return gameStateLabel;
     }
 
-    public void startJokerPolling() {
-        Timer pollingService = new Timer();
-        pollingService.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                MultiPlayer player = server.getTimeJokerPlayer(multiCtrl.getId());
-                if (player != null) {
-                    if (!getPlayer().equals(player)) {
-                        reduceTime();
-                    }
-                    disableShortenTime();
-                    pollingService.cancel();
-                }
-            }
-        }, 0, 250);
+    /**
+     * This method exists purely because of the Java inheritance principle.
+     *
+     * @return  null - this method is actually never being called on any instance
+     *          of this class.
+     */
+    public List<Button> getAnswerButtons() {
+        return null;
     }
-
-    public MultiPlayer getPlayer() {
-        MultiPlayerState multiPlayerState = ServerUtils.getMultiGameState(multiCtrl.getId());
-        return multiPlayerState.getPlayerByUsername(multiCtrl.getUsername());
-    }
-
-    public void sendJoker() {
-        if (getPlayer().getTimeJoker()) {
-            server.postTimeJokerPlayer(getPlayer(), multiCtrl.getId());
-            disableShortenTime();
-        }
-    }
-
-    public void reduceTime() {
-        //method that will be implemented in the front-end
-    }
-
 }

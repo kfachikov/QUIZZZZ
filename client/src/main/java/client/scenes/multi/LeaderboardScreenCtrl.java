@@ -41,7 +41,7 @@ public class LeaderboardScreenCtrl {
     private VBox leaderboard;
 
     @FXML
-    private GridPane reactions;
+    private GridPane chatMessages;
 
     /**
      * initializes IntermediateLeaderboardScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -165,7 +165,7 @@ public class LeaderboardScreenCtrl {
      *
      * @return  GridPane reference to the particular instance on the leaderboard scene.
      */
-    public GridPane getReactions() {
-        return reactions;
+    public GridPane getChatMessages() {
+        return chatMessages;
     }
 }

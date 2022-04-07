@@ -181,8 +181,7 @@ class MultiPlayerStateUtilsTest {
                 currentTime.currentTime + 10000,
                 0,
                 "Client A",
-                questionAsked.getCorrectAnswer(),
-                false
+                questionAsked.getCorrectAnswer()
         );
 
         gameResponse2 = new GameResponse(
@@ -194,8 +193,7 @@ class MultiPlayerStateUtilsTest {
                 currentTime.currentTime + 8000,
                 0,
                 "Client A",
-                questionAsked.getCorrectAnswer(),
-                false
+                questionAsked.getCorrectAnswer()
         );
 
         gameResponse3 = new GameResponse(
@@ -210,8 +208,7 @@ class MultiPlayerStateUtilsTest {
                 /*
                 The answer though, would be slightly different from the actual one.
                  */
-                String.valueOf(Long.parseLong(questionAsked.getCorrectAnswer()) - 400),
-                false
+                String.valueOf(Long.parseLong(questionAsked.getCorrectAnswer()) - 400)
         );
     }
 
@@ -610,19 +607,19 @@ class MultiPlayerStateUtilsTest {
 
     @Test
     void correctAnswerPointDistribution1secondRemaining() {
-        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, gameResponse1);
+        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, null, gameResponse1);
         assertEquals(100 + 1 * 50, scoreCount);
     }
 
     @Test
     void correctAnswerPointDistribution3secondsRemaining() {
-        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, gameResponse2);
+        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, null, gameResponse2);
         assertEquals(100 + 3 * 50, scoreCount);
     }
 
     @Test
     void approximateAnswerPointDistribution() {
-        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, gameResponse3);
+        int scoreCount = scoreCounting.computeScore(multiPlayerStateQuestion0, null, gameResponse3);
         assertEquals(100 + 1 * 50 - .1 * 400, scoreCount);
     }
 
@@ -645,8 +642,7 @@ class MultiPlayerStateUtilsTest {
                 currentTime.currentTime + 8000,
                 0,
                 "Client A",
-                "MockAnswer",
-                true
+                "MockAnswer"
         );
         multiUtils.postAnswer(response);
 
@@ -663,8 +659,7 @@ class MultiPlayerStateUtilsTest {
                 currentTime.currentTime + 8000,
                 0,
                 "Client A",
-                "MockAnswer",
-                true
+                "MockAnswer"
         );
         assertNull(multiUtils.postAnswer(response));
     }
