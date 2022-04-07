@@ -126,8 +126,8 @@ public class ActivityController {
      * @param key Primary-key attribute to search by.
      * @return ResponseEntity consisting of the deleted entry if present, or a Not Found error if not found.
      */
-    @DeleteMapping("/{key}")
-    public ResponseEntity<Activity> removeActivity(@PathVariable("{key}") Long key) {
+    @DeleteMapping("/delete/{key}")
+    public ResponseEntity<Activity> removeActivity(@PathVariable("key") Long key) {
         Activity removed = repo.findById(key).orElse(null);
         if (removed != null) {
             repo.delete(removed);

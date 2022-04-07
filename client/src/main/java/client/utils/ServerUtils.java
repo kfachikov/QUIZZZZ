@@ -263,6 +263,38 @@ public class ServerUtils {
     }
 
     /**
+     * The method finds the activity in the repo using the provided key.
+     * The method then edits its fields to be same as the provided Activity.
+     *
+     * @param key the activity to be edited.
+     * @param newActivity a dummy activity with new values to be copied.
+     * @return the new Activity.
+     */
+    public Activity changeActivity(Long key, Activity newActivity) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/" + key)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .put(Entity.entity(newActivity, APPLICATION_JSON), Activity.class);
+    }
+
+    /**
+     * Removes the activity the passed key is associated with.
+     *
+     * @param key the key of the activity to be removed.
+     * @return the removed activity.
+     */
+    public Activity removeActivity(Long key) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/delete/" + key)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .delete(Activity.class);
+    }
+
+    /**
      * Getter for the activity image.
      *
      * @param key the key of the image.
