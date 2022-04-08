@@ -117,12 +117,12 @@ public class LeaderboardScreenCtrl {
      * <p>
      * Displays the labels that are filled.
      *
-     * @param players    the list of players in the game, in descending score order.
+     * @param players the list of players in the game, in descending score order.
      */
     private void fillLeaderboard(List<MultiPlayer> players) {
         leaderboard.getChildren().clear();
         int position = 1;
-        for (MultiPlayer entry: players) {
+        for (MultiPlayer entry : players) {
             GridPane gridPane = new GridPane();
             gridPane.setPrefWidth(leaderboard.getPrefWidth());
 
@@ -176,19 +176,18 @@ public class LeaderboardScreenCtrl {
     /**
      * Getter for the reaction section on the leaderboard screen.
      *
-     * @return  GridPane reference to the particular instance on the leaderboard scene.
+     * @return GridPane reference to the particular instance on the leaderboard scene.
      */
     public GridPane getChatMessages() {
         return chatMessages;
     }
 
     public void showBarChart(List<MultiPlayer> players) {
-        leaderboard.setVisible(false);
-        scrollPane.setVisible(false);
+        leaderboard.getParent().setVisible(false);
 
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String, Number> barChart = new BarChart<>(xAxis,yAxis);
+        final BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
         xAxis.setLabel("Player");
         yAxis.setLabel("Score");
         barChart.setLayoutX(104.0);
