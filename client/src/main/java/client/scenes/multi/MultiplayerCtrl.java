@@ -219,6 +219,8 @@ public class MultiplayerCtrl {
         moreExpensiveQuestionScreenCtrl.setJokers();
         consumptionQuestionScreenCtrl.setJokers();
 
+        initializeEmojiButtonImages();
+
         switchState(pollingService.poll());
         mainCtrl.setOnCloseRequest(this::promptLeave);
     }
@@ -971,5 +973,15 @@ public class MultiplayerCtrl {
                 String.valueOf(this.getClass().getClassLoader().getResource("emoji/Angry.png")));
         crying = new Image(
                 String.valueOf(this.getClass().getClassLoader().getResource("emoji/Crying.png")));
+    }
+
+    /**
+     * Initializes the emoji button images.
+     */
+    private void initializeEmojiButtonImages() {
+        consumptionQuestionScreenCtrl.setEmojiImages(surprised, laughing, angry, crying);
+        guessQuestionScreenCtrl.setEmojiImages(surprised, laughing, angry, crying);
+        insteadQuestionScreenCtrl.setEmojiImages(surprised, laughing, angry, crying);
+        moreExpensiveQuestionScreenCtrl.setEmojiImages(surprised, laughing, angry, crying);
     }
 }
