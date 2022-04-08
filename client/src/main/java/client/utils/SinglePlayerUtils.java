@@ -254,5 +254,4 @@ public class SinglePlayerUtils {
     public void setCurrentController(QuestionScreen currentController) {
         this.currentController = currentController;
     }
-
 }

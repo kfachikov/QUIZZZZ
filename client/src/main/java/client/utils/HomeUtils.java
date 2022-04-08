@@ -58,17 +58,17 @@ public class HomeUtils {
                getSinglePlayer().
             */
             // SinglePlayer singlePlayer = server.addSinglePlayer(getSinglePlayer());
-            server.checkServer();
             mainCtrl.showPrep(getSinglePlayer());
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
+                case BAD_REQUEST:
+                    usernameMissing();
+                    break;
                 default:
                     unknownError();
             }
         } catch (ProcessingException e) {
             serverInvalid();
-        } catch (NullPointerException e) {
-            usernameMissing();
         }
     }
 
@@ -138,17 +138,13 @@ public class HomeUtils {
     }
 
     /**
-     * Getter for a singleplayer player.
+     * TODO: Should check whether the username is empty and behave accordingly.
      *
      * @return a new SingleUser object that contains its username and score.
      */
-    public SinglePlayer getSinglePlayer() throws NullPointerException {
+    public SinglePlayer getSinglePlayer() {
         String user = usernameField.getText();
-        if ("".equals(user)) {
-            throw new NullPointerException();
-        } else {
-            return new SinglePlayer(user, 0);
-        }
+        return new SinglePlayer(user, 0);
     }
 
     /**
@@ -216,5 +212,6 @@ public class HomeUtils {
         errorMessage.setText("Make sure you have entered a unique username and a valid URL address!");
         errorMessage.setVisible(true);
     }
+
 
 }
