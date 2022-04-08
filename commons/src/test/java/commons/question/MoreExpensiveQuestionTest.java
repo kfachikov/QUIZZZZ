@@ -10,6 +10,6 @@ class MoreExpensiveQuestionTest {
     @Test
     public void testToString() {
         MoreExpensiveQuestion question = new MoreExpensiveQuestion();
-        assertEquals("What activity has a higher energy consumption?", question.toString());
+        assertEquals("WHAT ACTIVITY HAS A HIGHER ENERGY CONSUMPTION?", question.toString());
     }
 }

@@ -160,6 +160,13 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     }
 
     /**
+     * Sets the description of the image.
+     */
+    public void setDescription() {
+        description.setText(question.getActivity().getTitle());
+    }
+
+    /**
      * Getter for the question instance.
      *
      * @return this question.
@@ -188,6 +195,7 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
         this.question = question;
         setQuestionPrompt();
+        setDescription();
         /*
         The following setup was made purely for testing purposes.
         Should be optimized - extracted as functionality (eventually).
