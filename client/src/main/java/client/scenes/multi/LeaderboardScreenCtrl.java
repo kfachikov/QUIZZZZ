@@ -197,7 +197,8 @@ public class LeaderboardScreenCtrl {
         minScore -= 15;
 
         final double chartHeight = 121;
-        final double chartWidth = 305;
+        final double chartWidth = 305 - sorted.size() * 5;
+        barChart.setSpacing(5);
 
         for (MultiPlayer player : sorted) {
             Region bar = new Region();
@@ -205,11 +206,13 @@ public class LeaderboardScreenCtrl {
 
             double portion = (player.getScore() - minScore) / (maxScore - minScore);
             double height = chartHeight * portion;
+            double width = chartWidth / sorted.size();
             bar.setPrefHeight(height);
             bar.setMaxHeight(height);
             bar.setMinHeight(height);
 
-            bar.setPrefWidth(chartWidth / sorted.size());
+            bar.setMinWidth(0);
+            bar.setPrefWidth(width);
 
             if (Objects.equals(player.getUsername(), multiCtrl.getUsername())) {
                 bar.getStyleClass().add("highlighted");
