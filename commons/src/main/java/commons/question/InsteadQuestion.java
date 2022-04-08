@@ -72,7 +72,7 @@ public class InsteadQuestion extends AbstractQuestion {
      */
     public String toString() {
         String question;
-        question = "What can you do instead of " + activity.getTitle() + " and consuming the same amount of energy?";
+        question = "INSTEAD OF ..., YOU COULD BE ...";
         return question;
     }
 

@@ -49,7 +49,7 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
      */
     public String toString() {
         String question;
-        question = "What activity has a higher energy consumption?";
+        question = "WHAT ACTIVITY HAS A HIGHER ENERGY CONSUMPTION?";
         return question;
     }
 

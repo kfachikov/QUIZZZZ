@@ -11,13 +11,13 @@
 
 <AnchorPane id="anchor" fx:id="window" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.single.question.GuessQuestionScreenCtrl">
     <children>
-        <Button layoutX="89.0" layoutY="130.0" mnemonicParsing="false" prefHeight="275.0" prefWidth="704.0" disable="true"/>
+        <Button disable="true" layoutX="89.0" layoutY="130.0" mnemonicParsing="false" prefHeight="275.0" prefWidth="704.0" />
         <Button id="smallButton" fx:id="leaveButton" layoutX="8.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnHome" text="Leave" textFill="#006e8c" />
         <Label id="yourScore" layoutX="374.0" layoutY="6.0" text="Your score:" textFill="WHITE" />
         <ProgressBar fx:id="time" layoutX="91.0" layoutY="45.0" prefHeight="20.0" prefWidth="701.0" progress="0.36" />
         <Label id="score" fx:id="currentScore" layoutX="488.0" layoutY="5.0" text="0" textFill="YELLOW" />
-        <Label id="title" fx:id="questionTitle" alignment="CENTER" layoutX="88.0" layoutY="77.0" prefHeight="39.0" prefWidth="705.0" text="How much energy does it take in Wh?" textAlignment="CENTER" textFill="WHITE" />
-        <Text id="description" fx:id="description" fill="WHITE" layoutX="95.0" layoutY="390.0" text="Taking a hot shower. (50l water)" textAlignment="CENTER" wrappingWidth="689.537109375" />
+        <Label id="title" fx:id="questionTitle" alignment="CENTER" layoutX="88.0" layoutY="77.0" prefHeight="39.0" prefWidth="705.0" text="HOW MUCH ENERGY DOES IT TAKE? " textAlignment="CENTER" textFill="WHITE" />
+        <Text id="description" fx:id="description" fill="WHITE" layoutX="95.0" layoutY="390.0" textAlignment="CENTER" wrappingWidth="689.537109375" />
         <TextField id="guessTextField" fx:id="input" alignment="CENTER" layoutX="90.0" layoutY="399.0" prefHeight="99.0" prefWidth="704.0" promptText="Type your guess here" AnchorPane.bottomAnchor="57.0" />
         <ImageView fx:id="image" fitHeight="203.0" fitWidth="465.0" layoutX="207.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="220.0" />
       <Label fx:id="messageCorrectAnswer" alignment="CENTER" layoutX="314.0" layoutY="359.0" prefHeight="39.0" prefWidth="278.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 20; -fx-background-color: e4d4c8;" textAlignment="CENTER" textFill="#523a28" translateY="50.0" wrapText="true">

@@ -102,7 +102,7 @@ class ConsumptionQuestionTest {
     public void testToString() {
         ConsumptionQuestion question = new ConsumptionQuestion(activity);
 
-        assertEquals("How much does title consume?", question.toString());
+        assertEquals("HOW MUCH ENERGY DOES IT TAKE?", question.toString());
     }
 
 }
