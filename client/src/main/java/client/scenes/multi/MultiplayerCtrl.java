@@ -938,7 +938,7 @@ public class MultiplayerCtrl {
                 /*
                 As in `submitAnswer`, we should remove the last two characters from the field "containing" the answer.
                  */
-                if (answer.substring(0, answer.length() - 2).equals(currentQuestion.getCorrectAnswer())) {
+                if (!answer.substring(0, answer.length() - 2).equals(currentQuestion.getCorrectAnswer())) {
                     answerChoices.get(index).setDisable(true);
                     break;
                 } else {
