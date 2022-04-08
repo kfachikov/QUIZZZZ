@@ -35,6 +35,17 @@ public class ConsumptionQuestion extends AbstractQuestion {
     }
 
     /**
+     * Constructor for the activity's energy consumption question type.
+     *
+     * @param activity      the activity the question is about.
+     * @param answerChoices answer choices for this question.,
+     */
+    public ConsumptionQuestion(Activity activity, List<Long> answerChoices) {
+        this.activity = activity;
+        this.answerChoices = answerChoices;
+    }
+
+    /**
      * Sets the possible answers for a question in a random way, having between them the correct answer.
      */
     public void setAnswerChoices() {

@@ -10,17 +10,24 @@ import org.springframework.data.repository.query.FluentQuery;
 import server.database.ActivityRepository;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 
 /**
  * Mock class to be used when testing other classes that use ActivityRepository.
  */
 public class MockActivityRepository implements ActivityRepository {
+
+    public Queue<Object> returnValues = new LinkedList<>();
+    public ArrayList<String> calledMethods = new ArrayList<>();
+    public ArrayList<Object> params = new ArrayList<>();
+
+    public ArrayList<Activity> repoActivities = new ArrayList<>();
+
     @Override
     public List<Activity> findAll() {
-        return null;
+        calledMethods.add("findAll");
+        return repoActivities;
     }
 
     @Override
@@ -51,7 +58,8 @@ public class MockActivityRepository implements ActivityRepository {
      */
     @Override
     public long count() {
-        return 0;
+        calledMethods.add("count");
+        return (long) returnValues.poll();
     }
 
     /**
@@ -134,7 +142,9 @@ public class MockActivityRepository implements ActivityRepository {
      */
     @Override
     public Optional<Activity> findById(Long aLong) {
-        return Optional.empty();
+        calledMethods.add("findById");
+        params.add(aLong);
+        return repoActivities.stream().filter(activity -> Objects.equals(activity.getKey(), aLong)).findAny();
     }
 
     /**

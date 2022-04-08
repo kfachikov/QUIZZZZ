@@ -30,6 +30,19 @@ public class InsteadQuestion extends AbstractQuestion {
     }
 
     /**
+     * Constructor for instead question.
+     *
+     * @param activity      the activity that is being compared
+     * @param correctAnswer Title of the correct answer.
+     * @param answerChoices List of 3 activities, 1 of which is close to the true answer.
+     */
+    public InsteadQuestion(Activity activity, String correctAnswer, List<Activity> answerChoices) {
+        this.activity = activity;
+        this.correctAnswer = correctAnswer;
+        this.answerChoices = answerChoices;
+    }
+
+    /**
      * Sets the possible answers for a question in a random way, having between them the correct answer.
      *
      * @param activities List of all activities
