@@ -5,8 +5,13 @@ import com.google.inject.Inject;
 import commons.multi.MultiPlayer;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -41,6 +46,9 @@ public class LeaderboardScreenCtrl {
     private VBox leaderboard;
 
     @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
     private GridPane chatMessages;
 
     /**
@@ -63,6 +71,7 @@ public class LeaderboardScreenCtrl {
     @FXML
     protected void initialize() {
         multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
+        scrollPane = new ScrollPane();
     }
 
     /**
@@ -82,8 +91,12 @@ public class LeaderboardScreenCtrl {
             title.setText("INTERMEDIATE LEADERBOARD");
 
             //make top-left leave button visible + returnHome invisible
-            playAgain.setVisible(false);
-            playAgain.setDisable(true);
+            playAgain.setText("BAR CHART");
+            playAgain.setOnAction(event -> {
+                showBarChart(players);
+                System.out.println("show bar");
+                playAgain.setDisable(true);
+            });
             leave.setDisable(false);
             leave.setVisible(true);
         }
@@ -91,8 +104,8 @@ public class LeaderboardScreenCtrl {
             title.setText("GAME OVER!");
 
             //returnHome visible + make top-left leave button invisible
-            playAgain.setVisible(true);
-            playAgain.setDisable(false);
+            playAgain.setText("PLAY AGAIN");
+            playAgain.setOnAction(event -> playAgain());
             leave.setDisable(true);
             leave.setVisible(false);
         }
@@ -167,5 +180,27 @@ public class LeaderboardScreenCtrl {
      */
     public GridPane getChatMessages() {
         return chatMessages;
+    }
+
+    public void showBarChart(List<MultiPlayer> players) {
+        leaderboard.setVisible(false);
+        scrollPane.setVisible(false);
+
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String, Number> barChart = new BarChart<>(xAxis,yAxis);
+        xAxis.setLabel("Player");
+        yAxis.setLabel("Score");
+        barChart.setLayoutX(104.0);
+        barChart.setLayoutY(103.0);
+        barChart.setPrefWidth(305.0);
+        barChart.setPrefHeight(371.0);
+
+        XYChart.Series entries = new XYChart.Series();
+        for (int i = 0; i < players.size(); i++) {
+            entries.getData().add(new XYChart.Data(players.get(i).getUsername(), players.get(i).getScore()));
+        }
+        barChart.getData().add(entries);
+        barChart.toFront();
     }
 }
