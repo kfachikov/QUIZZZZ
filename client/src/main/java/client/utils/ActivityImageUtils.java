@@ -4,6 +4,7 @@ import commons.misc.Activity;
 import commons.misc.ActivityImageMessage;
 import jakarta.ws.rs.NotFoundException;
 import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 
 import javax.inject.Inject;
 import java.io.*;
@@ -85,8 +86,6 @@ public class ActivityImageUtils {
      * @param imageBase64 Base64 representation of the image.
      */
     public void addActivityImage(long key, String imageBase64) {
-        String currentServer = ServerUtils.getCurrentServer();
-
         ActivityImageMessage message = new ActivityImageMessage(imageBase64, key);
 
         serverUtils.addActivityImage(message);
@@ -163,5 +162,25 @@ public class ActivityImageUtils {
     private String removeExtension(String filename) {
         int lastIndex = filename.lastIndexOf('.');
         return filename.substring(0, lastIndex);
+    }
+
+    /**
+     * Adds the image in the selected .jpg file in AdminPanel as the new image of the activity.
+     *
+     * @param key the key of the activity to change the image of.
+     * @return the new image that replaced the old one.
+     */
+    public Image selectImageFile(Long key) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Images", "*.jpg"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+        String imageBase64 = getImageBase64(selectedFile.getPath());
+        ActivityImageMessage message = new ActivityImageMessage(imageBase64, key);
+        serverUtils.addActivityImage(message);
+        byte[] decodedImage = Base64.getDecoder().decode(imageBase64);
+        InputStream imageInputStream = new ByteArrayInputStream(decodedImage);
+        Image image = new Image(imageInputStream);
+        activityImageCache.remove(key);
+        return image;
     }
 }

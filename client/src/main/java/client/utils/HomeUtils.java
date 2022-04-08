@@ -47,7 +47,7 @@ public class HomeUtils {
     public void enterSinglePlayerMode() {
         try {
             setDefault();
-            ServerUtils.setCurrentServer(getServer());
+            server.setCurrentServer(getServer());
             /* The following line is useless, as the SinglePlayer instances would not be stored anywhere.
                Still there could be some sort of POST/GET request to the server,
                which would be used to check whether the server is valid.
@@ -85,9 +85,9 @@ public class HomeUtils {
         try {
             setDefault();
             String username = usernameField.getText();
-            ServerUtils.setCurrentServer(getServer());
+            server.setCurrentServer(getServer());
             QueueUser user = server.addQueueUser(new QueueUser(username));
-            mainCtrl.showQueue(user, ServerUtils.getCurrentServer());
+            mainCtrl.showQueue(user, server.getCurrentServer());
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
                 case FORBIDDEN:
@@ -109,7 +109,7 @@ public class HomeUtils {
      * with redirecting the user to the page they want to visit.
      */
     public void enterAdministrationPanel() {
-        ServerUtils.setCurrentServer(getServer());
+        server.setCurrentServer(getServer());
         try {
             /*
             A GET/POST request should be sent over to the server, so that a

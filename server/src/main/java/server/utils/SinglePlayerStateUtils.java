@@ -3,7 +3,6 @@ package server.utils;
 import commons.misc.Activity;
 import commons.misc.GameResponse;
 import commons.question.AbstractQuestion;
-import commons.question.GuessQuestion;
 import commons.single.SinglePlayer;
 import commons.single.SinglePlayerState;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,10 +22,13 @@ public class SinglePlayerStateUtils {
 
     private final GenerateQuestionUtils generateQuestionUtils;
     private final CurrentTimeUtils currentTime;
+    private final ScoreCountingUtils scoreCountingUtils;
 
-    public SinglePlayerStateUtils(GenerateQuestionUtils generateQuestionUtils, CurrentTimeUtils currentTime) {
+    public SinglePlayerStateUtils(GenerateQuestionUtils generateQuestionUtils, CurrentTimeUtils currentTime,
+                                  ScoreCountingUtils scoreCountingUtils) {
         this.generateQuestionUtils = generateQuestionUtils;
         this.currentTime = currentTime;
+        this.scoreCountingUtils = scoreCountingUtils;
 
         games = new HashMap<>();
     }
@@ -77,8 +79,8 @@ public class SinglePlayerStateUtils {
         if (time >= game.getNextPhase()) {
             if (game.getState().equals(SinglePlayerState.QUESTION_STATE)) {
                 game.setState(SinglePlayerState.TRANSITION_STATE);
-                game.setNextPhase(game.getNextPhase() + 3000);
                 updateScore(game);
+                game.setNextPhase(game.getNextPhase() + 3000);
             } else if (game.getState().equals(SinglePlayerState.TRANSITION_STATE)) {
                 /*
                 Should be 19, as that would mean that the 19th round is just over.
@@ -109,65 +111,27 @@ public class SinglePlayerStateUtils {
      */
     private void updateScore(SinglePlayerState game) {
         if (game.getState().equals(SinglePlayerState.TRANSITION_STATE)) {
-            GameResponse playerGameResponse = computeFinalAnswer(game);
+            GameResponse finalAnswer = computeFinalAnswer(game);
             /*
             Saves the latest GameResponse of the player in the list of answers submitted as final.
              */
-            game.getFinalAnswers().add(playerGameResponse);
+            game.getFinalAnswers().add(finalAnswer);
 
             /*
             Clear the game from any previous answers.
              */
             game.getSubmittedAnswers().clear();
 
+
+            SinglePlayer player = game.getPlayer();
             /*
-            Use shared comparing functionality implemented in the class
-            SinglePlayerState.
-             */
-            if (game.compareAnswer()) {
-                /*
-                If the answer submitted is the same, then the score is updated accordingly.
-                 */
-                SinglePlayer player = game.getPlayer();
-                player.setScore(player.getScore() + computeScore(playerGameResponse));
-            }
+            Method computeScore is always called, so guess question approximation can be taken
+            into account.
+            */
+            player.setScore(
+                    player.getScore() + scoreCountingUtils.computeScore(game, player, finalAnswer));
         }
     }
-
-    /**
-     * Compute the score of a response.
-     * If question's type is GuessQuestion then the score is computed based on how fast the answer was submitted and how close the player was to the actual answer.
-     * If question's type is not GuessQuestion then the score is computed based only on how fast the answer was submitted
-     * <p>
-     *
-     * @param response GameResponse of the player with a correct answer.
-     * @return Number of points to add to the player's score
-     */
-    private int computeScore(GameResponse response) {
-        int points = 0;
-        AbstractQuestion currentQuestion = games.get(response.getGameId()).getQuestionList()
-                .get(games.get(response.getGameId()).getRoundNumber());
-        if (currentQuestion instanceof GuessQuestion) {
-            String correctAnswer = currentQuestion.getCorrectAnswer();
-            String submittedAnswer = response.getAnswerChoice();
-            if (submittedAnswer.equals(correctAnswer)) {
-                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
-            }
-            if (Integer.parseInt(correctAnswer) < Integer.parseInt(submittedAnswer)
-                    && Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer) <= 500) {
-                points = (int) (100 +  (1.0 - response.getTimeSubmitted()) * 50.0 - 0.1 *
-                        (Integer.parseInt(submittedAnswer) - Integer.parseInt(correctAnswer)));
-            } else {
-                points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0
-                        - 0.1 * (Integer.parseInt(correctAnswer)
-                        - Integer.parseInt(submittedAnswer)));
-            }
-        } else {
-            points = (int) (100 + (1.0 - response.getTimeSubmitted()) * 50.0);
-        }
-        return points;
-    }
-
 
     /**
      * Compute the final answer that the player chose.
@@ -186,8 +150,7 @@ public class SinglePlayerStateUtils {
                 Long.MAX_VALUE,
                 game.getRoundNumber(),
                 game.getPlayer().getUsername(),
-                "wrong answer",
-                false
+                "wrong answer"
         );
         // GameResponses are sorted by the submission time.
         Comparator<GameResponse> comp =

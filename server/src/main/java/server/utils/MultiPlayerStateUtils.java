@@ -3,8 +3,9 @@ package server.utils;
 import commons.misc.GameResponse;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
-import commons.multi.Reaction;
+import commons.multi.ChatMessage;
 import commons.question.AbstractQuestion;
+
 import java.util.*;
 
 /**
@@ -48,8 +49,6 @@ public class MultiPlayerStateUtils {
      * Initialization method, called in the constructor.
      */
     protected void initialize() {
-        nextGame = createNextGame();
-
         queueUtils.setOnStart(this::startNewGame);
     }
 
@@ -181,6 +180,12 @@ public class MultiPlayerStateUtils {
         int currentRound = game.getRoundNumber();
         long nextPhase = game.getNextPhase();
 
+        /*
+        Sets the number of time attacks being used in the upcoming round
+        to zero.
+         */
+        game.setTimeAttacksUsed(0);
+
         game.setRoundNumber(currentRound + 1);
         game.setState(MultiPlayerState.QUESTION_STATE);
         // 8 seconds for questions
@@ -287,15 +292,15 @@ public class MultiPlayerStateUtils {
                             Long.MAX_VALUE,
                             game.getRoundNumber(),
                             game.getPlayers().get(i).getUsername(),
-                            "wrong answer",
-                            false
+                            "wrong answer"
                     );
                 }
                 /*
                 Method computeScore is always called, so guess question approximation can be taken
                 into account.
                  */
-                currentPlayer.setScore(currentPlayer.getScore() + scoreCountingUtils.computeScore(game, finalAnswer));
+                currentPlayer.setScore(
+                        currentPlayer.getScore() + scoreCountingUtils.computeScore(game, currentPlayer, finalAnswer));
             }
         }
     }
@@ -340,6 +345,7 @@ public class MultiPlayerStateUtils {
      * @return id of the game that is starting.
      */
     public long startNewGame() {
+        nextGame = createNextGame();
         long upcomingGameId = nextGame.getId();
         // We set the time of the next phase to +3s, since this method is called
         // whenever anyone in the queue clicks "Go!"
@@ -367,18 +373,18 @@ public class MultiPlayerStateUtils {
         List<GameResponse> finalAnswers = new ArrayList<>();
         String state = MultiPlayerState.NOT_STARTED_STATE;
         List<MultiPlayer> players = new ArrayList<>();
-        // Comment: what does Reaction mean here?
+        // Comment: what does ChatMessage mean here?
         // Somehow, it stores a list of strings, which are emojis?
         // But that makes very little sense.
-        // It would make a lot more sense to store a List<Reaction>, where each
-        // Reaction would mean a single reaction by a single user.
+        // It would make a lot more sense to store a List<ChatMessage>, where each
+        // ChatMessage would mean a single reaction by a single user.
         //
         // Right now, it just makes very little sense.
         //
         // Whoever is planning to work on reactions will almost definitely refactor this
-        List<Reaction> reactionList = new ArrayList<>();
+        List<ChatMessage> chatMessageList = new ArrayList<>();
         return new MultiPlayerState(id, nextPhase, roundNumber, questionList,
-                submittedAnswers, state, players, reactionList);
+                submittedAnswers, state, players, chatMessageList);
     }
 
     /**
@@ -412,5 +418,81 @@ public class MultiPlayerStateUtils {
         }
         games.get(gameId).getSubmittedAnswers().add(gameResponse);
         return gameResponse;
+    }
+
+    /**
+     * Method to handle the joker use of a particular player.
+     *
+     * @param id            Game id - to be used for the correct game to be
+     *                      "fetched".
+     * @param chatMessage   Message sent from the client containing information
+     *                      about the joker being clicked.
+     * @return              ChatMessage - would be null in case the joker is already used.
+     */
+    public ChatMessage jokerUse(long id, ChatMessage chatMessage) {
+        MultiPlayerState game = games.get(id);
+        String username = chatMessage.getUsername();
+        MultiPlayer player = game.getPlayerByUsername(username);
+        boolean isJokerUseValid = switch (chatMessage.getMessage()) {
+            case "doublePoints" -> useDoublePointsJoker(player);
+            case "removeIncorrect" -> useRemoveIncorrectJoker(player);
+            case "timeAttack" -> useTimeAttackJoker(game, player);
+            default -> false;
+        };
+
+        if (isJokerUseValid) {
+            return chatMessage;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Activates the "Double Points" joker of a particular player.
+     *
+     * @param player    Player to be considered.
+     * @return          Boolean value corresponding to whether the player
+     *                  had already used this joker.
+     */
+    private boolean useDoublePointsJoker(MultiPlayer player) {
+        if (player.getPointsDoubledJoker()) {
+            player.setPointsDoubledJoker(false);
+            player.setCurrentlyUsingDoublePoints(true);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean useRemoveIncorrectJoker(MultiPlayer player) {
+        if (player.getIncorrectAnswerJoker()) {
+            player.setIncorrectAnswerJoker(false);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Method handling the "Time Attack" usage. Increments the particular fields
+     * of every player to be affected (everyone except the one who uses the joker).
+     *
+     * @param game      Game object to fetch the players from.
+     * @param player    Player that had submitted the joker.
+     * @return          Boolean value representing whether the Joker used is valid.
+     */
+    private boolean useTimeAttackJoker(MultiPlayerState game, MultiPlayer player) {
+        if (player.getTimeJoker()) {
+            for (MultiPlayer otherPlayer: game.getPlayers()) {
+                if (!player.equals(otherPlayer)) {
+                    otherPlayer.incrementTimerRate();
+                }
+            }
+            player.setTimeJoker(false);
+            game.incrementTimeAttacksUsed();
+            return true;
+        } else {
+            return false;
+        }
     }
 }

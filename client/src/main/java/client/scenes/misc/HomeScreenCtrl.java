@@ -1,7 +1,7 @@
 package client.scenes.misc;
 
 import client.utils.HomeUtils;
-import client.utils.ServerUtils;
+import client.utils.InputPreloadUtils;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
 public class HomeScreenCtrl {
 
 
-    private final ServerUtils server;
+    private final InputPreloadUtils inputPreloadUtils;
     private final MainCtrl mainCtrl;
     private final HomeUtils homeUtils;
 
@@ -33,14 +33,14 @@ public class HomeScreenCtrl {
     /**
      * initializes HomeScreenCtrl by connecting it to backend and frontend mainCtrl.
      *
-     * @param server   is the server variable
-     * @param mainCtrl is the main controller variable
-     * @param homeUtils is the home screen utility class
+     * @param inputPreloadUtils is the utility class for preloading username and address.
+     * @param mainCtrl          is the main controller variable
+     * @param homeUtils         is the home screen utility class
      */
     @Inject
-    public HomeScreenCtrl(ServerUtils server, MainCtrl mainCtrl, HomeUtils homeUtils) {
+    public HomeScreenCtrl(InputPreloadUtils inputPreloadUtils, MainCtrl mainCtrl, HomeUtils homeUtils) {
         this.mainCtrl = mainCtrl;
-        this.server = server;
+        this.inputPreloadUtils = inputPreloadUtils;
         this.homeUtils = homeUtils;
     }
 
@@ -50,7 +50,9 @@ public class HomeScreenCtrl {
      * so functionality can be extracted there.
      */
     public void initialize() {
-        serverURL.setText("http://localhost:8080");
+        var usernameAddressPair = inputPreloadUtils.readInput();
+        usernameField.setText(usernameAddressPair.getKey());
+        serverURL.setText(usernameAddressPair.getValue());
         homeUtils.setHomeUtilsAttributes(usernameField, serverURL, errorMessage);
     }
 
@@ -68,6 +70,7 @@ public class HomeScreenCtrl {
      */
     public void playSolo() {
         homeUtils.enterSinglePlayerMode();
+        inputPreloadUtils.saveInput(usernameField.getText(), serverURL.getText());
     }
 
 
@@ -78,6 +81,7 @@ public class HomeScreenCtrl {
      */
     public void playMulti() {
         homeUtils.enterMultiPlayerMode();
+        inputPreloadUtils.saveInput(usernameField.getText(), serverURL.getText());
     }
 
     /**
@@ -85,15 +89,7 @@ public class HomeScreenCtrl {
      */
     public void showAdministratorPanel() {
         homeUtils.enterAdministrationPanel();
-    }
-
-    /**
-     * Getter for the URL field on the home screen.
-     *
-     * @return  String value of the URL present in the `serverURL` TextField.
-     */
-    public String getUrl() {
-        return serverURL.getText();
+        inputPreloadUtils.saveInput(usernameField.getText(), serverURL.getText());
     }
 
 }

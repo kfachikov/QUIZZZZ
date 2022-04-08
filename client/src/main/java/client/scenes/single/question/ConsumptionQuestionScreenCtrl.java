@@ -20,6 +20,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
+
+import java.util.Date;
 
 /**
  * Controller for the consumption question scene.
@@ -54,6 +57,9 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
     @FXML
     private Button leaveButton;
+
+    @FXML
+    private Text imageDescription;
 
     /**
      * initializes SoloGameQuestionScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -122,12 +128,12 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new GameResponse(singlePlayerState.getId(),
-                time.getProgress(),
+        server.postAnswer(new GameResponse(
+                singlePlayerState.getId(),
+                new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
-                chosenAnswer.substring(0, chosenAnswer.length() - 2),
-                false
+                chosenAnswer.substring(0, chosenAnswer.length() - 2)
         ));
     }
 
@@ -178,6 +184,8 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
 
         this.question = question;
         setQuestionPrompt();
+        setDescription();
+
         /*
         The following setup was made purely for testing purposes.
         Should be optimized - extracted as functionality (eventually).
@@ -185,6 +193,13 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
         firstAnswer.setText(question.getAnswerChoices().get(0) + "Wh");
         secondAnswer.setText(question.getAnswerChoices().get(1) + "Wh");
         thirdAnswer.setText(question.getAnswerChoices().get(2) + "Wh");
+    }
+
+    /**
+     * Sets the description of the image.
+     */
+    public void setDescription() {
+        imageDescription.setText(question.getActivity().getTitle());
     }
 
     /**
@@ -206,4 +221,30 @@ public class ConsumptionQuestionScreenCtrl extends QuestionScreen {
         return time;
     }
 
+    /**
+     * Change the color of the button that has the correct answer into green.
+     * The user will be able in this way to gain information during this game.
+     */
+    public void showCorrectAnswer() {
+        if (firstAnswer.getText().equals(question.getCorrectAnswer() + "Wh")) {
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+        if (secondAnswer.getText().equals(question.getCorrectAnswer() + "Wh")) {
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+        if (thirdAnswer.getText().equals(question.getCorrectAnswer() + "Wh")) {
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+
+    }
+
+    /**
+     * Makes all answers non-clickable. To be used once an answer is clicked.
+     */
+    @Override
+    public void disableAnswerSubmission() {
+        firstAnswer.setDisable(true);
+        secondAnswer.setDisable(true);
+        thirdAnswer.setDisable(true);
+    }
 }

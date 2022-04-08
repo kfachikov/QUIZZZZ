@@ -49,7 +49,7 @@ class InsteadQuestionTest {
     @Test
     public void testToString() {
         InsteadQuestion question = new InsteadQuestion(activity);
-        assertEquals("What can you do instead of title and consuming the same amount of energy?", question.toString());
+        assertEquals("INSTEAD OF ..., YOU COULD BE ...", question.toString());
     }
 
 

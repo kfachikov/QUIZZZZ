@@ -22,6 +22,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
+import java.util.Date;
+
 /**
  * Controller for the instead question scene.
  */
@@ -122,12 +124,12 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new GameResponse(singlePlayerState.getId(),
-                time.getProgress(),
+        server.postAnswer(new GameResponse(
+                singlePlayerState.getId(),
+                new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
-                chosenAnswer,
-                false
+                chosenAnswer
         ));
     }
 
@@ -155,6 +157,13 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
      */
     public void setQuestionPrompt() {
         questionTitle.setText(question.toString());
+    }
+
+    /**
+     * Sets the description of the image.
+     */
+    public void setDescription() {
+        description.setText(question.getActivity().getTitle());
     }
 
     /**
@@ -186,6 +195,7 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
 
         this.question = question;
         setQuestionPrompt();
+        setDescription();
         /*
         The following setup was made purely for testing purposes.
         Should be optimized - extracted as functionality (eventually).
@@ -212,6 +222,33 @@ public class InsteadQuestionScreenCtrl extends QuestionScreen {
     @Override
     public ProgressBar getTime() {
         return time;
+    }
+
+    /**
+     * Change the color of the button that has the correct answer into green.
+     * The user will be able in this way to gain information during this game.
+     */
+    public void showCorrectAnswer() {
+        if (firstAnswer.getText().equals(question.getCorrectAnswer())) {
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+        if (secondAnswer.getText().equals(question.getCorrectAnswer())) {
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+        if (thirdAnswer.getText().equals(question.getCorrectAnswer())) {
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+
+    }
+
+    /**
+     * Makes all answers non-clickable. To be used once an answer is clicked.
+     */
+    @Override
+    public void disableAnswerSubmission() {
+        firstAnswer.setDisable(true);
+        secondAnswer.setDisable(true);
+        thirdAnswer.setDisable(true);
     }
 
 }

@@ -10,7 +10,12 @@ import commons.single.SinglePlayerLeaderboardScore;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,7 +35,7 @@ public class PrepScreenCtrl {
     private SinglePlayerUtils singlePlayerUtils;
 
     @FXML
-    private FlowPane bubbles;
+    private VBox leaderboard;
 
     /**
      * initializes PrepScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -44,6 +49,14 @@ public class PrepScreenCtrl {
         this.server = server;
         this.mainCtrl = mainCtrl;
         this.singlePlayerUtils = singlePlayerUtils;
+    }
+
+    /**
+     * Calls fillLeaderboard(), which populates leaderboard + makes used labels visible.
+     */
+    public void setUp() {
+        List<SinglePlayerLeaderboardScore> players = server.getLeaderboardEntries();
+        fillLeaderboard(players);
     }
 
     /**
@@ -65,7 +78,6 @@ public class PrepScreenCtrl {
         mainCtrl.playSoloGame(singlePlayerUtils);
     }
 
-
     /**
      * Getter for the single-player instance create once the client has been redirected to the preparation screen.
      *
@@ -85,23 +97,49 @@ public class PrepScreenCtrl {
     }
 
     /**
-     * loads up the leaderboard on the prep screen.
+     * Populates the leaderboard.
+     * <p>
+     * Displays (setVisible(true)) the labels that are filled.
+     *
+     * @param entries the list of entries.
      */
-    public void setUp() {
-        List<SinglePlayerLeaderboardScore> leaderboardScores = server.getLeaderboardEntry();
+    private void fillLeaderboard(List<SinglePlayerLeaderboardScore> entries) {
+        List<SinglePlayerLeaderboardScore> sorted = new ArrayList<>(entries);
+        Collections.sort(sorted);
+        Collections.reverse(sorted);
 
-        int currentNodeIndex = 0;
-        List<Node> presentPlayers = bubbles.getChildren();
+        leaderboard.getChildren().clear();
 
-        for (SinglePlayerLeaderboardScore singleplayer : leaderboardScores) {
-            int j = currentNodeIndex + 1;
-            Node currentNode = presentPlayers.get(currentNodeIndex);
-            ((Label) currentNode).setText("(" + j + ") " + singleplayer.getUsername() + " " + singleplayer.getScore());
-            currentNode.setVisible(true);
-            currentNodeIndex++;
-            if (currentNodeIndex > 19) {
-                break;
+        int position = 1;
+        for (SinglePlayerLeaderboardScore entry : sorted) {
+            GridPane gridPane = new GridPane();
+            gridPane.setPrefWidth(leaderboard.getPrefWidth());
+
+            gridPane.getColumnConstraints().addAll(
+                    new ColumnConstraints(60),
+                    new ColumnConstraints(135),
+                    new ColumnConstraints(95)
+            );
+
+            Label positionLabel = new Label(String.valueOf(position++));
+            positionLabel.setPrefWidth(60);
+            gridPane.add(positionLabel, 0, 0);
+
+            Label usernameLabel = new Label(entry.getUsername());
+            usernameLabel.setPrefWidth(125);
+            usernameLabel.setMaxWidth(125);
+            gridPane.add(usernameLabel, 1, 0);
+
+            Label scoreLabel = new Label(String.valueOf(entry.getScore()));
+            scoreLabel.setPrefWidth(90);
+            gridPane.add(scoreLabel, 2, 0);
+
+            for (Node node : gridPane.getChildren()) {
+                node.getStyleClass().add("label");
             }
+
+            leaderboard.getChildren().add(gridPane);
         }
     }
+
 }

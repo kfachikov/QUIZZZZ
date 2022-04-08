@@ -2,8 +2,6 @@ package client.scenes.multi.question;
 
 import client.scenes.multi.MultiplayerCtrl;
 import client.utils.ServerUtils;
-import commons.multi.MultiPlayer;
-import commons.multi.MultiPlayerState;
 import commons.question.MoreExpensiveQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,8 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.List;
 
 /**
  * Controller responsible for the multiplayer game more expensive question screen.
@@ -28,9 +25,6 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
 
     private final MultiplayerCtrl multiCtrl;
     private final ServerUtils server;
-    private boolean reveal;
-    private boolean halfTime;
-    private boolean doublePoints;
 
     @FXML
     private Label gameStateLabel;
@@ -73,27 +67,6 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
 
     @FXML
     private Button thirdAnswer;
-
-    @FXML
-    private Button twicePoints;
-
-    @FXML
-    private Button revealWrong;
-
-    @FXML
-    private Button shortenTime;
-
-    @FXML
-    private Button emojiButton1;
-
-    @FXML
-    private Button emojiButton2;
-
-    @FXML
-    private Button emojiButton3;
-
-    @FXML
-    private Button emojiButton4;
 
     @FXML
     private ImageView doubleImage;
@@ -158,36 +131,9 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
                 disableAnswerSubmission();
             }
         });
-        twicePoints.setOnAction(e -> {
-
-            twicePoints.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-
-            multiCtrl.setDoublePoints(true);
-
-            setDoublePoints(true);
-        });
-
-        revealWrong.setOnAction(e -> {
-
-            revealWrong.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            setReveal(true);
-            if (!question.getAnswerChoices().get(0).getTitle().equals(question.getCorrectAnswer())) {
-                firstAnswer.setDisable(true);
-            } else if (!question.getAnswerChoices().get(1).getTitle().equals(question.getCorrectAnswer())) {
-                secondAnswer.setDisable(true);
-            } else if (!question.getAnswerChoices().get(2).getTitle().equals(question.getCorrectAnswer())) {
-                thirdAnswer.setDisable(true);
-            }
-
-        });
-
-        shortenTime.setOnAction(e -> {
-
-            shortenTime.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            setHalfTime(true);
-        });
 
         multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
+        multiCtrl.initializeJokerButtons(doublePoints, removeIncorrect, timeAttack);
     }
 
     /**
@@ -295,38 +241,38 @@ public class MultiGameMoreExpensiveQuestionScreenCtrl extends MultiQuestionScree
         this.question = question;
     }
 
-    public void startJokerPolling() {
-        Timer pollingService = new Timer();
-        pollingService.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                MultiPlayer player = server.getTimeJokerPlayer(multiCtrl.getId());
-                if (player != null) {
-                    if (!getPlayer().equals(player)) {
-                        reduceTime();
-                    }
-                    disableShortenTime();
-                    pollingService.cancel();
-                }
-            }
-        }, 0, 250);
+    /**
+     * Getter for the Button instances of corresponding to the answer choices for this controller.
+     *
+     * @return  List of Button instances.
+     */
+    public List<Button> getAnswerButtons() {
+        return List.of(firstAnswer, secondAnswer, thirdAnswer);
     }
 
-    public MultiPlayer getPlayer() {
-        MultiPlayerState multiPlayerState = ServerUtils.getMultiGameState(multiCtrl.getId());
-        return multiPlayerState.getPlayerByUsername(multiCtrl.getUsername());
+    /**
+     * Getter for the descriptions defining the answers.
+     *
+     * @return  List of String instances.
+     */
+    public List<String> getDescriptions() {
+        return List.of(description1.getText(), description2.getText(), description3.getText());
     }
 
-    public void sendJoker() {
-        if (getPlayer().getTimeJoker()) {
-            server.postTimeJokerPlayer(getPlayer(), multiCtrl.getId());
-            disableShortenTime();
+    /**
+     * Change the color of the button that has the correct answer into green.
+     * The user will be able in this way to gain information during this game.
+     */
+    public void showCorrectAnswer() {
+        if (description1.getText().equals(question.getCorrectAnswer() + "  ")) {
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
         }
+        if (description2.getText().equals(question.getCorrectAnswer() + "  ")) {
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+        if (description3.getText().equals(question.getCorrectAnswer() + "  ")) {
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+
     }
-
-    public void reduceTime() {
-        //method that will be implemented in the front-end
-    }
-
-
 }

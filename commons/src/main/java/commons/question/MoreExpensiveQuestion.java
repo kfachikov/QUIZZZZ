@@ -26,6 +26,17 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
     }
 
     /**
+     * Constructor for more expensive question type.
+     *
+     * @param correctAnswer List of 3 activities, between which 1 is more expensive.
+     * @param answerChoices Title of the correct answer.
+     */
+    public MoreExpensiveQuestion(String correctAnswer, List<Activity> answerChoices) {
+        this.correctAnswer = correctAnswer;
+        this.answerChoices = answerChoices;
+    }
+
+    /**
      * Sets the possible answers for a question in a random way, having between them the correct answer.
      *
      * @param activities List of all activities
@@ -49,7 +60,7 @@ public class MoreExpensiveQuestion extends AbstractQuestion {
      */
     public String toString() {
         String question;
-        question = "What activity has a higher energy consumption?";
+        question = "WHAT ACTIVITY HAS A HIGHER ENERGY CONSUMPTION?";
         return question;
     }
 

@@ -11,8 +11,8 @@ class GameResponseTest {
     
     @BeforeEach
     void setup() {
-        response = new GameResponse(4L, 5, 23, "katya", "answer", true);
-        response2 = new GameResponse(4L, 5, 23, "katya", "answer", true);
+        response = new GameResponse(4L, 5, 23, "katya", "answer");
+        response2 = new GameResponse(4L, 5, 23, "katya", "answer");
 
     }
 
@@ -74,20 +74,8 @@ class GameResponseTest {
     }
 
     @Test
-    void getIsDoublePoints() {
-        assertEquals(true, response.getIsDoublePoints());
-    }
-
-    @Test
-    void setIsDoublePoints() {
-        response.setDoublePoints(false);
-        assertEquals(false, response.getIsDoublePoints());
-    }
-
-    @Test
     void testEquals() {
         assertTrue(response.equals(response2));
-
     }
 
 

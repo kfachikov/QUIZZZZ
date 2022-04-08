@@ -22,6 +22,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
+import java.util.Date;
+
 /**
  * Controller for the comparison ("What is more expensive?") question scene.
  */
@@ -106,26 +108,26 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
                  */
                 submitAnswer(description1.getText());
                 firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
+                disableAnswerSubmission();
+                disableDescriptionSubmission();
+                disableImageSubmission();
             }
         });
 
         image1.setOnMouseClicked(e -> {
             submitAnswer(description1.getText());
             firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+            disableAnswerSubmission();
+            disableDescriptionSubmission();
+            disableImageSubmission();
         });
 
         description1.setOnMouseClicked(e -> {
             submitAnswer(description1.getText());
             firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+            disableAnswerSubmission();
+            disableDescriptionSubmission();
+            disableImageSubmission();
         });
 
         secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
@@ -133,26 +135,26 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
             public void handle(ActionEvent e) {
                 submitAnswer(description2.getText());
                 secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
+                disableAnswerSubmission();
+                disableDescriptionSubmission();
+                disableImageSubmission();
             }
         });
 
         image2.setOnMouseClicked(e -> {
             submitAnswer(description2.getText());
             secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+            disableAnswerSubmission();
+            disableDescriptionSubmission();
+            disableImageSubmission();
         });
 
         description2.setOnMouseClicked(e -> {
             submitAnswer(description2.getText());
             secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+            disableAnswerSubmission();
+            disableDescriptionSubmission();
+            disableImageSubmission();
         });
 
         thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
@@ -160,26 +162,26 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
             public void handle(ActionEvent e) {
                 submitAnswer(description3.getText());
                 thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
+                disableAnswerSubmission();
+                disableDescriptionSubmission();
+                disableImageSubmission();
             }
         });
 
         image3.setOnMouseClicked(e -> {
             submitAnswer(description3.getText());
             thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+            disableAnswerSubmission();
+            disableDescriptionSubmission();
+            disableImageSubmission();
         });
 
         description3.setOnMouseClicked(e -> {
             submitAnswer(description3.getText());
             thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+            disableAnswerSubmission();
+            disableDescriptionSubmission();
+            disableImageSubmission();
         });
 
     }
@@ -191,12 +193,12 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new GameResponse(singlePlayerState.getId(),
-                time.getProgress(),
+        server.postAnswer(new GameResponse(
+                singlePlayerState.getId(),
+                new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
-                chosenAnswer,
-                false
+                chosenAnswer
         ));
     }
 
@@ -276,6 +278,45 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
     @Override
     public ProgressBar getTime() {
         return time;
+    }
+
+    /**
+     * Change the color of the button that has the correct answer into green.
+     * The user will be able in this way to gain information during this game.
+     */
+    public void showCorrectAnswer() {
+        if (description1.getText().equals(question.getCorrectAnswer())) {
+            firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+        if (description2.getText().equals(question.getCorrectAnswer())) {
+            secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+        if (description3.getText().equals(question.getCorrectAnswer())) {
+            thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
+        }
+
+    }
+
+    /**
+     * Makes all answers non-clickable. To be used once an answer is clicked.
+     */
+    @Override
+    public void disableAnswerSubmission() {
+        firstAnswer.setDisable(true);
+        secondAnswer.setDisable(true);
+        thirdAnswer.setDisable(true);
+    }
+
+    public void disableImageSubmission() {
+        image1.setDisable(true);
+        image2.setDisable(true);
+        image3.setDisable(true);
+    }
+
+    public void disableDescriptionSubmission() {
+        description1.setDisable(true);
+        description2.setDisable(true);
+        description3.setDisable(true);
     }
 
 }
