@@ -2,17 +2,17 @@ package client.scenes.multi;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.misc.Player;
 import commons.multi.MultiPlayer;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * The scene right now in default is intermediate leaderboard design.
@@ -42,6 +42,9 @@ public class LeaderboardScreenCtrl {
 
     @FXML
     private GridPane chatMessages;
+
+    @FXML
+    private HBox barChart;
 
     /**
      * initializes IntermediateLeaderboardScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -78,25 +81,30 @@ public class LeaderboardScreenCtrl {
      * @param gameState the state of the game, is either LEADERBOARD or GAME_OVER.
      */
     public void setScene(List<MultiPlayer> players, String gameState) {
+        fillLeaderboard(players);
         if (("LEADERBOARD").equals(gameState)) {
             title.setText("INTERMEDIATE LEADERBOARD");
 
             //make top-left leave button visible + returnHome invisible
             playAgain.setVisible(false);
-            playAgain.setDisable(true);
-            leave.setDisable(false);
-            leave.setVisible(true);
+            fillBarChart(this.barChart, players);
+
+            barChart.setVisible(true);
         }
         if (("GAME_OVER").equals(gameState)) {
             title.setText("GAME OVER!");
 
             //returnHome visible + make top-left leave button invisible
             playAgain.setVisible(true);
-            playAgain.setDisable(false);
-            leave.setDisable(true);
-            leave.setVisible(false);
+            playAgain.setText("PLAY AGAIN");
+            playAgain.setOnAction(event -> playAgain());
+
+            barChart.setVisible(false);
+            HBox gameOverChart = new HBox();
+            gameOverChart.setPadding(new Insets(5, 0, 0, 0));
+            fillBarChart(gameOverChart, players);
+            leaderboard.getChildren().add(gameOverChart);
         }
-        fillLeaderboard(players);
     }
 
     /**
@@ -104,12 +112,12 @@ public class LeaderboardScreenCtrl {
      * <p>
      * Displays the labels that are filled.
      *
-     * @param players    the list of players in the game, in descending score order.
+     * @param players the list of players in the game, in descending score order.
      */
     private void fillLeaderboard(List<MultiPlayer> players) {
         leaderboard.getChildren().clear();
         int position = 1;
-        for (MultiPlayer entry: players) {
+        for (MultiPlayer entry : players) {
             GridPane gridPane = new GridPane();
             gridPane.setPrefWidth(leaderboard.getPrefWidth());
 
@@ -134,6 +142,9 @@ public class LeaderboardScreenCtrl {
 
             for (Node node : gridPane.getChildren()) {
                 node.getStyleClass().add("label");
+                if (Objects.equals(entry.getUsername(), multiCtrl.getUsername())) {
+                    node.getStyleClass().add("highlighted");
+                }
             }
 
             leaderboard.getChildren().add(gridPane);
@@ -163,9 +174,61 @@ public class LeaderboardScreenCtrl {
     /**
      * Getter for the reaction section on the leaderboard screen.
      *
-     * @return  GridPane reference to the particular instance on the leaderboard scene.
+     * @return GridPane reference to the particular instance on the leaderboard scene.
      */
     public GridPane getChatMessages() {
         return chatMessages;
+    }
+
+    /**
+     * Populate the bar chart visible below the leaderboard.
+     *
+     * @param barChart Bar chart to fill.
+     * @param players  Players in the game.
+     */
+    public void fillBarChart(HBox barChart, List<MultiPlayer> players) {
+        List<MultiPlayer> sorted = new ArrayList<>(players);
+        var comp = Comparator.comparing(Player::getScore);
+        sorted.sort(comp);
+        Collections.reverse(sorted);
+
+        barChart.getChildren().clear();
+
+        if (sorted.size() == 0) {
+            return;
+        }
+
+        // These are deliberately doubles, to allow for easier division later
+        double minScore = sorted.stream().min(comp).get().getScore();
+        double maxScore = sorted.stream().max(comp).get().getScore();
+
+        // For aesthetic purposes, we do scale the graph depending on scores differently.
+        minScore *= 0.3;
+        minScore -= 15;
+
+        final double chartHeight = 121;
+        final double chartWidth = 305 - sorted.size() * 5;
+        barChart.setSpacing(5);
+
+        for (MultiPlayer player : sorted) {
+            Region bar = new Region();
+            bar.getStyleClass().add("leaderboard-bar");
+
+            double portion = (player.getScore() - minScore) / (maxScore - minScore);
+            double height = chartHeight * portion;
+            double width = chartWidth / sorted.size();
+            bar.setPrefHeight(height);
+            bar.setMaxHeight(height);
+            bar.setMinHeight(height);
+
+            bar.setMinWidth(0);
+            bar.setPrefWidth(width);
+
+            if (Objects.equals(player.getUsername(), multiCtrl.getUsername())) {
+                bar.getStyleClass().add("highlighted");
+            }
+
+            barChart.getChildren().add(bar);
+        }
     }
 }
