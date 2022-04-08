@@ -129,13 +129,17 @@ public class HomeUtils {
     }
 
     /**
-     * TODO: Should check whether the username is empty and behave accordingly.
+     * Getter for a Single-player player.
      *
      * @return a new SingleUser object that contains its username and score.
      */
     public SinglePlayer getSinglePlayer() {
         String user = usernameField.getText();
-        return new SinglePlayer(user, 0);
+        if ("".equals(user)) {
+            throw new NullPointerException();
+        } else {
+            return new SinglePlayer(user, 0);
+        }
     }
 
     /**
