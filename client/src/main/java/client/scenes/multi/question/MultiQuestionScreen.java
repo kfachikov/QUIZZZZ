@@ -35,6 +35,18 @@ public abstract class MultiQuestionScreen {
     @FXML
     protected Button emojiButton4;
 
+    @FXML
+    protected ImageView surprised;
+
+    @FXML
+    protected ImageView laughing;
+
+    @FXML
+    protected ImageView angry;
+
+    @FXML
+    protected ImageView crying;
+
     /*
     Shared references to the joker buttons.
      */
@@ -177,4 +189,11 @@ public abstract class MultiQuestionScreen {
      * @return  List of Button instances.
      */
     public abstract List<Button> getAnswerButtons();
+
+    public void setEmojiImages(Image surprised, Image laughing, Image angry, Image crying) {
+        this.surprised.setImage(surprised);
+        this.laughing.setImage(laughing);
+        this.angry.setImage(angry);
+        this.crying.setImage(crying);
+    }
 }

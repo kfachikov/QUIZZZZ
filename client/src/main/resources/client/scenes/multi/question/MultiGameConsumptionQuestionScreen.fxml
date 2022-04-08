@@ -54,7 +54,7 @@
       </Button>
       <Button id="emojiButton1" fx:id="emojiButton1" layoutX="499.0" layoutY="465.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="330.0">
          <graphic>
-            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="surprised"  fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../emoji/Surprised.png" />
                </image>
@@ -63,7 +63,7 @@
       </Button>
       <Button id="emojiButton2" fx:id="emojiButton2" layoutX="590.0" layoutY="465.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="230.0">
          <graphic>
-            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="laughing" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../emoji/Laughing.png" />
                </image>
@@ -72,7 +72,7 @@
       </Button>
       <Button id="emojiButton3" fx:id="emojiButton3" layoutX="680.0" layoutY="465.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="130.0">
          <graphic>
-            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="angry" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../emoji/Angry.png" />
                </image>
@@ -81,7 +81,7 @@
       </Button>
       <Button fx:id="emojiButton4" layoutX="782.0" layoutY="459.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="30.0">
          <graphic>
-            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id = "crying" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../emoji/Crying.png" />
                </image>
