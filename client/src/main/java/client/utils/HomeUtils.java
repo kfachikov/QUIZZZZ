@@ -52,9 +52,6 @@ public class HomeUtils {
             mainCtrl.showPrep(getSinglePlayer());
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
-                case BAD_REQUEST:
-                    usernameMissing();
-                    break;
                 default:
                     unknownError();
             }
@@ -63,6 +60,7 @@ public class HomeUtils {
         } catch (NullPointerException e) {
             usernameMissing();
         }
+
     }
 
     /**
