@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The scene right now in default is intermediate leaderboard design.
@@ -91,23 +92,15 @@ public class LeaderboardScreenCtrl {
             title.setText("INTERMEDIATE LEADERBOARD");
 
             //make top-left leave button visible + returnHome invisible
-            playAgain.setText("BAR CHART");
-            playAgain.setOnAction(event -> {
-                showBarChart(players);
-                System.out.println("show bar");
-                playAgain.setDisable(true);
-            });
-            leave.setDisable(false);
-            leave.setVisible(true);
+            playAgain.setVisible(false);
         }
         if (("GAME_OVER").equals(gameState)) {
             title.setText("GAME OVER!");
 
             //returnHome visible + make top-left leave button invisible
+            playAgain.setVisible(true);
             playAgain.setText("PLAY AGAIN");
             playAgain.setOnAction(event -> playAgain());
-            leave.setDisable(true);
-            leave.setVisible(false);
         }
         fillLeaderboard(players);
     }
@@ -147,6 +140,9 @@ public class LeaderboardScreenCtrl {
 
             for (Node node : gridPane.getChildren()) {
                 node.getStyleClass().add("label");
+                if (Objects.equals(entry.getUsername(), multiCtrl.getUsername())) {
+                    node.getStyleClass().add("highlighted");
+                }
             }
 
             leaderboard.getChildren().add(gridPane);
