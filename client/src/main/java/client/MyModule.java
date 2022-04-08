@@ -33,10 +33,7 @@ import client.scenes.single.question.GuessQuestionScreenCtrl;
 import client.scenes.single.question.InsteadQuestionScreenCtrl;
 import client.scenes.single.question.MoreExpensiveQuestionScreenCtrl;
 import client.services.SingleplayerGameStatePollingService;
-import client.utils.ActivityImageUtils;
-import client.utils.HomeUtils;
-import client.utils.ServerUtils;
-import client.utils.SinglePlayerUtils;
+import client.utils.*;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
@@ -77,6 +74,7 @@ public class MyModule implements Module {
 
         binder.bind(ActivityImageUtils.class).in(Scopes.SINGLETON);
         binder.bind(ServerUtils.class).in(Scopes.SINGLETON);
+        binder.bind(InputPreloadUtils.class).in(Scopes.SINGLETON);
 
     }
 }
