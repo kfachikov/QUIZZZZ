@@ -46,3 +46,6 @@ out/
 
 ###Activity bank
 server/src/main/resources/Activity_bank
+
+### Other
+home.cfg
