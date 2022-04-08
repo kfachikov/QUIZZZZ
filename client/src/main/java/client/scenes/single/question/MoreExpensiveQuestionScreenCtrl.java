@@ -108,26 +108,26 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
                  */
                 submitAnswer(description1.getText());
                 firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
+                disableAnswerSubmission();
+                disableDescriptionSubmission();
+                disableImageSubmission();
             }
         });
 
         image1.setOnMouseClicked(e -> {
             submitAnswer(description1.getText());
             firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+            disableAnswerSubmission();
+            disableDescriptionSubmission();
+            disableImageSubmission();
         });
 
         description1.setOnMouseClicked(e -> {
             submitAnswer(description1.getText());
             firstAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+            disableAnswerSubmission();
+            disableDescriptionSubmission();
+            disableImageSubmission();
         });
 
         secondAnswer.setOnAction(new EventHandler<ActionEvent>() {
@@ -135,26 +135,26 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
             public void handle(ActionEvent e) {
                 submitAnswer(description2.getText());
                 secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
+                disableAnswerSubmission();
+                disableDescriptionSubmission();
+                disableImageSubmission();
             }
         });
 
         image2.setOnMouseClicked(e -> {
             submitAnswer(description2.getText());
             secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+            disableAnswerSubmission();
+            disableDescriptionSubmission();
+            disableImageSubmission();
         });
 
         description2.setOnMouseClicked(e -> {
             submitAnswer(description2.getText());
             secondAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+            disableAnswerSubmission();
+            disableDescriptionSubmission();
+            disableImageSubmission();
         });
 
         thirdAnswer.setOnAction(new EventHandler<ActionEvent>() {
@@ -162,26 +162,26 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
             public void handle(ActionEvent e) {
                 submitAnswer(description3.getText());
                 thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-                firstAnswer.setDisable(true);
-                secondAnswer.setDisable(true);
-                thirdAnswer.setDisable(true);
+                disableAnswerSubmission();
+                disableDescriptionSubmission();
+                disableImageSubmission();
             }
         });
 
         image3.setOnMouseClicked(e -> {
             submitAnswer(description3.getText());
             thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+            disableAnswerSubmission();
+            disableDescriptionSubmission();
+            disableImageSubmission();
         });
 
         description3.setOnMouseClicked(e -> {
             submitAnswer(description3.getText());
             thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("ffb70b")).toString().substring(2));
-            firstAnswer.setDisable(true);
-            secondAnswer.setDisable(true);
-            thirdAnswer.setDisable(true);
+            disableAnswerSubmission();
+            disableDescriptionSubmission();
+            disableImageSubmission();
         });
 
     }
@@ -305,6 +305,18 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
         firstAnswer.setDisable(true);
         secondAnswer.setDisable(true);
         thirdAnswer.setDisable(true);
+    }
+
+    public void disableImageSubmission() {
+        image1.setDisable(true);
+        image2.setDisable(true);
+        image3.setDisable(true);
+    }
+
+    public void disableDescriptionSubmission() {
+        description1.setDisable(true);
+        description2.setDisable(true);
+        description3.setDisable(true);
     }
 
 }
