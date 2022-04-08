@@ -22,6 +22,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
+import java.util.Date;
+
 /**
  * Controller for the comparison ("What is more expensive?") question scene.
  */
@@ -191,8 +193,9 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
      */
     public void submitAnswer(String chosenAnswer) {
         SinglePlayerState singlePlayerState = singlePlayerUtils.getSinglePlayerState();
-        server.postAnswer(new GameResponse(singlePlayerState.getId(),
-                time.getProgress(),
+        server.postAnswer(new GameResponse(
+                singlePlayerState.getId(),
+                new Date().getTime(),
                 singlePlayerState.getRoundNumber(),
                 singlePlayerState.getPlayer().getUsername(),
                 chosenAnswer
@@ -292,6 +295,16 @@ public class MoreExpensiveQuestionScreenCtrl extends QuestionScreen {
             thirdAnswer.setStyle("-fx-background-color: #" + (Paint.valueOf("32cd32")).toString().substring(2));
         }
 
+    }
+
+    /**
+     * Makes all answers non-clickable. To be used once an answer is clicked.
+     */
+    @Override
+    public void disableAnswerSubmission() {
+        firstAnswer.setDisable(true);
+        secondAnswer.setDisable(true);
+        thirdAnswer.setDisable(true);
     }
 
 }

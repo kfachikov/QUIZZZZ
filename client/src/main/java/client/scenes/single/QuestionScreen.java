@@ -125,6 +125,11 @@ public abstract class QuestionScreen {
     }
 
     /**
+     * Abstract method "contract" to disable the answer submission process.
+     */
+    public abstract void disableAnswerSubmission();
+
+    /**
      * Getter method for getting the image of an activity.
      *
      * @param activity Activity to get an image from.
