@@ -156,6 +156,13 @@
     -fx-font-family: "Avenir Next Condensed";
     -fx-padding: 5 15 5 15;
 }
+.leaderboard-bar {
+    -fx-background-color: white;
+    -fx-background-radius: 3;
+}
+.highlighted {
+    -fx-background-color: #a0b950;
+}
 #leaderboard .label.highlighted {
     -fx-background-color: #a0b950;
     -fx-border-color: #a0d8a8;

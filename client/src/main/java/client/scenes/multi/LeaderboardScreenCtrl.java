@@ -2,23 +2,16 @@ package client.scenes.multi;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.misc.Player;
 import commons.multi.MultiPlayer;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * The scene right now in default is intermediate leaderboard design.
@@ -47,10 +40,10 @@ public class LeaderboardScreenCtrl {
     private VBox leaderboard;
 
     @FXML
-    private ScrollPane scrollPane;
+    private GridPane chatMessages;
 
     @FXML
-    private GridPane chatMessages;
+    private HBox barChart;
 
     /**
      * initializes IntermediateLeaderboardScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -72,7 +65,6 @@ public class LeaderboardScreenCtrl {
     @FXML
     protected void initialize() {
         multiCtrl.initializeEmojiButtons(emojiButton1, emojiButton2, emojiButton3, emojiButton4);
-        scrollPane = new ScrollPane();
     }
 
     /**
@@ -103,6 +95,7 @@ public class LeaderboardScreenCtrl {
             playAgain.setOnAction(event -> playAgain());
         }
         fillLeaderboard(players);
+        fillBarChart(players);
     }
 
     /**
@@ -178,24 +171,51 @@ public class LeaderboardScreenCtrl {
         return chatMessages;
     }
 
-    public void showBarChart(List<MultiPlayer> players) {
-        leaderboard.getParent().setVisible(false);
+    /**
+     * Populate the bar chart visible below the leaderboard.
+     *
+     * @param players Players in the game.
+     */
+    public void fillBarChart(List<MultiPlayer> players) {
+        List<MultiPlayer> sorted = new ArrayList<>(players);
+        var comp = Comparator.comparing(Player::getScore);
+        sorted.sort(comp);
+        Collections.reverse(sorted);
 
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
-        xAxis.setLabel("Player");
-        yAxis.setLabel("Score");
-        barChart.setLayoutX(104.0);
-        barChart.setLayoutY(103.0);
-        barChart.setPrefWidth(305.0);
-        barChart.setPrefHeight(371.0);
+        barChart.getChildren().clear();
 
-        XYChart.Series entries = new XYChart.Series();
-        for (int i = 0; i < players.size(); i++) {
-            entries.getData().add(new XYChart.Data(players.get(i).getUsername(), players.get(i).getScore()));
+        if (sorted.size() == 0) {
+            return;
         }
-        barChart.getData().add(entries);
-        barChart.toFront();
+
+        // These are deliberately doubles, to allow for easier division later
+        double minScore = sorted.stream().min(comp).get().getScore();
+        double maxScore = sorted.stream().max(comp).get().getScore();
+
+        // For aesthetic purposes, we do scale the graph depending on scores differently.
+        minScore *= 0.3;
+        minScore -= 15;
+
+        final double chartHeight = 121;
+        final double chartWidth = 305;
+
+        for (MultiPlayer player : sorted) {
+            Region bar = new Region();
+            bar.getStyleClass().add("leaderboard-bar");
+
+            double portion = (player.getScore() - minScore) / (maxScore - minScore);
+            double height = chartHeight * portion;
+            bar.setPrefHeight(height);
+            bar.setMaxHeight(height);
+            bar.setMinHeight(height);
+
+            bar.setPrefWidth(chartWidth / sorted.size());
+
+            if (Objects.equals(player.getUsername(), multiCtrl.getUsername())) {
+                bar.getStyleClass().add("highlighted");
+            }
+
+            barChart.getChildren().add(bar);
+        }
     }
 }
