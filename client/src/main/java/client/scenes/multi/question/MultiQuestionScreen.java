@@ -190,6 +190,15 @@ public abstract class MultiQuestionScreen {
      */
     public abstract List<Button> getAnswerButtons();
 
+    /**
+     * Setter for the ImageView fields.
+     * Used to initialize the corresponding images.
+     *
+     * @param surprised     Image of surprised emoji.
+     * @param laughing      Image of laughing emoji.
+     * @param angry         Image of angry emoji.
+     * @param crying        Image of crying emoji.
+     */
     public void setEmojiImages(Image surprised, Image laughing, Image angry, Image crying) {
         this.surprised.setImage(surprised);
         this.laughing.setImage(laughing);

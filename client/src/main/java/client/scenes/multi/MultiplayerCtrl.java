@@ -975,11 +975,13 @@ public class MultiplayerCtrl {
                 String.valueOf(this.getClass().getClassLoader().getResource("emoji/Crying.png")));
     }
 
+    /**
+     * Initializes the emoji button images.
+     */
     private void initializeEmojiButtonImages() {
         consumptionQuestionScreenCtrl.setEmojiImages(surprised, laughing, angry, crying);
         guessQuestionScreenCtrl.setEmojiImages(surprised, laughing, angry, crying);
         insteadQuestionScreenCtrl.setEmojiImages(surprised, laughing, angry, crying);
         moreExpensiveQuestionScreenCtrl.setEmojiImages(surprised, laughing, angry, crying);
-
     }
 }
