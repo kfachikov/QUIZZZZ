@@ -12,7 +12,6 @@ public class GameResponse {
     private int roundNumber;
     private String playerUsername;
     private String answerChoice;
-    private boolean isDoublePoints;
 
     private GameResponse() {
 
@@ -26,16 +25,14 @@ public class GameResponse {
      * @param roundNumber    the number of the current round
      * @param playerUsername the name of the player
      * @param answerChoice   the final answer choice of the player
-     * @param isDoublePoints the availability of the double points joker
      */
     public GameResponse(long gameId, double timeSubmitted, int roundNumber,
-                        String playerUsername, String answerChoice, boolean isDoublePoints) {
+                        String playerUsername, String answerChoice) {
         this.gameId = gameId;
         this.timeSubmitted = timeSubmitted;
         this.roundNumber = roundNumber;
         this.playerUsername = playerUsername;
         this.answerChoice = answerChoice;
-        this.isDoublePoints = isDoublePoints;
     }
 
     /**
@@ -117,24 +114,6 @@ public class GameResponse {
      */
     public String getPlayerUsername() {
         return playerUsername;
-    }
-
-    /**
-     * getter for the double points joker.
-     *
-     * @return the availability of the joker
-     */
-    public boolean getIsDoublePoints() {
-        return isDoublePoints;
-    }
-
-    /**
-     * setter for the double poinnts joker.
-     *
-     * @param doublePoints the availability of the joker
-     */
-    public void setDoublePoints(boolean doublePoints) {
-        isDoublePoints = doublePoints;
     }
 
     /**

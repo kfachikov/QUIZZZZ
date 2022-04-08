@@ -25,8 +25,14 @@ public class MultiPlayerState extends GameState {
     public static final String LEADERBOARD_STATE = "LEADERBOARD";
 
     private List<MultiPlayer> players;
-    private List<Reaction> reactionList;
+    private List<ChatMessage> chatMessageList;
     private MultiPlayer playerUsingTimeJoker;
+
+    /*
+    Field to be used to count how many count attack have been used
+    in each separate round.
+     */
+    private int timeAttacksUsed;
 
     /**
      * Default constructor to be used for the JSON parsing.
@@ -46,16 +52,16 @@ public class MultiPlayerState extends GameState {
      * @param submittedAnswers the answers submitted by players during game in a single round.
      * @param state            the status of the game.
      * @param players          the list of players currently in the game.
-     * @param reactionList     the list of reactions used in a game.
+     * @param chatMessageList     the list of messages sent in a game.
      */
     public MultiPlayerState(long id, long nextPhase, int roundNumber,
                             List<AbstractQuestion> questionList,
                             List<GameResponse> submittedAnswers,
                             String state,
                             List<MultiPlayer> players,
-                            List<Reaction> reactionList) {
+                            List<ChatMessage> chatMessageList) {
         super(id, nextPhase, roundNumber, questionList, submittedAnswers, state);
-        this.reactionList = reactionList;
+        this.chatMessageList = chatMessageList;
         this.players = players;
         this.playerUsingTimeJoker = null;
     }
@@ -70,12 +76,12 @@ public class MultiPlayerState extends GameState {
     }
 
     /**
-     * Getter for the reactions.
+     * Getter for the messages.
      *
-     * @return a Reaction representing the reactions used in a game.
+     * @return a ChatMessage representing the messages sent used in a game.
      */
-    public List<Reaction> getReactionList() {
-        return reactionList;
+    public List<ChatMessage> getChatMessageList() {
+        return chatMessageList;
     }
 
     /**
@@ -140,12 +146,12 @@ public class MultiPlayerState extends GameState {
     }
 
     /**
-     * Setter for the reactions.
+     * Setter for the messages.
      *
-     * @param newReactionList the reactions used in a game.
+     * @param newChatMessageList the messages sent in a game.
      */
-    public void setReaction(List<Reaction> newReactionList) {
-        this.reactionList = newReactionList;
+    public void setChatMessageList(List<ChatMessage> newChatMessageList) {
+        this.chatMessageList = newChatMessageList;
     }
 
     /**
@@ -167,6 +173,32 @@ public class MultiPlayerState extends GameState {
     }
 
     /**
+     * Getter for the number of "Time Attack" jokers used in a single round.
+     *
+     * @return  Integer of the number of such jokers being used.
+     */
+    public int getTimeAttacksUsed() {
+        return timeAttacksUsed;
+    }
+
+    /**
+     *  Setter for the number of "Time Attack" jokers being used.
+     *  To be used at the beginning of each round to set the number to 0.
+     *
+     * @param timeAttacksUsed   Value to be set.
+     */
+    public void setTimeAttacksUsed(int timeAttacksUsed) {
+        this.timeAttacksUsed = timeAttacksUsed;
+    }
+
+    /**
+     * Increments the number of "Time Attacks" jokers being used in the current moment.
+     */
+    public void incrementTimeAttacksUsed() {
+        this.timeAttacksUsed ++;
+    }
+
+    /**
      * Compares two entities.
      *
      * @param o the instance that is compared to.
@@ -184,7 +216,7 @@ public class MultiPlayerState extends GameState {
             return false;
         }
         MultiPlayerState that = (MultiPlayerState) o;
-        return Objects.equals(players, that.players) && Objects.equals(reactionList, that.reactionList);
+        return Objects.equals(players, that.players) && Objects.equals(chatMessageList, that.chatMessageList);
     }
 
     /**
@@ -194,7 +226,7 @@ public class MultiPlayerState extends GameState {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), players, reactionList);
+        return Objects.hash(super.hashCode(), players, chatMessageList);
     }
 
     /**

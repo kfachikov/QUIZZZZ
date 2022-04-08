@@ -4,20 +4,24 @@ import client.services.ActivityLoaderService;
 import client.utils.ActivityImageUtils;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import javafx.fxml.FXML;
 import commons.misc.Activity;
 import jakarta.ws.rs.BadRequestException;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.util.converter.LongStringConverter;
 
 import java.io.File;
 import java.util.List;
 
 /**
- *
+ * The controller of the Admin Panel screen.
  */
 public class AdministratorScreenCtrl {
     private final ServerUtils server;
@@ -36,6 +40,15 @@ public class AdministratorScreenCtrl {
 
     @FXML
     private TextArea helpText;
+
+    @FXML
+    private TableView<Activity> activityTable;
+
+    @FXML
+    private CheckBox showImages;
+
+    @FXML
+    private Button deleteButton;
 
     /**
      * initializes AdministratorScreenCtrl by connecting it to backend and frontend mainCtrl.
@@ -69,6 +82,16 @@ public class AdministratorScreenCtrl {
             selectFileButton.setDisable(false);
             activityLoaderService.reset();
         }
+        if (activityTable.getColumns().size() == 0) {
+            setTable();
+        }
+        fillTable();
+        //sets the delete button
+        deleteButton.setOnAction(event -> {
+            Activity selectedActivity = activityTable.getSelectionModel().getSelectedItem();
+            activityTable.getItems().remove(selectedActivity);
+            server.removeActivity(selectedActivity.getKey());
+        });
     }
 
     /**
@@ -98,7 +121,6 @@ public class AdministratorScreenCtrl {
         if (selectedFile == null) {
             return;
         }
-
         selectFileButton.setDisable(true);
         importProgressBar.setVisible(true);
         description.setText("Activities are being imported...");
@@ -108,6 +130,7 @@ public class AdministratorScreenCtrl {
 
     /**
      * Helper method for importing activities from the selected file.
+     * Further calls the fillTable() method if import is successful.
      *
      * @param selectedFile File that the user selected.
      */
@@ -118,6 +141,8 @@ public class AdministratorScreenCtrl {
             setDescription(
                     "You have imported " + loadedActivities.size() + " activities from " + selectedFile.getName()
             );
+            fillTable();
+
         });
         activityLoaderService.exceptionProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue instanceof BadRequestException) {
@@ -128,7 +153,6 @@ public class AdministratorScreenCtrl {
             selectFileButton.setDisable(false);
             activityLoaderService.reset();
         });
-
         activityLoaderService.start(selectedFile);
     }
 
@@ -151,5 +175,84 @@ public class AdministratorScreenCtrl {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
         File selectedFile = fileChooser.showOpenDialog(null);
         return selectedFile;
+    }
+
+    /**
+     * Fills the table with up-to-date list of activities.
+     */
+    public void fillTable() {
+        //delete already existing items
+        activityTable.getItems().removeAll();
+        //get the up-to-date list of activities from server
+        List<Activity> activities = server.getActivities();
+        for (Activity activity : activities) {
+            activityTable.getItems().add(activity);
+        }
+    }
+
+    /**
+     * Sets the table's columns, sizing and server communication in case of value update.
+     */
+    public void setTable() {
+        TableColumn<Activity, String> activityName = new TableColumn<>("title");
+        activityName.setCellValueFactory(new PropertyValueFactory<>("title"));
+        activityName.setCellFactory(TextFieldTableCell.forTableColumn());
+        activityName.setOnEditCommit(event -> {
+            Activity activity = event.getRowValue();
+            String oldTitle = activity.getTitle();
+            activity.setTitle(event.getNewValue());
+            server.changeActivity(activity.getKey(), activity);
+            description.setText("You named '" + oldTitle + "' as '" + event.getNewValue() + "'.");
+        });
+        //create consumption column, make it editable and send server if changed
+        TableColumn<Activity, Long> activityConsumption = new TableColumn<>("consumption (wh)");
+        activityConsumption.setCellValueFactory(new PropertyValueFactory<>("consumption"));
+        activityConsumption.setCellFactory(TextFieldTableCell.forTableColumn(new LongStringConverter()));
+        activityConsumption.setOnEditCommit(event -> {
+            Activity activity = event.getRowValue();
+            activity.setConsumption(event.getNewValue());
+            server.changeActivity(activity.getKey(), activity);
+            description.setText(
+                    "You set the consumption of '" + activity.getTitle() + "' as " + activity.getConsumption() + "wh.");
+        });
+        //add columns to the table
+        var columns = activityTable.getColumns();
+        columns.add(activityName);
+        columns.add(activityConsumption);
+        activityTable.setEditable(true);
+        //sizing
+        activityTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    }
+
+    /**
+     * Creates the image column and adds/removes to the table.
+     */
+    public void addImageColumn() {
+        TableColumn<Activity, Button> activityImage = new TableColumn<>("image");
+        activityImage.setCellValueFactory(param -> {
+            Activity activity = param.getValue();
+            long key = activity.getKey();
+            Image image = activityImageUtils.getActivityImage(key);
+            ImageView imageView = new ImageView(image);
+            Button button = new Button();
+            button.setGraphic(imageView);
+            imageView.setFitHeight(50);
+            imageView.setFitWidth(50);
+            //button clicked to change image
+            button.setOnAction(event -> {
+                System.out.println("Image clicked.");
+                Image newImage = activityImageUtils.selectImageFile(activity.getKey());
+                imageView.setImage(newImage);
+            });
+            return new SimpleObjectProperty<>(button);
+        });
+        if (showImages.isSelected()) {
+            activityTable.getColumns().add(activityImage);
+        } else {
+            activityTable.getColumns().clear();
+            activityTable.refresh();
+            setTable();
+            fillTable();
+        }
     }
 }

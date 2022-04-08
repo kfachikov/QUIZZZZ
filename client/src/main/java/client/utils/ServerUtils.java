@@ -15,10 +15,13 @@
  */
 package client.utils;
 
-import commons.misc.*;
+import commons.misc.Activity;
+import commons.misc.ActivityImageMessage;
+import commons.misc.GameResponse;
+import commons.misc.GameState;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
-import commons.multi.Reaction;
+import commons.multi.ChatMessage;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -28,6 +31,7 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import org.glassfish.jersey.client.ClientConfig;
+
 import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -188,16 +192,33 @@ public class ServerUtils {
      * POST request to api/multi/reaction to submit an emoji a client clicked.
      *
      * @param id        id of current multiplayer game
-     * @param reaction  Reaction instance to be submitted
-     * @return          Reaction that was added to the particular game.
+     * @param chatMessage  ChatMessage instance to be submitted
+     * @return          ChatMessage that was added to the particular game.
      */
-    public Reaction addReaction(long id, Reaction reaction) {
+    public ChatMessage addReaction(long id, ChatMessage chatMessage) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/multi/reaction/" + id)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .post(Entity.entity(reaction, APPLICATION_JSON), Reaction.class);
+                .post(Entity.entity(chatMessage, APPLICATION_JSON), ChatMessage.class);
+    }
+
+    /**
+     * POST request to api/multi/joker to register a joker usage once a client clicks.
+     *
+     * @param id            id of current multiplayer game
+     * @param chatMessage   ChatMessage instance to be submitted - consist a String "reference"
+     *                      to the corresponding Joker used.
+     * @return              ChatMessage that was added to the particular game.
+     */
+    public ChatMessage addJoker(long id, ChatMessage chatMessage) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/multi/joker/" + id)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(chatMessage, APPLICATION_JSON), ChatMessage.class);
     }
 
     /**
@@ -263,6 +284,38 @@ public class ServerUtils {
     }
 
     /**
+     * The method finds the activity in the repo using the provided key.
+     * The method then edits its fields to be same as the provided Activity.
+     *
+     * @param key the activity to be edited.
+     * @param newActivity a dummy activity with new values to be copied.
+     * @return the new Activity.
+     */
+    public Activity changeActivity(Long key, Activity newActivity) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/" + key)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .put(Entity.entity(newActivity, APPLICATION_JSON), Activity.class);
+    }
+
+    /**
+     * Removes the activity the passed key is associated with.
+     *
+     * @param key the key of the activity to be removed.
+     * @return the removed activity.
+     */
+    public Activity removeActivity(Long key) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(currentServer)
+                .path("/api/activities/delete/" + key)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .delete(Activity.class);
+    }
+
+    /**
      * Getter for the activity image.
      *
      * @param key the key of the image.
@@ -295,7 +348,7 @@ public class ServerUtils {
     /**
      * @return it returns a list SinglePlayerLeaderboardScore.
      */
-    public List<SinglePlayerLeaderboardScore> getLeaderboardEntry() {
+    public List<SinglePlayerLeaderboardScore> getLeaderboardEntries() {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/leaderboard/players")
