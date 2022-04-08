@@ -86,8 +86,6 @@ public class ActivityImageUtils {
      * @param imageBase64 Base64 representation of the image.
      */
     public void addActivityImage(long key, String imageBase64) {
-        String currentServer = ServerUtils.getCurrentServer();
-
         ActivityImageMessage message = new ActivityImageMessage(imageBase64, key);
 
         serverUtils.addActivityImage(message);
