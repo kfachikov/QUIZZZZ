@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import commons.misc.Player;
 import commons.multi.MultiPlayer;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -80,11 +81,15 @@ public class LeaderboardScreenCtrl {
      * @param gameState the state of the game, is either LEADERBOARD or GAME_OVER.
      */
     public void setScene(List<MultiPlayer> players, String gameState) {
+        fillLeaderboard(players);
         if (("LEADERBOARD").equals(gameState)) {
             title.setText("INTERMEDIATE LEADERBOARD");
 
             //make top-left leave button visible + returnHome invisible
             playAgain.setVisible(false);
+            fillBarChart(this.barChart, players);
+
+            barChart.setVisible(true);
         }
         if (("GAME_OVER").equals(gameState)) {
             title.setText("GAME OVER!");
@@ -93,9 +98,13 @@ public class LeaderboardScreenCtrl {
             playAgain.setVisible(true);
             playAgain.setText("PLAY AGAIN");
             playAgain.setOnAction(event -> playAgain());
+
+            barChart.setVisible(false);
+            HBox gameOverChart = new HBox();
+            gameOverChart.setPadding(new Insets(5, 0, 0, 0));
+            fillBarChart(gameOverChart, players);
+            leaderboard.getChildren().add(gameOverChart);
         }
-        fillLeaderboard(players);
-        fillBarChart(players);
     }
 
     /**
@@ -174,9 +183,10 @@ public class LeaderboardScreenCtrl {
     /**
      * Populate the bar chart visible below the leaderboard.
      *
-     * @param players Players in the game.
+     * @param barChart Bar chart to fill.
+     * @param players  Players in the game.
      */
-    public void fillBarChart(List<MultiPlayer> players) {
+    public void fillBarChart(HBox barChart, List<MultiPlayer> players) {
         List<MultiPlayer> sorted = new ArrayList<>(players);
         var comp = Comparator.comparing(Player::getScore);
         sorted.sort(comp);
