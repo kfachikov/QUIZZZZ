@@ -26,7 +26,8 @@ import client.scenes.multi.question.MultiGameConsumptionQuestionScreenCtrl;
 import client.scenes.multi.question.MultiGameGuessQuestionScreenCtrl;
 import client.scenes.multi.question.MultiGameInsteadQuestionScreenCtrl;
 import client.scenes.multi.question.MultiGameMoreExpensiveQuestionScreenCtrl;
-import client.scenes.single.*;
+import client.scenes.single.CongratulationsScreenCtrl;
+import client.scenes.single.PrepScreenCtrl;
 import client.scenes.single.question.ConsumptionQuestionScreenCtrl;
 import client.scenes.single.question.GuessQuestionScreenCtrl;
 import client.scenes.single.question.InsteadQuestionScreenCtrl;
@@ -34,6 +35,7 @@ import client.scenes.single.question.MoreExpensiveQuestionScreenCtrl;
 import client.services.SingleplayerGameStatePollingService;
 import client.utils.ActivityImageUtils;
 import client.utils.HomeUtils;
+import client.utils.ServerUtils;
 import client.utils.SinglePlayerUtils;
 import com.google.inject.Binder;
 import com.google.inject.Module;
@@ -74,6 +76,7 @@ public class MyModule implements Module {
         binder.bind(MultiGameMockScreenCtrl.class).in(Scopes.SINGLETON);
 
         binder.bind(ActivityImageUtils.class).in(Scopes.SINGLETON);
+        binder.bind(ServerUtils.class).in(Scopes.SINGLETON);
 
     }
 }

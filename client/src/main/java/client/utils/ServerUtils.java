@@ -19,9 +19,9 @@ import commons.misc.Activity;
 import commons.misc.ActivityImageMessage;
 import commons.misc.GameResponse;
 import commons.misc.GameState;
+import commons.multi.ChatMessage;
 import commons.multi.MultiPlayer;
 import commons.multi.MultiPlayerState;
-import commons.multi.ChatMessage;
 import commons.queue.QueueState;
 import commons.queue.QueueUser;
 import commons.single.SinglePlayer;
@@ -41,7 +41,7 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
  */
 public class ServerUtils {
 
-    private static String currentServer;
+    private String currentServer;
 
     /**
      * @param leaderboardEntry is a SinglePlayerLeaderboardScore entity.
@@ -120,7 +120,7 @@ public class ServerUtils {
      * @param id Id of the multiplayer game.
      * @return Multiplayer game state for that id.
      */
-    public static MultiPlayerState getMultiGameState(long id) {
+    public MultiPlayerState getMultiGameState(long id) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(currentServer)
                 .path("/api/multi/" + id)
@@ -240,7 +240,7 @@ public class ServerUtils {
     /**
      * @return it returns a currentServer.
      */
-    public static String getCurrentServer() {
+    public String getCurrentServer() {
         return currentServer;
     }
 
@@ -249,8 +249,8 @@ public class ServerUtils {
      *
      * @param currentServer A String representation of the server.
      */
-    public static void setCurrentServer(String currentServer) {
-        ServerUtils.currentServer = currentServer;
+    public void setCurrentServer(String currentServer) {
+        this.currentServer = currentServer;
     }
 
     /**
