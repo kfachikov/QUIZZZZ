@@ -48,16 +48,7 @@ public class HomeUtils {
         try {
             setDefault();
             server.setCurrentServer(getServer());
-            /* The following line is useless, as the SinglePlayer instances would not be stored anywhere.
-               Still there could be some sort of POST/GET request to the server,
-               which would be used to check whether the server is valid.
-
-               The missing username in this case could be handled in the getSinglePlayer() method, which
-               could check whether the textField is null or empty.
-               The catch clause should then be changed according to the Exception thrown by
-               getSinglePlayer().
-            */
-            // SinglePlayer singlePlayer = server.addSinglePlayer(getSinglePlayer());
+            server.checkServer();
             mainCtrl.showPrep(getSinglePlayer());
         } catch (WebApplicationException e) {
             switch (e.getResponse().getStatus()) {
@@ -69,6 +60,8 @@ public class HomeUtils {
             }
         } catch (ProcessingException e) {
             serverInvalid();
+        } catch (NullPointerException e) {
+            usernameMissing();
         }
     }
 
